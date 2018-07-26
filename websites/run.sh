@@ -1,4 +1,3 @@
-
 #!/bin/bash
 chown www-data:www-data /var/www -R
 source /etc/apache2/envvars
