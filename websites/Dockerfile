@@ -1,6 +1,7 @@
 FROM ubuntu:bionic
 MAINTAINER Konstantin Safonov <kasthack@epicm.org>
 MAINTAINER Anatoliy Zimovskiy <stam@epicm.org>
+
 ENV DEBIAN_FRONTEND noninteractive
 
 # fix errors
@@ -8,7 +9,6 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
 RUN apt-get update && apt-get install -y --no-install-recommends apt-utils  gnupg
 
 # Install base packages
-
 RUN echo "deb http://ppa.launchpad.net/ondrej/php/ubuntu bionic main" >> /etc/apt/sources.list && \
     echo "deb http://ppa.launchpad.net/ondrej/apache2/ubuntu bionic main" >> /etc/apt/sources.list && \
     echo "deb http://ppa.launchpad.net/git-core/candidate/ubuntu bionic main" >> /etc/apt/sources.list && \
