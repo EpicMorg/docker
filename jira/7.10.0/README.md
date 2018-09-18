@@ -67,7 +67,7 @@ If you need to pass additional JVM arguments to JIRA, such as specifying a custo
    
 Example:
 
-    $> docker run -e JVM_SUPPORT_RECOMMENDED_ARGS=-Djavax.net.ssl.trustStore=/var/atlassian/application-data/jira/cacerts -v jiraVolume:/var/atlassian/application-data/jira --name="jira" -d -p 8080:8080 dchevell/jira-software
+    $> docker run -e JVM_SUPPORT_RECOMMENDED_ARGS=-Djavax.net.ssl.trustStore=/var/atlassian/application-data/jira/cacerts -v jiraVolume:/var/atlassian/application-data/jira --name="jira" -d -p 8080:8080 epicmorg/jira
     
 ## Data Center configuration
 
@@ -145,7 +145,7 @@ Alternatively you can use a specific major, major.minor, or major.minor.patch ve
 
 * `epicmorg/jira:7.10.0`
 
-Not all versions from 7.0+ are available!
+**Not** all versions from 7.0+ are available!
 
 # Support
 
