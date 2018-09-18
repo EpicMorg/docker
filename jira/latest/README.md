@@ -141,12 +141,11 @@ Read more about data recovery and backups: [https://confluence.atlassian.com/adm
 
 The `latest` tag matches the most recent release of Atlassian JIRA Software. Thus `epicmorg/jira:latest` will use the newest version of JIRA available.
 
-Alternatively you can use a specific major, major.minor, or major.minor.patch version of JIRA Software by using a version number tag: 
+## Versions available
 
+* `epicmorg/jira:latest`
 * `epicmorg/jira:7.10.0`
-
-**Not** all versions from 7.0+ are available!
-
+  
 # Support
 
 This Docker container is unsupported and is intended for illustration purposes only.
