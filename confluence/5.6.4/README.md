@@ -4,7 +4,7 @@ Confluence Server is where you create, organise and discuss work with your team.
  
 Learn more about Confluence Server: <https://www.atlassian.com/software/confluence>
 
-You can find the repository for this Dockerfile at <https://hub.docker.com/r/atlassian/confluence-server>
+You can find the repository for this Dockerfile at <https://hub.docker.com/r/epicmorg/confluence>
  
 # Overview
  
@@ -17,7 +17,7 @@ For the directory in the environmental variable `CONFLUENCE_HOME` that is used t
  
 Start Atlassian Confluence Server:
  
-    $> docker run -v /data/your-confluence-home:/var/atlassian/application-data/confluence --name="confluence" -d -p 8090:8090 -p 8091:8091 atlassian/confluence-server
+    $> docker run -v /data/your-confluence-home:/var/atlassian/application-data/confluence --name="confluence" -d -p 8090:8090 -p 8091:8091 epicmorg/confluence
  
 
 **Success**. Confluence is now available on [http://localhost:8090](http://localhost:8090)*
@@ -71,7 +71,7 @@ If you need to pass additional JVM arguments to Confluence such as specifying a 
    
 Example:
 
-    $> docker run -e JVM_SUPPORT_RECOMMENDED_ARGS=-Djavax.net.ssl.trustStore=/var/atlassian/application-data/confluence/cacerts -v confluenceVolume:/var/atlassian/application-data/confluence --name="confluence" -d -p 8090:8090 -p 8091:8091 atlassian/confluence-server
+    $> docker run -e JVM_SUPPORT_RECOMMENDED_ARGS=-Djavax.net.ssl.trustStore=/var/atlassian/application-data/confluence/cacerts -v confluenceVolume:/var/atlassian/application-data/confluence --name="confluence" -d -p 8090:8090 -p 8091:8091 epicmorg/confluence
 
  
 # Upgrade
@@ -100,13 +100,17 @@ Read more about data recovery and backups: [Site Backup and Restore](https://con
 # Versioning
  
 The `latest` tag matches the most recent release of Atlassian Confluence Server.
-So `atlassian/confluence-server:latest` will use the newest stable version of Confluence Server available.
+So `epicmorg/confluence:latest` will use the newest stable version of Confluence Server available.
  
 Alternatively, you can use a specific minor version of Confluence Server by using a version number
-tag: `atlassian/confluence-server:5.10`. This will install the latest `5.10.x` version that
+tag: `epicmorg/confluence:5.10.8`. This will install the latest `5.10.8` version that
 is available.
 
-For the latest developer (EAP) release use `atlassian/confluence-server:eap`. This will install our latest milestone (not supported for use in production).  
+## Versions available
+
+* `epicmorg/confluence:latest`
+* `epicmorg/confluence:5.6.4`
+* `epicmorg/confluence:5.10.8`
  
 # Known Problems
 In Mac OS X with Docker version 1.11.0, when running with docker-machine, there is a bug where the directory specified for `CONFLUENCE_HOME` in a volume mount will not have the correct permission, and thus startup fails with a permission denied error:
