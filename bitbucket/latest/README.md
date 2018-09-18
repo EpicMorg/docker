@@ -20,19 +20,19 @@ For the `BITBUCKET_HOME` directory that is used to store the repository data
 In Bitbucket 4.12 and later versions, volume permission is managed by entry scripts. To get started you can use a data volume, or named volumes. In this example we'll use named volumes.
 
     $> docker volume create --name bitbucketVolume
-    $> docker run -v bitbucketVolume:/var/atlassian/application-data/bitbucket --name="bitbucket" -d -p 7990:7990 -p 7999:7999 atlassian/bitbucket-server
+    $> docker run -v bitbucketVolume:/var/atlassian/application-data/bitbucket --name="bitbucket" -d -p 7990:7990 -p 7999:7999 epicmorg/bitbucket
 
 ## For other versions
 
 Set permissions for the data directory so that the runuser can write to it:
 
-    $> docker run -u root -v /data/bitbucket:/var/atlassian/application-data/bitbucket atlassian/bitbucket-server chown -R daemon  /var/atlassian/application-data/bitbucket
+    $> docker run -u root -v /data/bitbucket:/var/atlassian/application-data/bitbucket epicmorg/bitbucket chown -R daemon  /var/atlassian/application-data/bitbucket
     
 Note that this command can be replaced by named volumes.
 
 Start Atlassian Bitbucket Server:
 
-    $> docker run -v /data/bitbucket:/var/atlassian/application-data/bitbucket --name="bitbucket" -d -p 7990:7990 -p 7999:7999 atlassian/bitbucket-server
+    $> docker run -v /data/bitbucket:/var/atlassian/application-data/bitbucket --name="bitbucket" -d -p 7990:7990 -p 7999:7999 epicmorg/bitbucket
 
 **Success**. Bitbucket is now available on [http://localhost:7990](http://localhost:7990)*
 
@@ -66,28 +66,8 @@ SERVER_PROXY_NAME=<Your url here>
 
 Then you run Bitbucket as usual
 
-`docker run -v bitbucketVolume:/var/atlassian/application-data/bitbucket --name="bitbucket" -d -p 7990:7990 -p 7999:7999 --env-file=/path/to/env/file/secure-bitbucket.env atlassian/bitbucket-server:5.0`
-
-### Bitbucket Server < 5.0
-
-To set the reverse proxy arguments, you specify the following as environment variables in the `docker run` command
-
-* `CATALINA_CONNECTOR_PROXYNAME` (default: NONE)
-
-   The reverse proxy's fully qualified hostname.
-
-* `CATALINA_CONNECTOR_PROXYPORT` (default: NONE)
-
-   The reverse proxy's port number via which bitbucket is accessed.
-
-* `CATALINA_CONNECTOR_SCHEME` (default: http)
-
-   The protocol via which bitbucket is accessed.
-
-* `CATALINA_CONNECTOR_SECURE` (default: false)
-
-   Set 'true' if CATALINA\_CONNECTOR\_SCHEME is 'https'.
-
+`docker run -v bitbucketVolume:/var/atlassian/application-data/bitbucket --name="bitbucket" -d -p 7990:7990 -p 7999:7999 --env-file=/path/to/env/file/secure-bitbucket.env epicmorg/bitbucket`
+ 
 ## JVM Configuration (Bitbucket Server 5.0 + only)
 
 If you need to override Bitbucket Server's default memory configuration or pass additional JVM arguments, use the environment variables below
@@ -145,7 +125,7 @@ Note: Docker networks may support multicast, however the below example shows con
     $> docker run --network=myBitbucketNetwork --ip=172.18.1.1 -e ELASTICSEARCH_ENABLED=false \
         -e HAZELCAST_NETWORK_TCPIP=true -e HAZELCAST_NETWORK_TCPIP_MEMBERS=172.18.1.1:5701,172.18.1.2:5701,172.18.1.3:5701 \
         -e HAZELCAST_GROUP_NAME=bitbucket -e HAZELCAST_GROUP_PASSWORD=mysecretpassword \
-        -v /data/bitbucket-shared:/var/atlassian/application-data/bitbucket/shared --name="bitbucket" -d -p 7990:7990 -p 7999:7999 atlassian/bitbucket-server
+        -v /data/bitbucket-shared:/var/atlassian/application-data/bitbucket/shared --name="bitbucket" -d -p 7990:7990 -p 7999:7999 epicmorg/bitbucket
 
 ## JMX Monitoring (Bitbucket Server 5.0 + only)
 
@@ -177,7 +157,7 @@ Bitbucket Server supports detailed JMX monitoring. To enable and configure JMX, 
 
     $> docker run -e JMX_ENABLED=true -e JMX_REMOTE_AUTH=password -e JMX_REMOTE_RMI_PORT=3333 -e RMI_SERVER_HOSTNAME=bitbucket \
         -e JMX_PASSWORD_FILE=/data/bitbucket:/var/atlassian/application-data/bitbucket/jmx.access \
-        -v /data/bitbucket:/var/atlassian/application-data/bitbucket --name="bitbucket" -d -p 7990:7990 -p 7999:7999 -p 3333:3333 atlassian/bitbucket-server
+        -v /data/bitbucket:/var/atlassian/application-data/bitbucket --name="bitbucket" -d -p 7990:7990 -p 7999:7999 -p 3333:3333 epicmorg/bitbucket
 
 # Upgrade
 
@@ -186,7 +166,7 @@ container and start a new one based on a more recent image:
 
     $> docker stop bitbucket
     $> docker rm bitbucket
-    $> docker pull atlassian/bitbucket-server:<desired_version>
+    $> docker pull epicmorg/bitbucket
     $> docker run ... (See above)
 
 As your data is stored in the data volume directory on the host it will still
@@ -205,10 +185,5 @@ Read more about data recovery and backups: [https://confluence.atlassian.com/dis
 
 # Versioning
 
-The `latest` tag matches the most recent version of this repository. Thus using `atlassian/bitbucket:latest` or `atlassian/bitbucket` will ensure you are running the most up to date version of this image.
-
-However,  we ** strongly recommend ** that for non-eval workloads you select a specific version in order to prevent breaking changes from impacting your setup.
-You can use a specific minor version of Bitbucket Server by using a version number
-tag: `atlassian/bitbucket-server:4.14`. This will install the latest `4.14.x` version that
-is available.
+The `latest` tag matches the most recent version of this repository. Thus using `epicmorg/bitbucket:latest` or `epicmorg/bitbucket` will ensure you are running the most up to date version of this image.
 
