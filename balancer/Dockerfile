@@ -19,18 +19,8 @@ RUN echo "deb http://ppa.launchpad.net/ondrej/nginx-mainline/ubuntu bionic main"
     apt-key add temp.key && \
     rm temp.key && \
     apt-get update && \
-    echo "=====================================================" && \
-    echo "=====================================================" && \
-    echo "=====================================================" && \
     apt-get dist-upgrade -y && \
-    echo "=====================================================" && \
-    echo "=====================================================" && \
-    echo "=====================================================" && \
-    apt-get install -y --no-install-recommends --allow-unauthenticated apt-utils htop mc tmux cmatrix wget && \
-    echo "=====================================================" && \
-    echo "=====================================================" && \
-    echo "=====================================================" && \
-    apt-get install -y --no-install-recommends --allow-unauthenticated ca-certificates openssl nginx libnginx-mod-http-cache-purge libnginx-mod-http-dav-ext libnginx-mod-http-geoip libnginx-mod-http-headers-more-filter  libnginx-mod-http-lua libnginx-mod-http-uploadprogress libnginx-mod-mail libnginx-mod-stream libnginx-mod-http-xslt-filter && \
+    apt-get install -y --no-install-recommends --allow-unauthenticated apt-utils htop mc tmux cmatrix wget ca-certificates openssl nginx libnginx-mod-http-cache-purge libnginx-mod-http-dav-ext libnginx-mod-http-geoip libnginx-mod-http-headers-more-filter  libnginx-mod-http-lua libnginx-mod-http-uploadprogress libnginx-mod-mail libnginx-mod-stream libnginx-mod-http-xslt-filter && \
     rm -rf /var/lib/apt/lists/*
 
 RUN ln -sf /dev/stdout /var/log/nginx/access.log && \
