@@ -27,7 +27,7 @@ if [ "${UID}" -eq 0 ]; then
             chown -R "${RUN_USER}:${RUN_GROUP}" "${JIRA_HOME}"
     fi
     # Now drop privileges
-    exec su -s /bin/bash "${RUN_USER}" -c "$JIRA_INSTALL_DIR/bin/start-confluence.sh $@"
+    exec su -s /bin/bash "${RUN_USER}" -c "$JIRA_INSTALL_DIR/bin/start-jira.sh $@"
 else
-    exec "$JIRA_INSTALL_DIR/bin/start-confluence.sh" "$@"
+    exec "$JIRA_INSTALL_DIR/bin/start-jira.sh" "$@"
 fi
