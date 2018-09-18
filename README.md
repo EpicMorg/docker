@@ -14,4 +14,3 @@
 
 ###  Apache2 + php7 [![Apache2](https://img.shields.io/badge/Apache2-2.4.34-ff69b4.svg?style=popout-square)](https://github.com/EpicMorg/docker-scripts/tree/master/websites) [![PHP7](https://img.shields.io/badge/PHP7-7.2.9-ff69b4.svg?style=popout-square)](https://github.com/EpicMorg/docker-scripts/tree/master/websites) [![](https://img.shields.io/docker/pulls/epicmorg/websites.svg?style=popout-square)](https://hub.docker.com/r/epicmorg/websites/ )
  
- 

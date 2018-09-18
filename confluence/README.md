@@ -40,7 +40,5 @@ If Confluence is run behind a reverse proxy server, then you need to specify ext
 
 If you need to pass additional JVM arguments to Confluence such as specifying a custom trust store, you can add them via the below environment variable
 
-* `JVM_SUPPORT_RECOMMENDED_ARGS`
-
-   Additional JVM arguments for Confluence
+* `JVM_SUPPORT_RECOMMENDED_ARGS` 
  

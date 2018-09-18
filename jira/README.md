@@ -41,7 +41,3 @@ If Jira is run behind a reverse proxy server, then you need to specify extra opt
 If you need to pass additional JVM arguments to Jira such as specifying a custom trust store, you can add them via the below environment variable
 
 * `JVM_SUPPORT_RECOMMENDED_ARGS`
-
-   Additional JVM arguments for Jira
-   
- 
