@@ -8,7 +8,7 @@
 
 ### Atlassian [![Atlassian Confluence](https://img.shields.io/badge/Confluence-6.11.2-ff69b4.svg?style=popout-square)](https://github.com/EpicMorg/docker-scripts/tree/master/confluence) [![](https://img.shields.io/docker/pulls/epicmorg/confluence.svg?style=popout-square)](https://hub.docker.com/r/epicmorg/confluence/)
 
-### Atlassian [![Atlassian Jira](https://img.shields.io/badge/Jira-7.12.1-ff69b4.svg?style=popout-square)](https://github.com/EpicMorg/docker-scripts/tree/master/jira) [![](https://img.shields.io/docker/pulls/epicmorg/jira.svg?style=popout-square)](https://hub.docker.com/r/epicmorg/jira/) 
+### Atlassian [![Atlassian Jira](https://img.shields.io/badge/Jira-7.12.2-ff69b4.svg?style=popout-square)](https://github.com/EpicMorg/docker-scripts/tree/master/jira) [![](https://img.shields.io/docker/pulls/epicmorg/jira.svg?style=popout-square)](https://hub.docker.com/r/epicmorg/jira/) 
  
 ### Nginx [![Nginx Mainline](https://img.shields.io/badge/Nginx_Mainline-1.15.2-ff69b4.svg?style=popout-square)](https://github.com/EpicMorg/docker-scripts/tree/master/balancer) [![](https://img.shields.io/docker/pulls/epicmorg/balancer.svg?style=popout-square)](https://hub.docker.com/r/epicmorg/balancer/)  
 
