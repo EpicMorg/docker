@@ -4,7 +4,7 @@
 
 ## Products
 
-### Atlassian [![Atlassian Bitbucket](https://img.shields.io/badge/Bitbucket-5.15.0-ff69b4.svg?style=popout-square)](https://github.com/EpicMorg/docker-scripts/tree/master/bitbucket) [![](https://img.shields.io/docker/pulls/epicmorg/bitbucket.svg?style=popout-square)](https://hub.docker.com/r/epicmorg/bitbucket/) 
+### Atlassian [![Atlassian Bitbucket](https://img.shields.io/badge/Bitbucket-5.15.1-ff69b4.svg?style=popout-square)](https://github.com/EpicMorg/docker-scripts/tree/master/bitbucket) [![](https://img.shields.io/docker/pulls/epicmorg/bitbucket.svg?style=popout-square)](https://hub.docker.com/r/epicmorg/bitbucket/) 
 
 ### Atlassian [![Atlassian Confluence](https://img.shields.io/badge/Confluence-6.12.1-ff69b4.svg?style=popout-square)](https://github.com/EpicMorg/docker-scripts/tree/master/confluence) [![](https://img.shields.io/docker/pulls/epicmorg/confluence.svg?style=popout-square)](https://hub.docker.com/r/epicmorg/confluence/)
 
