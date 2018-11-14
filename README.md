@@ -6,7 +6,7 @@
 
 ### Atlassian [![Atlassian Bitbucket](https://img.shields.io/badge/Bitbucket-5.15.1-ff69b4.svg?style=popout-square)](https://github.com/EpicMorg/docker-scripts/tree/master/bitbucket) [![](https://img.shields.io/docker/pulls/epicmorg/bitbucket.svg?style=popout-square)](https://hub.docker.com/r/epicmorg/bitbucket/) 
 
-### Atlassian [![Atlassian Confluence](https://img.shields.io/badge/Confluence-6.12.1-ff69b4.svg?style=popout-square)](https://github.com/EpicMorg/docker-scripts/tree/master/confluence) [![](https://img.shields.io/docker/pulls/epicmorg/confluence.svg?style=popout-square)](https://hub.docker.com/r/epicmorg/confluence/)
+### Atlassian [![Atlassian Confluence](https://img.shields.io/badge/Confluence-6.12.2-ff69b4.svg?style=popout-square)](https://github.com/EpicMorg/docker-scripts/tree/master/confluence) [![](https://img.shields.io/docker/pulls/epicmorg/confluence.svg?style=popout-square)](https://hub.docker.com/r/epicmorg/confluence/)
 
 ### Atlassian [![Atlassian Jira](https://img.shields.io/badge/Jira-7.12.3-ff69b4.svg?style=popout-square)](https://github.com/EpicMorg/docker-scripts/tree/master/jira) [![](https://img.shields.io/docker/pulls/epicmorg/jira.svg?style=popout-square)](https://hub.docker.com/r/epicmorg/jira/) 
  
