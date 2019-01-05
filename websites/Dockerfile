@@ -26,7 +26,7 @@ RUN echo "deb http://ppa.launchpad.net/ondrej/php/ubuntu cosmic  main" >> /etc/a
     apt-get install -y --no-install-recommends --allow-unauthenticated ca-certificates php-ldap php7.3-dev php7.3 git php-mail sendmail php-mailparse php-soap php7.2-mysql php-memcached php-memcache php-igbinary libmemcached-dev php7.2-curl php-gd php7.2-intl php7.2-zip php7.2-bcmath php7.2-fpm php-pear php-imap   php-pspell php-recode php-sqlite3 php-tidy php-xmlrpc php-xml php7.2-mbstring php-gettext php-apcu php7.2-cli php7.2-common php-cgi php-json php-readline php-enchant php-ssh2 php-oauth php-gettext php-gmagick php-gnupg php-redis php-smbclient php-yaml php-geoip apache2 libapache2-mod-php apache2-utils libapache2-mod-webauth libapache2-mod-xforward libapache2-mod-webauth libapache2-mod-webauth && \
     rm -rf /var/lib/apt/lists/* && \
     phpenmod calendar ldap curl exif ftp fileinfo gd geoip gettext gnupg iconv imap json mbstring  memcached  mysqli mysqlnd oauth pdo_mysql pdo_sqlite phar posix readline redis simplexml sockets sqlite3 ssh2 tokenizer xml xmlreader xmlrpc xmlwriter xsl yaml && \
-    a2enmod rewrite ldap heartmonitor auth_basic authnz_ldap headers heartbeat ldap lua mime status xml2enc xforward remoteip filter dav dav_fs alias
+    a2enmod rewrite ldap heartmonitor auth_basic authnz_ldap headers heartbeat lua mime status xml2enc xforward remoteip filter dav dav_fs alias
 
 #volumes
 
