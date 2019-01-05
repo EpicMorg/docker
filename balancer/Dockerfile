@@ -9,7 +9,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
 RUN apt-get update && apt-get install -y apt-utils gnupg
 
 # installing packages
-RUN echo "deb http://ppa.launchpad.net/ondrej/nginx-mainline/ubuntu bionic main" >> /etc/apt/sources.list && \
+RUN echo "deb http://ppa.launchpad.net/ondrej/nginx-mainline/ubuntu cosmic  main" >> /etc/apt/sources.list && \
     gpg --keyserver keyserver.ubuntu.com --recv 4F4EA0AAE5267A6C && \
     gpg --export --armor 4F4EA0AAE5267A6C >> temp.key && \
     apt-key add temp.key && \
