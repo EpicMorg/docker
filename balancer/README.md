@@ -1,15 +1,30 @@
-# nginx web/proxy server (extended version)
+# Compose example
 
-* **SOURCE:** https://launchpad.net/~ondrej/+archive/ubuntu/nginx-mainline?field.series_filter=bionic
-
-Nginx ("engine X") is a high-performance web and reverse proxy server created by Igor Sysoev. It can be used both as a standalone web server and as a proxy to reduce the load on back-end HTTP or mail servers.
-
-This package provides a version of nginx with the standard modules, plus extra features and modules such as the Perl module, which allows the addition of Perl in configuration files.
-
-**STANDARD HTTP MODULES:** Core, Access, Auth Basic, Auto Index, Browser, Empty GIF, FastCGI, Geo, Limit Connections, Limit Requests, Map, Memcached, Proxy, Referer, Rewrite, SCGI, Split Clients, UWSGI.
-
-**OPTIONAL HTTP MODULES:** Addition, Auth Request, Charset, WebDAV, FLV, GeoIP, Gunzip, Gzip, Gzip Precompression, Headers, Image Filter, Index, Log, MP4, Embedded Perl, Random Index, Real IP, Secure Link, Spdy, SSI, SSL, Stream, Stub Status, Substitution, Thread Pool, Upstream, User ID, XSLT.
-
-**MAIL MODULES:** Mail Core, Auth HTTP, Proxy, SSL, IMAP, POP3, SMTP.
-
-**THIRD PARTY MODULES:** Auth PAM, Cache Purge, DAV Ext, Echo, Fancy Index, Headers More, Embedded Lua, HTTP Push, HTTP Substitutions, Upload Progress, Upstream Fair Queue.
+```yml
+version: '3.7'
+services:
+  balancer:
+    image: epicmorg/balancer
+    restart: unless-stopped
+    ports:
+      - "0.0.0.0:80:80"
+      - "0.0.0.0:443:443"
+    volumes:
+      - /etc/localtime:/etc/localtime
+      - /etc/timezone:/etc/timezone
+      - /etc/letsencrypt:/etc/letsencrypt
+      - nginx:/etc/nginx
+      - nginx-usr:/usr/share/nginx/html
+      - /var/lib/nginx
+#    extra_hosts:
+#      - "example.com:192.168.0.11"
+    depends_on:
+      - websites
+    tmpfs:
+      - /tmp
+volumes:
+  nginx:
+    external: true
+  nginx-usr:
+    external: true
+```
