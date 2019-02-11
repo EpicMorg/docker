@@ -22,10 +22,11 @@ RUN apt-get update && apt-get install -y --allow-unauthenticated htop mc tmux if
 
 
 # Install base packages
-RUN apt-get install -y  --allow-unauthenticated  php-ldap php7.3-dev php7.3 git php-mail sendmail php-mailparse php-soap php7.3-mysql php-memcached php-memcache php-igbinary libmemcached-dev php7.3-curl php-gd php7.3-intl php7.3-zip php7.3-bcmath php7.3-fpm php-pear php-imap   php-pspell php-recode php-sqlite3 php-tidy php-xmlrpc php-xml php7.3-mbstring php-gettext php-apcu php7.3-cli php7.3-common php-cgi php-json php-readline php-enchant php-ssh2 php-oauth php-gettext php-gmagick php-gnupg php-redis php-smbclient php-yaml php-geoip apache2 libapache2-mod-php apache2-utils libapache2-mod-webauth libapache2-mod-xforward libapache2-mod-webauth libapache2-mod-webauth && \
+RUN apt-get install -y  --allow-unauthenticated  php7.3-ldap php7.3-dev php7.3 git php7.3-mail sendmail php7.3-mailparse php7.3-soap php7.3-mysql php7.3-memcached php7.3-memcache php7.3-igbinary libmemcached-dev php7.3-curl php7.3-gd php7.3-intl php7.3-zip php7.3-bcmath php7.3-fpm php-pear php7.3-imap   php7.3-pspell php7.3-recode php7.3-sqlite3 php7.3-tidy php7.3-xmlrpc php7.3-xml php7.3-mbstring php7.3-gettext php7.3-apcu php7.3-cli php7.3-common php7.3-cgi php7.3-json php7.3-readline php7.3-enchant php7.3-ssh2 php7.3-oauth php7.3-gettext php7.3-gmagick php7.3-gnupg php7.3-redis php7.3-smbclient php7.3-yaml php7.3-geoip apache2 libapache2-mod-php7.3 apache2-utils libapache2-mod-webauth libapache2-mod-xforward libapache2-mod-webauth libapache2-mod-webauth && \
     rm -rf /var/lib/apt/lists/* && \
     phpenmod calendar ldap curl exif ftp fileinfo gd geoip gettext gnupg iconv imap json mbstring  memcached  mysqli mysqlnd oauth pdo_mysql pdo_sqlite phar posix readline redis simplexml sockets sqlite3 ssh2 tokenizer xml xmlreader xmlrpc xmlwriter xsl yaml && \
-    a2enmod rewrite ldap heartmonitor auth_basic authnz_ldap headers heartbeat lua mime status xml2enc xforward remoteip filter dav dav_fs alias
+    a2enmod php7.3 rewrite ldap heartmonitor auth_basic authnz_ldap headers heartbeat lua mime status xml2enc xforward remoteip filter dav dav_fs alias
+
 
 #After install fixes
 RUN apt-get dist-upgrade -y
