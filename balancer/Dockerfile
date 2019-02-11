@@ -19,7 +19,7 @@ RUN sh -c 'echo "deb http://ppa.launchpad.net/ondrej/nginx-mainline/ubuntu cosmi
 RUN sh -c 'echo "deb-src http://ppa.launchpad.net/ondrej/nginx-mainline/ubuntu cosmic main" >> /etc/apt/sources.list.d/nginx.list'
 
 #installing utils
-RUN apt-get update && apt-get install -y --allow-unauthenticated htop mc tmux iftop cmatrix wget iputils-ping
+RUN apt-get update && apt-get install -y --allow-unauthenticated htop mc tmux iftop cmatrix wget iputils-ping curl
 
 #installing packages
 RUN apt-get install -y  --allow-unauthenticated  nginx-full openssl libnginx-mod-http-cache-purge libnginx-mod-http-dav-ext libnginx-mod-http-geoip libnginx-mod-http-headers-more-filter  libnginx-mod-http-lua libnginx-mod-http-uploadprogress libnginx-mod-mail libnginx-mod-stream libnginx-mod-http-xslt-filter && \
