@@ -1,0 +1,14 @@
+deb http://mirror.yandex.ru/ubuntu/ cosmic main multiverse restricted universe
+deb http://mirror.yandex.ru/ubuntu/ cosmic-backports main multiverse restricted universe
+deb http://mirror.yandex.ru/ubuntu/ cosmic-proposed main multiverse restricted universe
+deb http://mirror.yandex.ru/ubuntu/ cosmic-security main multiverse restricted universe
+deb http://mirror.yandex.ru/ubuntu/ cosmic-updates main multiverse restricted universe
+deb http://archive.canonical.com/ubuntu cosmic partner
+
+
+deb-src http://mirror.yandex.ru/ubuntu/ cosmic main multiverse restricted universe
+deb-src http://mirror.yandex.ru/ubuntu/ cosmic-backports main multiverse restricted universe
+deb-src http://mirror.yandex.ru/ubuntu/ cosmic-proposed main multiverse restricted universe
+deb-src http://mirror.yandex.ru/ubuntu/ cosmic-security main multiverse restricted universe
+deb-src http://mirror.yandex.ru/ubuntu/ cosmic-updates main multiverse restricted universe
+deb-src http://archive.canonical.com/ubuntu cosmic partner
