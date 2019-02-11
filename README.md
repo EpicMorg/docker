@@ -15,6 +15,9 @@
  
 ## Changelog
 
+* 02/12/2019
+    * added curl binary to `balancer` and `websites` containers.
+    * added support for ioncube for php7.3 (enabled by default) in `websites` container.
 * 02/11/2019 - updated *balancer* and *websites* images. 
     * moved from `ubuntu:bionic` to `debian:buster` images. anyone can safely update.
     * php `7.2` -> `7.3`
