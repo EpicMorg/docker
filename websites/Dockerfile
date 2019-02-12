@@ -10,12 +10,7 @@ COPY locale.gen /etc/locale.gen
 
 # fix errors
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
-
-
-
-
 RUN apt-get update && apt-get install -y --allow-unauthenticated  ca-certificates gnupg sudo apt-transport-https lsb-release apt-utils locales console-cyrillic
-
 
 #installing php repo
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys AC0E47584A7A714D
@@ -23,7 +18,6 @@ RUN sh -c 'echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /
 
 #installing utils
 RUN apt-get update && apt-get install -y --allow-unauthenticated htop mc tmux iftop cmatrix  wget iputils-ping curl
-
 
 # Install base packages
 RUN apt-get install -y  --allow-unauthenticated  php7.3-ldap php7.3-dev php7.3 git php7.3-mail sendmail php7.3-mailparse php7.3-soap php7.3-mysql php7.3-memcached php7.3-memcache php7.3-igbinary libmemcached-dev php7.3-curl php7.3-gd php7.3-intl php7.3-zip php7.3-bcmath php7.3-fpm php-pear php7.3-imap   php7.3-pspell php7.3-recode php7.3-sqlite3 php7.3-tidy php7.3-xmlrpc php7.3-xml php7.3-mbstring php7.3-gettext php7.3-apcu php7.3-cli php7.3-common php7.3-cgi php7.3-json php7.3-readline php7.3-enchant php7.3-ssh2 php7.3-oauth php7.3-gettext php7.3-gmagick php7.3-gnupg php7.3-redis php7.3-smbclient php7.3-yaml php7.3-geoip apache2 libapache2-mod-php7.3 apache2-utils libapache2-mod-webauth libapache2-mod-xforward libapache2-mod-webauth libapache2-mod-webauth libapache2-mod-security2  && \
@@ -37,25 +31,24 @@ ADD https://downloads.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.ta
 RUN tar -C /tmp -xvf /tmp/ioncube.tar.gz && \
     cp /tmp/ioncube/ioncube_loader_lin_7.3.so /usr/lib/php/20170718/ && \
     echo "zend_extension = /usr/lib/php/20170718/ioncube_loader_lin_7.3.so" >> /etc/php/7.3/apache2/php.ini && \
+    echo "zend_extension = /usr/lib/php/20170718/ioncube_loader_lin_7.3.so" >> /etc/php/7.3/cgi/php.ini && \
+    echo "zend_extension = /usr/lib/php/20170718/ioncube_loader_lin_7.3.so" >> /etc/php/7.3/cli/php.ini && \
+    echo "zend_extension = /usr/lib/php/20170718/ioncube_loader_lin_7.3.so" >> /etc/php/7.3/fpm/php.ini && \
     php -v
 
 #After install fixes
 RUN apt-get dist-upgrade -y
-RUN sudo locale-gen
 RUN localedef en_US.UTF-8 -i en_US -f UTF-8
 RUN update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
 
-
 #volumes
 VOLUME ["/var/www"]
-
 
 # Add image configuration and scripts
 COPY run.sh /run.sh
 RUN chmod 755 /*.sh
 
-# Configure /app folder with sample app
-
+# Configure application
 EXPOSE 80
 WORKDIR /var/www/
 CMD ["/run.sh"]
