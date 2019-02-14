@@ -15,8 +15,8 @@
  
 ## Changelog
 * 02/14/2019
-    * bitbucket `5.16.0` -> `5.16.1` (*6x will be later*)
     * *jira 8 will be later!*
+    * bitbucket `5.16.0` -> `6.0.0`. [Upgrade notes and guide](https://confluence.atlassian.com/bitbucketserver/bitbucket-server-upgrade-guide-776640551.html)!!!
     * confluence `6.14.0` -> `6.14.1`
 * 02/12/2019
     * added curl binary to `balancer` and `websites` containers.
