@@ -6,7 +6,7 @@
  
 | Application  | Version | Pulls | Notes
 | ------ | ------ | ------ | ------
-| ![Atlassian Bitbucket](https://img.shields.io/badge/Atlassian-Bitbucket-brightgreen.svg?style=popout-square)  | [![Atlassian Bitbucket](https://img.shields.io/badge/5.16.0-ff69b4.svg?style=popout-square)](https://github.com/EpicMorg/docker-scripts/tree/master/bitbucket/latest) |   [![](https://img.shields.io/docker/pulls/epicmorg/bitbucket.svg?style=popout-square)](https://hub.docker.com/r/epicmorg/bitbucket/) | Just generic `Jira Software` server. You can install servicedesk\core.
+| ![Atlassian Bitbucket](https://img.shields.io/badge/Atlassian-Bitbucket-brightgreen.svg?style=popout-square)  | [![Atlassian Bitbucket](https://img.shields.io/badge/5.16.1-ff69b4.svg?style=popout-square)](https://github.com/EpicMorg/docker-scripts/tree/master/bitbucket/latest) |   [![](https://img.shields.io/docker/pulls/epicmorg/bitbucket.svg?style=popout-square)](https://hub.docker.com/r/epicmorg/bitbucket/) | Just generic `Jira Software` server. You can install servicedesk\core.
 | ![Atlassian Confluence](https://img.shields.io/badge/Atlassian-Confluence-brightgreen.svg?style=popout-square) | [![Atlassian Confluence](https://img.shields.io/badge/6.14.1-ff69b4.svg?style=popout-square)](https://github.com/EpicMorg/docker-scripts/tree/master/confluence/latest) |   [![](https://img.shields.io/docker/pulls/epicmorg/confluence.svg?style=popout-square)](https://hub.docker.com/r/epicmorg/confluence/) | Additionaly have [![Atlassian Bitbucket](https://img.shields.io/badge/5.6.4-ff69b4.svg?style=popout-square)](https://github.com/EpicMorg/docker-scripts/tree/master/confluence/5.6.4) and  [![Atlassian Bitbucket](https://img.shields.io/badge/5.10.8-ff69b4.svg?style=popout-square)](https://github.com/EpicMorg/docker-scripts/tree/master/confluence/5.10.4) versions.
 |  ![Atlassian Jira](https://img.shields.io/badge/Atlassian-Jira-brightgreen.svg?style=popout-square) | [![Atlassian Jira](https://img.shields.io/badge/7.13.1-ff69b4.svg?style=popout-square)](https://github.com/EpicMorg/docker-scripts/tree/master/jira/latest) |  [![](https://img.shields.io/docker/pulls/epicmorg/jira.svg?style=popout-square)](https://hub.docker.com/r/epicmorg/jira/) |  Additionaly have [![Atlassian Bitbucket](https://img.shields.io/badge/7.10.0-ff69b4.svg?style=popout-square)](https://github.com/EpicMorg/docker-scripts/tree/master/jira/7.10.0)  version. 
 | ![Nginx Mainline](https://img.shields.io/badge/Nginx%20Mainline-brightgreen.svg?style=popout-square) | [![Nginx Mainline](https://img.shields.io/badge/1.15.8-ff69b4.svg?style=popout-square)](https://github.com/EpicMorg/docker-scripts/tree/master/balancer) |  [![](https://img.shields.io/docker/pulls/epicmorg/balancer.svg?style=popout-square)](https://hub.docker.com/r/epicmorg/balancer/) | Nginx mainline custom build by [Ondrej Sury](https://launchpad.net/~ondrej) with http2 support and some modules.
@@ -14,7 +14,10 @@
 | ![php7](https://img.shields.io/badge/php7-brightgreen.svg?style=popout-square)  | [![PHP7](https://img.shields.io/badge/7.3-ff69b4.svg?style=popout-square)](https://github.com/EpicMorg/docker-scripts/tree/master/websites) |  [![](https://img.shields.io/docker/pulls/epicmorg/websites.svg?style=popout-square)](https://hub.docker.com/r/epicmorg/websites/ ) |  php 7.3 custom build by [Ondrej Sury](https://launchpad.net/~ondrej). Component of container above.
  
 ## Changelog
-
+* 02/14/2019
+    * bitbucket `5.16.0` -> `5.16.1` (*6x will be later*)
+    * *jira 8 will be later!*
+    * confluence `6.14.0` -> `6.14.1`
 * 02/12/2019
     * added curl binary to `balancer` and `websites` containers.
     * added support for ioncube for php7.3 (enabled by default) in `websites` container.
