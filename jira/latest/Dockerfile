@@ -23,7 +23,7 @@ RUN apk add --no-cache wget curl openssh bash procps openssl perl ttf-dejavu tin
 
 COPY entrypoint.sh              /entrypoint.sh
 
-ARG JIRA_VERSION=7.13.1
+ARG JIRA_VERSION=8.0.0
 ARG DOWNLOAD_URL=https://www.atlassian.com/software/jira/downloads/binary/atlassian-jira-software-${JIRA_VERSION}.tar.gz
 
 COPY . /tmp
