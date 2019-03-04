@@ -10,18 +10,18 @@ COPY locale.gen /etc/locale.gen
 
 # fix errors
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
-RUN apt-get update && apt-get install -y --allow-unauthenticated  ca-certificates gnupg sudo apt-transport-https lsb-release apt-utils locales console-cyrillic
+RUN apt-get update && apt-get install -y --allow-unauthenticated  ca-certificates gnupg sudo apt-transport-https lsb-release apt-utils locales console-cyrillic wget curl
 
-#installing php repo
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 4F4EA0AAE5267A6C
-RUN sh -c 'echo "deb http://ppa.launchpad.net/ondrej/nginx-mainline/ubuntu cosmic main" > /etc/apt/sources.list.d/nginx.list'
-RUN sh -c 'echo "deb-src http://ppa.launchpad.net/ondrej/nginx-mainline/ubuntu cosmic main" >> /etc/apt/sources.list.d/nginx.list'
+#installing nginx repo
+RUN wget -O /etc/apt/trusted.gpg.d/nginx-mainline.gpg https://packages.sury.org/nginx-mainline/apt.gpg
+RUN sh -c 'echo "deb https://packages.sury.org/nginx-mainline/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/nginx-mainline.list'
+
 
 #installing utils
-RUN apt-get update && apt-get install -y --allow-unauthenticated htop mc tmux iftop cmatrix wget iputils-ping curl
+RUN apt-get update && apt-get install -y --allow-unauthenticated htop mc tmux iftop cmatrix iputils-ping  cmatrix-xfont  lsof lynx
 
 #installing packages
-RUN apt-get install -y  --allow-unauthenticated  nginx-full openssl libnginx-mod-http-cache-purge libnginx-mod-http-dav-ext libnginx-mod-http-geoip libnginx-mod-http-headers-more-filter  libnginx-mod-http-lua libnginx-mod-http-uploadprogress libnginx-mod-mail libnginx-mod-stream libnginx-mod-http-xslt-filter && \
+RUN apt-get install -y  --allow-unauthenticated  libgd-tools geoip-bin nginx-doc ssl-cert  nginx-extras openssl libnginx-mod-http-cache-purge libnginx-mod-http-dav-ext libnginx-mod-http-geoip libnginx-mod-http-headers-more-filter  libnginx-mod-http-lua libnginx-mod-http-uploadprogress libnginx-mod-mail libnginx-mod-stream libnginx-mod-http-xslt-filter && \
     rm -rf /var/lib/apt/lists/*
 
 RUN ln -sf /dev/stdout /var/log/nginx/access.log && \
