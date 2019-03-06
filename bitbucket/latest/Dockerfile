@@ -1,13 +1,24 @@
-FROM adoptopenjdk/openjdk8:slim
-
+FROM debian:buster
 MAINTAINER Atlassian Bitbucket Server Team
 
-ENV RUN_USER            					daemon
-ENV RUN_GROUP           					daemon
+ENV RUN_USER            daemon
+ENV RUN_GROUP           daemon
 
 # https://confluence.atlassian.com/display/BitbucketServer/Bitbucket+Server+home+directory
-ENV BITBUCKET_HOME          				/var/atlassian/application-data/bitbucket
-ENV BITBUCKET_INSTALL_DIR   				/opt/atlassian/bitbucket
+ENV BITBUCKET_HOME          /var/atlassian/application-data/bitbucket
+ENV BITBUCKET_INSTALL_DIR   /opt/atlassian/bitbucket
+
+ENV DEBIAN_FRONTEND noninteractive
+
+#editing sources list
+RUN rm /etc/apt/sources.list
+COPY sources.list /etc/apt/sources.list
+COPY locale.gen /etc/locale.gen
+
+#installing utils
+# url: missingg
+RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
+RUN apt-get update && apt-get install -y --allow-unauthenticated htop mc tmux iftop cmatrix iputils-ping  cmatrix-xfont lsof lynx ca-certificates gnupg sudo apt-transport-https lsb-release apt-utils openjdk-8-jdk openjdk-8-jre locales console-cyrillic wget curl bash procps openssl perl ttf-dejavu tini util-linux fontconfig git
 
 VOLUME ["${BITBUCKET_HOME}"]
 WORKDIR $BITBUCKET_HOME
@@ -17,22 +28,27 @@ EXPOSE 7990
 EXPOSE 7999
 
 CMD ["/entrypoint.sh", "-fg"]
-ENTRYPOINT ["/tini", "--"]
+ENTRYPOINT ["/usr/bin/tini", "--"]
 
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends fontconfig git perl \
-    && apt-get clean autoclean && apt-get autoremove -y && rm -rf /var/lib/apt/lists/*
+COPY entrypoint.sh             /entrypoint.sh
 
-ARG TINI_VERSION=v0.18.0
-ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /tini
-RUN chmod +x /tini
-
-COPY entrypoint.sh             				/entrypoint.sh
+#After install fixes
+RUN localedef en_US.UTF-8 -i en_US -f UTF-8
+RUN update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
+RUN apt update
+RUN apt upgrade -y
+RUN apt dist-upgrade -y
+RUN apt-get clean autoclean
+RUN apt-get autoremove -y
+RUN rm -rf /var/lib/apt/lists/*
 
 ARG BITBUCKET_VERSION=6.1.0
 ARG DOWNLOAD_URL=https://product-downloads.atlassian.com/software/stash/downloads/atlassian-bitbucket-${BITBUCKET_VERSION}.tar.gz
+
+COPY . /tmp
 
 RUN mkdir -p                             	${BITBUCKET_INSTALL_DIR} \
     && curl -L --silent                  	${DOWNLOAD_URL} | tar -xz --strip-components=1 -C "${BITBUCKET_INSTALL_DIR}" \
     && chown -R ${RUN_USER}:${RUN_GROUP} 	${BITBUCKET_INSTALL_DIR}/ \
     && sed -i -e 's/^# umask/umask/' 		${BITBUCKET_INSTALL_DIR}/bin/_start-webapp.sh
+

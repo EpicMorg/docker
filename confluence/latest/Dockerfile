@@ -1,7 +1,4 @@
-# https://confluence.atlassian.com/confkb/update-the-confluence-docker-image-to-use-oracle-jdk-829062521.html
-# FROM openjdk:8-jdk-alpine
-
-FROM anapsix/alpine-java:8_jdk
+FROM debian:buster
 MAINTAINER Atlassian Confluence Server Team
 
 ENV RUN_USER            daemon
@@ -11,31 +8,41 @@ ENV RUN_GROUP           daemon
 ENV CONFLUENCE_HOME          /var/atlassian/application-data/confluence
 ENV CONFLUENCE_INSTALL_DIR   /opt/atlassian/confluence
 
+ENV DEBIAN_FRONTEND noninteractive
+
+#editing sources list
+RUN rm /etc/apt/sources.list
+COPY sources.list /etc/apt/sources.list
+COPY locale.gen /etc/locale.gen
+
+#installing utils
+# https://confluence.atlassian.com/confkb/update-the-confluence-docker-image-to-use-oracle-jdk-829062521.html
+RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
+RUN apt-get update && apt-get install -y --allow-unauthenticated htop mc tmux iftop cmatrix iputils-ping  cmatrix-xfont lsof lynx ca-certificates gnupg sudo apt-transport-https lsb-release apt-utils openjdk-8-jdk openjdk-8-jre locales console-cyrillic wget curl bash procps openssl perl ttf-dejavu tini util-linux fontconfig
+
 VOLUME ["${CONFLUENCE_HOME}"]
+WORKDIR $CONFLUENCE_HOME
 
 # Expose HTTP and Synchrony ports
 EXPOSE 8090
 EXPOSE 8091
 
-WORKDIR $CONFLUENCE_HOME
-
 CMD ["/entrypoint.sh", "-fg"]
-ENTRYPOINT ["/sbin/tini", "--"]
-
-# https://confluence.atlassian.com/confkb/update-the-confluence-docker-image-to-use-oracle-jdk-829062521.html
-#RUN apk update -qq \
-#    && update-ca-certificates \
-#    && apk add ca-certificates wget curl openssh bash procps openssl perl ttf-dejavu tini libc6-compat \
-#    && rm -rf /var/lib/{apt,dpkg,cache,log}/ /tmp/* /var/tmp/*
-
-RUN apk update -qq \
-    && apk add ca-certificates wget curl openssh bash procps openssl perl ttf-dejavu tini \
-    && update-ca-certificates \
-    && rm -rf /var/lib/{apt,dpkg,cache,log}/ /tmp/* /var/tmp/*
+ENTRYPOINT ["/usr/bin/tini", "--"]
 
 COPY entrypoint.sh              /entrypoint.sh
 
-ARG CONFLUENCE_VERSION=6.14.1
+#After install fixes
+RUN localedef en_US.UTF-8 -i en_US -f UTF-8
+RUN update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
+RUN apt update
+RUN apt upgrade -y
+RUN apt dist-upgrade -y
+RUN apt-get clean autoclean
+RUN apt-get autoremove -y
+RUN rm -rf /var/lib/apt/lists/*
+
+ARG CONFLUENCE_VERSION=6.14.2
 ARG DOWNLOAD_URL=http://www.atlassian.com/software/confluence/downloads/binary/atlassian-confluence-${CONFLUENCE_VERSION}.tar.gz
 
 COPY . /tmp

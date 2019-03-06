@@ -1,7 +1,12 @@
-#FROM anapsix/alpine-java:8_jdk
 FROM debian:buster
-
 MAINTAINER Atlassian Jira Server Team
+
+ENV RUN_USER            daemon
+ENV RUN_GROUP           daemon
+
+# https://confluence.atlassian.com/display/JSERVERM/Important+directories+and+files
+ENV JIRA_HOME          /var/atlassian/application-data/jira
+ENV JIRA_INSTALL_DIR   /opt/atlassian/jira
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -10,33 +15,32 @@ RUN rm /etc/apt/sources.list
 COPY sources.list /etc/apt/sources.list
 COPY locale.gen /etc/locale.gen
 
-# fix errors
+#installing utils
+# url: missing
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
-RUN apt-get update && apt-get install -y --allow-unauthenticated  ca-certificates  gnupg sudo apt-transport-https lsb-release apt-utils openjdk-8-jdk openjdk-8-jre locales console-cyrillic wget curl bash procps openssl perl ttf-dejavu tini util-linux
-
-
-ENV RUN_USER            bin
-ENV RUN_GROUP           bin
-
-# https://confluence.atlassian.com/display/JSERVERM/Important+directories+and+files
-ENV JIRA_HOME          /var/atlassian/application-data/jira
-ENV JIRA_INSTALL_DIR   /opt/atlassian/jira
+RUN apt-get update && apt-get install -y --allow-unauthenticated htop mc tmux iftop cmatrix iputils-ping  cmatrix-xfont lsof lynx ca-certificates gnupg sudo apt-transport-https lsb-release apt-utils openjdk-8-jdk openjdk-8-jre locales console-cyrillic wget curl bash procps openssl perl ttf-dejavu tini util-linux fontconfig
 
 VOLUME ["${JIRA_HOME}"]
+WORKDIR $JIRA_HOME
 
 # Expose HTTP port
 EXPOSE 8080
 
-WORKDIR $JIRA_HOME
 
 CMD ["/entrypoint.sh", "-fg"]
 ENTRYPOINT ["/usr/bin/tini", "--"]
 
-#installing utils
-RUN apt-get update && apt-get install -y --allow-unauthenticated htop mc tmux iftop cmatrix iputils-ping  cmatrix-xfont  lsof lynx
-
-
 COPY entrypoint.sh              /entrypoint.sh
+
+#After install fixes
+RUN localedef en_US.UTF-8 -i en_US -f UTF-8
+RUN update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
+RUN apt update
+RUN apt upgrade -y
+RUN apt dist-upgrade -y
+RUN apt-get clean autoclean
+RUN apt-get autoremove -y
+RUN rm -rf /var/lib/apt/lists/*
 
 ARG JIRA_VERSION=8.0.2
 ARG DOWNLOAD_URL=https://www.atlassian.com/software/jira/downloads/binary/atlassian-jira-software-${JIRA_VERSION}.tar.gz
