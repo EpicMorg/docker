@@ -18,7 +18,12 @@ COPY locale.gen /etc/locale.gen
 #installing utils
 # https://confluence.atlassian.com/confkb/update-the-confluence-docker-image-to-use-oracle-jdk-829062521.html
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
-RUN apt-get update && apt-get install -y --allow-unauthenticated htop mc tmux iftop cmatrix iputils-ping  cmatrix-xfont lsof lynx ca-certificates gnupg sudo apt-transport-https lsb-release apt-utils openjdk-8-jdk openjdk-8-jre locales console-cyrillic wget curl bash procps openssl perl ttf-dejavu tini util-linux fontconfig
+RUN apt-get update && apt-get install -y --allow-unauthenticated gnupg2
+RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys EEA14886
+RUN echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu disco main" | tee /etc/apt/sources.list.d/webupd8team-java.list
+RUN echo "deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu disco main" | tee -a /etc/apt/sources.list.d/webupd8team-java.list
+RUN echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections
+RUN apt-get update && apt-get install -y --allow-unauthenticated htop mc tmux iftop cmatrix iputils-ping  cmatrix-xfont lsof lynx ca-certificates gnupg sudo apt-transport-https lsb-release apt-utils oracle-java8-installer oracle-java8-set-default locales console-cyrillic wget curl bash procps openssl perl ttf-dejavu tini util-linux fontconfig
 
 VOLUME ["${CONFLUENCE_HOME}"]
 WORKDIR $CONFLUENCE_HOME
