@@ -29,7 +29,7 @@ RUN chmod +x /tini
 
 COPY entrypoint.sh             				/entrypoint.sh
 
-ARG BITBUCKET_VERSION=6.0.1
+ARG BITBUCKET_VERSION=6.1.0
 ARG DOWNLOAD_URL=https://product-downloads.atlassian.com/software/stash/downloads/atlassian-bitbucket-${BITBUCKET_VERSION}.tar.gz
 
 RUN mkdir -p                             	${BITBUCKET_INSTALL_DIR} \

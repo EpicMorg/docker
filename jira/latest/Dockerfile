@@ -1,8 +1,22 @@
-FROM anapsix/alpine-java:8_jdk
+#FROM anapsix/alpine-java:8_jdk
+FROM debian:buster
+
 MAINTAINER Atlassian Jira Server Team
 
-ENV RUN_USER            daemon
-ENV RUN_GROUP           daemon
+ENV DEBIAN_FRONTEND noninteractive
+
+#editing sources list
+RUN rm /etc/apt/sources.list
+COPY sources.list /etc/apt/sources.list
+#COPY locale.gen /etc/locale.gen
+
+# fix errors
+RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
+RUN apt-get update && apt-get install -y --allow-unauthenticated  ca-certificates  gnupg sudo apt-transport-https lsb-release apt-utils openjdk-8-jdk openjdk-8-jre locales console-cyrillic wget curl bash procps openssl perl ttf-dejavu tini util-linux
+
+
+ENV RUN_USER            bin
+ENV RUN_GROUP           bin
 
 # https://confluence.atlassian.com/display/JSERVERM/Important+directories+and+files
 ENV JIRA_HOME          /var/atlassian/application-data/jira
@@ -16,14 +30,15 @@ EXPOSE 8080
 WORKDIR $JIRA_HOME
 
 CMD ["/entrypoint.sh", "-fg"]
-ENTRYPOINT ["/sbin/tini", "--"]
+ENTRYPOINT ["/usr/bin/tini", "--"]
 
-RUN apk add --no-cache wget curl openssh bash procps openssl perl ttf-dejavu tini util-linux mc htop \
-    && rm -rf /var/lib/{apt,dpkg,cache,log}/ /tmp/* /var/tmp/*
+#installing utils
+RUN apt-get update && apt-get install -y --allow-unauthenticated htop mc tmux iftop cmatrix iputils-ping  cmatrix-xfont  lsof lynx
+
 
 COPY entrypoint.sh              /entrypoint.sh
 
-ARG JIRA_VERSION=8.0.1
+ARG JIRA_VERSION=8.0.2
 ARG DOWNLOAD_URL=https://www.atlassian.com/software/jira/downloads/binary/atlassian-jira-software-${JIRA_VERSION}.tar.gz
 
 COPY . /tmp

@@ -14,10 +14,15 @@
 | [![php7](https://img.shields.io/badge/php7-brightgreen.svg?style=popout-square)](https://deb.sury.org/) | [![PHP7](https://img.shields.io/badge/7.3-ff69b4.svg?style=popout-square)](https://github.com/EpicMorg/docker-scripts/tree/master/websites) |  [![](https://img.shields.io/docker/pulls/epicmorg/websites.svg?style=popout-square)](https://hub.docker.com/r/epicmorg/websites/ ) |  php 7.3 custom build by [Ondrej Sury](https://launchpad.net/~ondrej). Component of container above.
 
 ## Changelog
+* 03/06/2019
+    * bitbucket `6.1.0`
+    * jira `8.0.2`
+    * migrationg from alpine to debian contaiers:
+        * jira
 * 03/04/2019
     * nginx-full -> nginx-extras `1.15.9`
     * bitbucket `6.0.1`
-    * jira `8.0.1`
+    * jira `8.0.1` (bugs!)
     * various script fixes
 * 02/19/2019
     * jira `8.0.0`
