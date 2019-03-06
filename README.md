@@ -14,11 +14,14 @@
 | [![php7](https://img.shields.io/badge/php7-brightgreen.svg?style=popout-square)](https://deb.sury.org/) | [![PHP7](https://img.shields.io/badge/7.3-ff69b4.svg?style=popout-square)](https://github.com/EpicMorg/docker-scripts/tree/master/websites) |  [![](https://img.shields.io/docker/pulls/epicmorg/websites.svg?style=popout-square)](https://hub.docker.com/r/epicmorg/websites/ ) |  php 7.3 custom build by [Ondrej Sury](https://launchpad.net/~ondrej). Component of container above.
 
 ## Changelog
+* 03/07/2019
+    * atlassian scripts fixed
+    * java switched from `openjdk` to `oracle` for `jira` and `confluence` containers
 * 03/06/2019
     * bitbucket `6.1.0`
     * jira `8.0.2`
     * confluence `6.14.2`
-    * migrating from `alpine` to `debian` contaiers:
+    * migrated from `alpine` to `debian` contaiers:
         * jira
         * confluence
         * bitbucket
