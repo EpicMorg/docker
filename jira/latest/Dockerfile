@@ -8,7 +8,7 @@ ENV DEBIAN_FRONTEND noninteractive
 #editing sources list
 RUN rm /etc/apt/sources.list
 COPY sources.list /etc/apt/sources.list
-#COPY locale.gen /etc/locale.gen
+COPY locale.gen /etc/locale.gen
 
 # fix errors
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
