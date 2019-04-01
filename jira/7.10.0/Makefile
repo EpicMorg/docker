@@ -1,4 +1,4 @@
 all: jira
 
 jira:
-        docker build --no-cache -t epicmorg/jira .
+        docker build --no-cache -t epicmorg/jira:7.10.0 .
