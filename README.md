@@ -12,8 +12,11 @@
 | [![Nginx Mainline](https://img.shields.io/badge/Nginx%20Mainline-brightgreen.svg?style=popout-square)](https://deb.sury.org/) | [![Nginx Mainline](https://img.shields.io/badge/1.15.9-ff69b4.svg?style=popout-square)](https://github.com/EpicMorg/docker-scripts/tree/master/balancer) |  [![](https://img.shields.io/docker/pulls/epicmorg/balancer.svg?style=popout-square)](https://hub.docker.com/r/epicmorg/balancer/) | Nginx mainline custom build by [Ondrej Sury](https://launchpad.net/~ondrej) with http2 support and some modules.
 | [![Apache2](https://img.shields.io/badge/Apache2-brightgreen.svg?style=popout-square)](https://deb.sury.org/) | [![Apache2](https://img.shields.io/badge/2.4.38-ff69b4.svg?style=popout-square)](https://github.com/EpicMorg/docker-scripts/tree/master/websites) |  [![](https://img.shields.io/docker/pulls/epicmorg/websites.svg?style=popout-square)](https://hub.docker.com/r/epicmorg/websites/ ) | Latest pure apache2.
 | [![php7](https://img.shields.io/badge/php7-brightgreen.svg?style=popout-square)](https://deb.sury.org/) | [![PHP7](https://img.shields.io/badge/7.3-ff69b4.svg?style=popout-square)](https://github.com/EpicMorg/docker-scripts/tree/master/websites) |  [![](https://img.shields.io/docker/pulls/epicmorg/websites.svg?style=popout-square)](https://hub.docker.com/r/epicmorg/websites/ ) |  php 7.3 custom build by [Ondrej Sury](https://launchpad.net/~ondrej). Component of container above.
+| [![nc](https://img.shields.io/badge/nextcloud-brightgreen.svg?style=popout-square)](https://deb.sury.org/) | [![nc](https://img.shields.io/badge/15.x-ff69b4.svg?style=popout-square)](https://github.com/EpicMorg/docker-scripts/tree/master/nextcloud) |  [![](https://img.shields.io/docker/pulls/epicmorg/nextcloud.svg?style=popout-square)](https://hub.docker.com/r/epicmorg/nextcloud/ ) |  Just fixed `nextcloud:latest` release.
 
 ## Changelog
+* 04/08/2019
+    * added fixed (for us) `nextcloud` script. its a `nextcloud:latest` fork.
 * 04/01/2019
     * added missing files to some of scripts
     * deleted very old versions on confluence, now only 6.x
