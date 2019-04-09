@@ -23,10 +23,10 @@ RUN wget -O /etc/apt/trusted.gpg.d/apache2.gpg https://packages.sury.org/apache2
 RUN sh -c 'echo "deb https://packages.sury.org/apache2/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/apache2.list'
 
 #Install base packages
-RUN apt-get update && apt-get install -y  --allow-unauthenticated  php7.3-ldap php7.3-dev php7.3 git php7.3-mail sendmail php7.3-mailparse php7.3-soap php7.3-mysql php7.3-memcached php7.3-memcache php7.3-igbinary libmemcached-dev php7.3-curl php7.3-gd php7.3-intl php7.3-zip php7.3-bcmath php7.3-fpm php-pear php7.3-imap   php7.3-pspell php7.3-recode php7.3-sqlite3 php7.3-tidy php7.3-xmlrpc php7.3-xml php7.3-mbstring php7.3-gettext php7.3-apcu php7.3-cli php7.3-common php7.3-cgi php7.3-json php7.3-readline php7.3-enchant php7.3-ssh2 php7.3-oauth php7.3-gettext php7.3-gmagick php7.3-gnupg php7.3-redis php7.3-smbclient php7.3-yaml php7.3-geoip apache2 libapache2-mod-php7.3 apache2-utils libapache2-mod-webauth libapache2-mod-xforward libapache2-mod-webauth libapache2-mod-webauth libapache2-mod-security2  && \
+RUN apt-get update && apt-get install -y  --allow-unauthenticated  php7.2-ldap php7.2-dev php7.2 git php7.2-mail sendmail php7.2-mailparse php7.2-soap php7.2-mysql php7.2-memcached php7.2-memcache php7.2-igbinary libmemcached-dev php7.2-curl php7.2-gd php7.2-intl php7.2-zip php7.2-bcmath php7.2-fpm php-pear php7.2-imap   php7.2-pspell php7.2-recode php7.2-sqlite3 php7.2-tidy php7.2-xmlrpc php7.2-xml php7.2-mbstring php7.2-gettext php7.2-apcu php7.2-cli php7.2-common php7.2-cgi php7.2-json php7.2-readline php7.2-enchant php7.2-ssh2 php7.2-oauth php7.2-gettext php7.2-gmagick php7.2-gnupg php7.2-redis php7.2-smbclient php7.2-yaml php7.2-geoip apache2 libapache2-mod-php7.2 apache2-utils libapache2-mod-webauth libapache2-mod-xforward libapache2-mod-webauth libapache2-mod-webauth libapache2-mod-security2  && \
     rm -rf /var/lib/apt/lists/* && \
     phpenmod calendar ldap curl exif ftp fileinfo gd geoip gettext gnupg iconv imap json mbstring  memcached  mysqli mysqlnd oauth pdo_mysql pdo_sqlite phar posix readline redis simplexml sockets sqlite3 ssh2 tokenizer xml xmlreader xmlrpc xmlwriter xsl yaml && \
-    a2enmod php7.3 rewrite ldap heartmonitor auth_basic authnz_ldap headers heartbeat lua mime status xml2enc xforward remoteip filter dav dav_fs alias && \
+    a2enmod php7.2 rewrite ldap heartmonitor auth_basic authnz_ldap headers heartbeat lua mime status xml2enc xforward remoteip filter dav dav_fs alias && \
     php -v
 
 #ioncube support
