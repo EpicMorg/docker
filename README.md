@@ -17,6 +17,7 @@
 ## Changelog
 * 04/10/2019
     * fixed some scripts. added php7.2 tag for `websites`.
+    * added zabbix containers. why not.
 * 04/08/2019
     * added fixed (for us) `nextcloud` script. its a `nextcloud:latest` fork.
 * 04/01/2019
