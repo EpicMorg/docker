@@ -15,6 +15,8 @@
 | [![nc](https://img.shields.io/badge/nextcloud-brightgreen.svg?style=popout-square)](https://hub.docker.com/_/nextcloud) | [![nc](https://img.shields.io/badge/15.x-ff69b4.svg?style=popout-square)](https://github.com/EpicMorg/docker-scripts/tree/master/nextcloud) |  [![](https://img.shields.io/docker/pulls/epicmorg/nextcloud.svg?style=popout-square)](https://hub.docker.com/r/epicmorg/nextcloud/ ) |  Just fixed `nextcloud:latest` release.
 
 ## Changelog
+* 04/10/2019
+    * fixed some scripts. added php7.2 tag for `websites`.
 * 04/08/2019
     * added fixed (for us) `nextcloud` script. its a `nextcloud:latest` fork.
 * 04/01/2019
