@@ -16,9 +16,12 @@ COPY sources.list /etc/apt/sources.list
 COPY locale.gen /etc/locale.gen
 
 #installing utils
-# url: missingg
+# url: missing
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
-RUN apt-get update && apt-get install -y --allow-unauthenticated htop mc tmux iftop cmatrix iputils-ping  cmatrix-xfont lsof lynx ca-certificates gnupg sudo apt-transport-https lsb-release apt-utils openjdk-8-jdk openjdk-8-jre locales console-cyrillic wget curl bash procps openssl perl ttf-dejavu tini util-linux fontconfig git
+RUN apt-get update && apt-get install -y --allow-unauthenticated gnupg2
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A66C5D02
+RUN echo 'deb https://rpardini.github.io/adoptopenjdk-deb-installer stable main' > /etc/apt/sources.list.d/rpardini-aoj.list
+RUN apt-get update && apt-get install -y --allow-unauthenticated htop mc tmux iftop cmatrix iputils-ping adoptopenjdk-8-installer cmatrix-xfont lsof lynx ca-certificates gnupg sudo apt-transport-https lsb-release apt-utils locales console-cyrillic wget curl bash procps openssl perl ttf-dejavu tini util-linux fontconfig git
 
 VOLUME ["${BITBUCKET_HOME}"]
 WORKDIR $BITBUCKET_HOME
