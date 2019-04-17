@@ -42,7 +42,7 @@ RUN apt-get clean autoclean
 RUN apt-get autoremove -y
 RUN rm -rf /var/lib/apt/lists/*
 
-ARG BITBUCKET_VERSION=6.1.2
+ARG BITBUCKET_VERSION=6.2.0
 ARG DOWNLOAD_URL=https://product-downloads.atlassian.com/software/stash/downloads/atlassian-bitbucket-${BITBUCKET_VERSION}.tar.gz
 
 COPY . /tmp
