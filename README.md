@@ -16,9 +16,9 @@
 
 ## Changelog
 * 04/17/2019
-    * bitbucket `6.2.0`
-    * jira `8.1.0`
-    * confluence `6.15.2`
+    * bitbucket `6.2.0` + adoptopenjdk8
+    * jira `8.1.0` + adoptopenjdk8
+    * confluence `6.15.2` + adoptopenjdk8
 * 04/10/2019
     * fixed some scripts. added php7.2 tag for `websites`.
     * added zabbix containers. why not.
