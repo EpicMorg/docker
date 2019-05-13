@@ -15,6 +15,8 @@
 | [![nc](https://img.shields.io/badge/nextcloud-brightgreen.svg?style=popout-square)](https://hub.docker.com/_/nextcloud) | [![nc](https://img.shields.io/badge/15.x-ff69b4.svg?style=popout-square)](https://github.com/EpicMorg/docker-scripts/tree/master/nextcloud) |  [![](https://img.shields.io/docker/pulls/epicmorg/nextcloud.svg?style=popout-square)](https://hub.docker.com/r/epicmorg/nextcloud/ ) |  Just fixed `nextcloud:latest` release.
 
 ## Changelog
+* 05/13/2019
+    * added another versions of `jira` between `7.10` and `8.1`.
 * 04/17/2019
     * bitbucket `6.2.0` + adoptopenjdk8
     * jira `8.1.0` + adoptopenjdk8
