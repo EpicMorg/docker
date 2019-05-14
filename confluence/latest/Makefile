@@ -1,4 +1,4 @@
-all: confluence
+all: confl
 
-confluence:
+confl:
         docker build --no-cache -t epicmorg/confluence .

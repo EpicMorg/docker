@@ -1,6 +1,11 @@
 #!/bin/bash
 set -euo pipefail
 
+export JAVA_HOME=$(readlink -f /usr/bin/javac | sed "s:/bin/javac::")
+export JRE_HOME="$JAVA_HOME/jre"
+export JAVA_BINARY="$JRE_HOME/bin/java"
+export JAVA_VERSION=$("$JAVA_BINARY" -version 2>&1 | awk -F '"' '/version/ {print $2}')
+
 # Setup Catalina Opts
 : ${CATALINA_CONNECTOR_PROXYNAME:=}
 : ${CATALINA_CONNECTOR_PROXYPORT:=}

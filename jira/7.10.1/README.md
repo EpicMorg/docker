@@ -145,7 +145,7 @@ The `latest` tag matches the most recent release of Atlassian JIRA Software. Thu
 
 * `epicmorg/jira:latest`
 * `epicmorg/jira:7.10.0`
-
+  
 # Support
 
 This Docker container is unsupported and is intended for illustration purposes only.
