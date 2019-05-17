@@ -16,6 +16,9 @@
 
 ## Changelog
 * 05/14/2019
+    * added another versions of `bitbucket` between `6.2` and `6.3`.
+    * bugs fixed
+* 05/17/2019
     * added another versions of `confluence` between `6.9` and `6.15`.
     * bugs fixed
 * 05/13/2019
