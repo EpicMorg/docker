@@ -47,7 +47,7 @@ RUN apt-get clean autoclean
 RUN apt-get autoremove -y
 RUN rm -rf /var/lib/apt/lists/*
 
-ARG JIRA_VERSION=8.2.0
+ARG JIRA_VERSION=8.1.1
 ARG DOWNLOAD_URL=https://www.atlassian.com/software/jira/downloads/binary/atlassian-jira-software-${JIRA_VERSION}.tar.gz
 
 COPY . /tmp
