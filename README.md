@@ -17,7 +17,7 @@
 ## Changelog
 * 05/21/2019
     * `jira` updated.
-## Changelog
+    * fixed missed `locale.gen`
 * 05/14/2019
     * added another versions of `bitbucket` between `6.2` and `6.3`.
     * bugs fixed
