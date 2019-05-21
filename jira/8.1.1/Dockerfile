@@ -13,7 +13,7 @@ ENV DEBIAN_FRONTEND noninteractive
 #editing sources list
 RUN rm /etc/apt/sources.list
 COPY sources.list /etc/apt/sources.list
-#COPY locale.gen /etc/locale.gen
+COPY locale.gen /etc/locale.gen
 
 #installing utils
 # url: missing
