@@ -23,7 +23,7 @@ RUN apt-get update && apt-get install -y --allow-unauthenticated gnupg2 ca-certi
 #installing java
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A66C5D02
 RUN echo 'deb https://rpardini.github.io/adoptopenjdk-deb-installer stable main' > /etc/apt/sources.list.d/rpardini-aoj.list
-RUN apt-get update && apt-get install -y --allow-unauthenticated  adoptopenjdk-8-installer
+RUN apt-get update && apt-get install -y --allow-unauthenticated  adoptopenjdk-11-installer
 
 VOLUME ["${JIRA_HOME}"]
 WORKDIR $JIRA_HOME
@@ -47,7 +47,7 @@ RUN apt-get clean autoclean
 RUN apt-get autoremove -y
 RUN rm -rf /var/lib/apt/lists/*
 
-ARG JIRA_VERSION=8.2.2
+ARG JIRA_VERSION=8.2.3
 ARG DOWNLOAD_URL=https://www.atlassian.com/software/jira/downloads/binary/atlassian-jira-software-${JIRA_VERSION}.tar.gz
 
 COPY . /tmp

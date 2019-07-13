@@ -23,7 +23,7 @@ RUN apt-get update && apt-get install -y --allow-unauthenticated gnupg2 ca-certi
 #installing java
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A66C5D02
 RUN echo 'deb https://rpardini.github.io/adoptopenjdk-deb-installer stable main' > /etc/apt/sources.list.d/rpardini-aoj.list
-RUN apt-get update && apt-get install -y --allow-unauthenticated  adoptopenjdk-8-installer
+RUN apt-get update && apt-get install -y --allow-unauthenticated  adoptopenjdk-11-installer
 
 VOLUME ["${BITBUCKET_HOME}"]
 WORKDIR $BITBUCKET_HOME
