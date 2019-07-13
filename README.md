@@ -17,7 +17,6 @@
 ## Changelog
 * 07/14/2019
     * `jira` updated.
-    * `adopt openjdk v11` for `jira` and `bitbucket` containers. confluence still use v8.
 * 07/05/2019
     * `jira` updated.
     * `bitbucket` updated.
