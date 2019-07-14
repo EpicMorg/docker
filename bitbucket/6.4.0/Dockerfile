@@ -11,7 +11,7 @@ ENV BITBUCKET_INSTALL_DIR   /opt/atlassian/bitbucket
 ENV DEBIAN_FRONTEND noninteractive
 
 #editing sources list
-6666RUN rm /etc/apt/sources.list
+RUN rm /etc/apt/sources.list
 COPY sources.list /etc/apt/sources.list
 COPY locale.gen /etc/locale.gen
 
@@ -22,7 +22,7 @@ RUN apt-get update && apt-get install -y --allow-unauthenticated gnupg2 ca-certi
 
 #installing java
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A66C5D02
-6RUN echo 'deb https://rpardini.github.io/adoptopenjdk-deb-installer stable main' > /etc/apt/sources.list.d/rpardini-aoj.list
+RUN echo 'deb https://rpardini.github.io/adoptopenjdk-deb-installer stable main' > /etc/apt/sources.list.d/rpardini-aoj.list
 RUN apt-get update && apt-get install -y --allow-unauthenticated  adoptopenjdk-8-installer
 
 VOLUME ["${BITBUCKET_HOME}"]
