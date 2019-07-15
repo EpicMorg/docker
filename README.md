@@ -15,6 +15,8 @@
 | [![nc](https://img.shields.io/badge/nextcloud-brightgreen.svg?style=popout-square)](https://hub.docker.com/_/nextcloud) | [![nc](https://img.shields.io/badge/15.x-ff69b4.svg?style=popout-square)](https://github.com/EpicMorg/docker-scripts/tree/master/nextcloud) |  [![](https://img.shields.io/docker/pulls/epicmorg/nextcloud.svg?style=popout-square)](https://hub.docker.com/r/epicmorg/nextcloud/ ) |  Just fixed `nextcloud:latest` release.
 
 ## Changelog
+* 07/16/2019
+    * `confluence` updated.
 * 07/14/2019
     * `jira` updated.
 * 07/05/2019
