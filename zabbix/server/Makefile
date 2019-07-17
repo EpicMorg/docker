@@ -1,4 +1,4 @@
 all: nc
 nc:
-        docker build --no-cache -t epicmorg/zabbix-server-mysql .
+	docker build --compress -t epicmorg/zabbix-server-mysql .
 

@@ -1,4 +1,4 @@
 all: jr
 
 jr:
-        docker build --no-cache -t epicmorg/jira:8.2.3 .
+	docker build --compress -t epicmorg/jira:8.2.3 .

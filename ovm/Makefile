@@ -1,4 +1,4 @@
 all: ovm
 
 ovm:
-	docker build --no-cache -t epicmorg/ovm .
+	docker build --compress -t epicmorg/ovm .

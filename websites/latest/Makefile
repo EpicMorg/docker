@@ -1,4 +1,4 @@
 all: php
 php:
-        docker build --no-cache -t epicmorg/websites .
+	docker build --compress -t epicmorg/websites .
 

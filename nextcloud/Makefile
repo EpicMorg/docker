@@ -1,4 +1,4 @@
 all: nc
 nc:
-        docker build --no-cache -t epicmorg/nextcloud .
+	docker build --compress -t epicmorg/nextcloud .
 

@@ -1,4 +1,4 @@
 all: confl
 
 confl:
-        docker build --no-cache -t epicmorg/confluence:6.14.0 .
+	docker build --compress -t epicmorg/confluence:6.14.0 .

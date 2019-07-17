@@ -1,4 +1,4 @@
 all: bitbucket
 
 bitbucket:
-        docker build --no-cache -t epicmorg/bitbucket .
+	docker build --compress -t epicmorg/bitbucket .
