@@ -18,7 +18,7 @@ COPY locale.gen /etc/locale.gen
 #installing utils
 # url: missing
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
-RUN apt-get update && apt-get install -y --allow-unauthenticated gnupg2 ca-certificates htop mc tmux iftop cmatrix iputils-ping cmatrix-xfont lsof lynx  gnupg sudo apt-transport-https lsb-release apt-utils locales console-cyrillic wget curl bash procps openssl perl ttf-dejavu tini util-linux fontconfig
+RUN apt-get update && apt-get install -y --allow-unauthenticated uuid-runtime gnupg2 ca-certificates htop mc tmux iftop cmatrix iputils-ping cmatrix-xfont lsof lynx  gnupg sudo apt-transport-https lsb-release apt-utils locales console-cyrillic wget curl bash procps openssl perl ttf-dejavu tini util-linux fontconfig
 
 #installing java
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A66C5D02
