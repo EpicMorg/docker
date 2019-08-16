@@ -15,6 +15,8 @@
 | [![nc](https://img.shields.io/badge/nextcloud-brightgreen.svg?style=popout-square)](https://hub.docker.com/_/nextcloud) | [![nc](https://img.shields.io/badge/Latest-ff69b4.svg?style=popout-square)](https://github.com/EpicMorg/docker-scripts/tree/master/nextcloud) |  [![](https://img.shields.io/docker/pulls/epicmorg/nextcloud.svg?style=popout-square)](https://hub.docker.com/r/epicmorg/nextcloud/ ) |  Just fixed `nextcloud:latest` release.
 
 ## Changelog
+* 08/16/2019
+    * zabbix, added  anget, java gw
 * 08/15/2019
     * zabbix, fixed version. web and server.
 * 08/05/2019
