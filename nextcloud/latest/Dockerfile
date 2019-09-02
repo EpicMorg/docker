@@ -5,7 +5,7 @@ ENV DEBIAN_FRONTEND noninteractive
 #RUN rm /etc/apt/sources.list
 #COPY sources.list /etc/apt/sources.list
 
-RUN docker-php-ext-install -j smbclient
+#RUN docker-php-ext-install -j smbclient
 RUN pecl install smbclient
 RUN docker-php-ext-enable smbclient
 
