@@ -5,11 +5,10 @@ ENV DEBIAN_FRONTEND noninteractive
 #RUN rm /etc/apt/sources.list
 #COPY sources.list /etc/apt/sources.list
 
-#RUN docker-php-ext-install -j smbclient
-RUN pecl install smbclient
-RUN docker-php-ext-enable smbclient
+RUN rm -fv /tmp/php-smbclient-latest.tar.gz
+ADD php-smbclient-latest.tar.gz /tmp
 
-RUN pt update -y  && apt install -y --allow-unauthenticated mc smbclient libsmbclient
+#RUN pt update -y  && apt install -y --allow-unauthenticated mc smbclient libsmbclient
 
 #addoing some utils
 #RUN apt update -y && apt dist-upgrade -y && apt install -y --allow-unauthenticated ca-certificates gnupg sudo apt-transport-https lsb-release apt-utils locales console-cyrillic wget curl htop mc tmux iftop cmatrix iputils-ping  cmatrix-xfont  lsof lynx fontconfig smbclient nano libsmbclient
