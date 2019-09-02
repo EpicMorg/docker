@@ -11,6 +11,3 @@ RUN apt update -y && apt dist-upgrade -y && apt install -y --allow-unauthenticat
 #thank u, mac users. rolling back normal ZipStreammer
 RUN rm -fv /var/www/html/lib/private/Streamer.php
 ADD Streamer.php /var/www/html/lib/private/
-
-#temp debug
-RUN cat /var/www/html/lib/private/Streamer.php
