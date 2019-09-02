@@ -1,11 +1,6 @@
 FROM nextcloud:latest
 ENV DEBIAN_FRONTEND noninteractive
-
-#editing sources list
-#RUN rm /etc/apt/sources.list
-#COPY sources.list /etc/apt/sources.list
-
-
+ 
 #smb additional magic
 ADD php-smbclient-latest.tar.gz /tmp 
 RUN cp -fv /tmp/php-smbclient-latest/etc/php/7.3/mods-available/smbclient.ini /usr/local/etc/php/conf.d/smbclient.ini && \
