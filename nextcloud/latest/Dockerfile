@@ -7,6 +7,7 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN rm -fv /tmp/php-smbclient-latest.tar.gz
 ADD php-smbclient-latest.tar.gz /tmp
+RUN ls -las /tmp
 
 #RUN pt update -y  && apt install -y --allow-unauthenticated mc smbclient libsmbclient
 
