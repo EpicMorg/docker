@@ -1,0 +1,8 @@
+deb http://mirror.yandex.ru/debian/ sid main contrib non-free
+deb-src http://mirror.yandex.ru/debian/ sid main contrib non-free
+deb http://mirror.yandex.ru/debian/ testing-updates main contrib non-free
+deb-src http://mirror.yandex.ru/debian/ testing-updates main contrib non-free
+deb http://mirror.yandex.ru/debian/ testing-proposed-updates main contrib non-free
+deb-src http://mirror.yandex.ru/debian/ testing-proposed-updates main contrib non-free
+deb http://security.debian.org/debian-security/ testing-security main contrib non-free
+deb-src http://security.debian.org/debian-security/ testing-security main contrib non-free
