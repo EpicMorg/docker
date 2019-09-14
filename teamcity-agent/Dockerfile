@@ -6,7 +6,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN rm /etc/apt/sources.list
 COPY sources.list /etc/apt/sources.list
 RUN apt update && apt dist-upgrade -y
-#COPY locale.gen /etc/locale.gen
+COPY locale.gen /etc/locale.gen
 
 #installing utils
 # url: missing
