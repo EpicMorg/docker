@@ -7,6 +7,12 @@ krb5-user samba
 #lua
 luajit
 
+#geoip2
+libmaxminddb-dev
+
+#pam
+libpam0g-dev
+
 wget -qO - http://nginx.org/download/nginx-1.17.3.tar.gz | tar zxv
 
  
@@ -28,7 +34,6 @@ git clone https://github.com/leev/ngx_http_geoip2_module http-geoip2
 git clone https://github.com/flavioribeiro/nginx-audio-track-for-hls-module.git nginx-audio-track-for-hls-module
 git clone https://github.com/openresty/stream-echo-nginx-module.git stream-echo-nginx-module
 git clone https://github.com/chrislim2888/ip2location-nginx.git ip2location-nginx
-git clone https://github.com/yaoweibin/nginx_upstream_check_module.git nginx-upstream-check-module
 git clone https://github.com/kaltura/nginx-vod-module.git nginx-vod-module
 git clone https://github.com/vozlt/nginx-module-vts.git nginx-module-vts
 git clone https://github.com/evanmiller/mod_zip.git mod-zip
@@ -42,9 +47,15 @@ git clone https://github.com/yaoweibin/nginx_tcp_proxy_module.git nginx-tcp-prox
 git clone https://github.com/kvspb/nginx-auth-ldap.git http-auth-ldap
 
 --------
+problems
+
 git clone https://github.com/simplresty/ngx_devel_kit.git http-ndk
-git clone https://github.com/openresty/lua-nginx-module http-lua 
+git clone https://github.com/openresty/lua-nginx-module http-lua
+
+
+git clone https://github.com/yaoweibin/nginx_upstream_check_module.git nginx-upstream-check-module
 --add-dynamic-module=http-lua \
+--add-dynamic-module=nginx-upstream-check-module \
 --------
 
 
@@ -109,7 +120,6 @@ git clone https://github.com/openresty/lua-nginx-module http-lua
 --add-dynamic-module=nginx-audio-track-for-hls-module \
 --add-dynamic-module=stream-echo-nginx-module \
 --add-dynamic-module=ip2location-nginx \
---add-dynamic-module=nginx-upstream-check-module \
 --add-dynamic-module=nginx-vod-module \
 --add-dynamic-module=nginx-module-vts \
 --add-dynamic-module=mod-zip \
