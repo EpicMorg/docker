@@ -13,6 +13,9 @@ libmaxminddb-dev
 #pam
 libpam0g-dev
 
+#ldap
+libldap2-dev
+
 wget -qO - http://nginx.org/download/nginx-1.17.3.tar.gz | tar zxv
 
  
