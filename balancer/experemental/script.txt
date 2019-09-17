@@ -24,7 +24,6 @@ git clone https://github.com/arut/nginx-dav-ext-module.git http-dav-ext
 git clone https://github.com/openresty/echo-nginx-module.git http-echo
 git clone https://github.com/aperezdc/ngx-fancyindex.git http-fancyindex 
 git clone https://github.com/slact/nchan.git nchan 
-git clone https://github.com/arut/nginx-rtmp-module.git rtmp 
 git clone https://github.com/masterzen/nginx-upload-progress-module.git http-uploadprogress
 git clone https://github.com/gnosek/nginx-upstream-fair.git http-upstream-fair
 git clone https://github.com/yaoweibin/ngx_http_substitutions_filter_module http-subs-filter
@@ -51,9 +50,10 @@ problems
 
 git clone https://github.com/simplresty/ngx_devel_kit.git http-ndk
 git clone https://github.com/openresty/lua-nginx-module http-lua
-
-
+git clone https://github.com/arut/nginx-rtmp-module.git rtmp 
 git clone https://github.com/yaoweibin/nginx_upstream_check_module.git nginx-upstream-check-module
+
+--add-dynamic-module=rtmp \
 --add-dynamic-module=http-lua \
 --add-dynamic-module=nginx-upstream-check-module \
 --------
@@ -109,7 +109,6 @@ git clone https://github.com/yaoweibin/nginx_upstream_check_module.git nginx-ups
 --add-dynamic-module=http-echo \
 --add-dynamic-module=http-fancyindex \
 --add-dynamic-module=nchan \
---add-dynamic-module=rtmp \
 --add-dynamic-module=http-uploadprogress \
 --add-dynamic-module=http-upstream-fair \
 --add-dynamic-module=http-subs-filter \
