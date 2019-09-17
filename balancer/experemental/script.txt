@@ -4,6 +4,9 @@ zlibc zlib1g zlib1g-dev libsssl-dev libxml2-dev libxslt-dev  libgd-dev libpcre3-
 #nginx+spengo
 krb5-user samba
 
+#lua
+luajit
+
 wget -qO - http://nginx.org/download/nginx-1.17.3.tar.gz | tar zxv
 
  
@@ -11,11 +14,10 @@ git clone https://github.com/openresty/headers-more-nginx-module.git http-header
 git clone https://github.com/sto/ngx_http_auth_pam_module.git http-auth-pam
 git clone https://github.com/wandenberg/nginx-selective-cache-purge-module.git http-cache-purge
 git clone https://github.com/arut/nginx-dav-ext-module.git http-dav-ext
-git clone https://github.com/kazuhisya/nginx-module-ndk-lua.git http-ndk
+
 git clone https://github.com/openresty/echo-nginx-module.git http-echo
 git clone https://github.com/aperezdc/ngx-fancyindex.git http-fancyindex 
 git clone https://github.com/slact/nchan.git nchan 
-git clone https://github.com/openresty/lua-nginx-module http-lua 
 git clone https://github.com/arut/nginx-rtmp-module.git rtmp 
 git clone https://github.com/masterzen/nginx-upload-progress-module.git http-uploadprogress
 git clone https://github.com/gnosek/nginx-upstream-fair.git http-upstream-fair
@@ -38,6 +40,12 @@ git clone https://github.com/openresty/set-misc-nginx-module.git set-misc-nginx-
 git clone https://github.com/dannote/socks-nginx-module.git socks-nginx-module
 git clone https://github.com/yaoweibin/nginx_tcp_proxy_module.git nginx-tcp-proxy-module
 git clone https://github.com/kvspb/nginx-auth-ldap.git http-auth-ldap
+
+--------
+git clone https://github.com/simplresty/ngx_devel_kit.git http-ndk
+git clone https://github.com/openresty/lua-nginx-module http-lua 
+--add-dynamic-module=http-lua \
+--------
 
 
 ./configure  \
@@ -90,7 +98,6 @@ git clone https://github.com/kvspb/nginx-auth-ldap.git http-auth-ldap
 --add-dynamic-module=http-echo \
 --add-dynamic-module=http-fancyindex \
 --add-dynamic-module=nchan \
---add-dynamic-module=http-lua \
 --add-dynamic-module=rtmp \
 --add-dynamic-module=http-uploadprogress \
 --add-dynamic-module=http-upstream-fair \
