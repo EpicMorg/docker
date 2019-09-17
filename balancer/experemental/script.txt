@@ -1,0 +1,118 @@
+#nginx buildid main vanilla
+zlibc zlib1g zlib1g-dev libsssl-dev libxml2-dev libxslt-dev  libgd-dev libpcre3-dev libgeoip-dev  libkrb5-dev libperl-dev 
+  
+#nginx+spengo
+krb5-user samba
+
+wget -qO - http://nginx.org/download/nginx-1.17.3.tar.gz | tar zxv
+
+ 
+git clone https://github.com/openresty/headers-more-nginx-module.git http-headers-more-filter
+git clone https://github.com/sto/ngx_http_auth_pam_module.git http-auth-pam
+git clone https://github.com/wandenberg/nginx-selective-cache-purge-module.git http-cache-purge
+git clone https://github.com/arut/nginx-dav-ext-module.git http-dav-ext
+git clone https://github.com/kazuhisya/nginx-module-ndk-lua.git http-ndk
+git clone https://github.com/openresty/echo-nginx-module.git http-echo
+git clone https://github.com/aperezdc/ngx-fancyindex.git http-fancyindex 
+git clone https://github.com/slact/nchan.git nchan 
+git clone https://github.com/openresty/lua-nginx-module http-lua 
+git clone https://github.com/arut/nginx-rtmp-module.git rtmp 
+git clone https://github.com/masterzen/nginx-upload-progress-module.git http-uploadprogress
+git clone https://github.com/gnosek/nginx-upstream-fair.git http-upstream-fair
+git clone https://github.com/yaoweibin/ngx_http_substitutions_filter_module http-subs-filter
+git clone https://github.com/grahamedgecombe/nginx-ct.git ssl-ct
+git clone https://github.com/stnoonan/spnego-http-auth-nginx-module.git spnego-http-auth-nginx-module
+git clone https://github.com/leev/ngx_http_geoip2_module http-geoip2
+git clone https://github.com/flavioribeiro/nginx-audio-track-for-hls-module.git nginx-audio-track-for-hls-module
+git clone https://github.com/openresty/stream-echo-nginx-module.git stream-echo-nginx-module
+git clone https://github.com/chrislim2888/ip2location-nginx.git ip2location-nginx
+git clone https://github.com/yaoweibin/nginx_upstream_check_module.git nginx-upstream-check-module
+git clone https://github.com/kaltura/nginx-vod-module.git nginx-vod-module
+git clone https://github.com/vozlt/nginx-module-vts.git nginx-module-vts
+git clone https://github.com/evanmiller/mod_zip.git mod-zip
+git clone https://github.com/alibaba/nginx-http-user-agent.git nginx-http-user-agent
+git clone https://github.com/youzee/nginx-unzip-module.git nginx-unzip-module
+git clone https://github.com/vladbondarenko/ngx_webp.git ngx-webp
+git clone https://github.com/openresty/xss-nginx-module.git xss-nginx-module
+git clone https://github.com/openresty/set-misc-nginx-module.git set-misc-nginx-module
+git clone https://github.com/dannote/socks-nginx-module.git socks-nginx-module
+git clone https://github.com/yaoweibin/nginx_tcp_proxy_module.git nginx-tcp-proxy-module
+git clone https://github.com/kvspb/nginx-auth-ldap.git http-auth-ldap
+
+
+./configure  \
+--prefix=/usr/share/nginx \
+--conf-path=/etc/nginx/nginx.conf  \
+--http-log-path=/var/log/nginx/access.log \
+--error-log-path=/var/log/nginx/error.log \
+--lock-path=/var/lock/nginx.lock \
+--pid-path=/run/nginx.pid \
+--modules-path=/usr/lib/nginx/modules \
+--http-client-body-temp-path=/var/lib/nginx/body \
+--http-fastcgi-temp-path=/var/lib/nginx/fastcgi \
+--http-proxy-temp-path=/var/lib/nginx/proxy \
+--http-scgi-temp-path=/var/lib/nginx/scgi \
+--http-uwsgi-temp-path=/var/lib/nginx/uwsgi \
+--with-cc-opt='-g -O2  -fstack-protector-strong -Wformat -Werror=format-security -fPIC -Wdate-time -D_FORTIFY_SOURCE=2' \
+--with-ld-opt='-Wl,-z,relro -Wl,-z,now -fPIC' \
+--with-debug \
+--with-threads \
+--with-pcre-jit \
+--with-http_ssl_module \
+--with-http_stub_status_module \
+--with-http_realip_module \
+--with-http_auth_request_module \
+--with-http_v2_module \
+--with-http_dav_module \
+--with-http_slice_module \
+--with-http_addition_module \
+--with-http_flv_module \
+--with-http_geoip_module=dynamic \
+--with-http_gunzip_module \
+--with-http_gzip_static_module \
+--with-http_image_filter_module=dynamic \
+--with-http_mp4_module \
+--with-http_perl_module=dynamic \
+--with-http_random_index_module \
+--with-http_secure_link_module \
+--with-http_sub_module \
+--with-http_xslt_module=dynamic \
+--with-mail=dynamic \
+--with-mail_ssl_module \
+--with-stream=dynamic \
+--with-stream_ssl_module \
+--with-stream_ssl_preread_module \
+--add-dynamic-module=http-headers-more-filter \
+--add-dynamic-module=http-auth-pam \
+--add-dynamic-module=http-cache-purge \
+--add-dynamic-module=http-dav-ext \
+--add-dynamic-module=http-ndk \
+--add-dynamic-module=http-echo \
+--add-dynamic-module=http-fancyindex \
+--add-dynamic-module=nchan \
+--add-dynamic-module=http-lua \
+--add-dynamic-module=rtmp \
+--add-dynamic-module=http-uploadprogress \
+--add-dynamic-module=http-upstream-fair \
+--add-dynamic-module=http-subs-filter \
+--add-dynamic-module=ssl-ct \
+--add-dynamic-module=http-geoip2 \
+--add-dynamic-module=spnego-http-auth-nginx-module \
+--add-dynamic-module=http-auth-ldap \
+--add-dynamic-module=nginx-audio-track-for-hls-module \
+--add-dynamic-module=stream-echo-nginx-module \
+--add-dynamic-module=ip2location-nginx \
+--add-dynamic-module=nginx-upstream-check-module \
+--add-dynamic-module=nginx-vod-module \
+--add-dynamic-module=nginx-module-vts \
+--add-dynamic-module=mod-zip \
+--add-dynamic-module=nginx-http-user-agent \
+--add-dynamic-module=nginx-unzip-module \
+--add-dynamic-module=ngx-webp \
+--add-dynamic-module=set-misc-nginx-module \
+--add-dynamic-module=socks-nginx-module \
+--add-dynamic-module=nginx-tcp-proxy-module
+
+
+
+dhparam -out /etc/nginx/ssl/dhparam.pem 4096
