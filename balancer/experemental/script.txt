@@ -21,14 +21,12 @@ wget -qO - http://nginx.org/download/nginx-1.17.3.tar.gz | tar zxv
  
 git clone https://github.com/openresty/headers-more-nginx-module.git http-headers-more-filter
 git clone https://github.com/sto/ngx_http_auth_pam_module.git http-auth-pam
-git clone https://github.com/wandenberg/nginx-selective-cache-purge-module.git http-cache-purge
 git clone https://github.com/arut/nginx-dav-ext-module.git http-dav-ext
 
 git clone https://github.com/openresty/echo-nginx-module.git http-echo
 git clone https://github.com/aperezdc/ngx-fancyindex.git http-fancyindex 
 git clone https://github.com/slact/nchan.git nchan 
 git clone https://github.com/masterzen/nginx-upload-progress-module.git http-uploadprogress
-git clone https://github.com/gnosek/nginx-upstream-fair.git http-upstream-fair
 git clone https://github.com/yaoweibin/ngx_http_substitutions_filter_module http-subs-filter
 git clone https://github.com/grahamedgecombe/nginx-ct.git ssl-ct
 git clone https://github.com/stnoonan/spnego-http-auth-nginx-module.git spnego-http-auth-nginx-module
@@ -51,14 +49,19 @@ git clone https://github.com/kvspb/nginx-auth-ldap.git http-auth-ldap
 --------
 problems
 
+
+git clone https://github.com/gnosek/nginx-upstream-fair.git http-upstream-fair
 git clone https://github.com/simplresty/ngx_devel_kit.git http-ndk
 git clone https://github.com/openresty/lua-nginx-module http-lua
 git clone https://github.com/arut/nginx-rtmp-module.git rtmp 
 git clone https://github.com/yaoweibin/nginx_upstream_check_module.git nginx-upstream-check-module
+git clone https://github.com/wandenberg/nginx-selective-cache-purge-module.git http-cache-purge
 
 --add-dynamic-module=rtmp \
 --add-dynamic-module=http-lua \
 --add-dynamic-module=nginx-upstream-check-module \
+--add-dynamic-module=http-cache-purge \
+--add-dynamic-module=http-upstream-fair \
 --------
 
 
@@ -106,14 +109,12 @@ git clone https://github.com/yaoweibin/nginx_upstream_check_module.git nginx-ups
 --with-stream_ssl_preread_module \
 --add-dynamic-module=http-headers-more-filter \
 --add-dynamic-module=http-auth-pam \
---add-dynamic-module=http-cache-purge \
 --add-dynamic-module=http-dav-ext \
 --add-dynamic-module=http-ndk \
 --add-dynamic-module=http-echo \
 --add-dynamic-module=http-fancyindex \
 --add-dynamic-module=nchan \
 --add-dynamic-module=http-uploadprogress \
---add-dynamic-module=http-upstream-fair \
 --add-dynamic-module=http-subs-filter \
 --add-dynamic-module=ssl-ct \
 --add-dynamic-module=http-geoip2 \
