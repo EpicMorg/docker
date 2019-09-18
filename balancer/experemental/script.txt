@@ -72,7 +72,7 @@ git clone https://github.com/wandenberg/nginx-selective-cache-purge-module.git h
 --http-proxy-temp-path=/var/lib/nginx/proxy \
 --http-scgi-temp-path=/var/lib/nginx/scgi \
 --http-uwsgi-temp-path=/var/lib/nginx/uwsgi \
---with-cc-opt='-g -O2 -lz -fstack-protector-strong -Wformat -Wno-error=cast-function-type -Wno-error=format-security -Wno-error=implicit-function-declaration -Wno-error=deprecated-declarations -Wno-error=unused-result  -fPIC -Wdate-time -D_FORTIFY_SOURCE=2' \
+--with-cc-opt='-g -O2 -lz -fstack-protector-strong -Wformat -Wno-error=implicit-fallthrough= -Wno-error=cast-function-type -Wno-error=format-security -Wno-error=implicit-function-declaration -Wno-error=deprecated-declarations -Wno-error=unused-result  -fPIC -Wdate-time -D_FORTIFY_SOURCE=2' \
 --with-ld-opt='-Wl,-z,relro -Wl,-z,now -lz -fPIC' \
 --with-debug \
 --with-threads \
