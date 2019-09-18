@@ -2,6 +2,9 @@ zlibc zlib1g zlib1g-dev libssl-dev libxml2-dev libxslt-dev  libgd-dev libpcre3-d
 
 wget -qO - http://nginx.org/download/nginx-1.17.3.tar.gz | tar zxv
 
+git clone https://github.com/chrislim2888/IP2Location-C-Library.git
+make and install before
+
  
 git clone https://github.com/openresty/headers-more-nginx-module.git http-headers-more-filter
 git clone https://github.com/sto/ngx_http_auth_pam_module.git http-auth-pam
@@ -15,7 +18,6 @@ git clone https://github.com/grahamedgecombe/nginx-ct.git ssl-ct
 git clone https://github.com/stnoonan/spnego-http-auth-nginx-module.git spnego-http-auth-nginx-module
 git clone https://github.com/leev/ngx_http_geoip2_module http-geoip2
 git clone https://github.com/flavioribeiro/nginx-audio-track-for-hls-module.git nginx-audio-track-for-hls-module
-git clone https://github.com/openresty/stream-echo-nginx-module.git stream-echo-nginx-module
 git clone https://github.com/chrislim2888/ip2location-nginx.git ip2location-nginx
 git clone https://github.com/kaltura/nginx-vod-module.git nginx-vod-module
 git clone https://github.com/vozlt/nginx-module-vts.git nginx-module-vts
@@ -32,11 +34,17 @@ git clone https://github.com/simplresty/ngx_devel_kit.git http-ndk
 
 --------
 problems
+[depretated]
 git clone https://github.com/dannote/socks-nginx-module.git socks-nginx-module
 --add-dynamic-module=socks-nginx-module
 
+[depretated]
 git clone https://github.com/yaoweibin/nginx_tcp_proxy_module.git nginx-tcp-proxy-module
 --add-dynamic-module=nginx-tcp-proxy-module
+
+[cant be dynamic]
+git clone https://github.com/openresty/stream-echo-nginx-module.git stream-echo-nginx-module
+--add-dynamic-module=stream-echo-nginx-module \
 
 git clone https://github.com/gnosek/nginx-upstream-fair.git http-upstream-fair
 git clone https://github.com/openresty/lua-nginx-module http-lua
@@ -107,7 +115,6 @@ git clone https://github.com/wandenberg/nginx-selective-cache-purge-module.git h
 --add-dynamic-module=spnego-http-auth-nginx-module \
 --add-dynamic-module=http-auth-ldap \
 --add-dynamic-module=nginx-audio-track-for-hls-module \
---add-dynamic-module=stream-echo-nginx-module \
 --add-dynamic-module=ip2location-nginx \
 --add-dynamic-module=nginx-vod-module \
 --add-dynamic-module=nginx-module-vts \
