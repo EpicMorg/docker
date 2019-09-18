@@ -1,20 +1,4 @@
-#nginx buildid main vanilla
-zlibc zlib1g zlib1g-dev libsssl-dev libxml2-dev libxslt-dev  libgd-dev libpcre3-dev libgeoip-dev  libkrb5-dev libperl-dev 
-  
-#nginx+spengo
-krb5-user samba
-
-#lua
-luajit
-
-#geoip2
-libmaxminddb-dev
-
-#pam
-libpam0g-dev
-
-#ldap
-libldap2-dev
+zlibc zlib1g zlib1g-dev libssl-dev libxml2-dev libxslt-dev  libgd-dev libpcre3-dev libgeoip-dev  libkrb5-dev libperl-dev krb5-user samba luajit liblua5.1-0-dev libmaxminddb-dev libpam0g-dev libldap2-dev libavformat-dev libavfilter-dev libswscale-dev libavcodec-dev libz-dev libgd-dev libhiredis-dev libzip-dev
 
 wget -qO - http://nginx.org/download/nginx-1.17.3.tar.gz | tar zxv
 
@@ -22,7 +6,6 @@ wget -qO - http://nginx.org/download/nginx-1.17.3.tar.gz | tar zxv
 git clone https://github.com/openresty/headers-more-nginx-module.git http-headers-more-filter
 git clone https://github.com/sto/ngx_http_auth_pam_module.git http-auth-pam
 git clone https://github.com/arut/nginx-dav-ext-module.git http-dav-ext
-
 git clone https://github.com/openresty/echo-nginx-module.git http-echo
 git clone https://github.com/aperezdc/ngx-fancyindex.git http-fancyindex 
 git clone https://github.com/slact/nchan.git nchan 
@@ -42,22 +25,25 @@ git clone https://github.com/youzee/nginx-unzip-module.git nginx-unzip-module
 git clone https://github.com/vladbondarenko/ngx_webp.git ngx-webp
 git clone https://github.com/openresty/xss-nginx-module.git xss-nginx-module
 git clone https://github.com/openresty/set-misc-nginx-module.git set-misc-nginx-module
-git clone https://github.com/dannote/socks-nginx-module.git socks-nginx-module
-git clone https://github.com/yaoweibin/nginx_tcp_proxy_module.git nginx-tcp-proxy-module
+git clone https://github.com/arut/nginx-rtmp-module.git rtmp 
 git clone https://github.com/kvspb/nginx-auth-ldap.git http-auth-ldap
+git clone https://github.com/chrislim2888/IP2Location-C-Library.git ip2location-c-7.0.0
 
 --------
 problems
+git clone https://github.com/dannote/socks-nginx-module.git socks-nginx-module
+--add-dynamic-module=socks-nginx-module
 
+git clone https://github.com/yaoweibin/nginx_tcp_proxy_module.git nginx-tcp-proxy-module
+--add-dynamic-module=nginx-tcp-proxy-module
 
 git clone https://github.com/gnosek/nginx-upstream-fair.git http-upstream-fair
 git clone https://github.com/simplresty/ngx_devel_kit.git http-ndk
 git clone https://github.com/openresty/lua-nginx-module http-lua
-git clone https://github.com/arut/nginx-rtmp-module.git rtmp 
 git clone https://github.com/yaoweibin/nginx_upstream_check_module.git nginx-upstream-check-module
 git clone https://github.com/wandenberg/nginx-selective-cache-purge-module.git http-cache-purge
 
---add-dynamic-module=rtmp \
+ \
 --add-dynamic-module=http-lua \
 --add-dynamic-module=nginx-upstream-check-module \
 --add-dynamic-module=http-cache-purge \
@@ -78,7 +64,7 @@ git clone https://github.com/wandenberg/nginx-selective-cache-purge-module.git h
 --http-proxy-temp-path=/var/lib/nginx/proxy \
 --http-scgi-temp-path=/var/lib/nginx/scgi \
 --http-uwsgi-temp-path=/var/lib/nginx/uwsgi \
---with-cc-opt='-g -O2  -fstack-protector-strong -Wformat -Werror=format-security -fPIC -Wdate-time -D_FORTIFY_SOURCE=2' \
+--with-cc-opt='-g -O2  -fstack-protector-strong -Wformat -Wno-error=cast-function-type -Wno-error=format-security -Who-error=implicit-function-declaration -Wno-error=deprecated-declarations -Wno-error=unused-result  -fPIC -Wdate-time -D_FORTIFY_SOURCE=2' \
 --with-ld-opt='-Wl,-z,relro -Wl,-z,now -fPIC' \
 --with-debug \
 --with-threads \
@@ -130,9 +116,9 @@ git clone https://github.com/wandenberg/nginx-selective-cache-purge-module.git h
 --add-dynamic-module=nginx-unzip-module \
 --add-dynamic-module=ngx-webp \
 --add-dynamic-module=set-misc-nginx-module \
---add-dynamic-module=socks-nginx-module \
---add-dynamic-module=nginx-tcp-proxy-module
+--add-dynamic-module=rtmp
 
 
+make
 
 dhparam -out /etc/nginx/ssl/dhparam.pem 4096
