@@ -1,30 +1,10 @@
-FROM debian:buster
-MAINTAINER EpicMorg DevTeam
-ENV DEBIAN_FRONTEND noninteractive
-
-#editing sources list
-RUN rm /etc/apt/sources.list
-COPY sources.list /etc/apt/sources.list
-RUN apt update && apt dist-upgrade -y
-COPY locale.gen /etc/locale.gen
-
-#installing utils
-# url: missing
-RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
-RUN apt-get update && apt-get install -y --allow-unauthenticated uuid-runtime gnupg2 rsync ca-certificates htop mc tmux iftop cmatrix iputils-ping cmatrix-xfont lsof lynx fontconfig smbclient nano screenfetch git ffmpeg tree  gnupg sudo apt-transport-https lsb-release apt-utils locales console-cyrillic wget curl bash procps openssl perl ttf-dejavu tini util-linux fontconfig
-
-##################################################################
-#                   installing java8
-##################################################################
-
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A66C5D02
-RUN echo 'deb https://rpardini.github.io/adoptopenjdk-deb-installer stable main' > /etc/apt/sources.list.d/rpardini-aoj.list
-RUN apt-get update && apt-get install -y --allow-unauthenticated  adoptopenjdk-8-installer
+FROM epicmorg/devel
+LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
+ARG DEBIAN_FRONTEND=noninteractive
 
 ##################################################################
 #                   teamcity minimal agent
 ##################################################################
-
 VOLUME /data/teamcity_agent/conf
 
 ENV CONFIG_FILE=/data/teamcity_agent/conf/buildAgent.properties \
@@ -33,21 +13,18 @@ ENV CONFIG_FILE=/data/teamcity_agent/conf/buildAgent.properties \
 LABEL dockerImage.teamcity.version="latest" \
       dockerImage.teamcity.buildNumber="latest"
 
-
 COPY run-agent.sh /run-agent.sh
 COPY run-services.sh /run-services.sh
-#fix of missing dist. sorry.
+
 ADD https://teamcity.jetbrains.com/update/buildAgent.zip /buildAgent.zip
+
 RUN unzip /buildAgent.zip -d /opt/buildagent && \
-    mv /opt/buildagent/conf /opt/buildagent/conf_dist
+    mv /opt/buildagent/conf /opt/buildagent/conf_dist && \
+    rm -rfv /buildAgent.zip
 
-
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends sudo && \
-    useradd -m buildagent && \
+RUN useradd -m buildagent && \
     chmod +x /opt/buildagent/bin/*.sh && \
     chmod +x /run-agent.sh /run-services.sh && sync
-
 
 ##################################################################
 #                    teamcity main agent
@@ -116,38 +93,11 @@ RUN ln -s /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1 /usr/lib/x86_64-linux-gnu/l
     ln -s /usr/lib/x86_64-linux-gnu/libssl.so.1.1 /usr/lib/x86_64-linux-gnu/libssl.so.1.0 && \
     dotnet help
 
-##################################################################
-#                   steam runtime and ssdk
-##################################################################
-
-RUN apt-get update && apt install -y --allow-unauthenticated build-essential gcc-multilib g++-multilib
-RUN cd / && \
-    sudo mkdir valve && \
-    cd valve && \
-    sudo wget http://media.steampowered.com/client/runtime/steam-runtime-sdk_latest.tar.xz && \
-    sudo tar xvf steam-runtime-sdk_latest.tar.xz && \
-    sudo mv steam-runtime-sdk_2013-09-05 steam-runtime && \
-    sudo chown root:root * -R && \
-    cd steam-runtime && \
-    printf '%s\n' 3 1 Y Y Y | ./setup.sh
-
 
 ##################################################################
-#                   retroarch deps
+#                   cleaninig up
 ##################################################################
-RUN apt-get update && apt install -y --allow-unauthenticated libxkbcommon-dev zlib1g-dev libfreetype6-dev libegl1-mesa-dev libgles2-mesa-dev libgbm-dev nvidia-cg-toolkit nvidia-cg-dev libavcodec-dev libsdl2-dev libsdl-image1.2-dev libxml2-dev yasm
-
-
-##################################################################
-#                       deb creating
-##################################################################
-RUN apt-get update && apt install -y --allow-unauthenticated devscripts autoconf automake libtool autotools-dev dpkg-dev fakeroot checkinstall dh-make
-
-
-##################################################################
-#                   other   customisations
-##################################################################
-
+RUN rm -rfv /var/lib/apt/lists/*
 
 
 CMD ["/run-services.sh"]
