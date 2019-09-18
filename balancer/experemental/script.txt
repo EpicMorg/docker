@@ -28,6 +28,7 @@ git clone https://github.com/openresty/set-misc-nginx-module.git set-misc-nginx-
 git clone https://github.com/arut/nginx-rtmp-module.git rtmp 
 git clone https://github.com/kvspb/nginx-auth-ldap.git http-auth-ldap
 git clone https://github.com/chrislim2888/IP2Location-C-Library.git ip2location-c-7.0.0
+git clone https://github.com/simplresty/ngx_devel_kit.git http-ndk
 
 --------
 problems
@@ -38,7 +39,6 @@ git clone https://github.com/yaoweibin/nginx_tcp_proxy_module.git nginx-tcp-prox
 --add-dynamic-module=nginx-tcp-proxy-module
 
 git clone https://github.com/gnosek/nginx-upstream-fair.git http-upstream-fair
-git clone https://github.com/simplresty/ngx_devel_kit.git http-ndk
 git clone https://github.com/openresty/lua-nginx-module http-lua
 git clone https://github.com/yaoweibin/nginx_upstream_check_module.git nginx-upstream-check-module
 git clone https://github.com/wandenberg/nginx-selective-cache-purge-module.git http-cache-purge
@@ -64,7 +64,7 @@ git clone https://github.com/wandenberg/nginx-selective-cache-purge-module.git h
 --http-proxy-temp-path=/var/lib/nginx/proxy \
 --http-scgi-temp-path=/var/lib/nginx/scgi \
 --http-uwsgi-temp-path=/var/lib/nginx/uwsgi \
---with-cc-opt='-g -O2  -fstack-protector-strong -Wformat -Wno-error=cast-function-type -Wno-error=format-security -Who-error=implicit-function-declaration -Wno-error=deprecated-declarations -Wno-error=unused-result  -fPIC -Wdate-time -D_FORTIFY_SOURCE=2' \
+--with-cc-opt='-g -O2  -fstack-protector-strong -Wformat -Wno-error=cast-function-type -Wno-error=format-security -Wno-error=implicit-function-declaration -Wno-error=deprecated-declarations -Wno-error=unused-result  -fPIC -Wdate-time -D_FORTIFY_SOURCE=2' \
 --with-ld-opt='-Wl,-z,relro -Wl,-z,now -fPIC' \
 --with-debug \
 --with-threads \
