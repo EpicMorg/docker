@@ -1,14 +1,13 @@
-zlibc zlib1g zlib1g-dev libssl-dev libxml2-dev libxslt-dev  libgd-dev libpcre3-dev libgeoip-dev  libkrb5-dev libperl-dev krb5-user samba luajit liblua5.1-0-dev libmaxminddb-dev libpam0g-dev libldap2-dev libavformat-dev libavfilter-dev libswscale-dev libavcodec-dev libz-dev libgd-dev libhiredis-dev libzip-dev  libcrypto++-dev libbz2-dev
+zlibc zlib1g zlib1g-dev libssl-dev libxml2-dev libxslt-dev  libgd-dev libpcre3-dev libgeoip-dev  libkrb5-dev libperl-dev krb5-user samba luajit liblua5.1-0-dev libmaxminddb-dev libpam0g-dev libldap2-dev libavformat-dev libavfilter-dev libswscale-dev libavcodec-dev libz-dev libgd-dev libhiredis-dev libzip-dev  libcrypto++-dev libbz2-dev tcl
 
 wget -qO - http://nginx.org/download/nginx-1.17.3.tar.gz | tar zxv
 
 [lua pre]
 git clone https://github.com/openresty/luajit2.git luajit2 # -> make -> makeinstall -> checkinstall
-export LUAJIT_INC=/usr/local/include/luajit-2.1
-export LUAJIT_LIB=/usr/local/lib
+ARG LUAJIT_INC=/usr/local/include/luajit-2.1
+ARG LUAJIT_LIB=/usr/local/lib
 
 [redis pre]
-git clone https://github.com/wandenberg/redis_nginx_adapter.git redis_nginx_adapter -> make (set nginx folder) -> makeinstall
 
 [modules]
 git clone https://github.com/openresty/headers-more-nginx-module.git http-headers-more-filter
@@ -39,7 +38,6 @@ git clone https://github.com/chrislim2888/IP2Location-C-Library.git ip2location-
 git clone https://github.com/itoffshore/nginx-upstream-fair.git http-upstream-fair #fixed fork
 git clone https://github.com/yaoweibin/nginx_upstream_check_module.git nginx-upstream-check-module
 git clone https://github.com/openresty/lua-nginx-module http-lua
-git clone https://github.com/wandenberg/nginx-selective-cache-purge-module.git http-cache-purge
 --------
 problems
 [depretated]
@@ -52,6 +50,10 @@ git clone https://github.com/yaoweibin/nginx_tcp_proxy_module.git nginx-tcp-prox
 [cant be dynamic]
 git clone https://github.com/openresty/stream-echo-nginx-module.git stream-echo-nginx-module
 --add-dynamic-module=stream-echo-nginx-module
+
+git clone https://github.com/wandenberg/redis_nginx_adapter.git redis_nginx_adapter -> make (set nginx folder) -> makeinstall
+git clone https://github.com/wandenberg/nginx-selective-cache-purge-module.git http-cache-purge
+--add-dynamic-module=http-cache-purge
 --------
 
 
@@ -68,8 +70,8 @@ git clone https://github.com/openresty/stream-echo-nginx-module.git stream-echo-
 --http-proxy-temp-path=/var/lib/nginx/proxy \
 --http-scgi-temp-path=/var/lib/nginx/scgi \
 --http-uwsgi-temp-path=/var/lib/nginx/uwsgi \
---with-cc-opt='-g -O2 -lz -fstack-protector-strong -Wformat -Wno-error=date-time -Wno-error=implicit-fallthrough= -Wno-error=cast-function-type -Wno-error=format-security -Wno-error=implicit-function-declaration -Wno-error=deprecated-declarations -Wno-error=unused-result  -fPIC -Wdate-time -D_FORTIFY_SOURCE=2' \
---with-ld-opt='-Wl,-z,relro -Wl,-z,now -lz -fPIC' \
+--with-cc-opt='-I/usr/local/include/hiredis -I/usr/local/include/luajit-2.1 -g -O2 -lz -fstack-protector-strong -Wformat -Wno-error=date-time -Wno-error=implicit-fallthrough= -Wno-error=cast-function-type -Wno-error=format-security -Wno-error=implicit-function-declaration -Wno-error=deprecated-declarations -Wno-error=unused-result  -fPIC -Wdate-time -D_FORTIFY_SOURCE=2' \
+--with-ld-opt='-Wl,-z,relro -Wl,-z,now -lz -fPIC -L/usr/local/lib' \
 --with-debug \
 --with-threads \
 --with-pcre-jit \
@@ -122,8 +124,7 @@ git clone https://github.com/openresty/stream-echo-nginx-module.git stream-echo-
 --add-dynamic-module=rtmp \
 --add-dynamic-module=http-upstream-fair \
 --add-dynamic-module=nginx-upstream-check-module \
---add-dynamic-module=http-lua \
---add-dynamic-module=http-cache-purge
+--add-dynamic-module=http-lua
 
 make
 
