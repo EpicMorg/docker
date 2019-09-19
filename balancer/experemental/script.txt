@@ -138,8 +138,7 @@ git clone https://github.com/wandenberg/nginx-selective-cache-purge-module.git h
 --add-dynamic-module=nginx-upstream-check-module \
 --add-dynamic-module=http-lua
 
-make
-make install
+mmkir /usr/lib/nginx #workround for clean install
 cat > description-pak | Custom build of Nginx with some modules, by EpicMorg.
 fakeroot checkinstall -D --pakdir=/builds/export --maintainer="EpicMorg, developer@epicm.org" --pkgname=nginx-custom  --conflicts="nginx | nginx-common | nginx-doc | nginx-extras | nginx-full | nginx-light" --install=no -y
 
