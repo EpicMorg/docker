@@ -2,8 +2,17 @@ zlibc zlib1g zlib1g-dev libssl-dev libxml2-dev libxslt-dev  libgd-dev libpcre3-d
 
 wget -qO - http://nginx.org/download/nginx-1.17.3.tar.gz | tar zxv
 
+mkdir -p /builds/export /builds/src
+
+
 [lua pre]
-git clone https://github.com/openresty/luajit2.git luajit2 # -> make -> makeinstall -> checkinstall
+git clone https://github.com/openresty/luajit2.git luajit2 # 
+
+make
+make install
+cat > description-pak | Custom build of luajit2 for Nginx module, by EpicMorg.
+checkinstall --pakdir=/builds/export --maintainer="EpicMorg, developer@epicm.org"
+
 export LUAJIT_INC=/usr/local/include/luajit-2.1
 export LUAJIT_LIB=/usr/local/lib
 
@@ -127,5 +136,8 @@ git clone https://github.com/wandenberg/nginx-selective-cache-purge-module.git h
 --add-dynamic-module=http-lua
 
 make
-
+make install
+cat > description-pak | Custom build of Nginx with some modules, by EpicMorg.
+checkinstall --pakdir=/builds/export --maintainer="EpicMorg, developer@epicm.org"
+ 
 dhparam -out /etc/nginx/ssl/dhparam.pem 4096
