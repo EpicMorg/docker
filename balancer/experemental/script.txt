@@ -7,6 +7,10 @@ git clone https://github.com/openresty/luajit2.git luajit2 # -> make -> makeinst
 export LUAJIT_INC=/usr/local/include/luajit-2.1
 export LUAJIT_LIB=/usr/local/lib
 
+[redis pre]
+git clone https://github.com/wandenberg/redis_nginx_adapter.git redis_nginx_adapter -> make (set nginx folder) -> makeinstall
+
+[modules]
 git clone https://github.com/openresty/headers-more-nginx-module.git http-headers-more-filter
 git clone https://github.com/sto/ngx_http_auth_pam_module.git http-auth-pam
 git clone https://github.com/arut/nginx-dav-ext-module.git http-dav-ext
@@ -35,7 +39,7 @@ git clone https://github.com/chrislim2888/IP2Location-C-Library.git ip2location-
 git clone https://github.com/itoffshore/nginx-upstream-fair.git http-upstream-fair #fixed fork
 git clone https://github.com/yaoweibin/nginx_upstream_check_module.git nginx-upstream-check-module
 git clone https://github.com/openresty/lua-nginx-module http-lua
-
+git clone https://github.com/wandenberg/nginx-selective-cache-purge-module.git http-cache-purge
 --------
 problems
 [depretated]
@@ -47,13 +51,7 @@ git clone https://github.com/yaoweibin/nginx_tcp_proxy_module.git nginx-tcp-prox
 
 [cant be dynamic]
 git clone https://github.com/openresty/stream-echo-nginx-module.git stream-echo-nginx-module
---add-dynamic-module=stream-echo-nginx-module \
- 
-[wontfix]
-git clone https://github.com/wandenberg/nginx-selective-cache-purge-module.git http-cache-purge
-git clone https://github.com/wandenberg/redis_nginx_adapter.git redis_nginx_adapter
---add-dynamic-module=http-cache-purge
-
+--add-dynamic-module=stream-echo-nginx-module
 --------
 
 
@@ -124,7 +122,8 @@ git clone https://github.com/wandenberg/redis_nginx_adapter.git redis_nginx_adap
 --add-dynamic-module=rtmp \
 --add-dynamic-module=http-upstream-fair \
 --add-dynamic-module=nginx-upstream-check-module \
---add-dynamic-module=http-lua
+--add-dynamic-module=http-lua \
+--add-dynamic-module=http-cache-purge
 
 make
 
