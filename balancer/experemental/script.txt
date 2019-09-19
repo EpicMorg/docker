@@ -4,8 +4,8 @@ wget -qO - http://nginx.org/download/nginx-1.17.3.tar.gz | tar zxv
 
 [lua pre]
 git clone https://github.com/openresty/luajit2.git luajit2 # -> make -> makeinstall -> checkinstall
-#ARG LUAJIT_INC=/usr/local/include/luajit-2.1
-#ARG LUAJIT_LIB=/usr/local/lib
+export LUAJIT_INC=/usr/local/include/luajit-2.1
+export LUAJIT_LIB=/usr/local/lib
 
 [redis pre]
 
