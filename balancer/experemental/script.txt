@@ -4,8 +4,8 @@ wget -qO - http://nginx.org/download/nginx-1.17.3.tar.gz | tar zxv
 
 [lua pre]
 git clone https://github.com/openresty/luajit2.git luajit2 # -> make -> makeinstall -> checkinstall
-ARG LUAJIT_INC=/usr/local/include/luajit-2.1
-ARG LUAJIT_LIB=/usr/local/lib
+#ARG LUAJIT_INC=/usr/local/include/luajit-2.1
+#ARG LUAJIT_LIB=/usr/local/lib
 
 [redis pre]
 
@@ -70,7 +70,7 @@ git clone https://github.com/wandenberg/nginx-selective-cache-purge-module.git h
 --http-proxy-temp-path=/var/lib/nginx/proxy \
 --http-scgi-temp-path=/var/lib/nginx/scgi \
 --http-uwsgi-temp-path=/var/lib/nginx/uwsgi \
---with-cc-opt='-I/usr/local/include/hiredis -I/usr/local/include/luajit-2.1 -g -O2 -lz -fstack-protector-strong -Wformat -Wno-error=date-time -Wno-error=implicit-fallthrough= -Wno-error=cast-function-type -Wno-error=format-security -Wno-error=implicit-function-declaration -Wno-error=deprecated-declarations -Wno-error=unused-result  -fPIC -Wdate-time -D_FORTIFY_SOURCE=2' \
+--with-cc-opt='-I/usr/local/include/luajit-2.1 -g -O2 -lz -fstack-protector-strong -Wformat -Wno-error=date-time -Wno-error=implicit-fallthrough= -Wno-error=cast-function-type -Wno-error=format-security -Wno-error=implicit-function-declaration -Wno-error=deprecated-declarations -Wno-error=unused-result  -fPIC -Wdate-time -D_FORTIFY_SOURCE=2' \
 --with-ld-opt='-Wl,-z,relro -Wl,-z,now -lz -fPIC -L/usr/local/lib' \
 --with-debug \
 --with-threads \
