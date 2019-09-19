@@ -2,10 +2,6 @@ zlibc zlib1g zlib1g-dev libssl-dev libxml2-dev libxslt-dev  libgd-dev libpcre3-d
 
 wget -qO - http://nginx.org/download/nginx-1.17.3.tar.gz | tar zxv
 
-git clone https://github.com/chrislim2888/IP2Location-C-Library.git
-make and install before
-
- 
 git clone https://github.com/openresty/headers-more-nginx-module.git http-headers-more-filter
 git clone https://github.com/sto/ngx_http_auth_pam_module.git http-auth-pam
 git clone https://github.com/arut/nginx-dav-ext-module.git http-dav-ext
@@ -29,8 +25,10 @@ git clone https://github.com/openresty/xss-nginx-module.git xss-nginx-module
 git clone https://github.com/openresty/set-misc-nginx-module.git set-misc-nginx-module
 git clone https://github.com/arut/nginx-rtmp-module.git rtmp 
 git clone https://github.com/kvspb/nginx-auth-ldap.git http-auth-ldap
-git clone https://github.com/chrislim2888/IP2Location-C-Library.git ip2location-c-7.0.0
 git clone https://github.com/simplresty/ngx_devel_kit.git http-ndk
+git clone https://github.com/chrislim2888/IP2Location-C-Library.git ip2location-c-7.0.0
+git clone https://github.com/itoffshore/nginx-upstream-fair.git http-upstream-fair #fixed fork
+git clone https://github.com/yaoweibin/nginx_upstream_check_module.git nginx-upstream-check-module
 
 --------
 problems
@@ -46,16 +44,12 @@ git clone https://github.com/yaoweibin/nginx_tcp_proxy_module.git nginx-tcp-prox
 git clone https://github.com/openresty/stream-echo-nginx-module.git stream-echo-nginx-module
 --add-dynamic-module=stream-echo-nginx-module \
 
-git clone https://github.com/gnosek/nginx-upstream-fair.git http-upstream-fair
 git clone https://github.com/openresty/lua-nginx-module http-lua
-git clone https://github.com/yaoweibin/nginx_upstream_check_module.git nginx-upstream-check-module
-git clone https://github.com/wandenberg/nginx-selective-cache-purge-module.git http-cache-purge
+--add-dynamic-module=http-lua
 
- \
---add-dynamic-module=http-lua \
---add-dynamic-module=nginx-upstream-check-module \
---add-dynamic-module=http-cache-purge \
---add-dynamic-module=http-upstream-fair \
+git clone https://github.com/wandenberg/nginx-selective-cache-purge-module.git http-cache-purge
+--add-dynamic-module=http-cache-purge
+
 --------
 
 
@@ -72,7 +66,7 @@ git clone https://github.com/wandenberg/nginx-selective-cache-purge-module.git h
 --http-proxy-temp-path=/var/lib/nginx/proxy \
 --http-scgi-temp-path=/var/lib/nginx/scgi \
 --http-uwsgi-temp-path=/var/lib/nginx/uwsgi \
---with-cc-opt='-g -O2 -lz -fstack-protector-strong -Wformat -Wno-error=implicit-fallthrough= -Wno-error=cast-function-type -Wno-error=format-security -Wno-error=implicit-function-declaration -Wno-error=deprecated-declarations -Wno-error=unused-result  -fPIC -Wdate-time -D_FORTIFY_SOURCE=2' \
+--with-cc-opt='-g -O2 -lz -fstack-protector-strong -Wformat -Wno-error=date-time -Wno-error=implicit-fallthrough= -Wno-error=cast-function-type -Wno-error=format-security -Wno-error=implicit-function-declaration -Wno-error=deprecated-declarations -Wno-error=unused-result  -fPIC -Wdate-time -D_FORTIFY_SOURCE=2' \
 --with-ld-opt='-Wl,-z,relro -Wl,-z,now -lz -fPIC' \
 --with-debug \
 --with-threads \
@@ -123,8 +117,10 @@ git clone https://github.com/wandenberg/nginx-selective-cache-purge-module.git h
 --add-dynamic-module=nginx-unzip-module \
 --add-dynamic-module=ngx-webp \
 --add-dynamic-module=set-misc-nginx-module \
---add-dynamic-module=rtmp
-
+--add-dynamic-module=rtmp \
+--add-dynamic-module=http-upstream-fair \
+--add-dynamic-module=nginx-upstream-check-module \
+--add-dynamic-module=http-cache-purge
 
 make
 
