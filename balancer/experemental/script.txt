@@ -2,6 +2,11 @@ zlibc zlib1g zlib1g-dev libssl-dev libxml2-dev libxslt-dev  libgd-dev libpcre3-d
 
 wget -qO - http://nginx.org/download/nginx-1.17.3.tar.gz | tar zxv
 
+[lua pre]
+git clone https://github.com/openresty/luajit2.git luajit2 # -> make -> makeinstall -> checkinstall
+export LUAJIT_INC=/usr/local/include/luajit-2.1
+export LUAJIT_LIB=/usr/local/lib
+
 git clone https://github.com/openresty/headers-more-nginx-module.git http-headers-more-filter
 git clone https://github.com/sto/ngx_http_auth_pam_module.git http-auth-pam
 git clone https://github.com/arut/nginx-dav-ext-module.git http-dav-ext
@@ -29,25 +34,24 @@ git clone https://github.com/simplresty/ngx_devel_kit.git http-ndk
 git clone https://github.com/chrislim2888/IP2Location-C-Library.git ip2location-c-7.0.0
 git clone https://github.com/itoffshore/nginx-upstream-fair.git http-upstream-fair #fixed fork
 git clone https://github.com/yaoweibin/nginx_upstream_check_module.git nginx-upstream-check-module
+git clone https://github.com/openresty/lua-nginx-module http-lua
 
 --------
 problems
 [depretated]
 git clone https://github.com/dannote/socks-nginx-module.git socks-nginx-module
---add-dynamic-module=socks-nginx-module
+--add-dynamic-module=socks-nginx-module 
 
-[depretated]
 git clone https://github.com/yaoweibin/nginx_tcp_proxy_module.git nginx-tcp-proxy-module
 --add-dynamic-module=nginx-tcp-proxy-module
 
 [cant be dynamic]
 git clone https://github.com/openresty/stream-echo-nginx-module.git stream-echo-nginx-module
 --add-dynamic-module=stream-echo-nginx-module \
-
-git clone https://github.com/openresty/lua-nginx-module http-lua
---add-dynamic-module=http-lua
-
+ 
+[wontfix]
 git clone https://github.com/wandenberg/nginx-selective-cache-purge-module.git http-cache-purge
+git clone https://github.com/wandenberg/redis_nginx_adapter.git redis_nginx_adapter
 --add-dynamic-module=http-cache-purge
 
 --------
@@ -120,7 +124,7 @@ git clone https://github.com/wandenberg/nginx-selective-cache-purge-module.git h
 --add-dynamic-module=rtmp \
 --add-dynamic-module=http-upstream-fair \
 --add-dynamic-module=nginx-upstream-check-module \
---add-dynamic-module=http-cache-purge
+--add-dynamic-module=http-lua
 
 make
 
