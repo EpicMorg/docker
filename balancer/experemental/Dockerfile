@@ -146,15 +146,22 @@ RUN cd ${NGINX_SRC_DIR} && \
     cp -fv ${PRE_DIR}/nginx-description-pak ${NGINX_SRC_DIR}/description-pak && \
     fakeroot checkinstall -D --pakdir=/builds/export --maintainer="EpicMorg, developer@epicm.org" --pkgname=nginx-custom  --install=no -y
 
+##################################################################
+#                   cleaninig up
+##################################################################
+RUN apt clean -y && \
+    apt autoclean -y && \
+    rm -rfv /var/lib/apt/lists/* && \
+    rm -rfv /var/cache/apt/archives/*.deb
 
+FROM epicmorg/prod
+LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
+ARG DEBIAN_FRONTEND=noninteractive
 
+COPY --from-build
 
-#FROM epicmorg/prod
-#LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
-#ARG DEBIAN_FRONTEND=noninteractive
+final config
+VOLUME ["/var/cache/nginx"]
+EXPOSE 80 443
 
-#final config
-#VOLUME ["/var/cache/nginx"]
-#EXPOSE 80 443
-
-#CMD ["nginx", "-g", "daemon off;"]
+CMD ["nginx", "-g", "daemon off;"]

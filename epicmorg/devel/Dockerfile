@@ -114,4 +114,7 @@ RUN apt-get update && \
 ##################################################################
 #                   cleaninig up
 ##################################################################
-RUN rm -rfv /var/lib/apt/lists/*
+RUN apt clean -y && \
+    apt autoclean -y && \
+    rm -rfv /var/lib/apt/lists/* && \
+    rm -rfv /var/cache/apt/archives/*.deb

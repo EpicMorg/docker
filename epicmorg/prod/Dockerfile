@@ -65,4 +65,7 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A66C5D02 && \
 ##################################################################
 #                   cleaninig up
 ##################################################################
-RUN rm -rfv /var/lib/apt/lists/*
+RUN apt clean -y && \
+    apt autoclean -y && \
+    rm -rfv /var/lib/apt/lists/* && \
+    rm -rfv /var/cache/apt/archives/*.deb

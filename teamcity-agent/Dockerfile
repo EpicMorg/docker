@@ -97,8 +97,10 @@ RUN ln -s /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1 /usr/lib/x86_64-linux-gnu/l
 ##################################################################
 #                   cleaninig up
 ##################################################################
-RUN rm -rfv /var/lib/apt/lists/*
-
+RUN apt clean -y && \
+    apt autoclean -y && \
+    rm -rfv /var/lib/apt/lists/* && \
+    rm -rfv /var/cache/apt/archives/*.deb
 
 CMD ["/run-services.sh"]
 
