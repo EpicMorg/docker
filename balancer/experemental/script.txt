@@ -1,8 +1,9 @@
 zlibc zlib1g zlib1g-dev libssl-dev libxml2-dev libxslt-dev  libgd-dev libpcre3-dev libgeoip-dev  libkrb5-dev libperl-dev krb5-user samba luajit liblua5.1-0-dev libmaxminddb-dev libpam0g-dev libldap2-dev libavformat-dev libavfilter-dev libswscale-dev libavcodec-dev libz-dev libgd-dev libhiredis-dev libzip-dev  libcrypto++-dev libbz2-dev tcl
 
+mkdir -p /builds/export /builds/src
 wget -qO - http://nginx.org/download/nginx-1.17.3.tar.gz | tar zxv
 
-mkdir -p /builds/export /builds/src
+
 
 
 [lua pre]
@@ -10,8 +11,13 @@ git clone https://github.com/openresty/luajit2.git luajit2 #
 
 make
 make install
-cat > description-pak | Custom build of luajit2 for Nginx module, by EpicMorg.
+cat > description-pak
 fakeroot checkinstall -D --pakdir=/builds/export --maintainer="EpicMorg, developer@epicm.org" --pkgname=luajit2-custom  --conflicts=luajit2 --install=no -y
+
+
+
+
+------------------------
 
 export LUAJIT_INC=/usr/local/include/luajit-2.1
 export LUAJIT_LIB=/usr/local/lib
@@ -47,24 +53,7 @@ git clone https://github.com/chrislim2888/IP2Location-C-Library.git ip2location-
 git clone https://github.com/itoffshore/nginx-upstream-fair.git http-upstream-fair #fixed fork
 git clone https://github.com/yaoweibin/nginx_upstream_check_module.git nginx-upstream-check-module
 git clone https://github.com/openresty/lua-nginx-module http-lua
---------
-problems
-[depretated]
-git clone https://github.com/dannote/socks-nginx-module.git socks-nginx-module
---add-dynamic-module=socks-nginx-module 
-
-git clone https://github.com/yaoweibin/nginx_tcp_proxy_module.git nginx-tcp-proxy-module
---add-dynamic-module=nginx-tcp-proxy-module
-
-[cant be dynamic]
-git clone https://github.com/openresty/stream-echo-nginx-module.git stream-echo-nginx-module
---add-dynamic-module=stream-echo-nginx-module
-
-git clone https://github.com/wandenberg/redis_nginx_adapter.git redis_nginx_adapter -> make (set nginx folder) -> makeinstall
-git clone https://github.com/wandenberg/nginx-selective-cache-purge-module.git http-cache-purge
---add-dynamic-module=http-cache-purge
---------
-
+  
 
 ./configure  \
 --sbin-path=/usr/sbin/nginx \
@@ -140,7 +129,13 @@ git clone https://github.com/wandenberg/nginx-selective-cache-purge-module.git h
 
 mmkir /usr/lib/nginx #workround for clean install
 cat > description-pak | Custom build of Nginx with some modules, by EpicMorg.
-fakeroot checkinstall -D --pakdir=/builds/export --maintainer="EpicMorg, developer@epicm.org" --pkgname=nginx-custom  --conflicts="nginx | nginx-common | nginx-doc | nginx-extras | nginx-full | nginx-light" --install=no -y
+fakeroot checkinstall -D --pakdir=/builds/export --maintainer="EpicMorg, developer@epicm.org" --pkgname=nginx-custom  --install=no -y
 
+-------------
+
+final
+apt install libzip4
+extract pre.tgz
+install debs
  
 dhparam -out /etc/nginx/ssl/dhparam.pem 4096
