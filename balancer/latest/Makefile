@@ -1,4 +1,4 @@
 all: nginx
 
 nginx:
-	docker build --compress -t epicmorg/balancer .
+	docker build --compress -t epicmorg/balancer:latest .
