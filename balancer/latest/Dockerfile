@@ -144,12 +144,9 @@ RUN cd ${NGINX_SRC_DIR} && \
     --add-dynamic-module=nginx-upstream-check-module \
     --add-dynamic-module=http-lua && \
     cp -fv ${PRE_DIR}/nginx-description-pak ${NGINX_SRC_DIR}/description-pak && \
-    fakeroot checkinstall -D --pakdir=/builds/export --maintainer="EpicMorg, developer@epicm.org" --pkgname=nginx-custom  --install=no -y
+    fakeroot checkinstall -D --pakdir=/builds/export --maintainer="EpicMorg, developer@epicm.org" --pkgname=nginx-custom  --install=no -y && \
 
-##################################################################
-#                   cleaninig up
-##################################################################
-RUN apt clean -y && \
+    apt clean -y && \
     apt autoclean -y && \
     rm -rfv /var/lib/apt/lists/* && \
     rm -rfv /var/cache/apt/archives/*.deb
@@ -182,13 +179,9 @@ RUN apt-get update && \
     ln -s /usr/local/lib/libIP2Location.so.1 /lib/libIP2Location.so.1 && \
     ln -sf /dev/stdout /var/log/nginx/access.log && \
     ln -sf /dev/stderr /var/log/nginx/error.log && \
-    openssl dhparam -out /etc/nginx/dhparam.pem 4096
+    openssl dhparam -out /etc/nginx/dhparam.pem 4096 && \
 
-
-##################################################################
-#                   cleaninig up
-##################################################################
-RUN apt clean -y && \
+    apt clean -y && \
     apt autoclean -y && \
     rm -rfv /var/lib/apt/lists/* && \
     rm -rfv /var/cache/apt/archives/*.deb && \
