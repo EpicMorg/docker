@@ -3,6 +3,19 @@ LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
 ##################################################################
+#                   ARGuments
+##################################################################
+ENV BuildDocker true
+ARG BUILDS_DIR=/builds
+ARG SRC_DIR=${BUILDS_DIR}/src
+ARG EXPORT_DIR=${BUILDS_DIR}/export
+
+##################################################################
+#                   Files and folders
+##################################################################
+RUN mkdir -p ${SRC_DIR} ${EXPORT_DIR} ${PRE_DIR}
+
+##################################################################
 #                   sid sources list
 ##################################################################
 RUN rm /etc/apt/sources.list
@@ -63,14 +76,14 @@ RUN apt-get update && \
     dh-make
 
 ##################################################################
-#                   IP2Location support
+#                   IP2Location support for prod nginx module
 ##################################################################
-RUN cd /tmp && \
+RUN cd ${SRC_DIR} && \
     git clone https://github.com/chrislim2888/IP2Location-C-Library.git ip2 && \
-    cd /tmp/ip2 && \
+    cd ${SRC_DIR}/ip2 && \
     ./build.sh && \
-    checkinstall --pkgversion=$(date +%Y%m%d%H%M) && \
-    rm -rfv /tmp/ip2
+    fakeroot checkinstall -D --pkgversion=$(date +%Y%m%d%H%M) --pakdir=${EXPORT_DIR} --maintainer="EpicMorg, developer@epicm.org" --pkgname=ip2-custom  --conflicts=ip2 --install=yes -y && \
+    rm -rfv ${SRC_DIR}/*
 
 ##################################################################
 #                   nginx deps

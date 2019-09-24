@@ -1,10 +1,11 @@
-FROM epicmorg/devel
+FROM epicmorg/devel AS builder
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
 ##################################################################
 #                   ARGuments
 ##################################################################
+ENV BuildDocker true
 ARG BUILDS_DIR=/builds
 ARG SRC_DIR=${BUILDS_DIR}/src
 ARG EXPORT_DIR=${BUILDS_DIR}/export
@@ -18,13 +19,12 @@ ARG LUAJIT_LIB=/usr/local/lib
 ##################################################################
 #                   Files and folders
 ##################################################################
-RUN mkdir -p ${SRC_DIR} ${EXPORT_DIR} ${PRE_DIR} ${NGINX_SRC_DIR} /usr/lib/nginx
-ADD pre/ngninx.pre.tar.gz /
+RUN mkdir -p ${PRE_DIR}  ${NGINX_SRC_DIR} /usr/lib/nginx
 ADD pre/luajit2-description-pak ${PRE_DIR}
 ADD pre/nginx-description-pak ${PRE_DIR}
 
 ##################################################################
-#                   luaJIT 2 compilling for nginx module
+#                   luaJIT 2 support for prod nginx module
 ##################################################################
 RUN cd ${SRC_DIR} && \
     git clone https://github.com/openresty/luajit2.git luajit2 && \
@@ -154,13 +154,43 @@ RUN apt clean -y && \
     rm -rfv /var/lib/apt/lists/* && \
     rm -rfv /var/cache/apt/archives/*.deb
 
+##################################################################
+##################################################################
+##################################################################
+
 FROM epicmorg/prod
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
-COPY --from-build
+##################################################################
+#                   Installing nginx from deb
+##################################################################
+ADD pre/ngninx.pre.tar.gz /
+COPY --from=builder /builds/export /tmp/deb
+RUN apt-get update && \
+    apt-get install -y  --allow-unauthenticated \
+    geoip-database \
+    geoip-bin \
+    libgeoip1 \
+    libmaxminddb0 \
+    libgd3 \
+    libxslt1.1 && \
+    dpkg --force-all -i /tmp/deb/*.deb && \
+    ln -s /usr/local/lib/libIP2Location.so /usr/lib/libIP2Location.so && \
+    ln -s /usr/local/lib/libIP2Location.so.1 /usr/lib/libIP2Location.so.1 && \
+    ln -s /usr/local/lib/libIP2Location.so /lib/libIP2Location.so && \
+    ln -s /usr/local/lib/libIP2Location.so.1 /lib/libIP2Location.so.1
 
-final config
+##################################################################
+#                   cleaninig up
+##################################################################
+RUN apt clean -y && \
+    apt autoclean -y && \
+    rm -rfv /var/lib/apt/lists/* && \
+    rm -rfv /var/cache/apt/archives/*.deb && \
+    rm -rfv /tmp/deb/*
+
+#Final config
 VOLUME ["/var/cache/nginx"]
 EXPOSE 80 443
 
