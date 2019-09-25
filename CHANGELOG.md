@@ -1,4 +1,11 @@
 ## Changelog
+* 09/22-25/2019
+    * added our base images - `epicmorg/prod` for our production containers and `epicmorg/devel` for `TeamCity Agent` and temp images for builds.
+    * iur custom teamcity contaner migrated to `epicmorg/devel` base image.
+    * fully reworked `nginx:latest` contaner + added php support (`nginx:php`). now it building by us. and old custom contaner moved to `nginx:legacy` tag.
+* 09/01-22/2019
+    * added custom build of `TeamCity Agent. additionally added support on SourceSDK out of the box.
+    * fixed `nextcloud` image.
 * 08/16/2019
     * zabbix, added  anget, java gw
 * 08/15/2019
