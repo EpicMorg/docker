@@ -23,30 +23,18 @@ COPY sources.list /etc/apt/sources.list
 RUN apt autoremove -y && apt update && apt dist-upgrade -y
 
 ##################################################################
-#                   steam runtime and ssdk
-##################################################################
-
-RUN apt-get update && \
-    apt install -y --allow-unauthenticated \
-    build-essential \
-    gcc-multilib \
-    g++-multilib
-
-RUN cd / && \
-    sudo mkdir valve && \
-    cd valve && \
-    sudo wget http://media.steampowered.com/client/runtime/steam-runtime-sdk_latest.tar.xz && \
-    sudo tar xvf steam-runtime-sdk_latest.tar.xz && \
-    sudo mv steam-runtime-sdk_2013-09-05 steam-runtime && \
-    sudo chown root:root * -R && \
-    cd steam-runtime && \
-    printf '%s\n' 3 1 Y Y Y | ./setup.sh
-
-##################################################################
 #                   retroarch deps
 ##################################################################
+#                   deb creating
+##################################################################
+#                   nginx deps
+##################################################################
+
 RUN apt-get update && \
-    apt install -y --allow-unauthenticated \
+    apt install -y --allow-unauthenticated --allow-downgrades \
+    build-essential \
+    gcc-multilib \
+    g++-multilib \
     libxkbcommon-dev \
     zlib1g-dev \
     libfreetype6-dev \
@@ -58,13 +46,7 @@ RUN apt-get update && \
     libavcodec-dev \
     libsdl2-dev \
     libsdl-image1.2-dev \
-    libxml2-dev yasm
-
-##################################################################
-#                   deb creating
-##################################################################
-RUN apt-get update && \
-    apt install -y --allow-unauthenticated \
+    libxml2-dev yasm \
     devscripts \
     autoconf \
     automake \
@@ -73,13 +55,7 @@ RUN apt-get update && \
     dpkg-dev \
     fakeroot \
     checkinstall \
-    dh-make
-
-##################################################################
-#                   nginx deps
-##################################################################
-RUN apt-get update && \
-    apt install -y --allow-unauthenticated \
+    dh-make \
     zlibc \
     zlib1g \
     zlib1g-dev \
@@ -110,6 +86,19 @@ RUN apt-get update && \
     libvpx-dev \
     libvpx6=1.8.1-dmo1 \
     tcl
+
+##################################################################
+#                   steam runtime and ssdk
+##################################################################
+RUN cd / && \
+    sudo mkdir valve && \
+    cd valve && \
+    sudo wget http://media.steampowered.com/client/runtime/steam-runtime-sdk_latest.tar.xz && \
+    sudo tar xvf steam-runtime-sdk_latest.tar.xz && \
+    sudo mv steam-runtime-sdk_2013-09-05 steam-runtime && \
+    sudo chown root:root * -R && \
+    cd steam-runtime && \
+    printf '%s\n' 3 1 Y Y Y | ./setup.sh
 
 ##################################################################
 #                   IP2Location support for prod nginx module
