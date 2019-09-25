@@ -7,7 +7,6 @@ addons:
   apt:
     packages:
       - docker-ce
-
 jobs:
   include:
     - stage: Base Production image
