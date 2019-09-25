@@ -11,23 +11,55 @@ addons:
 jobs:
   include:
     - stage: Base Production image
-      script: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin && docker build --rm --compress --force-rm -t epicmorg/prod:latest epicmorg/prod && docker push epicmorg/prod:latest
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/prod:latest epicmorg/prod
+      - docker push epicmorg/prod:latest
+      
     - stage: Base develop image
-      script: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin && docker build --rm --compress --force-rm -t epicmorg/devel:latest epicmorg/devel  && docker push epicmorg/devel:latest
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/devel:latest epicmorg/devel
+      - docker push epicmorg/devel:latest
+      
     - stage: Nginx image
-      script: docker build --rm --compress --force-rm -t epicmorg/balancer:latest balancer/latest
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/balancer:latest balancer/latest
+      - docker push epicmorg/balancer:latest
+      
     - stage: Nginx-php image
-      script: docker build --rm --compress --force-rm -t epicmorg/balancer:php balancer/php
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/balancer:php balancer/php
+      - docker push epicmorg/php:latest
+      
     - stage: TeamCityAgent image
-      script: docker build --rm --compress --force-rm -t epicmorg/teamcity-agent:latest teamcity-agent
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/teamcity-agent:latest teamcity-agent
+      - docker push epicmorg/teamcity-agent:latest
+      
     - stage: Jira image
-      script: docker build --rm --compress --force-rm -t epicmorg/jira:latest jira/latest
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/jira:latest jira/latest
+      - docker push epicmorg/jira:latest
+      
     - stage: Jira 7.10.0 image
-      script: docker build --rm --compress --force-rm -t epicmorg/jira:latest jira/7.10.0
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/jira:7.10.0 jira/7.10.0
+      - docker push epicmorg/jira:7.10.0
+      
     - stage: Jira lts image
-      script: docker build --rm --compress --force-rm -t epicmorg/jira:latest jira/7.13.3
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/jira:7.13.3 jira/7.13.3
+      - docker push epicmorg/jira:7.13.3
+      
 #future migrated builds
 #    - stage: Confluence image
-#      script: docker build --rm --compress --force-rm -t epicmorg/confluence:latest  confluence/latest
+#      script: docker build --compress -t epicmorg/confluence:latest  confluence/latest
 #    - stage: Bitbucket image
-#      script: docker build --rm --compress --force-rm -t epicmorg/bitbucket:latest  bitbucket/latest
+#      script: docker build --compress -t epicmorg/bitbucket:latest  bitbucket/latest
