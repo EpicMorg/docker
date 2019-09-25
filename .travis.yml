@@ -12,4 +12,4 @@ jobs:
   include:
     - stage: "EpicMorg production image"
       install: skip
-      script: build --rm --compress --force-rm -t epicmorg/prod .
+      script: docker build --rm --compress --force-rm -t epicmorg/prod:latest epicmorg/prod/Dockerfile
