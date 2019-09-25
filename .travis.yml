@@ -32,7 +32,7 @@ jobs:
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/balancer:php balancer/php
-      - docker push epicmorg/php:latest
+      - docker push epicmorg/balancer:php
       
     - stage: TeamCityAgent image
       script:
