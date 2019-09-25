@@ -9,7 +9,17 @@ addons:
       - docker-ce
 jobs:
   include:
-    - stage: EpicMorg Production image
+    - stage: Base Production image
       script: docker build --rm --compress --force-rm -t epicmorg/prod:latest  epicmorg/prod
-    - stage: EpicMorg Develop image
+    - stage: Base develop image
       script: docker build --rm --compress --force-rm -t epicmorg/devel:latest  epicmorg/devel
+    - stage: Nginx image
+      script: docker build --rm --compress --force-rm -t epicmorg/balancer:latest  epicmorg/balancer/latest
+    - stage: Nginx-php image
+#      script: docker build --rm --compress --force-rm -t epicmorg/balancer:php  epicmorg/balancer/php
+#    - stage: Jira image
+#      script: docker build --rm --compress --force-rm -t epicmorg/jira:latest  epicmorg/jira/latest
+#    - stage: Confluence image
+#      script: docker build --rm --compress --force-rm -t epicmorg/confluence:latest  epicmorg/confluence/latest
+#    - stage: Bitbucket image
+#      script: docker build --rm --compress --force-rm -t epicmorg/bitbucket:latest  epicmorg/bitbucket/latest
