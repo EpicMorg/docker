@@ -10,13 +10,16 @@ addons:
 jobs:
   include:
     - stage: Base Production image
-      script: docker build --rm --compress --force-rm -t epicmorg/prod:latest  epicmorg/prod
+      script: docker build --rm --compress --force-rm -t epicmorg/prod:latest epicmorg/prod
     - stage: Base develop image
-      script: docker build --rm --compress --force-rm -t epicmorg/devel:latest  epicmorg/devel
+      script: docker build --rm --compress --force-rm -t epicmorg/devel:latest epicmorg/devel
     - stage: Nginx image
-      script: docker build --rm --compress --force-rm -t epicmorg/balancer:latest  epicmorg/balancer/latest
+      script: docker build --rm --compress --force-rm -t epicmorg/balancer:latest epicmorg/balancer/latest
     - stage: Nginx-php image
-#      script: docker build --rm --compress --force-rm -t epicmorg/balancer:php  epicmorg/balancer/php
+      script: docker build --rm --compress --force-rm -t epicmorg/balancer:php epicmorg/balancer/php
+    - stage: TeamCityAgent image
+      script: docker build --rm --compress --force-rm -t epicmorg/teamcity-agent:latest epicmorg/pteamcity-agent
+#future migrated builds
 #    - stage: Jira image
 #      script: docker build --rm --compress --force-rm -t epicmorg/jira:latest  epicmorg/jira/latest
 #    - stage: Confluence image
