@@ -107,6 +107,7 @@ RUN apt-get update && \
     libzip-dev \
     libcrypto++-dev \
     libbz2-dev \
+    libvpx-dev \
     tcl
 
 ##################################################################
