@@ -11,8 +11,7 @@ script: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-
 jobs:
   include:
     - stage: Base Production image
-      script: docker build --rm --compress --force-rm -t epicmorg/prod:latest epicmorg/prod
-      script: docker push epicmorg/prod:latest
+      script: docker build --rm --compress --force-rm -t epicmorg/prod:latest epicmorg/prod && docker push epicmorg/prod:latest
     - stage: Base develop image
       script: docker build --rm --compress --force-rm -t epicmorg/devel:latest epicmorg/devel
     - stage: Nginx image
