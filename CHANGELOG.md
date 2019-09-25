@@ -1,11 +1,16 @@
 ## Changelog
-* 09/22-25/2019
+* 09/25/2019
+    * added `Travis CI` like a builds validator. Only for stable `latest` releases.
+    * `jira`, `bitbucket`, `confluence` mgrated to new base images.
+    * nginx updated to `1.17.4`.
+* 09/22-24/2019
     * added our base images - `epicmorg/prod` for our production containers and `epicmorg/devel` for `TeamCity Agent` and temp images for builds.
-    * iur custom teamcity contaner migrated to `epicmorg/devel` base image.
+    * our custom teamcity contaner migrated to `epicmorg/devel` base image.
     * fully reworked `nginx:latest` contaner + added php support (`nginx:php`). now it building by us. and old custom contaner moved to `nginx:legacy` tag.
     * `jira` updated.
     * `bitbucket` updated.
     * `confluence` updated. `latest` tag is still using 6.15.x version. not 7.x. it is temprorary.
+    * added `Travis CI` like a builds validator. Only for stable `latest` releases.
 * 09/01-22/2019
     * added custom build of `TeamCity Agent`. additionally added support on SourceSDK out of the box.
     * fixed `nextcloud` image.

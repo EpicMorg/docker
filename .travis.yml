@@ -19,9 +19,13 @@ jobs:
       script: docker build --rm --compress --force-rm -t epicmorg/balancer:php epicmorg/balancer/php
     - stage: TeamCityAgent image
       script: docker build --rm --compress --force-rm -t epicmorg/teamcity-agent:latest epicmorg/pteamcity-agent
+    - stage: Jira image
+      script: docker build --rm --compress --force-rm -t epicmorg/jira:latest  epicmorg/jira/latest
+    - stage: Jira 7.10.0 image
+      script: docker build --rm --compress --force-rm -t epicmorg/jira:latest  epicmorg/jira/7.10.0
+    - stage: Jira lts image
+      script: docker build --rm --compress --force-rm -t epicmorg/jira:latest  epicmorg/jira/7.13.3
 #future migrated builds
-#    - stage: Jira image
-#      script: docker build --rm --compress --force-rm -t epicmorg/jira:latest  epicmorg/jira/latest
 #    - stage: Confluence image
 #      script: docker build --rm --compress --force-rm -t epicmorg/confluence:latest  epicmorg/confluence/latest
 #    - stage: Bitbucket image
