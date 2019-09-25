@@ -1,6 +1,6 @@
 #main
-deb http://ftp.ru.debian.org/debian/ sid main contrib non-free
-deb-src http://ftp.ru.debian.org/debian/ sid main contrib non-free
+deb http://ftp.ru.debian.org/debian/ testing main contrib non-free
+deb-src http://ftp.ru.debian.org/debian/ testing main contrib non-free
 deb http://ftp.ru.debian.org/debian/ testing-updates main contrib non-free
 deb-src http://ftp.ru.debian.org/debian/ testing-updates main contrib non-free
 deb http://ftp.ru.debian.org/debian/ testing-proposed-updates main contrib non-free

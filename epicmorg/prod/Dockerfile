@@ -33,6 +33,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     htop \
     iftop \
     iputils-ping \
+    kmod \
     libzip4 \
     locales \
     lsb-release \
