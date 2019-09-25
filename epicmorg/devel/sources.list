@@ -1,15 +1,15 @@
 #main
 deb http://ftp.ru.debian.org/debian/ unstable main contrib non-free
 deb-src http://ftp.ru.debian.org/debian/ unstable main contrib non-free
-deb http://ftp.ru.debian.org/debian/ unstable-updates main contrib non-free
-deb-src http://ftp.ru.debian.org/debian/ unstable-updates main contrib non-free
-deb http://ftp.ru.debian.org/debian/ unstable-proposed-updates main contrib non-free
-deb-src http://ftp.ru.debian.org/debian/ unstable-proposed-updates main contrib non-free
+deb http://ftp.ru.debian.org/debian/ sid-updates main contrib non-free
+deb-src http://ftp.ru.debian.org/debian/ sid-updates main contrib non-free
+deb http://ftp.ru.debian.org/debian/ sid-proposed-updates main contrib non-free
+deb-src http://ftp.ru.debian.org/debian/ sid-proposed-updates main contrib non-free
 
 #multimedia
 deb http://ftp.ru.debian.org/debian-multimedia/ unstable main non-free
 deb-src http://ftp.ru.debian.org/debian-multimedia/ unstable main non-free
 
 #security
-deb http://ftp.ru.debian.org/debian-security/ unstable-security main contrib non-free
-deb-src http://ftp.ru.debian.org/debian-security/ unstable-security main contrib non-free
+deb http://ftp.ru.debian.org/debian-security/ sid-security main contrib non-free
+deb-src http://ftp.ru.debian.org/debian-security/ sid-security main contrib non-free
