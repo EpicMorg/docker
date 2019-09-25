@@ -7,26 +7,28 @@ addons:
   apt:
     packages:
       - docker-ce
+script: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 jobs:
   include:
     - stage: Base Production image
       script: docker build --rm --compress --force-rm -t epicmorg/prod:latest epicmorg/prod
+      script: docker push epicmorg/prod:latest
     - stage: Base develop image
       script: docker build --rm --compress --force-rm -t epicmorg/devel:latest epicmorg/devel
     - stage: Nginx image
-      script: docker build --rm --compress --force-rm -t epicmorg/balancer:latest epicmorg/balancer/latest
+      script: docker build --rm --compress --force-rm -t epicmorg/balancer:latest balancer/latest
     - stage: Nginx-php image
-      script: docker build --rm --compress --force-rm -t epicmorg/balancer:php epicmorg/balancer/php
+      script: docker build --rm --compress --force-rm -t epicmorg/balancer:php balancer/php
     - stage: TeamCityAgent image
-      script: docker build --rm --compress --force-rm -t epicmorg/teamcity-agent:latest epicmorg/pteamcity-agent
+      script: docker build --rm --compress --force-rm -t epicmorg/teamcity-agent:latest teamcity-agent
     - stage: Jira image
-      script: docker build --rm --compress --force-rm -t epicmorg/jira:latest  epicmorg/jira/latest
+      script: docker build --rm --compress --force-rm -t epicmorg/jira:latest jira/latest
     - stage: Jira 7.10.0 image
-      script: docker build --rm --compress --force-rm -t epicmorg/jira:latest  epicmorg/jira/7.10.0
+      script: docker build --rm --compress --force-rm -t epicmorg/jira:latest jira/7.10.0
     - stage: Jira lts image
-      script: docker build --rm --compress --force-rm -t epicmorg/jira:latest  epicmorg/jira/7.13.3
+      script: docker build --rm --compress --force-rm -t epicmorg/jira:latest jira/7.13.3
 #future migrated builds
 #    - stage: Confluence image
-#      script: docker build --rm --compress --force-rm -t epicmorg/confluence:latest  epicmorg/confluence/latest
+#      script: docker build --rm --compress --force-rm -t epicmorg/confluence:latest  confluence/latest
 #    - stage: Bitbucket image
-#      script: docker build --rm --compress --force-rm -t epicmorg/bitbucket:latest  epicmorg/bitbucket/latest
+#      script: docker build --rm --compress --force-rm -t epicmorg/bitbucket:latest  bitbucket/latest
