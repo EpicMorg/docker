@@ -3,6 +3,9 @@
     * added our base images - `epicmorg/prod` for our production containers and `epicmorg/devel` for `TeamCity Agent` and temp images for builds.
     * iur custom teamcity contaner migrated to `epicmorg/devel` base image.
     * fully reworked `nginx:latest` contaner + added php support (`nginx:php`). now it building by us. and old custom contaner moved to `nginx:legacy` tag.
+    * `jira` updated.
+    * `bitbucket` updated.
+    * `confluence` updated. `latest` tag is still using 6.15.x version. not 7.x. it is temprorary.
 * 09/01-22/2019
     * added custom build of `TeamCity Agent`. additionally added support on SourceSDK out of the box.
     * fixed `nextcloud` image.
@@ -11,7 +14,8 @@
 * 08/15/2019
     * zabbix, fixed version. web and server.
 * 08/05/2019
-    * `jira`, `bitbucket` updated.
+    * `bitbucket` updated.
+    * `jira` updated.
 * 07/16/2019
     * `confluence` updated.
 * 07/14/2019
