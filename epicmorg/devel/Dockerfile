@@ -108,6 +108,7 @@ RUN apt-get update && \
     libcrypto++-dev \
     libbz2-dev \
     libvpx-dev \
+    libvpx6 \
     tcl
 
 ##################################################################
