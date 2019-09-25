@@ -5,6 +5,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 #                   buster sources list
 ##################################################################
+COPY deb-multimedia-keyring.gpg /etc/apt/trusted.gpg.d/deb-multimedia-keyring.gpg
 RUN rm /etc/apt/sources.list
 COPY sources.list /etc/apt/sources.list
 RUN apt update && apt dist-upgrade -y
