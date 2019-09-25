@@ -1,15 +1,12 @@
-language: c
-
+language: bash
+dist: buster
 services:
-  - docker
-
+  - docker 
 addons:
   apt:
     packages:
-      - docker-ce
-
+      - docker-ce 
 jobs:
   include:
-    - stage: "EpicMorg production image"
-      install: skip
-      script: docker build --rm --compress --force-rm -t epicmorg/prod:latest epicmorg/prod/Dockerfile
+    - stage: EpicMorg production image
+      script: docker build --rm --compress --force-rm -t epicmorg/prod:latest -f epicmorg/prod/Dockerfile
