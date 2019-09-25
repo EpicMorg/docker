@@ -13,7 +13,7 @@ jobs:
     - stage: Base Production image
       script: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin && docker build --rm --compress --force-rm -t epicmorg/prod:latest epicmorg/prod && docker push epicmorg/prod:latest
     - stage: Base develop image
-      script: docker build --rm --compress --force-rm -t epicmorg/devel:latest epicmorg/devel
+      script: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin && docker build --rm --compress --force-rm -t epicmorg/devel:latest epicmorg/devel  && docker push epicmorg/devel:latest
     - stage: Nginx image
       script: docker build --rm --compress --force-rm -t epicmorg/balancer:latest balancer/latest
     - stage: Nginx-php image
