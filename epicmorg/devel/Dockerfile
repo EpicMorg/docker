@@ -20,7 +20,7 @@ RUN mkdir -p ${SRC_DIR} ${EXPORT_DIR} ${PRE_DIR}
 ##################################################################
 RUN rm /etc/apt/sources.list
 COPY sources.list /etc/apt/sources.list
-RUN apt update && apt dist-upgrade -y
+RUN apt autoremove -y && apt update && apt dist-upgrade -y
 
 ##################################################################
 #                   steam runtime and ssdk
@@ -108,7 +108,7 @@ RUN apt-get update && \
     libcrypto++-dev \
     libbz2-dev \
     libvpx-dev \
-    libvpx6 \
+    libvpx6=1.8.1-dmo1 \
     tcl
 
 ##################################################################
