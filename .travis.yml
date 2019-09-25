@@ -7,11 +7,11 @@ addons:
   apt:
     packages:
       - docker-ce
-script: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+
 jobs:
   include:
     - stage: Base Production image
-      script: docker build --rm --compress --force-rm -t epicmorg/prod:latest epicmorg/prod && docker push epicmorg/prod:latest
+      script: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin && docker build --rm --compress --force-rm -t epicmorg/prod:latest epicmorg/prod && docker push epicmorg/prod:latest
     - stage: Base develop image
       script: docker build --rm --compress --force-rm -t epicmorg/devel:latest epicmorg/devel
     - stage: Nginx image
