@@ -1,4 +1,7 @@
 ## Changelog
+* 09/26/2019
+    * Atlassian images fully migrated to new base.
+    * All images will be CI with TravisCI. Not only `latest` and `lts`. Yay!
 * 09/25/2019
     * added `Travis CI` like a builds validator. Only for stable `latest` releases.
     * `jira`, `bitbucket`, `confluence` mgrated to new base images.

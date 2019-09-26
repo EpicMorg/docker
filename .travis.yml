@@ -1,6 +1,6 @@
-language: bash
 os: linux
 dist: buster
+language: bash
 services:
   - docker
 addons:
@@ -9,56 +9,137 @@ addons:
       - docker-ce
 jobs:
   include:
-    - stage: Base Production image
+#########################################
+####  forks of images
+#########################################
+    - stage: Zabbix agent
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/zabbix-agent:latest zabbix/agent
+      - docker push epicmorg/zabbix-agent:latest
+
+    - stage: Zabbix java gateway
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/zabbix-java-gateway:latest zabbix/java-gateway
+      - docker push epicmorg/zabbix-java-gateway:latest
+
+    - stage: Zabbix server
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/zabbix-server-mysql:latest zabbix/server
+      - docker push epicmorg/zabbix-server-mysql:latest
+
+    - stage: Zabbix web
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/zabbix-web-apache-mysql:latest zabbix/web
+      - docker push epicmorg/zabbix-web-apache-mysql:latest
+
+    - stage: NextCloud
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/nextcloud:latest nextcloud
+      - docker push epicmorg/nextcloud:latest
+
+#########################################
+####  Our High priority images
+#########################################
+
+    - stage: Base Production
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/prod:latest epicmorg/prod
       - docker push epicmorg/prod:latest
       
-    - stage: Base develop image
+    - stage: Base develop
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/devel:latest epicmorg/devel
       - docker push epicmorg/devel:latest
-      
-    - stage: Nginx image
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker build --compress -t epicmorg/balancer:latest balancer/latest
-      - docker push epicmorg/balancer:latest
-      
-    - stage: Nginx-php image
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker build --compress -t epicmorg/balancer:php balancer/php
-      - docker push epicmorg/balancer:php
-      
+
     - stage: TeamCityAgent image
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/teamcity-agent:latest teamcity-agent
       - docker push epicmorg/teamcity-agent:latest
-      
+
+    - stage: Nginx image
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/balancer:latest balancer/latest
+      - docker push epicmorg/balancer:latest
+
+    - stage: Nginx-php image
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/balancer:php balancer/php
+      - docker push epicmorg/balancer:php
+
+    - stage: Apache+PHP7 image
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/websites:latest websites/latest
+      - docker push epicmorg/websites:latest
+
+    - stage: Apache+PHP7.2 image
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/websites:php7.2 websites/php7.2
+      - docker push epicmorg/websites:php7.2
+
     - stage: Jira Latest image
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker build --compress -t epicmorg/jira:latest jira/latest
+      - docker build --compress -t epicmorg/jira:latest atlassian/jira/latest
       - docker push epicmorg/jira:latest
-      
+
     - stage: Jira 7.10.0 image
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker build --compress -t epicmorg/jira:7.10.0 jira/7.10.0
+      - docker build --compress -t epicmorg/jira:7.10.0 atlassian/jira/7.10.0
       - docker push epicmorg/jira:7.10.0
-      
+
+    - stage: Confluence Latest image
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/confluence:latest atlassian/confluence/latest
+      - docker push epicmorg/confluence:latest
+
+    - stage: Confluence 6.9.0 image
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/confluence:6.9.0 atlassian/confluence/6.9.0
+      - docker push epicmorg/confluence:6.9.0
+
+    - stage: Bitbucket Latest image
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/bitbucket:latest atlassian/bitbucket/latest
+      - docker push epicmorg/bitbucket:latest
+
+
+#########################################
+####  Our medium priority images
+#########################################
+
     - stage: Jira 7.13.3 image
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker build --compress -t epicmorg/jira:7.13.3 jira/7.13.3
+      - docker build --compress -t epicmorg/jira:7.13.3 atlassian/jira/7.13.3
       - docker push epicmorg/jira:7.13.3
-      
-#future migrated builds
-#    - stage: Confluence image
-#      script: docker build --compress -t epicmorg/confluence:latest  confluence/latest
-#    - stage: Bitbucket image
-#      script: docker build --compress -t epicmorg/bitbucket:latest  bitbucket/latest
+
+    - stage: Confluence 6.13.4 image
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/confluence:6.9.0 atlassian/confluence/6.9.0
+      - docker push epicmorg/confluence:6.13.4
+
+#########################################
+####  Our minor priority images
+#########################################
+#    - stage: Name of image
+#      script:
+#      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+#      - docker build --compress -t epicmorg/repo:tag path/to/folder
+#      - docker push epicmorg/repo:tag

@@ -1,4 +1,4 @@
 all: zjg
 zjg:
-	docker build --compress -t zabbix-java-gateway .
+	docker build --compress -t epicmorg/zabbix-java-gateway .
 
