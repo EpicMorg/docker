@@ -350,7 +350,7 @@ matrix:
       - docker build --compress -t epicmorg/confluence:6.15.1 atlassian/confluence/6.15.1
       - docker push epicmorg/confluence:6.15.1
 
-      - name: Confluence 6.15.2
+    - name: Confluence 6.15.2
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/confluence:6.15.2 atlassian/confluence/6.15.2
