@@ -9,7 +9,8 @@ addons:
       - docker-ce
 jobs:
   include:
-    - stage: Base Production image
+    - stage: base_production_image
+      name: "Base Production image"
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/prod:latest epicmorg/prod
