@@ -9,8 +9,7 @@ addons:
       - docker-ce
 jobs:
   include:
-    - stage: base_production_image
-      name: "Base Production image"
+    - stage: Base Production image
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/prod:latest epicmorg/prod
@@ -40,7 +39,7 @@ jobs:
       - docker build --compress -t epicmorg/teamcity-agent:latest teamcity-agent
       - docker push epicmorg/teamcity-agent:latest
       
-    - stage: Jira image
+    - stage: Jira Latest image
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/jira:latest jira/latest
@@ -52,7 +51,7 @@ jobs:
       - docker build --compress -t epicmorg/jira:7.10.0 jira/7.10.0
       - docker push epicmorg/jira:7.10.0
       
-    - stage: Jira lts image
+    - stage: Jira 7.13.3 image
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/jira:7.13.3 jira/7.13.3
