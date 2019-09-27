@@ -1,6 +1,6 @@
 FROM debian:buster
 MAINTAINER Anatoliy Zimovskiy <stam@epicm.org>
-
+ 
 ENV DEBIAN_FRONTEND noninteractive
 
 #editing sources list
