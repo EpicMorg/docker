@@ -1,4 +1,6 @@
 ## Changelog
+* 09/27/2019
+    * updated confluence `latest` tag to `7.0.1`.
 * 09/26/2019
     * Atlassian images fully migrated to new base.
     * All images will be CI with TravisCI. Not only `latest` and `lts`. Yay!
