@@ -41,6 +41,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     lynx \
     mc \
     nano \
+    nmap \
     openssl \
     perl \
     procps \
@@ -48,13 +49,13 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     screenfetch \
     smbclient \
     sudo \
+    telnet \
     tini \
     tmux \
     tree \
     ttf-dejavu \
     util-linux \
     uuid-runtime \
-    telnet \
     wget
 
 ##################################################################
