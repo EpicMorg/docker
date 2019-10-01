@@ -1,32 +1,31 @@
 FROM ruby:buster
 LABEL maintainer="Tim Perry <pimterry@gmail.com>; EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
- 
+
 USER root
+
+COPY --from=epicmorg/prod /etc/locale.gen /etc/locale.gen
+COPY --from=epicmorg/prod /etc/apt/sources.list /etc/apt/sources.list
+COPY --from=epicmorg/prod /etc/apt/trusted.gpg.d/deb-multimedia-keyring.gpg /etc/apt/trusted.gpg.d/deb-multimedia-keyring.gpg
+COPY entrypoint.sh /entrypoint.sh
 
 RUN apt update && \
     apt dist-upgrade -y && \
-    # Set password to temp-password - reset to random password on startup
-    echo mysql-server mysql-server/root_password password temp-password | debconf-set-selections && \
-    echo mysql-server mysql-server/root_password_again password temp-password | debconf-set-selections && \   
-    # Instal MySQL for data, node as the JS engine for uglifier
-    apt-get install -y mysql-server nodejs git && \
+    # node as the JS engine for uglifier
+    apt-get install -y nodejs git && \
     gem update --system && \
     gem install bundler && \
     rm -rfv /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN cd /opt && \
     git clone https://github.com/adamcooke/staytus.git staytus && \
-    cd /opt/staytus && \ 
-    bundle update  --all && \ 
+    cd /opt/staytus && \
+    bundle update  --all && \
     bundle install --deployment --without development:test
 
-ENTRYPOINT /opt/staytus/docker-start.sh
+ENTRYPOINT /entrypoint.sh
 
-# Persists all DB state
-VOLUME /var/lib/mysql
-
-# Persists copies of other relevant files (DB config, custom themes). Contents of this are copied 
+# Persists copies of other relevant files (DB config, custom themes). Contents of this are copied
 # to the relevant places each time the container is started
 VOLUME /opt/staytus/persisted
 
