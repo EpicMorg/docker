@@ -31,5 +31,6 @@ RUN apt update -y && \
      nano \
      php-cli \
      php-curl \
+     telnet \
      nmap && \
      echo "zabbix ALL=(ALL) NOPASSWD: /usr/bin/nmap" > /etc/sudoers.d/zabbix
