@@ -54,6 +54,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     ttf-dejavu \
     util-linux \
     uuid-runtime \
+    telnet \
     wget
 
 ##################################################################
