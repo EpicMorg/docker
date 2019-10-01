@@ -4,21 +4,22 @@ ARG DEBIAN_FRONTEND=noninteractive
  
 USER root
 
-RUN apt-get update && \
-    export DEBIAN_FRONTEND=noninteractive && \
+RUN apt update && \
+    apt dist-upgrade -y && \
     # Set password to temp-password - reset to random password on startup
     echo mysql-server mysql-server/root_password password temp-password | debconf-set-selections && \
     echo mysql-server mysql-server/root_password_again password temp-password | debconf-set-selections && \   
     # Instal MySQL for data, node as the JS engine for uglifier
-    apt-get install -y mysql-server nodejs && \
-    gem update --system 2.6.1 && \
-    gem install bundler
+    apt-get install -y mysql-server nodejs git && \
+    gem update --system && \
+    gem install bundler && \
+    rm -rfv /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-COPY . /opt/staytus
-
-RUN cd /opt/staytus && \ && \
-    bundle install --deployment --without development:test && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN cd /opt && \
+    git clone https://github.com/adamcooke/staytus.git staytus && \
+    cd /opt/staytus && \ 
+    bundle update  --all && \ 
+    bundle install --deployment --without development:test
 
 ENTRYPOINT /opt/staytus/docker-start.sh
 
