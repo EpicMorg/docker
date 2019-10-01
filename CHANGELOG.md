@@ -1,4 +1,6 @@
 ## Changelog
+* 10/01/2019
+    * added `nmap` to `zabbix-server`. sorry.
 * 09/27/2019
     * updated confluence `latest` tag to `7.0.1`.
 * 09/26/2019
