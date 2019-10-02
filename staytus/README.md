@@ -4,6 +4,7 @@ This is a custom improved image from this [original repository](https://github.c
 ## How to
 * Install databese and setup user
 * Install container and connect to database
+* dont forget about static files! `/opt/staytus/public/assets`
 
 ## Compose example
 
