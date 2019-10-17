@@ -13,14 +13,12 @@ RUN apt update && \
     apt dist-upgrade -y && \
     # node as the JS engine for uglifier
     apt-get install -y nodejs git && \
-    gem update --system && \
     gem install bundler && \
     rm -rfv /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN cd /opt && \
     git clone https://github.com/adamcooke/staytus.git staytus && \
     cd /opt/staytus && \
-    bundle update  --all && \
     bundle install --deployment --without development:test
 
 ENTRYPOINT /entrypoint.sh
