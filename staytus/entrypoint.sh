@@ -2,6 +2,7 @@
 
 : ${DB_USER:=root}
 : ${DB_PASSWORD:=root}
+: ${DB_DB_DATABSE:=staytus}
 : ${DB_HOST:=127.0.0.1}
 #: ${DB_PORT:=3306}
 
@@ -18,6 +19,7 @@ if [ ! -f /opt/staytus/persisted/config/database.yml ]; then
   sed -i "s/username:.*/username: ${DB_USER}/" config/database.yml
   sed -i "s|password:.*|password: ${DB_PASSWORD}|" config/database.yml
   sed -i "s|host:.*|host: ${DB_HOST}|" config/database.yml
+  sed -i "s|database:.*|database: ${DB_DATABSE}|" config/database.yml
 
   # Copy the config to persist it, and later copy back on each start, to persist this config file 
   # without persisting all of /config (which is mostly app code)
