@@ -1,4 +1,7 @@
 ## Changelog
+* 10/22/2019
+    * updated `atlassian` stack.
+    * fixed `staytus` Dockerfile.
 * 10/02/2019
     * added custom fork of `staytus` dockerfile. original code [here](https://github.com/adamcooke/staytus).
 * 10/01/2019

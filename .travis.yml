@@ -215,6 +215,18 @@ matrix:
       - docker build --compress -t epicmorg/bitbucket:6.6.2 atlassian/bitbucket/6.6.2
       - docker push epicmorg/bitbucket:6.6.2
 
+    - name: Bitbucket 6.7.0
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/bitbucket:6.7.0 atlassian/bitbucket/6.7.0
+      - docker push epicmorg/bitbucket:6.7.0
+
+    - name: Bitbucket 6.7.1
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/bitbucket:6.7.1 atlassian/bitbucket/6.7.1
+      - docker push epicmorg/bitbucket:6.7.1
+
 #########################################
 ####  Our Confluence images
 #########################################
@@ -393,6 +405,20 @@ matrix:
       - docker push epicmorg/confluence:7.0.1
 
 
+    - name: Confluence 7.0.2
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/confluence:7.0.2 atlassian/confluence/7.0.2
+      - docker push epicmorg/confluence:7.0.2
+
+
+    - name: Confluence 7.0.3
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/confluence:7.0.3 atlassian/confluence/7.0.3
+      - docker push epicmorg/confluence:7.0.3
+
+
 #########################################
 ####  Our Jira images
 #########################################
@@ -558,7 +584,7 @@ matrix:
       - docker build --compress -t epicmorg/jira:8.3.4 atlassian/jira/8.3.4
       - docker push epicmorg/jira:8.3.4
 
-    - name: Jira 8.4.0 
+    - name: Jira 8.4.0
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/jira:8.4.0 atlassian/jira/8.4.0
@@ -569,6 +595,18 @@ matrix:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/jira:8.4.1 atlassian/jira/8.4.1
       - docker push epicmorg/jira:8.4.1
+
+    - name: Jira 8.4.2
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/jira:8.4.2 atlassian/jira/8.4.2
+      - docker push epicmorg/jira:8.4.2
+
+    - name: Jira 8.5.0
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/jira:8.5.0 atlassian/jira/8.5.0
+      - docker push epicmorg/jira:8.5.0
 
 #########################################
 ####  Our minor priority images
