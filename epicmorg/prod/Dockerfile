@@ -30,6 +30,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     git \
     gnupg \
     gnupg2 \
+    graphicsmagick \
     htop \
     iftop \
     iputils-ping \
@@ -56,7 +57,8 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     ttf-dejavu \
     util-linux \
     uuid-runtime \
-    wget
+    wget \
+    zip
 
 ##################################################################
 #                   installing java8
