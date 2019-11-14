@@ -227,6 +227,18 @@ matrix:
       - docker build --compress -t epicmorg/bitbucket:6.7.1 atlassian/bitbucket/6.7.1
       - docker push epicmorg/bitbucket:6.7.1
 
+    - name: Bitbucket 6.7.2
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/bitbucket:6.7.2 atlassian/bitbucket/6.7.2
+      - docker push epicmorg/bitbucket:6.7.2
+
+    - name: Bitbucket 6.8.0
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/bitbucket:6.8.0 atlassian/bitbucket/6.8.0
+      - docker push epicmorg/bitbucket:6.8.0
+
 #########################################
 ####  Our Confluence images
 #########################################
@@ -419,6 +431,20 @@ matrix:
       - docker push epicmorg/confluence:7.0.3
 
 
+    - name: Confluence 7.0.4
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/confluence:7.0.4 atlassian/confluence/7.0.4
+      - docker push epicmorg/confluence:7.0.4
+
+
+    - name: Confluence 7.1.0
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/confluence:7.1.0 atlassian/confluence/7.1.0
+      - docker push epicmorg/confluence:7.1.0
+
+
 #########################################
 ####  Our Jira images
 #########################################
@@ -607,6 +633,12 @@ matrix:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/jira:8.5.0 atlassian/jira/8.5.0
       - docker push epicmorg/jira:8.5.0
+
+    - name: Jira 8.5.1
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/jira:8.5.1 atlassian/jira/8.5.1
+      - docker push epicmorg/jira:8.5.1
 
 #########################################
 ####  Our minor priority images
