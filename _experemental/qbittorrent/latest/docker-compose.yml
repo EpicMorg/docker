@@ -1,0 +1,23 @@
+version: '3.7'
+services:
+  qbittorrent:
+    image: epicmorg/qbittorrent:latest
+    restart: always
+    container_name: qbittorrent
+    ports:
+      - "0.0.0.0:8080:8080"
+    volumes:
+      - /etc/localtime:/etc/localtime
+      - /etc/timezone:/etc/timezone
+      - /etc/letsencrypt:/etc/letsencrypt
+      - /opt/qbittorrent/profiles:/opt/qbittorrent/profiles
+    tmpfs:
+      - /tmp
+    environment:
+      - QBT_PROFILE_NAME=docker
+      - SMB_ENABLED=true
+      - SMB_IP=10.10.10.10
+      - SMB_USER=admin
+      - SMB_PASS=password
+      - SMB_WORKGROUP=WORKGROUP
+      - SMB_BIND=/remote/folder

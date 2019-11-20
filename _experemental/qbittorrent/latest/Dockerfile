@@ -7,11 +7,12 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 ENV BuildDocker true
 ARG SBM_DIR=/mnt/smb
+ARG QBT_DIR=/opt/qbittorrent
 
 ##################################################################
 #                   Files and folders
 ##################################################################
-RUN mkdir -p ${SMB_DIR}
+RUN mkdir -p ${SMB_DIR} ${QBT_DIR}
 
 ##################################################################
 #                   qBitTorrent sources list
@@ -25,14 +26,16 @@ RUN apt autoremove -y && apt update && apt dist-upgrade -y
 ##################################################################
 RUN apt-get update && \
     apt install -y --allow-unauthenticated --allow-downgrades \
-    qbittorrent \
+    qbittorrent-nox \
+    ntfs-3g \
+    winbind \
     cifs-utils
 
 
 ##################################################################
 #                   other   customisations
 ##################################################################
-RUN cat /etc/samba/smb.conf
+
 
 ##################################################################
 #                   cleaninig up
@@ -41,3 +44,9 @@ RUN apt clean -y && \
     apt autoclean -y && \
     rm -rfv /var/lib/apt/lists/* && \
     rm -rfv /var/cache/apt/archives/*.deb
+
+VOLUME ${QBT_DIR}
+
+EXPOSE 8080
+
+ENTRYPOINT /entrypoint.sh
