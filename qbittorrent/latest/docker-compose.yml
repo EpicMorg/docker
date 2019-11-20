@@ -5,7 +5,7 @@ services:
     restart: always
     container_name: qbittorrent
     ports:
-      - "0.0.0.0:8080:8080"
+      - "0.0.0.0:8282:8282"
     volumes:
       - /etc/localtime:/etc/localtime
       - /etc/timezone:/etc/timezone
@@ -15,9 +15,4 @@ services:
       - /tmp
     environment:
       - QBT_PROFILE_NAME=docker
-      - SMB_ENABLED=true
-      - SMB_IP=10.10.10.10
-      - SMB_USER=admin
-      - SMB_PASS=password
-      - SMB_WORKGROUP=WORKGROUP
-      - SMB_BIND=/remote/folder
+

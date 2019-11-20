@@ -654,3 +654,21 @@ matrix:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/staytus:latest staytus
       - docker push epicmorg/staytus:latest
+
+    - name: qBitTorrent - latest
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/qbittorrent:latest qbittorrent/latest
+      - docker push epicmorg/qbittorrent:latest
+
+    - name: qBitTorrent - unstable
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/qbittorrent:unstable qbittorrent/latest
+      - docker push epicmorg/qbittorrent:unstable
+
+    - name: qBitTorrent - stable
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/qbittorrent:stable qbittorrent/stable
+      - docker push epicmorg/qbittorrent:stable
