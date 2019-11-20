@@ -6,7 +6,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 #                   ARGuments
 ##################################################################
 ENV BuildDocker true
-ARG SBM_DIR=/mnt/smb
+ARG SMB_DIR=/mnt/smb
 ARG QBT_DIR=/opt/qbittorrent
 
 ##################################################################
