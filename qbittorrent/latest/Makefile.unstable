@@ -1,0 +1,4 @@
+all: emgqb
+emgqb:
+	docker build --compress -t epicmorg/qbittorrent:unstable .
+	docker push epicmorg/qbittorrent:unstable
