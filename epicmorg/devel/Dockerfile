@@ -83,7 +83,7 @@ RUN apt-get update && \
     libcrypto++-dev \
     libbz2-dev \
     libvpx-dev \
-    libvpx6=1.8.1-dmo1 \
+    libvpx6 \
     tcl
 
 ##################################################################

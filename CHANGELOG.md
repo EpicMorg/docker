@@ -1,4 +1,6 @@
 ## Changelog
+* 11/28/2019
+    * updated `atlassian` stack.
 * 11/14/2019
     * updated `atlassian` stack.
 * 10/22/2019
