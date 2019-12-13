@@ -2,6 +2,7 @@
 * 12/13/2019
     * updated `teamcity agent`. added `php 7.3` support.
     * fixed `nginx` image.
+    * removed `7.12.2` and `8.0.1` of Jira.
 * 12/02/2019
     * updated `atlassian` stack.
 * 11/28/2019

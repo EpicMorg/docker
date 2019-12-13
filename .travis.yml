@@ -503,11 +503,11 @@ matrix:
       - docker build --compress -t epicmorg/jira:7.12.1 atlassian/jira/7.12.1
       - docker push epicmorg/jira:7.12.1
 
-    - name: Jira 7.12.2
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker build --compress -t epicmorg/jira:7.12.2 atlassian/jira/7.12.2
-      - docker push epicmorg/jira:7.12.2
+#    - name: Jira 7.12.2
+#      script:
+#      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+#      - docker build --compress -t epicmorg/jira:7.12.2 atlassian/jira/7.12.2
+#      - docker push epicmorg/jira:7.12.2
 
     - name: Jira 7.12.3
       script:
@@ -575,11 +575,11 @@ matrix:
       - docker build --compress -t epicmorg/jira:8.0.0 atlassian/jira/8.0.0
       - docker push epicmorg/jira:8.0.0
 
-    - name: Jira 8.0.1
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker build --compress -t epicmorg/jira:8.0.1 atlassian/jira/8.0.1
-      - docker push epicmorg/jira:8.0.1
+#    - name: Jira 8.0.1
+#      script:
+#      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+#      - docker build --compress -t epicmorg/jira:8.0.1 atlassian/jira/8.0.1
+#      - docker push epicmorg/jira:8.0.1
 
     - name: Jira 8.0.2
       script:
