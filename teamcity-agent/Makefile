@@ -1,4 +1,4 @@
 all: tca
 tca:
-	docker build --compress -t epicmorg/teamcity-agent .
+	docker build --compress -t epicmorg/teamcity-agent:latest .
 
