@@ -458,6 +458,20 @@ matrix:
       - docker push epicmorg/confluence:7.1.1
 
 
+    - name: Confluence 7.1.2
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/confluence:7.1.2 atlassian/confluence/7.1.2
+      - docker push epicmorg/confluence:7.1.2
+
+
+    - name: Confluence 7.2.0
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/confluence:7.2.0 atlassian/confluence/7.2.0
+      - docker push epicmorg/confluence:7.2.0
+
+
 #########################################
 ####  Our Jira images
 #########################################
@@ -688,6 +702,12 @@ matrix:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/jira:8.5.1 atlassian/jira/8.5.1
       - docker push epicmorg/jira:8.5.1
+
+    - name: Jira 8.5.2
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/jira:8.5.2 atlassian/jira/8.5.2
+      - docker push epicmorg/jira:8.5.2
 
 #########################################
 ####  Our minor priority images
