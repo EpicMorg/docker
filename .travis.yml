@@ -748,11 +748,12 @@ matrix:
 #      - docker build --compress -t epicmorg/repo:tag path/to/folder
 #      - docker push epicmorg/repo:tag
 
-    - name: Staytus
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker build --compress -t epicmorg/staytus:latest staytus
-      - docker push epicmorg/staytus:latest
+####  Deprecated
+#    - name: Staytus
+#      script:
+#      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+#      - docker build --compress -t epicmorg/staytus:latest staytus
+#      - docker push epicmorg/staytus:latest
 
     - name: qBitTorrent - latest
       script:
