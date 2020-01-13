@@ -1,4 +1,4 @@
-FROM epicmorg/devel
+FROM epicmorg/devel:jdk11
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 

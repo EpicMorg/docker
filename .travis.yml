@@ -46,17 +46,47 @@ matrix:
 ####  Our High priority images
 #########################################
 
+#    - name: Template
+#      script:
+#      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+#      - docker build --compress -t user/repo:tag path/to/folder/contains/dockerfile
+#      - docker push user/repo:tag
+
     - name: Base Production
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker build --compress -t epicmorg/prod:latest epicmorg/prod
+      - docker build --compress -t epicmorg/prod:latest epicmorg/prod/main
       - docker push epicmorg/prod:latest
+
+    - name: Base Production + JDK 8
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/prod:jdk8 epicmorg/prod/jdk8
+      - docker push epicmorg/prod:jdk8
+
+    - name: Base Production + JDK 11
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/prod:jdk11 epicmorg/prod/jdk11
+      - docker push epicmorg/prod:jdk11
 
     - name: Base Develop
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/devel:latest epicmorg/devel
       - docker push epicmorg/devel:latest
+
+    - name: Base Develop + JDK 8
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/devel:jdk8 epicmorg/devel/jdk8
+      - docker push epicmorg/devel:jdk8
+
+    - name: Base Develop + JDK 11
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/devel:jdk11 epicmorg/devel/jdk11
+      - docker push epicmorg/devel:jdk11
 
     - name: TeamCity Agent
       script:
