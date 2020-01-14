@@ -1,5 +1,7 @@
 # [![Travis (.org)](https://img.shields.io/travis/EpicMorg/docker-scripts?style=flat-square)](https://travis-ci.org/EpicMorg/docker-scripts) [![GitHub issues](https://img.shields.io/github/issues/EpicMorg/docker-scripts.svg?style=popout-square)](https://github.com/EpicMorg/docker-scripts/issues) [![GitHub forks](https://img.shields.io/github/forks/EpicMorg/docker-scripts.svg?style=popout-square)](https://github.com/EpicMorg/docker-scripts/network) [![GitHub stars](https://img.shields.io/github/stars/EpicMorg/docker-scripts.svg?style=popout-square)](https://github.com/EpicMorg/docker-scripts/stargazers) [![GitHub license](https://img.shields.io/github/license/EpicMorg/docker-scripts.svg?style=popout-square)](LICENSE.md) [![Changelog](https://img.shields.io/badge/Changelog-yellow.svg?style=popout-square)](CHANGELOG.md) 
 
+[![](https://codescene.io/projects/6535/status.svg) Get more details at **codescene.io**.](https://codescene.io/projects/6535/jobs/latest-successful/results)
+
 # Some popular products
 
 | Application   | Pulls | Notes
