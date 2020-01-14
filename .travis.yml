@@ -505,6 +505,49 @@ matrix:
 #########################################
 ####  Our Jira images
 #########################################
+    - name: Jira 7.0.0
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/jira:7.0.0 atlassian/jira/7.0.0
+      - docker push epicmorg/jira:7.0.0
+
+    - name: Jira 7.0.2
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/jira:7.0.2 atlassian/jira/7.0.2
+      - docker push epicmorg/jira:7.0.2
+      
+    - name: Jira 7.0.4
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/jira:7.0.4 atlassian/jira/7.0.4
+      - docker push epicmorg/jira:7.0.4
+      
+    - name: Jira 7.0.5
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/jira:7.0.5 atlassian/jira/7.0.5
+      - docker push epicmorg/jira:7.0.5
+
+    - name: Jira 7.0.10
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/jira:7.0.10 atlassian/jira/7.0.10
+      - docker push epicmorg/jira:7.0.10
+      
+    - name: Jira 7.0.11
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/jira:7.0.11 atlassian/jira/7.0.11
+      - docker push epicmorg/jira:7.0.11
+
+# moved to hipriority section
+#    - name: Jira 7.10.0
+#      script:
+#      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+#      - docker build --compress -t epicmorg/jira:7.10.0 atlassian/jira/7.10.0
+#      - docker push epicmorg/jira:7.10.0
+
     - name: Jira 7.10.1
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin

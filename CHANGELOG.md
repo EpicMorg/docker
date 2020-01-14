@@ -7,16 +7,8 @@
 		* `confluence` before `7.1` - `prod:jdk8`, after - `7.1` - `prod:jdk11`,
 		* `jira` before `8.2` - `prod:jdk8`, after - `8.2` - `prod:jdk11`
 	* updated `Atlassian` stack:
-		* added `Jira`:
-			* `8.0.3`
-			* `8.1.2`
-			* `8.1.3`
-			* `8.2.5`
-			* `8.2.6`
-			* `8.3.5`
-			* `8.4.3` 
-			* `8.6.0` 
-			* `8.6.1` 
+		* added `Jira 8.x`: `8.0.3`, `8.1.2`, `8.1.3`, `8.2.5`, `8.2.6`, `8.3.5`, `8.4.3` , `8.6.0` , `8.6.1`
+		* added `Jira 7.0.x`: `7.0.0`, `7.0.2`, `7.0.5`, `7.0.10`, `7.0.11`
 * 12/13/2019
     * updated `teamcity agent`. added `php 7.3` support.
     * fixed `nginx` image.
