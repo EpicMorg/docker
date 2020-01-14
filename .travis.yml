@@ -739,6 +739,12 @@ matrix:
       - docker build --compress -t epicmorg/jira:8.5.2 atlassian/jira/8.5.2
       - docker push epicmorg/jira:8.5.2
 
+    - name: Jira 8.5.3
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/jira:8.5.3 atlassian/jira/8.5.3
+      - docker push epicmorg/jira:8.5.3
+
 #########################################
 ####  Our minor priority images
 #########################################
