@@ -2,6 +2,10 @@
 
 [![](https://codescene.io/projects/6535/status.svg)](https://codescene.io/projects/6535/jobs/latest-successful/results)
 
+# Containers Map
+
+![](https://raw.githubusercontent.com/EpicMorg/docker-scripts/master/.github/docker-scripts.png)
+
 # Some popular products
 
 | Application   | Pulls | Notes
