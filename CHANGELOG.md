@@ -1,4 +1,11 @@
 ## Changelog
+* 01/13/2020
+    * separated `base` images to `prod`, `prod:jdk8`, `prod:jdk11`, `devel`, `devel:jdk8`, `devel:jdk11` 
+	* teamcity -  `devel:jdk11`
+	* updated current atlassian contaners: 
+		* `bitbucket` all current versions (`6.2`-`latest`) - `prod:jdk11`,
+		* `confluence` before `7.1` - `prod:jdk8`, after - `7.1` - `prod:jdk11`,
+		* `jira` before `8.2` - `prod:jdk8`, after - `8.2` - `prod:jdk11`
 * 12/13/2019
     * updated `teamcity agent`. added `php 7.3` support.
     * fixed `nginx` image.

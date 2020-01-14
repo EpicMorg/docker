@@ -61,22 +61,6 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     zip
 
 ##################################################################
-#                   installing java8
-##################################################################
-#RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A66C5D02 && \
-#    echo 'deb https://rpardini.github.io/adoptopenjdk-deb-installer stable main' > /etc/apt/sources.list.d/rpardini-aoj.list && \
-#    apt-get update && \
-#    apt-get install -y --allow-unauthenticated adoptopenjdk-8-installer
-
-RUN wget -qO - https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public | sudo apt-key add - && \
-    echo 'deb https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/ buster main' > /etc/apt/sources.list.d/adoptopenjdk-official.list && \
-    apt-get update && \
-    apt-get install -y --allow-unauthenticated adoptopenjdk-11-hotspot && \
-    mkdir /usr/lib/jvm/adoptopenjdk-11-hotspot-amd64/jre && \
-    ln -s /usr/lib/jvm/adoptopenjdk-11-hotspot-amd64/bin/ /usr/lib/jvm/adoptopenjdk-11-hotspot-amd64/jre/bin && \
-    ln -s /usr/lib/jvm/adoptopenjdk-11-hotspot-amd64/lib/ /usr/lib/jvm/adoptopenjdk-11-hotspot-amd64/jre/lib
-
-##################################################################
 #                   cleaninig up
 ##################################################################
 RUN apt clean -y && \
