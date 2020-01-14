@@ -73,7 +73,7 @@ matrix:
     - name: Base Develop
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker build --compress -t epicmorg/devel:latest epicmorg/devel
+      - docker build --compress -t epicmorg/devel:latest epicmorg/devel/main
       - docker push epicmorg/devel:latest
 
     - name: Base Develop + JDK 8
