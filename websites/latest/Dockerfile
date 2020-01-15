@@ -124,7 +124,7 @@ RUN apt-get update && \
       dav \
       dav_fs \
       alias && \
-    openssl dhparam -out /etc/apache2/dhparam.pem 4096 && \
+    ln -sf /etc/ssl/dhparam.pem /etc/apache2/dhparam.pem && \
     php -v
 
 ##################################################################
