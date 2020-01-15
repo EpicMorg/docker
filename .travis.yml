@@ -517,8 +517,14 @@ matrix:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/bitbucket:6.9.1 atlassian/bitbucket/6.9.1
       - docker push epicmorg/bitbucket:6.9.1
-
+ 
 ##########
+
+    - name: Bitbucket 6.10.0
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/bitbucket:6.10.0 atlassian/bitbucket/6.10.0
+      - docker push epicmorg/bitbucket:6.10.0
 
 #########################################
 ####  Our Confluence images
