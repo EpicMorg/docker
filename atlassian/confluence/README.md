@@ -6,3 +6,6 @@ All presented images avalible on our repo in docker hub.
 ## LTS releases:
 * Latest version of Confluence `6.13.4`
 
+-------
+
+*Some old versions of Confluence may fail health check with [AdoptOpenJDK](https://github.com/AdoptOpenJDK) (open source, prebuilt OpenJDK binaries). But it will be works.*

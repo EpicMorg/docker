@@ -9,3 +9,6 @@ All presented images avalible on our repo in docker hub.
 * Latest version of `Jira 7` branch is `7.13.3`
 	* Older version of `Jira 7` branch is `7.6.17`
 
+-------
+
+*Some old versions of Jira may fail health check with [AdoptOpenJDK](https://github.com/AdoptOpenJDK) (open source, prebuilt OpenJDK binaries). But it will be works.*
