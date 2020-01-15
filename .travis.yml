@@ -452,6 +452,14 @@ matrix:
       - docker build --compress -t epicmorg/bitbucket:6.6.2 atlassian/bitbucket/6.6.2
       - docker push epicmorg/bitbucket:6.6.2
 
+    - name: Bitbucket 6.6.3
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/bitbucket:6.6.3 atlassian/bitbucket/6.6.3
+      - docker push epicmorg/bitbucket:6.6.3
+
+##########
+
     - name: Bitbucket 6.7.0
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
