@@ -23,6 +23,7 @@
 		* added `Bitbucket 6.1.x`: `6.1.0`, `6.1.1`, `6.1.2`, `6.1.3`, `6.1.4`, `6.1.5`, `6.1.6`, `6.1.7`, `6.1.8`, `6.1.9`
 		* added `Bitbucket 6.2.x`: `6.2.2`, `6.2.3`, `6.2.4`, `6.2.5`, `6.2.6`, `6.2.7`
 		* added `Bitbucket 6.3.x`: `6.3.3`, `6.3.4`, `6.3.5`, `6.3.6`
+		* added `Bitbucket 6.4.x`: `6.4.2`, `6.4.3`, `6.4.4`
 * 12/13/2019
     * updated `teamcity agent`. added `php 7.3` support.
     * fixed `nginx` image.
