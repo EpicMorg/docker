@@ -752,6 +752,52 @@ matrix:
       - docker build --compress -t epicmorg/jira:7.3.9 atlassian/jira/7.3.9
       - docker push epicmorg/jira:7.3.9
 
+##########
+
+    - name: Jira 7.4.0
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/jira:7.4.0 atlassian/jira/7.4.0
+      - docker push epicmorg/jira:7.4.0
+
+    - name: Jira 7.4.1
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/jira:7.4.1 atlassian/jira/7.4.1
+      - docker push epicmorg/jira:7.4.1
+
+    - name: Jira 7.4.2
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/jira:7.4.2 atlassian/jira/7.4.2
+      - docker push epicmorg/jira:7.4.2
+
+    - name: Jira 7.4.3
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/jira:7.4.3 atlassian/jira/7.4.3
+      - docker push epicmorg/jira:7.4.3
+
+    - name: Jira 7.4.4
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/jira:7.4.4 atlassian/jira/7.4.4
+      - docker push epicmorg/jira:7.4.4
+
+    - name: Jira 7.4.5
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/jira:7.4.5 atlassian/jira/7.4.5
+      - docker push epicmorg/jira:7.4.5
+
+    - name: Jira 7.4.6
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/jira:7.4.6 atlassian/jira/7.4.6
+      - docker push epicmorg/jira:7.4.6
+
+##########
+
     - name: Jira 7.10.0
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
@@ -800,6 +846,7 @@ matrix:
       - docker build --compress -t epicmorg/jira:7.12.1 atlassian/jira/7.12.1
       - docker push epicmorg/jira:7.12.1
 
+# removed by atlassian
 #    - name: Jira 7.12.2
 #      script:
 #      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
