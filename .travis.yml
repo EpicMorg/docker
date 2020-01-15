@@ -135,19 +135,13 @@ matrix:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/jira:latest atlassian/jira/latest
       - docker push epicmorg/jira:latest
-
-    - name: Jira 7.10.0
+ 
+    - name: qBitTorrent - latest
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker build --compress -t epicmorg/jira:7.10.0 atlassian/jira/7.10.0
-      - docker push epicmorg/jira:7.10.0
-
-    - name: Confluence 6.9.0
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker build --compress -t epicmorg/confluence:6.9.0 atlassian/confluence/6.9.0
-      - docker push epicmorg/confluence:6.9.0
-
+      - docker build --compress -t epicmorg/qbittorrent:latest qbittorrent/latest
+      - docker push epicmorg/qbittorrent:latest
+      
 #########################################
 ####  Our LTS images
 #########################################
@@ -278,6 +272,13 @@ matrix:
 #########################################
 ####  Our Confluence images
 #########################################
+
+    - name: Confluence 6.9.0
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/confluence:6.9.0 atlassian/confluence/6.9.0
+      - docker push epicmorg/confluence:6.9.0
+
     - name: Confluence 6.9.1
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
@@ -691,12 +692,71 @@ matrix:
 
 ##########
 
-# moved to hipriority section
-#    - name: Jira 7.10.0
-#      script:
-#      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-#      - docker build --compress -t epicmorg/jira:7.10.0 atlassian/jira/7.10.0
-#      - docker push epicmorg/jira:7.10.0
+    - name: Jira 7.3.0
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/jira:7.3.0 atlassian/jira/7.3.0
+      - docker push epicmorg/jira:7.3.0
+
+    - name: Jira 7.3.1
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/jira:7.3.1 atlassian/jira/7.3.1
+      - docker push epicmorg/jira:7.3.1
+
+    - name: Jira 7.3.2
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/jira:7.3.2 atlassian/jira/7.3.2
+      - docker push epicmorg/jira:7.3.2
+
+    - name: Jira 7.3.3
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/jira:7.3.3 atlassian/jira/7.3.3
+      - docker push epicmorg/jira:7.3.3
+
+    - name: Jira 7.3.4
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/jira:7.3.4 atlassian/jira/7.3.4
+      - docker push epicmorg/jira:7.3.4
+
+    - name: Jira 7.3.5
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/jira:7.3.5 atlassian/jira/7.3.5
+      - docker push epicmorg/jira:7.3.5
+
+    - name: Jira 7.3.6
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/jira:7.3.6 atlassian/jira/7.3.6
+      - docker push epicmorg/jira:7.3.6
+
+    - name: Jira 7.3.7
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/jira:7.3.7 atlassian/jira/7.3.7
+      - docker push epicmorg/jira:7.3.7
+
+    - name: Jira 7.3.8
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/jira:7.3.8 atlassian/jira/7.3.8
+      - docker push epicmorg/jira:7.3.8
+
+    - name: Jira 7.3.9
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/jira:7.3.9 atlassian/jira/7.3.9
+      - docker push epicmorg/jira:7.3.9
+
+    - name: Jira 7.10.0
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/jira:7.10.0 atlassian/jira/7.10.0
+      - docker push epicmorg/jira:7.10.0
 
     - name: Jira 7.10.1
       script:
@@ -1007,13 +1067,7 @@ matrix:
 #      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 #      - docker build --compress -t epicmorg/staytus:latest staytus
 #      - docker push epicmorg/staytus:latest
-
-    - name: qBitTorrent - latest
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker build --compress -t epicmorg/qbittorrent:latest qbittorrent/latest
-      - docker push epicmorg/qbittorrent:latest
-
+ 
     - name: qBitTorrent - unstable
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
