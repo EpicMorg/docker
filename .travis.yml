@@ -145,6 +145,81 @@ matrix:
 #########################################
 ####  Our Bitbucket images
 #########################################
+
+    - name: Bitbucket 6.0.0
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/bitbucket:6.0.0 atlassian/bitbucket/6.0.0
+      - docker push epicmorg/bitbucket:6.0.0
+
+    - name: Bitbucket 6.0.1
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/bitbucket:6.0.1 atlassian/bitbucket/6.0.1
+      - docker push epicmorg/bitbucket:6.0.1
+
+    - name: Bitbucket 6.0.2
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/bitbucket:6.0.2 atlassian/bitbucket/6.0.2
+      - docker push epicmorg/bitbucket:6.0.2
+
+    - name: Bitbucket 6.0.3
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/bitbucket:6.0.3 atlassian/bitbucket/6.0.3
+      - docker push epicmorg/bitbucket:6.0.3
+
+    - name: Bitbucket 6.0.4
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/bitbucket:6.0.4 atlassian/bitbucket/6.0.4
+      - docker push epicmorg/bitbucket:6.0.4
+
+    - name: Bitbucket 6.0.5
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/bitbucket:6.0.5 atlassian/bitbucket/6.0.5
+      - docker push epicmorg/bitbucket:6.0.5
+
+    - name: Bitbucket 6.0.6
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/bitbucket:6.0.6 atlassian/bitbucket/6.0.6
+      - docker push epicmorg/bitbucket:6.0.6
+
+    - name: Bitbucket 6.0.7
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/bitbucket:6.0.7 atlassian/bitbucket/6.0.7
+      - docker push epicmorg/bitbucket:6.0.7
+
+    - name: Bitbucket 6.0.8
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/bitbucket:6.0.8 atlassian/bitbucket/6.0.8
+      - docker push epicmorg/bitbucket:6.0.8
+
+    - name: Bitbucket 6.0.9
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/bitbucket:6.0.9 atlassian/bitbucket/6.0.9
+      - docker push epicmorg/bitbucket:6.0.9
+
+    - name: Bitbucket 6.0.10
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/bitbucket:6.0.10 atlassian/bitbucket/6.0.10
+      - docker push epicmorg/bitbucket:6.0.10
+
+    - name: Bitbucket 6.0.11
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/bitbucket:6.0.11 atlassian/bitbucket/6.0.11
+      - docker push epicmorg/bitbucket:6.0.11
+
+##########
+
     - name: Bitbucket 6.2.0
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin

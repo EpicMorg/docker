@@ -1,5 +1,6 @@
 ## Changelog
-* 01/13/2020
+
+* `January 2020` (01/13/2020 - 01/15/2020)
     * separated `base` images to `prod`, `prod:jdk8`, `prod:jdk11`, `devel`, `devel:jdk8`, `devel:jdk11` 
 	* teamcity -  `devel:jdk11`
 	* updated current atlassian contaners: 
@@ -18,6 +19,7 @@
 		* added `Jira 7.7.x`: `7.7.0`, `7.7.1`, `7.7.2`, `7.7.4`
 		* added `Jira 7.8.x`: `7.8.0`, `7.8.1`, `7.8.2`, `7.8.4`
 		* added `Jira 7.9.x`: `7.9.0`, `7.9.2`
+		* added `Bitbucket 6.0.x`: `6.0.0`, `6.0.1`, `6.0.2`, `6.0.3`, `6.0.4`, `6.0.5`, `6.0.6`, `6.0.7`, `6.0.8`, `6.0.9`, `6.0.10`, `6.0.11`
 * 12/13/2019
     * updated `teamcity agent`. added `php 7.3` support.
     * fixed `nginx` image.
