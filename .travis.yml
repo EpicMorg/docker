@@ -912,12 +912,6 @@ matrix:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/jira:7.13.9 atlassian/jira/7.13.9
       - docker push epicmorg/jira:7.13.9
-      
-    - name: Jira 7.13.11
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker build --compress -t epicmorg/jira:7.13.11 atlassian/jira/7.13.11
-      - docker push epicmorg/jira:7.13.11
 
     - name: Jira 8.0.0
       script:
