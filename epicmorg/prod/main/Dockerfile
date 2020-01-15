@@ -58,7 +58,8 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     util-linux \
     uuid-runtime \
     wget \
-    zip
+    zip && \
+	openssl dhparam -out /etc/ssl/dhparam.pem 4096
 
 ##################################################################
 #                   cleaninig up
