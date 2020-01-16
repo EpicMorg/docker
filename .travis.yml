@@ -722,26 +722,6 @@ matrix:
 
       - docker build --compress -t epicmorg/confluence:6.7.3 atlassian/confluence/6.7.3
       - docker push epicmorg/confluence:6.7.3
-
-##########
-
-    - name: Confluence 6.9.0
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker build --compress -t epicmorg/confluence:6.9.0 atlassian/confluence/6.9.0
-      - docker push epicmorg/confluence:6.9.0
-
-    - name: Confluence 6.9.1
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker build --compress -t epicmorg/confluence:6.9.1 atlassian/confluence/6.9.1
-      - docker push epicmorg/confluence:6.9.1
-
-    - name: Confluence 6.9.3
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker build --compress -t epicmorg/confluence:6.9.3 atlassian/confluence/6.9.3
-      - docker push epicmorg/confluence:6.9.3
       
 ##########
 
@@ -766,23 +746,40 @@ matrix:
 
 ##########
 
-    - name: Confluence 6.10.0
+    - name: Confluence 6.9.0
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/confluence:6.9.0 atlassian/confluence/6.9.0
+      - docker push epicmorg/confluence:6.9.0
+
+    - name: Confluence 6.9.1
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/confluence:6.9.1 atlassian/confluence/6.9.1
+      - docker push epicmorg/confluence:6.9.1
+
+    - name: Confluence 6.9.3
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/confluence:6.9.3 atlassian/confluence/6.9.3
+      - docker push epicmorg/confluence:6.9.3
+
+##########
+
+    - name: Confluence 6.10.x
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/confluence:6.10.0 atlassian/confluence/6.10.0
       - docker push epicmorg/confluence:6.10.0
-
-    - name: Confluence 6.10.1
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/confluence:6.10.1 atlassian/confluence/6.10.1
       - docker push epicmorg/confluence:6.10.1
-
-    - name: Confluence 6.10.2
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/confluence:6.10.2 atlassian/confluence/6.10.2
       - docker push epicmorg/confluence:6.10.2
+ 
+      - docker build --compress -t epicmorg/confluence:6.10.3 atlassian/confluence/6.10.3
+      - docker push epicmorg/confluence:6.10.3
 
 ##########
 
