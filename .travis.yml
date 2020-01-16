@@ -596,6 +596,24 @@ matrix:
 
 ##########
 
+    - name: Confluence 6.3.x
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      
+      - docker build --compress -t epicmorg/confluence:6.3.1 atlassian/confluence/6.3.1
+      - docker push epicmorg/confluence:6.3.1
+      
+      - docker build --compress -t epicmorg/confluence:6.3.2 atlassian/confluence/6.3.2
+      - docker push epicmorg/confluence:6.3.2
+
+      - docker build --compress -t epicmorg/confluence:6.3.3 atlassian/confluence/6.3.3
+      - docker push epicmorg/confluence:6.3.3
+
+      - docker build --compress -t epicmorg/confluence:6.3.4 atlassian/confluence/6.3.4
+      - docker push epicmorg/confluence:6.3.4
+
+##########
+
     - name: Confluence 6.9.0
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
