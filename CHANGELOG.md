@@ -48,6 +48,7 @@
 		* jdk8-based (default for all images)
 		* jdk11-based for new images (by  special `-jdk11` tag)
 	* optimized final containers which uses `devel` base
+	* updated REAMDE.md
 * 12/13/2019
     * updated `teamcity agent`. added `php 7.3` support.
     * fixed `nginx` image.
