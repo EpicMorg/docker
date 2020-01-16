@@ -647,6 +647,63 @@ matrix:
 
       - docker build --compress -t epicmorg/confluence:6.5.3 atlassian/confluence/6.5.3
       - docker push epicmorg/confluence:6.5.3
+      
+##########
+
+    - name: Confluence 6.6.x LTS
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      
+      - docker build --compress -t epicmorg/confluence:6.6.0 atlassian/confluence/6.6.0
+      - docker push epicmorg/confluence:6.6.0
+
+      - docker build --compress -t epicmorg/confluence:6.6.1 atlassian/confluence/6.6.1
+      - docker push epicmorg/confluence:6.6.1
+
+      - docker build --compress -t epicmorg/confluence:6.6.2 atlassian/confluence/6.6.2
+      - docker push epicmorg/confluence:6.6.2
+
+      - docker build --compress -t epicmorg/confluence:6.6.3 atlassian/confluence/6.6.3
+      - docker push epicmorg/confluence:6.6.3
+
+      - docker build --compress -t epicmorg/confluence:6.6.4 atlassian/confluence/6.6.4
+      - docker push epicmorg/confluence:6.6.4
+
+      - docker build --compress -t epicmorg/confluence:6.6.5 atlassian/confluence/6.6.5
+      - docker push epicmorg/confluence:6.6.5
+
+      - docker build --compress -t epicmorg/confluence:6.6.6 atlassian/confluence/6.6.6
+      - docker push epicmorg/confluence:6.6.6
+
+      - docker build --compress -t epicmorg/confluence:6.6.7 atlassian/confluence/6.6.7
+      - docker push epicmorg/confluence:6.6.7
+
+      - docker build --compress -t epicmorg/confluence:6.6.8 atlassian/confluence/6.6.8
+      - docker push epicmorg/confluence:6.6.8
+
+      - docker build --compress -t epicmorg/confluence:6.6.9 atlassian/confluence/6.6.9
+      - docker push epicmorg/confluence:6.6.9
+
+      - docker build --compress -t epicmorg/confluence:6.6.10 atlassian/confluence/6.6.10
+      - docker push epicmorg/confluence:6.6.10
+
+      - docker build --compress -t epicmorg/confluence:6.6.11 atlassian/confluence/6.6.11
+      - docker push epicmorg/confluence:6.6.11
+
+      - docker build --compress -t epicmorg/confluence:6.6.12 atlassian/confluence/6.6.12
+      - docker push epicmorg/confluence:6.6.12
+
+      - docker build --compress -t epicmorg/confluence:6.6.13 atlassian/confluence/6.6.13
+      - docker push epicmorg/confluence:6.6.13
+
+      - docker build --compress -t epicmorg/confluence:6.6.14 atlassian/confluence/6.6.14
+      - docker push epicmorg/confluence:6.6.14
+
+      - docker build --compress -t epicmorg/confluence:6.6.15 atlassian/confluence/6.6.15
+      - docker push epicmorg/confluence:6.6.15
+
+      - docker build --compress -t epicmorg/confluence:6.6.17 atlassian/confluence/6.6.17
+      - docker push epicmorg/confluence:6.6.17
 
 ##########
 
