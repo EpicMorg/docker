@@ -1,6 +1,6 @@
 ## Changelog
 
-* `January 2020` (01/13/2020 - 01/15/2020)
+* `January 2020` (01/13/2020 - 01/16/2020)
     * separated `base` images to `prod`, `prod:jdk8`, `prod:jdk11`, `devel`, `devel:jdk8`, `devel:jdk11` 
 	* teamcity -  `devel:jdk11`
 	* updated current atlassian contaners: 
@@ -30,6 +30,7 @@
 		* added `Bitbucket 6.8.x`: `6.8.2`
 		* added `Bitbucket 6.9.x`: `6.9.0`, `6.9.1`
 		* added `Bitbucket 6.10.x`: `6.10.0`
+		* added `Confluence 6.0.x`: `6.0.1`, `6.0.2`, `6.0.3`, `6.0.4`, `6.0.5`, `6.0.6`, `6.0.7`
 * 12/13/2019
     * updated `teamcity agent`. added `php 7.3` support.
     * fixed `nginx` image.
