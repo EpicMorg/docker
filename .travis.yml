@@ -591,7 +591,7 @@ matrix:
       - docker build --compress -t epicmorg/confluence:6.8.1 atlassian/confluence/6.8.1
       - docker push epicmorg/confluence:6.8.1
       
-      - docker build --compress -t epicmorg/confluence:6.7.2 atlassian/confluence/6.7.2
+      - docker build --compress -t epicmorg/confluence:6.8.2 atlassian/confluence/6.8.2
       - docker push epicmorg/confluence:6.8.2
 
       - docker build --compress -t epicmorg/confluence:6.8.3 atlassian/confluence/6.8.3
