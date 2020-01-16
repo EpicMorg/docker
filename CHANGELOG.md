@@ -31,6 +31,7 @@
 		* added `Bitbucket 6.9.x`: `6.9.0`, `6.9.1`
 		* added `Bitbucket 6.10.x`: `6.10.0`
 		* added `Confluence 6.0.x`: `6.0.1`, `6.0.2`, `6.0.3`, `6.0.4`, `6.0.5`, `6.0.6`, `6.0.7`
+		* added `Confluence 6.1.x`: `6.1.0`, `6.1.1`, `6.1.2`, `6.1.3`, `6.1.4`
 * 12/13/2019
     * updated `teamcity agent`. added `php 7.3` support.
     * fixed `nginx` image.
