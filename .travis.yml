@@ -34,21 +34,7 @@ matrix:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/nextcloud:latest nextcloud
       - docker push epicmorg/nextcloud:latest
-      
-##########
-
-    - name: qBitTorrent [latest + unstable + stable]
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker build --compress -t epicmorg/qbittorrent:latest qbittorrent/latest
-      - docker push epicmorg/qbittorrent:latest
- 
-      - docker build --compress -t epicmorg/qbittorrent:unstable qbittorrent/latest
-      - docker push epicmorg/qbittorrent:unstable
- 
-      - docker build --compress -t epicmorg/qbittorrent:stable qbittorrent/stable
-      - docker push epicmorg/qbittorrent:stable
- 
+       
 #########################################
 ####  Our High priority images
 #########################################
@@ -144,6 +130,20 @@ matrix:
       - docker push epicmorg/jira:latest
       - docker build --compress -t epicmorg/jira:latest-jdk11 -f atlassian/jira/latest/Dockerfile.jdk11 atlassian/jira/latest
       - docker push epicmorg/jira:latest-jdk11
+      
+ ##########
+
+    - name: qBitTorrent [latest + unstable + stable]
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/qbittorrent:latest qbittorrent/latest
+      - docker push epicmorg/qbittorrent:latest
+ 
+      - docker build --compress -t epicmorg/qbittorrent:unstable qbittorrent/latest
+      - docker push epicmorg/qbittorrent:unstable
+ 
+      - docker build --compress -t epicmorg/qbittorrent:stable qbittorrent/stable
+      - docker push epicmorg/qbittorrent:stable
  
 #########################################
 ####  Our Bitbucket images
