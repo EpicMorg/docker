@@ -41,6 +41,12 @@
 		* added `Confluence 6.8.x`: `6.8.0`, `6.8.1`, `6.8.2`, `6.8.3`, `6.8.5`
 		* added `Confluence 6.10.x`: `6.10.3`
 		* added `Confluence 6.13.x`: `6.10.5`, `6.10.6`, `6.10.7`, `6.10.8`, `6.10.9`, `6.10.10`, 
+		* added `Confluence 6.13.x`: `6.15.10`
+		* added `Confluence 7.0.x`: `7.0.5`
+		* added `Confluence 7.2.x`: `7.2.1`
+	* `Atlassian` stack separated to 2 branches:
+		* jdk8-based (default for all images)
+		* jdk11-based for new images (by  special `-jdk11` tag)
 * 12/13/2019
     * updated `teamcity agent`. added `php 7.3` support.
     * fixed `nginx` image.

@@ -1,11 +1,11 @@
-FROM epicmorg/prod:jdk8
+FROM epicmorg/prod:jdk11
 LABEL maintainer="Atlassian Jira Server Team; EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
 ##################################################################
 #                   ARGuments
 ##################################################################
-ARG CONFLUENCE_VERSION=7.1.2
+ARG CONFLUENCE_VERSION=7.2.0
 ARG DOWNLOAD_URL=http://www.atlassian.com/software/confluence/downloads/binary/atlassian-confluence-${CONFLUENCE_VERSION}.tar.gz
 
 ##################################################################
