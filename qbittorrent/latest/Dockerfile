@@ -37,10 +37,10 @@ RUN apt-get update && \
 ##################################################################
 RUN apt clean -y && \
     apt autoclean -y && \
-    rm -rfv /var/lib/apt/lists/* && \
-    rm -rfv /var/cache/apt/archives/*.deb && \
-    rm -rfv /builds/* && \
-    rm -rfv /valve/*
+    rm -rf /var/lib/apt/lists/* && \
+    rm -rf /var/cache/apt/archives/*.deb && \
+    rm -rf /builds/* && \
+    rm -rf /valve/*
 
 VOLUME ${QBT_DIR}
 
