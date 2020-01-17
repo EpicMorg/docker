@@ -44,7 +44,7 @@ ENV DOTNET_CLI_TELEMETRY_OPTOUT=true \
     NUGET_XMLDOC_MODE=skip \
     GIT_SSH_VARIANT=ssh \
     # Install .NET Core SDK
-    DOTNET_SDK_VERSION=3.1.100-preview3 \
+    DOTNET_SDK_VERSION=3.1.101 \
     #unofficial support of openssl1.1 instead of 1.0 [https://stackoverflow.com/questions/51901359]
     CLR_OPENSSL_VERSION_OVERRIDE=45
 
@@ -71,7 +71,7 @@ RUN apt-get update && \
             zlib1g \
         && rm -rf /var/lib/apt/lists/* && \
     \
-    curl -SL https://download.visualstudio.microsoft.com/download/pr/941853c3-98c6-44ff-b11f-3892e4f91814/14e8f22c7a1d95dd6fe9a53296d19073/dotnet-sdk-$DOTNET_SDK_VERSION-014645-linux-x64.tar.gz --output dotnet.tar.gz \
+    curl -SL https://download.visualstudio.microsoft.com/download/pr/c4b503d6-2f41-4908-b634-270a0a1dcfca/c5a20e42868a48a2cd1ae27cf038044c/dotnet-sdk-$DOTNET_SDK_VERSION-linux-x64.tar.gz --output dotnet.tar.gz \
         && mkdir -p /usr/share/dotnet \
         && tar -zxf dotnet.tar.gz -C /usr/share/dotnet \
         && rm dotnet.tar.gz \
@@ -186,7 +186,7 @@ RUN apt-get update && \
       xmlwriter \
       xsl \
       yaml && \
-    openssl dhparam -out /etc/php/dhparam.pem 4096 && \
+    ln -sf /etc/ssl/dhparam.pem /etc/php/dhparam.pem && \
     php -v
 
 ##################################################################

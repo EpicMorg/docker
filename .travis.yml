@@ -12,36 +12,29 @@ matrix:
 #########################################
 ####  Forked and fixed images
 #########################################
-    - name: Zabbix Agent
+    - name: Zabbix [Agent + Java Gateway + Server with MySQL + Web Apache2 with MySQL]
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/zabbix-agent:latest zabbix/agent
       - docker push epicmorg/zabbix-agent:latest
-
-    - name: Zabbix Java Gateway
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/zabbix-java-gateway:latest zabbix/java-gateway
       - docker push epicmorg/zabbix-java-gateway:latest
-
-    - name: Zabbix Server with MySQL
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/zabbix-server-mysql:latest zabbix/server
       - docker push epicmorg/zabbix-server-mysql:latest
-
-    - name: Zabbix web Apache2 with MySQL
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/zabbix-web-apache-mysql:latest zabbix/web
       - docker push epicmorg/zabbix-web-apache-mysql:latest
+
+##########
 
     - name: NextCloud (latest)
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/nextcloud:latest nextcloud
       - docker push epicmorg/nextcloud:latest
-
+       
 #########################################
 ####  Our High priority images
 #########################################
@@ -52,41 +45,33 @@ matrix:
 #      - docker build --compress -t user/repo:tag path/to/folder/contains/dockerfile
 #      - docker push user/repo:tag
 
-    - name: Base Production
+    - name: Base Production + JDK 8 + JDK 11
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/prod:latest epicmorg/prod/main
       - docker push epicmorg/prod:latest
-
-    - name: Base Production + JDK 8
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/prod:jdk8 epicmorg/prod/jdk8
       - docker push epicmorg/prod:jdk8
-
-    - name: Base Production + JDK 11
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/prod:jdk11 epicmorg/prod/jdk11
       - docker push epicmorg/prod:jdk11
 
-    - name: Base Develop
+##########
+
+    - name: Base Develop  + JDK 8 + JDK 11
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/devel:latest epicmorg/devel/main
       - docker push epicmorg/devel:latest
-
-    - name: Base Develop + JDK 8
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/devel:jdk8 epicmorg/devel/jdk8
       - docker push epicmorg/devel:jdk8
-
-    - name: Base Develop + JDK 11
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/devel:jdk11 epicmorg/devel/jdk11
       - docker push epicmorg/devel:jdk11
+
+##########
 
     - name: TeamCity Agent
       script:
@@ -106,6 +91,8 @@ matrix:
       - docker build --compress -t epicmorg/balancer:php balancer/php
       - docker push epicmorg/balancer:php
 
+##########
+
     - name: Apache + PHP7.3
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
@@ -118,910 +105,1358 @@ matrix:
       - docker build --compress -t epicmorg/websites:php7.2 websites/php7.2
       - docker push epicmorg/websites:php7.2
 
+##########
+
     - name: Bitbucket (latest)
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/bitbucket:latest atlassian/bitbucket/latest
       - docker push epicmorg/bitbucket:latest
+      - docker build --compress -t epicmorg/bitbucket:latest-jdk11 -f atlassian/bitbucket/latest/Dockerfile.jdk11 atlassian/bitbucket/latest
+      - docker push epicmorg/bitbucket:latest-jdk11
 
     - name: Confluence (latest)
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/confluence:latest atlassian/confluence/latest
       - docker push epicmorg/confluence:latest
+      - docker build --compress -t epicmorg/confluence:latest-jdk11 -f atlassian/confluence/latest/Dockerfile.jdk11 atlassian/confluence/latest
+      - docker push epicmorg/confluence:latest-jdk11
 
     - name: Jira (latest)
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/jira:latest atlassian/jira/latest
       - docker push epicmorg/jira:latest
+      - docker build --compress -t epicmorg/jira:latest-jdk11 -f atlassian/jira/latest/Dockerfile.jdk11 atlassian/jira/latest
+      - docker push epicmorg/jira:latest-jdk11
+      
+ ##########
 
-    - name: Jira 7.10.0
+    - name: qBitTorrent [latest + unstable + stable]
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker build --compress -t epicmorg/jira:7.10.0 atlassian/jira/7.10.0
-      - docker push epicmorg/jira:7.10.0
-
-    - name: Confluence 6.9.0
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker build --compress -t epicmorg/confluence:6.9.0 atlassian/confluence/6.9.0
-      - docker push epicmorg/confluence:6.9.0
-
-#########################################
-####  Our LTS images
-#########################################
-
-    - name: Jira 7.13.11
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker build --compress -t epicmorg/jira:7.13.11 atlassian/jira/7.13.11
-      - docker push epicmorg/jira:7.13.11
-
-    - name: Confluence 6.13.4
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker build --compress -t epicmorg/confluence:6.13.4 atlassian/confluence/6.13.4
-      - docker push epicmorg/confluence:6.13.4
-
+      - docker build --compress -t epicmorg/qbittorrent:latest qbittorrent/latest
+      - docker push epicmorg/qbittorrent:latest
+ 
+      - docker build --compress -t epicmorg/qbittorrent:unstable qbittorrent/latest
+      - docker push epicmorg/qbittorrent:unstable
+ 
+      - docker build --compress -t epicmorg/qbittorrent:stable qbittorrent/stable
+      - docker push epicmorg/qbittorrent:stable
+ 
 #########################################
 ####  Our Bitbucket images
 #########################################
-    - name: Bitbucket 6.2.0
+
+    - name: Bitbucket 6.0.x [default jdk8 + tag jdk11]
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/bitbucket:6.0.0 atlassian/bitbucket/6.0.0
+      - docker push epicmorg/bitbucket:6.0.0
+      - docker build --compress -t epicmorg/bitbucket:6.0.0-jdk11 -f atlassian/bitbucket/6.0.0/Dockerfile.jdk11 atlassian/bitbucket/6.0.0
+      - docker push epicmorg/bitbucket:6.0.0-jdk11
+ 
+      - docker build --compress -t epicmorg/bitbucket:6.0.1 atlassian/bitbucket/6.0.1
+      - docker push epicmorg/bitbucket:6.0.1
+      - docker build --compress -t epicmorg/bitbucket:6.0.1-jdk11 -f atlassian/bitbucket/6.0.1/Dockerfile.jdk11 atlassian/bitbucket/6.0.1
+      - docker push epicmorg/bitbucket:6.0.1-jdk11
+      
+      - docker build --compress -t epicmorg/bitbucket:6.0.2 atlassian/bitbucket/6.0.2
+      - docker push epicmorg/bitbucket:6.0.2
+      - docker build --compress -t epicmorg/bitbucket:6.0.2-jdk11 -f atlassian/bitbucket/6.0.2/Dockerfile.jdk11 atlassian/bitbucket/6.0.2
+      - docker push epicmorg/bitbucket:6.0.2-jdk11
+ 
+      - docker build --compress -t epicmorg/bitbucket:6.0.3 atlassian/bitbucket/6.0.3
+      - docker push epicmorg/bitbucket:6.0.3
+      - docker build --compress -t epicmorg/bitbucket:6.0.3-jdk11 -f atlassian/bitbucket/6.0.3/Dockerfile.jdk11 atlassian/bitbucket/6.0.3
+      - docker push epicmorg/bitbucket:6.0.3-jdk11
+ 
+      - docker build --compress -t epicmorg/bitbucket:6.0.4 atlassian/bitbucket/6.0.4
+      - docker push epicmorg/bitbucket:6.0.4
+      - docker build --compress -t epicmorg/bitbucket:6.0.4-jdk11 -f atlassian/bitbucket/6.0.4/Dockerfile.jdk11 atlassian/bitbucket/6.0.4
+      - docker push epicmorg/bitbucket:6.0.4-jdk11
+ 
+      - docker build --compress -t epicmorg/bitbucket:6.0.5 atlassian/bitbucket/6.0.5
+      - docker push epicmorg/bitbucket:6.0.5
+      - docker build --compress -t epicmorg/bitbucket:6.0.5-jdk11 -f atlassian/bitbucket/6.0.5/Dockerfile.jdk11 atlassian/bitbucket/6.0.5
+      - docker push epicmorg/bitbucket:6.0.5-jdk11
+ 
+      - docker build --compress -t epicmorg/bitbucket:6.0.6 atlassian/bitbucket/6.0.6
+      - docker push epicmorg/bitbucket:6.0.6
+      - docker build --compress -t epicmorg/bitbucket:6.0.6-jdk11 -f atlassian/bitbucket/6.0.6/Dockerfile.jdk11 atlassian/bitbucket/6.0.6
+      - docker push epicmorg/bitbucket:6.0.6-jdk11
+ 
+      - docker build --compress -t epicmorg/bitbucket:6.0.7 atlassian/bitbucket/6.0.7
+      - docker push epicmorg/bitbucket:6.0.7
+      - docker build --compress -t epicmorg/bitbucket:6.0.7-jdk11 -f atlassian/bitbucket/6.0.7/Dockerfile.jdk11 atlassian/bitbucket/6.0.7
+      - docker push epicmorg/bitbucket:6.0.7-jdk11
+
+      - docker build --compress -t epicmorg/bitbucket:6.0.9 atlassian/bitbucket/6.0.9
+      - docker push epicmorg/bitbucket:6.0.9
+      - docker build --compress -t epicmorg/bitbucket:6.0.9-jdk11 -f atlassian/bitbucket/6.0.9/Dockerfile.jdk11 atlassian/bitbucket/6.0.9
+      - docker push epicmorg/bitbucket:6.0.9-jdk11
+ 
+      - docker build --compress -t epicmorg/bitbucket:6.0.10 atlassian/bitbucket/6.0.10
+      - docker push epicmorg/bitbucket:6.0.10
+      - docker build --compress -t epicmorg/bitbucket:6.0.10-jdk11 -f atlassian/bitbucket/6.0.10/Dockerfile.jdk11 atlassian/bitbucket/6.0.10
+      - docker push epicmorg/bitbucket:6.0.10-jdk11
+ 
+      - docker build --compress -t epicmorg/bitbucket:6.0.11 atlassian/bitbucket/6.0.11
+      - docker push epicmorg/bitbucket:6.0.11
+      - docker build --compress -t epicmorg/bitbucket:6.0.11-jdk11 -f atlassian/bitbucket/6.0.11/Dockerfile.jdk11 atlassian/bitbucket/6.0.11
+      - docker push epicmorg/bitbucket:6.0.11-jdk11
+
+##########
+
+    - name: Bitbucket 6.1.x [default jdk8 + tag jdk11]
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/bitbucket:6.1.0 atlassian/bitbucket/6.1.0
+      - docker push epicmorg/bitbucket:6.1.0
+      - docker build --compress -t epicmorg/bitbucket:6.1.0-jdk11 -f atlassian/bitbucket/6.1.0/Dockerfile.jdk11 atlassian/bitbucket/6.1.0
+      - docker push epicmorg/bitbucket:6.1.0-jdk11
+ 
+      - docker build --compress -t epicmorg/bitbucket:6.1.1 atlassian/bitbucket/6.1.1
+      - docker push epicmorg/bitbucket:6.1.1
+      - docker build --compress -t epicmorg/bitbucket:6.1.1-jdk11 -f atlassian/bitbucket/6.1.1/Dockerfile.jdk11 atlassian/bitbucket/6.1.1
+      - docker push epicmorg/bitbucket:6.1.1-jdk11
+ 
+      - docker build --compress -t epicmorg/bitbucket:6.1.2 atlassian/bitbucket/6.1.2
+      - docker push epicmorg/bitbucket:6.1.2
+      - docker build --compress -t epicmorg/bitbucket:6.1.2-jdk11 -f atlassian/bitbucket/6.1.2/Dockerfile.jdk11 atlassian/bitbucket/6.1.2
+      - docker push epicmorg/bitbucket:6.1.2-jdk11
+ 
+      - docker build --compress -t epicmorg/bitbucket:6.1.3 atlassian/bitbucket/6.1.3
+      - docker push epicmorg/bitbucket:6.1.3
+      - docker build --compress -t epicmorg/bitbucket:6.1.3-jdk11 -f atlassian/bitbucket/6.1.3/Dockerfile.jdk11 atlassian/bitbucket/6.1.3
+      - docker push epicmorg/bitbucket:6.1.3-jdk11
+ 
+      - docker build --compress -t epicmorg/bitbucket:6.1.4 atlassian/bitbucket/6.1.4
+      - docker push epicmorg/bitbucket:6.1.4
+      - docker build --compress -t epicmorg/bitbucket:6.1.4-jdk11 -f atlassian/bitbucket/6.1.4/Dockerfile.jdk11 atlassian/bitbucket/6.1.4
+      - docker push epicmorg/bitbucket:6.1.4-jdk11
+ 
+      - docker build --compress -t epicmorg/bitbucket:6.1.5 atlassian/bitbucket/6.1.5
+      - docker push epicmorg/bitbucket:6.1.5
+      - docker build --compress -t epicmorg/bitbucket:6.1.5-jdk11 -f atlassian/bitbucket/6.1.5/Dockerfile.jdk11 atlassian/bitbucket/6.1.5
+      - docker push epicmorg/bitbucket:6.1.5-jdk11
+ 
+      - docker build --compress -t epicmorg/bitbucket:6.1.6 atlassian/bitbucket/6.1.6
+      - docker push epicmorg/bitbucket:6.1.6
+      - docker build --compress -t epicmorg/bitbucket:6.1.6-jdk11 -f atlassian/bitbucket/6.1.6/Dockerfile.jdk11 atlassian/bitbucket/6.1.6
+      - docker push epicmorg/bitbucket:6.1.6-jdk11
+ 
+      - docker build --compress -t epicmorg/bitbucket:6.1.7 atlassian/bitbucket/6.1.7
+      - docker push epicmorg/bitbucket:6.1.7
+      - docker build --compress -t epicmorg/bitbucket:6.1.7-jdk11 -f atlassian/bitbucket/6.1.7/Dockerfile.jdk11 atlassian/bitbucket/6.1.7
+      - docker push epicmorg/bitbucket:6.1.7-jdk11
+ 
+      - docker build --compress -t epicmorg/bitbucket:6.1.8 atlassian/bitbucket/6.1.8
+      - docker push epicmorg/bitbucket:6.1.8
+      - docker build --compress -t epicmorg/bitbucket:6.1.8-jdk11 -f atlassian/bitbucket/6.1.8/Dockerfile.jdk11 atlassian/bitbucket/6.1.8
+      - docker push epicmorg/bitbucket:6.1.8-jdk11
+ 
+      - docker build --compress -t epicmorg/bitbucket:6.1.9 atlassian/bitbucket/6.1.9
+      - docker push epicmorg/bitbucket:6.1.9
+      - docker build --compress -t epicmorg/bitbucket:6.1.9-jdk11 -f atlassian/bitbucket/6.1.9/Dockerfile.jdk11 atlassian/bitbucket/6.1.9
+      - docker push epicmorg/bitbucket:6.1.9-jdk11
+
+##########
+
+    - name: Bitbucket 6.2.x [default jdk8 + tag jdk11]
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/bitbucket:6.2.0 atlassian/bitbucket/6.2.0
       - docker push epicmorg/bitbucket:6.2.0
-
-    - name: Bitbucket 6.2.1
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/bitbucket:6.2.0-jdk11 -f atlassian/bitbucket/6.2.0/Dockerfile.jdk11 atlassian/bitbucket/6.2.0
+      - docker push epicmorg/bitbucket:6.2.0-jdk11
+ 
       - docker build --compress -t epicmorg/bitbucket:6.2.1 atlassian/bitbucket/6.2.1
       - docker push epicmorg/bitbucket:6.2.1
+      - docker build --compress -t epicmorg/bitbucket:6.2.1-jdk11 -f atlassian/bitbucket/6.2.1/Dockerfile.jdk11 atlassian/bitbucket/6.2.1
+      - docker push epicmorg/bitbucket:6.2.1-jdk11
+       
+      - docker build --compress -t epicmorg/bitbucket:6.2.2 atlassian/bitbucket/6.2.2
+      - docker push epicmorg/bitbucket:6.2.2
+      - docker build --compress -t epicmorg/bitbucket:6.2.2-jdk11 -f atlassian/bitbucket/6.2.2/Dockerfile.jdk11 atlassian/bitbucket/6.2.2
+      - docker push epicmorg/bitbucket:6.2.2-jdk11
+       
+      - docker build --compress -t epicmorg/bitbucket:6.2.3 atlassian/bitbucket/6.2.3
+      - docker push epicmorg/bitbucket:6.2.3
+      - docker build --compress -t epicmorg/bitbucket:6.2.3-jdk11 -f atlassian/bitbucket/6.2.3/Dockerfile.jdk11 atlassian/bitbucket/6.2.3
+      - docker push epicmorg/bitbucket:6.2.3-jdk11
+       
+      - docker build --compress -t epicmorg/bitbucket:6.2.4 atlassian/bitbucket/6.2.4
+      - docker push epicmorg/bitbucket:6.2.4
+      - docker build --compress -t epicmorg/bitbucket:6.2.4-jdk11 -f atlassian/bitbucket/6.2.4/Dockerfile.jdk11 atlassian/bitbucket/6.2.4
+      - docker push epicmorg/bitbucket:6.2.4-jdk11
+       
+      - docker build --compress -t epicmorg/bitbucket:6.2.5 atlassian/bitbucket/6.2.5
+      - docker push epicmorg/bitbucket:6.2.5
+      - docker build --compress -t epicmorg/bitbucket:6.2.5-jdk11 -f atlassian/bitbucket/6.2.5/Dockerfile.jdk11 atlassian/bitbucket/6.2.5
+      - docker push epicmorg/bitbucket:6.2.5-jdk11
+       
+      - docker build --compress -t epicmorg/bitbucket:6.2.6 atlassian/bitbucket/6.2.6
+      - docker push epicmorg/bitbucket:6.2.6
+      - docker build --compress -t epicmorg/bitbucket:6.2.6-jdk11 -f atlassian/bitbucket/6.2.6/Dockerfile.jdk11 atlassian/bitbucket/6.2.6
+      - docker push epicmorg/bitbucket:6.2.6-jdk11
+       
+      - docker build --compress -t epicmorg/bitbucket:6.2.7 atlassian/bitbucket/6.2.7
+      - docker push epicmorg/bitbucket:6.2.7
+      - docker build --compress -t epicmorg/bitbucket:6.2.7-jdk11 -f atlassian/bitbucket/6.2.7/Dockerfile.jdk11 atlassian/bitbucket/6.2.7
+      - docker push epicmorg/bitbucket:6.2.7-jdk11
+      
+##########
 
-    - name: Bitbucket 6.3.0
+    - name: Bitbucket 6.3.x [default jdk8 + tag jdk11]
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/bitbucket:6.3.0 atlassian/bitbucket/6.3.0
       - docker push epicmorg/bitbucket:6.3.0
-
-    - name: Bitbucket 6.3.1
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/bitbucket:6.3.0-jdk11 -f atlassian/bitbucket/6.3.0/Dockerfile.jdk11 atlassian/bitbucket/6.3.0
+      - docker push epicmorg/bitbucket:6.3.0-jdk11
+ 
       - docker build --compress -t epicmorg/bitbucket:6.3.1 atlassian/bitbucket/6.3.1
       - docker push epicmorg/bitbucket:6.3.1
-
-    - name: Bitbucket 6.3.2
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/bitbucket:6.3.1-jdk11 -f atlassian/bitbucket/6.3.1/Dockerfile.jdk11 atlassian/bitbucket/6.3.1
+      - docker push epicmorg/bitbucket:6.3.1-jdk11
+ 
       - docker build --compress -t epicmorg/bitbucket:6.3.2 atlassian/bitbucket/6.3.2
       - docker push epicmorg/bitbucket:6.3.2
+      - docker build --compress -t epicmorg/bitbucket:6.3.2-jdk11 -f atlassian/bitbucket/6.3.2/Dockerfile.jdk11 atlassian/bitbucket/6.3.2
+      - docker push epicmorg/bitbucket:6.3.2-jdk11
+ 
+      - docker build --compress -t epicmorg/bitbucket:6.3.3 atlassian/bitbucket/6.3.3
+      - docker push epicmorg/bitbucket:6.3.3
+      - docker build --compress -t epicmorg/bitbucket:6.3.3-jdk11 -f atlassian/bitbucket/6.3.3/Dockerfile.jdk11 atlassian/bitbucket/6.3.3
+      - docker push epicmorg/bitbucket:6.3.3-jdk11
+ 
+      - docker build --compress -t epicmorg/bitbucket:6.3.4 atlassian/bitbucket/6.3.4
+      - docker push epicmorg/bitbucket:6.3.4
+      - docker build --compress -t epicmorg/bitbucket:6.3.4-jdk11 -f atlassian/bitbucket/6.3.4/Dockerfile.jdk11 atlassian/bitbucket/6.3.4
+      - docker push epicmorg/bitbucket:6.3.4-jdk11
+ 
+      - docker build --compress -t epicmorg/bitbucket:6.3.5 atlassian/bitbucket/6.3.5
+      - docker push epicmorg/bitbucket:6.3.5
+      - docker build --compress -t epicmorg/bitbucket:6.3.5-jdk11 -f atlassian/bitbucket/6.3.5/Dockerfile.jdk11 atlassian/bitbucket/6.3.5
+      - docker push epicmorg/bitbucket:6.3.5-jdk11
+ 
+      - docker build --compress -t epicmorg/bitbucket:6.3.6 atlassian/bitbucket/6.3.6
+      - docker push epicmorg/bitbucket:6.3.6
+      - docker build --compress -t epicmorg/bitbucket:6.3.6-jdk11 -f atlassian/bitbucket/6.3.6/Dockerfile.jdk11 atlassian/bitbucket/6.3.6
+      - docker push epicmorg/bitbucket:6.3.6-jdk11
 
-    - name: Bitbucket 6.4.0
+##########
+
+    - name: Bitbucket 6.4.x [default jdk8 + tag jdk11]
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/bitbucket:6.4.0 atlassian/bitbucket/6.4.0
       - docker push epicmorg/bitbucket:6.4.0
-
-    - name: Bitbucket 6.4.1
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/bitbucket:6.4.0-jdk11 -f atlassian/bitbucket/6.4.0/Dockerfile.jdk11 atlassian/bitbucket/6.4.0
+      - docker push epicmorg/bitbucket:6.4.0-jdk11
+ 
       - docker build --compress -t epicmorg/bitbucket:6.4.1 atlassian/bitbucket/6.4.1
       - docker push epicmorg/bitbucket:6.4.1
+      - docker build --compress -t epicmorg/bitbucket:6.4.1-jdk11 -f atlassian/bitbucket/6.4.1/Dockerfile.jdk11 atlassian/bitbucket/6.4.1
+      - docker push epicmorg/bitbucket:6.4.1-jdk11
+ 
+      - docker build --compress -t epicmorg/bitbucket:6.4.2 atlassian/bitbucket/6.4.2
+      - docker push epicmorg/bitbucket:6.4.2
+      - docker build --compress -t epicmorg/bitbucket:6.4.2-jdk11 -f atlassian/bitbucket/6.4.2/Dockerfile.jdk11 atlassian/bitbucket/6.4.2
+      - docker push epicmorg/bitbucket:6.4.2-jdk11
+ 
+      - docker build --compress -t epicmorg/bitbucket:6.4.3 atlassian/bitbucket/6.4.3
+      - docker push epicmorg/bitbucket:6.4.3
+      - docker build --compress -t epicmorg/bitbucket:6.4.3-jdk11 -f atlassian/bitbucket/6.4.3/Dockerfile.jdk11 atlassian/bitbucket/6.4.3
+      - docker push epicmorg/bitbucket:6.4.3-jdk11
+ 
+      - docker build --compress -t epicmorg/bitbucket:6.4.4 atlassian/bitbucket/6.4.4
+      - docker push epicmorg/bitbucket:6.4.4
+      - docker build --compress -t epicmorg/bitbucket:6.4.4-jdk11 -f atlassian/bitbucket/6.4.4/Dockerfile.jdk11 atlassian/bitbucket/6.4.4
+      - docker push epicmorg/bitbucket:6.4.4-jdk11
 
-    - name: Bitbucket 6.5.0
+##########
+
+    - name: Bitbucket 6.5.x [default jdk8 + tag jdk11]
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/bitbucket:6.5.0 atlassian/bitbucket/6.5.0
       - docker push epicmorg/bitbucket:6.5.0
-
-    - name: Bitbucket 6.5.1
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/bitbucket:6.5.0-jdk11 -f atlassian/bitbucket/6.5.0/Dockerfile.jdk11 atlassian/bitbucket/6.5.0
+      - docker push epicmorg/bitbucket:6.5.0-jdk11
+ 
       - docker build --compress -t epicmorg/bitbucket:6.5.1 atlassian/bitbucket/6.5.1
       - docker push epicmorg/bitbucket:6.5.1
-
-    - name: Bitbucket 6.5.2
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/bitbucket:6.5.1-jdk11 -f atlassian/bitbucket/6.5.1/Dockerfile.jdk11 atlassian/bitbucket/6.5.1
+      - docker push epicmorg/bitbucket:6.5.1-jdk11
+ 
       - docker build --compress -t epicmorg/bitbucket:6.5.2 atlassian/bitbucket/6.5.2
       - docker push epicmorg/bitbucket:6.5.2
+      - docker build --compress -t epicmorg/bitbucket:6.5.2-jdk11 -f atlassian/bitbucket/6.5.2/Dockerfile.jdk11 atlassian/bitbucket/6.5.2
+      - docker push epicmorg/bitbucket:6.5.2-jdk11
+ 
+      - docker build --compress -t epicmorg/bitbucket:6.5.3 atlassian/bitbucket/6.5.3
+      - docker push epicmorg/bitbucket:6.5.3
+      - docker build --compress -t epicmorg/bitbucket:6.5.3-jdk11 -f atlassian/bitbucket/6.5.3/Dockerfile.jdk11 atlassian/bitbucket/6.5.3
+      - docker push epicmorg/bitbucket:6.5.3-jdk11
 
-    - name: Bitbucket 6.6.0
+##########
+
+    - name: Bitbucket 6.6.x [default jdk8 + tag jdk11]
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/bitbucket:6.6.0 atlassian/bitbucket/6.6.0
       - docker push epicmorg/bitbucket:6.6.0
-
-    - name: Bitbucket 6.6.1
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/bitbucket:6.6.0-jdk11 -f atlassian/bitbucket/6.6.0/Dockerfile.jdk11 atlassian/bitbucket/6.6.0
+      - docker push epicmorg/bitbucket:6.6.0-jdk11
+ 
       - docker build --compress -t epicmorg/bitbucket:6.6.1 atlassian/bitbucket/6.6.1
       - docker push epicmorg/bitbucket:6.6.1
-
-    - name: Bitbucket 6.6.2
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/bitbucket:6.6.1-jdk11 -f atlassian/bitbucket/6.6.1/Dockerfile.jdk11 atlassian/bitbucket/6.6.1
+      - docker push epicmorg/bitbucket:6.6.1-jdk11
+ 
       - docker build --compress -t epicmorg/bitbucket:6.6.2 atlassian/bitbucket/6.6.2
       - docker push epicmorg/bitbucket:6.6.2
+      - docker build --compress -t epicmorg/bitbucket:6.6.2-jdk11 -f atlassian/bitbucket/6.6.2/Dockerfile.jdk11 atlassian/bitbucket/6.6.2
+      - docker push epicmorg/bitbucket:6.6.2-jdk11
+ 
+      - docker build --compress -t epicmorg/bitbucket:6.6.3 atlassian/bitbucket/6.6.3
+      - docker push epicmorg/bitbucket:6.6.3
+      - docker build --compress -t epicmorg/bitbucket:6.6.3-jdk11 -f atlassian/bitbucket/6.6.3/Dockerfile.jdk11 atlassian/bitbucket/6.6.3
+      - docker push epicmorg/bitbucket:6.6.3-jdk11
 
-    - name: Bitbucket 6.7.0
+##########
+
+    - name: Bitbucket 6.7.x [default jdk8 + tag jdk11]
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/bitbucket:6.7.0 atlassian/bitbucket/6.7.0
       - docker push epicmorg/bitbucket:6.7.0
-
-    - name: Bitbucket 6.7.1
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/bitbucket:6.7.0-jdk11 -f atlassian/bitbucket/6.7.0/Dockerfile.jdk11 atlassian/bitbucket/6.7.0
+      - docker push epicmorg/bitbucket:6.7.0-jdk11
+ 
       - docker build --compress -t epicmorg/bitbucket:6.7.1 atlassian/bitbucket/6.7.1
       - docker push epicmorg/bitbucket:6.7.1
-
-    - name: Bitbucket 6.7.2
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/bitbucket:6.7.1-jdk11 -f atlassian/bitbucket/6.7.1/Dockerfile.jdk11 atlassian/bitbucket/6.7.1
+      - docker push epicmorg/bitbucket:6.7.1-jdk11
+ 
       - docker build --compress -t epicmorg/bitbucket:6.7.2 atlassian/bitbucket/6.7.2
       - docker push epicmorg/bitbucket:6.7.2
+      - docker build --compress -t epicmorg/bitbucket:6.7.2-jdk11 -f atlassian/bitbucket/6.7.2/Dockerfile.jdk11 atlassian/bitbucket/6.7.2
+      - docker push epicmorg/bitbucket:6.7.2-jdk11
+ 
+      - docker build --compress -t epicmorg/bitbucket:6.7.3 atlassian/bitbucket/6.7.3
+      - docker push epicmorg/bitbucket:6.7.3
+      - docker build --compress -t epicmorg/bitbucket:6.7.3-jdk11 -f atlassian/bitbucket/6.7.3/Dockerfile.jdk11 atlassian/bitbucket/6.7.3
+      - docker push epicmorg/bitbucket:6.7.3-jdk11
 
-    - name: Bitbucket 6.8.0
+##########
+
+    - name: Bitbucket 6.8.x [default jdk8 + tag jdk11]
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/bitbucket:6.8.0 atlassian/bitbucket/6.8.0
       - docker push epicmorg/bitbucket:6.8.0
-
-    - name: Bitbucket 6.8.1
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/bitbucket:6.8.0-jdk11 -f atlassian/bitbucket/6.8.0/Dockerfile.jdk11 atlassian/bitbucket/6.8.0
+      - docker push epicmorg/bitbucket:6.8.0-jdk11
+ 
       - docker build --compress -t epicmorg/bitbucket:6.8.1 atlassian/bitbucket/6.8.1
       - docker push epicmorg/bitbucket:6.8.1
+      - docker build --compress -t epicmorg/bitbucket:6.8.1-jdk11 -f atlassian/bitbucket/6.8.1/Dockerfile.jdk11 atlassian/bitbucket/6.8.1
+      - docker push epicmorg/bitbucket:6.8.1-jdk11
+ 
+      - docker build --compress -t epicmorg/bitbucket:6.8.2 atlassian/bitbucket/6.8.2
+      - docker push epicmorg/bitbucket:6.8.2
+      - docker build --compress -t epicmorg/bitbucket:6.8.2-jdk11 -f atlassian/bitbucket/6.8.2/Dockerfile.jdk11 atlassian/bitbucket/6.8.2
+      - docker push epicmorg/bitbucket:6.8.2-jdk11
+
+##########
+
+    - name: Bitbucket 6.9.x [default jdk8 + tag jdk11]
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/bitbucket:6.9.0 atlassian/bitbucket/6.9.0
+      - docker push epicmorg/bitbucket:6.9.0
+      - docker build --compress -t epicmorg/bitbucket:6.9.0-jdk11 -f atlassian/bitbucket/6.9.0/Dockerfile.jdk11 atlassian/bitbucket/6.9.0
+      - docker push epicmorg/bitbucket:6.9.0-jdk11
+ 
+      - docker build --compress -t epicmorg/bitbucket:6.9.1 atlassian/bitbucket/6.9.1
+      - docker push epicmorg/bitbucket:6.9.1
+      - docker build --compress -t epicmorg/bitbucket:6.9.1-jdk11 -f atlassian/bitbucket/6.9.1/Dockerfile.jdk11 atlassian/bitbucket/6.9.1
+      - docker push epicmorg/bitbucket:6.9.1-jdk11
+ 
+##########
+
+    - name: Bitbucket 6.10.x LTS [default jdk8 + tag jdk11]
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/bitbucket:6.10.0 atlassian/bitbucket/6.10.0
+      - docker push epicmorg/bitbucket:6.10.0
+      - docker build --compress -t epicmorg/bitbucket:6.10.0-jdk11 -f atlassian/bitbucket/6.10.0/Dockerfile.jdk11 atlassian/bitbucket/6.10.0
+      - docker push epicmorg/bitbucket:6.10.0-jdk11
 
 #########################################
 ####  Our Confluence images
 #########################################
-    - name: Confluence 6.9.1
+
+    - name: Confluence 6.0.x
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      
+      - docker build --compress -t epicmorg/confluence:6.0.1 atlassian/confluence/6.0.1
+      - docker push epicmorg/confluence:6.0.1
+
+      - docker build --compress -t epicmorg/confluence:6.0.2 atlassian/confluence/6.0.2
+      - docker push epicmorg/confluence:6.0.2
+
+      - docker build --compress -t epicmorg/confluence:6.0.3 atlassian/confluence/6.0.3
+      - docker push epicmorg/confluence:6.0.3
+
+      - docker build --compress -t epicmorg/confluence:6.0.4 atlassian/confluence/6.0.4
+      - docker push epicmorg/confluence:6.0.4
+
+      - docker build --compress -t epicmorg/confluence:6.0.5 atlassian/confluence/6.0.5
+      - docker push epicmorg/confluence:6.0.1
+
+      - docker build --compress -t epicmorg/confluence:6.0.6 atlassian/confluence/6.0.6
+      - docker push epicmorg/confluence:6.0.1
+
+      - docker build --compress -t epicmorg/confluence:6.0.7 atlassian/confluence/6.0.7
+      - docker push epicmorg/confluence:6.0.7
+      
+##########
+
+    - name: Confluence 6.1.x
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      
+      - docker build --compress -t epicmorg/confluence:6.1.0 atlassian/confluence/6.1.0
+      - docker push epicmorg/confluence:6.1.0
+
+      - docker build --compress -t epicmorg/confluence:6.1.1 atlassian/confluence/6.1.1
+      - docker push epicmorg/confluence:6.1.1
+
+      - docker build --compress -t epicmorg/confluence:6.1.2 atlassian/confluence/6.1.2
+      - docker push epicmorg/confluence:6.1.2
+
+      - docker build --compress -t epicmorg/confluence:6.1.3 atlassian/confluence/6.1.3
+      - docker push epicmorg/confluence:6.1.3
+
+      - docker build --compress -t epicmorg/confluence:6.1.4 atlassian/confluence/6.1.4
+      - docker push epicmorg/confluence:6.1.4
+
+##########
+
+    - name: Confluence 6.2.x
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      
+      - docker build --compress -t epicmorg/confluence:6.2.0 atlassian/confluence/6.2.0
+      - docker push epicmorg/confluence:6.2.0
+
+      - docker build --compress -t epicmorg/confluence:6.2.1 atlassian/confluence/6.2.1
+      - docker push epicmorg/confluence:6.2.1
+      
+      - docker build --compress -t epicmorg/confluence:6.2.3 atlassian/confluence/6.2.3
+      - docker push epicmorg/confluence:6.2.3
+
+      - docker build --compress -t epicmorg/confluence:6.2.4 atlassian/confluence/6.2.4
+      - docker push epicmorg/confluence:6.2.4
+
+##########
+
+    - name: Confluence 6.3.x
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      
+      - docker build --compress -t epicmorg/confluence:6.3.1 atlassian/confluence/6.3.1
+      - docker push epicmorg/confluence:6.3.1
+      
+      - docker build --compress -t epicmorg/confluence:6.3.2 atlassian/confluence/6.3.2
+      - docker push epicmorg/confluence:6.3.2
+
+      - docker build --compress -t epicmorg/confluence:6.3.3 atlassian/confluence/6.3.3
+      - docker push epicmorg/confluence:6.3.3
+
+      - docker build --compress -t epicmorg/confluence:6.3.4 atlassian/confluence/6.3.4
+      - docker push epicmorg/confluence:6.3.4
+
+##########
+
+    - name: Confluence 6.4.x
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      
+      - docker build --compress -t epicmorg/confluence:6.4.0 atlassian/confluence/6.4.0
+      - docker push epicmorg/confluence:6.4.0
+      
+      - docker build --compress -t epicmorg/confluence:6.4.1 atlassian/confluence/6.4.1
+      - docker push epicmorg/confluence:6.4.1
+      
+      - docker build --compress -t epicmorg/confluence:6.4.2 atlassian/confluence/6.4.2
+      - docker push epicmorg/confluence:6.4.2
+
+      - docker build --compress -t epicmorg/confluence:6.4.3 atlassian/confluence/6.4.3
+      - docker push epicmorg/confluence:6.4.3
+
+##########
+
+    - name: Confluence 6.5.x
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      
+      - docker build --compress -t epicmorg/confluence:6.5.0 atlassian/confluence/6.5.0
+      - docker push epicmorg/confluence:6.5.0
+      
+      - docker build --compress -t epicmorg/confluence:6.5.1 atlassian/confluence/6.5.1
+      - docker push epicmorg/confluence:6.5.1
+      
+      - docker build --compress -t epicmorg/confluence:6.5.2 atlassian/confluence/6.5.2
+      - docker push epicmorg/confluence:6.5.2
+
+      - docker build --compress -t epicmorg/confluence:6.5.3 atlassian/confluence/6.5.3
+      - docker push epicmorg/confluence:6.5.3
+      
+##########
+
+    - name: Confluence 6.6.x LTS
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      
+      - docker build --compress -t epicmorg/confluence:6.6.0 atlassian/confluence/6.6.0
+      - docker push epicmorg/confluence:6.6.0
+
+      - docker build --compress -t epicmorg/confluence:6.6.1 atlassian/confluence/6.6.1
+      - docker push epicmorg/confluence:6.6.1
+
+      - docker build --compress -t epicmorg/confluence:6.6.2 atlassian/confluence/6.6.2
+      - docker push epicmorg/confluence:6.6.2
+
+      - docker build --compress -t epicmorg/confluence:6.6.3 atlassian/confluence/6.6.3
+      - docker push epicmorg/confluence:6.6.3
+
+      - docker build --compress -t epicmorg/confluence:6.6.4 atlassian/confluence/6.6.4
+      - docker push epicmorg/confluence:6.6.4
+
+      - docker build --compress -t epicmorg/confluence:6.6.5 atlassian/confluence/6.6.5
+      - docker push epicmorg/confluence:6.6.5
+
+      - docker build --compress -t epicmorg/confluence:6.6.6 atlassian/confluence/6.6.6
+      - docker push epicmorg/confluence:6.6.6
+
+      - docker build --compress -t epicmorg/confluence:6.6.7 atlassian/confluence/6.6.7
+      - docker push epicmorg/confluence:6.6.7
+
+      - docker build --compress -t epicmorg/confluence:6.6.8 atlassian/confluence/6.6.8
+      - docker push epicmorg/confluence:6.6.8
+
+      - docker build --compress -t epicmorg/confluence:6.6.9 atlassian/confluence/6.6.9
+      - docker push epicmorg/confluence:6.6.9
+
+      - docker build --compress -t epicmorg/confluence:6.6.10 atlassian/confluence/6.6.10
+      - docker push epicmorg/confluence:6.6.10
+
+      - docker build --compress -t epicmorg/confluence:6.6.11 atlassian/confluence/6.6.11
+      - docker push epicmorg/confluence:6.6.11
+
+      - docker build --compress -t epicmorg/confluence:6.6.12 atlassian/confluence/6.6.12
+      - docker push epicmorg/confluence:6.6.12
+
+      - docker build --compress -t epicmorg/confluence:6.6.13 atlassian/confluence/6.6.13
+      - docker push epicmorg/confluence:6.6.13
+
+      - docker build --compress -t epicmorg/confluence:6.6.14 atlassian/confluence/6.6.14
+      - docker push epicmorg/confluence:6.6.14
+
+      - docker build --compress -t epicmorg/confluence:6.6.15 atlassian/confluence/6.6.15
+      - docker push epicmorg/confluence:6.6.15
+
+      - docker build --compress -t epicmorg/confluence:6.6.17 atlassian/confluence/6.6.17
+      - docker push epicmorg/confluence:6.6.17
+
+##########
+
+    - name: Confluence 6.7.x
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      
+      - docker build --compress -t epicmorg/confluence:6.7.0 atlassian/confluence/6.7.0
+      - docker push epicmorg/confluence:6.7.0
+      
+      - docker build --compress -t epicmorg/confluence:6.7.1 atlassian/confluence/6.7.1
+      - docker push epicmorg/confluence:6.7.1
+      
+      - docker build --compress -t epicmorg/confluence:6.7.2 atlassian/confluence/6.7.2
+      - docker push epicmorg/confluence:6.7.2
+
+      - docker build --compress -t epicmorg/confluence:6.7.3 atlassian/confluence/6.7.3
+      - docker push epicmorg/confluence:6.7.3
+      
+##########
+
+    - name: Confluence 6.8.x
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      
+      - docker build --compress -t epicmorg/confluence:6.8.0 atlassian/confluence/6.8.0
+      - docker push epicmorg/confluence:6.8.0
+      
+      - docker build --compress -t epicmorg/confluence:6.8.1 atlassian/confluence/6.8.1
+      - docker push epicmorg/confluence:6.8.1
+      
+      - docker build --compress -t epicmorg/confluence:6.8.2 atlassian/confluence/6.8.2
+      - docker push epicmorg/confluence:6.8.2
+
+      - docker build --compress -t epicmorg/confluence:6.8.3 atlassian/confluence/6.8.3
+      - docker push epicmorg/confluence:6.8.3
+      
+      - docker build --compress -t epicmorg/confluence:6.8.5 atlassian/confluence/6.8.5
+      - docker push epicmorg/confluence:6.8.5
+
+##########
+
+    - name: Confluence 6.9.x
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/confluence:6.9.0 atlassian/confluence/6.9.0
+      - docker push epicmorg/confluence:6.9.0
+ 
       - docker build --compress -t epicmorg/confluence:6.9.1 atlassian/confluence/6.9.1
       - docker push epicmorg/confluence:6.9.1
-
-    - name: Confluence 6.9.3
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/confluence:6.9.3 atlassian/confluence/6.9.3
       - docker push epicmorg/confluence:6.9.3
 
-    - name: Confluence 6.10.0
+##########
+
+    - name: Confluence 6.10.x
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/confluence:6.10.0 atlassian/confluence/6.10.0
       - docker push epicmorg/confluence:6.10.0
-
-    - name: Confluence 6.10.1
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/confluence:6.10.1 atlassian/confluence/6.10.1
       - docker push epicmorg/confluence:6.10.1
-
-    - name: Confluence 6.10.2
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/confluence:6.10.2 atlassian/confluence/6.10.2
       - docker push epicmorg/confluence:6.10.2
+ 
+      - docker build --compress -t epicmorg/confluence:6.10.3 atlassian/confluence/6.10.3
+      - docker push epicmorg/confluence:6.10.3
 
-    - name: Confluence 6.11.0
+##########
+
+    - name: Confluence 6.11.x
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/confluence:6.11.0 atlassian/confluence/6.11.0
       - docker push epicmorg/confluence:6.11.0
-
-    - name: Confluence 6.11.1
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/confluence:6.11.1 atlassian/confluence/6.11.1
       - docker push epicmorg/confluence:6.11.1
-
-    - name: Confluence 6.11.2
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/confluence:6.11.2 atlassian/confluence/6.11.2
       - docker push epicmorg/confluence:6.11.2
 
-    - name: Confluence 6.12.0
+##########
+
+    - name: Confluence 6.12.x
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/confluence:6.12.0 atlassian/confluence/6.12.0
       - docker push epicmorg/confluence:6.12.0
-
-    - name: Confluence 6.12.1
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/confluence:6.12.1 atlassian/confluence/6.12.1
       - docker push epicmorg/confluence:6.12.1
-
-    - name: Confluence 6.12.2
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/confluence:6.12.2 atlassian/confluence/6.12.2
       - docker push epicmorg/confluence:6.12.2
-
-    - name: Confluence 6.12.3
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/confluence:6.12.3 atlassian/confluence/6.12.3
       - docker push epicmorg/confluence:6.12.3
-
-    - name: Confluence 6.12.4
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/confluence:6.12.4 atlassian/confluence/6.12.4
       - docker push epicmorg/confluence:6.12.4
 
-    - name: Confluence 6.13.0
+##########
+
+    - name: Confluence 6.13.x LTS
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/confluence:6.13.0 atlassian/confluence/6.13.0
       - docker push epicmorg/confluence:6.13.0
-
-    - name: Confluence 6.13.1
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/confluence:6.13.1 atlassian/confluence/6.13.1
       - docker push epicmorg/confluence:6.13.1
-
-    - name: Confluence 6.13.2
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/confluence:6.13.2 atlassian/confluence/6.13.2
       - docker push epicmorg/confluence:6.13.2
-
-    - name: Confluence 6.13.3
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/confluence:6.13.3 atlassian/confluence/6.13.3
       - docker push epicmorg/confluence:6.13.3
+       
+      - docker build --compress -t epicmorg/confluence:6.13.4 atlassian/confluence/6.13.4
+      - docker push epicmorg/confluence:6.13.4
 
-    - name: Confluence 6.14.0
+      - docker build --compress -t epicmorg/confluence:6.13.5 atlassian/confluence/6.13.5
+      - docker push epicmorg/confluence:6.13.5
+
+      - docker build --compress -t epicmorg/confluence:6.13.6 atlassian/confluence/6.13.6
+      - docker push epicmorg/confluence:6.13.6
+
+      - docker build --compress -t epicmorg/confluence:6.13.7 atlassian/confluence/6.13.7
+      - docker push epicmorg/confluence:6.13.7
+
+      - docker build --compress -t epicmorg/confluence:6.13.8 atlassian/confluence/6.13.8
+      - docker push epicmorg/confluence:6.13.8
+
+      - docker build --compress -t epicmorg/confluence:6.13.9 atlassian/confluence/6.13.9
+      - docker push epicmorg/confluence:6.13.9
+
+      - docker build --compress -t epicmorg/confluence:6.13.10 atlassian/confluence/6.13.10
+      - docker push epicmorg/confluence:6.13.10
+
+##########
+
+    - name: Confluence 6.14.x
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/confluence:6.14.0 atlassian/confluence/6.14.0
       - docker push epicmorg/confluence:6.14.0
-
-    - name: Confluence 6.14.1
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/confluence:6.14.1 atlassian/confluence/6.14.1
       - docker push epicmorg/confluence:6.14.1
-
-    - name: Confluence 6.14.2
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/confluence:6.14.2 atlassian/confluence/6.14.2
       - docker push epicmorg/confluence:6.14.2
-
-    - name: Confluence 6.14.3
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/confluence:6.14.3 atlassian/confluence/6.14.3
       - docker push epicmorg/confluence:6.14.3
 
-    - name: Confluence 6.15.1
+##########
+
+    - name: Confluence 6.15.x
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/confluence:6.15.1 atlassian/confluence/6.15.1
       - docker push epicmorg/confluence:6.15.1
-
-    - name: Confluence 6.15.2
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  
       - docker build --compress -t epicmorg/confluence:6.15.2 atlassian/confluence/6.15.2
       - docker push epicmorg/confluence:6.15.2
-
-    - name: Confluence 6.15.4
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/confluence:6.15.4 atlassian/confluence/6.15.4
       - docker push epicmorg/confluence:6.15.4
-
-    - name: Confluence 6.15.6
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/confluence:6.15.6 atlassian/confluence/6.15.6
       - docker push epicmorg/confluence:6.15.6
-
-    - name: Confluence 6.15.7
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/confluence:6.15.7 atlassian/confluence/6.15.7
       - docker push epicmorg/confluence:6.15.7
-
-    - name: Confluence 6.15.8
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/confluence:6.15.8 atlassian/confluence/6.15.8
       - docker push epicmorg/confluence:6.15.8
-
-    - name: Confluence 6.15.9
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/confluence:6.15.9 atlassian/confluence/6.15.9
       - docker push epicmorg/confluence:6.15.9
 
-    - name: Confluence 7.0.1
+      - docker build --compress -t epicmorg/confluence:6.15.10 atlassian/confluence/6.15.10
+      - docker push epicmorg/confluence:6.15.10
+
+##########
+
+    - name: Confluence 7.0.x
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/confluence:7.0.1 atlassian/confluence/7.0.1
       - docker push epicmorg/confluence:7.0.1
-
-
-    - name: Confluence 7.0.2
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/confluence:7.0.2 atlassian/confluence/7.0.2
       - docker push epicmorg/confluence:7.0.2
-
-
-    - name: Confluence 7.0.3
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/confluence:7.0.3 atlassian/confluence/7.0.3
       - docker push epicmorg/confluence:7.0.3
-
-
-    - name: Confluence 7.0.4
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/confluence:7.0.4 atlassian/confluence/7.0.4
       - docker push epicmorg/confluence:7.0.4
+ 
+      - docker build --compress -t epicmorg/confluence:7.0.5 atlassian/confluence/7.0.5
+      - docker push epicmorg/confluence:7.0.5
 
+##########
 
-    - name: Confluence 7.1.0
+    - name: Confluence 7.1.x [default jdk8 + tag jdk11]
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/confluence:7.1.0 atlassian/confluence/7.1.0
       - docker push epicmorg/confluence:7.1.0
-
-
-    - name: Confluence 7.1.1
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/confluence:7.1.0-jdk11 -f atlassian/confluence/7.1.0/Dockerfile.jdk11 atlassian/confluence/7.1.0
+      - docker push epicmorg/confluence:7.1.0-jdk11
+ 
       - docker build --compress -t epicmorg/confluence:7.1.1 atlassian/confluence/7.1.1
       - docker push epicmorg/confluence:7.1.1
-
-
-    - name: Confluence 7.1.2
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/confluence:7.1.1-jdk11 -f atlassian/confluence/7.1.1/Dockerfile.jdk11 atlassian/confluence/7.1.1
+      - docker push epicmorg/confluence:7.1.1-jdk11
+ 
       - docker build --compress -t epicmorg/confluence:7.1.2 atlassian/confluence/7.1.2
       - docker push epicmorg/confluence:7.1.2
+      - docker build --compress -t epicmorg/confluence:7.1.2-jdk11 -f atlassian/confluence/7.1.2/Dockerfile.jdk11 atlassian/confluence/7.1.2
+      - docker push epicmorg/confluence:7.1.2-jdk11
 
+##########
 
-    - name: Confluence 7.2.0
+    - name: Confluence 7.2.x [default jdk8 + tag jdk11]
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/confluence:7.2.0 atlassian/confluence/7.2.0
       - docker push epicmorg/confluence:7.2.0
-
+      - docker build --compress -t epicmorg/confluence:7.2.0-jdk11 -f atlassian/confluence/7.2.0/Dockerfile.jdk11 atlassian/confluence/7.2.0
+      - docker push epicmorg/confluence:7.2.0-jdk11
+      
+      - docker build --compress -t epicmorg/confluence:7.2.1 atlassian/confluence/7.2.0
+      - docker push epicmorg/confluence:7.2.1
+      - docker build --compress -t epicmorg/confluence:7.2.1-jdk11 -f atlassian/confluence/7.2.1/Dockerfile.jdk11 atlassian/confluence/7.2.1
+      - docker push epicmorg/confluence:7.2.1-jdk11
 
 #########################################
 ####  Our Jira images
 #########################################
-    - name: Jira 7.0.0
+    - name: Jira 7.0.x
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/jira:7.0.0 atlassian/jira/7.0.0
       - docker push epicmorg/jira:7.0.0
-
-    - name: Jira 7.0.2
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/jira:7.0.2 atlassian/jira/7.0.2
       - docker push epicmorg/jira:7.0.2
-      
-    - name: Jira 7.0.4
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+       
       - docker build --compress -t epicmorg/jira:7.0.4 atlassian/jira/7.0.4
       - docker push epicmorg/jira:7.0.4
-      
-    - name: Jira 7.0.5
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+       
       - docker build --compress -t epicmorg/jira:7.0.5 atlassian/jira/7.0.5
       - docker push epicmorg/jira:7.0.5
-
-    - name: Jira 7.0.10
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/jira:7.0.10 atlassian/jira/7.0.10
       - docker push epicmorg/jira:7.0.10
-      
-    - name: Jira 7.0.11
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+       
       - docker build --compress -t epicmorg/jira:7.0.11 atlassian/jira/7.0.11
       - docker push epicmorg/jira:7.0.11
 
 ##########
 
-    - name: Jira 7.1.0
+    - name: Jira 7.1.x
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/jira:7.1.0 atlassian/jira/7.1.0
       - docker push epicmorg/jira:7.1.0
-
-    - name: Jira 7.1.1
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/jira:7.1.1 atlassian/jira/7.1.1
       - docker push epicmorg/jira:7.1.1
-
-    - name: Jira 7.1.2
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/jira:7.1.2 atlassian/jira/7.1.2
       - docker push epicmorg/jira:7.1.2
-
-    - name: Jira 7.1.4
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/jira:7.1.4 atlassian/jira/7.1.4
       - docker push epicmorg/jira:7.1.4
-
-    - name: Jira 7.1.6
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/jira:7.1.6 atlassian/jira/7.1.6
       - docker push epicmorg/jira:7.1.6
-
-    - name: Jira 7.1.7
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/jira:7.1.7 atlassian/jira/7.1.7
       - docker push epicmorg/jira:7.1.7
-
-    - name: Jira 7.1.8
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/jira:7.1.8 atlassian/jira/7.1.8
       - docker push epicmorg/jira:7.1.8
-
-    - name: Jira 7.1.9
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/jira:7.1.9 atlassian/jira/7.1.9
       - docker push epicmorg/jira:7.1.9
-
-    - name: Jira 7.1.10
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/jira:7.1.10 atlassian/jira/7.1.10
       - docker push epicmorg/jira:7.1.10
 
 ##########
 
-    - name: Jira 7.2.0
+    - name: Jira 7.2.x
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/jira:7.2.0 atlassian/jira/7.2.0
       - docker push epicmorg/jira:7.2.0
-
-    - name: Jira 7.2.1
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/jira:7.2.1 atlassian/jira/7.2.1
       - docker push epicmorg/jira:7.2.1
-
-    - name: Jira 7.2.2
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/jira:7.2.2 atlassian/jira/7.2.2
       - docker push epicmorg/jira:7.2.2
-
-    - name: Jira 7.2.3
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/jira:7.2.3 atlassian/jira/7.2.3
       - docker push epicmorg/jira:7.2.3
-
-    - name: Jira 7.2.4
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/jira:7.2.4 atlassian/jira/7.2.4
       - docker push epicmorg/jira:7.2.4
-
-    - name: Jira 7.2.6
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/jira:7.2.6 atlassian/jira/7.2.6
       - docker push epicmorg/jira:7.2.6
-
-    - name: Jira 7.2.7
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/jira:7.2.7 atlassian/jira/7.2.7
       - docker push epicmorg/jira:7.2.7
-
-    - name: Jira 7.2.8
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/jira:7.2.8 atlassian/jira/7.2.8
       - docker push epicmorg/jira:7.2.8
-
-    - name: Jira 7.2.9
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/jira:7.2.9 atlassian/jira/7.2.9
       - docker push epicmorg/jira:7.2.9
-
-    - name: Jira 7.2.10
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/jira:7.2.10 atlassian/jira/7.2.10
       - docker push epicmorg/jira:7.2.10
-
-    - name: Jira 7.2.11
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/jira:7.2.11 atlassian/jira/7.2.11
       - docker push epicmorg/jira:7.2.11
-
-    - name: Jira 7.2.12
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/jira:7.2.12 atlassian/jira/7.2.12
       - docker push epicmorg/jira:7.2.12
-
-    - name: Jira 7.2.13
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/jira:7.2.13 atlassian/jira/7.2.13
       - docker push epicmorg/jira:7.2.13
-
-    - name: Jira 7.2.14
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/jira:7.2.14 atlassian/jira/7.2.14
       - docker push epicmorg/jira:7.2.14
-
-    - name: Jira 7.2.15
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/jira:7.2.15 atlassian/jira/7.2.15
       - docker push epicmorg/jira:7.2.15
 
 ##########
 
-# moved to hipriority section
-#    - name: Jira 7.10.0
-#      script:
-#      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-#      - docker build --compress -t epicmorg/jira:7.10.0 atlassian/jira/7.10.0
-#      - docker push epicmorg/jira:7.10.0
-
-    - name: Jira 7.10.1
+    - name: Jira 7.3.x
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/jira:7.3.0 atlassian/jira/7.3.0
+      - docker push epicmorg/jira:7.3.0
+ 
+      - docker build --compress -t epicmorg/jira:7.3.1 atlassian/jira/7.3.1
+      - docker push epicmorg/jira:7.3.1
+ 
+      - docker build --compress -t epicmorg/jira:7.3.2 atlassian/jira/7.3.2
+      - docker push epicmorg/jira:7.3.2
+ 
+      - docker build --compress -t epicmorg/jira:7.3.3 atlassian/jira/7.3.3
+      - docker push epicmorg/jira:7.3.3
+ 
+      - docker build --compress -t epicmorg/jira:7.3.4 atlassian/jira/7.3.4
+      - docker push epicmorg/jira:7.3.4
+ 
+      - docker build --compress -t epicmorg/jira:7.3.5 atlassian/jira/7.3.5
+      - docker push epicmorg/jira:7.3.5
+ 
+      - docker build --compress -t epicmorg/jira:7.3.6 atlassian/jira/7.3.6
+      - docker push epicmorg/jira:7.3.6
+ 
+      - docker build --compress -t epicmorg/jira:7.3.7 atlassian/jira/7.3.7
+      - docker push epicmorg/jira:7.3.7
+ 
+      - docker build --compress -t epicmorg/jira:7.3.8 atlassian/jira/7.3.8
+      - docker push epicmorg/jira:7.3.8
+ 
+      - docker build --compress -t epicmorg/jira:7.3.9 atlassian/jira/7.3.9
+      - docker push epicmorg/jira:7.3.9
+
+##########
+
+    - name: Jira 7.4.x
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/jira:7.4.0 atlassian/jira/7.4.0
+      - docker push epicmorg/jira:7.4.0
+ 
+      - docker build --compress -t epicmorg/jira:7.4.1 atlassian/jira/7.4.1
+      - docker push epicmorg/jira:7.4.1
+ 
+      - docker build --compress -t epicmorg/jira:7.4.2 atlassian/jira/7.4.2
+      - docker push epicmorg/jira:7.4.2
+ 
+      - docker build --compress -t epicmorg/jira:7.4.3 atlassian/jira/7.4.3
+      - docker push epicmorg/jira:7.4.3
+ 
+      - docker build --compress -t epicmorg/jira:7.4.4 atlassian/jira/7.4.4
+      - docker push epicmorg/jira:7.4.4
+ 
+      - docker build --compress -t epicmorg/jira:7.4.5 atlassian/jira/7.4.5
+      - docker push epicmorg/jira:7.4.5
+ 
+      - docker build --compress -t epicmorg/jira:7.4.6 atlassian/jira/7.4.6
+      - docker push epicmorg/jira:7.4.6
+
+##########
+
+    - name: Jira 7.5.x
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/jira:7.5.0 atlassian/jira/7.5.0
+      - docker push epicmorg/jira:7.5.0
+ 
+      - docker build --compress -t epicmorg/jira:7.5.1 atlassian/jira/7.5.1
+      - docker push epicmorg/jira:7.5.1
+ 
+      - docker build --compress -t epicmorg/jira:7.5.2 atlassian/jira/7.5.2
+      - docker push epicmorg/jira:7.5.2
+ 
+      - docker build --compress -t epicmorg/jira:7.5.3 atlassian/jira/7.5.3
+      - docker push epicmorg/jira:7.5.3
+ 
+      - docker build --compress -t epicmorg/jira:7.5.4 atlassian/jira/7.5.4
+      - docker push epicmorg/jira:7.5.4
+
+##########
+
+    - name: Jira 7.6.x LTS
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/jira:7.6.0 atlassian/jira/7.6.0
+      - docker push epicmorg/jira:7.6.0
+ 
+      - docker build --compress -t epicmorg/jira:7.6.1 atlassian/jira/7.6.1
+      - docker push epicmorg/jira:7.6.1
+ 
+      - docker build --compress -t epicmorg/jira:7.6.2 atlassian/jira/7.6.2
+      - docker push epicmorg/jira:7.6.2
+ 
+      - docker build --compress -t epicmorg/jira:7.6.3 atlassian/jira/7.6.3
+      - docker push epicmorg/jira:7.6.3
+ 
+      - docker build --compress -t epicmorg/jira:7.6.4 atlassian/jira/7.6.4
+      - docker push epicmorg/jira:7.6.4
+ 
+      - docker build --compress -t epicmorg/jira:7.6.6 atlassian/jira/7.6.6
+      - docker push epicmorg/jira:7.6.6
+ 
+      - docker build --compress -t epicmorg/jira:7.6.7 atlassian/jira/7.6.7
+      - docker push epicmorg/jira:7.6.7
+ 
+      - docker build --compress -t epicmorg/jira:7.6.8 atlassian/jira/7.6.8
+      - docker push epicmorg/jira:7.6.8
+ 
+      - docker build --compress -t epicmorg/jira:7.6.9 atlassian/jira/7.6.9
+      - docker push epicmorg/jira:7.6.9
+ 
+      - docker build --compress -t epicmorg/jira:7.6.10 atlassian/jira/7.6.10
+      - docker push epicmorg/jira:7.6.10
+ 
+      - docker build --compress -t epicmorg/jira:7.6.11 atlassian/jira/7.6.11
+      - docker push epicmorg/jira:7.6.11
+ 
+      - docker build --compress -t epicmorg/jira:7.6.12 atlassian/jira/7.6.12
+      - docker push epicmorg/jira:7.6.12
+ 
+      - docker build --compress -t epicmorg/jira:7.6.13 atlassian/jira/7.6.13
+      - docker push epicmorg/jira:7.6.13
+ 
+      - docker build --compress -t epicmorg/jira:7.6.14 atlassian/jira/7.6.14
+      - docker push epicmorg/jira:7.6.14
+ 
+      - docker build --compress -t epicmorg/jira:7.6.15 atlassian/jira/7.6.15
+      - docker push epicmorg/jira:7.6.15
+ 
+      - docker build --compress -t epicmorg/jira:7.6.16 atlassian/jira/7.6.16
+      - docker push epicmorg/jira:7.6.16
+ 
+      - docker build --compress -t epicmorg/jira:7.6.17 atlassian/jira/7.6.17
+      - docker push epicmorg/jira:7.6.17
+
+##########
+
+    - name: Jira 7.7.x
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/jira:7.7.0 atlassian/jira/7.7.0
+      - docker push epicmorg/jira:7.7.0
+ 
+      - docker build --compress -t epicmorg/jira:7.7.1 atlassian/jira/7.7.1
+      - docker push epicmorg/jira:7.7.1
+ 
+      - docker build --compress -t epicmorg/jira:7.7.2 atlassian/jira/7.7.2
+      - docker push epicmorg/jira:7.7.2
+ 
+      - docker build --compress -t epicmorg/jira:7.7.4 atlassian/jira/7.7.4
+      - docker push epicmorg/jira:7.7.4
+
+##########
+
+    - name: Jira 7.8.x
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/jira:7.8.0 atlassian/jira/7.8.0
+      - docker push epicmorg/jira:7.8.0
+ 
+      - docker build --compress -t epicmorg/jira:7.8.1 atlassian/jira/7.8.1
+      - docker push epicmorg/jira:7.8.1
+ 
+      - docker build --compress -t epicmorg/jira:7.8.2 atlassian/jira/7.8.2
+      - docker push epicmorg/jira:7.8.2
+ 
+      - docker build --compress -t epicmorg/jira:7.8.4 atlassian/jira/7.8.4
+      - docker push epicmorg/jira:7.8.4
+      
+##########
+
+    - name: Jira 7.9.x
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/jira:7.9.0 atlassian/jira/7.9.0
+      - docker push epicmorg/jira:7.9.0
+ 
+      - docker build --compress -t epicmorg/jira:7.9.2 atlassian/jira/7.9.2
+      - docker push epicmorg/jira:7.9.2
+
+##########
+
+    - name: Jira 7.10.x
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/jira:7.10.0 atlassian/jira/7.10.0
+      - docker push epicmorg/jira:7.10.0
+ 
       - docker build --compress -t epicmorg/jira:7.10.1 atlassian/jira/7.10.1
       - docker push epicmorg/jira:7.10.1
-
-    - name: Jira 7.10.2
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/jira:7.10.2 atlassian/jira/7.10.2
       - docker push epicmorg/jira:7.10.2
+      
+##########
 
-    - name: Jira 7.11.0
+    - name: Jira 7.11.x
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/jira:7.11.0 atlassian/jira/7.11.0
       - docker push epicmorg/jira:7.11.0
-
-    - name: Jira 7.11.1
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/jira:7.11.1 atlassian/jira/7.11.1
       - docker push epicmorg/jira:7.11.1
-
-    - name: Jira 7.11.2
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/jira:7.11.2 atlassian/jira/7.11.2
       - docker push epicmorg/jira:7.11.2
 
-    - name: Jira 7.12.0
+##########
+
+    - name: Jira 7.12.x
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/jira:7.12.0 atlassian/jira/7.12.0
       - docker push epicmorg/jira:7.12.0
-
-    - name: Jira 7.12.1
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/jira:7.12.1 atlassian/jira/7.12.1
       - docker push epicmorg/jira:7.12.1
-
-#    - name: Jira 7.12.2
-#      script:
-#      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-#      - docker build --compress -t epicmorg/jira:7.12.2 atlassian/jira/7.12.2
-#      - docker push epicmorg/jira:7.12.2
-
-    - name: Jira 7.12.3
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/jira:7.12.3 atlassian/jira/7.12.3
       - docker push epicmorg/jira:7.12.3
 
-    - name: Jira 7.13.0
+##########
+
+    - name: Jira 7.13.x LTS
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/jira:7.13.0 atlassian/jira/7.13.0
       - docker push epicmorg/jira:7.13.0
-
-    - name: Jira 7.13.1
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/jira:7.13.1 atlassian/jira/7.13.1
       - docker push epicmorg/jira:7.13.1
-
-    - name: Jira 7.13.2
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/jira:7.13.2 atlassian/jira/7.13.2
       - docker push epicmorg/jira:7.13.2
-
-    - name: Jira 7.13.3
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/jira:7.13.3 atlassian/jira/7.13.3
       - docker push epicmorg/jira:7.13.3
-
-    - name: Jira 7.13.4
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/jira:7.13.4 atlassian/jira/7.13.4
       - docker push epicmorg/jira:7.13.4
-
-    - name: Jira 7.13.5
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/jira:7.13.5 atlassian/jira/7.13.5
       - docker push epicmorg/jira:7.13.5
-
-    - name: Jira 7.13.6
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/jira:7.13.6 atlassian/jira/7.13.6
       - docker push epicmorg/jira:7.13.6
-
-    - name: Jira 7.13.8
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/jira:7.13.8 atlassian/jira/7.13.8
       - docker push epicmorg/jira:7.13.8
-
-    - name: Jira 7.13.9
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/jira:7.13.9 atlassian/jira/7.13.9
       - docker push epicmorg/jira:7.13.9
+     
+      - docker build --compress -t epicmorg/jira:7.13.11 atlassian/jira/7.13.11
+      - docker push epicmorg/jira:7.13.11
 
-    - name: Jira 8.0.0
+##########
+
+    - name: Jira 8.0.x
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/jira:8.0.0 atlassian/jira/8.0.0
       - docker push epicmorg/jira:8.0.0
-
-#    - name: Jira 8.0.1
-#      script:
-#      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-#      - docker build --compress -t epicmorg/jira:8.0.1 atlassian/jira/8.0.1
-#      - docker push epicmorg/jira:8.0.1
-
-    - name: Jira 8.0.2
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/jira:8.0.2 atlassian/jira/8.0.2
       - docker push epicmorg/jira:8.0.2
-
-    - name: Jira 8.0.3
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/jira:8.0.3 atlassian/jira/8.0.3
       - docker push epicmorg/jira:8.0.3
 
-    - name: Jira 8.1.0
+##########
+
+    - name: Jira 8.1.x
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/jira:8.1.0 atlassian/jira/8.1.0
       - docker push epicmorg/jira:8.1.0
-
-    - name: Jira 8.1.1
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/jira:8.1.1 atlassian/jira/8.1.1
       - docker push epicmorg/jira:8.1.1
-
-    - name: Jira 8.1.2
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/jira:8.1.2 atlassian/jira/8.1.2
       - docker push epicmorg/jira:8.1.2
-
-    - name: Jira 8.1.3
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+ 
       - docker build --compress -t epicmorg/jira:8.1.3 atlassian/jira/8.1.3
       - docker push epicmorg/jira:8.1.3
 
-    - name: Jira 8.2.0
+##########
+
+    - name: Jira 8.2.x [default jdk8 + tag jdk11]
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/jira:8.2.0 atlassian/jira/8.2.0
       - docker push epicmorg/jira:8.2.0
-
-    - name: Jira 8.2.1
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/jira:8.2.0-jdk11 -f atlassian/jira/8.2.0/Dockerfile.jdk11 atlassian/jira/8.2.0
+      - docker push epicmorg/jira:8.2.0-jdk11
+ 
       - docker build --compress -t epicmorg/jira:8.2.1 atlassian/jira/8.2.1
       - docker push epicmorg/jira:8.2.1
-
-    - name: Jira 8.2.2
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/jira:8.2.1-jdk11 -f atlassian/jira/8.2.1/Dockerfile.jdk11 atlassian/jira/8.2.1
+      - docker push epicmorg/jira:8.2.1-jdk11
+ 
       - docker build --compress -t epicmorg/jira:8.2.2 atlassian/jira/8.2.2
       - docker push epicmorg/jira:8.2.2
-
-    - name: Jira 8.2.3
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/jira:8.2.2-jdk11 -f atlassian/jira/8.2.2/Dockerfile.jdk11 atlassian/jira/8.2.2
+      - docker push epicmorg/jira:8.2.2-jdk11
+ 
       - docker build --compress -t epicmorg/jira:8.2.3 atlassian/jira/8.2.3
       - docker push epicmorg/jira:8.2.3
-
-    - name: Jira 8.2.4
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/jira:8.2.3-jdk11 -f atlassian/jira/8.2.3/Dockerfile.jdk11 atlassian/jira/8.2.3
+      - docker push epicmorg/jira:8.2.3-jdk11
+ 
       - docker build --compress -t epicmorg/jira:8.2.4 atlassian/jira/8.2.4
       - docker push epicmorg/jira:8.2.4
-
-    - name: Jira 8.2.5
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/jira:8.2.4-jdk11 -f atlassian/jira/8.2.4/Dockerfile.jdk11 atlassian/jira/8.2.4
+      - docker push epicmorg/jira:8.2.4-jdk11
+ 
       - docker build --compress -t epicmorg/jira:8.2.5 atlassian/jira/8.2.5
       - docker push epicmorg/jira:8.2.5
-
-    - name: Jira 8.2.6
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/jira:8.2.5-jdk11 -f atlassian/jira/8.2.5/Dockerfile.jdk11 atlassian/jira/8.2.5
+      - docker push epicmorg/jira:8.2.5-jdk11
+ 
       - docker build --compress -t epicmorg/jira:8.2.6 atlassian/jira/8.2.6
       - docker push epicmorg/jira:8.2.6
+      - docker build --compress -t epicmorg/jira:8.2.6-jdk11 -f atlassian/jira/8.2.6/Dockerfile.jdk11 atlassian/jira/8.2.6
+      - docker push epicmorg/jira:8.2.6-jdk11
 
-    - name: Jira 8.3.0
+##########
+
+    - name: Jira 8.3.x [default jdk8 + tag jdk11]
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/jira:8.3.0 atlassian/jira/8.3.0
       - docker push epicmorg/jira:8.3.0
-
-    - name: Jira 8.3.1
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/jira:8.3.0-jdk11 -f atlassian/jira/8.3.0/Dockerfile.jdk11 atlassian/jira/8.3.0
+      - docker push epicmorg/jira:8.3.0-jdk11
+ 
       - docker build --compress -t epicmorg/jira:8.3.1 atlassian/jira/8.3.1
       - docker push epicmorg/jira:8.3.1
-
-    - name: Jira 8.3.2
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/jira:8.3.1-jdk11 -f atlassian/jira/8.3.1/Dockerfile.jdk11 atlassian/jira/8.3.1
+      - docker push epicmorg/jira:8.3.1-jdk11
+ 
       - docker build --compress -t epicmorg/jira:8.3.2 atlassian/jira/8.3.2
       - docker push epicmorg/jira:8.3.2
-
-    - name: Jira 8.3.3
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/jira:8.3.2-jdk11 -f atlassian/jira/8.3.2/Dockerfile.jdk11 atlassian/jira/8.3.2
+      - docker push epicmorg/jira:8.3.2-jdk11
+ 
       - docker build --compress -t epicmorg/jira:8.3.3 atlassian/jira/8.3.3
       - docker push epicmorg/jira:8.3.3
-
-    - name: Jira 8.3.4
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/jira:8.3.3-jdk11 -f atlassian/jira/8.3.3/Dockerfile.jdk11 atlassian/jira/8.3.3
+      - docker push epicmorg/jira:8.3.3-jdk11
+ 
       - docker build --compress -t epicmorg/jira:8.3.4 atlassian/jira/8.3.4
       - docker push epicmorg/jira:8.3.4
-
-    - name: Jira 8.3.5
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/jira:8.3.4-jdk11 -f atlassian/jira/8.3.4/Dockerfile.jdk11 atlassian/jira/8.3.4
+      - docker push epicmorg/jira:8.3.4-jdk11
+ 
       - docker build --compress -t epicmorg/jira:8.3.5 atlassian/jira/8.3.5
       - docker push epicmorg/jira:8.3.5
+      - docker build --compress -t epicmorg/jira:8.3.5-jdk11 -f atlassian/jira/8.3.5/Dockerfile.jdk11 atlassian/jira/8.3.5
+      - docker push epicmorg/jira:8.3.5-jdk11
 
-    - name: Jira 8.4.0
+##########
+
+    - name: Jira 8.4.x [default jdk8 + tag jdk11]
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/jira:8.4.0 atlassian/jira/8.4.0
       - docker push epicmorg/jira:8.4.0
-
-    - name: Jira 8.4.1
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/jira:8.4.0-jdk11 -f atlassian/jira/8.4.0/Dockerfile.jdk11 atlassian/jira/8.4.0
+      - docker push epicmorg/jira:8.4.0-jdk11
+ 
       - docker build --compress -t epicmorg/jira:8.4.1 atlassian/jira/8.4.1
       - docker push epicmorg/jira:8.4.1
-
-    - name: Jira 8.4.2
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/jira:8.4.1-jdk11 -f atlassian/jira/8.4.1/Dockerfile.jdk11 atlassian/jira/8.4.1
+      - docker push epicmorg/jira:8.4.1-jdk11
+ 
       - docker build --compress -t epicmorg/jira:8.4.2 atlassian/jira/8.4.2
       - docker push epicmorg/jira:8.4.2
-
-    - name: Jira 8.4.3
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/jira:8.4.2-jdk11 -f atlassian/jira/8.4.2/Dockerfile.jdk11 atlassian/jira/8.4.2
+      - docker push epicmorg/jira:8.4.2-jdk11
+ 
       - docker build --compress -t epicmorg/jira:8.4.3 atlassian/jira/8.4.3
       - docker push epicmorg/jira:8.4.3
+      - docker build --compress -t epicmorg/jira:8.4.3-jdk11 -f atlassian/jira/8.4.3/Dockerfile.jdk11 atlassian/jira/8.4.3
+      - docker push epicmorg/jira:8.4.3-jdk11
 
-    - name: Jira 8.5.0
+##########
+
+    - name: Jira 8.5.x LTS [default jdk8 + tag jdk11]
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/jira:8.5.0 atlassian/jira/8.5.0
       - docker push epicmorg/jira:8.5.0
-
-    - name: Jira 8.5.1
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/jira:8.5.0-jdk11 -f atlassian/jira/8.5.0/Dockerfile.jdk11 atlassian/jira/8.5.0
+      - docker push epicmorg/jira:8.5.0-jdk11
+ 
       - docker build --compress -t epicmorg/jira:8.5.1 atlassian/jira/8.5.1
       - docker push epicmorg/jira:8.5.1
-
-    - name: Jira 8.5.2
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/jira:8.5.1-jdk11 -f atlassian/jira/8.5.1/Dockerfile.jdk11 atlassian/jira/8.5.1
+      - docker push epicmorg/jira:8.5.1-jdk11
+ 
       - docker build --compress -t epicmorg/jira:8.5.2 atlassian/jira/8.5.2
       - docker push epicmorg/jira:8.5.2
-
-    - name: Jira 8.5.3
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/jira:8.5.2-jdk11 -f atlassian/jira/8.5.2/Dockerfile.jdk11 atlassian/jira/8.5.2
+      - docker push epicmorg/jira:8.5.2-jdk11
+ 
       - docker build --compress -t epicmorg/jira:8.5.3 atlassian/jira/8.5.3
       - docker push epicmorg/jira:8.5.3
+      - docker build --compress -t epicmorg/jira:8.5.3-jdk11 -f atlassian/jira/8.5.3/Dockerfile.jdk11 atlassian/jira/8.5.3
+      - docker push epicmorg/jira:8.5.3-jdk11
 
-    - name: Jira 8.6.0
+##########
+
+    - name: Jira 8.6.x [default jdk8 + tag jdk11]
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/jira:8.6.0 atlassian/jira/8.6.0
       - docker push epicmorg/jira:8.6.0
-
-    - name: Jira 8.6.1
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/jira:8.6.0-jdk11 -f atlassian/jira/8.6.0/Dockerfile.jdk11 atlassian/jira/8.6.0
+      - docker push epicmorg/jira:8.6.0-jdk11
+ 
       - docker build --compress -t epicmorg/jira:8.6.1 atlassian/jira/8.6.1
       - docker push epicmorg/jira:8.6.1
+      - docker build --compress -t epicmorg/jira:8.6.1-jdk11 -f atlassian/jira/8.6.1/Dockerfile.jdk11 atlassian/jira/8.6.1
+      - docker push epicmorg/jira:8.6.1-jdk11
 
 #########################################
 ####  Our minor priority images
 #########################################
-#    - name: Name of image
-#      script:
-#      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-#      - docker build --compress -t epicmorg/repo:tag path/to/folder
-#      - docker push epicmorg/repo:tag
 
-####  Deprecated
-#    - name: Staytus
-#      script:
-#      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-#      - docker build --compress -t epicmorg/staytus:latest staytus
-#      - docker push epicmorg/staytus:latest
 
-    - name: qBitTorrent - latest
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker build --compress -t epicmorg/qbittorrent:latest qbittorrent/latest
-      - docker push epicmorg/qbittorrent:latest
-
-    - name: qBitTorrent - unstable
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker build --compress -t epicmorg/qbittorrent:unstable qbittorrent/latest
-      - docker push epicmorg/qbittorrent:unstable
-
-    - name: qBitTorrent - stable
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker build --compress -t epicmorg/qbittorrent:stable qbittorrent/stable
-      - docker push epicmorg/qbittorrent:stable

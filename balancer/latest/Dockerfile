@@ -183,9 +183,11 @@ RUN apt-get update && \
 
     apt clean -y && \
     apt autoclean -y && \
-    rm -rfv /var/lib/apt/lists/* && \
-    rm -rfv /var/cache/apt/archives/*.deb && \
-    rm -rfv /tmp/deb/*
+    rm -rf /var/lib/apt/lists/* && \
+    rm -rf /var/cache/apt/archives/*.deb && \
+    rm -rf /tmp/deb/* && \
+    rm -rf /builds/* && \
+    rm -rf /valve/*
 
 #Final config
 VOLUME ["/var/cache/nginx"]
