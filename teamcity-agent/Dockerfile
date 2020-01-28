@@ -193,11 +193,15 @@ RUN apt-get update && \
 #                   Installing Composer addon
 ##################################################################
 RUN cd /tmp && \
-     php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
-     php composer-setup.php  --install-dir=/usr/local/bin --filename=composer && \
-     rm /tmp/composer-setup.php
+    php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
+    php composer-setup.php  --install-dir=/usr/local/bin --filename=composer && \
+    rm /tmp/composer-setup.php
 
-
+##################################################################
+#                   Node.js 12.x
+##################################################################
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
+    apt-get install -y nodejs
 
 ##################################################################
 #                   cleaninig up
