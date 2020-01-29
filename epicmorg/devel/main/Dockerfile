@@ -23,11 +23,7 @@ COPY sources.list /etc/apt/sources.list
 RUN apt autoremove -y && apt update && apt dist-upgrade -y
 
 ##################################################################
-#                   retroarch deps
-############################# ####################################
-#                   deb creating
-############################# ####################################
-#                   nginx deps
+#                   deps
 ##################################################################
 RUN apt-get update && \
     apt install -y --allow-unauthenticated --allow-downgrades \
@@ -85,20 +81,7 @@ RUN apt-get update && \
     libvpx-dev \
     libvpx6 \
     tcl
-
-##################################################################
-#                   steam runtime and ssdk
-##################################################################
-RUN cd / && \
-    sudo mkdir valve && \
-    cd valve && \
-    sudo wget http://media.steampowered.com/client/runtime/steam-runtime-sdk_latest.tar.xz && \
-    sudo tar xvf steam-runtime-sdk_latest.tar.xz && \
-    sudo mv steam-runtime-sdk_2013-09-05 steam-runtime && \
-    sudo chown root:root * -R && \
-    cd steam-runtime && \
-    printf '%s\n' 3 1 Y Y Y | ./setup.sh
-
+ 
 ##################################################################
 #                   IP2Location support for prod nginx module
 ##################################################################

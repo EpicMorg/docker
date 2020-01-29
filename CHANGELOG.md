@@ -1,6 +1,6 @@
 ## Changelog
 
-* `January 2020` (01/13/2020 - 01/17/2020)
+* `January 2020` (01/13/2020 - 01/30/2020)
     * separated `base` images to `prod`, `prod:jdk8`, `prod:jdk11`, `devel`, `devel:jdk8`, `devel:jdk11` 
 	* teamcity -  `devel:jdk11`
 	* updated current atlassian contaners: 
@@ -49,6 +49,12 @@
 		* jdk11-based for new images (by  special `-jdk11` tag)
 	* optimized final containers which uses `devel` base
 	* updated REAMDE.md
+	* separated `nextcloud` to `latest`, `16`, `17`, `18` tags
+	* `TeamCity Agent`:
+		* switched back  to `jdk8`
+ 		* added to `TeamCity Agent` `atlassian adk` support
+		* updated docker binary
+		* moved back `valve` and `steam-runtime` in to image from `devel`
 * 12/13/2019
     * updated `teamcity agent`. added `php 7.3` support.
     * fixed `nginx` image.
