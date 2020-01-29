@@ -1,5 +1,5 @@
 os: linux
-dist: buster
+dist: bionic #https://docs.travis-ci.com/user/reference/overview/
 language: bash
 services:
   - docker
