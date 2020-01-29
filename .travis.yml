@@ -35,13 +35,13 @@ matrix:
       - docker build --compress -t epicmorg/nextcloud:latest nextcloud/latest
       - docker push epicmorg/nextcloud:latest
       
-      - docker build --compress -t epicmorg/nextcloud:latest nextcloud/16
+      - docker build --compress -t epicmorg/nextcloud:16 nextcloud/16
       - docker push epicmorg/nextcloud:16
        
-      - docker build --compress -t epicmorg/nextcloud:latest nextcloud/17
+      - docker build --compress -t epicmorg/nextcloud:17 nextcloud/17
       - docker push epicmorg/nextcloud:17
       
-      - docker build --compress -t epicmorg/nextcloud:latest nextcloud/18
+      - docker build --compress -t epicmorg/nextcloud:18 nextcloud/18
       - docker push epicmorg/nextcloud:18
       
 #########################################
