@@ -53,15 +53,16 @@ RUN apt-get update && \
     apt-get install -y git mercurial apt-transport-https ca-certificates software-properties-common && \
     \
     curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - && \
-	curl -fsSL https://packages.atlassian.com/api/gpg/key/public | apt-key add - && \
-    echo 'deb [arch=amd64] https://download.docker.com/linux/debian buster stable' > /etc/apt/sources.list.d/docker.list  && \
-	echo 'deb https://packages.atlassian.com/debian/atlassian-sdk-deb/ stable contrib' > /etc/apt/sources.list  && \
+    curl -fsSL https://packages.atlassian.com/api/gpg/key/public | apt-key add - && \
+    echo 'deb  https://download.docker.com/linux/debian buster test' > /etc/apt/sources.list.d/docker.list  && \
+    echo 'deb https://packages.atlassian.com/debian/atlassian-sdk-deb/ stable contrib' > /etc/apt/sources.list.d/atlassian-sdk.list  && \
     apt-cache policy docker-ce && \
     apt-get update && apt-get install -y --allow-unauthenticated docker-ce docker-ce-cli containerd.io systemd && \
     systemctl disable docker && \
     curl -SL https://github.com/docker/compose/releases/download/1.24.1/docker-compose-Linux-x86_64 -o /usr/local/bin/docker-compose && chmod +x /usr/local/bin/docker-compose && \
     \
     apt-get install -y --no-install-recommends \
+            iptables \
             fontconfig \
             libc6 \
             libgcc1 \
@@ -71,7 +72,7 @@ RUN apt-get update && \
             libssl1.1 \
             libstdc++6 \
             zlib1g \
-			atlassian-plugin-sdk \
+            atlassian-plugin-sdk \
         && rm -rf /var/lib/apt/lists/* && \
     \
     curl -SL https://download.visualstudio.microsoft.com/download/pr/c4b503d6-2f41-4908-b634-270a0a1dcfca/c5a20e42868a48a2cd1ae27cf038044c/dotnet-sdk-$DOTNET_SDK_VERSION-linux-x64.tar.gz --output dotnet.tar.gz \
