@@ -156,10 +156,9 @@ RUN cd ${NGINX_SRC_DIR} && \
 ##################################################################
 ##################################################################
 
-FROM epicmorg/edge
+FROM epicmorg/devel
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
-
 
 ##################################################################
 #                   Installing nginx from deb
