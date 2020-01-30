@@ -55,6 +55,10 @@
  		* added to `TeamCity Agent` `atlassian adk` support
 		* updated docker binary
 		* moved back `valve` and `steam-runtime` in to image from `devel`
+	* added `edge` image. 
+		* switched `qbittorrent` images to `edge`
+		* switched final `balancer` image to `edge`
+	* reduced containers size by switching to `debian-slim` base-image.
 * 12/13/2019
     * updated `teamcity agent`. added `php 7.3` support.
     * fixed `nginx` image.

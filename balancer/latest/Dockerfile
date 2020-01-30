@@ -3,6 +3,22 @@ LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
 ##################################################################
+#   Build-time metadata as defined at http://label-schema.org
+##################################################################
+ARG BUILD_DATE=today
+ARG VCS_REF=master
+ARG VERSION=latest
+LABEL org.label-schema.build-date=$BUILD_DATE \
+          org.label-schema.name="Docker Scripts" \
+          org.label-schema.description="Image for our docker containers." \
+          org.label-schema.url="https://ww.epicm.org/" \
+          org.label-schema.vcs-ref=$VCS_REF \
+          org.label-schema.vcs-url="https://github.com/EpicMorg/docker-scripts" \
+          org.label-schema.vendor="EpicMorg" \
+          org.label-schema.version=$VERSION \
+          org.label-schema.schema-version="1.0"
+
+##################################################################
 #                   ARGuments
 ##################################################################
 ENV BuildDocker true
@@ -11,7 +27,7 @@ ARG SRC_DIR=${BUILDS_DIR}/src
 ARG EXPORT_DIR=${BUILDS_DIR}/export
 ARG PRE_DIR=${BUILDS_DIR}/pre
 ARG NGINX_SRC_DIR=${SRC_DIR}/nginx
-ARG NGINX_VERSION=1.17.6
+ARG NGINX_VERSION=1.17.8
 ARG NGINX_DOWNLOAD_URL=http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz
 ARG LUAJIT_INC=/usr/local/include/luajit-2.1
 ARG LUAJIT_LIB=/usr/local/lib
@@ -155,9 +171,25 @@ RUN cd ${NGINX_SRC_DIR} && \
 ##################################################################
 ##################################################################
 
-FROM epicmorg/devel
+FROM epicmorg/edge
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
+
+##################################################################
+#   Build-time metadata as defined at http://label-schema.org
+##################################################################
+ARG BUILD_DATE=today
+ARG VCS_REF=master
+ARG VERSION=latest
+LABEL org.label-schema.build-date=$BUILD_DATE \
+          org.label-schema.name="Docker Scripts" \
+          org.label-schema.description="Image for our docker containers." \
+          org.label-schema.url="https://ww.epicm.org/" \
+          org.label-schema.vcs-ref=$VCS_REF \
+          org.label-schema.vcs-url="https://github.com/EpicMorg/docker-scripts" \
+          org.label-schema.vendor="EpicMorg" \
+          org.label-schema.version=$VERSION \
+          org.label-schema.schema-version="1.0"
 
 ##################################################################
 #                   Installing nginx from deb

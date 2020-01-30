@@ -1,6 +1,22 @@
-FROM epicmorg/prod
+FROM epicmorg/edge
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
+
+##################################################################
+#   Build-time metadata as defined at http://label-schema.org
+##################################################################
+ARG BUILD_DATE=today
+ARG VCS_REF=master
+ARG VERSION=latest
+LABEL org.label-schema.build-date=$BUILD_DATE \
+          org.label-schema.name="Docker Scripts" \
+          org.label-schema.description="Image for our docker containers." \
+          org.label-schema.url="https://ww.epicm.org/" \
+          org.label-schema.vcs-ref=$VCS_REF \
+          org.label-schema.vcs-url="https://github.com/EpicMorg/docker-scripts" \
+          org.label-schema.vendor="EpicMorg" \
+          org.label-schema.version=$VERSION \
+          org.label-schema.schema-version="1.0"
 
 ##################################################################
 #                   ARGuments
@@ -18,9 +34,9 @@ RUN mkdir -p ${SRC_DIR} ${EXPORT_DIR} ${PRE_DIR}
 ##################################################################
 #                   sid sources list
 ##################################################################
-RUN rm /etc/apt/sources.list
-COPY sources.list /etc/apt/sources.list
-RUN apt autoremove -y && apt update && apt dist-upgrade -y
+RUN apt update && \
+    apt-get autoremove -y && \
+    apt dist-upgrade -y
 
 ##################################################################
 #                   deps
@@ -81,7 +97,7 @@ RUN apt-get update && \
     libvpx-dev \
     libvpx6 \
     tcl
- 
+
 ##################################################################
 #                   IP2Location support for prod nginx module
 ##################################################################

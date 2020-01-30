@@ -68,6 +68,20 @@ matrix:
 
 ##########
 
+    - name: Edge + JDK 8 + JDK 11
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/edge:latest epicmorg/edge/main
+      - docker push epicmorg/edge:latest
+ 
+      - docker build --compress -t epicmorg/edge:jdk8 epicmorg/edge/jdk8
+      - docker push epicmorg/edge:jdk8
+ 
+      - docker build --compress -t epicmorg/edge:jdk11 epicmorg/edge/jdk11
+      - docker push epicmorg/edge:jdk11
+
+##########
+
     - name: Base Develop  + JDK 8 + JDK 11
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
