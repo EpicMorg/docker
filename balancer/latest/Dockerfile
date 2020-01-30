@@ -2,18 +2,6 @@ FROM epicmorg/devel AS builder
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
-##################################################################
-#   Build-time metadata as defined at http://label-schema.org
-##################################################################
-LABEL org.label-schema.build-date=${date} \
-          org.label-schema.name="Docker Scripts" \
-          org.label-schema.description="Image for our docker containers." \
-          org.label-schema.url="https://ww.epicm.org/" \
-          org.label-schema.vcs-ref=master \
-          org.label-schema.vcs-url="https://github.com/EpicMorg/docker-scripts" \
-          org.label-schema.vendor="EpicMorg" \
-          org.label-schema.version=1.17.8 \
-          org.label-schema.schema-version="1.0"
 
 ##################################################################
 #                   ARGuments
@@ -172,18 +160,6 @@ FROM epicmorg/edge
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
-##################################################################
-#   Build-time metadata as defined at http://label-schema.org
-##################################################################
-LABEL org.label-schema.build-date=${date} \
-          org.label-schema.name="Docker Scripts" \
-          org.label-schema.description="Image for our docker containers." \
-          org.label-schema.url="https://ww.epicm.org/" \
-          org.label-schema.vcs-ref=master \
-          org.label-schema.vcs-url="https://github.com/EpicMorg/docker-scripts" \
-          org.label-schema.vendor="EpicMorg" \
-          org.label-schema.version=1.17.8 \
-          org.label-schema.schema-version="1.0"
 
 ##################################################################
 #                   Installing nginx from deb
