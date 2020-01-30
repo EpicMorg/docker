@@ -27,6 +27,6 @@
 
 ## Thanks
 
-* @Aleks-Z
-* @alex4rks
-* @kasthack
+* [@Aleks-Z](https://github.com/Aleks-Z)
+* [@alex4rks](https://github.com/alex4rks)
+* [@kasthack](https://github.com/kasthack)
