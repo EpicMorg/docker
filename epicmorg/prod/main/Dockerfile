@@ -1,4 +1,4 @@
-FROM debian:buster
+FROM debian:buster-slim
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 

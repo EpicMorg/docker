@@ -155,7 +155,7 @@ RUN cd ${NGINX_SRC_DIR} && \
 ##################################################################
 ##################################################################
 
-FROM epicmorg/devel
+FROM epicmorg/edge
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
