@@ -4,6 +4,7 @@ about: Suggest an idea for this project
 title: ''
 labels: 'Feature request, help wanted'
 assignees: 'stamepicmorg'
+milestone: 'Due 2021 🙏'
 
 ---
 
