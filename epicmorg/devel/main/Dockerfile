@@ -82,15 +82,6 @@ RUN apt-get update && \
     libvpx6 \
     tcl
 
-##################################################################
-#                   IP2Location support for prod nginx module
-##################################################################
-RUN cd ${SRC_DIR} && \
-    git clone https://github.com/chrislim2888/IP2Location-C-Library.git ip2 && \
-    cd ${SRC_DIR}/ip2 && \
-    ./build.sh && \
-    fakeroot checkinstall -D --pkgversion=$(date +%Y%m%d%H%M) --pakdir=${EXPORT_DIR} --maintainer="EpicMorg, developer@epicm.org" --pkgname=ip2-custom  --conflicts=ip2 --install=yes -y && \
-    rm -rfv ${SRC_DIR}/*
 
 ##################################################################
 #                   other   customisations

@@ -1,5 +1,9 @@
 ## Changelog
 
+* `February 2020`
+	* `fixed` all `*.sh` chmods. (sorry)
+	* fixed `balancer` final container with `edge`.
+	* `websites` migrated to `edge`. why not?
 * `January 2020` (01/13/2020 - 01/30/2020)
     * separated `base` images to `prod`, `prod:jdk8`, `prod:jdk11`, `devel`, `devel:jdk8`, `devel:jdk11` 
 	* teamcity -  `devel:jdk11`
