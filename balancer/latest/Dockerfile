@@ -23,6 +23,23 @@ ARG LUAJIT_LIB=/usr/local/lib
 RUN mkdir -p ${PRE_DIR}  ${NGINX_SRC_DIR} /usr/lib/nginx
 ADD pre/luajit2-description-pak ${PRE_DIR}
 ADD pre/nginx-description-pak ${PRE_DIR}
+ADD pre/ip2location-description-pak ${PRE_DIR}
+
+
+##################################################################
+#                   IP2Location support for prod nginx module
+##################################################################
+RUN cd ${SRC_DIR} && \
+    git clone https://github.com/chrislim2888/IP2Location-C-Library.git ip2 && \
+    cp -fv ${PRE_DIR}/ip2location-description-pak ${SRC_DIR}/ip2/description-pak && \
+    cd ${SRC_DIR}/ip2 && \
+    ./build.sh && \
+    fakeroot checkinstall -D --pakdir=${EXPORT_DIR} --maintainer="EpicMorg, developer@epicm.org" --pkgname=ip2-custom  --conflicts=ip2 --install=yes -y  && \
+    ln -s /usr/local/lib/libIP2Location.so /usr/lib/libIP2Location.so && \
+    ln -s /usr/local/lib/libIP2Location.so.1 /usr/lib/libIP2Location.so.1 && \
+    ln -s /usr/local/lib/libIP2Location.so /lib/libIP2Location.so && \
+    ln -s /usr/local/lib/libIP2Location.so.1 /lib/libIP2Location.so.1 && \
+    dpkg --force-all -i ${EXPORT_DIR}/*.deb
 
 ##################################################################
 #                   luaJIT 2 support for prod nginx module
@@ -156,7 +173,7 @@ RUN cd ${NGINX_SRC_DIR} && \
 ##################################################################
 ##################################################################
 
-FROM epicmorg/devel
+FROM epicmorg/edge
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
