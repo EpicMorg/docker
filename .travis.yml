@@ -132,7 +132,6 @@ matrix:
       - docker build --compress -t epicmorg/balancer:php balancer/php
       - docker push epicmorg/balancer:php
 
-##########
 
     - name: Apache + PHP7.3
       script:
@@ -145,6 +144,51 @@ matrix:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/websites:php7.2 websites/php7.2
       - docker push epicmorg/websites:php7.2
+
+##########
+
+    - name: PostgresSQL 8.2,  8.3,  8.4,  9.0,  9.1,  9.2,  9.3,  9.4,  9.5,  9.6, 10,  11,  12
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/postgres:8.2 postgres/8.2
+      - docker push epicmorg/postgres:8.2
+
+      - docker build --compress -t epicmorg/postgres:8.3 postgres/8.3
+      - docker push epicmorg/postgres:8.3
+
+      - docker build --compress -t epicmorg/postgres:8.4 postgres/8.4
+      - docker push epicmorg/postgres:8.4
+
+      - docker build --compress -t epicmorg/postgres:9.0 postgres/9.0
+      - docker push epicmorg/postgres:9.0
+
+      - docker build --compress -t epicmorg/postgres:9.1 postgres/9.1
+      - docker push epicmorg/postgres:9.1
+
+      - docker build --compress -t epicmorg/postgres:9.2 postgres/9.2
+      - docker push epicmorg/postgres:9.2
+
+      - docker build --compress -t epicmorg/postgres:9.3 postgres/9.3
+      - docker push epicmorg/postgres:9.3
+
+      - docker build --compress -t epicmorg/postgres:9.4 postgres/9.4
+      - docker push epicmorg/postgres:9.4
+
+      - docker build --compress -t epicmorg/postgres:9.5 postgres/9.5
+      - docker push epicmorg/postgres:9.5
+
+      - docker build --compress -t epicmorg/postgres:9.6 postgres/9.6
+      - docker push epicmorg/postgres:9.6
+
+      - docker build --compress -t epicmorg/postgres:10 postgres/10
+      - docker push epicmorg/postgres:10
+
+      - docker build --compress -t epicmorg/postgres:11 postgres/11
+      - docker push epicmorg/postgres:11
+
+      - docker build --compress -t epicmorg/postgres:12 postgres/12
+      - docker push epicmorg/postgres:12
+
 
 ##########
 
@@ -164,14 +208,18 @@ matrix:
       - docker build --compress -t epicmorg/confluence:latest-jdk11 -f atlassian/confluence/latest/Dockerfile.jdk11 atlassian/confluence/latest
       - docker push epicmorg/confluence:latest-jdk11
 
-    - name: Jira (latest)
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+
       - docker build --compress -t epicmorg/jira:latest atlassian/jira/latest
       - docker push epicmorg/jira:latest
       - docker build --compress -t epicmorg/jira:latest-jdk11 -f atlassian/jira/latest/Dockerfile.jdk11 atlassian/jira/latest
       - docker push epicmorg/jira:latest-jdk11
-      
+
+    - name: Postgres (latest)
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/postgres:latest postgres/latest
+      - docker push epicmorg/postgres:latest
+
  ##########
 
     - name: qBitTorrent [latest + unstable + stable]
@@ -1499,10 +1547,4 @@ matrix:
 #########################################
 ####  Our minor priority images
 #########################################
-
-    - name: PostgresSQL 9.3
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker build --compress -t epicmorg/postgres:9.3 postgres/9.3
-      - docker push epicmorg/postgres:9.3
 

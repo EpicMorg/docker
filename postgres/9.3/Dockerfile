@@ -32,17 +32,16 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys B97B0AFCAA1A47F044F
 # http://apt.postgresql.org/pub/repos/apt/pool/9.3/p/postgresql-9.3/
 ####################################################################################################################################
 ENV PG_MAJOR 9.3
-ENV PG_VERSION 9.3.25-3.pgdg+1
 
 RUN echo 'deb http://apt.postgresql.org/pub/repos/apt/ sid-pgdg main' $PG_MAJOR > /etc/apt/sources.list.d/pgdg.list && \
-    echo 'deb http://apt.postgresql.org/pub/repos/apt/ sid-pgdg-testing main' $PG_MAJOR >> /etc/apt/sources.list.d/pgdg.lis
+    echo 'deb http://apt.postgresql.org/pub/repos/apt/ sid-pgdg-testing main' $PG_MAJOR >> /etc/apt/sources.list.d/pgdg.list
 
 RUN apt-get update \
 	&& apt-get install -y postgresql-common \
 	&& sed -ri 's/#(create_main_cluster) .*$/\1 = false/' /etc/postgresql-common/createcluster.conf \
 	&& apt-get install -y \
-		postgresql-$PG_MAJOR=$PG_VERSION \
-		postgresql-contrib-$PG_MAJOR=$PG_VERSION \
+		postgresql-$PG_MAJOR \
+		postgresql-contrib-$PG_MAJOR \
 	&& rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /var/run/postgresql && chown -R postgres /var/run/postgresql
