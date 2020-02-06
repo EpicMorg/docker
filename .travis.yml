@@ -54,43 +54,61 @@ matrix:
 #      - docker build --compress -t user/repo:tag path/to/folder/contains/dockerfile
 #      - docker push user/repo:tag
 
-    - name: Base Production + JDK 8 + JDK 11
+    - name: Base Production + JDK 6, 7, 8 11
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/prod:latest epicmorg/prod/main
       - docker push epicmorg/prod:latest
- 
+
+      - docker build --compress -t epicmorg/prod:jdk6 epicmorg/prod/jdk6
+      - docker push epicmorg/prod:jdk6
+
+      - docker build --compress -t epicmorg/prod:jdk7 epicmorg/prod/jdk7
+      - docker push epicmorg/prod:jdk7
+
       - docker build --compress -t epicmorg/prod:jdk8 epicmorg/prod/jdk8
       - docker push epicmorg/prod:jdk8
- 
+
       - docker build --compress -t epicmorg/prod:jdk11 epicmorg/prod/jdk11
       - docker push epicmorg/prod:jdk11
 
 ##########
 
-    - name: Edge + JDK 8 + JDK 11
+    - name: Base Edge + JDK 6, 7, 8 11
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/edge:latest epicmorg/edge/main
       - docker push epicmorg/edge:latest
- 
+
+      - docker build --compress -t epicmorg/edge:jdk6 epicmorg/edge/jdk6
+      - docker push epicmorg/edge:jdk6
+
+      - docker build --compress -t epicmorg/edge:jdk7 epicmorg/edge/jdk7
+      - docker push epicmorg/edge:jdk7
+
       - docker build --compress -t epicmorg/edge:jdk8 epicmorg/edge/jdk8
       - docker push epicmorg/edge:jdk8
- 
+
       - docker build --compress -t epicmorg/edge:jdk11 epicmorg/edge/jdk11
       - docker push epicmorg/edge:jdk11
 
 ##########
 
-    - name: Base Develop  + JDK 8 + JDK 11
+    - name: Base Develop JDK 6, 7, 8 11
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/devel:latest epicmorg/devel/main
       - docker push epicmorg/devel:latest
- 
+
+      - docker build --compress -t epicmorg/devel:jdk6 epicmorg/devel/jdk6
+      - docker push epicmorg/devel:jdk6
+
+      - docker build --compress -t epicmorg/devel:jdk7 epicmorg/devel/jdk7
+      - docker push epicmorg/devel:jdk7
+
       - docker build --compress -t epicmorg/devel:jdk8 epicmorg/devel/jdk8
       - docker push epicmorg/devel:jdk8
- 
+
       - docker build --compress -t epicmorg/devel:jdk11 epicmorg/devel/jdk11
       - docker push epicmorg/devel:jdk11
 
@@ -1482,4 +1500,9 @@ matrix:
 ####  Our minor priority images
 #########################################
 
+    - name: PostgresSQL 9.3
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/postgres:9.3 postgres/9.3
+      - docker push epicmorg/postgres:9.3
 

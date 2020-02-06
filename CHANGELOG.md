@@ -4,6 +4,8 @@
 	* `fixed` all `*.sh` chmods. (sorry)
 	* fixed `balancer` final container with `edge`.
 	* `websites` migrated to `edge`. why not?
+	* added `jdk6` and `jdk7` base images
+	* addded `PostgresSQL 9.3`
 * `January 2020` (01/13/2020 - 01/30/2020)
     * separated `base` images to `prod`, `prod:jdk8`, `prod:jdk11`, `devel`, `devel:jdk8`, `devel:jdk11` 
 	* teamcity -  `devel:jdk11`
