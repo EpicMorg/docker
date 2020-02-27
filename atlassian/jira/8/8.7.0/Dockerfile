@@ -1,11 +1,11 @@
-FROM epicmorg/prod:jdk11
+FROM epicmorg/prod:jdk8
 LABEL maintainer="Atlassian Jira Server Team; EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
 ##################################################################
 #                   ARGuments
 ##################################################################
-ARG JIRA_VERSION=8.7.1
+ARG JIRA_VERSION=8.7.0
 ARG DOWNLOAD_URL=https://www.atlassian.com/software/jira/downloads/binary/atlassian-jira-software-${JIRA_VERSION}.tar.gz
 
 ##################################################################
