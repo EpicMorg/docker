@@ -3,12 +3,12 @@
 
 All presented images avalible on our repo in docker hub.
 
-* Jira v8 images avalible (here)[https://github.com/EpicMorgVault/docker-atlassian-jira-8].
+* Jira v8 images avalible [here](https://github.com/EpicMorgVault/docker-atlassian-jira-8).
 
 ## LTS releases:
 * Latest version of `Jira 8` branch is `8.5.3`
 	* Older version of `Jira 8` branch is `8.5.0`
-* Latest version of `Jira 7` branch is `7.13.3`
+* Latest version of `Jira 7` branch is `7.13.11`
 	* Older version of `Jira 7` branch is `7.6.17`
 
 -------
