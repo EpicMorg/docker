@@ -5,15 +5,15 @@
 
 ## Quick navigation for sub-repositories
 
-[![Experimental](https://img.shields.io/badge/EpicMorg-Deprecated-orange?style=popout-square)](https://github.com/EpicMorgVault/docker-experimental-images) [![Deprecated](https://img.shields.io/badge/EpicMorg-Experimental-red?style=popout-square)](https://github.com/EpicMorgVault/docker-deprecated-images)
+ 
 
 ### Atlassian images
-| Bitbucket        | Confluence           | Jira  |
-|:-------------:|:-------------:|:-----:|
-| [![atlassian-bitbucket-6](https://img.shields.io/badge/Atlassian-Bitbucket%206-brightgreen?style=popout-square)](https://github.com/EpicMorgVault/docker-atlassian-bitbucket-6)      | [![confluence-7](https://img.shields.io/badge/Atlassian-Confluence%207-brightgreen?style=popout-square)](https://github.com/EpicMorgVault/docker-atlassian-confluence-7) | [![atlassian-jira-8](https://img.shields.io/badge/Atlassian-Jira%208-brightgreen?style=popout-square)](https://github.com/EpicMorgVault/docker-atlassian-jira-8) |
-` ` | [![confluence-6](https://img.shields.io/badge/Atlassian-Confluence%206-yellow?style=popout-square)](https://github.com/EpicMorgVault/docker-atlassian-confluence-6) | [![atlassian-jira-7](https://img.shields.io/badge/Atlassian-Jira%207-yellow?style=popout-square)](https://github.com/EpicMorgVault/docker-atlassian-jira-7) 
-` ` | [![confluence-5](https://img.shields.io/badge/Atlassian-Confluence%205-orange?style=popout-square)](https://github.com/EpicMorgVault/docker-atlassian-confluence-5) | [![atlassian-jira-6](https://img.shields.io/badge/Atlassian-Jira%206-orange?style=popout-square)](https://github.com/EpicMorgVault/docker-atlassian-jira-6) 
-` ` | ` ` | [![atlassian-jira-5](https://img.shields.io/badge/Atlassian-Jira%205-red?style=popout-square)](https://github.com/EpicMorgVault/docker-atlassian-jira-5) 
+| Bitbucket        | Confluence           | Jira  | EpicMorg |
+|:-------------:|:-------------:|:-----:|:-------:|
+| [![atlassian-bitbucket-6](https://img.shields.io/badge/Atlassian-Bitbucket%206-brightgreen?style=popout-square)](https://github.com/EpicMorgVault/docker-atlassian-bitbucket-6)      | [![confluence-7](https://img.shields.io/badge/Atlassian-Confluence%207-brightgreen?style=popout-square)](https://github.com/EpicMorgVault/docker-atlassian-confluence-7) | [![atlassian-jira-8](https://img.shields.io/badge/Atlassian-Jira%208-brightgreen?style=popout-square)](https://github.com/EpicMorgVault/docker-atlassian-jira-8) | [![PostgreSQL](https://img.shields.io/badge/EpicMorg-PostgreSQL-orange?style=popout-square)](https://github.com/EpicMorgVault/docker-postgres-backports)  |
+| ` ` | [![confluence-6](https://img.shields.io/badge/Atlassian-Confluence%206-yellow?style=popout-square)](https://github.com/EpicMorgVault/docker-atlassian-confluence-6) | [![atlassian-jira-7](https://img.shields.io/badge/Atlassian-Jira%207-yellow?style=popout-square)](https://github.com/EpicMorgVault/docker-atlassian-jira-7) | [![Experimental](https://img.shields.io/badge/EpicMorg-Deprecated-orange?style=popout-square)](https://github.com/EpicMorgVault/docker-experimental-images) |
+| ` ` | [![confluence-5](https://img.shields.io/badge/Atlassian-Confluence%205-orange?style=popout-square)](https://github.com/EpicMorgVault/docker-atlassian-confluence-5) | [![atlassian-jira-6](https://img.shields.io/badge/Atlassian-Jira%206-orange?style=popout-square)](https://github.com/EpicMorgVault/docker-atlassian-jira-6) | [![Deprecated](https://img.shields.io/badge/EpicMorg-Experimental-red?style=popout-square)](https://github.com/EpicMorgVault/docker-deprecated-images) |
+| ` ` | ` ` | [![atlassian-jira-5](https://img.shields.io/badge/Atlassian-Jira%205-red?style=popout-square)](https://github.com/EpicMorgVault/docker-atlassian-jira-5) | ` ` |
  
  
 # Containers Map
