@@ -12,18 +12,27 @@ matrix:
 #########################################
 ####  Forked and fixed images
 #########################################
-    - name: Zabbix [Agent + Java Gateway + Server with MySQL + Web Apache2 with MySQL]
+    - name: Zabbix Agent
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/zabbix-agent:latest zabbix/agent
       - docker push epicmorg/zabbix-agent:latest
- 
+
+    - name: Zabbix Java Gateway
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/zabbix-java-gateway:latest zabbix/java-gateway
       - docker push epicmorg/zabbix-java-gateway:latest
- 
+
+    - name: Zabbix Server with MySQL
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/zabbix-server-mysql:latest zabbix/server
       - docker push epicmorg/zabbix-server-mysql:latest
- 
+
+    - name: Zabbix Web Apache2 with MySQL
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/zabbix-web-apache-mysql:latest zabbix/web
       - docker push epicmorg/zabbix-web-apache-mysql:latest
 
