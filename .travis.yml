@@ -38,20 +38,11 @@ matrix:
 
 ##########
 
-    - name: NextCloud (latest, 16, 17, 18)
+    - name: NextCloud (latest)
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/nextcloud:latest nextcloud/latest
       - docker push epicmorg/nextcloud:latest
-      
-      - docker build --compress -t epicmorg/nextcloud:16 nextcloud/16
-      - docker push epicmorg/nextcloud:16
-       
-      - docker build --compress -t epicmorg/nextcloud:17 nextcloud/17
-      - docker push epicmorg/nextcloud:17
-      
-      - docker build --compress -t epicmorg/nextcloud:18 nextcloud/18
-      - docker push epicmorg/nextcloud:18
       
 #########################################
 ####  Our High priority images
@@ -63,61 +54,97 @@ matrix:
 #      - docker build --compress -t user/repo:tag path/to/folder/contains/dockerfile
 #      - docker push user/repo:tag
 
-    - name: Base Production + JDK 6, 7, 8 11
+    - name: Base Production
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/prod:latest epicmorg/prod/main
       - docker push epicmorg/prod:latest
 
+    - name: Base Production + JDK 6
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/prod:jdk6 epicmorg/prod/jdk6
       - docker push epicmorg/prod:jdk6
 
+    - name: Base Production + JDK 7
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/prod:jdk7 epicmorg/prod/jdk7
       - docker push epicmorg/prod:jdk7
 
+    - name: Base Production + JDK 8
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/prod:jdk8 epicmorg/prod/jdk8
       - docker push epicmorg/prod:jdk8
 
+    - name: Base Production + JDK 11
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/prod:jdk11 epicmorg/prod/jdk11
       - docker push epicmorg/prod:jdk11
 
 ##########
 
-    - name: Base Edge + JDK 6, 7, 8 11
+    - name: Base Edge
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/edge:latest epicmorg/edge/main
       - docker push epicmorg/edge:latest
 
+    - name: Base Edge + JDK 6
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/edge:jdk6 epicmorg/edge/jdk6
       - docker push epicmorg/edge:jdk6
 
+    - name: Base Edge + JDK 7
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/edge:jdk7 epicmorg/edge/jdk7
       - docker push epicmorg/edge:jdk7
 
+    - name: Base Edge + JDK 8
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/edge:jdk8 epicmorg/edge/jdk8
       - docker push epicmorg/edge:jdk8
 
+    - name: Base Edge + JDK 11
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/edge:jdk11 epicmorg/edge/jdk11
       - docker push epicmorg/edge:jdk11
 
 ##########
 
-    - name: Base Develop JDK 6, 7, 8 11
+    - name: Base Develop
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/devel:latest epicmorg/devel/main
       - docker push epicmorg/devel:latest
 
+    - name: Base Develop + JDK 6
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/devel:jdk6 epicmorg/devel/jdk6
       - docker push epicmorg/devel:jdk6
 
+    - name: Base Develop + JDK 7
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/devel:jdk7 epicmorg/devel/jdk7
       - docker push epicmorg/devel:jdk7
 
+    - name: Base Develop + JDK 8
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/devel:jdk8 epicmorg/devel/jdk8
       - docker push epicmorg/devel:jdk8
 
+    - name: Base Develop + JDK 11
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/devel:jdk11 epicmorg/devel/jdk11
       - docker push epicmorg/devel:jdk11
 
@@ -165,25 +192,39 @@ matrix:
 
 ##########
 
-    - name: Bitbucket (latest)
+    - name: Bitbucket + JDK 8 (latest)
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker build --compress -t epicmorg/bitbucket:latest atlassian/bitbucket/latest
+      - docker build --compress -t epicmorg/bitbucket:latest atlassian/bitbucket/latest 
       - docker push epicmorg/bitbucket:latest
+      
+    - name: Bitbucket + JDK 11 (latest-jdk11)
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/bitbucket:latest-jdk11 -f atlassian/bitbucket/latest/Dockerfile.jdk11 atlassian/bitbucket/latest
       - docker push epicmorg/bitbucket:latest-jdk11
 
-    - name: Confluence (latest)
+    - name: Confluence + JDK 8 (latest)
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/confluence:latest atlassian/confluence/latest
       - docker push epicmorg/confluence:latest
+
+    - name: Confluence + JDK 11 (latest-jdk11)
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin 
       - docker build --compress -t epicmorg/confluence:latest-jdk11 -f atlassian/confluence/latest/Dockerfile.jdk11 atlassian/confluence/latest
       - docker push epicmorg/confluence:latest-jdk11
 
-
+    - name: Jira + JDK 8 (latest)
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin 
       - docker build --compress -t epicmorg/jira:latest atlassian/jira/latest
       - docker push epicmorg/jira:latest
+      
+    - name: Jira + JDK 11 (latest-jdk11)
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin 
       - docker build --compress -t epicmorg/jira:latest-jdk11 -f atlassian/jira/latest/Dockerfile.jdk11 atlassian/jira/latest
       - docker push epicmorg/jira:latest-jdk11
 
@@ -195,21 +236,24 @@ matrix:
 
  ##########
 
-    - name: qBitTorrent [latest + unstable + stable]
+    - name: qBitTorrent (latest)
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/qbittorrent:latest qbittorrent/latest
       - docker push epicmorg/qbittorrent:latest
- 
+
+    - name: qBitTorrent (unstable)
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/qbittorrent:unstable qbittorrent/latest
       - docker push epicmorg/qbittorrent:unstable
- 
+
+    - name: qBitTorrent (stable)
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/qbittorrent:stable qbittorrent/stable
       - docker push epicmorg/qbittorrent:stable
  
-
-
-
 #########################################
 ####  Our minor priority images
 #########################################
