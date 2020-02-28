@@ -4,10 +4,8 @@
 ![](https://raw.githubusercontent.com/EpicMorg/docker-scripts/master/.github/logo.png)
 
 ## Quick navigation for sub-repositories
-
- 
-
-### Atlassian images
+Containers was Splited to another sub-repositories. Now current repo will be contain only fresh and latest versions of images. All older versions will be appeared in sub-repos. More fater building, less bad load to CI.
+  
 | Bitbucket        | Confluence           | Jira  | EpicMorg |
 |-------------:|:-------------:|:-----:|:-------|
 | [![atlassian-bitbucket-6](https://img.shields.io/badge/Atlassian-Bitbucket%206-brightgreen?style=popout-square)](https://github.com/EpicMorgVault/docker-atlassian-bitbucket-6)      | [![confluence-7](https://img.shields.io/badge/Atlassian-Confluence%207-brightgreen?style=popout-square)](https://github.com/EpicMorgVault/docker-atlassian-confluence-7) | [![atlassian-jira-8](https://img.shields.io/badge/Atlassian-Jira%208-brightgreen?style=popout-square)](https://github.com/EpicMorgVault/docker-atlassian-jira-8) | [![PostgreSQL](https://img.shields.io/badge/EpicMorg-PostgreSQL%20Backports-yellow?style=popout-square)](https://github.com/EpicMorgVault/docker-postgres-backports)  |
