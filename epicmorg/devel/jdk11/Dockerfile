@@ -5,7 +5,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 #                   installing java11
 ##################################################################
-RUN wget -qO - https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public | sudo apt-key add - && \
+RUN wget -qO - https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public | apt-key add - && \
     echo 'deb https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/ buster main' > /etc/apt/sources.list.d/adoptopenjdk-official.list && \
     apt-get update && \
     apt-get autoremove -y && \

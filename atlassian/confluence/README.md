@@ -3,6 +3,10 @@
 
 All presented images avalible on our repo in docker hub.
 
+* Confluence v5 images avalible [here](https://github.com/EpicMorgVault/docker-atlassian-confluence-5).
+* Confluence v6 images avalible [here](https://github.com/EpicMorgVault/docker-atlassian-confluence-6).
+* Confluence v7 images avalible [here](https://github.com/EpicMorgVault/docker-atlassian-confluence-7).
+
 ## LTS releases:
 * Latest version of Confluence `6.13.4`
 

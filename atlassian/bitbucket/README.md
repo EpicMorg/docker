@@ -3,8 +3,10 @@
 
 All presented images avalible on our repo in docker hub.
 
+* Bitbucket v6 images avalible [here](https://github.com/EpicMorgVault/docker-atlassian-bitbucket-6).
+
 ## LTS releases:
-* Latest version of `Bitbucket`  is `6.10`
+* Latest version of `Bitbucket`  is `6.10.1`
 
 -------
 
