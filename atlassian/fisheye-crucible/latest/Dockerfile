@@ -49,4 +49,4 @@ COPY entrypoint.sh              /entrypoint.sh
 COPY . /tmp
 
 CMD ["/entrypoint.sh", "run"]
-ENTRYPOINT ["/sbin/tini", "--"]
+ENTRYPOINT ["/usr/bin/tini", "--"]
