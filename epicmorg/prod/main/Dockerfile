@@ -21,6 +21,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     apt-transport-https \
     apt-utils \
     bash \
+    binutils \
     ca-certificates \
     cmatrix \
     cmatrix-xfont \
@@ -42,6 +43,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     lsof \
     lynx \
     mc \
+    mercurial \
     nano \
     nmap \
     openssl \
@@ -50,6 +52,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     rsync \
     screenfetch \
     smbclient \
+    subversion \
     sudo \
     telnet \
     tini \
