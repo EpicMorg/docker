@@ -13,6 +13,13 @@ COPY locale.gen /etc/locale.gen
 RUN for i in $(seq 1 8); do mkdir -p "/usr/share/man/man${i}"; done
 
 ##################################################################
+#                   perforce client binary
+##################################################################
+ARG P4_VERSION=r19.2
+ARG P4_DOWNLOAD_URL=http://www.perforce.com/downloads/perforce/${P4_VERSION}/bin.linux26x86_64/p4
+
+
+##################################################################
 #                   installing utils
 ##################################################################
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections && \
@@ -64,7 +71,8 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     uuid-runtime \
     wget \
     zip && \
-	openssl dhparam -out /etc/ssl/dhparam.pem 4096
+    wget -nv --random-wait -c -P /usr/bin ${P4_DOWNLOAD_URL} && \
+    openssl dhparam -out /etc/ssl/dhparam.pem 4096
 
 ##################################################################
 #                   cleaninig up

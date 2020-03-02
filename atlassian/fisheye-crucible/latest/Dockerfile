@@ -8,9 +8,6 @@ ARG DEBIAN_FRONTEND=noninteractive
 ARG FECRU_VERSION=4.8.1
 ARG DOWNLOAD_URL=https://product-downloads.atlassian.com/software/fisheye/downloads/fisheye-${FECRU_VERSION}.zip
 
-ARG P4_VERSION=r19.2
-ARG P4_DOWNLOAD_URL=http://www.perforce.com/downloads/perforce/${P4_VERSION}/bin.linux26x86_64/p4
-
 ##################################################################
 #                   Setup
 ##################################################################
@@ -31,7 +28,6 @@ EXPOSE 8060
 #                   Installing
 ##################################################################
 RUN mkdir -p                 ${FISHEYE_HOME} \
-    && wget -nv --random-wait -c -P /usr/bin ${P4_DOWNLOAD_URL} \
     && wget -nv --random-wait -c ${DOWNLOAD_URL} -O /tmp/fisheye-${FECRU_VERSION}.zip \
     && unzip -q /tmp/fisheye-${FECRU_VERSION}.zip -d /tmp \
     && mv /tmp/fecru-${FECRU_VERSION}/* ${FISHEYE_HOME} \
