@@ -11,7 +11,7 @@ set -euo pipefail
 if [ "${JVM_MINIMUM_MEMORY}" != "" ]; then
     FISHEYE_OPTS="${FISHEYE_OPTS} -Xms${JVM_MINIMUM_MEMORY}"
 fi
-if [ "${JVM_MAXIMUM_MEMORY}" != "" ]; then
+if [ "${JVM_MAXIMUM_MEMORY}" != "" ]; then	 
     FISHEYE_OPTS="${FISHEYE_OPTS} -Xmx${JVM_MAXIMUM_MEMORY}"
 fi
 
@@ -31,4 +31,3 @@ if [ "${UID}" -eq 0 ]; then
 else
     exec "$FISHEYE_INST/bin/fisheyectl.sh" "$@"
 fi
-
