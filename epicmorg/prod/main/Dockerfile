@@ -36,6 +36,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     htop \
     iftop \
     iputils-ping \
+    libsvn-java \
     kmod \
     libzip4 \
     locales \
