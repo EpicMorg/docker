@@ -228,6 +228,12 @@ matrix:
       - docker build --compress -t epicmorg/jira:latest-jdk11 -f atlassian/jira/latest/Dockerfile.jdk11 atlassian/jira/latest
       - docker push epicmorg/jira:latest-jdk11
 
+    - name: Fisheye + Crucible + JDK 8 (latest)
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin 
+      - docker build --compress -t epicmorg/fisheye-crucible:latest atlassian/fisheye-crucible/latest
+      - docker push epicmorg/fisheye-crucible:latest
+
     - name: Postgres (latest)
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
