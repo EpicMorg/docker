@@ -72,6 +72,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     wget \
     zip && \
     wget -nv --random-wait -c -P /usr/bin ${P4_DOWNLOAD_URL} && \
+    chmod +x /usr/bin/p4 && \
     openssl dhparam -out /etc/ssl/dhparam.pem 4096
 
 ##################################################################
