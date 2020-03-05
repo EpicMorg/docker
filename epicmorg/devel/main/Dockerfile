@@ -63,7 +63,6 @@ RUN apt-get update && \
     libkrb5-dev \
     libperl-dev \
     krb5-user \
-    samba \
     luajit \
     liblua5.1-0-dev \
     libmaxminddb-dev \
