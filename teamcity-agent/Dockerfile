@@ -53,13 +53,16 @@ RUN apt-get update && \
     apt-get install -y git mercurial apt-transport-https ca-certificates software-properties-common && \
     \
     curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - && \
+    curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.asc.gpg && \
+    mv microsoft.asc.gpg /etc/apt/trusted.gpg.d/ && \
+    echo 'deb [arch=amd64,arm64,armhf] https://packages.microsoft.com/debian/10/prod buster main' > /etc/apt/sources.list.d/dotnet.list  && \
     curl -fsSL https://packages.atlassian.com/api/gpg/key/public | apt-key add - && \
     echo 'deb  https://download.docker.com/linux/debian buster test' > /etc/apt/sources.list.d/docker.list  && \
     echo 'deb https://packages.atlassian.com/debian/atlassian-sdk-deb/ stable contrib' > /etc/apt/sources.list.d/atlassian-sdk.list  && \
     apt-cache policy docker-ce && \
     apt-get update && apt-get install -y --allow-unauthenticated docker-ce docker-ce-cli containerd.io systemd && \
     systemctl disable docker && \
-    curl -SL https://github.com/docker/compose/releases/download/1.24.1/docker-compose-Linux-x86_64 -o /usr/local/bin/docker-compose && chmod +x /usr/local/bin/docker-compose && \
+    curl -SL https://github.com/docker/compose/releases/download/1.25.4/docker-compose-Linux-x86_64 -o /usr/local/bin/docker-compose && chmod +x /usr/local/bin/docker-compose && \
     \
     apt-get install -y --no-install-recommends \
             iptables \
@@ -72,15 +75,9 @@ RUN apt-get update && \
             libssl1.1 \
             libstdc++6 \
             zlib1g \
+            dotnet-sdk-3.1 \
             atlassian-plugin-sdk \
-        && rm -rf /var/lib/apt/lists/* && \
-    \
-    curl -SL https://download.visualstudio.microsoft.com/download/pr/c4b503d6-2f41-4908-b634-270a0a1dcfca/c5a20e42868a48a2cd1ae27cf038044c/dotnet-sdk-$DOTNET_SDK_VERSION-linux-x64.tar.gz --output dotnet.tar.gz \
-        && mkdir -p /usr/share/dotnet \
-        && tar -zxf dotnet.tar.gz -C /usr/share/dotnet \
-        && rm dotnet.tar.gz \
-        && find /usr/share/dotnet -name "*.lzma" -type f -delete \
-        && ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet && \
+        && rm -rf /var/lib/apt/lists/* &&  \
     \
     apt-get clean all && \
     \
