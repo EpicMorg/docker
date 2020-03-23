@@ -126,6 +126,8 @@ RUN curl -SL https://github.com/docker/compose/releases/download/1.25.4/docker-c
 ENV AMXX_VERSION=1.9
 ENV AMXX_INSTALL_PATH=/opt/amxmodx/$AMXX_VERSION
 ENV AMXX_BIN_PATH=$AMXX_INSTALL_PATH/scripting
+ENV PATH=$PATH:$AMXX_BIN_PATH
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$AMXX_BIN_PATH
 
 RUN export AMXX_BASE_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.9/amxmodx-latest-base-linux` && \
     mkdir -p $AMXX_INSTALL_PATH && \
@@ -133,9 +135,7 @@ RUN export AMXX_BASE_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.
     cd /tmp && tar -zxf /tmp/amxx_base_latest.tar.gz && cd / && \
     mv -f /tmp/addons/amxmodx/* $AMXX_INSTALL_PATH && \
     chmod +x $AMXX_BIN_PATH/amxxpc && \
-    chmod +x $AMXX_BIN_PATH/compile.sh && \
-    export PATH=$PATH:$AMXX_BIN_PATH && \
-    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$AMXX_BIN_PATH
+    chmod +x $AMXX_BIN_PATH/compile.sh
 
 ##################################################################
 #                    teamcity atlassian-sdk setup
