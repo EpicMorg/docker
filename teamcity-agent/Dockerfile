@@ -35,7 +35,7 @@ RUN useradd -m buildagent && \
 #                    teamcity dotnet+powershell setup
 ##################################################################
 # Opt out of the telemetry feature
-ENV DOTNET_CLI_TELEMETRY_OPTOUT=false
+ENV DOTNET_CLI_TELEMETRY_OPTOUT=true
 
 # Disable first time experience
 ENV DOTNET_SKIP_FIRST_TIME_EXPERIENCE=true
