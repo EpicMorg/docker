@@ -60,6 +60,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     rsync \
     screenfetch \
     smbclient \
+    software-properties-common \
     subversion \
     sudo \
     telnet \
