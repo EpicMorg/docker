@@ -5,19 +5,24 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 #                   teamcity minimal agent
 ##################################################################
-VOLUME /data/teamcity_agent/conf
-
-ENV CONFIG_FILE=/data/teamcity_agent/conf/buildAgent.properties \
-    LANG=C.UTF-8
-
 LABEL dockerImage.teamcity.version="latest" \
       dockerImage.teamcity.buildNumber="latest"
 
+VOLUME /data/teamcity_agent/conf
+
+ENV CONFIG_FILE=/data/teamcity_agent/conf/buildAgent.properties
+ENV LANG=C.UTF-8
+ENV GIT_SSH_VARIANT=ssh
+
 COPY run-agent.sh /run-agent.sh
+RUN chmod +x /run-agent.sh && \
+    sync
+
 COPY run-services.sh /run-services.sh
+RUN chmod +x /run-services.sh && \
+    sync
 
 ADD https://teamcity.jetbrains.com/update/buildAgent.zip /buildAgent.zip
-
 RUN unzip /buildAgent.zip -d /opt/buildagent && \
     mv /opt/buildagent/conf /opt/buildagent/conf_dist && \
     rm -rfv /buildAgent.zip
@@ -27,76 +32,121 @@ RUN useradd -m buildagent && \
     chmod +x /run-agent.sh /run-services.sh && sync
 
 ##################################################################
-#                    teamcity main agent
+#                    teamcity dotnet+powershell setup
+##################################################################
+# Opt out of the telemetry feature
+ENV DOTNET_CLI_TELEMETRY_OPTOUT=false
+
+# Disable first time experience
+ENV DOTNET_SKIP_FIRST_TIME_EXPERIENCE=true
+
+# Configure Kestrel web server to bind to port 80 when present
+ENV ASPNETCORE_URLS=http://+:80
+
+# Enable detection of running in a container
+ENV DOTNET_RUNNING_IN_CONTAINER=true
+
+# Enable correct mode for dotnet watch (only mode supported in a container)
+ENV DOTNET_USE_POLLING_FILE_WATCHER=true
+
+# Skip extraction of XML docs - generally not useful within an image/container - helps perfomance
+ENV NUGET_XMLDOC_MODE=skip
+
+#unofficial support of openssl1.1 instead of 1.0 [https://stackoverflow.com/questions/51901359]
+ENV CLR_OPENSSL_VERSION_OVERRIDE=45
+
+#Install packages
+RUN curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add - && \
+    echo 'deb [arch=amd64,arm64,armhf] https://packages.microsoft.com/debian/10/prod buster main' > /etc/apt/sources.list.d/microsoft.dotnet.list  && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends --allow-unauthenticated \
+      libc6 \
+      libgcc1 \
+      libgssapi-krb5-2 \
+      libicu63 \
+      liblttng-ust0 \
+      libssl1.1 \
+      libstdc++6 \
+      zlib1g \
+      dotnet-sdk-3.1  \
+      aspnetcore-runtime-3.1 \
+      dotnet-runtime-3.1 \
+      powershell
+
+# Trigger .NET CLI first run experience by running arbitrary cmd to populate local package cache
+RUN ln -s /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1 /usr/lib/x86_64-linux-gnu/libcrypto.so.1.0 && \
+    ln -s /usr/lib/x86_64-linux-gnu/libssl.so.1.1 /usr/lib/x86_64-linux-gnu/libssl.so.1.0 && \
+    dotnet help && \
+    pwsh -v
+
+##################################################################
+#                    teamcity docker setup
 ##################################################################
 
-    # Opt out of the telemetry feature
-ENV DOTNET_CLI_TELEMETRY_OPTOUT=true \
-    # Disable first time experience
-    DOTNET_SKIP_FIRST_TIME_EXPERIENCE=true \
-    # Configure Kestrel web server to bind to port 80 when present
-    ASPNETCORE_URLS=http://+:80 \
-    # Enable detection of running in a container
-    DOTNET_RUNNING_IN_CONTAINER=true \
-    # Enable correct mode for dotnet watch (only mode supported in a container)
-    DOTNET_USE_POLLING_FILE_WATCHER=true \
-    # Skip extraction of XML docs - generally not useful within an image/container - helps perfomance
-    NUGET_XMLDOC_MODE=skip \
-    GIT_SSH_VARIANT=ssh \
-    # Install .NET Core SDK
-    DOTNET_SDK_VERSION=3.1.101 \
-    #unofficial support of openssl1.1 instead of 1.0 [https://stackoverflow.com/questions/51901359]
-    CLR_OPENSSL_VERSION_OVERRIDE=45
-
-    # docker insall
-RUN apt-get update && \
-    apt-get install -y git mercurial apt-transport-https ca-certificates software-properties-common && \
-    \
-    curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - && \
-    curl -fsSL https://packages.atlassian.com/api/gpg/key/public | apt-key add - && \
+#Install packages
+RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - && \
     echo 'deb  https://download.docker.com/linux/debian buster test' > /etc/apt/sources.list.d/docker.list  && \
-    echo 'deb https://packages.atlassian.com/debian/atlassian-sdk-deb/ stable contrib' > /etc/apt/sources.list.d/atlassian-sdk.list  && \
     apt-cache policy docker-ce && \
-    apt-get update && apt-get install -y --allow-unauthenticated docker-ce docker-ce-cli containerd.io systemd && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends --allow-unauthenticated \
+      docker-ce \
+      docker-ce-cli \
+      containerd.io systemd && \
     systemctl disable docker && \
-    curl -SL https://github.com/docker/compose/releases/download/1.24.1/docker-compose-Linux-x86_64 -o /usr/local/bin/docker-compose && chmod +x /usr/local/bin/docker-compose && \
-    \
-    apt-get install -y --no-install-recommends \
-            iptables \
-            fontconfig \
-            libc6 \
-            libgcc1 \
-            libgssapi-krb5-2 \
-            libicu63 \
-            liblttng-ust0 \
-            libssl1.1 \
-            libstdc++6 \
-            zlib1g \
-            atlassian-plugin-sdk \
-        && rm -rf /var/lib/apt/lists/* && \
-    \
-    curl -SL https://download.visualstudio.microsoft.com/download/pr/c4b503d6-2f41-4908-b634-270a0a1dcfca/c5a20e42868a48a2cd1ae27cf038044c/dotnet-sdk-$DOTNET_SDK_VERSION-linux-x64.tar.gz --output dotnet.tar.gz \
-        && mkdir -p /usr/share/dotnet \
-        && tar -zxf dotnet.tar.gz -C /usr/share/dotnet \
-        && rm dotnet.tar.gz \
-        && find /usr/share/dotnet -name "*.lzma" -type f -delete \
-        && ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet && \
-    \
-    apt-get clean all && \
-    \
     usermod -aG docker buildagent
 
 # A better fix for TW-52939 Dockerfile build fails because of aufs
 VOLUME /var/lib/docker
 
 COPY run-docker.sh /services/run-docker.sh
-RUN chmod +x /services/run-docker.sh && sync
+RUN chmod +x /services/run-docker.sh && \
+    sync
 
-# Trigger .NET CLI first run experience by running arbitrary cmd to populate local package cache
-RUN ln -s /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1 /usr/lib/x86_64-linux-gnu/libcrypto.so.1.0 && \
-    ln -s /usr/lib/x86_64-linux-gnu/libssl.so.1.1 /usr/lib/x86_64-linux-gnu/libssl.so.1.0 && \
-    dotnet help
+##################################################################
+#                    teamcity docker compose setup
+##################################################################
 
+#Install packages
+RUN curl -SL https://github.com/docker/compose/releases/download/1.25.4/docker-compose-Linux-x86_64 -o /usr/local/bin/docker-compose && \
+    chmod +x /usr/local/bin/docker-compose
+
+##################################################################
+#                    teamcity AMXXModX setup
+##################################################################
+#
+# Reserved for future
+#    export AMXX_CSTRIKE_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.9/amxmodx-latest-cstrike-linux` && \
+#    export AMXX_DOD_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.9/amxmodx-latest-dod-linux` && \
+#    export AMXX_ESF_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.9/amxmodx-latest-esf-linux` && \
+#    export AMXX_NS_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.9/amxmodx-latest-ns-linux` && \
+#    export AMXX_TFC_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.9/amxmodx-latest-tfc-linux` && \
+#    export AMXX_TS_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.9/amxmodx-latest-base-linux` && \
+#
+# Install packages
+ENV AMXX_VERSION=1.9
+ENV AMXX_INSTALL_PATH=/opt/amxmodx/$AMXX_VERSION
+ENV AMXX_BIN_PATH=$AMXX_INSTALL_PATH/scripting
+
+RUN export AMXX_BASE_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.9/amxmodx-latest-base-linux` && \
+    mkdir -p $AMXX_INSTALL_PATH && \
+    curl -SL https://www.amxmodx.org/amxxdrop/{$AMXX_VERSION}/{$AMXX_BASE_LATEST_VERSION} -o /tmp/amxx_base_latest.tar.gz && \
+    cd /tmp && tar -zxf /tmp/amxx_base_latest.tar.gz && cd / && \
+    mv -f /tmp/addons/amxmodx/* $AMXX_INSTALL_PATH && \
+    chmod +x $AMXX_BIN_PATH/amxxpc && \
+    chmod +x $AMXX_BIN_PATH/compile.sh && \
+    export PATH=$PATH:$AMXX_BIN_PATH && \
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$AMXX_BIN_PATH
+
+##################################################################
+#                    teamcity atlassian-sdk setup
+##################################################################
+
+#Install packages
+RUN curl -fsSL https://packages.atlassian.com/api/gpg/key/public | apt-key add - && \
+    echo 'deb https://packages.atlassian.com/debian/atlassian-sdk-deb/ stable contrib' > /etc/apt/sources.list.d/atlassian-sdk.list  && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends --allow-unauthenticated \
+      atlassian-plugin-sdk
 
 ##################################################################
 #                   Installing PHP7
@@ -219,16 +269,19 @@ RUN cd / && \
     sudo chown root:root * -R && \
     cd steam-runtime && \
     printf '%s\n' 3 1 Y Y Y | ./setup.sh
-	
+
 ##################################################################
 #                   cleaninig up
 ##################################################################
 RUN apt clean -y && \
+    apt-get clean all && \
     apt autoclean -y && \
     rm -rfv /var/lib/apt/lists/* && \
     rm -rfv /var/cache/apt/archives/*.deb && \
     rm -rfv /tmp/deb/* && \
-    rm -rfv /tmp/composer-setup.php
+    rm -rfv /tmp/composer-setup.php && \
+    rm -rfv /tmp/amxx_base_latest.tar.gz && \
+    rm -rfv /tmp/addons
 
 CMD ["/run-services.sh"]
 
