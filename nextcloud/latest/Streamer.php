@@ -2,13 +2,15 @@
 /**
  *
  *
- * FIXED ZipStreammer to 64bit. https://github.com/nextcloud/server/pull/15367
- *
- *
+ * FIXED ZipStreammer to 64bit. 1) https://github.com/nextcloud/server/pull/15367
+ *				2) https://github.com/artonge/server/commit/435022515de1983f0fe3d3116acb71a0ed439693
  *
  * @copyright Copyright (c) 2016, ownCloud, Inc.
  *
+ * @author Arthur Schiwon <blizzz@arthur-schiwon.de>
+ * @author Daniel Calviño Sánchez <danxuliu@gmail.com>
  * @author Joas Schilling <coding@schilljs.com>
+ * @author Roeland Jago Douma <roeland@famdouma.nl>
  * @author Thomas Müller <thomas.mueller@tmit.eu>
  * @author Victor Dubiniuk <dubiniuk@owncloud.com>
  *
@@ -24,12 +26,18 @@
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License, version 3,
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
+ * along with this program. If not, see <http://www.gnu.org/licenses/>
  *
  */
 
 namespace OC;
 
+use OC\Files\Filesystem;
+use OCP\Files\File;
+use OCP\Files\Folder;
+use OCP\Files\InvalidPathException;
+use OCP\Files\NotFoundException;
+use OCP\Files\NotPermittedException;
 use OCP\IRequest;
 use ownCloud\TarStreamer\TarStreamer;
 use ZipStreamer\ZipStreamer;
@@ -49,7 +57,7 @@ class Streamer {
          * @param int $numberOfFiles The number of files (and directories) that will
          *        be included in the streamed file
          */
-        public function __construct(IRequest $request, int $size, int $numberOfFiles){
+        public function __construct(IRequest $request, $size, int $numberOfFiles){
 
                 /**
                  * zip32 constraints for a basic (without compression, volumes nor
@@ -94,10 +102,12 @@ class Streamer {
 
         /**
          * Stream directory recursively
-         * @param string $dir
-         * @param string $internalDir
+         *
+         * @throws NotFoundException
+         * @throws NotPermittedException
+         * @throws InvalidPathException
          */
-        public function addDirRecursive($dir, $internalDir='') {
+        public function addDirRecursive(string $dir, string $internalDir = ''): void {
                 $dirname = basename($dir);
                 $rootDir = $internalDir . $dirname;
                 if (!empty($rootDir)) {
@@ -107,18 +117,29 @@ class Streamer {
                 // prevent absolute dirs
                 $internalDir = ltrim($internalDir, '/');
 
-                $files= \OC\Files\Filesystem::getDirectoryContent($dir);
+                $userFolder = \OC::$server->getRootFolder()->get(Filesystem::getRoot());
+                /** @var Folder $dirNode */
+                $dirNode = $userFolder->get($dir);
+                $files = $dirNode->getDirectoryListing();
+
                 foreach($files as $file) {
-                        $filename = $file['name'];
-                        $file = $dir . '/' . $filename;
-                        if(\OC\Files\Filesystem::is_file($file)) {
-                                $filesize = \OC\Files\Filesystem::filesize($file);
-                                $fileTime = \OC\Files\Filesystem::filemtime($file);
-                                $fh = \OC\Files\Filesystem::fopen($file, 'r');
-                                $this->addFileFromStream($fh, $internalDir . $filename, $filesize, $fileTime);
+                        if($file instanceof File) {
+                                try {
+                                        $fh = $file->fopen('r');
+                                } catch (NotPermittedException $e) {
+                                        continue;
+                                }
+                                $this->addFileFromStream(
+                                        $fh,
+                                        $internalDir . $file->getName(),
+                                        $file->getSize(),
+                                        $file->getMTime()
+                                );
                                 fclose($fh);
-                        }elseif(\OC\Files\Filesystem::is_dir($file)) {
-                                $this->addDirRecursive($file, $internalDir);
+                        } elseif ($file instanceof Folder) {
+                                if($file->isReadable()) {
+                                        $this->addDirRecursive($dir . '/' . $file->getName(), $internalDir);
+                                }
                         }
                 }
         }

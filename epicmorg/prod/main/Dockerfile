@@ -53,6 +53,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     mc \
     mercurial \
     nano \
+    nload \
     nmap \
     openssl \
     perl \

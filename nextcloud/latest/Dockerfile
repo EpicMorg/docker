@@ -11,8 +11,9 @@ RUN cp -fv /tmp/php-smbclient-latest/etc/php/7.3/mods-available/smbclient.ini /u
 RUN apt update -y &&  apt install -y --allow-unauthenticated   sudo apt-transport-https wget  htop mc nano smbclient libsmbclient
 
 #thank u, mac users. rolling back normal ZipStreammer
-RUN rm -frv /var/www/html/lib/private/Streamer.php
-ADD Streamer.php /var/www/html/lib/private/
+RUN rm -frv /usr/src/nextcloud/lib/private/Streamer.php
+ADD Streamer.php /usr/src/nextcloud/lib/private/
+RUN chown nobody:nogroup /usr/src/nextcloud/lib/private/Streamer.php
 
 #smb fix
 RUN rm -frv /etc/samba/smb.conf /usr/share/samba/smb.conf
