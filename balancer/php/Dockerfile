@@ -12,49 +12,45 @@ RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
     apache2-utils \
     libmemcached-dev \
     sendmail \
-    php7.3-gmp \
-    php7.3-snmp \
-    php7.3-ldap \
-    php7.3-dev \
-    php7.3 \
-    php7.3-mail \
-    php7.3-mailparse \
-    php7.3-soap \
-    php7.3-mysql \
-    php7.3-memcached \
-    php7.3-memcache \
-    php7.3-igbinary \
-    php7.3-curl \
-    php7.3-gd \
-    php7.3-intl \
-    php7.3-zip \
-    php7.3-bcmath \
-    php7.3-fpm \
-    php-pear \
-    php7.3-imap \
-    php7.3-pspell \
-    php7.3-recode \
-    php7.3-sqlite3 \
-    php7.3-tidy \
-    php7.3-xmlrpc \
-    php7.3-xml \
-    php7.3-mbstring \
-    php7.3-gettext \
-    php7.3-apcu \
-    php7.3-cli \
-    php7.3-common \
-    php7.3-cgi \
-    php7.3-json \
-    php7.3-readline \
-    php7.3-enchant \
-    php7.3-ssh2 \
-    php7.3-oauth \
-    php7.3-gmagick \
-    php7.3-gnupg \
-    php7.3-redis \
-    php7.3-smbclient \
-    php7.3-yaml \
-    php7.3-geoip
+    php-gmp \
+    php-snmp \
+    php-ldap \
+    php7.4-dev \
+    php7.4 \
+    php-mail \
+    php-soap \
+    php-mysql \
+    php-mailparse \
+    php-memcache \
+    php-memcached \
+    php-curl \
+    php-gd \
+    php-intl \
+    php-zip \
+    php-bcmath \
+    php-fpm \
+    php-imap \
+    php-pspell \
+    php-sqlite3 \
+    php-tidy \
+    php-xmlrpc \
+    php-xml \
+    php-mbstring \
+    php-gettext \
+    php7.4-cli \
+    php-common \
+    php-cgi \
+    php-json \
+    php-readline \
+    php-enchant \
+    php-ssh2 \
+    php-oauth \
+    php-gmagick \
+    php-gnupg \
+    php-redis \
+    php-smbclient \
+    php-yaml \
+    php-geoip
 
 ##################################################################
 #                   Enabling php modules
@@ -101,12 +97,12 @@ RUN phpenmod \
 ##################################################################
 #                   ioncube support
 ##################################################################
-ADD https://downloads.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz /tmp/ioncube.tar.gz
+ADD https://www.ioncube.com/php-7.4.0-beta-loaders/ioncube_loaders_lin_x86-64_7.4_BETA2.tar.gz /tmp/ioncube.tar.gz
 RUN tar -C /tmp -xvf /tmp/ioncube.tar.gz && \
-    cp /tmp/ioncube/ioncube_loader_lin_7.3.so /usr/lib/php/20170718/ && \
-    echo "zend_extension = /usr/lib/php/20170718/ioncube_loader_lin_7.3.so" >> /etc/php/7.3/cgi/php.ini && \
-    echo "zend_extension = /usr/lib/php/20170718/ioncube_loader_lin_7.3.so" >> /etc/php/7.3/cli/php.ini && \
-    echo "zend_extension = /usr/lib/php/20170718/ioncube_loader_lin_7.3.so" >> /etc/php/7.3/fpm/php.ini && \
+    cp /tmp/ioncube_loader_lin_7.4_10.4.0_beta2.so /usr/lib/php/20170718/ && \
+    echo "zend_extension = /usr/lib/php/20170718/ioncube_loader_lin_7.4_10.4.0_beta2.so" >> /etc/php/7.4/cgi/php.ini && \
+    echo "zend_extension = /usr/lib/php/20170718/ioncube_loader_lin_7.4_10.4.0_beta2.so" >> /etc/php/7.4/cli/php.ini && \
+    echo "zend_extension = /usr/lib/php/20170718/ioncube_loader_lin_7.4_10.4.0_beta2.so" >> /etc/php/7.4/fpm/php.ini && \
     php -v
 
 ##################################################################
@@ -126,6 +122,7 @@ RUN apt clean -y && \
     rm -rfv /var/cache/apt/archives/*.deb && \
     rm -rfv /tmp/deb/* && \
     rm -rfv /tmp/composer-setup.php && \
+    rm -rfv /tmp/ioncube_loader_lin_7.4_10.4.0_beta2.so && \
     rm -rfv /tmp/ioncube.tar.gz
 
 #Final config

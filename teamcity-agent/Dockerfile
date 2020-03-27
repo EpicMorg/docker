@@ -23,7 +23,7 @@ RUN chmod +x /run-services.sh && \
     sync
 
 ADD https://teamcity.jetbrains.com/update/buildAgent.zip /buildAgent.zip
-RUN unzip /buildAgent.zip -d /opt/buildagent && \
+RUN unzip -q /buildAgent.zip -d /opt/buildagent && \
     mv /opt/buildagent/conf /opt/buildagent/conf_dist && \
     rm -rfv /buildAgent.zip
 
@@ -142,11 +142,19 @@ RUN export AMXX_BASE_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.
 ##################################################################
 
 #Install packages
-RUN curl -fsSL https://packages.atlassian.com/api/gpg/key/public | apt-key add - && \
-    echo 'deb https://packages.atlassian.com/debian/atlassian-sdk-deb/ stable contrib' > /etc/apt/sources.list.d/atlassian-sdk.list  && \
-    apt-get update && \
-    apt-get install -y --no-install-recommends --allow-unauthenticated \
-      atlassian-plugin-sdk
+RUN curl -SL https://packages.atlassian.com/atlassian-sdk-deb/debian/pool/contrib/a/atlassian-plugin-sdk/atlassian-plugin-sdk_8.0.16_all.deb -o /tmp/atlassian-plugin-sdk.deb && \
+    dpkg -i /tmp/atlassian-plugin-sdk.deb
+
+###############################
+# https://community.atlassian.com/t5/Continuous-Delivery-questions/The-repository-https-packages-atlassian-com-atlassian-sdk-deb/qaq-p/1334014
+#
+# https://community.developer.atlassian.com/t/the-repository-https-packages-atlassian-com-atlassian-sdk-deb-stable-release-is-not-signed/36901
+###############################
+#RUN curl -fsSL https://packages.atlassian.com/api/gpg/key/public | apt-key add - && \
+#    echo 'deb [trusted=yes] https://packages.atlassian.com/atlassian-sdk-deb stable contrib' > /etc/apt/sources.list.d/atlassian-sdk.list  && \
+#    apt-get update  --allow-insecure-repositories && \
+#    apt-get install -y --no-install-recommends  --allow-unauthenticated  \
+#      atlassian-plugin-sdk
 
 ##################################################################
 #                   Installing PHP7
@@ -164,12 +172,12 @@ RUN apt-get update && \
       php7.3-dev \
       php7.3 \
       php7.3-mail  \
-      php7.3-mailparse \
+      php-mailparse \
       php7.3-soap \
       php7.3-mysql \
       php7.3-memcached \
-      php7.3-memcache \
-      php7.3-igbinary \
+      php-memcache \
+      php-igbinary \
       php7.3-curl \
       php7.3-gd \
       php7.3-intl \
@@ -186,21 +194,21 @@ RUN apt-get update && \
       php7.3-xml \
       php7.3-mbstring \
       php7.3-gettext \
-      php7.3-apcu \
+      php-apcu \
       php7.3-cli \
       php7.3-common \
       php7.3-cgi \
       php7.3-json \
       php7.3-readline \
       php7.3-enchant \
-      php7.3-ssh2 \
-      php7.3-oauth \
-      php7.3-gmagick \
-      php7.3-gnupg \
-      php7.3-redis \
+      php-ssh2 \
+      php-oauth \
+      php-gmagick \
+      php-gnupg \
+      php-redis \
       php7.3-smbclient \
-      php7.3-yaml \
-      php7.3-geoip \
+      php-yaml \
+      php-geoip \
       sendmail && \
     phpenmod \
       snmp \
@@ -281,6 +289,7 @@ RUN apt clean -y && \
     rm -rfv /tmp/deb/* && \
     rm -rfv /tmp/composer-setup.php && \
     rm -rfv /tmp/amxx_base_latest.tar.gz && \
+    rm -rfv /tmp/atlassian-plugin-sdk.deb && \
     rm -rfv /tmp/addons
 
 CMD ["/run-services.sh"]
