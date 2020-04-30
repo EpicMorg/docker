@@ -51,7 +51,6 @@ RUN apt-get update && \
     fakeroot \
     checkinstall \
     dh-make \
-    zlibc \
     zlib1g \
     zlib1g-dev \
     libssl-dev \
