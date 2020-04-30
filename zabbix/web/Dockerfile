@@ -1,8 +1,9 @@
 FROM zabbix/zabbix-web-apache-mysql:ubuntu-latest
 ENV DEBIAN_FRONTEND noninteractive
 
+USER root
+
 #editing sources list
-RUN rm /etc/apt/sources.list
 COPY sources.list /etc/apt/sources.list
 COPY locale.gen /etc/locale.gen
 
@@ -29,6 +30,7 @@ RUN apt update -y && \
      fontconfig \
      smbclient \
      nano \
+     sudo \
      php-cli \
      php-curl \
      telnet \
