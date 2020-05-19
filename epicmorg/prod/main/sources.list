@@ -3,6 +3,8 @@ deb http://ftp.ru.debian.org/debian/ buster main contrib non-free
 deb-src http://ftp.ru.debian.org/debian/ buster main contrib non-free
 deb http://ftp.ru.debian.org/debian/ buster-updates main contrib non-free
 deb-src http://ftp.ru.debian.org/debian/ buster-updates main contrib non-free
+deb http://ftp.ru.debian.org/debian/ buster-backports main contrib non-free
+deb-src http://ftp.ru.debian.org/debian/ buster-backports main contrib non-free
 deb http://ftp.ru.debian.org/debian/ buster-proposed-updates main contrib non-free
 deb-src http://ftp.ru.debian.org/debian/ buster-proposed-updates main contrib non-free
  

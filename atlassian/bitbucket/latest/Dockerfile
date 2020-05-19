@@ -5,7 +5,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 #                   ARGuments
 ##################################################################
-ARG BITBUCKET_VERSION=7.2.0
+ARG BITBUCKET_VERSION=7.2.3
 ARG DOWNLOAD_URL=https://product-downloads.atlassian.com/software/stash/downloads/atlassian-bitbucket-${BITBUCKET_VERSION}.tar.gz
 
 ##################################################################

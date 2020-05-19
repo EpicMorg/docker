@@ -1,14 +1,16 @@
 #main
-deb http://ftp.ru.debian.org/debian/ sid main contrib non-free
-deb-src http://ftp.ru.debian.org/debian/ sid main contrib non-free
-deb http://ftp.ru.debian.org/debian/ testing-updates main contrib non-free
-deb-src http://ftp.ru.debian.org/debian/ testing-updates main contrib non-free
-deb http://ftp.ru.debian.org/debian/ testing-proposed-updates main contrib non-free
-deb-src http://ftp.ru.debian.org/debian/ testing-proposed-updates main contrib non-free
+deb http://ftp.ru.debian.org/debian/ bullseye main contrib non-free
+deb-src http://ftp.ru.debian.org/debian/ bullseye main contrib non-free
+deb http://ftp.ru.debian.org/debian/ bullseye-updates main contrib non-free
+deb-src http://ftp.ru.debian.org/debian/ bullseye-updates main contrib non-free
+deb http://ftp.ru.debian.org/debian/ bullseye-backports main contrib non-free
+deb-src http://ftp.ru.debian.org/debian/ bullseye-backports main contrib non-free
+deb http://ftp.ru.debian.org/debian/ bullseye-proposed-updates main contrib non-free
+deb-src http://ftp.ru.debian.org/debian/ bullseye-proposed-updates main contrib non-free
 
 #security
-deb http://ftp.ru.debian.org/debian-security/ testing-security main contrib non-free
-deb-src http://ftp.ru.debian.org/debian-security/ testing-security main contrib non-free
+deb http://ftp.ru.debian.org/debian-security/ bullseye-security main contrib non-free
+deb-src http://ftp.ru.debian.org/debian-security/ bullseye-security main contrib non-free
 
 ##multimedia
 #deb http://ftp.ru.debian.org/debian-multimedia/ sid main non-free

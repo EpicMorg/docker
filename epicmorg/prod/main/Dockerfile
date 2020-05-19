@@ -15,7 +15,7 @@ RUN for i in $(seq 1 8); do mkdir -p "/usr/share/man/man${i}"; done
 ##################################################################
 #                   perforce client binary
 ##################################################################
-ARG P4_VERSION=r19.2
+ARG P4_VERSION=r20.1
 ARG P4_DOWNLOAD_URL=http://www.perforce.com/downloads/perforce/${P4_VERSION}/bin.linux26x86_64/p4
 
 
@@ -33,6 +33,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     cmatrix \
     cmatrix-xfont \
     console-cyrillic \
+    cron \
     curl \
     ffmpeg \
     fontconfig \
