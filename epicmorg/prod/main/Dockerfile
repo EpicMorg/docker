@@ -44,8 +44,9 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     htop \
     iftop \
     iputils-ping \
-    libsvn-java \
+    jq \
     kmod \
+    libsvn-java \
     libzip4 \
     locales \
     lsb-release \

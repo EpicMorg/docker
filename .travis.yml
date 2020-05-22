@@ -162,14 +162,14 @@ matrix:
       - docker build --compress -t epicmorg/balancer:latest balancer/latest
       - docker push epicmorg/balancer:latest
 
-    - name: NGinx + PHP7.3
+    - name: NGinx + PHP7.4
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/balancer:php balancer/php
       - docker push epicmorg/balancer:php
 
 
-    - name: Apache + PHP7.3
+    - name: Apache + PHP7.4
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/websites:latest websites/latest

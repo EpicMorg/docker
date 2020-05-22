@@ -1,4 +1,4 @@
-FROM epicmorg/devel:jdk8
+FROM epicmorg/devel:jdk11
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -61,7 +61,7 @@ RUN curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add - 
     apt-get update && \
     apt-get install -y --no-install-recommends --allow-unauthenticated \
       libc6 \
-      libgcc1 \
+#      libgcc1 \
       libgssapi-krb5-2 \
       libicu63 \
       liblttng-ust0 \
@@ -107,7 +107,9 @@ RUN chmod +x /services/run-docker.sh && \
 ##################################################################
 
 #Install packages
-RUN curl -SL https://github.com/docker/compose/releases/download/1.25.4/docker-compose-Linux-x86_64 -o /usr/local/bin/docker-compose && \
+RUN export  DOCKER_COMPOSE_VERSION=`curl --silent https://api.github.com/repos/docker/compose/releases/latest | jq .name -r` && \
+    echo "Latest compose is: ${DOCKER_COMPOSE_VERSION}" && \
+    curl -SL https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-Linux-x86_64 -o /usr/local/bin/docker-compose && \
     chmod +x /usr/local/bin/docker-compose
 
 ##################################################################
@@ -172,7 +174,7 @@ RUN apt-get update && \
       php7.3-dev \
       php7.3 \
       php7.3-mail  \
-      php-mailparse \
+#     php-mailparse \
       php7.3-soap \
       php7.3-mysql \
       php7.3-memcached \
@@ -259,11 +261,17 @@ RUN cd /tmp && \
     php composer-setup.php  --install-dir=/usr/local/bin --filename=composer && \
     rm /tmp/composer-setup.php
 
+
+
+
 ##################################################################
 #                   Node.js 12.x
 ##################################################################
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
-    apt-get install -y nodejs
+    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - && \
+    echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list && \
+    apt-get update && \
+    apt-get install -y nodejs yarn
 
 ##################################################################
 #                   steam runtime and ssdk
@@ -277,6 +285,18 @@ RUN cd / && \
     sudo chown root:root * -R && \
     cd steam-runtime && \
     printf '%s\n' 3 1 Y Y Y | ./setup.sh
+
+##################################################################
+#                   Android SDK
+##################################################################
+RUN apt-get install -y  --allow-unauthenticated \
+      android-sdk \
+      android-sdk-build-tools \
+      android-sdk-platform-tools && \
+    echo "24333f8a63b6825ea9c5514f83c2829b004d1fee" > /usr/lib/android-sdk/licensesandroid-sdk-license
+
+ENV ANDROID_HOME=/usr/lib/android-sdk
+ENV ANDROID_SDK_ROOT=/usr/lib/android-sdk
 
 ##################################################################
 #                   cleaninig up

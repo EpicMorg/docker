@@ -36,7 +36,7 @@ RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
     php-xmlrpc \
     php-xml \
     php-mbstring \
-    php-gettext \
+#   php-gettext \
     php7.4-cli \
     php-common \
     php-cgi \
@@ -66,7 +66,7 @@ RUN phpenmod \
     fileinfo \
     gd \
     geoip \
-    gettext \
+#   gettext \
     gnupg \
     iconv \
     imap \

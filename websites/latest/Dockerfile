@@ -33,7 +33,7 @@ RUN apt-get update && \
       php-snmp \
       php-ldap \
       php-mail  \
-      php-mailparse \
+#     php-mailparse \
       php-soap \
       php-mysql \
       php-memcached \
@@ -51,7 +51,7 @@ RUN apt-get update && \
       php-xmlrpc \
       php-xml \
       php-mbstring \
-      php-gettext \
+#     php-gettext \
       php-apcu \
       php-common \
       php-json \
@@ -77,7 +77,7 @@ RUN apt-get update && \
       fileinfo \
       gd \
       geoip \
-      gettext \
+#     gettext \
       gnupg \
       iconv \
       imap \
