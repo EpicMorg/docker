@@ -293,7 +293,7 @@ RUN apt-get install -y  --allow-unauthenticated \
       android-sdk \
       android-sdk-build-tools \
       android-sdk-platform-tools && \
-    echo "24333f8a63b6825ea9c5514f83c2829b004d1fee" > /usr/lib/android-sdk/licensesandroid-sdk-license
+    echo "24333f8a63b6825ea9c5514f83c2829b004d1fee" > /usr/lib/android-sdk/licenses/android-sdk-license
 
 ENV ANDROID_HOME=/usr/lib/android-sdk
 ENV ANDROID_SDK_ROOT=/usr/lib/android-sdk
