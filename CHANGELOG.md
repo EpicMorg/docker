@@ -1,10 +1,11 @@
 ## Changelog
 * `May-july 2020`
-	* Upgraded teamCity Agnet
-	* Fixed Nextcloud
-	* Fixed qBittorrent
-	* Added websites:php7.3
-	* Updated atlassian versions
+	* Upgraded `TeamCity Agnet`
+	* upgraded `nginx`
+	* Fixed `Nextcloud`
+	* Fixed `qBittorrent`
+	* Added `websites:php7.3`
+	* Updated `atlassian` versions
 	* Added `testrail` (beta release)
 	* Fixed bugs
 * `March-Apr 2020`
