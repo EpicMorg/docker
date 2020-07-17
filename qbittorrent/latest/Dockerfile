@@ -17,7 +17,7 @@ RUN mkdir -p ${QBT_DIR}
 ##################################################################
 RUN apt-key adv --recv-keys --keyserver keyserver.ubuntu.com D35164147CA69FC4
 COPY qbittorrent-unstable.list /etc/apt/sources.list.d/qbittorrent-unstable.list
-RUN apt autoremove -y && apt update && apt dist-upgrade -y
+RUN apt autoremove -y && apt purge policykit-1 -y &&  apt update && apt dist-upgrade -y
 
 ############################# ####################################
 #                   qbittorrent install

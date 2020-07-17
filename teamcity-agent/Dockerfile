@@ -165,50 +165,53 @@ RUN curl -SL https://packages.atlassian.com/atlassian-sdk-deb/debian/pool/contri
 RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
 RUN sh -c 'echo "deb https://packages.sury.org/php/ buster main" > /etc/apt/sources.list.d/php.list'
 
+#installing apache2 repo
+RUN wget -O /etc/apt/trusted.gpg.d/apache2.gpg https://packages.sury.org/apache2/apt.gpg
+RUN sh -c 'echo "deb https://packages.sury.org/apache2/ buster main" > /etc/apt/sources.list.d/apache2.list'
+
 #Install base packages
 RUN apt-get update && \
     apt-get install -y  --allow-unauthenticated \
-      php7.3-gmp \
-      php7.3-snmp \
-      php7.3-ldap \
-      php7.3-dev \
-      php7.3 \
-      php7.3-mail  \
+      php7.4 \
+      php7.4-dev \
+      php7.4-fpm \
+      php7.4-cli \
+      php7.4-cgi \
+      php-pear \
+      php-gmp \
+      php-snmp \
+      php-ldap \
+      php-mail  \
 #     php-mailparse \
-      php7.3-soap \
-      php7.3-mysql \
-      php7.3-memcached \
+      php-soap \
+      php-mysql \
+      php-memcached \
       php-memcache \
       php-igbinary \
-      php7.3-curl \
-      php7.3-gd \
-      php7.3-intl \
-      php7.3-zip \
-      php7.3-bcmath \
-      php7.3-fpm \
-      php-pear \
-      php7.3-imap \
-      php7.3-pspell \
-      php7.3-recode \
-      php7.3-sqlite3 \
-      php7.3-tidy \
-      php7.3-xmlrpc \
-      php7.3-xml \
-      php7.3-mbstring \
-      php7.3-gettext \
+      php-curl \
+      php-gd \
+      php-intl \
+      php-zip \
+      php-bcmath \
+      php-imap \
+      php-pspell \
+      php-sqlite3 \
+      php-tidy \
+      php-xmlrpc \
+      php-xml \
+      php-mbstring \
+#     php-gettext \
       php-apcu \
-      php7.3-cli \
-      php7.3-common \
-      php7.3-cgi \
-      php7.3-json \
-      php7.3-readline \
-      php7.3-enchant \
+      php-common \
+      php-json \
+      php-readline \
+      php-enchant \
       php-ssh2 \
       php-oauth \
       php-gmagick \
       php-gnupg \
       php-redis \
-      php7.3-smbclient \
+      php-smbclient \
       php-yaml \
       php-geoip \
       sendmail && \
@@ -223,7 +226,7 @@ RUN apt-get update && \
       fileinfo \
       gd \
       geoip \
-      gettext \
+#     gettext \
       gnupg \
       iconv \
       imap \
@@ -259,9 +262,8 @@ RUN apt-get update && \
 RUN cd /tmp && \
     php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
     php composer-setup.php  --install-dir=/usr/local/bin --filename=composer && \
-    rm /tmp/composer-setup.php
-
-
+    rm /tmp/composer-setup.php && \
+    composer global require elendev/nexus-composer-push
 
 
 ##################################################################

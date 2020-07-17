@@ -82,7 +82,8 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
 ##################################################################
 #                   cleaninig up
 ##################################################################
-RUN apt clean -y && \
+RUN apt purge policykit-1 -y && \
+    apt clean -y && \
     apt autoclean -y && \
     rm -rfv /var/lib/apt/lists/* && \
     rm -rfv /var/cache/apt/archives/*.deb
