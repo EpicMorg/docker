@@ -175,6 +175,12 @@ matrix:
       - docker build --compress -t epicmorg/websites:latest websites/latest
       - docker push epicmorg/websites:latest
 
+    - name: Apache + PHP7.3
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/websites:php7.3 websites/php7.3
+      - docker push epicmorg/websites:php7.3
+
     - name: Apache + PHP7.2
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
