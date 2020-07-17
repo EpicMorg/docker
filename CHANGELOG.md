@@ -1,8 +1,16 @@
 ## Changelog
-* `March-April 2020`
+* `May-july 2020`
+	* Upgraded teamCity Agnet
+	* Fixed Nextcloud
+	* Fixed qBittorrent
+	* Added websites:php7.3
+	* Updated atlassian versions
+	* Added `testrail` (beta release)
+	* Fixed bugs
+* `March-Apr 2020`
 	* Added new atlassian versions
 	* Fixed bugs
-        * Upgraded nginx
+	* Upgraded nginx
 * `February 2020`
 	* **Big rework of repositories on github**. Containers was Splited to another sub-repositories. Now current repo will be contain only fresh and latest versions of images. All older versions will be appeared in sub-repos. More fater building, less bad load to CI.
 	* `fixed` all `*.sh` chmods. (sorry)

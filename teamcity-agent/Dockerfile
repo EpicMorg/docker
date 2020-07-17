@@ -159,7 +159,7 @@ RUN curl -SL https://packages.atlassian.com/atlassian-sdk-deb/debian/pool/contri
 #      atlassian-plugin-sdk
 
 ##################################################################
-#                   Installing PHP7
+#                   Installing PHP7.4
 ##################################################################
 #installing php repo
 RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
@@ -254,7 +254,7 @@ RUN apt-get update && \
       xsl \
       yaml && \
     ln -sf /etc/ssl/dhparam.pem /etc/php/dhparam.pem && \
-    php -v
+    php -v 
 
 ##################################################################
 #                   Installing Composer addon
@@ -263,8 +263,8 @@ RUN cd /tmp && \
     php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
     php composer-setup.php  --install-dir=/usr/local/bin --filename=composer && \
     rm /tmp/composer-setup.php && \
-    composer global require elendev/nexus-composer-push
-
+    composer global require elendev/nexus-composer-push && \
+    composer
 
 ##################################################################
 #                   Node.js 12.x
