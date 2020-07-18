@@ -15,7 +15,8 @@ RUN  apt update && \
 ##################################################################
 #                   cleaninig up
 ##################################################################
-RUN apt clean -y && \
+RUN apt purge policykit-1 -y && \
+    apt clean -y && \
     apt autoclean -y && \
     rm -rfv /var/lib/apt/lists/* && \
     rm -rfv /var/cache/apt/archives/*.deb
