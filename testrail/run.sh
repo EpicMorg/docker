@@ -11,24 +11,11 @@ function createOptDirectory {
     chown -R www-data:www-data $1
 }
 
-rm -f /etc/apache2/sites-enabled/ssl_apache_testrail.conf
-cp /apache-conf/000-default.conf /etc/apache2/sites-enabled/000-default.conf
+/bin/cp -rf /testrail-release/apache-conf/000-default.conf /etc/apache2/sites-enabled/000-default.conf
 
-if [ ! -z "$SSL" ]
-then
-    echo
-    echo "####################################################"
-    echo "  Applying SSL configuration -- please ensure that certificate and key files exist"
-    echo "####################################################"
-    echo
-
-	# Enable SSL
-	a2enmod ssl
-    cp -f /apache-conf/ssl_apache_testrail.conf /etc/apache2/sites-enabled/ssl_apache_testrail.conf
-	# Perform redirection from HTTP to HTTPS
-	a2enmod rewrite
-	cp -f /apache-conf/.htaccess /var/www/testrail/.htaccess
-fi
+echo "##############"
+echo "Unzipping testrail"
+unzip  /testrail-release/testrail.zip -d /var/www/
 
 createOptDirectory $TR_DEFAULT_LOG_DIR
 createOptDirectory $TR_DEFAULT_AUDIT_DIR
@@ -53,4 +40,8 @@ while /bin/true; do
 done &
 echo "##############"
 
-docker-php-entrypoint "$@"
+chown www-data:www-data /var/www -R
+
+source /etc/apache2/envvars
+tail -F /var/log/apache2/* &
+exec apache2 -D FOREGROUND
