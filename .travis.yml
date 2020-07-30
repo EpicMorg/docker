@@ -169,11 +169,17 @@ matrix:
       - docker push epicmorg/balancer:php
 
 
-    - name: Apache + PHP7.4
+    - name: Apache (latest)
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/websites:latest websites/latest
       - docker push epicmorg/websites:latest
+
+    - name: Apache + PHP7.4
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/websites:latest websites/php7.4
+      - docker push epicmorg/websites:php7.4
 
     - name: Apache + PHP7.3
       script:
@@ -187,7 +193,11 @@ matrix:
       - docker build --compress -t epicmorg/websites:php7.2 websites/php7.2
       - docker push epicmorg/websites:php7.2
 
-##########
+    - name: Testrail (always latest)
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/testrail:latest tesrtail
+      - docker push epicmorg/testrail:latest
 
     - name: PostgresSQL (latest)
       script:
