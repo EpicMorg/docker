@@ -84,7 +84,8 @@ RUN ln -sf /dev/stdout /var/log/nginx/access.log && \
 ##################################################################
 #                  Copy  nginx config file to container
 ##################################################################
-RUN  rm -rfv /etc/nginx/nginx.conf
+RUN  rm -rfv /etc/nginx/nginx.conf \
+             /etc/nginx/sites-avalible/default
 COPY conf/nginx.conf /etc/nginx/nginx.conf
 
 
