@@ -1,4 +1,7 @@
 ## Changelog
+* `August`
+	* added `testrail` based on `websites:php7.2` image. always `latest` version
+	* added `balancer:rtmp-hls` image, based on `balancer:latest` and [TareqAlqutami/rtmp-hls-server](https://github.com/TareqAlqutami/rtmp-hls-server) configs. `TareqAlqutami`, thank you for it.
 * `May-july 2020`
 	* Upgraded `TeamCity Agnet`
 	* upgraded `nginx`
