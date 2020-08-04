@@ -19,7 +19,7 @@ All modules are built from source on Debian and Alpine Linux base images.
 	* DASH is ON 
 	* Other Nginx configuration files are also provided to allow for RTMP-only streams or no-FFmpeg transcoding. 
  * Statistic page of RTMP streams at `http://<server ip>:<server port>/stats`.
- * Available web video players (based on [video.js](https://videojs.com/) and [hls.js](https://github.com/video-dev/hls.js/)) at `/usr/local/nginx/html/players`. 
+ * Available web video players (based on [video.js](https://videojs.com/) and [hls.js](https://github.com/video-dev/hls.js/)) at `/usr/share/nginx/html/players`. 
 
 ## Usage
 
@@ -71,7 +71,7 @@ The provided demo players assume the stream-key is called `test` and the player 
 	* These web players are hardcoded to play stream key "test" at localhost.
 	* To change the stream source for these players. Download the html files and modify the `src` attribute in the video tag in the html file. You can then mount the modified files to the container as follows:
 		```
-		docker run -d -p 1935:1935 -p 8080:8080 -v custom_players:/usr/local/nginx/html/players epicmorg/balancer:rtmp-hls
+		docker run -d -p 1935:1935 -p 8080:8080 -v custom_players:/usr/share/nginx/html/players epicmorg/balancer:rtmp-hls
 		```
 		where `custom_players` is the directory holding the modified html files.
 
