@@ -168,6 +168,12 @@ matrix:
       - docker build --compress -t epicmorg/balancer:php balancer/php
       - docker push epicmorg/balancer:php
 
+    - name: NGinx + RTMP-HLS
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/balancer:rtmp-hls balancer/rtmp-hls
+      - docker push epicmorg/balancer:rtmp-hls
+
 
     - name: Apache (latest)
       script:
