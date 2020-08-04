@@ -66,6 +66,10 @@ RUN mkdir -p /usr/share/nginx/html \
              /mnt/hls \
              /mnt/dash \
              /tmp/build && \
+    chown -R www-data:www-data /mnt/hls && \
+    chown -R www-data:www-data /mnt/dash && \
+    chmod -R 755 /mnt/hls && \
+    chmod -R 755 /mnt/dash && \
     cd /tmp/build && \
     wget https://github.com/arut/nginx-rtmp-module/archive/v${NGINX_RTMP_MODULE_VERSION}.tar.gz && \
     tar -zxf v${NGINX_RTMP_MODULE_VERSION}.tar.gz && \
