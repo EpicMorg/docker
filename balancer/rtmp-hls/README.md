@@ -1,11 +1,8 @@
 # RTMP-HLS Docker
 
-** BASED ON https://github.com/TareqAlqutami/rtmp-hls-server **
+**BASED ON** [TareqAlqutami/rtmp-hls-server](https://github.com/TareqAlqutami/rtmp-hls-server)
 
 **Docker image for video streaming server that supports RTMP, HLS, and DASH streams.**
-
-[![Docker Automated build](https://img.shields.io/docker/cloud/automated/alqutami/rtmp-hls.svg)](https://hub.docker.com/r/alqutami/rtmp-hls/builds/)
-[![Build Status](https://img.shields.io/docker/cloud/build/alqutami/rtmp-hls.svg)](https://hub.docker.com/r/alqutami/rtmp-hls)
 
 ## Description
 
@@ -24,28 +21,16 @@ All modules are built from source on Debian and Alpine Linux base images.
  * Statistic page of RTMP streams at `http://<server ip>:<server port>/stats`.
  * Available web video players (based on [video.js](https://videojs.com/) and [hls.js](https://github.com/video-dev/hls.js/)) at `/usr/local/nginx/html/players`. 
 
-Current Image is built using:
- * Nginx 1.17.5 (compiled from source)
- * Nginx-rtmp-module 1.2.1 (compiled from source)
- * FFmpeg 4.2.1 (compiled from source)
-
-This image was inspired by similar docker images from [tiangolo](https://hub.docker.com/r/tiangolo/nginx-rtmp/) and [alfg](https://hub.docker.com/r/alfg/nginx-rtmp/). It has small build size, adds support for HTTP-based streams and adaptive streaming using FFmpeg.
-
 ## Usage
 
 ### To run the server
 ```
-docker run -d -p 1935:1935 -p 8080:8080 alqutami/rtmp-hls
+docker run -d -p 1935:1935 -p 8080:8080 epicmorg/balancer:rtmp-hls
 ```
-
-For Alpine-based Image use:
-```
-docker run -d -p 1935:1935 -p 8080:8080 alqutami/rtmp-hls:latest-alpine
-```
-
+  
 To run with custom conf file:
 ```
-docker run -d -p 1935:1935 -p 8080:8080 -v custom.conf:/etc/nginx/nginx.conf alqutami/rtmp-hls
+docker run -d -p 1935:1935 -p 8080:8080 -v custom.conf:/etc/nginx/nginx.conf epicmorg/balancer:rtmp-hls
 ```
 where `custom.conf` is the new conf file for Nginx.
 
@@ -86,14 +71,8 @@ The provided demo players assume the stream-key is called `test` and the player 
 	* These web players are hardcoded to play stream key "test" at localhost.
 	* To change the stream source for these players. Download the html files and modify the `src` attribute in the video tag in the html file. You can then mount the modified files to the container as follows:
 		```
-		docker run -d -p 1935:1935 -p 8080:8080 -v custom_players:/usr/local/nginx/html/players alqutami/rtmp-hls
+		docker run -d -p 1935:1935 -p 8080:8080 -v custom_players:/usr/local/nginx/html/players epicmorg/balancer:rtmp-hls
 		```
 		where `custom_players` is the directory holding the modified html files.
 
-## Copyright
-Released under MIT license.
 
-## More info
- * **GitHub repo**: <https://github.com/TareqAlqutami/rtmp-hls-server.git>
-
- * **Docker Hub image**: <https://hub.docker.com/r/alqutami/rtmp-hls>
