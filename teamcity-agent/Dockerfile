@@ -183,6 +183,7 @@ RUN apt-get update && \
       php-ldap \
       php-mail  \
 #     php-mailparse \
+      php-interbase \
       php-soap \
       php-mysql \
       php-memcached \
@@ -217,6 +218,7 @@ RUN apt-get update && \
       sendmail && \
     phpenmod \
       snmp \
+      interbase \
       gmp \
       calendar \
       ldap \
@@ -265,6 +267,9 @@ RUN cd /tmp && \
     rm /tmp/composer-setup.php && \
     composer global require elendev/nexus-composer-push && \
     composer
+
+RUN sudo apt purge libpython2* -y
+RUN sudo apt install python2-minimal -y
 
 ##################################################################
 #                   Node.js 12.x

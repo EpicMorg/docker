@@ -1,0 +1,19 @@
+#main
+deb http://ftp.ru.debian.org/debian/ bullseye main contrib non-free
+deb-src http://ftp.ru.debian.org/debian/ bullseye main contrib non-free
+deb http://ftp.ru.debian.org/debian/ bullseye-updates main contrib non-free
+deb-src http://ftp.ru.debian.org/debian/ bullseye-updates main contrib non-free
+deb http://ftp.ru.debian.org/debian/ bullseye-backports main contrib non-free
+deb-src http://ftp.ru.debian.org/debian/ bullseye-backports main contrib non-free
+deb http://ftp.ru.debian.org/debian/ bullseye-proposed-updates main contrib non-free
+deb-src http://ftp.ru.debian.org/debian/ bullseye-proposed-updates main contrib non-free
+ 
+#security
+#deb http://ftp.ru.debian.org/debian-security/ bullseye/updates main contrib non-free
+#deb-src http://ftp.ru.debian.org/debian-security/ bullseye/updates main contrib non-free
+ 
+##multimedia
+#deb http://ftp.ru.debian.org/debian-multimedia/ bullseye main non-free
+#deb-src http://ftp.ru.debian.org/debian-multimedia/ bullseye main non-free
+#deb http://ftp.ru.debian.org/debian-multimedia/ bullseye-backports main
+#deb-src http://ftp.ru.debian.org/debian-multimedia/ bullseye-backports main
