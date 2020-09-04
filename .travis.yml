@@ -267,7 +267,7 @@ matrix:
     - name: Testrail (always latest)
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker build --compress -t epicmorg/testrail:latest tesrtail
+      - docker build --compress -t epicmorg/testrail:latest testrail
       - docker push epicmorg/testrail:latest
 
     - name: PostgresSQL (latest)
