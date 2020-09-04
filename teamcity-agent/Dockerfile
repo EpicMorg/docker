@@ -7,7 +7,6 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 #COPY sources.bullseye.list /etc/apt/sources.list.d/sources.bullseye.list
 RUN  apt update && \
-    
      apt autoremove -y && \
      apt dist-upgrade -y && \
      apt autoremove -y
@@ -289,7 +288,7 @@ RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
     curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - && \
     echo "deb https://nightly.yarnpkg.com/debian/ nightly main" > /etc/apt/sources.list.d/yarn.list && \
     apt-get update && \
-    apt-get install -y --allow-downgrades  nodejs yarn
+    apt-get install -y nodejs yarn
 
 ##################################################################
 #                   steam runtime and ssdk
