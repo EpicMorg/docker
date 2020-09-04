@@ -3,6 +3,18 @@ LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
 ##################################################################
+#                  bullseye  sources list
+##################################################################
+#COPY sources.bullseye.list /etc/apt/sources.list.d/sources.bullseye.list
+RUN  apt update && \
+    
+     apt autoremove -y && \
+     apt dist-upgrade -y && \
+     apt autoremove -y
+
+
+
+##################################################################
 #                   teamcity minimal agent
 ##################################################################
 LABEL dockerImage.teamcity.version="latest" \
@@ -268,17 +280,16 @@ RUN cd /tmp && \
     composer global require elendev/nexus-composer-push && \
     composer
 
-RUN sudo apt purge libpython2* -y
-RUN sudo apt install python2-minimal -y
+
 
 ##################################################################
-#                   Node.js 12.x
+#                   Node.js 14.x
 ##################################################################
-RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
+RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
     curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - && \
-    echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list && \
+    echo "deb https://nightly.yarnpkg.com/debian/ nightly main" > /etc/apt/sources.list.d/yarn.list && \
     apt-get update && \
-    apt-get install -y nodejs yarn
+    apt-get install -y --allow-downgrades  nodejs yarn
 
 ##################################################################
 #                   steam runtime and ssdk

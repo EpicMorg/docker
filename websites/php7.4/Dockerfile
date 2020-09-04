@@ -39,6 +39,7 @@ RUN apt-get update && \
       php-memcached \
       php-memcache \
       php-igbinary \
+      php-interbase \
       php-curl \
       php-gd \
       php-intl \
@@ -81,6 +82,7 @@ RUN apt-get update && \
       gnupg \
       iconv \
       imap \
+      interbase \
       json \
       mbstring \
       memcached \
