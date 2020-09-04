@@ -249,7 +249,7 @@ matrix:
     - name: Apache + PHP7.4
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker build --compress -t epicmorg/websites:latest websites/php7.4
+      - docker build --compress -t epicmorg/websites:php7.4 websites/php7.4
       - docker push epicmorg/websites:php7.4
 
     - name: Apache + PHP7.3
