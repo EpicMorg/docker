@@ -118,6 +118,38 @@ matrix:
 
 ##########
 
+    - name: Base Edge Bullseye
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/edge:bullseye epicmorg/edge-bullseye/main
+      - docker push epicmorg/edge:bullseye
+
+    - name: Base Edge Bullseye + JDK 6
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/edge:jdk6 epicmorg/edge-bullseye/jdk6
+      - docker push epicmorg/edge:bullseye-jdk6
+
+    - name: Base Edge Bullseye + JDK 7
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/edge:jdk7 epicmorg/edge-bullseye/jdk7
+      - docker push epicmorg/edge:bullseye-jdk7
+
+    - name: Base Edge Bullseye + JDK 8
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/edge:jdk8 epicmorg/edge-bullseye/jdk8
+      - docker push epicmorg/edge:bullseye-jdk8
+
+    - name: Base Edge Bullseye + JDK 11
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/edge:jdk11 epicmorg/edge-bullseye/jdk11
+      - docker push epicmorg/edge:bullseye-jdk11
+
+##########
+
     - name: Base Develop
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
@@ -147,6 +179,39 @@ matrix:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build --compress -t epicmorg/devel:jdk11 epicmorg/devel/jdk11
       - docker push epicmorg/devel:jdk11
+
+
+##########
+
+    - name: Base Develop Bullseye
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/devel:bullseye epicmorg/devel-bullseye/main
+      - docker push epicmorg/devel:bullseye
+
+    - name: Base Develop + JDK 6
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/devel:jdk6 epicmorg/devel-bullseye/jdk6
+      - docker push epicmorg/devel:bullseye-jdk6
+
+    - name: Base Develop + JDK 7
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/devel:jdk7 epicmorg/devel-bullseye/jdk7
+      - docker push epicmorg/devel:bullseye-jdk7
+
+    - name: Base Develop + JDK 8
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/devel:jdk8 epicmorg/devel-bullseye/jdk8
+      - docker push epicmorg/devel:bullseye-jdk8
+
+    - name: Base Develop + JDK 11
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/devel:jdk11 epicmorg/devel/jdk11
+      - docker push epicmorg/devel:bullseye-jdk11
 
 ##########
 
