@@ -128,6 +128,12 @@ RUN apt-get update && \
     php -v
 
 ##################################################################
+#                   LDAP Fix
+##################################################################
+RUN echo "TLS_REQCERT never" >> /etc/ldap/ldap.conf
+
+
+##################################################################
 #                   Installing IOnCube addon
 ##################################################################
 ADD https://downloads.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz /tmp/ioncube.tar.gz

@@ -5,8 +5,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 #                   sid sources list
 ##################################################################
-RUN rm /etc/apt/sources.list
-COPY sources.list /etc/apt/sources.list
+COPY  sources.sid.list /etc/apt/sources.list.d/sources.sid.list
 RUN  apt update && \
      apt autoremove -y && \
      apt dist-upgrade -y && \

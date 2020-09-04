@@ -39,6 +39,7 @@ RUN apt-get update && \
       php-memcached \
       php-memcache \
       php-igbinary \
+      php-interbase \
       php-curl \
       php-gd \
       php-intl \
@@ -80,6 +81,7 @@ RUN apt-get update && \
 #     gettext \
       gnupg \
       iconv \
+      interbase \
       imap \
       json \
       mbstring \
@@ -125,6 +127,11 @@ RUN apt-get update && \
       alias && \
     ln -sf /etc/ssl/dhparam.pem /etc/apache2/dhparam.pem && \
     php -v
+
+##################################################################
+#                   LDAP Fix
+##################################################################
+RUN echo "TLS_REQCERT never" >> /etc/ldap/ldap.conf
 
 ##################################################################
 #                   Installing IOnCube addon

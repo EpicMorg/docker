@@ -1,4 +1,7 @@
 ## Changelog
+* `September`
+	* fixes
+	* updated `base images`, `apache2`, `testrail`, `TeamCity Agnet`, `nginx`, `bitbucket`, `jira`, `confluence`
 * `August`
 	* added `testrail` based on `websites:php7.2` image. always `latest` version
 	* added `balancer:rtmp-hls` image, based on `balancer:latest` and [TareqAlqutami/rtmp-hls-server](https://github.com/TareqAlqutami/rtmp-hls-server) configs. `TareqAlqutami`, thank you for it.
