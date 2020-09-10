@@ -36,6 +36,12 @@ matrix:
       - docker build --compress -t epicmorg/zabbix-web-apache-mysql:latest zabbix/web
       - docker push epicmorg/zabbix-web-apache-mysql:latest
 
+    - name: Zabbix Proxy SQLite3
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/zabbix-proxy-sqlite3:latest zabbix/proxy
+      - docker push epicmorg/zabbix-proxy-sqlite3:latest
+
 ##########
 
     - name: NextCloud (latest)
