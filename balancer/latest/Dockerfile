@@ -11,7 +11,7 @@ ARG SRC_DIR=${BUILDS_DIR}/src
 ARG EXPORT_DIR=${BUILDS_DIR}/export
 ARG PRE_DIR=${BUILDS_DIR}/pre
 ARG NGINX_SRC_DIR=${SRC_DIR}/nginx
-ARG NGINX_VERSION=1.19.2
+ARG NGINX_VERSION=1.19.3
 ARG NGINX_DOWNLOAD_URL=http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz
 ARG LUAJIT_INC=/usr/local/include/luajit-2.1
 ARG LUAJIT_LIB=/usr/local/lib
@@ -35,8 +35,10 @@ RUN cd ${SRC_DIR} && \
     fakeroot checkinstall -D --pakdir=${EXPORT_DIR} --maintainer="EpicMorg, developer@epicm.org" --pkgname=ip2-custom  --conflicts=ip2 --install=yes -y  && \
     ln -s /usr/local/lib/libIP2Location.so /usr/lib/libIP2Location.so && \
     ln -s /usr/local/lib/libIP2Location.so.1 /usr/lib/libIP2Location.so.1 && \
+    ln -s /usr/local/lib/libIP2Location.so.2 /usr/lib/libIP2Location.so.2 && \
     ln -s /usr/local/lib/libIP2Location.so /lib/libIP2Location.so && \
     ln -s /usr/local/lib/libIP2Location.so.1 /lib/libIP2Location.so.1 && \
+    ln -s /usr/local/lib/libIP2Location.so.2 /lib/libIP2Location.so.2 && \
     dpkg --force-all -i ${EXPORT_DIR}/*.deb
 
 ##################################################################
@@ -196,8 +198,10 @@ RUN apt-get update && \
     dpkg --force-all -i /tmp/deb/*.deb && \
     ln -s /usr/local/lib/libIP2Location.so /usr/lib/libIP2Location.so && \
     ln -s /usr/local/lib/libIP2Location.so.1 /usr/lib/libIP2Location.so.1 && \
+    ln -s /usr/local/lib/libIP2Location.so.2 /usr/lib/libIP2Location.so.2 && \
     ln -s /usr/local/lib/libIP2Location.so /lib/libIP2Location.so && \
     ln -s /usr/local/lib/libIP2Location.so.1 /lib/libIP2Location.so.1 && \
+    ln -s /usr/local/lib/libIP2Location.so.2 /lib/libIP2Location.so.2 && \
     ln -sf /dev/stdout /var/log/nginx/access.log && \
     ln -sf /dev/stderr /var/log/nginx/error.log && \
     ln -sf /etc/ssl/dhparam.pem /etc/nginx/dhparam.pem && \
