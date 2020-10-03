@@ -1,6 +1,6 @@
-all: bitbucket
+all: tr
 
-bitbucket:
+tr:
 	docker build --compress -t epicmorg/testrail .
 	docker push epicmorg/testrail
 
