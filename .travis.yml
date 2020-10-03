@@ -271,6 +271,14 @@ matrix:
 
  ##########
 
+    - name: vk2discord (latest)
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build --compress -t epicmorg/vk2discord:latest vk2discord/latest
+      - docker push epicmorg/vk2discord:latest
+
+ ##########
+
     - name: qBitTorrent (latest)
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
