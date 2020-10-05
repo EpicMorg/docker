@@ -1,4 +1,6 @@
 ## Changelog
+* `October`
+	* fixes and updated images
 * `September`
 	* fixes
 	* updated `base images`, `apache2`, `testrail`, `TeamCity Agnet`, `nginx`, `bitbucket`, `jira`, `confluence`
