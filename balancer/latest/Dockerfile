@@ -11,7 +11,7 @@ ARG SRC_DIR=${BUILDS_DIR}/src
 ARG EXPORT_DIR=${BUILDS_DIR}/export
 ARG PRE_DIR=${BUILDS_DIR}/pre
 ARG NGINX_SRC_DIR=${SRC_DIR}/nginx
-ARG NGINX_VERSION=1.19.3
+ARG NGINX_VERSION=1.19.4
 ARG NGINX_DOWNLOAD_URL=http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz
 ARG LUAJIT_INC=/usr/local/include/luajit-2.1
 ARG LUAJIT_LIB=/usr/local/lib
@@ -199,9 +199,15 @@ RUN apt-get update && \
     ln -s /usr/local/lib/libIP2Location.so /usr/lib/libIP2Location.so && \
     ln -s /usr/local/lib/libIP2Location.so.1 /usr/lib/libIP2Location.so.1 && \
     ln -s /usr/local/lib/libIP2Location.so.2 /usr/lib/libIP2Location.so.2 && \
+    ln -s /usr/local/lib/libIP2Location.so.3 /usr/lib/libIP2Location.so.3 && \
+    ln -s /usr/local/lib/libIP2Location.so.4 /usr/lib/libIP2Location.so.4 && \
+    ln -s /usr/local/lib/libIP2Location.so.5 /usr/lib/libIP2Location.so.5 && \
     ln -s /usr/local/lib/libIP2Location.so /lib/libIP2Location.so && \
     ln -s /usr/local/lib/libIP2Location.so.1 /lib/libIP2Location.so.1 && \
     ln -s /usr/local/lib/libIP2Location.so.2 /lib/libIP2Location.so.2 && \
+    ln -s /usr/local/lib/libIP2Location.so.3 /lib/libIP2Location.so.3 && \
+    ln -s /usr/local/lib/libIP2Location.so.4 /lib/libIP2Location.so.4 && \
+    ln -s /usr/local/lib/libIP2Location.so.5 /lib/libIP2Location.so.5 && \
     ln -sf /dev/stdout /var/log/nginx/access.log && \
     ln -sf /dev/stderr /var/log/nginx/error.log && \
     ln -sf /etc/ssl/dhparam.pem /etc/nginx/dhparam.pem && \
