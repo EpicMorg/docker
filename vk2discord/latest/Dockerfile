@@ -28,7 +28,7 @@ WORKDIR /usr/src/vk2discord
 
 COPY --from=builder /tmp/vk2discord/package*.json /usr/src/vk2discord/
 
-RUN [ "npm", "install" ]
+RUN npm install -g
 
 COPY --from=builder /tmp/vk2discord/* /usr/src/vk2discord/
 
@@ -41,4 +41,4 @@ RUN apt clean -y && \
     rm -rfv /var/lib/apt/lists/* && \
     rm -rfv /var/cache/apt/archives/*.deb
 
-CMD [ "npm", "start" ]
+CMD npm start
