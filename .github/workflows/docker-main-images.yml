@@ -1,0 +1,30 @@
+name: Build and deploy Main Images
+ #env:
+ #  # TODO: Change variable to your image's name.
+ #  IMAGE_NAME: image
+
+on:
+  pull_request:
+    branches:
+      - '*'
+    tags:
+      - v*
+  push:
+    branches:
+      - 'master'
+
+jobs:
+  build1:
+    name: Forked and fixed images
+    runs-on: ubuntu-20.04
+    
+    steps:
+    - uses: actions/checkout@v2
+    - name: Log into registry
+      #echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
+      run:     echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+      
+    - name: Build Zabbix Agent
+      run:  docker build --compress -t epicmorg/zabbix-agent:latest zabbix/agent
+    - name: Push Zabbix Agent
+      run: docker push epicmorg/zabbix-agent:latest
