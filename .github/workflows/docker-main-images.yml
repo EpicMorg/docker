@@ -11,7 +11,7 @@ on:
       - 'master'
 
 jobs:
-  build1:
+  build-forked-fixed:
     name: Forked and fixed images
     runs-on: ubuntu-20.04
     
@@ -58,9 +58,10 @@ jobs:
 #    - name: Push Template
 #      run:  docker push user/repo:tag
 
-  build2:
+  build-our-high:
     name: Our High priority images
     runs-on: ubuntu-20.04
+    needs: build-forked-fixed
     
     steps:
     - uses: actions/checkout@v2
