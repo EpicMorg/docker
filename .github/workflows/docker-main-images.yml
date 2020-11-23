@@ -23,6 +23,7 @@ jobs:
       run:     echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
   build:
     runs-on: ubuntu-20.04
+    needs: login
 
     steps:
     - uses: actions/checkout@v2
@@ -33,6 +34,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-20.04
+    needs: build
     
     steps:
     - name: Push Zabbix Agent
