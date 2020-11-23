@@ -1,8 +1,15 @@
 name: Docker Image CI
 
+env:
+  # TODO: Change variable to your image's name.
+  IMAGE_NAME: image
+
 on:
   push:
     branches: [ master ]
+    # Publish `v1.2.3` tags as releases.
+    tags:
+      - v*
   pull_request:
     branches: [ master ]
 
@@ -14,31 +21,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Test Build
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+
+    - name: Zabbix Agent
+      run:  docker build --compress -t epicmorg/zabbix-agent:latest zabbix/agent
 
     - name: Log into registry
       #echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
-      run:     echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      run:     echo "$DOCKER_SERVER_KEY" | docker login -u "$DOCKER_SERVER_LOGIN" --password-stdin
       
-    - name: Push image
-      run: |
-          IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/$IMAGE_NAME
-
-          # Change all uppercase to lowercase
-          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
-
-          # Strip git ref prefix from version
-          VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
-
-          # Strip "v" prefix from tag name
-          [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
-
-          # Use Docker `latest` tag convention
-          [ "$VERSION" == "master" ] && VERSION=latest
-
-          echo IMAGE_ID=$IMAGE_ID
-          echo VERSION=$VERSION
-
-          docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
-          docker push $IMAGE_ID:$VERSION
