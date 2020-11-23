@@ -9,6 +9,8 @@ on:
   push:
     branches:
       - 'master'
+  schedule:
+    - cron:  '00 00 * * 6' # At 12:00 AM, only on Saturday
 
 jobs:
   build-forked-fixed:
@@ -245,13 +247,6 @@ jobs:
  
  ##########
 
-    - name: Build vk2discord (latest)
-      run:  docker build --compress -t epicmorg/vk2discord:latest vk2discord/latest
-    - name: Push vk2discord (latest)
-      run:  docker push epicmorg/vk2discord:latest
-
- ##########
-
     - name: Build qBitTorrent (latest)
       run:  docker build --compress -t epicmorg/qbittorrent:latest qbittorrent/latest
     - name: Push qBitTorrent (latest)
@@ -270,3 +265,8 @@ jobs:
 #########################################
 ####  Our minor priority images
 #########################################
+ 
+    - name: Build vk2discord (latest)
+      run:  docker build --compress -t epicmorg/vk2discord:latest vk2discord/latest
+    - name: Push vk2discord (latest)
+      run:  docker push epicmorg/vk2discord:latest
