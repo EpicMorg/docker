@@ -6,8 +6,7 @@ env:
 
 on:
   push:
-    branches: [ master ]
-    # Publish `v1.2.3` tags as releases.
+    branches: [ master ] 
     tags:
       - v*
   pull_request:
@@ -22,10 +21,12 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Zabbix Agent
-      run:  docker build --compress -t epicmorg/zabbix-agent:latest zabbix/agent
-
     - name: Log into registry
       #echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
       run:     echo "$DOCKER_SERVER_KEY" | docker login -u "$DOCKER_SERVER_LOGIN" --password-stdin
-      
+
+    - name: Build Zabbix Agent
+      run:  docker build --compress -t epicmorg/zabbix-agent:latest zabbix/agent
+   
+    - name: Push Zabbix Agent
+      run: docker push epicmorg/zabbix-agent:latest
