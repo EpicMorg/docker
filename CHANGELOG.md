@@ -1,4 +1,7 @@
 ## Changelog
+* `november`
+	* fixes and updated images
+	* migrated to github actions
 * `October`
 	* fixes and updated images
 * `September`
