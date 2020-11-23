@@ -21,10 +21,34 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Log into registry
-      #echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
-      run:     echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
       
     - name: Build Zabbix Agent
       run:  docker build --compress -t epicmorg/zabbix-agent:latest zabbix/agent
     - name: Push Zabbix Agent
-      run: docker push epicmorg/zabbix-agent:latest
+      run:  docker push epicmorg/zabbix-agent:latest
+ 
+    - name: Build Zabbix Java Gateway
+      run:  docker build --compress -t epicmorg/zabbix-java-gateway:latest zabbix/java-gateway
+    - name: Push Zabbix Java Gateway
+      run:  docker push epicmorg/zabbix-java-gateway:latest
+
+    - name: Build Zabbix Server with MySQL
+      run:  docker build --compress -t epicmorg/zabbix-server-mysql:latest zabbix/server
+    - name: Push Zabbix Server with MySQL
+      run:  docker push epicmorg/zabbix-server-mysql:latest
+
+    - name: Build Zabbix Web Apache2 with MySQL
+      run:  docker build --compress -t epicmorg/zabbix-web-apache-mysql:latest zabbix/web
+    - name: Push Zabbix Web Apache2 with MySQL
+      run:  docker push epicmorg/zabbix-web-apache-mysql:latest
+
+    - name: Build Zabbix Proxy SQLite3
+      run:  docker build --compress -t epicmorg/zabbix-proxy-sqlite3:latest zabbix/proxy
+    - name: Push Zabbix Proxy SQLite3
+      run:  docker push epicmorg/zabbix-proxy-sqlite3:latest
+
+    - name: Build NextCloud (latest)
+      run:  docker build --compress -t epicmorg/nextcloud:latest nextcloud/latest
+    - name: Push NextCloud (latest)
+      run:  docker push epicmorg/nextcloud:latest
