@@ -3,11 +3,15 @@ ENV DEBIAN_FRONTEND noninteractive
 
 USER root
 
-#editing sources list
+##################################################################
+#                  editing sources list
+##################################################################
 COPY sources.list /etc/apt/sources.list
 COPY locale.gen /etc/locale.gen
 
-# installing additional apps
+##################################################################
+#                   installing utils
+##################################################################
 RUN apt update -y && \
      apt install -y --allow-unauthenticated \
      ca-certificates \

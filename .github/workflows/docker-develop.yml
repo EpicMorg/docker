@@ -40,6 +40,9 @@ jobs:
     - name: Build NextCloud (latest)
       run:  docker build --compress -t epicmorg/nextcloud:latest nextcloud/latest
 
+    - name: Build TeamCity Server (latest)
+      run:  docker build --compress -t epicmorg/teamcity-server:latest teamcity/server
+
 #########################################
 ####  Our High priority images
 #########################################
@@ -110,7 +113,7 @@ jobs:
 ##########
 
     - name: Build TeamCity Agent
-      run:  docker build --compress -t epicmorg/teamcity-agent:latest teamcity-agent
+      run:  docker build --compress -t epicmorg/teamcity-agent:latest teamcity/agent
 
     - name: Build NGinx (latest)
       run:  docker build --compress -t epicmorg/balancer:latest balancer/latest
@@ -134,7 +137,7 @@ jobs:
       run:  docker build --compress -t epicmorg/websites:php7.2 websites/php7.2
 
     - name: Build Testrail (always latest)
-      run:  docker build --compress -t epicmorg/testrail:latest testrail
+      run:  docker build --compress -t epicmorg/testrail:latest testrail/latest
 
     - name: Build PostgresSQL (latest)
       run:  docker build --compress -t epicmorg/postgres:latest postgres/latest
