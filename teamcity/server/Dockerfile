@@ -30,18 +30,14 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     console-cyrillic \
     cron \
     curl \
-    ffmpeg \
-    fontconfig \
     git \
     gnupg \
     gnupg2 \
-    graphicsmagick \
     htop \
     iftop \
     iputils-ping \
     jq \
     kmod \
-    libsvn-java \
     locales \
     lsb-release \
     lsof \
@@ -64,7 +60,6 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     tini \
     tmux \
     tree \
-    ttf-dejavu \
     util-linux \
     uuid-runtime \
     wget \
