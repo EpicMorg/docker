@@ -155,19 +155,19 @@ RUN export AMXX_BASE_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.
 ##################################################################
 
 #Install packages
-RUN curl -SL https://packages.atlassian.com/atlassian-sdk-deb/debian/pool/contrib/a/atlassian-plugin-sdk/atlassian-plugin-sdk_8.0.16_all.deb -o /tmp/atlassian-plugin-sdk.deb && \
-    dpkg -i /tmp/atlassian-plugin-sdk.deb
+#RUN curl -SL https://packages.atlassian.com/atlassian-sdk-deb/debian/pool/contrib/a/atlassian-plugin-sdk/atlassian-plugin-sdk_8.0.16_all.deb -o /tmp/atlassian-plugin-sdk.deb && \
+#    dpkg -i /tmp/atlassian-plugin-sdk.deb
 
 ###############################
 # https://community.atlassian.com/t5/Continuous-Delivery-questions/The-repository-https-packages-atlassian-com-atlassian-sdk-deb/qaq-p/1334014
 #
 # https://community.developer.atlassian.com/t/the-repository-https-packages-atlassian-com-atlassian-sdk-deb-stable-release-is-not-signed/36901
 ###############################
-#RUN curl -fsSL https://packages.atlassian.com/api/gpg/key/public | apt-key add - && \
-#    echo 'deb [trusted=yes] https://packages.atlassian.com/atlassian-sdk-deb stable contrib' > /etc/apt/sources.list.d/atlassian-sdk.list  && \
-#    apt-get update  --allow-insecure-repositories && \
-#    apt-get install -y --no-install-recommends  --allow-unauthenticated  \
-#      atlassian-plugin-sdk
+RUN curl -fsSL https://packages.atlassian.com/api/gpg/key/public | apt-key add - && \
+    echo 'deb [trusted=yes] https://packages.atlassian.com/atlassian-sdk-deb stable contrib' > /etc/apt/sources.list.d/atlassian-sdk.list  && \
+    apt-get update  --allow-insecure-repositories && \
+    apt-get install -y --no-install-recommends  --allow-unauthenticated  \
+      atlassian-plugin-sdk
 
 ##################################################################
 #                   Installing PHP7.4
@@ -306,11 +306,11 @@ RUN cd / && \
 ##################################################################
 #                   Android SDK
 ##################################################################
-RUN apt-get install -y  --allow-unauthenticated \
-      android-sdk \
-      android-sdk-build-tools \
-      android-sdk-platform-tools && \
-    echo "24333f8a63b6825ea9c5514f83c2829b004d1fee" > /usr/lib/android-sdk/licenses/android-sdk-license
+#RUN apt-get install -y -t sid --allow-unauthenticated \
+#      android-sdk \
+#      android-sdk-build-tools \
+#      android-sdk-platform-tools libsqlite3-0 sqlite3 && \
+#    echo "24333f8a63b6825ea9c5514f83c2829b004d1fee" > /usr/lib/android-sdk/licenses/android-sdk-license
 
 ENV ANDROID_HOME=/usr/lib/android-sdk
 ENV ANDROID_SDK_ROOT=/usr/lib/android-sdk
