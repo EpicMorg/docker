@@ -8,6 +8,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 COPY  sources.sid.list /etc/apt/sources.list.d/sources.sid.list
 RUN  apt update && \
      apt autoremove -y && \
+     apt-get install -y -o APT::Immediate-Configure=0 -t sid libc6  && \
      apt dist-upgrade -y && \
      apt autoremove -y
 
