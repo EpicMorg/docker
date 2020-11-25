@@ -19,7 +19,7 @@ jobs:
 #########################################
 
   build-forked-fixed-independed-images:
-    name: Forked and fixed images
+    name: Forked and fixed independed images
     runs-on: ubuntu-20.04
 
     steps:
@@ -551,3 +551,239 @@ jobs:
       run:  docker build --compress -t epicmorg/nextcloud:20 nextcloud/20
     - name: Push NextCloud (20)
       run:  docker push epicmorg/nextcloud:20
+
+
+#########################################
+####  Atlassian Bitbucket 6 Backport images
+#########################################
+
+  build-atl-bb6-iamges:
+    name: Atlassian Bitbucket 6 Backport images
+    runs-on: ubuntu-20.04
+    needs: build-base-prod-iamges
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Log into registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+##########
+
+#    - name: Build Bitbucket + JDK 8 (xxx)
+#      run:  docker build --compress -t epicmorg/bitbucket:xxx atlassian/bitbucket/6/xxx 
+#    - name: Push Bitbucket + JDK 8 (xxx)
+#      run:  docker push epicmorg/bitbucket:xxx
+
+#    - name: Build Bitbucket + JDK 11 (xxx-jdk11)
+#      run:  docker build --compress -t epicmorg/bitbucket:xxx-jdk11 -f atlassian/bitbucket/6/xxx/Dockerfile.jdk11 atlassian/bitbucket/6/xxx
+#    - name: Push Bitbucket + JDK 11 (xxx-jdk11)
+#      run:  docker push epicmorg/bitbucket:xxx-jdk11
+
+#########################################
+####  Atlassian Bitbucket 7 Backport images
+#########################################
+
+  build-atl-bb7-iamges:
+    name: Atlassian Bitbucket 7 Backport images
+    runs-on: ubuntu-20.04
+    needs: build-base-prod-iamges
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Log into registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+##########
+
+#    - name: Build Bitbucket + JDK 8 (xxx)
+#      run:  docker build --compress -t epicmorg/bitbucket:xxx atlassian/bitbucket/7/xxx 
+#    - name: Push Bitbucket + JDK 8 (xxx)
+#      run:  docker push epicmorg/bitbucket:xxx
+
+#    - name: Build Bitbucket + JDK 11 (xxx-jdk11)
+#      run:  docker build --compress -t epicmorg/bitbucket:xxx-jdk11 -f atlassian/bitbucket/7/xxx/Dockerfile.jdk11 atlassian/bitbucket/7/xxx
+#    - name: Push Bitbucket + JDK 11 (xxx-jdk11)
+#      run:  docker push epicmorg/bitbucket:xxx-jdk11
+
+#########################################
+####  Atlassian Confluence 5 Backport images
+#########################################
+
+  build-atl-docs5-iamges:
+    name: Atlassian Confluence 5 Backport images
+    runs-on: ubuntu-20.04
+    needs: build-base-prod-iamges
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Log into registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+##########
+ 
+#    - name: Build Confluence + JDK 7 (xxx)
+#      run:  docker build --compress -t epicmorg/confluence:xxx atlassian/confluence/5/xxx
+#    - name: Push Confluence + JDK 7 (xxx)
+#      run:  docker push epicmorg/confluence:xxx
+
+#    - name: Build Confluence + JDK 8 (xxx)
+#      run:  docker build --compress -t epicmorg/confluence:xxx atlassian/confluence/6/xxx
+#    - name: Push Confluence + JDK 8 (xxx)
+#      run:  docker push epicmorg/confluence:xxx
+
+    - name: Build Confluence + JDK 7 (5.5)
+      run:  docker build --compress -t epicmorg/confluence:5.5 atlassian/confluence/5/5.5
+    - name: Push Confluence + JDK 7 (5.5)
+      run:  docker push epicmorg/confluence:5.5
+
+    - name: Build Confluence + JDK 8 (5.9.14)
+      run:  docker build --compress -t epicmorg/confluence:5.9.14 atlassian/confluence/5/5.9.14
+    - name: Push Confluence + JDK 8 (5.9.14)
+      run:  docker push epicmorg/confluence:5.9.14
+
+#########################################
+####  Atlassian Confluence 6 Backport images
+#########################################
+
+  build-atl-docs6-iamges:
+    name: Atlassian Confluence 6 Backport images
+    runs-on: ubuntu-20.04
+    needs: build-base-prod-iamges
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Log into registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+##########
+
+
+#    - name: Build Confluence + JDK 8 (xxx)
+#      run:  docker build --compress -t epicmorg/confluence:xxx atlassian/confluence/6/xxx
+#    - name: Push Confluence + JDK 8 (xxx)
+#      run:  docker push epicmorg/confluence:xxx
+
+#    - name: Build Confluence + JDK 11 (xxx-jdk11)
+#      run:  docker build --compress -t epicmorg/confluence:xxx-jdk11 -f atlassian/confluence/6/xxx/Dockerfile.jdk11 atlassian/confluence/6/xxx
+#    - name: Push Confluence + JDK 11 (xxx-jdk11)
+#      run:  docker push epicmorg/confluence:xxx-jdk11
+
+
+#########################################
+####  Atlassian Confluence 7 Backport images
+#########################################
+
+  build-atl-docs7-iamges:
+    name: Atlassian Confluence 7 Backport images
+    runs-on: ubuntu-20.04
+    needs: build-base-prod-iamges
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Log into registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+##########
+
+#    - name: Build Confluence + JDK 8 (xxx)
+#      run:  docker build --compress -t epicmorg/confluence:xxx atlassian/confluence/7/xxx
+#    - name: Push Confluence + JDK 8 (xxx)
+#      run:  docker push epicmorg/confluence:xxx
+
+#    - name: Build Confluence + JDK 11 (xxx-jdk11)
+#      run:  docker build --compress -t epicmorg/confluence:xxx-jdk11 -f atlassian/confluence/7/xxx/Dockerfile.jdk11 atlassian/confluence/7/xxx
+#    - name: Push Confluence + JDK 11 (xxx-jdk11)
+#      run:  docker push epicmorg/confluence:xxx-jdk11
+
+
+#########################################
+####  Atlassian Jira 5 Backport images
+#########################################
+
+  build-atl-jira5-iamges:
+    name: Atlassian Jira 5 Backport images
+    runs-on: ubuntu-20.04
+    needs: build-base-prod-iamges
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Log into registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+##########
+#    - name: Build Jira + JDK 6 (xxx)
+#      run:  docker build --compress -t epicmorg/jira:xxx atlassian/jira/5/xxx
+#    - name: Push Jira + JDK 6 (xxx)
+#      run:  docker push epicmorg/jira:xxx
+
+
+#########################################
+####  Atlassian Jira 6 Backport images
+#########################################
+
+  build-atl-jira6-iamges:
+    name: Atlassian Jira 6 Backport images
+    runs-on: ubuntu-20.04
+    needs: build-base-prod-iamges
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Log into registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+##########
+#    - name: Build Jira + JDK 7 (xxx)
+#      run:  docker build --compress -t epicmorg/jira:xxx atlassian/jira/6/xxx
+#    - name: Push Jira + JDK 7 (xxx)
+#      run:  docker push epicmorg/jira:xxx
+
+    - name: Build Jira + JDK 7 (6.3.15)
+      run:  docker build --compress -t epicmorg/jira:6.3.15 atlassian/jira/6/6.3.15
+    - name: Push Jira + JDK 7 (6.3.15)
+      run:  docker push epicmorg/jira:6.3.15
+
+    - name: Build Jira + JDK 7 (6.4.14)
+      run:  docker build --compress -t epicmorg/jira:6.4.14 atlassian/jira/6/6.4.14
+    - name: Push Jira + JDK 7 (6.4.14)
+      run:  docker push epicmorg/jira:6.4.14
+
+
+#########################################
+####  Atlassian Jira 7 Backport images
+#########################################
+
+  build-atl-jira7-iamges:
+    name: Atlassian Jira 7 Backport images
+    runs-on: ubuntu-20.04
+    needs: build-base-prod-iamges
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Log into registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+##########
+#    - name: Build Jira + JDK 7 (xxx)
+#      run:  docker build --compress -t epicmorg/jira:xxx atlassian/jira/7/xxx
+#    - name: Push Jira + JDK 7 (xxx)
+#      run:  docker push epicmorg/jira:xxx
+
+#########################################
+####  Atlassian Jira 8 Backport images
+#########################################
+
+  build-atl-jira8-iamges:
+    name: Atlassian Jira 8 Backport images
+    runs-on: ubuntu-20.04
+    needs: build-base-prod-iamges
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Log into registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+##########
+#    - name: Build Jira + JDK 7 (xxx)
+#      run:  docker build --compress -t epicmorg/jira:xxx atlassian/jira/8/xxx
+#    - name: Push Jira + JDK 7 (xxx)
+#      run:  docker push epicmorg/jira:xxx

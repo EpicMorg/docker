@@ -11,8 +11,8 @@ on:
       - 'develop'
 
 jobs:
-  build-forked-fixed:
-    name: Forked and fixed images
+  build-forked-fixed-independed-images:
+    name: Forked and fixed independed images
     runs-on: ubuntu-20.04
 
     steps:
@@ -43,16 +43,38 @@ jobs:
     - name: Build TeamCity Server (latest)
       run:  docker build --compress -t epicmorg/teamcity-server:latest teamcity/server
 
+    - name: Build NextCloud (14)
+      run:  docker build --compress -t epicmorg/nextcloud:14 nextcloud/14
+
+    - name: Build NextCloud (15)
+      run:  docker build --compress -t epicmorg/nextcloud:15 nextcloud/15
+
+    - name: Build NextCloud (16)
+      run:  docker build --compress -t epicmorg/nextcloud:16 nextcloud/16
+
+    - name: Build NextCloud (17)
+      run:  docker build --compress -t epicmorg/nextcloud:17 nextcloud/17
+
+    - name: Build NextCloud (18)
+      run:  docker build --compress -t epicmorg/nextcloud:18 nextcloud/18
+
+    - name: Build NextCloud (19)
+      run:  docker build --compress -t epicmorg/nextcloud:19 nextcloud/19
+
+    - name: Build NextCloud (20)
+      run:  docker build --compress -t epicmorg/nextcloud:20 nextcloud/20
+
+######################################################################################################################################################
+
 #########################################
-####  Our High priority images
+####  All images
 #########################################
 #    - name: Build Template
 #      run:  docker build --compress -t user/repo:tag path/to/folder/contains/dockerfile
 
-  build-our-high:
-    name: Our High priority images
+  build-all-iamges:
+    name: All images
     runs-on: ubuntu-20.04
-    needs: build-forked-fixed
 
     steps:
     - uses: actions/checkout@v2
@@ -180,37 +202,11 @@ jobs:
       run:  docker build --compress -t epicmorg/qbittorrent:stable qbittorrent/stable
 
 #########################################
-####  Our minor priority images
+####  secondary images and backports
 #########################################
 
     - name: Build vk2discord (latest)
       run:  docker build --compress -t epicmorg/vk2discord:latest vk2discord/latest
-
-
-#########################################
-####  backports
-#########################################
-
-    - name: Build NextCloud (14)
-      run:  docker build --compress -t epicmorg/nextcloud:14 nextcloud/14
-
-    - name: Build NextCloud (15)
-      run:  docker build --compress -t epicmorg/nextcloud:15 nextcloud/15
-
-    - name: Build NextCloud (16)
-      run:  docker build --compress -t epicmorg/nextcloud:16 nextcloud/16
-
-    - name: Build NextCloud (17)
-      run:  docker build --compress -t epicmorg/nextcloud:17 nextcloud/17
-
-    - name: Build NextCloud (18)
-      run:  docker build --compress -t epicmorg/nextcloud:18 nextcloud/18
-
-    - name: Build NextCloud (19)
-      run:  docker build --compress -t epicmorg/nextcloud:19 nextcloud/19
-
-    - name: Build NextCloud (20)
-      run:  docker build --compress -t epicmorg/nextcloud:20 nextcloud/20
 
     - name: Build PostgresSQL (8.2)
       run:  docker build --compress -t epicmorg/postgres:8.2 postgres/8.2
