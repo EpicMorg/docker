@@ -8,7 +8,17 @@ on:
     - cron:  '00 00 * * 6' # At 12:00 AM, only on Saturday
 
 jobs:
-  build-forked-fixed:
+
+#########################################
+####  Template
+#########################################
+#    - name: Build Template
+#      run:  docker build --compress -t user/repo:tag path/to/folder/contains/dockerfile
+#    - name: Push Template
+#      run:  docker push user/repo:tag
+#########################################
+
+  build-forked-fixed-independed-images:
     name: Forked and fixed images
     runs-on: ubuntu-20.04
 
@@ -53,19 +63,14 @@ jobs:
       run:  docker build --compress -t epicmorg/teamcity-server:latest teamcity/server
     - name: Push TeamCity Server (latest)
       run:  docker push epicmorg/teamcity-server:latest
-
+ 
 #########################################
-####  Our High priority images
+####  Base Production images
 #########################################
-#    - name: Build Template
-#      run:  docker build --compress -t user/repo:tag path/to/folder/contains/dockerfile
-#    - name: Push Template
-#      run:  docker push user/repo:tag
 
-  build-our-high:
-    name: Our High priority images
+  build-base-prod-iamges:
+    name: Base Production images
     runs-on: ubuntu-20.04
-    needs: build-forked-fixed
 
     steps:
     - uses: actions/checkout@v2
@@ -99,6 +104,20 @@ jobs:
     - name: Push Base Production + JDK 11
       run:  docker push epicmorg/prod:jdk11
 
+#########################################
+####  Base Edge images
+#########################################
+
+  build-base-edge-iamges:
+    name: Base Edge images
+    runs-on: ubuntu-20.04
+    needs: build-base-prod-iamges
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Log into registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
 ##########
 
     - name: Build Base Edge
@@ -125,6 +144,20 @@ jobs:
       run:  docker build --compress -t epicmorg/edge:jdk11 epicmorg/edge/jdk11
     - name: Push Base Edge + JDK 11
       run:  docker push epicmorg/edge:jdk11
+
+#########################################
+####  Base Develop images
+#########################################
+
+  build-base-develop-iamges:
+    name: Base Edge images
+    runs-on: ubuntu-20.04
+    needs: build-base-edge-iamges
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Log into registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
 ##########
 
@@ -153,6 +186,20 @@ jobs:
     - name: Push Base Develop + JDK 11
       run:  docker push epicmorg/devel:jdk11
 
+#########################################
+####  EpicMorg Main images
+#########################################
+
+  build-emg-main-iamges:
+    name: EpicMorg Main images
+    runs-on: ubuntu-20.04
+    needs: build-base-develop-iamges
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Log into registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
 ##########
 
     - name: Build TeamCity Agent
@@ -160,10 +207,63 @@ jobs:
     - name: Push TeamCity Agent
       run:  docker push epicmorg/teamcity-agent:latest
 
+    - name: Build Apache (latest)
+      run:  docker build --compress -t epicmorg/websites:latest websites/latest
+    - name: Push Apache (latest)
+      run:  docker push epicmorg/websites:latest
+
     - name: Build NGinx (latest)
       run:  docker build --compress -t epicmorg/balancer:latest balancer/latest
     - name: Push NGinx (latest)
       run:  docker push epicmorg/balancer:latest
+ 
+    - name: Build Postgres (latest)
+      run:  docker build --compress -t epicmorg/postgres:latest postgres/latest
+    - name: Push Postgres (latest)
+      run:  docker push epicmorg/postgres:latest
+
+    - name: Build vk2discord (latest)
+      run:  docker build --compress -t epicmorg/vk2discord:latest vk2discord/latest
+    - name: Push vk2discord (latest)
+      run:  docker push epicmorg/vk2discord:latest
+
+#########################################
+####  Testrail images
+#########################################
+
+  build-tr-iamges:
+    name: Testrail images
+    runs-on: ubuntu-20.04
+    needs: build-emg-main-iamges
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Log into registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+##########
+
+    - name: Build Testrail (always latest)
+      run:  docker build --compress -t epicmorg/testrail:latest testrail/latest
+    - name: Push Testrail (always latest)
+      run:  docker push epicmorg/testrail:latest
+
+
+#########################################
+####  EpicMorg Secondary images
+#########################################
+
+  build-emg-additional-web-iamges:
+    name: EpicMorg Secondary images
+    runs-on: ubuntu-20.04
+    needs: build-emg-main-iamges
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Log into registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+##########
 
     - name: Build NGinx + PHP7.4
       run:  docker build --compress -t epicmorg/balancer:php balancer/php
@@ -174,11 +274,6 @@ jobs:
       run:  docker build --compress -t epicmorg/balancer:rtmp-hls balancer/rtmp-hls
     - name: Push NGinx + RTMP-HLS
       run:  docker push epicmorg/balancer:rtmp-hls
-
-    - name: Build Apache (latest)
-      run:  docker build --compress -t epicmorg/websites:latest websites/latest
-    - name: Push Apache (latest)
-      run:  docker push epicmorg/websites:latest
 
     - name: Build Apache + PHP7.4
       run:  docker build --compress -t epicmorg/websites:php7.4 websites/php7.4
@@ -195,15 +290,19 @@ jobs:
     - name: Push Apache + PHP7.2
       run:  docker push epicmorg/websites:php7.2
 
-    - name: Build Testrail (always latest)
-      run:  docker build --compress -t epicmorg/testrail:latest testrail/latest
-    - name: Push Testrail (always latest)
-      run:  docker push epicmorg/testrail:latest
+#########################################
+####  Atlassian Bitbucket images
+#########################################
 
-    - name: Build PostgresSQL (latest)
-      run:  docker build --compress -t epicmorg/postgres:latest postgres/latest
-    - name: Push PostgresSQL (latest)
-      run:  docker push epicmorg/postgres:latest
+  build-atl-bb-iamges:
+    name: Atlassian Bitbucket images
+    runs-on: ubuntu-20.04
+    needs: build-base-prod-iamges
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Log into registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
 ##########
 
@@ -217,6 +316,22 @@ jobs:
     - name: Push Bitbucket + JDK 11 (latest-jdk11)
       run:  docker push epicmorg/bitbucket:latest-jdk11
 
+#########################################
+####  Atlassian Confluence images
+#########################################
+
+  build-atl-docs-iamges:
+    name: Atlassian Confluence images
+    runs-on: ubuntu-20.04
+    needs: build-base-prod-iamges
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Log into registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+##########
+
     - name: Build Confluence + JDK 8 (latest)
       run:  docker build --compress -t epicmorg/confluence:latest atlassian/confluence/latest
     - name: Push Confluence + JDK 8 (latest)
@@ -226,6 +341,22 @@ jobs:
       run:  docker build --compress -t epicmorg/confluence:latest-jdk11 -f atlassian/confluence/latest/Dockerfile.jdk11 atlassian/confluence/latest
     - name: Push Confluence + JDK 11 (latest-jdk11)
       run:  docker push epicmorg/confluence:latest-jdk11
+
+#########################################
+####  Atlassian Jira images
+#########################################
+
+  build-atl-jira-iamges:
+    name: Atlassian Jira images
+    runs-on: ubuntu-20.04
+    needs: build-base-prod-iamges
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Log into registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+##########
 
     - name: Build Jira + JDK 8 (latest)
       run:  docker build --compress -t epicmorg/jira:latest atlassian/jira/latest
@@ -237,15 +368,41 @@ jobs:
     - name: Push Jira + JDK 11 (latest-jdk11)
       run:  docker push epicmorg/jira:latest-jdk11
 
+#########################################
+####  Atlassian Fisheye + Crucible  images
+#########################################
+
+  build-atl-fycru-iamges:
+    name: Atlassian Fisheye + Crucible  images
+    runs-on: ubuntu-20.04
+    needs: build-base-prod-iamges
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Log into registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+##########
+
     - name: Build Fisheye + Crucible + JDK 8 (latest)
       run:  docker build --compress -t epicmorg/fisheye-crucible:latest atlassian/fisheye-crucible/latest
     - name: Push Build Fisheye + Crucible + JDK 8 (latest)
       run:  docker push epicmorg/fisheye-crucible:latest
 
-    - name: Build Postgres (latest)
-      run:  docker build --compress -t epicmorg/postgres:latest postgres/latest
-    - name: Push Postgres (latest)
-      run:  docker push epicmorg/postgres:latest
+
+#########################################
+####  qBitTorrent  images
+#########################################
+
+  build-qbt-iamges:
+    name: qBitTorrent images
+    runs-on: ubuntu-20.04
+    needs: build-base-edge-iamges
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Log into registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
 ##########
 
@@ -264,11 +421,133 @@ jobs:
     - name: Push qBitTorrent (stable)
       run:  docker push epicmorg/qbittorrent:stable
 
+
 #########################################
-####  Our minor priority images
+####  PostgresSQL Backport images
 #########################################
 
-    - name: Build vk2discord (latest)
-      run:  docker build --compress -t epicmorg/vk2discord:latest vk2discord/latest
-    - name: Push vk2discord (latest)
-      run:  docker push epicmorg/vk2discord:latest
+  build-pgsql-iamges:
+    name: PostgresSQL Backport images
+    runs-on: ubuntu-20.04
+    needs: build-base-edge-iamges
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Log into registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+##########
+
+    - name: Build PostgresSQL (8.2)
+      run:  docker build --compress -t epicmorg/postgres:8.2 postgres/8.2
+    - name: Push PostgresSQL (8.2)
+      run:  docker push epicmorg/postgres:8.2
+
+    - name: Build PostgresSQL (8.3)
+      run:  docker build --compress -t epicmorg/postgres:8.3 postgres/8.3
+    - name: Push PostgresSQL (8.3)
+      run:  docker push epicmorg/postgres:8.3
+
+    - name: Build PostgresSQL (8.4)
+      run:  docker build --compress -t epicmorg/postgres:8.4 postgres/8.4
+    - name: Push PostgresSQL (8.4)
+      run:  docker push epicmorg/postgres:8.4
+
+    - name: Build PostgresSQL (9.0)
+      run:  docker build --compress -t epicmorg/postgres:9.0 postgres/9.0
+    - name: Push PostgresSQL (9.0)
+      run:  docker push epicmorg/postgres:9.0
+
+    - name: Build PostgresSQL (9.1)
+      run:  docker build --compress -t epicmorg/postgres:9.1 postgres/9.1
+    - name: Push PostgresSQL (9.1)
+      run:  docker push epicmorg/postgres:9.1
+
+    - name: Build PostgresSQL (9.2)
+      run:  docker build --compress -t epicmorg/postgres:9.2 postgres/9.2
+    - name: Push PostgresSQL (9.2)
+      run:  docker push epicmorg/postgres:9.2
+
+    - name: Build PostgresSQL (9.3)
+      run:  docker build --compress -t epicmorg/postgres:9.3 postgres/9.3
+    - name: Push PostgresSQL (9.3)
+      run:  docker push epicmorg/postgres:9.3
+
+    - name: Build PostgresSQL (9.4)
+      run:  docker build --compress -t epicmorg/postgres:9.4 postgres/9.4
+    - name: Push PostgresSQL (9.4)
+      run:  docker push epicmorg/postgres:9.4
+
+    - name: Build PostgresSQL (9.5)
+      run:  docker build --compress -t epicmorg/postgres:9.5 postgres/9.5
+    - name: Push PostgresSQL (9.5)
+      run:  docker push epicmorg/postgres:9.5
+
+    - name: Build PostgresSQL (9.6)
+      run:  docker build --compress -t epicmorg/postgres:9.6 postgres/9.6
+    - name: Push PostgresSQL (9.6)
+      run:  docker push epicmorg/postgres:9.6
+
+    - name: Build PostgresSQL (10)
+      run:  docker build --compress -t epicmorg/postgres:10 postgres/10
+    - name: Push PostgresSQL (10)
+      run:  docker push epicmorg/postgres:10
+
+    - name: Build PostgresSQL (11)
+      run:  docker build --compress -t epicmorg/postgres:11 postgres/11
+    - name: Push PostgresSQL (11)
+      run:  docker push epicmorg/postgres:11
+
+    - name: Build PostgresSQL (12)
+      run:  docker build --compress -t epicmorg/postgres:12 postgres/12
+    - name: Push PostgresSQL (12)
+      run:  docker push epicmorg/postgres:12
+
+#########################################
+####  NextCloud Backport images
+#########################################
+  build-nextcloud-backports:
+    name: NextCloud Backport images
+    runs-on: ubuntu-20.04
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Log into registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+##########
+
+    - name: Build NextCloud (14)
+      run:  docker build --compress -t epicmorg/nextcloud:14 nextcloud/14
+    - name: Push NextCloud (14)
+      run:  docker push epicmorg/nextcloud:14
+
+    - name: Build NextCloud (15)
+      run:  docker build --compress -t epicmorg/nextcloud:15 nextcloud/15
+    - name: Push NextCloud (15)
+      run:  docker push epicmorg/nextcloud:15
+
+    - name: Build NextCloud (16)
+      run:  docker build --compress -t epicmorg/nextcloud:16 nextcloud/16
+    - name: Push NextCloud (16)
+      run:  docker push epicmorg/nextcloud:16
+
+    - name: Build NextCloud (17)
+      run:  docker build --compress -t epicmorg/nextcloud:17 nextcloud/17
+    - name: Push NextCloud (17)
+      run:  docker push epicmorg/nextcloud:17
+
+    - name: Build NextCloud (18)
+      run:  docker build --compress -t epicmorg/nextcloud:18 nextcloud/18
+    - name: Push NextCloud (18)
+      run:  docker push epicmorg/nextcloud:18
+
+    - name: Build NextCloud (19)
+      run:  docker build --compress -t epicmorg/nextcloud:19 nextcloud/19
+    - name: Push NextCloud (19)
+      run:  docker push epicmorg/nextcloud:19
+
+    - name: Build NextCloud (20)
+      run:  docker build --compress -t epicmorg/nextcloud:20 nextcloud/20
+    - name: Push NextCloud (20)
+      run:  docker push epicmorg/nextcloud:20

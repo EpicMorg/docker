@@ -185,3 +185,68 @@ jobs:
 
     - name: Build vk2discord (latest)
       run:  docker build --compress -t epicmorg/vk2discord:latest vk2discord/latest
+
+
+#########################################
+####  backports
+#########################################
+
+    - name: Build NextCloud (14)
+      run:  docker build --compress -t epicmorg/nextcloud:14 nextcloud/14
+
+    - name: Build NextCloud (15)
+      run:  docker build --compress -t epicmorg/nextcloud:15 nextcloud/15
+
+    - name: Build NextCloud (16)
+      run:  docker build --compress -t epicmorg/nextcloud:16 nextcloud/16
+
+    - name: Build NextCloud (17)
+      run:  docker build --compress -t epicmorg/nextcloud:17 nextcloud/17
+
+    - name: Build NextCloud (18)
+      run:  docker build --compress -t epicmorg/nextcloud:18 nextcloud/18
+
+    - name: Build NextCloud (19)
+      run:  docker build --compress -t epicmorg/nextcloud:19 nextcloud/19
+
+    - name: Build NextCloud (20)
+      run:  docker build --compress -t epicmorg/nextcloud:20 nextcloud/20
+
+    - name: Build PostgresSQL (8.2)
+      run:  docker build --compress -t epicmorg/postgres:8.2 postgres/8.2
+
+    - name: Build PostgresSQL (8.3)
+      run:  docker build --compress -t epicmorg/postgres:8.3 postgres/8.3
+
+    - name: Build PostgresSQL (8.4)
+      run:  docker build --compress -t epicmorg/postgres:8.4 postgres/8.4
+
+    - name: Build PostgresSQL (9.0)
+      run:  docker build --compress -t epicmorg/postgres:9.0 postgres/9.0
+
+    - name: Build PostgresSQL (9.1)
+      run:  docker build --compress -t epicmorg/postgres:9.1 postgres/9.1
+
+    - name: Build PostgresSQL (9.2)
+      run:  docker build --compress -t epicmorg/postgres:9.2 postgres/9.2
+
+    - name: Build PostgresSQL (9.3)
+      run:  docker build --compress -t epicmorg/postgres:9.3 postgres/9.3
+
+    - name: Build PostgresSQL (9.4)
+      run:  docker build --compress -t epicmorg/postgres:9.4 postgres/9.4
+
+    - name: Build PostgresSQL (9.5)
+      run:  docker build --compress -t epicmorg/postgres:9.5 postgres/9.5
+
+    - name: Build PostgresSQL (9.6)
+      run:  docker build --compress -t epicmorg/postgres:9.6 postgres/9.6
+
+    - name: Build PostgresSQL (10)
+      run:  docker build --compress -t epicmorg/postgres:10 postgres/10
+
+    - name: Build PostgresSQL (11)
+      run:  docker build --compress -t epicmorg/postgres:11 postgres/11
+
+    - name: Build PostgresSQL (12)
+      run:  docker build --compress -t epicmorg/postgres:12 postgres/12
