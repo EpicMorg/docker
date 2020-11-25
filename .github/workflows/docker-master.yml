@@ -49,7 +49,7 @@ jobs:
     - name: Push NextCloud (latest)
       run:  docker push epicmorg/nextcloud:latest
 
-    - name: Build TeamCity Server (latest)
+    - name: Push TeamCity Server (latest)
       run:  docker build --compress -t epicmorg/teamcity-server:latest teamcity/server
     - name: Build TeamCity Server (latest)
       run:  docker push epicmorg/teamcity-server:latest
