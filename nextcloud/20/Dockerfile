@@ -1,4 +1,4 @@
-FROM nextcloud:17
+FROM nextcloud:20
 ENV DEBIAN_FRONTEND noninteractive
 
 ##################################################################

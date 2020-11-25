@@ -1,0 +1,44 @@
+name: nextcloud-backports-develop
+
+on:
+  pull_request:
+    branches:
+      - '*'
+    tags:
+      - '*'
+  push:
+    branches:
+      - 'develop'
+
+jobs:
+  build:
+    name: NextCloud images
+    runs-on: ubuntu-20.04
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Log into registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+##########
+
+    - name: Build NextCloud (14)
+      run:  docker build --compress -t epicmorg/nextcloud:14 nextcloud/14
+
+    - name: Build NextCloud (15)
+      run:  docker build --compress -t epicmorg/nextcloud:15 nextcloud/15
+
+    - name: Build NextCloud (16)
+      run:  docker build --compress -t epicmorg/nextcloud:16 nextcloud/16
+
+    - name: Build NextCloud (17)
+      run:  docker build --compress -t epicmorg/nextcloud:17 nextcloud/17
+
+    - name: Build NextCloud (18)
+      run:  docker build --compress -t epicmorg/nextcloud:18 nextcloud/18
+
+    - name: Build NextCloud (19)
+      run:  docker build --compress -t epicmorg/nextcloud:19 nextcloud/19
+
+    - name: Build NextCloud (20)
+      run:  docker build --compress -t epicmorg/nextcloud:20 nextcloud/20
