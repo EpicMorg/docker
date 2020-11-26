@@ -9,14 +9,14 @@ on:
 
 jobs:
 
-#########################################
+##################################################################################
 ####  Template
-#########################################
+##################################################################################
 #    - name: Build Template
 #      run:  docker build --compress -t user/repo:tag path/to/folder/contains/dockerfile
 #    - name: Push Template
 #      run:  docker push user/repo:tag
-#########################################
+##################################################################################
 
   build-forked-fixed-independed-images:
     name: Forked and fixed independed images
@@ -27,7 +27,7 @@ jobs:
     - name: Log into registry
       run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
-##########
+##################################################################################
 
     - name: Build Zabbix Agent
       run:  docker build --compress -t epicmorg/zabbix-agent:latest zabbix/agent
@@ -67,9 +67,9 @@ jobs:
     - name: Cleanup
       run: docker system prune --all --force --volumes
  
-#########################################
+##################################################################################
 ####  EpicMorg Base Production images
-#########################################
+##################################################################################
 
   build-base-prod-iamges:
     name: EpicMorg Base Production images
@@ -80,7 +80,7 @@ jobs:
     - name: Log into registry
       run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
-##########
+##################################################################################
 
     - name: Build Base Production
       run:  docker build --compress -t epicmorg/prod:latest epicmorg/prod/main
@@ -109,9 +109,9 @@ jobs:
 
     - name: Cleanup
       run: docker system prune --all --force --volumes
-#########################################
+##################################################################################
 ####  EpicMorg Base Edge images
-#########################################
+##################################################################################
 
   build-base-edge-iamges:
     name: EpicMorg Base Edge images
@@ -123,7 +123,7 @@ jobs:
     - name: Log into registry
       run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
-##########
+##################################################################################
 
     - name: Build Base Edge
       run:  docker build --compress -t epicmorg/edge:latest epicmorg/edge/main
@@ -153,9 +153,9 @@ jobs:
     - name: Cleanup
       run: docker system prune --all --force --volumes
 
-#########################################
+##################################################################################
 ####  EpicMorg Base Develop images
-#########################################
+##################################################################################
 
   build-base-develop-iamges:
     name: EpicMorg Base Develop images
@@ -167,7 +167,7 @@ jobs:
     - name: Log into registry
       run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
-##########
+##################################################################################
 
     - name: Build Base Develop
       run:  docker build --compress -t epicmorg/devel:latest epicmorg/devel/main
@@ -197,9 +197,9 @@ jobs:
     - name: Cleanup
       run: docker system prune --all --force --volumes
 
-#########################################
+##################################################################################
 ####  EpicMorg Main images
-#########################################
+##################################################################################
 
   build-emg-main-iamges:
     name: EpicMorg Main images
@@ -211,7 +211,7 @@ jobs:
     - name: Log into registry
       run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
-##########
+##################################################################################
 
     - name: Build TeamCity Agent
       run:  docker build --compress -t epicmorg/teamcity-agent:latest teamcity/agent
@@ -241,9 +241,9 @@ jobs:
     - name: Cleanup
       run: docker system prune --all --force --volumes
 
-#########################################
+##################################################################################
 ####  Testrail images
-#########################################
+##################################################################################
 
   build-tr-iamges:
     name: Testrail image
@@ -255,7 +255,7 @@ jobs:
     - name: Log into registry
       run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
-##########
+##################################################################################
 
     - name: Build Testrail (always latest)
       run:  docker build --compress -t epicmorg/testrail:latest testrail/latest
@@ -265,9 +265,9 @@ jobs:
     - name: Cleanup
       run: docker system prune --all --force --volumes
 
-#########################################
+##################################################################################
 ####  EpicMorg Secondary images
-#########################################
+##################################################################################
 
   build-emg-additional-web-iamges:
     name: EpicMorg Secondary images
@@ -279,7 +279,7 @@ jobs:
     - name: Log into registry
       run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
-##########
+##################################################################################
 
     - name: Build NGinx + PHP7.4
       run:  docker build --compress -t epicmorg/balancer:php balancer/php
@@ -309,9 +309,9 @@ jobs:
     - name: Cleanup
       run: docker system prune --all --force --volumes
 
-#########################################
+##################################################################################
 ####  Atlassian Bitbucket images
-#########################################
+##################################################################################
 
   build-atl-bb-iamges:
     name: Atlassian Bitbucket latest images
@@ -323,7 +323,7 @@ jobs:
     - name: Log into registry
       run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
-##########
+##################################################################################
 
     - name: Build Bitbucket + JDK 8 (latest)
       run:  docker build --compress -t epicmorg/bitbucket:latest atlassian/bitbucket/latest 
@@ -338,9 +338,9 @@ jobs:
     - name: Cleanup
       run: docker system prune --all --force --volumes
 
-#########################################
+##################################################################################
 ####  Atlassian Confluence images
-#########################################
+##################################################################################
 
   build-atl-docs-iamges:
     name: Atlassian Confluence latest images
@@ -352,7 +352,7 @@ jobs:
     - name: Log into registry
       run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
-##########
+##################################################################################
 
     - name: Build Confluence + JDK 8 (latest)
       run:  docker build --compress -t epicmorg/confluence:latest atlassian/confluence/latest
@@ -367,9 +367,9 @@ jobs:
     - name: Cleanup
       run: docker system prune --all --force --volumes
 
-#########################################
+##################################################################################
 ####  Atlassian Jira images
-#########################################
+##################################################################################
 
   build-atl-jira-iamges:
     name: Atlassian Jira latest images
@@ -381,7 +381,7 @@ jobs:
     - name: Log into registry
       run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
-##########
+##################################################################################
 
     - name: Build Jira + JDK 8 (latest)
       run:  docker build --compress -t epicmorg/jira:latest atlassian/jira/latest
@@ -396,9 +396,9 @@ jobs:
     - name: Cleanup
       run: docker system prune --all --force --volumes
 
-#########################################
+##################################################################################
 ####  Atlassian Fisheye + Crucible  images
-#########################################
+##################################################################################
 
   build-atl-fycru-iamges:
     name: Atlassian Fisheye + Crucible  images
@@ -410,7 +410,7 @@ jobs:
     - name: Log into registry
       run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
-##########
+##################################################################################
 
     - name: Build Fisheye + Crucible + JDK 8 (latest)
       run:  docker build --compress -t epicmorg/fisheye-crucible:latest atlassian/fisheye-crucible/latest
@@ -420,9 +420,9 @@ jobs:
     - name: Cleanup
       run: docker system prune --all --force --volumes
 
-#########################################
+##################################################################################
 ####  qBitTorrent  images
-#########################################
+##################################################################################
 
   build-qbt-iamges:
     name: qBitTorrent images
@@ -434,7 +434,7 @@ jobs:
     - name: Log into registry
       run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
-##########
+##################################################################################
 
     - name: Build qBitTorrent (latest)
       run:  docker build --compress -t epicmorg/qbittorrent:latest qbittorrent/latest
@@ -454,9 +454,9 @@ jobs:
     - name: Cleanup
       run: docker system prune --all --force --volumes
 
-#########################################
+##################################################################################
 ####  PostgresSQL Backport images
-#########################################
+##################################################################################
 
   build-pgsql-iamges:
     name: PostgresSQL Backport images
@@ -468,7 +468,7 @@ jobs:
     - name: Log into registry
       run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
-##########
+##################################################################################
 
     - name: Build PostgresSQL (8.2)
       run:  docker build --compress -t epicmorg/postgres:8.2 postgres/8.2
@@ -538,9 +538,9 @@ jobs:
     - name: Cleanup
       run: docker system prune --all --force --volumes
 
-#########################################
+##################################################################################
 ####  NextCloud Backport images
-#########################################
+##################################################################################
   build-nextcloud-backports:
     name: NextCloud Backport images
     runs-on: ubuntu-20.04
@@ -550,7 +550,7 @@ jobs:
     - name: Log into registry
       run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
-##########
+##################################################################################
 
     - name: Build NextCloud (14)
       run:  docker build --compress -t epicmorg/nextcloud:14 nextcloud/14
@@ -590,9 +590,9 @@ jobs:
     - name: Cleanup
       run: docker system prune --all --force --volumes
 
-#########################################
+##################################################################################
 ####  Atlassian Bitbucket 6 Backport images
-#########################################
+##################################################################################
 
   build-atl-bb6-iamges:
     name: Atlassian Bitbucket 6 Backport images
@@ -604,7 +604,7 @@ jobs:
     - name: Log into registry
       run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
-##########
+##################################################################################
 
 #    - name: Build Bitbucket xxx + JDK 8
 #      run:  docker build --compress -t epicmorg/bitbucket:xxx atlassian/bitbucket/6/xxx 
@@ -730,7 +730,7 @@ jobs:
     - name: Cleanup
       run: docker system prune --all --force --volumes
 
-##########
+##################################################################################
 
     - name: Build Bitbucket 6.1.0 + JDK 8
       run:  docker build --compress -t epicmorg/bitbucket:6.1.0 atlassian/bitbucket/6/6.1.0
@@ -835,7 +835,7 @@ jobs:
     - name: Cleanup
       run: docker system prune --all --force --volumes
 
-##########
+##################################################################################
 
     - name: Build Bitbucket 6.2.0 + JDK 8
       run:  docker build --compress -t epicmorg/bitbucket:6.2.0 atlassian/bitbucket/6/6.2.0
@@ -920,7 +920,7 @@ jobs:
     - name: Cleanup
       run: docker system prune --all --force --volumes
 
-##########
+##################################################################################
 
     - name: Build Bitbucket 6.3.0 + JDK 8
       run:  docker build --compress -t epicmorg/bitbucket:6.3.0 atlassian/bitbucket/6/6.3.0
@@ -995,7 +995,7 @@ jobs:
     - name: Cleanup
       run: docker system prune --all --force --volumes
 
-##########
+##################################################################################
 
     - name: Build Bitbucket 6.4.0 + JDK 8
       run:  docker build --compress -t epicmorg/bitbucket:6.4.0 atlassian/bitbucket/6/6.4.0
@@ -1050,7 +1050,7 @@ jobs:
     - name: Cleanup
       run: docker system prune --all --force --volumes
 
-##########
+##################################################################################
 
     - name: Build Bitbucket 6.5.0 + JDK 8
       run:  docker build --compress -t epicmorg/bitbucket:6.5.0 atlassian/bitbucket/6/6.5.0
@@ -1095,7 +1095,7 @@ jobs:
     - name: Cleanup
       run: docker system prune --all --force --volumes
 
-##########
+##################################################################################
 
     - name: Build Bitbucket 6.6.0 + JDK 8
       run:  docker build --compress -t epicmorg/bitbucket:6.6.0 atlassian/bitbucket/6/6.6.0
@@ -1150,7 +1150,7 @@ jobs:
     - name: Cleanup
       run: docker system prune --all --force --volumes
 
-##########
+##################################################################################
 
     - name: Build Bitbucket 6.7.0 + JDK 8
       run:  docker build --compress -t epicmorg/bitbucket:6.7.0 atlassian/bitbucket/6/6.7.0
@@ -1205,7 +1205,7 @@ jobs:
     - name: Cleanup
       run: docker system prune --all --force --volumes
 
-##########
+##################################################################################
 
     - name: Build Bitbucket 6.8.0 + JDK 8
       run:  docker build --compress -t epicmorg/bitbucket:6.8.0 atlassian/bitbucket/6/6.8.0
@@ -1250,7 +1250,7 @@ jobs:
     - name: Cleanup
       run: docker system prune --all --force --volumes
 
-##########
+##################################################################################
 
     - name: Build Bitbucket 6.9.0 + JDK 8
       run:  docker build --compress -t epicmorg/bitbucket:6.9.0 atlassian/bitbucket/6/6.9.0
@@ -1285,7 +1285,7 @@ jobs:
     - name: Cleanup
       run: docker system prune --all --force --volumes
 
-##########
+##################################################################################
 
     - name: Build Bitbucket 6.10.0 LTS + JDK 8
       run:  docker build --compress -t epicmorg/bitbucket:6.10.0 atlassian/bitbucket/6/6.10.0
@@ -1320,9 +1320,9 @@ jobs:
     - name: Cleanup
       run: docker system prune --all --force --volumes
 
-#########################################
+##################################################################################
 ####  Atlassian Bitbucket 7 Backport images
-#########################################
+##################################################################################
 
   build-atl-bb7-iamges:
     name: Atlassian Bitbucket 7 Backport images
@@ -1334,7 +1334,7 @@ jobs:
     - name: Log into registry
       run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
-##########
+##################################################################################
 
 #    - name: Build Bitbucket xxx + JDK 8
 #      run:  docker build --compress -t epicmorg/bitbucket:xxx atlassian/bitbucket/7/xxx 
@@ -1389,7 +1389,7 @@ jobs:
     - name: Cleanup
       run: docker system prune --all --force --volumes
 
-#########################################
+##################################################################################
 
     - name: Build Bitbucket 7.1.0 + JDK8
       run:  docker build --compress -t epicmorg/bitbucket:7.1.0 atlassian/bitbucket/7/7.1.0
@@ -1434,7 +1434,7 @@ jobs:
     - name: Cleanup
       run: docker system prune --all --force --volumes
 
-#########################################
+##################################################################################
 
     - name: Build Bitbucket 7.2.0 + JDK8
       run:  docker build --compress -t epicmorg/bitbucket:7.2.0 atlassian/bitbucket/7/7.2.0
@@ -1479,9 +1479,9 @@ jobs:
     - name: Cleanup
       run: docker system prune --all --force --volumes
 
-#########################################
+##################################################################################
 ####  Atlassian Confluence 5 Backport images
-#########################################
+##################################################################################
 
   build-atl-docs5-iamges:
     name: Atlassian Confluence 5 Backport images
@@ -1493,7 +1493,7 @@ jobs:
     - name: Log into registry
       run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
-##########
+##################################################################################
  
 #    - name: Build Confluence xxx + JDK 7
 #      run:  docker build --compress -t epicmorg/confluence:xxx atlassian/confluence/5/xxx
@@ -1518,9 +1518,9 @@ jobs:
     - name: Cleanup
       run: docker system prune --all --force --volumes
 
-#########################################
+##################################################################################
 ####  Atlassian Confluence 6 Backport images
-#########################################
+##################################################################################
 
   build-atl-docs6-iamges:
     name: Atlassian Confluence 6 Backport images
@@ -1532,7 +1532,7 @@ jobs:
     - name: Log into registry
       run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
-##########
+##################################################################################
 
 #    - name: Build Confluence xxx + JDK 8
 #      run:  docker build --compress -t epicmorg/confluence:xxx atlassian/confluence/6/xxx
@@ -1577,7 +1577,7 @@ jobs:
     - name: Cleanup
       run: docker system prune --all --force --volumes
 
-#########################################
+##################################################################################
 
     - name: Build Confluence 6.1.0 + JDK 8
       run:  docker build --compress -t epicmorg/confluence:6.1.0 atlassian/confluence/6/6.1.0
@@ -1607,7 +1607,7 @@ jobs:
     - name: Cleanup
       run: docker system prune --all --force --volumes
 
-#########################################
+##################################################################################
 
     - name: Build Confluence 6.2.0 + JDK 8
       run:  docker build --compress -t epicmorg/confluence:6.2.0 atlassian/confluence/6/6.2.0
@@ -1632,7 +1632,7 @@ jobs:
     - name: Cleanup
       run: docker system prune --all --force --volumes
 
-#########################################
+##################################################################################
 
     - name: Build Confluence 6.3.1 + JDK 8
       run:  docker build --compress -t epicmorg/confluence:6.3.1 atlassian/confluence/6/6.3.1
@@ -1657,7 +1657,7 @@ jobs:
     - name: Cleanup
       run: docker system prune --all --force --volumes
 
-#########################################
+##################################################################################
 
     - name: Build Confluence 6.4.0 + JDK 8
       run:  docker build --compress -t epicmorg/confluence:6.4.0 atlassian/confluence/6/6.4.0
@@ -1682,7 +1682,7 @@ jobs:
     - name: Cleanup
       run: docker system prune --all --force --volumes
 
-#########################################
+##################################################################################
 
     - name: Build Confluence 6.5.0 + JDK 8
       run:  docker build --compress -t epicmorg/confluence:6.5.0 atlassian/confluence/6/6.5.0
@@ -1707,7 +1707,7 @@ jobs:
     - name: Cleanup
       run: docker system prune --all --force --volumes
 
-#########################################
+##################################################################################
 
     - name: Build Confluence 6.6.0 LTS + JDK 8
       run:  docker build --compress -t epicmorg/confluence:6.6.0 atlassian/confluence/6/6.6.0
@@ -1797,7 +1797,7 @@ jobs:
     - name: Cleanup
       run: docker system prune --all --force --volumes
 
-#########################################
+##################################################################################
 
     - name: Build Confluence 6.7.0 + JDK 8
       run:  docker build --compress -t epicmorg/confluence:6.7.0 atlassian/confluence/6/6.7.0
@@ -1822,7 +1822,7 @@ jobs:
     - name: Cleanup
       run: docker system prune --all --force --volumes
 
-#########################################
+##################################################################################
 
     - name: Build Confluence 6.8.0 + JDK 8
       run:  docker build --compress -t epicmorg/confluence:6.8.0 atlassian/confluence/6/6.8.0
@@ -1852,7 +1852,7 @@ jobs:
     - name: Cleanup
       run: docker system prune --all --force --volumes
 
-#########################################
+##################################################################################
 
     - name: Build Confluence 6.9.0 + JDK 8
       run:  docker build --compress -t epicmorg/confluence:6.9.0 atlassian/confluence/6/6.9.0
@@ -1869,7 +1869,7 @@ jobs:
     - name: Push Confluence 6.9.3 + JDK 8
       run:  docker push epicmorg/confluence:6.9.3
 
-#########################################
+##################################################################################
 
     - name: Build Confluence 6.10.0 + JDK 8
       run:  docker build --compress -t epicmorg/confluence:6.10.0 atlassian/confluence/6/6.10.0
@@ -1894,7 +1894,7 @@ jobs:
     - name: Cleanup
       run: docker system prune --all --force --volumes
 
-#########################################
+##################################################################################
 
     - name: Build Confluence 6.11.0 + JDK 8
       run:  docker build --compress -t epicmorg/confluence:6.11.0 atlassian/confluence/6/6.11.0
@@ -1914,7 +1914,7 @@ jobs:
     - name: Cleanup
       run: docker system prune --all --force --volumes
 
-#########################################
+##################################################################################
 
     - name: Build Confluence 6.12.0 + JDK 8
       run:  docker build --compress -t epicmorg/confluence:6.12.0 atlassian/confluence/6/6.12.0
@@ -1944,7 +1944,7 @@ jobs:
     - name: Cleanup
       run: docker system prune --all --force --volumes
 
-#########################################
+##################################################################################
 
     - name: Build Confluence 6.13.0 LTS + JDK 8
       run:  docker build --compress -t epicmorg/confluence:6.13.0 atlassian/confluence/6/6.13.0
@@ -2009,7 +2009,7 @@ jobs:
     - name: Cleanup
       run: docker system prune --all --force --volumes
 
-#########################################
+##################################################################################
 
     - name: Build Confluence 6.14.0 + JDK 8
       run:  docker build --compress -t epicmorg/confluence:6.14.0 atlassian/confluence/6/6.14.0
@@ -2034,7 +2034,7 @@ jobs:
     - name: Cleanup
       run: docker system prune --all --force --volumes
 
-#########################################
+##################################################################################
 
     - name: Build Confluence 6.15.1 + JDK 8
       run:  docker build --compress -t epicmorg/confluence:6.15.1 atlassian/confluence/6/6.15.1
@@ -2079,9 +2079,9 @@ jobs:
     - name: Cleanup
       run: docker system prune --all --force --volumes
 
-#########################################
+##################################################################################
 ####  Atlassian Confluence 7 Backport images
-#########################################
+##################################################################################
 
   build-atl-docs7-iamges:
     name: Atlassian Confluence 7 Backport images
@@ -2093,7 +2093,7 @@ jobs:
     - name: Log into registry
       run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
-##########
+##################################################################################
 
 #    - name: Build Confluence xxx + JDK 8
 #      run:  docker build --compress -t epicmorg/confluence:xxx atlassian/confluence/7/xxx
@@ -2130,7 +2130,10 @@ jobs:
     - name: Push Confluence 7.0.5
       run:  docker push epicmorg/confluence:7.0.5
 
-#########################################
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+
+##################################################################################
 
     - name: Build Confluence 7.1.0 JDK 8
       run:  docker build --compress -t epicmorg/confluence:7.1.0 atlassian/confluence/7.1.0
@@ -2162,7 +2165,10 @@ jobs:
     - name: Push Confluence 7.1.2 JDK 11
       run:  docker push epicmorg/confluence:7.1.2-jdk11
 
-#########################################
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+
+##################################################################################
 
     - name: Build Confluence 7.2.0 JDK 8
       run:  docker build --compress -t epicmorg/confluence:7.2.0 atlassian/confluence/7.2.0
@@ -2194,7 +2200,10 @@ jobs:
     - name: Push Confluence 7.2.2 JDK 11
       run:  docker push epicmorg/confluence:7.2.2-jdk11
 
-#########################################
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+
+##################################################################################
 
     - name: Build Confluence 7.3.1 JDK 8
       run:  docker build --compress -t epicmorg/confluence:7.3.1 atlassian/confluence/7.3.1
@@ -2246,7 +2255,10 @@ jobs:
     - name: Push Confluence 7.3.5 JDK 11
       run:  docker push epicmorg/confluence:7.3.5-jdk11
 
-#########################################
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+
+##################################################################################
 
     - name: Build Confluence 7.4.0 JDK 8 LTS
       run:  docker build --compress -t epicmorg/confluence:7.4.0 atlassian/confluence/7.4.0
@@ -2258,21 +2270,27 @@ jobs:
     - name: Push Confluence 7.4.0 JDK 11 LTS
       run:  docker push epicmorg/confluence:7.4.0-jdk11
 
-#########################################
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
 
-    - name: Build Confluence 7.5.0 JDK 8 LTS
+##################################################################################
+
+    - name: Build Confluence 7.5.0 JDK 8
       run:  docker build --compress -t epicmorg/confluence:7.5.0 atlassian/confluence/7.5.0
-    - name: Push Confluence 7.5.0 JDK 8 LTS
+    - name: Push Confluence 7.5.0 JDK 8
       run:  docker push epicmorg/confluence:7.5.0
 
-    - name: Build Confluence 7.5.0 JDK 11 LTS
+    - name: Build Confluence 7.5.0 JDK 11
       run:  docker build --compress -t epicmorg/confluence:7.5.0-jdk11 -f atlassian/confluence/7.5.0/Dockerfile.jdk11 atlassian/confluence/7.5.0
-    - name: Push Confluence 7.5.0 JDK 11 LTS
+    - name: Push Confluence 7.5.0 JDK 11
       run:  docker push epicmorg/confluence:7.5.0-jdk11
 
-#########################################
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+
+##################################################################################
 ####  Atlassian Jira 5 Backport images
-#########################################
+##################################################################################
 
   build-atl-jira5-iamges:
     name: Atlassian Jira 5 Backport images
@@ -2284,19 +2302,19 @@ jobs:
     - name: Log into registry
       run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
-##########
+##################################################################################
+
 #    - name: Build Jira xxx + JDK 6
 #      run:  docker build --compress -t epicmorg/jira:xxx atlassian/jira/5/xxx
 #    - name: Push Jira xxx + JDK 6
 #      run:  docker push epicmorg/jira:xxx
 
-
     - name: Cleanup
       run: docker system prune --all --force --volumes
 
-#########################################
+##################################################################################
 ####  Atlassian Jira 6 Backport images
-#########################################
+##################################################################################
 
   build-atl-jira6-iamges:
     name: Atlassian Jira 6 Backport images
@@ -2308,28 +2326,29 @@ jobs:
     - name: Log into registry
       run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
-##########
+##################################################################################
+
 #    - name: Build Jira xxx + JDK 7
 #      run:  docker build --compress -t epicmorg/jira:xxx atlassian/jira/6/xxx
 #    - name: Push Jira xxx + JDK 7
 #      run:  docker push epicmorg/jira:xxx
 
-    - name: Build Jira + JDK 7 (6.3.15)
+    - name: Build Jira 6.3.15 + JDK 7
       run:  docker build --compress -t epicmorg/jira:6.3.15 atlassian/jira/6/6.3.15
-    - name: Push Jira + JDK 7 (6.3.15)
+    - name: Push Jira 6.3.15 + JDK 7
       run:  docker push epicmorg/jira:6.3.15
 
-    - name: Build Jira + JDK 7 (6.4.14)
+    - name: Build Jira 6.4.14 + JDK 7
       run:  docker build --compress -t epicmorg/jira:6.4.14 atlassian/jira/6/6.4.14
-    - name: Push Jira + JDK 7 (6.4.14)
+    - name: Push Jira 6.4.14 + JDK 7
       run:  docker push epicmorg/jira:6.4.14
 
     - name: Cleanup
       run: docker system prune --all --force --volumes
 
-#########################################
+##################################################################################
 ####  Atlassian Jira 7 Backport images
-#########################################
+##################################################################################
 
   build-atl-jira7-iamges:
     name: Atlassian Jira 7 Backport images
@@ -2341,15 +2360,584 @@ jobs:
     - name: Log into registry
       run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
-##########
-#    - name: Build Jira xxx + JDK 7
+##################################################################################
+
+#    - name: Build Jira xxx + JDK 8
 #      run:  docker build --compress -t epicmorg/jira:xxx atlassian/jira/7/xxx
-#    - name: Push Jira xxx + JDK 7
+#    - name: Push Jira xxx + JDK 8
 #      run:  docker push epicmorg/jira:xxx
 
-#########################################
+    - name: Build Jira 7.0.0 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.0.0 atlassian/jira/7/7.0.0
+    - name: Push Jira 7.0.0 + JDK 8
+      run:  docker push epicmorg/jira:7.0.0
+
+    - name: Build Jira 7.0.2 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.0.2 atlassian/jira/7/7.0.2
+    - name: Push Jira 7.0.2 + JDK 8
+      run:  docker push epicmorg/jira:7.0.2
+
+    - name: Build Jira 7.0.4 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.0.4 atlassian/jira/7/7.0.4
+    - name: Push Jira 7.0.4 + JDK 8
+      run:  docker push epicmorg/jira:7.0.4
+
+    - name: Build Jira 7.0.5 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.0.5 atlassian/jira/7/7.0.5
+    - name: Push Jira 7.0.5 + JDK 8
+      run:  docker push epicmorg/jira:7.0.5
+
+    - name: Build Jira 7.0.10 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.0.10 atlassian/jira/7/7.0.10
+    - name: Push Jira 7.0.10 + JDK 8
+      run:  docker push epicmorg/jira:7.0.10
+
+    - name: Build Jira 7.0.11 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.0.11 atlassian/jira/7/7.0.11
+    - name: Push Jira 7.0.11 + JDK 8
+      run:  docker push epicmorg/jira:7.0.11
+
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+
+##################################################################################
+
+    - name: Build Jira 7.1.0 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.1.0 atlassian/jira/7/7.1.0
+    - name: Push Jira 7.1.0 + JDK 8
+      run:  docker push epicmorg/jira:7.1.0
+
+    - name: Build Jira 7.1.1 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.1.1 atlassian/jira/7/7.1.1
+    - name: Push Jira 7.1.1 + JDK 8
+      run:  docker push epicmorg/jira:7.1.1
+
+    - name: Build Jira 7.1.2 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.1.2 atlassian/jira/7/7.1.2
+    - name: Push Jira 7.1.2 + JDK 8
+      run:  docker push epicmorg/jira:7.1.2
+
+    - name: Build Jira 7.1.4 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.1.4 atlassian/jira/7/7.1.4
+    - name: Push Jira 7.1.4 + JDK 8
+      run:  docker push epicmorg/jira:7.1.4
+
+    - name: Build Jira 7.1.6 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.1.6 atlassian/jira/7/7.1.6
+    - name: Push Jira 7.1.6 + JDK 8
+      run:  docker push epicmorg/jira:7.1.6
+
+    - name: Build Jira 7.1.7 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.1.7 atlassian/jira/7/7.1.7
+    - name: Push Jira 7.1.7 + JDK 8
+      run:  docker push epicmorg/jira:7.1.7
+
+    - name: Build Jira 7.1.8 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.1.8 atlassian/jira/7/7.1.8
+    - name: Push Jira 7.1.8 + JDK 8
+      run:  docker push epicmorg/jira:7.1.8
+
+    - name: Build Jira 7.1.9 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.1.9 atlassian/jira/7/7.1.9
+    - name: Push Jira 7.1.9 + JDK 8
+      run:  docker push epicmorg/jira:7.1.9
+
+    - name: Build Jira 7.1.10 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.1.10 atlassian/jira/7/7.1.10
+    - name: Push Jira 7.1.10 + JDK 8
+      run:  docker push epicmorg/jira:7.1.10
+
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+
+##################################################################################
+
+    - name: Build Jira 7.2.0 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.2.0 atlassian/jira/7/7.2.0
+    - name: Push Jira 7.2.0 + JDK 8
+      run:  docker push epicmorg/jira:7.2.0
+
+    - name: Build Jira 7.2.1 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.2.1 atlassian/jira/7/7.2.1
+    - name: Push Jira 7.2.1 + JDK 8
+      run:  docker push epicmorg/jira:7.2.1
+
+    - name: Build Jira 7.2.2 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.2.2 atlassian/jira/7/7.2.2
+    - name: Push Jira 7.2.2 + JDK 8
+      run:  docker push epicmorg/jira:7.2.2
+
+    - name: Build Jira 7.2.3 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.2.3 atlassian/jira/7/7.2.3
+    - name: Push Jira 7.2.3 + JDK 8
+      run:  docker push epicmorg/jira:7.2.3
+
+    - name: Build Jira 7.2.4 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.2.4 atlassian/jira/7/7.2.4
+    - name: Push Jira 7.2.4 + JDK 8
+      run:  docker push epicmorg/jira:7.2.4
+
+    - name: Build Jira 7.2.6 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.2.6 atlassian/jira/7/7.2.6
+    - name: Push Jira 7.2.6 + JDK 8
+      run:  docker push epicmorg/jira:7.2.6
+
+    - name: Build Jira 7.2.7 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.2.7 atlassian/jira/7/7.2.7
+    - name: Push Jira 7.2.7 + JDK 8
+      run:  docker push epicmorg/jira:7.2.7
+
+    - name: Build Jira 7.2.8 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.2.8 atlassian/jira/7/7.2.8
+    - name: Push Jira 7.2.8 + JDK 8
+      run:  docker push epicmorg/jira:7.2.8
+
+    - name: Build Jira 7.2.9 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.2.9 atlassian/jira/7/7.2.9
+    - name: Push Jira 7.2.9 + JDK 8
+      run:  docker push epicmorg/jira:7.2.9
+
+    - name: Build Jira 7.2.10 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.2.10 atlassian/jira/7/7.2.10
+    - name: Push Jira 7.2.10 + JDK 8
+      run:  docker push epicmorg/jira:7.2.10
+
+    - name: Build Jira 7.2.11 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.2.11 atlassian/jira/7/7.2.11
+    - name: Push Jira 7.2.11 + JDK 8
+      run:  docker push epicmorg/jira:7.2.11
+
+    - name: Build Jira 7.2.12 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.2.12 atlassian/jira/7/7.2.12
+    - name: Push Jira 7.2.12 + JDK 8
+      run:  docker push epicmorg/jira:7.2.12
+
+    - name: Build Jira 7.2.13 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.2.13 atlassian/jira/7/7.2.13
+    - name: Push Jira 7.2.13 + JDK 8
+      run:  docker push epicmorg/jira:7.2.13
+
+    - name: Build Jira 7.2.14 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.2.14 atlassian/jira/7/7.2.14
+    - name: Push Jira 7.2.14 + JDK 8
+      run:  docker push epicmorg/jira:7.2.14
+
+    - name: Build Jira 7.2.15 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.2.15 atlassian/jira/7/7.2.15
+    - name: Push Jira 7.2.15 + JDK 8
+      run:  docker push epicmorg/jira:7.2.15
+
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+
+##################################################################################
+
+    - name: Build Jira 7.3.0 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.3.0 atlassian/jira/7/7.3.0
+    - name: Push Jira 7.3.0 + JDK 8
+      run:  docker push epicmorg/jira:7.3.0
+
+    - name: Build Jira 7.3.1 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.3.1 atlassian/jira/7/7.3.1
+    - name: Push Jira 7.3.1 + JDK 8
+      run:  docker push epicmorg/jira:7.3.1
+
+    - name: Build Jira 7.3.2 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.3.2 atlassian/jira/7/7.3.2
+    - name: Push Jira 7.3.2 + JDK 8
+      run:  docker push epicmorg/jira:7.3.2
+
+    - name: Build Jira 7.3.3 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.3.3 atlassian/jira/7/7.3.3
+    - name: Push Jira 7.3.3 + JDK 8
+      run:  docker push epicmorg/jira:7.3.3
+
+    - name: Build Jira 7.3.4 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.3.4 atlassian/jira/7/7.3.4
+    - name: Push Jira 7.3.4 + JDK 8
+      run:  docker push epicmorg/jira:7.3.4
+
+    - name: Build Jira 7.3.5 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.3.5 atlassian/jira/7/7.3.5
+    - name: Push Jira 7.3.5 + JDK 8
+      run:  docker push epicmorg/jira:7.3.5
+
+    - name: Build Jira 7.3.6 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.3.6 atlassian/jira/7/7.3.6
+    - name: Push Jira 7.3.6 + JDK 8
+      run:  docker push epicmorg/jira:7.3.6
+
+    - name: Build Jira 7.3.7 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.3.7 atlassian/jira/7/7.3.7
+    - name: Push Jira 7.3.7 + JDK 8
+      run:  docker push epicmorg/jira:7.3.7
+
+    - name: Build Jira 7.3.8 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.3.8 atlassian/jira/7/7.3.8
+    - name: Push Jira 7.3.8 + JDK 8
+      run:  docker push epicmorg/jira:7.3.8
+
+    - name: Build Jira 7.3.9 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.3.9 atlassian/jira/7/7.3.9
+    - name: Push Jira 7.3.9 + JDK 8
+      run:  docker push epicmorg/jira:7.3.9
+
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+
+##################################################################################
+
+    - name: Build Jira 7.4.0 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.4.0 atlassian/jira/7/7.4.0
+    - name: Push Jira 7.4.0 + JDK 8
+      run:  docker push epicmorg/jira:7.4.0
+
+    - name: Build Jira 7.4.1 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.4.1 atlassian/jira/7/7.4.1
+    - name: Push Jira 7.4.1 + JDK 8
+      run:  docker push epicmorg/jira:7.4.1
+
+    - name: Build Jira 7.4.2 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.4.2 atlassian/jira/7/7.4.2
+    - name: Push Jira 7.4.2 + JDK 8
+      run:  docker push epicmorg/jira:7.4.2
+
+    - name: Build Jira 7.4.3 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.4.3 atlassian/jira/7/7.4.3
+    - name: Push Jira 7.4.3 + JDK 8
+      run:  docker push epicmorg/jira:7.4.3
+
+    - name: Build Jira 7.4.4 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.4.4 atlassian/jira/7/7.4.4
+    - name: Push Jira 7.4.4 + JDK 8
+      run:  docker push epicmorg/jira:7.4.4
+
+    - name: Build Jira 7.4.5 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.4.5 atlassian/jira/7/7.4.5
+    - name: Push Jira 7.4.5 + JDK 8
+      run:  docker push epicmorg/jira:7.4.5
+
+    - name: Build Jira 7.4.6 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.4.6 atlassian/jira/7/7.4.6
+    - name: Push Jira 7.4.6 + JDK 8
+      run:  docker push epicmorg/jira:7.4.6
+
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+
+##################################################################################
+
+    - name: Build Jira 7.5.0 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.5.0 atlassian/jira/7/7.5.0
+    - name: Push Jira 7.5.0 + JDK 8
+      run:  docker push epicmorg/jira:7.5.0
+
+    - name: Build Jira 7.5.1 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.5.1 atlassian/jira/7/7.5.1
+    - name: Push Jira 7.5.1 + JDK 8
+      run:  docker push epicmorg/jira:7.5.1
+
+    - name: Build Jira 7.5.2 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.5.2 atlassian/jira/7/7.5.2
+    - name: Push Jira 7.5.2 + JDK 8
+      run:  docker push epicmorg/jira:7.5.2
+
+    - name: Build Jira 7.5.3 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.5.3 atlassian/jira/7/7.5.3
+    - name: Push Jira 7.5.3 + JDK 8
+      run:  docker push epicmorg/jira:7.5.3
+
+    - name: Build Jira 7.5.4 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.5.4 atlassian/jira/7/7.5.4
+    - name: Push Jira 7.5.4 + JDK 8
+      run:  docker push epicmorg/jira:7.5.4
+
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+
+##################################################################################
+
+    - name: Build Jira 7.6.0 LTS + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.6.0 atlassian/jira/7/7.6.0
+    - name: Push Jira 7.6.0 LTS + JDK 8
+      run:  docker push epicmorg/jira:7.6.0
+
+    - name: Build Jira 7.6.1 LTS + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.6.1 atlassian/jira/7/7.6.1
+    - name: Push Jira 7.6.1 LTS + JDK 8
+      run:  docker push epicmorg/jira:7.6.1
+
+    - name: Build Jira 7.6.2 LTS + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.6.2 atlassian/jira/7/7.6.2
+    - name: Push Jira 7.6.2 LTS + JDK 8
+      run:  docker push epicmorg/jira:7.6.2
+
+    - name: Build Jira 7.6.3 LTS + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.6.3 atlassian/jira/7/7.6.3
+    - name: Push Jira 7.6.3 LTS + JDK 8
+      run:  docker push epicmorg/jira:7.6.3
+
+    - name: Build Jira 7.6.4 LTS + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.6.4 atlassian/jira/7/7.6.4
+    - name: Push Jira 7.6.4 LTS + JDK 8
+      run:  docker push epicmorg/jira:7.6.4
+
+    - name: Build Jira 7.6.6 LTS + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.6.6 atlassian/jira/7/7.6.6
+    - name: Push Jira 7.6.6 LTS + JDK 8
+      run:  docker push epicmorg/jira:7.6.6
+
+    - name: Build Jira 7.6.7 LTS + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.6.7 atlassian/jira/7/7.6.7
+    - name: Push Jira 7.6.7 LTS + JDK 8
+      run:  docker push epicmorg/jira:7.6.7
+
+    - name: Build Jira 7.6.8 LTS + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.6.8 atlassian/jira/7/7.6.8
+    - name: Push Jira 7.6.8 LTS + JDK 8
+      run:  docker push epicmorg/jira:7.6.8
+
+    - name: Build Jira 7.6.9 LTS + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.6.9 atlassian/jira/7/7.6.9
+    - name: Push Jira 7.6.9 LTS + JDK 8
+      run:  docker push epicmorg/jira:7.6.9
+
+    - name: Build Jira 7.6.10 LTS + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.6.10 atlassian/jira/7/7.6.10
+    - name: Push Jira 7.6.10 LTS + JDK 8
+      run:  docker push epicmorg/jira:7.6.10
+
+    - name: Build Jira 7.6.11 LTS + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.6.11 atlassian/jira/7/7.6.11
+    - name: Push Jira 7.6.11 LTS + JDK 8
+      run:  docker push epicmorg/jira:7.6.11
+
+    - name: Build Jira 7.6.12 LTS + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.6.12 atlassian/jira/7/7.6.12
+    - name: Push Jira 7.6.12 LTS + JDK 8
+      run:  docker push epicmorg/jira:7.6.12
+
+    - name: Build Jira 7.6.13 LTS + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.6.13 atlassian/jira/7/7.6.13
+    - name: Push Jira 7.6.13 LTS + JDK 8
+      run:  docker push epicmorg/jira:7.6.13
+
+    - name: Build Jira 7.6.14 LTS + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.6.14 atlassian/jira/7/7.6.14
+    - name: Push Jira 7.6.14 LTS + JDK 8
+      run:  docker push epicmorg/jira:7.6.14
+
+    - name: Build Jira 7.6.15 LTS + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.6.15 atlassian/jira/7/7.6.15
+    - name: Push Jira 7.6.15 LTS + JDK 8
+      run:  docker push epicmorg/jira:7.6.15
+
+    - name: Build Jira 7.6.16 LTS + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.6.16 atlassian/jira/7/7.6.16
+    - name: Push Jira 7.6.16 LTS + JDK 8
+      run:  docker push epicmorg/jira:7.6.16
+
+    - name: Build Jira 7.6.17 LTS + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.6.17 atlassian/jira/7/7.6.17
+    - name: Push Jira 7.6.17 LTS + JDK 8
+      run:  docker push epicmorg/jira:7.6.17
+
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+
+##################################################################################
+
+    - name: Build Jira 7.7.0 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.7.0 atlassian/jira/7/7.7.0
+    - name: Push Jira 7.7.0 + JDK 8
+      run:  docker push epicmorg/jira:7.7.0
+
+    - name: Build Jira 7.7.1 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.7.1 atlassian/jira/7/7.7.1
+    - name: Push Jira 7.7.1 + JDK 8
+      run:  docker push epicmorg/jira:7.7.1
+
+    - name: Build Jira 7.7.2 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.7.2 atlassian/jira/7/7.7.2
+    - name: Push Jira 7.7.2 + JDK 8
+      run:  docker push epicmorg/jira:7.7.2
+
+    - name: Build Jira 7.7.4 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.7.4 atlassian/jira/7/7.7.4
+    - name: Push Jira 7.7.4 + JDK 8
+      run:  docker push epicmorg/jira:7.7.4
+
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+
+##################################################################################
+
+    - name: Build Jira 7.8.0 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.8.0 atlassian/jira/7/7.8.0
+    - name: Push Jira 7.8.0 + JDK 8
+      run:  docker push epicmorg/jira:7.8.0
+
+    - name: Build Jira 7.8.1 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.8.1 atlassian/jira/7/7.8.1
+    - name: Push Jira 7.8.1 + JDK 8
+      run:  docker push epicmorg/jira:7.8.1
+
+    - name: Build Jira 7.8.2 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.8.2 atlassian/jira/7/7.8.2
+    - name: Push Jira 7.8.2 + JDK 8
+      run:  docker push epicmorg/jira:7.8.2
+
+    - name: Build Jira 7.8.4 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.8.4 atlassian/jira/7/7.8.4
+    - name: Push Jira 7.8.4 + JDK 8
+      run:  docker push epicmorg/jira:7.8.4
+
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+
+##################################################################################
+
+    - name: Build Jira 7.9.0 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.9.0 atlassian/jira/7/7.9.0
+    - name: Push Jira 7.9.0 + JDK 8
+      run:  docker push epicmorg/jira:7.9.0
+
+    - name: Build Jira 7.9.2 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.9.2 atlassian/jira/7/7.9.2
+    - name: Push Jira 7.9.2 + JDK 8
+      run:  docker push epicmorg/jira:7.9.2
+
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+
+##################################################################################
+
+    - name: Build Jira 7.10.0 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.10.0 atlassian/jira/7/7.10.0
+    - name: Push Jira 7.10.0 + JDK 8
+      run:  docker push epicmorg/jira:7.10.0
+
+    - name: Build Jira 7.10.1 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.10.1 atlassian/jira/7/7.10.1
+    - name: Push Jira 7.10.1 + JDK 8
+      run:  docker push epicmorg/jira:7.10.1
+
+    - name: Build Jira 7.10.2 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.10.2 atlassian/jira/7/7.10.2
+    - name: Push Jira 7.10.2 + JDK 8
+      run:  docker push epicmorg/jira:7.10.2
+
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+
+##################################################################################
+
+    - name: Build Jira 7.11.0 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.11.0 atlassian/jira/7/7.11.0
+    - name: Push Jira 7.11.0 + JDK 8
+      run:  docker push epicmorg/jira:7.11.0
+
+    - name: Build Jira 7.11.1 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.11.1 atlassian/jira/7/7.11.1
+    - name: Push Jira 7.11.1 + JDK 8
+      run:  docker push epicmorg/jira:7.11.1
+
+    - name: Build Jira 7.11.2 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.11.2 atlassian/jira/7/7.11.2
+    - name: Push Jira 7.11.2 + JDK 8
+      run:  docker push epicmorg/jira:7.11.2
+
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+
+##################################################################################
+
+    - name: Build Jira 7.12.0 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.12.0 atlassian/jira/7/7.12.0
+    - name: Push Jira 7.12.0 + JDK 8
+      run:  docker push epicmorg/jira:7.12.0
+
+    - name: Build Jira 7.12.1 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.12.1 atlassian/jira/7/7.12.1
+    - name: Push Jira 7.12.1 + JDK 8
+      run:  docker push epicmorg/jira:7.12.1
+
+    - name: Build Jira 7.12.3 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.12.3 atlassian/jira/7/7.12.3
+    - name: Push Jira 7.12.3 + JDK 8
+      run:  docker push epicmorg/jira:7.12.3
+
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+
+##################################################################################
+
+    - name: Build Jira 7.13.0 LTS + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.13.0 atlassian/jira/7/7.13.0
+    - name: Push Jira 7.13.0 LTS + JDK 8
+      run:  docker push epicmorg/jira:7.13.0
+
+    - name: Build Jira 7.13.1 LTS + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.13.1 atlassian/jira/7/7.13.1
+    - name: Push Jira 7.13.1 LTS + JDK 8
+      run:  docker push epicmorg/jira:7.13.1
+
+    - name: Build Jira 7.13.2 LTS + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.13.2 atlassian/jira/7/7.13.2
+    - name: Push Jira 7.13.2 LTS + JDK 8
+      run:  docker push epicmorg/jira:7.13.2
+
+    - name: Build Jira 7.13.3 LTS + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.13.3 atlassian/jira/7/7.13.3
+    - name: Push Jira 7.13.3 LTS + JDK 8
+      run:  docker push epicmorg/jira:7.13.3
+
+    - name: Build Jira 7.13.4 LTS + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.13.4 atlassian/jira/7/7.13.4
+    - name: Push Jira 7.13.4 LTS + JDK 8
+      run:  docker push epicmorg/jira:7.13.4
+
+    - name: Build Jira 7.13.5 LTS + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.13.5 atlassian/jira/7/7.13.5
+    - name: Push Jira 7.13.5 LTS + JDK 8
+      run:  docker push epicmorg/jira:7.13.5
+
+    - name: Build Jira 7.13.6 LTS + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.13.6 atlassian/jira/7/7.13.6
+    - name: Push Jira 7.13.6 LTS + JDK 8
+      run:  docker push epicmorg/jira:7.13.6
+
+    - name: Build Jira 7.13.8 LTS + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.13.8 atlassian/jira/7/7.13.8
+    - name: Push Jira 7.13.8 LTS + JDK 8
+      run:  docker push epicmorg/jira:7.13.8
+
+    - name: Build Jira 7.13.9 LTS + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.13.9 atlassian/jira/7/7.13.9
+    - name: Push Jira 7.13.9 LTS + JDK 8
+      run:  docker push epicmorg/jira:7.13.9
+
+    - name: Build Jira 7.13.11 LTS + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.13.11 atlassian/jira/7/7.13.11
+    - name: Push Jira 7.13.11 LTS + JDK 8
+      run:  docker push epicmorg/jira:7.13.11
+
+    - name: Build Jira 7.13.12 LTS + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.13.12 atlassian/jira/7/7.13.12
+    - name: Push Jira 7.13.12 LTS + JDK 8
+      run:  docker push epicmorg/jira:7.13.12
+
+    - name: Build Jira 7.13.13 LTS + JDK 8
+      run:  docker build --compress -t epicmorg/jira:7.13.13 atlassian/jira/7/7.13.13
+    - name: Push Jira 7.13.13 LTS + JDK 8
+      run:  docker push epicmorg/jira:7.13.13
+
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+
+##################################################################################
 ####  Atlassian Jira 8 Backport images
-#########################################
+##################################################################################
 
   build-atl-jira8-iamges:
     name: Atlassian Jira 8 Backport images
@@ -2361,7 +2949,8 @@ jobs:
     - name: Log into registry
       run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
-##########
+##################################################################################
+
 #    - name: Build Jira xxx + JDK 8
 #      run:  docker build --compress -t epicmorg/jira:xxx atlassian/jira/8/xxx
 #    - name: Push Jira xxx + JDK 8
