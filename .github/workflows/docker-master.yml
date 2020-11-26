@@ -2105,29 +2105,29 @@ jobs:
 #    - name: Push Confluence xxx + JDK 11
 #      run:  docker push epicmorg/confluence:xxx-jdk11
 
-    - name: Build Confluence 7.0.1
-      run:  docker build --compress -t epicmorg/confluence:7.0.1 atlassian/confluence/7.0.1
-    - name: Push Confluence 7.0.1
+    - name: Build Confluence 7.0.1 + JDK 8
+      run:  docker build --compress -t epicmorg/confluence:7.0.1 atlassian/confluence/7/7.0.1
+    - name: Push Confluence 7.0.1 + JDK 8
       run:  docker push epicmorg/confluence:7.0.1
 
-    - name: Build Confluence 7.0.2
-      run:  docker build --compress -t epicmorg/confluence:7.0.2 atlassian/confluence/7.0.2
-    - name: Push Confluence 7.0.2
+    - name: Build Confluence 7.0.2 + JDK 8
+      run:  docker build --compress -t epicmorg/confluence:7.0.2 atlassian/confluence/7/7.0.2
+    - name: Push Confluence 7.0.2 + JDK 8
       run:  docker push epicmorg/confluence:7.0.2
 
-    - name: Build Confluence 7.0.3
-      run:  docker build --compress -t epicmorg/confluence:7.0.3 atlassian/confluence/7.0.3
-    - name: Push Confluence 7.0.3
+    - name: Build Confluence 7.0.3 + JDK 8
+      run:  docker build --compress -t epicmorg/confluence:7.0.3 atlassian/confluence/7/7.0.3
+    - name: Push Confluence 7.0.3 + JDK 8
       run:  docker push epicmorg/confluence:7.0.3
 
-    - name: Build Confluence 7.0.4
-      run:  docker build --compress -t epicmorg/confluence:7.0.4 atlassian/confluence/7.0.4
-    - name: Push Confluence 7.0.4
+    - name: Build Confluence 7.0.4 + JDK 8
+      run:  docker build --compress -t epicmorg/confluence:7.0.4 atlassian/confluence/7/7.0.4
+    - name: Push Confluence 7.0.4 + JDK 8
       run:  docker push epicmorg/confluence:7.0.4
 
-    - name: Build Confluence 7.0.5
-      run:  docker build --compress -t epicmorg/confluence:7.0.5 atlassian/confluence/7.0.5
-    - name: Push Confluence 7.0.5
+    - name: Build Confluence 7.0.5 + JDK 8
+      run:  docker build --compress -t epicmorg/confluence:7.0.5 atlassian/confluence/7/7.0.5
+    - name: Push Confluence 7.0.5 + JDK 8
       run:  docker push epicmorg/confluence:7.0.5
 
     - name: Cleanup
@@ -2136,32 +2136,32 @@ jobs:
 ##################################################################################
 
     - name: Build Confluence 7.1.0 JDK 8
-      run:  docker build --compress -t epicmorg/confluence:7.1.0 atlassian/confluence/7.1.0
+      run:  docker build --compress -t epicmorg/confluence:7.1.0 atlassian/confluence/7/7.1.0
     - name: Push Confluence 7.1.0 JDK 8
       run:  docker push epicmorg/confluence:7.1.0
 
     - name: Build Confluence 7.1.0 JDK 11
-      run:  docker build --compress -t epicmorg/confluence:7.1.0-jdk11 -f atlassian/confluence/7.1.0/Dockerfile.jdk11 atlassian/confluence/7.1.0
+      run:  docker build --compress -t epicmorg/confluence:7.1.0-jdk11 -f atlassian/confluence/7/7.1.0/Dockerfile.jdk11 atlassian/confluence/7/7.1.0
     - name: Push Confluence 7.1.0 JDK 11
       run:  docker push epicmorg/confluence:7.1.0-jdk11
 
     - name: Build Confluence 7.1.1 JDK 8
-      run:  docker build --compress -t epicmorg/confluence:7.1.1 atlassian/confluence/7.1.1
+      run:  docker build --compress -t epicmorg/confluence:7.1.1 atlassian/confluence/7/7.1.1
     - name: Push Confluence 7.1.1 JDK 8
       run:  docker push epicmorg/confluence:7.1.1
 
     - name: Build Confluence 7.1.1 JDK 11
-      run:  docker build --compress -t epicmorg/confluence:7.1.1-jdk11 -f atlassian/confluence/7.1.1/Dockerfile.jdk11 atlassian/confluence/7.1.1
+      run:  docker build --compress -t epicmorg/confluence:7.1.1-jdk11 -f atlassian/confluence/7/7.1.1/Dockerfile.jdk11 atlassian/confluence/7/7.1.1
     - name: Push Confluence 7.1.1 JDK 11
       run:  docker push epicmorg/confluence:7.1.1-jdk11
 
     - name: Build Confluence 7.1.2 JDK 8
-      run:  docker build --compress -t epicmorg/confluence:7.1.2 atlassian/confluence/7.1.2
+      run:  docker build --compress -t epicmorg/confluence:7.1.2 atlassian/confluence/7/7.1.2
     - name: Push Confluence 7.1.2 JDK 8
       run:  docker push epicmorg/confluence:7.1.2
 
     - name: Build Confluence 7.1.2 JDK 11
-      run:  docker build --compress -t epicmorg/confluence:7.1.2-jdk11 -f atlassian/confluence/7.1.2/Dockerfile.jdk11 atlassian/confluence/7.1.2
+      run:  docker build --compress -t epicmorg/confluence:7.1.2-jdk11 -f atlassian/confluence/7/7.1.2/Dockerfile.jdk11 atlassian/confluence/7/7.1.2
     - name: Push Confluence 7.1.2 JDK 11
       run:  docker push epicmorg/confluence:7.1.2-jdk11
 
@@ -2171,32 +2171,32 @@ jobs:
 ##################################################################################
 
     - name: Build Confluence 7.2.0 JDK 8
-      run:  docker build --compress -t epicmorg/confluence:7.2.0 atlassian/confluence/7.2.0
+      run:  docker build --compress -t epicmorg/confluence:7.2.0 atlassian/confluence/7/7.2.0
     - name: Push Confluence 7.2.0 JDK 8
       run:  docker push epicmorg/confluence:7.2.0
 
     - name: Build Confluence 7.2.0 JDK 11
-      run:  docker build --compress -t epicmorg/confluence:7.2.0-jdk11 -f atlassian/confluence/7.2.0/Dockerfile.jdk11 atlassian/confluence/7.2.0
+      run:  docker build --compress -t epicmorg/confluence:7.2.0-jdk11 -f atlassian/confluence/7/7.2.0/Dockerfile.jdk11 atlassian/confluence/7/7.2.0
     - name: Push Confluence 7.2.0 JDK 11
       run:  docker push epicmorg/confluence:7.2.0-jdk11
 
     - name: Build Confluence 7.2.1 JDK 8
-      run:  docker build --compress -t epicmorg/confluence:7.2.1 atlassian/confluence/7.2.1
+      run:  docker build --compress -t epicmorg/confluence:7.2.1 atlassian/confluence/7/7.2.1
     - name: Push Confluence 7.2.1 JDK 8
       run:  docker push epicmorg/confluence:7.2.1
 
     - name: Build Confluence 7.2.1 JDK 11
-      run:  docker build --compress -t epicmorg/confluence:7.2.1-jdk11 -f atlassian/confluence/7.2.1/Dockerfile.jdk11 atlassian/confluence/7.2.1
+      run:  docker build --compress -t epicmorg/confluence:7.2.1-jdk11 -f atlassian/confluence/7/7.2.1/Dockerfile.jdk11 atlassian/confluence/7/7.2.1
     - name: Push Confluence 7.2.1 JDK 11
       run:  docker push epicmorg/confluence:7.2.1-jdk11
 
     - name: Build Confluence 7.2.2 JDK 8
-      run:  docker build --compress -t epicmorg/confluence:7.2.2 atlassian/confluence/7.2.2
+      run:  docker build --compress -t epicmorg/confluence:7.2.2 atlassian/confluence/7/7.2.2
     - name: Push Confluence 7.2.2 JDK 8
       run:  docker push epicmorg/confluence:7.2.2
 
     - name: Build Confluence 7.2.2 JDK 11
-      run:  docker build --compress -t epicmorg/confluence:7.2.2-jdk11 -f atlassian/confluence/7.2.2/Dockerfile.jdk11 atlassian/confluence/7.2.2
+      run:  docker build --compress -t epicmorg/confluence:7.2.2-jdk11 -f atlassian/confluence/7/7.2.2/Dockerfile.jdk11 atlassian/confluence/7/7.2.2
     - name: Push Confluence 7.2.2 JDK 11
       run:  docker push epicmorg/confluence:7.2.2-jdk11
 
@@ -2205,54 +2205,54 @@ jobs:
 
 ##################################################################################
 
-    - name: Build Confluence 7.3.1 JDK 8
-      run:  docker build --compress -t epicmorg/confluence:7.3.1 atlassian/confluence/7.3.1
-    - name: Push Confluence 7.3.1 JDK 8
+    - name: Build Confluence 7.3.1 + JDK 8
+      run:  docker build --compress -t epicmorg/confluence:7.3.1 atlassian/confluence/7/7.3.1
+    - name: Push Confluence 7.3.1 + JDK 8
       run:  docker push epicmorg/confluence:7.3.1
 
-    - name: Build Confluence 7.3.1 JDK 11
-      run:  docker build --compress -t epicmorg/confluence:7.3.1-jdk11 -f atlassian/confluence/7.3.1/Dockerfile.jdk11 atlassian/confluence/7.3.1
-    - name: Push Confluence 7.3.1 JDK 11
+    - name: Build Confluence 7.3.1 + JDK 11
+      run:  docker build --compress -t epicmorg/confluence:7.3.1-jdk11 -f atlassian/confluence/7/7.3.1/Dockerfile.jdk11 atlassian/confluence/7/7.3.1
+    - name: Push Confluence 7.3.1 + JDK 11
       run:  docker push epicmorg/confluence:7.3.1-jdk11
 
-    - name: Build Confluence 7.3.2 JDK 8
-      run:  docker build --compress -t epicmorg/confluence:7.3.2 atlassian/confluence/7.3.2
-    - name: Push Confluence 7.3.2 JDK 8
+    - name: Build Confluence 7.3.2 + JDK 8
+      run:  docker build --compress -t epicmorg/confluence:7.3.2 atlassian/confluence/7/7.3.2
+    - name: Push Confluence 7.3.2 + JDK 8
       run:  docker push epicmorg/confluence:7.3.2
 
-    - name: Build Confluence 7.3.2 JDK 11
-      run:  docker build --compress -t epicmorg/confluence:7.3.2-jdk11 -f atlassian/confluence/7.3.2/Dockerfile.jdk11 atlassian/confluence/7.3.2
-    - name: Push Confluence 7.3.2 JDK 11
+    - name: Build Confluence 7.3.2 + JDK 11
+      run:  docker build --compress -t epicmorg/confluence:7.3.2-jdk11 -f atlassian/confluence/7/7.3.2/Dockerfile.jdk11 atlassian/confluence/7/7.3.2
+    - name: Push Confluence 7.3.2 + JDK 11
       run:  docker push epicmorg/confluence:7.3.2-jdk11
 
-    - name: Build Confluence 7.3.3 JDK 8
-      run:  docker build --compress -t epicmorg/confluence:7.3.3 atlassian/confluence/7.3.3
-    - name: Push Confluence 7.3.3 JDK 8
+    - name: Build Confluence 7.3.3 + JDK 8
+      run:  docker build --compress -t epicmorg/confluence:7.3.3 atlassian/confluence/7/7.3.3
+    - name: Push Confluence 7.3.3 + JDK 8
       run:  docker push epicmorg/confluence:7.3.3
 
-    - name: Build Confluence 7.3.3 JDK 11
-      run:  docker build --compress -t epicmorg/confluence:7.3.3-jdk11 -f atlassian/confluence/7.3.3/Dockerfile.jdk11 atlassian/confluence/7.3.3
-    - name: Push Confluence 7.3.3 JDK 11
+    - name: Build Confluence 7.3.3 + JDK 11
+      run:  docker build --compress -t epicmorg/confluence:7.3.3-jdk11 -f atlassian/confluence/7/7.3.3/Dockerfile.jdk11 atlassian/confluence/7/7.3.3
+    - name: Push Confluence 7.3.3 + JDK 11
       run:  docker push epicmorg/confluence:7.3.3-jdk11
 
-    - name: Build Confluence 7.3.4 JDK 8
-      run:  docker build --compress -t epicmorg/confluence:7.3.4 atlassian/confluence/7.3.4
-    - name: Push Confluence 7.3.4 JDK 8
+    - name: Build Confluence 7.3.4 + JDK 8
+      run:  docker build --compress -t epicmorg/confluence:7.3.4 atlassian/confluence/7/7.3.4
+    - name: Push Confluence 7.3.4 + JDK 8
       run:  docker push epicmorg/confluence:7.3.4
 
-    - name: Build Confluence 7.3.4 JDK 11
-      run:  docker build --compress -t epicmorg/confluence:7.3.4-jdk11 -f atlassian/confluence/7.3.4/Dockerfile.jdk11 atlassian/confluence/7.3.4
-    - name: Push Confluence 7.3.4 JDK 11
+    - name: Build Confluence 7.3.4 + JDK 11
+      run:  docker build --compress -t epicmorg/confluence:7.3.4-jdk11 -f atlassian/confluence/7/7.3.4/Dockerfile.jdk11 atlassian/confluence/7/7.3.4
+    - name: Push Confluence 7.3.4 + JDK 11
       run:  docker push epicmorg/confluence:7.3.4-jdk11
 
-    - name: Build Confluence 7.3.5 JDK 8
-      run:  docker build --compress -t epicmorg/confluence:7.3.5 atlassian/confluence/7.3.5
-    - name: Push Confluence 7.3.5 JDK 8
+    - name: Build Confluence 7.3.5 + JDK 8
+      run:  docker build --compress -t epicmorg/confluence:7.3.5 atlassian/confluence/7/7.3.5
+    - name: Push Confluence 7.3.5 + JDK 8
       run:  docker push epicmorg/confluence:7.3.5
 
-    - name: Build Confluence 7.3.5 JDK 11
-      run:  docker build --compress -t epicmorg/confluence:7.3.5-jdk11 -f atlassian/confluence/7.3.5/Dockerfile.jdk11 atlassian/confluence/7.3.5
-    - name: Push Confluence 7.3.5 JDK 11
+    - name: Build Confluence 7.3.5 + JDK 11
+      run:  docker build --compress -t epicmorg/confluence:7.3.5-jdk11 -f atlassian/confluence/7/7.3.5/Dockerfile.jdk11 atlassian/confluence/7/7.3.5
+    - name: Push Confluence 7.3.5 + JDK 11
       run:  docker push epicmorg/confluence:7.3.5-jdk11
 
     - name: Cleanup
@@ -2260,14 +2260,14 @@ jobs:
 
 ##################################################################################
 
-    - name: Build Confluence 7.4.0 JDK 8 LTS
-      run:  docker build --compress -t epicmorg/confluence:7.4.0 atlassian/confluence/7.4.0
-    - name: Push Confluence 7.4.0 JDK 8 LTS
+    - name: Build Confluence 7.4.0 LTS + JDK 8
+      run:  docker build --compress -t epicmorg/confluence:7.4.0 atlassian/confluence/7/7.4.0
+    - name: Push Confluence 7.4.0 LTS + JDK 8
       run:  docker push epicmorg/confluence:7.4.0
 
-    - name: Build Confluence 7.4.0 JDK 11 LTS
-      run:  docker build --compress -t epicmorg/confluence:7.4.0-jdk11 -f atlassian/confluence/7.4.0/Dockerfile.jdk11 atlassian/confluence/7.4.0
-    - name: Push Confluence 7.4.0 JDK 11 LTS
+    - name: Build Confluence 7.4.0 LTS + JDK 11
+      run:  docker build --compress -t epicmorg/confluence:7.4.0-jdk11 -f atlassian/confluence/7/7.4.0/Dockerfile.jdk11 atlassian/confluence/7/7.4.0
+    - name: Push Confluence 7.4.0 LTS + JDK 11
       run:  docker push epicmorg/confluence:7.4.0-jdk11
 
     - name: Cleanup
@@ -2275,14 +2275,14 @@ jobs:
 
 ##################################################################################
 
-    - name: Build Confluence 7.5.0 JDK 8
-      run:  docker build --compress -t epicmorg/confluence:7.5.0 atlassian/confluence/7.5.0
-    - name: Push Confluence 7.5.0 JDK 8
+    - name: Build Confluence 7.5.0 + JDK 8
+      run:  docker build --compress -t epicmorg/confluence:7.5.0 atlassian/confluence/7/7.5.0
+    - name: Push Confluence 7.5.0 + JDK 8
       run:  docker push epicmorg/confluence:7.5.0
 
-    - name: Build Confluence 7.5.0 JDK 11
-      run:  docker build --compress -t epicmorg/confluence:7.5.0-jdk11 -f atlassian/confluence/7.5.0/Dockerfile.jdk11 atlassian/confluence/7.5.0
-    - name: Push Confluence 7.5.0 JDK 11
+    - name: Build Confluence 7.5.0 + JDK 11
+      run:  docker build --compress -t epicmorg/confluence:7.5.0-jdk11 -f atlassian/confluence/7/7.5.0/Dockerfile.jdk11 atlassian/confluence/7/7.5.0
+    - name: Push Confluence 7.5.0 + JDK 11
       run:  docker push epicmorg/confluence:7.5.0-jdk11
 
     - name: Cleanup
