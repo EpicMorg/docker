@@ -63,6 +63,9 @@ jobs:
       run:  docker build --compress -t epicmorg/teamcity-server:latest teamcity/server
     - name: Push TeamCity Server (latest)
       run:  docker push epicmorg/teamcity-server:latest
+
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
  
 #########################################
 ####  EpicMorg Base Production images
@@ -104,6 +107,8 @@ jobs:
     - name: Push Base Production + JDK 11
       run:  docker push epicmorg/prod:jdk11
 
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
 #########################################
 ####  EpicMorg Base Edge images
 #########################################
@@ -144,6 +149,9 @@ jobs:
       run:  docker build --compress -t epicmorg/edge:jdk11 epicmorg/edge/jdk11
     - name: Push Base Edge + JDK 11
       run:  docker push epicmorg/edge:jdk11
+ 
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
 
 #########################################
 ####  EpicMorg Base Develop images
@@ -185,6 +193,9 @@ jobs:
       run:  docker build --compress -t epicmorg/devel:jdk11 epicmorg/devel/jdk11
     - name: Push Base Develop + JDK 11
       run:  docker push epicmorg/devel:jdk11
+ 
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
 
 #########################################
 ####  EpicMorg Main images
@@ -226,6 +237,9 @@ jobs:
       run:  docker build --compress -t epicmorg/vk2discord:latest vk2discord/latest
     - name: Push vk2discord (latest)
       run:  docker push epicmorg/vk2discord:latest
+ 
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
 
 #########################################
 ####  Testrail images
@@ -247,7 +261,9 @@ jobs:
       run:  docker build --compress -t epicmorg/testrail:latest testrail/latest
     - name: Push Testrail (always latest)
       run:  docker push epicmorg/testrail:latest
-
+ 
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
 
 #########################################
 ####  EpicMorg Secondary images
@@ -290,6 +306,9 @@ jobs:
     - name: Push Apache + PHP7.2
       run:  docker push epicmorg/websites:php7.2
 
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+
 #########################################
 ####  Atlassian Bitbucket images
 #########################################
@@ -315,6 +334,9 @@ jobs:
       run:  docker build --compress -t epicmorg/bitbucket:latest-jdk11 -f atlassian/bitbucket/latest/Dockerfile.jdk11 atlassian/bitbucket/latest
     - name: Push Bitbucket + JDK 11 (latest-jdk11)
       run:  docker push epicmorg/bitbucket:latest-jdk11
+ 
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
 
 #########################################
 ####  Atlassian Confluence images
@@ -341,6 +363,9 @@ jobs:
       run:  docker build --compress -t epicmorg/confluence:latest-jdk11 -f atlassian/confluence/latest/Dockerfile.jdk11 atlassian/confluence/latest
     - name: Push Confluence + JDK 11 (latest-jdk11)
       run:  docker push epicmorg/confluence:latest-jdk11
+ 
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
 
 #########################################
 ####  Atlassian Jira images
@@ -367,6 +392,9 @@ jobs:
       run:  docker build --compress -t epicmorg/jira:latest-jdk11 -f atlassian/jira/latest/Dockerfile.jdk11 atlassian/jira/latest
     - name: Push Jira + JDK 11 (latest-jdk11)
       run:  docker push epicmorg/jira:latest-jdk11
+ 
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
 
 #########################################
 ####  Atlassian Fisheye + Crucible  images
@@ -388,7 +416,9 @@ jobs:
       run:  docker build --compress -t epicmorg/fisheye-crucible:latest atlassian/fisheye-crucible/latest
     - name: Push Build Fisheye + Crucible + JDK 8 (latest)
       run:  docker push epicmorg/fisheye-crucible:latest
-
+ 
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
 
 #########################################
 ####  qBitTorrent  images
@@ -421,6 +451,8 @@ jobs:
     - name: Push qBitTorrent (stable)
       run:  docker push epicmorg/qbittorrent:stable
 
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
 
 #########################################
 ####  PostgresSQL Backport images
@@ -503,6 +535,9 @@ jobs:
     - name: Push PostgresSQL (12)
       run:  docker push epicmorg/postgres:12
 
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+
 #########################################
 ####  NextCloud Backport images
 #########################################
@@ -552,6 +587,8 @@ jobs:
     - name: Push NextCloud (20)
       run:  docker push epicmorg/nextcloud:20
 
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
 
 #########################################
 ####  Atlassian Bitbucket 6 Backport images
@@ -690,6 +727,9 @@ jobs:
     - name: Push Bitbucket 6.0.11 + JDK 11
       run:  docker push epicmorg/bitbucket:6.0.11-jdk11
 
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+
 ##########
 
     - name: Build Bitbucket 6.1.0 + JDK 8
@@ -792,6 +832,9 @@ jobs:
     - name: Push Bitbucket 6.1.9 + JDK 11
       run:  docker push epicmorg/bitbucket:6.1.9-jdk11
 
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+
 ##########
 
     - name: Build Bitbucket 6.2.0 + JDK 8
@@ -874,6 +917,9 @@ jobs:
     - name: Push Bitbucket 6.2.7 + JDK 11
       run:  docker push epicmorg/bitbucket:6.2.7-jdk11
 
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+
 ##########
 
     - name: Build Bitbucket 6.3.0 + JDK 8
@@ -946,6 +992,9 @@ jobs:
     - name: Push Bitbucket 6.3.6 + JDK 11
       run:  docker push epicmorg/bitbucket:6.3.6-jdk11
 
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+
 ##########
 
     - name: Build Bitbucket 6.4.0 + JDK 8
@@ -998,6 +1047,9 @@ jobs:
     - name: Push Bitbucket 6.4.4 + JDK 11
       run:  docker push epicmorg/bitbucket:6.4.4-jdk11
 
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+
 ##########
 
     - name: Build Bitbucket 6.5.0 + JDK 8
@@ -1039,6 +1091,9 @@ jobs:
       run:  docker build --compress -t epicmorg/bitbucket:6.5.3-jdk11 -f atlassian/bitbucket/6/6.5.3/Dockerfile.jdk11 atlassian/bitbucket/6/6.5.3
     - name: Push Bitbucket 6.5.3 + JDK 11
       run:  docker push epicmorg/bitbucket:6.5.3-jdk11
+
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
 
 ##########
 
@@ -1092,6 +1147,9 @@ jobs:
     - name: Push Bitbucket 6.6.4 + JDK 11
       run:  docker push epicmorg/bitbucket:6.6.4-jdk11
 
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+
 ##########
 
     - name: Build Bitbucket 6.7.0 + JDK 8
@@ -1144,6 +1202,9 @@ jobs:
     - name: Push Bitbucket 6.7.4 + JDK 11
       run:  docker push epicmorg/bitbucket:6.7.4-jdk11
 
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+
 ##########
 
     - name: Build Bitbucket 6.8.0 + JDK 8
@@ -1186,6 +1247,9 @@ jobs:
     - name: Push Bitbucket 6.8.3 + JDK 11
       run:  docker push epicmorg/bitbucket:6.8.3-jdk11
 
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+
 ##########
 
     - name: Build Bitbucket 6.9.0 + JDK 8
@@ -1218,6 +1282,9 @@ jobs:
     - name: Push Bitbucket 6.9.2 + JDK 11
       run:  docker push epicmorg/bitbucket:6.9.2-jdk11
  
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+
 ##########
 
     - name: Build Bitbucket 6.10.0 LTS + JDK 8
@@ -1250,6 +1317,8 @@ jobs:
     - name: Push Bitbucket 6.10.2 LTS + JDK 11
       run:  docker push epicmorg/bitbucket:6.10.2-jdk11
 
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
 
 #########################################
 ####  Atlassian Bitbucket 7 Backport images
@@ -1317,6 +1386,9 @@ jobs:
     - name: Push Bitbucket 7.0.3 + JDK11
       run:  docker push epicmorg/bitbucket:7.0.3-jdk11
 
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+
 #########################################
 
     - name: Build Bitbucket 7.1.0 + JDK8
@@ -1358,6 +1430,9 @@ jobs:
       run:  docker build --compress -t epicmorg/bitbucket:7.1.3-jdk11 -f atlassian/bitbucket/7/7.1.3/Dockerfile.jdk11 atlassian/bitbucket/7/7.1.3
     - name: Push Bitbucket 7.1.3 + JDK11
       run:  docker push epicmorg/bitbucket:7.1.3-jdk11
+
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
 
 #########################################
 
@@ -1401,6 +1476,9 @@ jobs:
     - name: Push Bitbucket 7.2.3 + JDK11
       run:  docker push epicmorg/bitbucket:7.2.3-jdk11
 
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+
 #########################################
 ####  Atlassian Confluence 5 Backport images
 #########################################
@@ -1417,14 +1495,14 @@ jobs:
 
 ##########
  
-#    - name: Build Confluence + JDK 7 (xxx)
+#    - name: Build Confluence xxx + JDK 7
 #      run:  docker build --compress -t epicmorg/confluence:xxx atlassian/confluence/5/xxx
-#    - name: Push Confluence + JDK 7 (xxx)
+#    - name: Push Confluence xxx + JDK 7
 #      run:  docker push epicmorg/confluence:xxx
 
-#    - name: Build Confluence + JDK 8 (xxx)
+#    - name: Build Confluence xxx + JDK 8
 #      run:  docker build --compress -t epicmorg/confluence:xxx atlassian/confluence/6/xxx
-#    - name: Push Confluence + JDK 8 (xxx)
+#    - name: Push Confluence xxx + JDK 8
 #      run:  docker push epicmorg/confluence:xxx
 
     - name: Build Confluence + JDK 7 (5.5)
@@ -1436,6 +1514,9 @@ jobs:
       run:  docker build --compress -t epicmorg/confluence:5.9.14 atlassian/confluence/5/5.9.14
     - name: Push Confluence + JDK 8 (5.9.14)
       run:  docker push epicmorg/confluence:5.9.14
+
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
 
 #########################################
 ####  Atlassian Confluence 6 Backport images
@@ -1453,17 +1534,550 @@ jobs:
 
 ##########
 
-
-#    - name: Build Confluence + JDK 8 (xxx)
+#    - name: Build Confluence xxx + JDK 8
 #      run:  docker build --compress -t epicmorg/confluence:xxx atlassian/confluence/6/xxx
-#    - name: Push Confluence + JDK 8 (xxx)
+#    - name: Push Confluence xxx + JDK 8
 #      run:  docker push epicmorg/confluence:xxx
 
-#    - name: Build Confluence + JDK 11 (xxx-jdk11)
-#      run:  docker build --compress -t epicmorg/confluence:xxx-jdk11 -f atlassian/confluence/6/xxx/Dockerfile.jdk11 atlassian/confluence/6/xxx
-#    - name: Push Confluence + JDK 11 (xxx-jdk11)
-#      run:  docker push epicmorg/confluence:xxx-jdk11
+    - name: Build Confluence 6.0.1 + JDK 8
+      run:  docker build --compress -t epicmorg/confluence:6.0.1 atlassian/confluence/6/6.0.1
+    - name: Push Confluence 6.0.1 + JDK 8
+      run:  docker push epicmorg/confluence:6.0.1
 
+    - name: Build Confluence 6.0.2 + JDK 8
+      run:  docker build --compress -t epicmorg/confluence:6.0.2 atlassian/confluence/6/6.0.2
+    - name: Push Confluence 6.0.2 + JDK 8
+      run:  docker push epicmorg/confluence:6.0.2
+
+    - name: Build Confluence 6.0.3 + JDK 8
+      run:  docker build --compress -t epicmorg/confluence:6.0.3 atlassian/confluence/6/6.0.3
+    - name: Push Confluence 6.0.3 + JDK 8
+      run:  docker push epicmorg/confluence:6.0.3
+
+    - name: Build Confluence 6.0.4 + JDK 8
+      run:  docker build --compress -t epicmorg/confluence:6.0.4 atlassian/confluence/6/6.0.4
+    - name: Push Confluence 6.0.4 + JDK 8
+      run:  docker push epicmorg/confluence:6.0.4
+
+    - name: Build Confluence 6.0.5 + JDK 8
+      run:  docker build --compress -t epicmorg/confluence:6.0.5 atlassian/confluence/6/6.0.5
+    - name: Push Confluence 6.0.5 + JDK 8
+      run:  docker push epicmorg/confluence:6.0.5
+
+    - name: Build Confluence 6.0.6 + JDK 8
+      run:  docker build --compress -t epicmorg/confluence:6.0.6 atlassian/confluence/6/6.0.6
+    - name: Push Confluence 6.0.6 + JDK 8
+      run:  docker push epicmorg/confluence:6.0.6
+
+    - name: Build Confluence 6.0.7 + JDK 8
+      run:  docker build --compress -t epicmorg/confluence:6.0.7 atlassian/confluence/6/6.0.7
+    - name: Push Confluence 6.0.7 + JDK 8
+      run:  docker push epicmorg/confluence:6.0.7
+
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+
+#########################################
+
+    - name: Build Confluence 6.1.0
+      run:  docker build --compress -t epicmorg/confluence:6.1.0 atlassian/confluence/6/6.1.0
+    - name: Push Confluence 6.1.0
+      run:  docker push epicmorg/confluence:6.1.0
+
+    - name: Build Confluence 6.1.1
+      run:  docker build --compress -t epicmorg/confluence:6.1.1 atlassian/confluence/6/6.1.1
+    - name: Push Confluence 6.1.1
+      run:  docker push epicmorg/confluence:6.1.1
+
+    - name: Build Confluence 6.1.2
+      run:  docker build --compress -t epicmorg/confluence:6.1.2 atlassian/confluence/6/6.1.2
+    - name: Push Confluence 6.1.2
+      run:  docker push epicmorg/confluence:6.1.2
+
+    - name: Build Confluence 6.1.3
+      run:  docker build --compress -t epicmorg/confluence:6.1.3 atlassian/confluence/6/6.1.3
+    - name: Push Confluence 6.1.3
+      run:  docker push epicmorg/confluence:6.1.3
+
+    - name: Build Confluence 6.1.4
+      run:  docker build --compress -t epicmorg/confluence:6.1.4 atlassian/confluence/6/6.1.4
+    - name: Push Confluence 6.1.4
+      run:  docker push epicmorg/confluence:6.1.4
+
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+
+#########################################
+
+    - name: Build Confluence 6.2.0
+      run:  docker build --compress -t epicmorg/confluence:6.2.0 atlassian/confluence/6/6.2.0
+    - name: Push Confluence 6.2.0
+      run:  docker push epicmorg/confluence:6.2.0
+
+    - name: Build Confluence 6.2.1
+      run:  docker build --compress -t epicmorg/confluence:6.2.1 atlassian/confluence/6/6.2.1
+    - name: Push Confluence 6.2.1
+      run:  docker push epicmorg/confluence:6.2.1
+
+    - name: Build Confluence 6.2.3
+      run:  docker build --compress -t epicmorg/confluence:6.2.3 atlassian/confluence/6/6.2.3
+    - name: Push Confluence 6.2.3
+      run:  docker push epicmorg/confluence:6.2.3
+
+    - name: Build Confluence 6.2.4
+      run:  docker build --compress -t epicmorg/confluence:6.2.4 atlassian/confluence/6/6.2.4
+    - name: Push Confluence 6.2.4
+      run:  docker push epicmorg/confluence:6.2.4
+
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+
+#########################################
+
+    - name: Build Confluence 6.3.1
+      run:  docker build --compress -t epicmorg/confluence:6.3.1 atlassian/confluence/6/6.3.1
+    - name: Push Confluence 6.3.1
+      run:  docker push epicmorg/confluence:6.3.1
+
+    - name: Build Confluence 6.3.2
+      run:  docker build --compress -t epicmorg/confluence:6.3.2 atlassian/confluence/6/6.3.2
+    - name: Push Confluence 6.3.2
+      run:  docker push epicmorg/confluence:6.3.2
+
+    - name: Build Confluence 6.3.3
+      run:  docker build --compress -t epicmorg/confluence:6.3.3 atlassian/confluence/6/6.3.3
+    - name: Push Confluence 6.3.3
+      run:  docker push epicmorg/confluence:6.3.3
+
+    - name: Build Confluence 6.3.4
+      run:  docker build --compress -t epicmorg/confluence:6.3.4 atlassian/confluence/6/6.3.4
+    - name: Push Confluence 6.3.4
+      run:  docker push epicmorg/confluence:6.3.4
+
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+
+#########################################
+
+    - name: Build Confluence 6.4.0
+      run:  docker build --compress -t epicmorg/confluence:6.4.0 atlassian/confluence/6/6.4.0
+    - name: Push Confluence 6.4.0
+      run:  docker push epicmorg/confluence:6.4.0
+
+    - name: Build Confluence 6.4.1
+      run:  docker build --compress -t epicmorg/confluence:6.4.1 atlassian/confluence/6/6.4.1
+    - name: Push Confluence 6.4.1
+      run:  docker push epicmorg/confluence:6.4.1
+
+    - name: Build Confluence 6.4.2
+      run:  docker build --compress -t epicmorg/confluence:6.4.2 atlassian/confluence/6/6.4.2
+    - name: Push Confluence 6.4.2
+      run:  docker push epicmorg/confluence:6.4.2
+
+    - name: Build Confluence 6.4.3
+      run:  docker build --compress -t epicmorg/confluence:6.4.3 atlassian/confluence/6/6.4.3
+    - name: Push Confluence 6.4.3
+      run:  docker push epicmorg/confluence:6.4.3
+
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+
+#########################################
+
+    - name: Build Confluence 6.5.0
+      run:  docker build --compress -t epicmorg/confluence:6.5.0 atlassian/confluence/6/6.5.0
+    - name: Push Confluence 6.5.0
+      run:  docker push epicmorg/confluence:6.5.0
+
+    - name: Build Confluence 6.5.1
+      run:  docker build --compress -t epicmorg/confluence:6.5.1 atlassian/confluence/6/6.5.1
+    - name: Push Confluence 6.5.1
+      run:  docker push epicmorg/confluence:6.5.1
+
+    - name: Build Confluence 6.5.2
+      run:  docker build --compress -t epicmorg/confluence:6.5.2 atlassian/confluence/6/6.5.2
+    - name: Push Confluence 6.5.2
+      run:  docker push epicmorg/confluence:6.5.2
+
+    - name: Build Confluence 6.5.3
+      run:  docker build --compress -t epicmorg/confluence:6.5.3 atlassian/confluence/6/6.5.3
+    - name: Push Confluence 6.5.3
+      run:  docker push epicmorg/confluence:6.5.3
+
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+
+#########################################
+
+    - name: Build Confluence 6.6.0 LTS
+      run:  docker build --compress -t epicmorg/confluence:6.6.0 atlassian/confluence/6/6.6.0
+    - name: Push Confluence 6.6.0 LTS
+      run:  docker push epicmorg/confluence:6.6.0
+
+    - name: Build Confluence 6.6.1 LTS
+      run:  docker build --compress -t epicmorg/confluence:6.6.1 atlassian/confluence/6/6.6.1
+    - name: Push Confluence 6.6.1 LTS
+      run:  docker push epicmorg/confluence:6.6.1
+
+    - name: Build Confluence 6.6.2 LTS
+      run:  docker build --compress -t epicmorg/confluence:6.6.2 atlassian/confluence/6/6.6.2
+    - name: Push Confluence 6.6.2 LTS
+      run:  docker push epicmorg/confluence:6.6.2
+
+    - name: Build Confluence 6.6.3 LTS
+      run:  docker build --compress -t epicmorg/confluence:6.6.3 atlassian/confluence/6/6.6.3
+    - name: Push Confluence 6.6.3 LTS
+      run:  docker push epicmorg/confluence:6.6.3
+
+    - name: Build Confluence 6.6.4 LTS
+      run:  docker build --compress -t epicmorg/confluence:6.6.4 atlassian/confluence/6/6.6.4
+    - name: Push Confluence 6.6.4 LTS
+      run:  docker push epicmorg/confluence:6.6.4
+
+    - name: Build Confluence 6.6.5 LTS
+      run:  docker build --compress -t epicmorg/confluence:6.6.5 atlassian/confluence/6/6.6.5
+    - name: Push Confluence 6.6.5 LTS
+      run:  docker push epicmorg/confluence:6.6.5
+
+    - name: Build Confluence 6.6.6 LTS
+      run:  docker build --compress -t epicmorg/confluence:6.6.6 atlassian/confluence/6/6.6.6
+    - name: Push Confluence 6.6.6 LTS
+      run:  docker push epicmorg/confluence:6.6.6
+
+    - name: Build Confluence 6.6.7 LTS
+      run:  docker build --compress -t epicmorg/confluence:6.6.7 atlassian/confluence/6/6.6.7
+    - name: Push Confluence 6.6.7 LTS
+      run:  docker push epicmorg/confluence:6.6.7
+
+    - name: Build Confluence 6.6.8 LTS
+      run:  docker build --compress -t epicmorg/confluence:6.6.8 atlassian/confluence/6/6.6.8
+    - name: Push Confluence 6.6.8 LTS
+      run:  docker push epicmorg/confluence:6.6.8
+
+    - name: Build Confluence 6.6.9 LTS
+      run:  docker build --compress -t epicmorg/confluence:6.6.9 atlassian/confluence/6/6.6.9
+    - name: Push Confluence 6.6.9 LTS
+      run:  docker push epicmorg/confluence:6.6.9
+
+    - name: Build Confluence 6.6.10 LTS
+      run:  docker build --compress -t epicmorg/confluence:6.6.10 atlassian/confluence/6/6.6.10
+    - name: Push Confluence 6.6.10 LTS
+      run:  docker push epicmorg/confluence:6.6.10
+
+    - name: Build Confluence 6.6.11 LTS
+      run:  docker build --compress -t epicmorg/confluence:6.6.11 atlassian/confluence/6/6.6.11
+    - name: Push Confluence 6.6.11 LTS
+      run:  docker push epicmorg/confluence:6.6.11
+
+    - name: Build Confluence 6.6.12 LTS
+      run:  docker build --compress -t epicmorg/confluence:6.6.12 atlassian/confluence/6/6.6.12
+    - name: Push Confluence 6.6.12 LTS
+      run:  docker push epicmorg/confluence:6.6.12
+
+    - name: Build Confluence 6.6.13 LTS
+      run:  docker build --compress -t epicmorg/confluence:6.6.13 atlassian/confluence/6/6.6.13
+    - name: Push Confluence 6.6.13 LTS
+      run:  docker push epicmorg/confluence:6.6.13
+
+    - name: Build Confluence 6.6.14 LTS
+      run:  docker build --compress -t epicmorg/confluence:6.6.14 atlassian/confluence/6/6.6.14
+    - name: Push Confluence 6.6.14 LTS
+      run:  docker push epicmorg/confluence:6.6.14
+
+    - name: Build Confluence 6.6.15 LTS
+      run:  docker build --compress -t epicmorg/confluence:6.6.15 atlassian/confluence/6/6.6.15
+    - name: Push Confluence 6.6.15 LTS
+      run:  docker push epicmorg/confluence:6.6.15
+
+    - name: Build Confluence 6.6.17 LTS
+      run:  docker build --compress -t epicmorg/confluence:6.6.17 atlassian/confluence/6/6.6.17
+    - name: Push Confluence 6.6.17 LTS
+      run:  docker push epicmorg/confluence:6.6.17
+
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+
+#########################################
+
+    - name: Build Confluence 6.7.0
+      run:  docker build --compress -t epicmorg/confluence:6.7.0 atlassian/confluence/6/6.7.0
+    - name: Push Confluence 6.7.0
+      run:  docker push epicmorg/confluence:6.7.0
+
+    - name: Build Confluence 6.7.1
+      run:  docker build --compress -t epicmorg/confluence:6.7.1 atlassian/confluence/6/6.7.1
+    - name: Push Confluence 6.7.1
+      run:  docker push epicmorg/confluence:6.7.1
+
+    - name: Build Confluence 6.7.2
+      run:  docker build --compress -t epicmorg/confluence:6.7.2 atlassian/confluence/6/6.7.2
+    - name: Push Confluence 6.7.2
+      run:  docker push epicmorg/confluence:6.7.2
+
+    - name: Build Confluence 6.7.3
+      run:  docker build --compress -t epicmorg/confluence:6.7.3 atlassian/confluence/6/6.7.3
+    - name: Push Confluence 6.7.3
+      run:  docker push epicmorg/confluence:6.7.3
+
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+
+#########################################
+
+    - name: Build Confluence 6.8.0
+      run:  docker build --compress -t epicmorg/confluence:6.8.0 atlassian/confluence/6/6.8.0
+    - name: Push Confluence 6.8.0
+      run:  docker push epicmorg/confluence:6.8.0
+
+    - name: Build Confluence 6.8.1
+      run:  docker build --compress -t epicmorg/confluence:6.8.1 atlassian/confluence/6/6.8.1
+    - name: Push Confluence 6.8.1
+      run:  docker push epicmorg/confluence:6.8.1
+
+    - name: Build Confluence 6.8.2
+      run:  docker build --compress -t epicmorg/confluence:6.8.2 atlassian/confluence/6/6.8.2
+    - name: Push Confluence 6.8.2
+      run:  docker push epicmorg/confluence:6.8.2
+
+    - name: Build Confluence 6.8.3
+      run:  docker build --compress -t epicmorg/confluence:6.8.3 atlassian/confluence/6/6.8.3
+    - name: Push Confluence 6.8.3
+      run:  docker push epicmorg/confluence:6.8.3
+
+    - name: Build Confluence 6.8.5
+      run:  docker build --compress -t epicmorg/confluence:6.8.5 atlassian/confluence/6/6.8.5
+    - name: Push Confluence 6.8.5
+      run:  docker push epicmorg/confluence:6.8.5
+
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+
+#########################################
+
+    - name: Build Confluence 6.9.0
+      run:  docker build --compress -t epicmorg/confluence:6.9.0 atlassian/confluence/6/6.9.0
+    - name: Push Confluence 6.9.0
+      run:  docker push epicmorg/confluence:6.9.0
+
+    - name: Build Confluence 6.9.1
+      run:  docker build --compress -t epicmorg/confluence:6.9.1 atlassian/confluence/6/6.9.1
+    - name: Push Confluence 6.9.1
+      run:  docker push epicmorg/confluence:6.9.1
+
+    - name: Build Confluence 6.9.3
+      run:  docker build --compress -t epicmorg/confluence:6.9.3 atlassian/confluence/6/6.9.3
+    - name: Push Confluence 6.9.3
+      run:  docker push epicmorg/confluence:6.9.3
+
+#########################################
+
+    - name: Build Confluence 6.10.0
+      run:  docker build --compress -t epicmorg/confluence:6.10.0 atlassian/confluence/6/6.10.0
+    - name: Push Confluence 6.10.0
+      run:  docker push epicmorg/confluence:6.10.0
+
+    - name: Build Confluence 6.10.1
+      run:  docker build --compress -t epicmorg/confluence:6.10.1 atlassian/confluence/6/6.10.1
+    - name: Push Confluence 6.10.1
+      run:  docker push epicmorg/confluence:6.10.1
+
+    - name: Build Confluence 6.10.2
+      run:  docker build --compress -t epicmorg/confluence:6.10.2 atlassian/confluence/6/6.10.2
+    - name: Push Confluence 6.10.2
+      run:  docker push epicmorg/confluence:6.10.2
+
+    - name: Build Confluence 6.10.3
+      run:  docker build --compress -t epicmorg/confluence:6.10.3 atlassian/confluence/6/6.10.3
+    - name: Push Confluence 6.10.3
+      run:  docker push epicmorg/confluence:6.10.3
+
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+
+#########################################
+
+    - name: Build Confluence 6.11.0
+      run:  docker build --compress -t epicmorg/confluence:6.11.0 atlassian/confluence/6/6.11.0
+    - name: Push Confluence 6.11.0
+      run:  docker push epicmorg/confluence:6.11.0
+
+    - name: Build Confluence 6.11.1
+      run:  docker build --compress -t epicmorg/confluence:6.11.1 atlassian/confluence/6/6.11.1
+    - name: Push Confluence 6.11.1
+      run:  docker push epicmorg/confluence:6.11.1
+
+    - name: Build Confluence 6.11.2
+      run:  docker build --compress -t epicmorg/confluence:6.11.2 atlassian/confluence/6/6.11.2
+    - name: Push Confluence 6.11.2
+      run:  docker push epicmorg/confluence:6.11.2
+
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+
+#########################################
+
+    - name: Build Confluence 6.12.0
+      run:  docker build --compress -t epicmorg/confluence:6.12.0 atlassian/confluence/6/6.12.0
+    - name: Push Confluence 6.12.0
+      run:  docker push epicmorg/confluence:6.12.0
+
+    - name: Build Confluence 6.12.1
+      run:  docker build --compress -t epicmorg/confluence:6.12.1 atlassian/confluence/6/6.12.1
+    - name: Push Confluence 6.12.1
+      run:  docker push epicmorg/confluence:6.12.1
+
+    - name: Build Confluence 6.12.2
+      run:  docker build --compress -t epicmorg/confluence:6.12.2 atlassian/confluence/6/6.12.2
+    - name: Push Confluence 6.12.2
+      run:  docker push epicmorg/confluence:6.12.2
+
+    - name: Build Confluence 6.12.3
+      run:  docker build --compress -t epicmorg/confluence:6.12.3 atlassian/confluence/6/6.12.3
+    - name: Push Confluence 6.12.3
+      run:  docker push epicmorg/confluence:6.12.3
+
+    - name: Build Confluence 6.12.4
+      run:  docker build --compress -t epicmorg/confluence:6.12.4 atlassian/confluence/6/6.12.4
+    - name: Push Confluence 6.12.4
+      run:  docker push epicmorg/confluence:6.12.4
+
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+
+#########################################
+
+    - name: Build Confluence 6.13.0 LTS
+      run:  docker build --compress -t epicmorg/confluence:6.13.0 atlassian/confluence/6/6.13.0
+    - name: Push Confluence 6.13.0 LTS
+      run:  docker push epicmorg/confluence:6.13.0
+
+    - name: Build Confluence 6.13.1 LTS
+      run:  docker build --compress -t epicmorg/confluence:6.13.1 atlassian/confluence/6/6.13.1
+    - name: Push Confluence 6.13.1 LTS
+      run:  docker push epicmorg/confluence:6.13.1
+
+    - name: Build Confluence 6.13.2 LTS
+      run:  docker build --compress -t epicmorg/confluence:6.13.2 atlassian/confluence/6/6.13.2
+    - name: Push Confluence 6.13.2 LTS
+      run:  docker push epicmorg/confluence:6.13.2
+
+    - name: Build Confluence 6.13.3 LTS
+      run:  docker build --compress -t epicmorg/confluence:6.13.3 atlassian/confluence/6/6.13.3
+    - name: Push Confluence 6.13.3 LTS
+      run:  docker push epicmorg/confluence:6.13.3
+
+    - name: Build Confluence 6.13.4 LTS
+      run:  docker build --compress -t epicmorg/confluence:6.13.4 atlassian/confluence/6/6.13.4
+    - name: Push Confluence 6.13.4 LTS
+      run:  docker push epicmorg/confluence:6.13.4
+
+    - name: Build Confluence 6.13.5 LTS
+      run:  docker build --compress -t epicmorg/confluence:6.13.5 atlassian/confluence/6/6.13.5
+    - name: Push Confluence 6.13.5 LTS
+      run:  docker push epicmorg/confluence:6.13.5
+
+    - name: Build Confluence 6.13.6 LTS
+      run:  docker build --compress -t epicmorg/confluence:6.13.6 atlassian/confluence/6/6.13.6
+    - name: Push Confluence 6.13.6 LTS
+      run:  docker push epicmorg/confluence:6.13.6
+
+    - name: Build Confluence 6.13.7 LTS
+      run:  docker build --compress -t epicmorg/confluence:6.13.7 atlassian/confluence/6/6.13.7
+    - name: Push Confluence 6.13.7 LTS
+      run:  docker push epicmorg/confluence:6.13.7
+
+    - name: Build Confluence 6.13.8 LTS
+      run:  docker build --compress -t epicmorg/confluence:6.13.8 atlassian/confluence/6/6.13.8
+    - name: Push Confluence 6.13.8 LTS
+      run:  docker push epicmorg/confluence:6.13.8
+
+    - name: Build Confluence 6.13.9 LTS
+      run:  docker build --compress -t epicmorg/confluence:6.13.9 atlassian/confluence/6/6.13.9
+    - name: Push Confluence 6.13.9 LTS
+      run:  docker push epicmorg/confluence:6.13.9
+
+    - name: Build Confluence 6.13.10 LTS
+      run:  docker build --compress -t epicmorg/confluence:6.13.10 atlassian/confluence/6/6.13.10
+    - name: Push Confluence 6.13.10 LTS
+      run:  docker push epicmorg/confluence:6.13.10
+
+    - name: Build Confluence 6.13.11 LTS
+      run:  docker build --compress -t epicmorg/confluence:6.13.11 atlassian/confluence/6/6.13.11
+    - name: Push Confluence 6.13.11 LTS
+      run:  docker push epicmorg/confluence:6.13.11
+
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+
+#########################################
+
+    - name: Build Confluence 6.14.0
+      run:  docker build --compress -t epicmorg/confluence:6.14.0 atlassian/confluence/6/6.14.0
+    - name: Push Confluence 6.14.0
+      run:  docker push epicmorg/confluence:6.14.0
+
+    - name: Build Confluence 6.14.1
+      run:  docker build --compress -t epicmorg/confluence:6.14.1 atlassian/confluence/6/6.14.1
+    - name: Push Confluence 6.14.1
+      run:  docker push epicmorg/confluence:6.14.1
+
+    - name: Build Confluence 6.14.2
+      run:  docker build --compress -t epicmorg/confluence:6.14.2 atlassian/confluence/6/6.14.2
+    - name: Push Confluence 6.14.2
+      run:  docker push epicmorg/confluence:6.14.2
+
+    - name: Build Confluence 6.14.3
+      run:  docker build --compress -t epicmorg/confluence:6.14.3 atlassian/confluence/6/6.14.3
+    - name: Push Confluence 6.14.3
+      run:  docker push epicmorg/confluence:6.14.3
+
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+
+#########################################
+
+    - name: Build Confluence 6.15.1
+      run:  docker build --compress -t epicmorg/confluence:6.15.1 atlassian/confluence/6/6.15.1
+    - name: Push Confluence 6.15.1
+      run:  docker push epicmorg/confluence:6.15.1
+
+    - name: Build Confluence 6.15.2
+      run:  docker build --compress -t epicmorg/confluence:6.15.2 atlassian/confluence/6/6.15.2
+    - name: Push Confluence 6.15.2
+      run:  docker push epicmorg/confluence:6.15.2
+
+    - name: Build Confluence 6.15.4
+      run:  docker build --compress -t epicmorg/confluence:6.15.4 atlassian/confluence/6/6.15.4
+    - name: Push Confluence 6.15.4
+      run:  docker push epicmorg/confluence:6.15.4
+
+    - name: Build Confluence 6.15.6
+      run:  docker build --compress -t epicmorg/confluence:6.15.6 atlassian/confluence/6/6.15.6
+    - name: Push Confluence 6.15.6
+      run:  docker push epicmorg/confluence:6.15.6
+
+    - name: Build Confluence 6.15.7
+      run:  docker build --compress -t epicmorg/confluence:6.15.7 atlassian/confluence/6/6.15.7
+    - name: Push Confluence 6.15.7
+      run:  docker push epicmorg/confluence:6.15.7
+
+    - name: Build Confluence 6.15.8
+      run:  docker build --compress -t epicmorg/confluence:6.15.8 atlassian/confluence/6/6.15.8
+    - name: Push Confluence 6.15.8
+      run:  docker push epicmorg/confluence:6.15.8
+
+    - name: Build Confluence 6.15.9
+      run:  docker build --compress -t epicmorg/confluence:6.15.9 atlassian/confluence/6/6.15.9
+    - name: Push Confluence 6.15.9
+      run:  docker push epicmorg/confluence:6.15.9
+
+    - name: Build Confluence 6.15.10
+      run:  docker build --compress -t epicmorg/confluence:6.15.10 atlassian/confluence/6/6.15.10
+    - name: Push Confluence 6.15.10
+      run:  docker push epicmorg/confluence:6.15.10
+
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
 
 #########################################
 ####  Atlassian Confluence 7 Backport images
@@ -1513,6 +2127,9 @@ jobs:
 #      run:  docker push epicmorg/jira:xxx
 
 
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+
 #########################################
 ####  Atlassian Jira 6 Backport images
 #########################################
@@ -1543,6 +2160,8 @@ jobs:
     - name: Push Jira + JDK 7 (6.4.14)
       run:  docker push epicmorg/jira:6.4.14
 
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
 
 #########################################
 ####  Atlassian Jira 7 Backport images
@@ -1583,3 +2202,6 @@ jobs:
 #      run:  docker build --compress -t epicmorg/jira:xxx atlassian/jira/8/xxx
 #    - name: Push Jira xxx + JDK 8
 #      run:  docker push epicmorg/jira:xxx
+
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
