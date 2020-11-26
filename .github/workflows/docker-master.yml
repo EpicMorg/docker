@@ -65,11 +65,11 @@ jobs:
       run:  docker push epicmorg/teamcity-server:latest
  
 #########################################
-####  Base Production images
+####  EpicMorg Base Production images
 #########################################
 
   build-base-prod-iamges:
-    name: Base Production images
+    name: EpicMorg Base Production images
     runs-on: ubuntu-20.04
 
     steps:
@@ -105,11 +105,11 @@ jobs:
       run:  docker push epicmorg/prod:jdk11
 
 #########################################
-####  Base Edge images
+####  EpicMorg Base Edge images
 #########################################
 
   build-base-edge-iamges:
-    name: Base Edge images
+    name: EpicMorg Base Edge images
     runs-on: ubuntu-20.04
     needs: build-base-prod-iamges
 
@@ -146,11 +146,11 @@ jobs:
       run:  docker push epicmorg/edge:jdk11
 
 #########################################
-####  Base Develop images
+####  EpicMorg Base Develop images
 #########################################
 
   build-base-develop-iamges:
-    name: Base Develop images
+    name: EpicMorg Base Develop images
     runs-on: ubuntu-20.04
     needs: build-base-edge-iamges
 
@@ -232,7 +232,7 @@ jobs:
 #########################################
 
   build-tr-iamges:
-    name: Testrail images
+    name: Testrail image
     runs-on: ubuntu-20.04
     needs: build-emg-main-iamges
 
@@ -295,7 +295,7 @@ jobs:
 #########################################
 
   build-atl-bb-iamges:
-    name: Atlassian Bitbucket images
+    name: Atlassian Bitbucket latest images
     runs-on: ubuntu-20.04
     needs: build-base-prod-iamges
 
@@ -321,7 +321,7 @@ jobs:
 #########################################
 
   build-atl-docs-iamges:
-    name: Atlassian Confluence images
+    name: Atlassian Confluence latest images
     runs-on: ubuntu-20.04
     needs: build-base-prod-iamges
 
@@ -347,7 +347,7 @@ jobs:
 #########################################
 
   build-atl-jira-iamges:
-    name: Atlassian Jira images
+    name: Atlassian Jira latest images
     runs-on: ubuntu-20.04
     needs: build-base-prod-iamges
 
@@ -569,14 +569,14 @@ jobs:
 
 ##########
 
-#    - name: Build Bitbucket + JDK 8 (xxx)
+#    - name: Build Bitbucket xxx + JDK 8
 #      run:  docker build --compress -t epicmorg/bitbucket:xxx atlassian/bitbucket/6/xxx 
-#    - name: Push Bitbucket + JDK 8 (xxx)
+#    - name: Push Bitbucket xxx + JDK 8
 #      run:  docker push epicmorg/bitbucket:xxx
 
-#    - name: Build Bitbucket + JDK 11 (xxx-jdk11)
+#    - name: Build Bitbucket xxx + JDK 11
 #      run:  docker build --compress -t epicmorg/bitbucket:xxx-jdk11 -f atlassian/bitbucket/6/xxx/Dockerfile.jdk11 atlassian/bitbucket/6/xxx
-#    - name: Push Bitbucket + JDK 11 (xxx-jdk11)
+#    - name: Push Bitbucket xxx + JDK 11
 #      run:  docker push epicmorg/bitbucket:xxx-jdk11
 
 
@@ -1267,15 +1267,139 @@ jobs:
 
 ##########
 
-#    - name: Build Bitbucket + JDK 8 (xxx)
+#    - name: Build Bitbucket xxx + JDK 8
 #      run:  docker build --compress -t epicmorg/bitbucket:xxx atlassian/bitbucket/7/xxx 
-#    - name: Push Bitbucket + JDK 8 (xxx)
+#    - name: Push Bitbucket xxx + JDK 8
 #      run:  docker push epicmorg/bitbucket:xxx
 
-#    - name: Build Bitbucket + JDK 11 (xxx-jdk11)
+#    - name: Build Bitbucket xxx + JDK 11
 #      run:  docker build --compress -t epicmorg/bitbucket:xxx-jdk11 -f atlassian/bitbucket/7/xxx/Dockerfile.jdk11 atlassian/bitbucket/7/xxx
-#    - name: Push Bitbucket + JDK 11 (xxx-jdk11)
+#    - name: Push Bitbucket xxx + JDK 11
 #      run:  docker push epicmorg/bitbucket:xxx-jdk11
+
+    - name: Build Bitbucket 7.0.0 + JDK8
+      run:  docker build --compress -t epicmorg/bitbucket:7.0.0 atlassian/bitbucket/7/7.0.0
+    - name: Push Bitbucket 7.0.0 + JDK8
+      run:  docker push epicmorg/bitbucket:7.0.0
+
+    - name: Build Bitbucket 7.0.0 + JDK11
+      run:  docker build --compress -t epicmorg/bitbucket:7.0.0-jdk11 -f atlassian/bitbucket/7/7.0.0/Dockerfile.jdk11 atlassian/bitbucket/7/7.0.0
+    - name: Push Bitbucket 7.0.0 + JDK11
+      run:  docker push epicmorg/bitbucket:7.0.0-jdk11
+
+    - name: Build Bitbucket 7.0.1 + JDK8 
+      run:  docker build --compress -t epicmorg/bitbucket:7.0.1 atlassian/bitbucket/7/7.0.1
+    - name: Push Bitbucket 7.0.1 + JDK8 
+      run:  docker push epicmorg/bitbucket:7.0.1
+
+    - name: Build Bitbucket 7.0.1 + JDK11
+      run:  docker build --compress -t epicmorg/bitbucket:7.0.1-jdk11 -f atlassian/bitbucket/7/7.0.1/Dockerfile.jdk11 atlassian/bitbucket/7/7.0.1
+    - name: Push Bitbucket 7.0.1 + JDK11
+      run:  docker push epicmorg/bitbucket:7.0.1-jdk11
+
+    - name: Build Bitbucket 7.0.2 + JDK8 
+      run:  docker build --compress -t epicmorg/bitbucket:7.0.2 atlassian/bitbucket/7/7.0.2
+    - name: Push Bitbucket 7.0.2 + JDK8 
+      run:  docker push epicmorg/bitbucket:7.0.2
+
+    - name: Build Bitbucket 7.0.2 + JDK11
+      run:  docker build --compress -t epicmorg/bitbucket:7.0.2-jdk11 -f atlassian/bitbucket/7/7.0.2/Dockerfile.jdk11 atlassian/bitbucket/7/7.0.2
+    - name: Push Bitbucket 7.0.2 + JDK11
+      run:  docker push epicmorg/bitbucket:7.0.2-jdk11
+
+    - name: Build Bitbucket 7.0.3 + JDK8 
+      run:  docker build --compress -t epicmorg/bitbucket:7.0.3 atlassian/bitbucket/7/7.0.3
+    - name: Push Bitbucket 7.0.3 + JDK8 
+      run:  docker push epicmorg/bitbucket:7.0.3
+
+    - name: Build Bitbucket 7.0.3 + JDK11
+      run:  docker build --compress -t epicmorg/bitbucket:7.0.3-jdk11 -f atlassian/bitbucket/7/7.0.3/Dockerfile.jdk11 atlassian/bitbucket/7/7.0.3
+    - name: Push Bitbucket 7.0.3 + JDK11
+      run:  docker push epicmorg/bitbucket:7.0.3-jdk11
+
+#########################################
+
+    - name: Build Bitbucket 7.1.0 + JDK8
+      run:  docker build --compress -t epicmorg/bitbucket:7.1.0 atlassian/bitbucket/7/7.1.0
+    - name: Push Bitbucket 7.1.0 + JDK8
+      run:  docker push epicmorg/bitbucket:7.1.0
+
+    - name: Build Bitbucket 7.1.0 + JDK11
+      run:  docker build --compress -t epicmorg/bitbucket:7.1.0-jdk11 -f atlassian/bitbucket/7/7.1.0/Dockerfile.jdk11 atlassian/bitbucket/7/7.1.0
+    - name: Push Bitbucket 7.1.0 + JDK11
+      run:  docker push epicmorg/bitbucket:7.1.0-jdk11
+
+    - name: Build Bitbucket 7.1.1 + JDK8
+      run:  docker build --compress -t epicmorg/bitbucket:7.1.1 atlassian/bitbucket/7/7.1.1
+    - name: Push Bitbucket 7.1.1 + JDK8
+      run:  docker push epicmorg/bitbucket:7.1.1
+
+    - name: Build Bitbucket 7.1.1 + JDK11
+      run:  docker build --compress -t epicmorg/bitbucket:7.1.1-jdk11 -f atlassian/bitbucket/7/7.1.1/Dockerfile.jdk11 atlassian/bitbucket/7/7.1.1
+    - name: Push Bitbucket 7.1.1 + JDK11
+      run:  docker push epicmorg/bitbucket:7.1.1-jdk11
+
+    - name: Build Bitbucket 7.1.2 + JDK8
+      run:  docker build --compress -t epicmorg/bitbucket:7.1.2 atlassian/bitbucket/7/7.1.2
+    - name: Push Bitbucket 7.1.2 + JDK8
+      run:  docker push epicmorg/bitbucket:7.1.2
+
+    - name: Build Bitbucket 7.1.2 + JDK11
+      run:  docker build --compress -t epicmorg/bitbucket:7.1.2-jdk11 -f atlassian/bitbucket/7/7.1.2/Dockerfile.jdk11 atlassian/bitbucket/7/7.1.2
+    - name: Push Bitbucket 7.1.2 + JDK11
+      run:  docker push epicmorg/bitbucket:7.1.2-jdk11
+
+    - name: Build Bitbucket 7.1.3 + JDK8
+      run:  docker build --compress -t epicmorg/bitbucket:7.1.3 atlassian/bitbucket/7/7.1.3
+    - name: Push Bitbucket 7.1.3 + JDK8
+      run:  docker push epicmorg/bitbucket:7.1.3
+
+    - name: Build Bitbucket 7.1.3 + JDK11
+      run:  docker build --compress -t epicmorg/bitbucket:7.1.3-jdk11 -f atlassian/bitbucket/7/7.1.3/Dockerfile.jdk11 atlassian/bitbucket/7/7.1.3
+    - name: Push Bitbucket 7.1.3 + JDK11
+      run:  docker push epicmorg/bitbucket:7.1.3-jdk11
+
+#########################################
+
+    - name: Build Bitbucket 7.2.0 + JDK8
+      run:  docker build --compress -t epicmorg/bitbucket:7.2.0 atlassian/bitbucket/7/7.2.0
+    - name: Push Bitbucket 7.2.0 + JDK8
+      run:  docker push epicmorg/bitbucket:7.2.0
+
+    - name: Build Bitbucket 7.2.0 + JDK11
+      run:  docker build --compress -t epicmorg/bitbucket:7.2.0-jdk11 -f atlassian/bitbucket/7/7.2.0/Dockerfile.jdk11 atlassian/bitbucket/7/7.2.0
+    - name: Push Bitbucket 7.2.0 + JDK11
+      run:  docker push epicmorg/bitbucket:7.2.0-jdk11
+
+    - name: Build Bitbucket 7.2.1 + JDK8
+      run:  docker build --compress -t epicmorg/bitbucket:7.2.1 atlassian/bitbucket/7/7.2.1
+    - name: Push Bitbucket 7.2.1 + JDK8
+      run:  docker push epicmorg/bitbucket:7.2.1
+
+    - name: Build Bitbucket 7.2.1 + JDK11
+      run:  docker build --compress -t epicmorg/bitbucket:7.2.1-jdk11 -f atlassian/bitbucket/7/7.2.1/Dockerfile.jdk11 atlassian/bitbucket/7/7.2.1
+    - name: Push Bitbucket 7.2.1 + JDK11
+      run:  docker push epicmorg/bitbucket:7.2.1-jdk11
+
+    - name: Build Bitbucket 7.2.2 + JDK8
+      run:  docker build --compress -t epicmorg/bitbucket:7.2.2 atlassian/bitbucket/7/7.2.2
+    - name: Push Bitbucket 7.2.2 + JDK8
+      run:  docker push epicmorg/bitbucket:7.2.2
+
+    - name: Build Bitbucket 7.2.2 + JDK11
+      run:  docker build --compress -t epicmorg/bitbucket:7.2.2-jdk11 -f atlassian/bitbucket/7/7.2.2/Dockerfile.jdk11 atlassian/bitbucket/7/7.2.2
+    - name: Push Bitbucket 7.2.2 + JDK11
+      run:  docker push epicmorg/bitbucket:7.2.2-jdk11
+
+    - name: Build Bitbucket 7.2.3 + JDK8
+      run:  docker build --compress -t epicmorg/bitbucket:7.2.3 atlassian/bitbucket/7/7.2.3
+    - name: Push Bitbucket 7.2.3 + JDK8
+      run:  docker push epicmorg/bitbucket:7.2.3
+
+    - name: Build Bitbucket 7.2.3 + JDK11
+      run:  docker build --compress -t epicmorg/bitbucket:7.2.3-jdk11 -f atlassian/bitbucket/7/7.2.3/Dockerfile.jdk11 atlassian/bitbucket/7/7.2.3
+    - name: Push Bitbucket 7.2.3 + JDK11
+      run:  docker push epicmorg/bitbucket:7.2.3-jdk11
 
 #########################################
 ####  Atlassian Confluence 5 Backport images
@@ -1357,14 +1481,14 @@ jobs:
 
 ##########
 
-#    - name: Build Confluence + JDK 8 (xxx)
+#    - name: Build Confluence xxx + JDK 8
 #      run:  docker build --compress -t epicmorg/confluence:xxx atlassian/confluence/7/xxx
-#    - name: Push Confluence + JDK 8 (xxx)
+#    - name: Push Confluence xxx + JDK 8
 #      run:  docker push epicmorg/confluence:xxx
 
-#    - name: Build Confluence + JDK 11 (xxx-jdk11)
+#    - name: Build Confluence xxx + JDK 11
 #      run:  docker build --compress -t epicmorg/confluence:xxx-jdk11 -f atlassian/confluence/7/xxx/Dockerfile.jdk11 atlassian/confluence/7/xxx
-#    - name: Push Confluence + JDK 11 (xxx-jdk11)
+#    - name: Push Confluence xxx + JDK 11
 #      run:  docker push epicmorg/confluence:xxx-jdk11
 
 
@@ -1383,9 +1507,9 @@ jobs:
       run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
 ##########
-#    - name: Build Jira + JDK 6 (xxx)
+#    - name: Build Jira xxx + JDK 6
 #      run:  docker build --compress -t epicmorg/jira:xxx atlassian/jira/5/xxx
-#    - name: Push Jira + JDK 6 (xxx)
+#    - name: Push Jira xxx + JDK 6
 #      run:  docker push epicmorg/jira:xxx
 
 
@@ -1404,9 +1528,9 @@ jobs:
       run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
 ##########
-#    - name: Build Jira + JDK 7 (xxx)
+#    - name: Build Jira xxx + JDK 7
 #      run:  docker build --compress -t epicmorg/jira:xxx atlassian/jira/6/xxx
-#    - name: Push Jira + JDK 7 (xxx)
+#    - name: Push Jira xxx + JDK 7
 #      run:  docker push epicmorg/jira:xxx
 
     - name: Build Jira + JDK 7 (6.3.15)
@@ -1435,9 +1559,9 @@ jobs:
       run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
 ##########
-#    - name: Build Jira + JDK 7 (xxx)
+#    - name: Build Jira xxx + JDK 7
 #      run:  docker build --compress -t epicmorg/jira:xxx atlassian/jira/7/xxx
-#    - name: Push Jira + JDK 7 (xxx)
+#    - name: Push Jira xxx + JDK 7
 #      run:  docker push epicmorg/jira:xxx
 
 #########################################
@@ -1455,7 +1579,7 @@ jobs:
       run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
 ##########
-#    - name: Build Jira + JDK 7 (xxx)
+#    - name: Build Jira xxx + JDK 8
 #      run:  docker build --compress -t epicmorg/jira:xxx atlassian/jira/8/xxx
-#    - name: Push Jira + JDK 7 (xxx)
+#    - name: Push Jira xxx + JDK 8
 #      run:  docker push epicmorg/jira:xxx
