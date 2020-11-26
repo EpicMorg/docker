@@ -397,11 +397,11 @@ jobs:
       run: docker system prune --all --force --volumes
 
 ##################################################################################
-####  Atlassian Fisheye + Crucible  images
+####  Atlassian Fisheye + Crucible images
 ##################################################################################
 
   build-atl-fycru-iamges:
-    name: Atlassian Fisheye + Crucible  images
+    name: Atlassian Fisheye + Crucible images
     runs-on: ubuntu-20.04
     needs: build-base-prod-iamges
 
@@ -2956,5 +2956,452 @@ jobs:
 #    - name: Push Jira xxx + JDK 8
 #      run:  docker push epicmorg/jira:xxx
 
+    - name: Build Jira 8.0.0 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:8.0.0 atlassian/jira/8/8.0.0
+    - name: Push Jira 8.0.0 + JDK 8
+      run:  docker push epicmorg/jira:8.0.0
+
+    - name: Build Jira 8.0.2 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:8.0.2 atlassian/jira/8/8.0.2
+    - name: Push Jira 8.0.2 + JDK 8
+      run:  docker push epicmorg/jira:8.0.2
+
+    - name: Build Jira 8.0.3 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:8.0.3 atlassian/jira/8/8.0.3
+    - name: Push Jira 8.0.3 + JDK 8
+      run:  docker push epicmorg/jira:8.0.3
+
     - name: Cleanup
       run: docker system prune --all --force --volumes
+
+##################################################################################
+
+    - name: Build Jira 8.1.0 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:8.1.0 atlassian/jira/8/8.1.0
+    - name: Push Jira 8.1.0 + JDK 8
+      run:  docker push epicmorg/jira:8.1.0
+
+    - name: Build Jira 8.1.1 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:8.1.1 atlassian/jira/8/8.1.1
+    - name: Push Jira 8.1.1 + JDK 8
+      run:  docker push epicmorg/jira:8.1.1
+
+    - name: Build Jira 8.1.2 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:8.1.2 atlassian/jira/8/8.1.2
+    - name: Push Jira 8.1.2 + JDK 8
+      run:  docker push epicmorg/jira:8.1.2
+
+    - name: Build Jira 8.1.3 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:8.1.3 atlassian/jira/8/8.1.3
+    - name: Push Jira 8.1.3 + JDK 8
+      run:  docker push epicmorg/jira:8.1.3
+
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+
+##################################################################################
+
+    - name: Build Jira 8.2.0 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:8.2.0 atlassian/jira/8/8.2.0
+    - name: Push Jira 8.2.0 + JDK 8
+      run:  docker push epicmorg/jira:8.2.0
+
+    - name: Build Jira 8.2.0 + JDK 11
+      run:  docker build --compress -t epicmorg/jira:8.2.0-jdk11 -f atlassian/jira/8/8.2.0/Dockerfile.jdk11 atlassian/jira/8/8.2.0
+    - name: Push Jira 8.2.0 + JDK 11
+      run:  docker push epicmorg/jira:8.2.0-jdk11
+
+    - name: Build Jira 8.2.1 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:8.2.1 atlassian/jira/8/8.2.1
+    - name: Push Jira 8.2.1 + JDK 8
+      run:  docker push epicmorg/jira:8.2.1
+
+    - name: Build Jira 8.2.1 + JDK 11
+      run:  docker build --compress -t epicmorg/jira:8.2.1-jdk11 -f atlassian/jira/8/8.2.1/Dockerfile.jdk11 atlassian/jira/8/8.2.1
+    - name: Push Jira 8.2.1 + JDK 11
+      run:  docker push epicmorg/jira:8.2.1-jdk11
+
+    - name: Build Jira 8.2.2 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:8.2.2 atlassian/jira/8/8.2.2
+    - name: Push Jira 8.2.2 + JDK 8
+      run:  docker push epicmorg/jira:8.2.2
+
+    - name: Build Jira 8.2.2  + JDK 11
+      run:  docker build --compress -t epicmorg/jira:8.2.2-jdk11 -f atlassian/jira/8/8.2.2/Dockerfile.jdk11 atlassian/jira/8/8.2.2
+    - name: Push Jira 8.2.2  + JDK 11
+      run:  docker push epicmorg/jira:8.2.2-jdk11
+
+    - name: Build Jira 8.2.3 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:8.2.3 atlassian/jira/8/8.2.3
+    - name: Push Jira 8.2.3 + JDK 8
+      run:  docker push epicmorg/jira:8.2.3
+
+    - name: Build Jira 8.2.3 + JDK 11
+      run:  docker build --compress -t epicmorg/jira:8.2.3-jdk11 -f atlassian/jira/8/8.2.3/Dockerfile.jdk11 atlassian/jira/8/8.2.3
+    - name: Push Jira 8.2.3 + JDK 11
+      run:  docker push epicmorg/jira:8.2.3-jdk11
+
+    - name: Build Jira 8.2.4 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:8.2.4 atlassian/jira/8/8.2.4
+    - name: Push Jira 8.2.4 + JDK 8
+      run:  docker push epicmorg/jira:8.2.4
+
+    - name: Build Jira 8.2.4 + JDK 11
+      run:  docker build --compress -t epicmorg/jira:8.2.4-jdk11 -f atlassian/jira/8/8.2.4/Dockerfile.jdk11 atlassian/jira/8/8.2.4
+    - name: Push Jira 8.2.4 + JDK 11
+      run:  docker push epicmorg/jira:8.2.4-jdk11
+
+    - name: Build Jira 8.2.5 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:8.2.5 atlassian/jira/8/8.2.5
+    - name: Push Jira 8.2.5 + JDK 8
+      run:  docker push epicmorg/jira:8.2.5
+
+    - name: Build Jira 8.2.5 + JDK 11
+      run:  docker build --compress -t epicmorg/jira:8.2.5-jdk11 -f atlassian/jira/8/8.2.5/Dockerfile.jdk11 atlassian/jira/8/8.2.5
+    - name: Push Jira 8.2.5 + JDK 11
+      run:  docker push epicmorg/jira:8.2.5-jdk11
+
+    - name: Build Jira 8.2.6 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:8.2.6 atlassian/jira/8/8.2.6
+    - name: Push Jira 8.2.6 + JDK 8
+      run:  docker push epicmorg/jira:8.2.6
+
+    - name: Build Jira 8.2.6 + JDK 11
+      run:  docker build --compress -t epicmorg/jira:8.2.6-jdk11 -f atlassian/jira/8/8.2.6/Dockerfile.jdk11 atlassian/jira/8/8.2.6
+    - name: Push Jira 8.2.6 + JDK 11
+      run:  docker push epicmorg/jira:8.2.6-jdk11
+
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+
+##################################################################################
+
+    - name: Build Jira 8.3.0 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:8.3.0 atlassian/jira/8/8.3.0
+    - name: Push Jira 8.3.0 + JDK 8
+      run:  docker push epicmorg/jira:8.3.0
+
+    - name: Build Jira 8.3.0 + JDK 11
+      run:  docker build --compress -t epicmorg/jira:8.3.0-jdk11 -f atlassian/jira/8/8.3.0/Dockerfile.jdk11 atlassian/jira/8/8.3.0
+    - name: Push Jira 8.3.0 + JDK 11
+      run:  docker push epicmorg/jira:8.3.0-jdk11
+
+    - name: Build Jira 8.3.1 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:8.3.1 atlassian/jira/8/8.3.1
+    - name: Push Jira 8.3.1 + JDK 8
+      run:  docker push epicmorg/jira:8.3.1
+
+    - name: Build Jira 8.3.1 + JDK 11
+      run:  docker build --compress -t epicmorg/jira:8.3.1-jdk11 -f atlassian/jira/8/8.3.1/Dockerfile.jdk11 atlassian/jira/8/8.3.1
+    - name: Push Jira 8.3.1 + JDK 11
+      run:  docker push epicmorg/jira:8.3.1-jdk11
+
+    - name: Build Jira 8.3.2 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:8.3.2 atlassian/jira/8/8.3.2
+    - name: Push Jira 8.3.2 + JDK 8
+      run:  docker push epicmorg/jira:8.3.2
+
+    - name: Build Jira 8.3.2 + JDK 11
+      run:  docker build --compress -t epicmorg/jira:8.3.2-jdk11 -f atlassian/jira/8/8.3.2/Dockerfile.jdk11 atlassian/jira/8/8.3.2
+    - name: Push Jira 8.3.2 + JDK 11
+      run:  docker push epicmorg/jira:8.3.2-jdk11
+
+    - name: Build Jira 8.3.3 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:8.3.3 atlassian/jira/8/8.3.3
+    - name: Push Jira 8.3.3 + JDK 8
+      run:  docker push epicmorg/jira:8.3.3
+
+    - name: Build Jira 8.3.3 + JDK 11
+      run:  docker build --compress -t epicmorg/jira:8.3.3-jdk11 -f atlassian/jira/8/8.3.3/Dockerfile.jdk11 atlassian/jira/8/8.3.3
+    - name: Push Jira 8.3.3 + JDK 11
+      run:  docker push epicmorg/jira:8.3.3-jdk11
+
+    - name: Build Jira 8.3.4 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:8.3.4 atlassian/jira/8/8.3.4
+    - name: Push Jira 8.3.4 + JDK 8
+      run:  docker push epicmorg/jira:8.3.4
+
+    - name: Build Jira 8.3.4 + JDK 11
+      run:  docker build --compress -t epicmorg/jira:8.3.4-jdk11 -f atlassian/jira/8/8.3.4/Dockerfile.jdk11 atlassian/jira/8/8.3.4
+    - name: Push Jira 8.3.4 + JDK 11
+      run:  docker push epicmorg/jira:8.3.4-jdk11
+
+    - name: Build Jira 8.3.5 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:8.3.5 atlassian/jira/8/8.3.5
+    - name: Push Jira 8.3.5 + JDK 8
+      run:  docker push epicmorg/jira:8.3.5
+
+    - name: Build Jira 8.3.5 + JDK 11
+      run:  docker build --compress -t epicmorg/jira:8.3.5-jdk11 -f atlassian/jira/8/8.3.5/Dockerfile.jdk11 atlassian/jira/8/8.3.5
+    - name: Push Jira 8.3.5 + JDK 11
+      run:  docker push epicmorg/jira:8.3.5-jdk11
+
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+
+##################################################################################
+
+    - name: Build Jira 8.4.0 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:8.4.0 atlassian/jira/8/8.4.0
+    - name: Push Jira 8.4.0 + JDK 8
+      run:  docker push epicmorg/jira:8.4.0
+
+    - name: Build Jira 8.4.0 + JDK 11
+      run:  docker build --compress -t epicmorg/jira:8.4.0-jdk11 -f atlassian/jira/8/8.4.0/Dockerfile.jdk11 atlassian/jira/8/8.4.0
+    - name: Push Jira 8.4.0 + JDK 11
+      run:  docker push epicmorg/jira:8.4.0-jdk11
+
+    - name: Build Jira 8.4.1 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:8.4.1 atlassian/jira/8/8.4.1
+    - name: Push Jira 8.4.1 + JDK 8
+      run:  docker push epicmorg/jira:8.4.1
+
+    - name: Build Jira 8.4.1 + JDK 11
+      run:  docker build --compress -t epicmorg/jira:8.4.1-jdk11 -f atlassian/jira/8/8.4.1/Dockerfile.jdk11 atlassian/jira/8/8.4.1
+    - name: Push Jira 8.4.1 + JDK 11
+      run:  docker push epicmorg/jira:8.4.1-jdk11
+
+    - name: Build Jira 8.4.2 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:8.4.2 atlassian/jira/8/8.4.2
+    - name: Push Jira 8.4.2 + JDK 8
+      run:  docker push epicmorg/jira:8.4.2
+
+    - name: Build Jira 8.4.2 + JDK 11
+      run:  docker build --compress -t epicmorg/jira:8.4.2-jdk11 -f atlassian/jira/8/8.4.2/Dockerfile.jdk11 atlassian/jira/8/8.4.2
+    - name: Push Jira 8.4.2 + JDK 11
+      run:  docker push epicmorg/jira:8.4.2-jdk11
+
+    - name: Build Jira 8.4.3 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:8.4.3 atlassian/jira/8/8.4.3
+    - name: Push Jira 8.4.3 + JDK 8
+      run:  docker push epicmorg/jira:8.4.3
+
+    - name: Build Jira 8.4.3 + JDK 11
+      run:  docker build --compress -t epicmorg/jira:8.4.3-jdk11 -f atlassian/jira/8/8.4.3/Dockerfile.jdk11 atlassian/jira/8/8.4.3
+    - name: Push Jira 8.4.3 + JDK 11
+      run:  docker push epicmorg/jira:8.4.3-jdk11
+
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+
+##################################################################################
+
+    - name: Build Jira 8.5.0 LTS + JDK 8
+      run:  docker build --compress -t epicmorg/jira:8.5.0 atlassian/jira/8/8.5.0
+    - name: Push Jira 8.5.0 LTS + JDK 8
+      run:  docker push epicmorg/jira:8.5.0
+
+    - name: Build Jira 8.5.0 LTS + JDK 11
+      run:  docker build --compress -t epicmorg/jira:8.5.0-jdk11 -f atlassian/jira/8/8.5.0/Dockerfile.jdk11 atlassian/jira/8/8.5.0
+    - name: Push Jira 8.5.0 LTS + JDK 11
+      run:  docker push epicmorg/jira:8.5.0-jdk11
+
+    - name: Build Jira 8.5.1 LTS + JDK 8
+      run:  docker build --compress -t epicmorg/jira:8.5.1 atlassian/jira/8/8.5.1
+    - name: Push Jira 8.5.1 LTS + JDK 8
+      run:  docker push epicmorg/jira:8.5.1
+
+    - name: Build Jira 8.5.1 LTS + JDK 11
+      run:  docker build --compress -t epicmorg/jira:8.5.1-jdk11 -f atlassian/jira/8/8.5.1/Dockerfile.jdk11 atlassian/jira/8/8.5.1
+    - name: Push Jira 8.5.1 LTS + JDK 11
+      run:  docker push epicmorg/jira:8.5.1-jdk11
+
+    - name: Build Jira 8.5.2 LTS + JDK 8
+      run:  docker build --compress -t epicmorg/jira:8.5.2 atlassian/jira/8/8.5.2
+    - name: Push Jira 8.5.2 LTS + JDK 8
+      run:  docker push epicmorg/jira:8.5.2
+
+    - name: Build Jira 8.5.2 LTS + JDK 11
+      run:  docker build --compress -t epicmorg/jira:8.5.2-jdk11 -f atlassian/jira/8/8.5.2/Dockerfile.jdk11 atlassian/jira/8/8.5.2
+    - name: Push Jira 8.5.2 LTS + JDK 11
+      run:  docker push epicmorg/jira:8.5.2-jdk11
+
+    - name: Build Jira 8.5.3 LTS + JDK 8
+      run:  docker build --compress -t epicmorg/jira:8.5.3 atlassian/jira/8/8.5.3
+    - name: Push Jira 8.5.3 LTS + JDK 8
+      run:  docker push epicmorg/jira:8.5.3
+
+    - name: Build Jira 8.5.3 LTS + JDK 11
+      run:  docker build --compress -t epicmorg/jira:8.5.3-jdk11 -f atlassian/jira/8/8.5.3/Dockerfile.jdk11 atlassian/jira/8/8.5.3
+    - name: Push Jira 8.5.3 LTS + JDK 11
+      run:  docker push epicmorg/jira:8.5.3-jdk11
+
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+
+##################################################################################
+
+    - name: Build Jira 8.6.0 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:8.6.0 atlassian/jira/8/8.6.0
+    - name: Push Jira 8.6.0 + JDK 8
+      run:  docker push epicmorg/jira:8.6.0
+
+    - name: Build Jira 8.6.0 + JDK 11
+      run:  docker build --compress -t epicmorg/jira:8.6.0-jdk11 -f atlassian/jira/8/8.6.0/Dockerfile.jdk11 atlassian/jira/8/8.6.0
+    - name: Push Jira 8.6.0 + JDK 11
+      run:  docker push epicmorg/jira:8.6.0-jdk11
+
+    - name: Build Jira 8.6.1 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:8.6.1 atlassian/jira/8/8.6.1
+    - name: Push Jira 8.6.1 + JDK 8
+      run:  docker push epicmorg/jira:8.6.1
+
+    - name: Build Jira 8.6.1 + JDK 11
+      run:  docker build --compress -t epicmorg/jira:8.6.1-jdk11 -f atlassian/jira/8/8.6.1/Dockerfile.jdk11 atlassian/jira/8/8.6.1
+    - name: Push Jira 8.6.1 + JDK 11
+      run:  docker push epicmorg/jira:8.6.1-jdk11
+
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+
+##################################################################################
+
+    - name: Build Jira 8.7.0 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:8.7.0 atlassian/jira/8/8.7.0
+    - name: Push Jira 8.7.0 + JDK 8
+      run:  docker push epicmorg/jira:8.7.0
+
+    - name: Build Jira 8.7.0 + JDK 11
+      run:  docker build --compress -t epicmorg/jira:8.7.0-jdk11 -f atlassian/jira/8/8.7.0/Dockerfile.jdk11 atlassian/jira/8/8.7.0
+    - name: Push Jira 8.7.0 + JDK 11
+      run:  docker push epicmorg/jira:8.7.0-jdk11
+
+    - name: Build Jira 8.7.1 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:8.7.1 atlassian/jira/8/8.7.1
+    - name: Push Jira 8.7.1 + JDK 8
+      run:  docker push epicmorg/jira:8.7.1
+
+    - name: Build Jira 8.7.1 + JDK 11
+      run:  docker build --compress -t epicmorg/jira:8.7.1-jdk11 -f atlassian/jira/8/8.7.1/Dockerfile.jdk11 atlassian/jira/8/8.7.1
+    - name: Push Jira 8.7.1 + JDK 11
+      run:  docker push epicmorg/jira:8.7.1-jdk11
+
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+
+##################################################################################
+
+    - name: Build Jira 8.8.0 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:8.8.0 atlassian/jira/8/8.8.0
+    - name: Push Jira 8.8.0 + JDK 8
+      run:  docker push epicmorg/jira:8.8.0
+
+    - name: Build Jira 8.8.0 + JDK 11
+      run:  docker build --compress -t epicmorg/jira:8.8.0-jdk11 -f atlassian/jira/8/8.8.0/Dockerfile.jdk11 atlassian/jira/8/8.8.0
+    - name: Push Jira 8.8.0 + JDK 11
+      run:  docker push epicmorg/jira:8.8.0-jdk11
+
+    - name: Build Jira 8.8.1 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:8.8.1 atlassian/jira/8/8.8.1
+    - name: Push Jira 8.8.1 + JDK 8
+      run:  docker push epicmorg/jira:8.8.1
+
+    - name: Build Jira 8.8.1 + JDK 11
+      run:  docker build --compress -t epicmorg/jira:8.8.1-jdk11 -f atlassian/jira/8/8.8.1/Dockerfile.jdk11 atlassian/jira/8/8.8.1
+    - name: Push Jira 8.8.1 + JDK 11
+      run:  docker push epicmorg/jira:8.8.1-jdk11
+
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+
+##################################################################################
+
+    - name: Build Jira 8.9.0 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:8.9.0 atlassian/jira/8/8.9.0
+    - name: Push Jira 8.9.0 + JDK 8
+      run:  docker push epicmorg/jira:8.9.0
+
+    - name: Build Jira 8.9.0 + JDK 11
+      run:  docker build --compress -t epicmorg/jira:8.9.0-jdk11 -f atlassian/jira/8/8.9.0/Dockerfile.jdk11 atlassian/jira/8/8.9.0
+    - name: Push Jira 8.9.0 + JDK 11
+      run:  docker push epicmorg/jira:8.9.0-jdk11
+
+    - name: Build Jira 8.9.1 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:8.9.1 atlassian/jira/8/8.9.1
+    - name: Push Jira 8.9.1 + JDK 8
+      run:  docker push epicmorg/jira:8.9.1
+
+    - name: Build Jira 8.9.1 + JDK 11
+      run:  docker build --compress -t epicmorg/jira:8.9.1-jdk11 -f atlassian/jira/8/8.9.1/Dockerfile.jdk11 atlassian/jira/8/8.9.1
+    - name: Push Jira 8.9.1 + JDK 11
+      run:  docker push epicmorg/jira:8.9.1-jdk11
+
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+
+##################################################################################
+
+    - name: Build Jira 8.10.0 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:8.10.0 atlassian/jira/8/8.10.0
+    - name: Push Jira 8.10.0 + JDK 8
+      run:  docker push epicmorg/jira:8.10.0
+
+    - name: Build Jira 8.10.0 + JDK 11
+      run:  docker build --compress -t epicmorg/jira:8.10.0-jdk11 -f atlassian/jira/8/8.10.0/Dockerfile.jdk11 atlassian/jira/8/8.10.0
+    - name: Push Jira 8.10.0 + JDK 11
+      run:  docker push epicmorg/jira:8.10.0-jdk11
+
+    - name: Build Jira 8.10.1 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:8.10.1 atlassian/jira/8/8.10.1
+    - name: Push Jira 8.10.1 + JDK 8
+      run:  docker push epicmorg/jira:8.10.1
+
+    - name: Build Jira 8.10.1 + JDK 11
+      run:  docker build --compress -t epicmorg/jira:8.10.1-jdk11 -f atlassian/jira/8/8.10.1/Dockerfile.jdk11 atlassian/jira/8/8.10.1
+    - name: Push Jira 8.10.1 + JDK 11
+      run:  docker push epicmorg/jira:8.10.1-jdk11
+
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+
+##################################################################################
+
+    - name: Build Jira 8.11.0 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:8.11.0 atlassian/jira/8/8.11.0
+    - name: Push Jira 8.11.0 + JDK 8
+      run:  docker push epicmorg/jira:8.11.0
+
+    - name: Build Jira 8.11.0 + JDK 11
+      run:  docker build --compress -t epicmorg/jira:8.11.0-jdk11 -f atlassian/jira/8/8.11.0/Dockerfile.jdk11 atlassian/jira/8/8.11.0
+    - name: Push Jira 8.11.0 + JDK 11
+      run:  docker push epicmorg/jira:8.11.0-jdk11
+
+    - name: Build Jira 8.11.1 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:8.11.1 atlassian/jira/8/8.11.1
+    - name: Push Jira 8.11.1 + JDK 8
+      run:  docker push epicmorg/jira:8.11.1
+
+    - name: Build Jira 8.11.1 + JDK 11
+      run:  docker build --compress -t epicmorg/jira:8.11.1-jdk11 -f atlassian/jira/8/8.11.1/Dockerfile.jdk11 atlassian/jira/8/8.11.1
+    - name: Push Jira 8.11.1 + JDK 11
+      run:  docker push epicmorg/jira:8.11.1-jdk11
+
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+
+##################################################################################
+
+    - name: Build Jira 8.12.0 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:8.12.0 atlassian/jira/8/8.12.0
+    - name: Push Jira 8.12.0 + JDK 8
+      run:  docker push epicmorg/jira:8.12.0
+
+    - name: Build Jira 8.12.0 + JDK 11
+      run:  docker build --compress -t epicmorg/jira:8.12.0-jdk11 -f atlassian/jira/8/8.12.0/Dockerfile.jdk11 atlassian/jira/8/8.12.0
+    - name: Push Jira 8.12.0 + JDK 11
+      run:  docker push epicmorg/jira:8.12.0-jdk11
+
+    - name: Build Jira 8.12.1 + JDK 8
+      run:  docker build --compress -t epicmorg/jira:8.12.1 atlassian/jira/8/8.12.1
+    - name: Push Jira 8.12.1 + JDK 8
+      run:  docker push epicmorg/jira:8.12.1
+
+    - name: Build Jira 8.12.1 + JDK 11
+      run:  docker build --compress -t epicmorg/jira:8.12.1-jdk11 -f atlassian/jira/8/8.12.1/Dockerfile.jdk11 atlassian/jira/8/8.12.1
+    - name: Push Jira 8.12.1 + JDK 11
+      run:  docker push epicmorg/jira:8.12.1-jdk11
+
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+
+##################################################################################
