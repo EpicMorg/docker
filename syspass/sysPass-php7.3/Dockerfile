@@ -3,7 +3,7 @@
 # https://doc.syspass.org
 #
 
-FROM composer:1.7 as bootstrap
+FROM composer:2.0 as bootstrap
 
 ENV SYSPASS_BRANCH="master"
 
@@ -17,9 +17,31 @@ RUN git clone --branch ${SYSPASS_BRANCH} https://github.com/nuxsmin/sysPass.git 
     --optimize-autoloader \
     --working-dir /app/sysPass
 
-FROM php:7.3-apache-stretch as app
+FROM php:7.3-apache-buster as app
 
 LABEL maintainer=nuxsmin@syspass.org version=3.1.2 php=7.3
+
+##################################################################
+#                  adding normal sources list
+##################################################################
+RUN rm /etc/apt/sources.list
+COPY sources.list /etc/apt/sources.list
+
+##################################################################
+#                  installing php repo + smbclient
+##################################################################
+RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
+RUN sh -c 'echo "deb https://packages.sury.org/php/ buster main" > /etc/apt/sources.list.d/php.list'
+RUN apt update -y &&  apt install -y --allow-unauthenticated smbclient libsmbclient libsmbclient-dev
+RUN pecl install smbclient
+RUN docker-php-ext-enable smbclient
+
+##################################################################
+#                  smb fix
+##################################################################
+RUN rm -frv /etc/samba/smb.conf /usr/share/samba/smb.conf
+ADD smb.conf /etc/samba/
+ADD smb.conf /usr/share/samba/
 
 RUN apt-get update \
 	&& apt-get install -y \
