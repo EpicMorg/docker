@@ -64,6 +64,16 @@ jobs:
     - name: Push TeamCity Server (latest)
       run:  docker push epicmorg/teamcity-server:latest
 
+    - name: Build sysPass + php7.3 (latest)
+      run:  docker build --compress -t epicmorg/syspass:latest syspass/sysPass-php7.3
+    - name: Push sysPass + php7.3 (latest)
+      run:  docker push epicmorg/syspass:latest
+
+    - name: Build sysPass + php7.3 (php7.3)
+      run:  docker build --compress -t epicmorg/syspass:php7.3 syspass/sysPass-php7.3
+    - name: Push sysPass + php7.3 (php7.3)
+      run:  docker push epicmorg/syspass:php7.3
+
     - name: Cleanup
       run: docker system prune --all --force --volumes
  

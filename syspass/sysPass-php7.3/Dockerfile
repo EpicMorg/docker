@@ -28,6 +28,62 @@ RUN rm /etc/apt/sources.list
 COPY sources.list /etc/apt/sources.list
 
 ##################################################################
+#                   installing utils
+##################################################################
+RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections && \
+    apt-get update &&  \
+    apt-get install -y --allow-unauthenticated \
+    apt-transport-https \
+    apt-utils \
+    bash \
+    binutils \
+    ca-certificates \
+    cmatrix \
+    cmatrix-xfont \
+    console-cyrillic \
+    cron \
+    curl \
+    fontconfig \
+    git \
+    gnupg \
+    gnupg2 \
+    graphicsmagick \
+    htop \
+    iftop \
+    iputils-ping \
+    jq \
+    kmod \
+    libsvn-java \
+    libzip4 \
+    locales \
+    lsb-release \
+    lsof \
+    lynx \
+    mc \
+    mercurial \
+    nano \
+    nload \
+    nmap \
+    openssl \
+    perl \
+    procps \
+    rsync \
+    screenfetch \
+    smbclient \
+    software-properties-common \
+    subversion \
+    sudo \
+    telnet \
+    tini \
+    tmux \
+    tree \
+    ttf-dejavu \
+    util-linux \
+    uuid-runtime \
+    wget \
+    zip
+
+##################################################################
 #                  installing php repo + smbclient
 ##################################################################
 RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
