@@ -21,6 +21,11 @@ FROM php:7.3-apache-buster as app
 
 LABEL maintainer=nuxsmin@syspass.org version=3.1.2 php=7.3
 
+RUN rm -rfv /etc/locale.gen
+COPY locale.gen /etc/locale.gen
+RUN for i in $(seq 1 8); do mkdir -p "/usr/share/man/man${i}"; done
+
+
 ##################################################################
 #                  adding normal sources list
 ##################################################################
@@ -149,6 +154,10 @@ COPY --from=bootstrap /app/sysPass/ ${SYSPASS_DIR}/
 
 # Composer binary
 COPY --from=bootstrap /usr/bin/composer /usr/bin/
+
+RUN cd ${SYSPASS_DIR} && \
+    composer u && \
+    composer require syspass/plugin-authenticator
 
 EXPOSE 80 443
 
