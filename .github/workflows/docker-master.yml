@@ -74,6 +74,11 @@ jobs:
     - name: Push sysPass + php7.3 (php7.3)
       run:  docker push epicmorg/syspass:php7.3
 
+    - name: Build MatterMost (latest)
+      run:  docker build --compress -t epicmorg/mattermost-enterprise-edition:latest mattermost/latest
+    - name: Push MatterMost (latest)
+      run:  docker push epicmorg/mattermost-enterprise-edition:latest
+
     - name: Cleanup
       run: docker system prune --all --force --volumes
  

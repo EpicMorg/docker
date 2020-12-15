@@ -141,6 +141,12 @@ jobs:
 
 ##########
 
+    - name: Build MatterMost (latest)
+      run:  docker build --compress -t epicmorg/mattermost-enterprise-edition:latest mattermost/latest
+
+    - name: Build sysPass + php7.3 (latest)
+      run:  docker build --compress -t epicmorg/syspass:latest syspass/sysPass-php7.3
+
     - name: Build TeamCity Agent
       run:  docker build --compress -t epicmorg/teamcity-agent:latest teamcity/agent
 
