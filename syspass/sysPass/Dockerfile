@@ -3,7 +3,7 @@
 # https://doc.syspass.org
 #
 
-FROM composer:1.10 as bootstrap
+FROM composer:2.0 as bootstrap
 
 ENV SYSPASS_BRANCH="3.2.0"
 
@@ -157,6 +157,10 @@ COPY --from=bootstrap /app/sysPass/ ${SYSPASS_DIR}/
 
 # Composer binary
 COPY --from=bootstrap /usr/bin/composer /usr/bin/
+
+RUN cd ${SYSPASS_DIR} && \
+    composer u && \
+    composer require syspass/plugin-authenticator
 
 EXPOSE 80 443
 
