@@ -3,11 +3,11 @@
 # https://doc.syspass.org
 #
 
-FROM composer:2.0 as bootstrap
+FROM composer:1.10 as bootstrap
 
-ENV SYSPASS_BRANCH="master"
+ENV SYSPASS_BRANCH="3.2.0"
 
-RUN git clone --branch ${SYSPASS_BRANCH} https://github.com/nuxsmin/sysPass.git \
+RUN git clone --depth 1 --branch ${SYSPASS_BRANCH} https://github.com/nuxsmin/sysPass.git \
   && composer install \
     --ignore-platform-reqs \
     --no-interaction \
@@ -17,9 +17,10 @@ RUN git clone --branch ${SYSPASS_BRANCH} https://github.com/nuxsmin/sysPass.git 
     --optimize-autoloader \
     --working-dir /app/sysPass
 
-FROM php:7.3-apache-buster as app
+FROM php:7.4-apache-buster as app
 
-LABEL maintainer=nuxsmin@syspass.org version=3.1.2 php=7.3
+LABEL maintainer=nuxsmin@syspass.org version=3.2.0 php=7.4
+
 
 RUN rm -rfv /etc/locale.gen
 COPY locale.gen /etc/locale.gen
@@ -105,8 +106,9 @@ ADD smb.conf /etc/samba/
 ADD smb.conf /usr/share/samba/
 
 RUN apt-get update \
-	&& apt-get install -y \
+    && apt-get install -y \
     locales \
+    locales-all \
     git \
     gosu \
     libicu-dev \
@@ -117,12 +119,13 @@ RUN apt-get update \
     libpng-dev \
     unzip \
     ssl-cert \
-	&& apt-get clean \
-	&& rm -r /var/lib/apt/lists/* \
-	&& pecl install xdebug-2.7.1 \
-  && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
-	&& docker-php-ext-install -j$(nproc) ldap intl gettext pdo_mysql opcache gd \
-	&& docker-php-ext-enable ldap xdebug intl pdo_mysql
+    && apt-get clean \
+    && rm -r /var/lib/apt/lists/*
+
+RUN pecl install xdebug-2.9.8 \
+  && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install -j$(nproc) ldap intl gettext pdo_mysql opcache gd \
+    && docker-php-ext-enable ldap xdebug intl pdo_mysql
 
 ENV APACHE_RUN_USER="www-data" \
     SYSPASS_DIR="/var/www/html/sysPass" \
@@ -131,7 +134,7 @@ ENV APACHE_RUN_USER="www-data" \
 
 WORKDIR /var/www/html
 
-LABEL build=19030701
+LABEL build=20122001
 
 # Custom sysPass Apache config with SSL by default
 COPY ["syspass.conf", "/etc/apache2/sites-available/"]
@@ -140,7 +143,7 @@ COPY ["syspass.conf", "/etc/apache2/sites-available/"]
 COPY xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
 # Custom entrypoint
-COPY entrypoint.sh init-functions /usr/local/sbin/
+COPY entrypoint.sh common_fn.sh /usr/local/sbin/
 
 RUN chmod 755 /usr/local/sbin/entrypoint.sh \
   && a2dissite 000-default default-ssl \
@@ -154,10 +157,6 @@ COPY --from=bootstrap /app/sysPass/ ${SYSPASS_DIR}/
 
 # Composer binary
 COPY --from=bootstrap /usr/bin/composer /usr/bin/
-
-RUN cd ${SYSPASS_DIR} && \
-    composer u && \
-    composer require syspass/plugin-authenticator
 
 EXPOSE 80 443
 
