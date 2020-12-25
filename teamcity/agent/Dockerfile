@@ -11,8 +11,6 @@ RUN  apt update && \
      apt dist-upgrade -y && \
      apt autoremove -y
 
-
-
 ##################################################################
 #                   teamcity minimal agent
 ##################################################################
@@ -282,9 +280,9 @@ RUN cd /tmp && \
 
 
 ##################################################################
-#                   Node.js 14.x
+#                   Node.js 15.x
 ##################################################################
-RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
+RUN curl -sL https://deb.nodesource.com/setup_15.x | bash - && \
     curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - && \
     echo "deb https://nightly.yarnpkg.com/debian/ nightly main" > /etc/apt/sources.list.d/yarn.list && \
     apt-get update && \
@@ -306,11 +304,11 @@ RUN cd / && \
 ##################################################################
 #                   Android SDK
 ##################################################################
-#RUN apt-get install -y -t sid --allow-unauthenticated \
-#      android-sdk \
-#      android-sdk-build-tools \
-#      android-sdk-platform-tools libsqlite3-0 sqlite3 && \
-#    echo "24333f8a63b6825ea9c5514f83c2829b004d1fee" > /usr/lib/android-sdk/licenses/android-sdk-license
+RUN apt-get install -y -t sid --allow-unauthenticated \
+      android-sdk \
+      android-sdk-build-tools \
+      android-sdk-platform-tools libsqlite3-0 sqlite3 && \
+      echo "24333f8a63b6825ea9c5514f83c2829b004d1fee" > /usr/lib/android-sdk/licenses/android-sdk-license
 
 ENV ANDROID_HOME=/usr/lib/android-sdk
 ENV ANDROID_SDK_ROOT=/usr/lib/android-sdk

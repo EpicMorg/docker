@@ -1,4 +1,7 @@
 ## Changelog
+* `december`
+	* added mattermost
+	* fixed some images
 * `november`
 	* fixes and updated images
 	* migrated to github actions
