@@ -64,7 +64,7 @@ jobs:
     - name: Build NextCloud (20)
       run:  docker build --compress -t epicmorg/nextcloud:20 nextcloud/20
 
-    - name: Build sysPass + php7.3 (latest)
+    - name: Build sysPass + php7.4 (latest)
       run:  docker build --compress -t epicmorg/syspass:latest syspass/sysPass
 
 ######################################################################################################################################################
