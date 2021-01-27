@@ -19,11 +19,6 @@ ARG P4_VERSION=r20.2
 ARG P4_DOWNLOAD_URL=http://www.perforce.com/downloads/perforce/${P4_VERSION}/bin.linux26x86_64/p4
 
 ##################################################################
-#                   LDAP Fix
-##################################################################
-RUN echo "TLS_REQCERT never" >> /etc/ldap/ldap.conf
-
-##################################################################
 #                   installing utils
 ##################################################################
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections && \

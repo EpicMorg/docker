@@ -48,6 +48,11 @@ RUN apt-get update && \
     php -v
 
 ##################################################################
+#                   LDAP Fix
+##################################################################
+RUN echo "TLS_REQCERT never" >> /etc/ldap/ldap.conf
+
+##################################################################
 #                   Installing IOnCube addon
 ##################################################################
 RUN echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_7.4.so" >> ${PHP_DIR}/apache2/php.ini && \
