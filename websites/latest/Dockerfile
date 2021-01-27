@@ -1,14 +1,15 @@
-FROM epicmorg/edge
+FROM epicmorg/php:latest
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
-##################################################################
-#                   Installing Apache2 + PHP7
-##################################################################
-#installing php repo
-RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
-RUN sh -c 'echo "deb https://packages.sury.org/php/ buster main" > /etc/apt/sources.list.d/php.list'
+ARG PHP_MODULE_PATH=/usr/lib/php/20190902
+ARG PHP_VER=7.4
+ARG PHP_DIR=/etc/php/${PHP_VER}
+ARG P4_PHP_INI=${PHP_DIR}/mods-available/perfroce.ini
 
+##################################################################
+#                   Installing Apache2
+##################################################################
 #installing apache2 repo
 RUN wget -O /etc/apt/trusted.gpg.d/apache2.gpg https://packages.sury.org/apache2/apt.gpg
 RUN sh -c 'echo "deb https://packages.sury.org/apache2/ buster main" > /etc/apt/sources.list.d/apache2.list'
@@ -22,90 +23,7 @@ RUN apt-get update && \
       libapache2-mod-webauth \
       libapache2-mod-xforward \
       libapache2-mod-security2 \
-      libmemcached-dev \
-      php7.4 \
-      php7.4-dev \
-      php7.4-fpm \
-      php7.4-cli \
-      php7.4-cgi \
-      php-pear \
-      php-gmp \
-      php-snmp \
-      php-ldap \
-      php-mail  \
-#     php-mailparse \
-      php-soap \
-      php-mysql \
-      php-memcached \
-      php-memcache \
-      php-igbinary \
-      php-interbase \
-      php-curl \
-      php-gd \
-      php-intl \
-      php-zip \
-      php-bcmath \
-      php-imap \
-      php-pspell \
-      php-sqlite3 \
-      php-tidy \
-      php-xmlrpc \
-      php-xml \
-      php-mbstring \
-#     php-gettext \
-      php-apcu \
-      php-common \
-      php-json \
-      php-readline \
-      php-enchant \
-      php-ssh2 \
-      php-oauth \
-      php-gmagick \
-      php-gnupg \
-      php-redis \
-      php-smbclient \
-      php-yaml \
-      php-geoip \
-      sendmail && \
-    phpenmod \
-      snmp \
-      gmp \
-      calendar \
-      ldap \
-      curl \
-      exif \
-      ftp \
-      fileinfo \
-      gd \
-      geoip \
-#     gettext \
-      gnupg \
-      iconv \
-      interbase \
-      imap \
-      json \
-      mbstring \
-      memcached \
-      mysqli \
-      mysqlnd \
-      oauth \
-      pdo_mysql \
-      pdo_sqlite \
-      phar \
-      posix \
-      readline \
-      redis \
-      simplexml \
-      sockets \
-      sqlite3 \
-      ssh2 \
-      tokenizer \
-      xml \
-      xmlreader \
-      xmlrpc \
-      xmlwriter \
-      xsl \
-      yaml && \
+      libmemcached-dev && \
     a2enmod \
       php7.4 \
       rewrite \
@@ -126,32 +44,22 @@ RUN apt-get update && \
       dav_fs \
       alias && \
     ln -sf /etc/ssl/dhparam.pem /etc/apache2/dhparam.pem && \
+    php -m && \
     php -v
-
-##################################################################
-#                   LDAP Fix
-##################################################################
-RUN echo "TLS_REQCERT never" >> /etc/ldap/ldap.conf
 
 ##################################################################
 #                   Installing IOnCube addon
 ##################################################################
-ADD https://www.ioncube.com/php-7.4.0-beta-loaders/ioncube_loaders_lin_x86-64_7.4_BETA2.tar.gz /tmp/ioncube.tar.gz
-RUN tar -C /tmp -xvf /tmp/ioncube.tar.gz && \
-    cp /tmp/ioncube_loader_lin_7.4_10.4.0_beta2.so /usr/lib/php/20170718/ && \
-    echo "zend_extension = /usr/lib/php/20170718/ioncube_loader_lin_7.4_10.4.0_beta2.so" >> /etc/php/7.4/apache2/php.ini && \
-    echo "zend_extension = /usr/lib/php/20170718/ioncube_loader_lin_7.4_10.4.0_beta2.so" >> /etc/php/7.4/cgi/php.ini && \
-    echo "zend_extension = /usr/lib/php/20170718/ioncube_loader_lin_7.4_10.4.0_beta2.so" >> /etc/php/7.4/cli/php.ini && \
-    echo "zend_extension = /usr/lib/php/20170718/ioncube_loader_lin_7.4_10.4.0_beta2.so" >> /etc/php/7.4/fpm/php.ini && \
+RUN echo "zend_extension = /usr/lib/php/20170718/ioncube_loader_lin_7.4_10.4.0_beta2.so" >> /etc/php/7.4/apache2/php.ini && \
+    php -m && \
     php -v
 
 ##################################################################
-#                   Installing Composer addon
+#                   Installing P4 addon
 ##################################################################
-RUN cd /tmp && \
-     php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
-     php composer-setup.php  --install-dir=/usr/local/bin --filename=composer && \
-     rm /tmp/composer-setup.php
+RUN ln -sf ${P4_PHP_INI} ${PHP_DIR}/apache2/conf.d/perforce.ini && \
+    php -m && \
+    php -v
 
 ##################################################################
 #                   cleaninig up
