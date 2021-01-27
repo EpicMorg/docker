@@ -18,6 +18,10 @@ RUN for i in $(seq 1 8); do mkdir -p "/usr/share/man/man${i}"; done
 ARG P4_VERSION=r20.2
 ARG P4_DOWNLOAD_URL=http://www.perforce.com/downloads/perforce/${P4_VERSION}/bin.linux26x86_64/p4
 
+##################################################################
+#                   LDAP Fix
+##################################################################
+RUN echo "TLS_REQCERT never" >> /etc/ldap/ldap.conf
 
 ##################################################################
 #                   installing utils
@@ -35,6 +39,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     console-cyrillic \
     cron \
     curl \
+    dos2unix \
     ffmpeg \
     fontconfig \
     git \

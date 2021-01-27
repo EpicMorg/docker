@@ -64,11 +64,6 @@ jobs:
     - name: Push TeamCity Server (latest)
       run:  docker push epicmorg/teamcity-server:latest
 
-    - name: Build sysPass + php7.4 (latest)
-      run:  docker build --compress -t epicmorg/syspass:latest syspass/sysPass
-    - name: Push sysPass + php7.4 (latest)
-      run:  docker push epicmorg/syspass:latest
-
     - name: Build MatterMost (latest)
       run:  docker build --compress -t epicmorg/mattermost-enterprise-edition:latest mattermost/latest
     - name: Push MatterMost (latest)
@@ -233,6 +228,13 @@ jobs:
     - name: Push Apache (latest)
       run:  docker push epicmorg/websites:latest
 
+
+    - name: PHP (latest)
+      run:  docker build --compress -t epicmorg/php:latest php/latest
+    - name: Push PHP (latest)
+      run:  docker push epicmorg/php:latest
+
+
     - name: Build NGinx (latest)
       run:  docker build --compress -t epicmorg/balancer:latest balancer/latest
     - name: Push NGinx (latest)
@@ -300,6 +302,21 @@ jobs:
       run:  docker build --compress -t epicmorg/balancer:rtmp-hls balancer/rtmp-hls
     - name: Push NGinx + RTMP-HLS
       run:  docker push epicmorg/balancer:rtmp-hls
+
+    - name: PHP 7.4
+      run:  docker build --compress -t epicmorg/php:php7.4 php/php7.4
+    - name: Push PHP 7.4
+      run:  docker push epicmorg/php:7.4
+
+    - name: PHP 7.3
+      run:  docker build --compress -t epicmorg/php:php7.3 php/php7.3
+    - name: Push PHP 7.3
+      run:  docker push epicmorg/php:7.3
+
+    - name: PHP 7.2
+      run:  docker build --compress -t epicmorg/php:php7.2 php/php7.2
+    - name: Push PHP 7.2
+      run:  docker push epicmorg/php:7.2
 
     - name: Build Apache + PHP7.4
       run:  docker build --compress -t epicmorg/websites:php7.4 websites/php7.4

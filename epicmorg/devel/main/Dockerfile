@@ -28,6 +28,10 @@ RUN apt update && \
 RUN apt-get update && \
     apt install -y --allow-unauthenticated --allow-downgrades \
     build-essential \
+    autoconf-archive \
+    gnu-standards \
+    at \
+    autopkgtest \
     gcc-multilib \
     g++-multilib \
     libxkbcommon-dev \

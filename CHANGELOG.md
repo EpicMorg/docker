@@ -1,4 +1,15 @@
 ## Changelog
+### 2021
+* `january`
+	* splitted `php` from `websites` images. all versions - `7.2-7.4`.
+	* updated `ioncube loader` for `php7.4`. enabled by degault.
+	* added support of `p4php` module. for all versions. enabled by degault.
+	* updated `atlassian` images.
+	* deprecated `syspass` iamge. sorry.
+	* updated `nginx`. and reworked `php` image, now it based in splitted php-image. yay.
+	* updated `teamcity agent` image.
+-------------------------------------------------------------------
+### 2020
 * `december`
 	* added mattermost
 	* fixed some images

@@ -76,14 +76,10 @@ RUN cd ${MAKE_DIR} && \
 ##################################################################
 ##################################################################
 
-
-FROM epicmorg/balancer:latest
+FROM epicmorg/edge
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
-##################################################################
-#                   Installing php fpm for nginx from deb
-##################################################################
 ARG PHP_MODULE_PATH=/usr/lib/php/20190902
 ARG PHP_VER=7.4
 ARG PHP_DIR=/etc/php/${PHP_VER}
@@ -115,6 +111,7 @@ RUN apt-get update && \
       php-memcached \
       php-memcache \
       php-igbinary \
+      php-interbase \
       php-curl \
       php-gd \
       php-intl \
@@ -179,6 +176,7 @@ RUN apt-get update && \
       xsl \
       yaml && \
     ln -sf /etc/ssl/dhparam.pem /etc/php/dhparam.pem && \
+    php -m && \
     php -v
 
 ##################################################################
@@ -225,8 +223,3 @@ RUN apt clean -y && \
     rm -rfv /tmp/composer-setup.php && \
     rm -rfv /tmp/ioncube.tar.gz
 
-#Final config
-VOLUME ["/var/cache/nginx"]
-EXPOSE 80 443
-
-CMD ["nginx", "-g", "daemon off;"]

@@ -12,7 +12,7 @@ ARG SRC_DIR=${BUILDS_DIR}/src
 ARG EXPORT_DIR=${BUILDS_DIR}/export
 ARG P4API_DIR=${SRC_DIR}/p4api
 ARG P4PHP_DIR=${SRC_DIR}/p4php
-ARG MAKE_DIR=${SRC_DIR}/p4php-7.4
+ARG MAKE_DIR=${SRC_DIR}/p4php-7.2
 
 ARG P4API_VER=r20.2
 ARG P4API_URL=https://www.perforce.com/downloads/perforce/${P4API_VER}/bin.linux26x86_64/p4api.tgz
@@ -20,7 +20,7 @@ ARG P4API_URL=https://www.perforce.com/downloads/perforce/${P4API_VER}/bin.linux
 ARG P4PHP_VER=r20.1
 ARG P4PHP_URL=https://www.perforce.com/downloads/perforce/${P4PHP_VER}/bin.tools/p4php-php7.tgz
 
-ARG P4MODULE_PATH=/usr/lib/php/20190902
+ARG P4MODULE_PATH=/usr/lib/php/20170718
 
 ##################################################################
 #                   Files and folders
@@ -38,11 +38,11 @@ RUN sh -c 'echo "deb https://packages.sury.org/php/ buster main" > /etc/apt/sour
 RUN apt-get update && \
     apt-get install -y  --allow-unauthenticated \
       libmemcached-dev \
-      php7.4 \
-      php7.4-dev \
-      php7.4-fpm \
-      php7.4-cli \
-      php7.4-cgi
+      php7.2 \
+      php7.2-dev \
+      php7.2-fpm \
+      php7.2-cli \
+      php7.2-cgi
 
 ##################################################################
 #                   preparing p4src
@@ -72,20 +72,17 @@ RUN cd ${MAKE_DIR} && \
     make install && \
     cp ${P4MODULE_PATH}/perforce.so ${EXPORT_DIR}
 
+
 ##################################################################
 ##################################################################
 ##################################################################
 
-
-FROM epicmorg/balancer:latest
+FROM epicmorg/prod
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
-##################################################################
-#                   Installing php fpm for nginx from deb
-##################################################################
-ARG PHP_MODULE_PATH=/usr/lib/php/20190902
-ARG PHP_VER=7.4
+ARG PHP_MODULE_PATH=/usr/lib/php/20170718
+ARG PHP_VER=7.2
 ARG PHP_DIR=/etc/php/${PHP_VER}
 ARG P4_PHP_INI=${PHP_DIR}/mods-available/perfroce.ini
 
@@ -100,50 +97,44 @@ RUN sh -c 'echo "deb https://packages.sury.org/php/ buster main" > /etc/apt/sour
 RUN apt-get update && \
     apt-get install -y  --allow-unauthenticated \
       libmemcached-dev \
-      php7.4 \
-      php7.4-dev \
-      php7.4-fpm \
-      php7.4-cli \
-      php7.4-cgi \
-      php-pear \
-      php-gmp \
-      php-snmp \
-      php-ldap \
-      php-mail  \
-      php-soap \
-      php-mysql \
-      php-memcached \
-      php-memcache \
-      php-igbinary \
-      php-curl \
-      php-gd \
-      php-intl \
-      php-zip \
-      php-bcmath \
-      php-imap \
-      php-pspell \
-      php-sqlite3 \
-      php-tidy \
-      php-xmlrpc \
-      php-xml \
-      php-mbstring \
-      php-apcu \
-      php-common \
-      php-json \
-      php-readline \
-      php-enchant \
-      php-ssh2 \
-      php-oauth \
-      php-gmagick \
-      php-gnupg \
-      php-redis \
-      php-smbclient \
-      php-yaml \
-      php-geoip \
+      php7.2-ldap \
+      php7.2-dev \
+      php7.2 \
+      php7.2-mail \
+      php7.2-mailparse \
+      php7.2-soap \
+      php7.2-mysql \
+      php7.2-curl \
+      php7.2-gd \
+      php7.2-intl \
+      php7.2-zip \
+      php7.2-bcmath \
+      php7.2-fpm \
+      php7.2-imap \
+      php7.2-pspell \
+      php7.2-recode \
+      php7.2-sqlite3 \
+      php7.2-tidy \
+      php7.2-xmlrpc \
+      php7.2-xml \
+      php7.2-mbstring \
+      php7.2-gettext \
+      php7.2-apcu \
+      php7.2-cli \
+      php7.2-common \
+      php7.2-cgi \
+      php7.2-json \
+      php7.2-readline \
+      php7.2-enchant \
+      php7.2-ssh2 \
+      php7.2-oauth \
+      php7.2-gmagick \
+      php7.2-redis \
+      php7.2-smbclient \
+      php7.2-yaml \
+      php7.2-geoip \
       sendmail && \
     phpenmod \
-      snmp \
-      gmp \
       calendar \
       ldap \
       curl \
@@ -152,12 +143,10 @@ RUN apt-get update && \
       fileinfo \
       gd \
       geoip \
-      gnupg \
       iconv \
       imap \
       json \
       mbstring \
-      memcached \
       mysqli \
       mysqlnd \
       oauth \
@@ -179,6 +168,7 @@ RUN apt-get update && \
       xsl \
       yaml && \
     ln -sf /etc/ssl/dhparam.pem /etc/php/dhparam.pem && \
+    php -m && \
     php -v
 
 ##################################################################
@@ -186,11 +176,11 @@ RUN apt-get update && \
 ##################################################################
 ADD https://downloads.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz /tmp/ioncube.tar.gz
 RUN tar -C /tmp -xvf /tmp/ioncube.tar.gz && \
-    cp /tmp/ioncube/ioncube_loader_lin_7.4.so ${PHP_MODULE_PATH} && \
-#    echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_7.4.so" >> ${PHP_DIR}/apache2/php.ini && \
-    echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_7.4.so" >> ${PHP_DIR}/cgi/php.ini && \
-    echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_7.4.so" >> ${PHP_DIR}/cli/php.ini && \
-    echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_7.4.so" >> ${PHP_DIR}/fpm/php.ini && \
+    cp /tmp/ioncube/ioncube_loader_lin_7.2.so ${PHP_MODULE_PATH} && \
+#    echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_7.2.so" >> ${PHP_DIR}/apache2/php.ini && \
+    echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_7.2.so" >> ${PHP_DIR}/cgi/php.ini && \
+    echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_7.2.so" >> ${PHP_DIR}/cli/php.ini && \
+    echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_7.2.so" >> ${PHP_DIR}/fpm/php.ini && \
     php -m && \
     php -v
 
@@ -225,8 +215,3 @@ RUN apt clean -y && \
     rm -rfv /tmp/composer-setup.php && \
     rm -rfv /tmp/ioncube.tar.gz
 
-#Final config
-VOLUME ["/var/cache/nginx"]
-EXPOSE 80 443
-
-CMD ["nginx", "-g", "daemon off;"]
