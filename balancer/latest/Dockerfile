@@ -11,7 +11,7 @@ ARG SRC_DIR=${BUILDS_DIR}/src
 ARG EXPORT_DIR=${BUILDS_DIR}/export
 ARG PRE_DIR=${BUILDS_DIR}/pre
 ARG NGINX_SRC_DIR=${SRC_DIR}/nginx
-ARG NGINX_VERSION=1.19.5
+ARG NGINX_VERSION=1.19.6
 ARG NGINX_DOWNLOAD_URL=http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz
 ARG LUAJIT_INC=/usr/local/include/luajit-2.1
 ARG LUAJIT_LIB=/usr/local/lib
@@ -151,7 +151,7 @@ RUN cd ${NGINX_SRC_DIR} && \
     --add-dynamic-module=nginx-audio-track-for-hls-module \
     --add-dynamic-module=ip2location-nginx \
     --add-dynamic-module=nginx-vod-module \
-    --add-dynamic-module=nginx-module-vts \
+#    --add-dynamic-module=nginx-module-vts \
     --add-dynamic-module=mod-zip \
     --add-dynamic-module=nginx-http-user-agent \
     --add-dynamic-module=nginx-unzip-module \
@@ -163,7 +163,6 @@ RUN cd ${NGINX_SRC_DIR} && \
     --add-dynamic-module=http-lua && \
     cp -fv ${PRE_DIR}/nginx-description-pak ${NGINX_SRC_DIR}/description-pak && \
     fakeroot checkinstall -D --pakdir=/builds/export --maintainer="EpicMorg, developer@epicm.org" --pkgname=nginx-custom  --install=no -y && \
-
     apt clean -y && \
     apt autoclean -y && \
     rm -rfv /var/lib/apt/lists/* && \
@@ -211,7 +210,6 @@ RUN apt-get update && \
     ln -sf /dev/stdout /var/log/nginx/access.log && \
     ln -sf /dev/stderr /var/log/nginx/error.log && \
     ln -sf /etc/ssl/dhparam.pem /etc/nginx/dhparam.pem && \
-
     apt clean -y && \
     apt autoclean -y && \
     rm -rf /var/lib/apt/lists/* && \
