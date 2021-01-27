@@ -20,7 +20,7 @@ ARG P4API_URL=https://www.perforce.com/downloads/perforce/${P4API_VER}/bin.linux
 ARG P4PHP_VER=r20.1
 ARG P4PHP_URL=https://www.perforce.com/downloads/perforce/${P4PHP_VER}/bin.tools/p4php-php7.tgz
 
-ARG P4MODULE_PATH=/usr/lib/php/20190902/
+ARG P4MODULE_PATH=/usr/lib/php/20190902
 
 ##################################################################
 #                   Files and folders
