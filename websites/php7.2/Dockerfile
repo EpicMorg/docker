@@ -50,7 +50,7 @@ RUN apt-get update && \
 ##################################################################
 #                   Installing IOnCube addon
 ##################################################################
-RUN echo "zend_extension = /usr/lib/php/20170718/ioncube_loader_lin_7.2.so" >> /etc/php/7.2/apache2/php.ini && \
+RUN echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_7.2.so" >> ${PHP_DIR}/apache2/php.ini && \
     php -m && \
     php -v
 
@@ -70,6 +70,7 @@ RUN apt clean -y && \
     rm -rfv /var/lib/apt/lists/* && \
     rm -rfv /var/cache/apt/archives/*.deb && \
     rm -rfv /tmp/deb/* && \
+    rm -rfv /tmp/ioncube/* && \
     rm -rfv /tmp/composer-setup.php && \
     rm -rfv /tmp/ioncube.tar.gz
 

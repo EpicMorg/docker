@@ -93,10 +93,6 @@ ARG P4_PHP_INI=${PHP_DIR}/mods-available/perfroce.ini
 RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
 RUN sh -c 'echo "deb https://packages.sury.org/php/ buster main" > /etc/apt/sources.list.d/php.list'
 
-#installing apache2 repo
-RUN wget -O /etc/apt/trusted.gpg.d/apache2.gpg https://packages.sury.org/apache2/apt.gpg
-RUN sh -c 'echo "deb https://packages.sury.org/apache2/ buster main" > /etc/apt/sources.list.d/apache2.list'
-
 #Install base packages
 RUN apt-get update && \
     apt-get install -y  --allow-unauthenticated \
@@ -114,7 +110,6 @@ RUN apt-get update && \
       php7.2-zip \
       php7.2-bcmath \
       php7.2-fpm \
-      php-pear \
       php7.2-imap \
       php7.2-pspell \
       php7.2-recode \
@@ -140,8 +135,6 @@ RUN apt-get update && \
       php7.2-geoip \
       sendmail && \
     phpenmod \
-      snmp \
-      gmp \
       calendar \
       ldap \
       curl \
@@ -150,14 +143,10 @@ RUN apt-get update && \
       fileinfo \
       gd \
       geoip \
-#     gettext \
-      gnupg \
       iconv \
       imap \
-      interbase \
       json \
       mbstring \
-      memcached \
       mysqli \
       mysqlnd \
       oauth \
@@ -186,11 +175,11 @@ RUN apt-get update && \
 ##################################################################
 ADD https://downloads.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz /tmp/ioncube.tar.gz
 RUN tar -C /tmp -xvf /tmp/ioncube.tar.gz && \
-    cp /tmp/ioncube/ioncube_loader_lin_7.2.so /usr/lib/php/20170718/ && \
-#    echo "zend_extension = /usr/lib/php/20170718/ioncube_loader_lin_7.2.so" >> /etc/php/7.2/apache2/php.ini && \
-    echo "zend_extension = /usr/lib/php/20170718/ioncube_loader_lin_7.2.so" >> /etc/php/7.2/cgi/php.ini && \
-    echo "zend_extension = /usr/lib/php/20170718/ioncube_loader_lin_7.2.so" >> /etc/php/7.2/cli/php.ini && \
-    echo "zend_extension = /usr/lib/php/20170718/ioncube_loader_lin_7.2.so" >> /etc/php/7.2/fpm/php.ini && \
+    cp /tmp/ioncube/ioncube_loader_lin_7.2.so ${PHP_MODULE_PATH} && \
+#    echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_7.2.so" >> ${PHP_DIR}/apache2/php.ini && \
+    echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_7.2.so" >> ${PHP_DIR}/cgi/php.ini && \
+    echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_7.2.so" >> ${PHP_DIR}/cli/php.ini && \
+    echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_7.2.so" >> ${PHP_DIR}/fpm/php.ini && \
     php -m && \
     php -v
 
@@ -221,7 +210,7 @@ RUN apt clean -y && \
     rm -rfv /var/lib/apt/lists/* && \
     rm -rfv /var/cache/apt/archives/*.deb && \
     rm -rfv /tmp/deb/* && \
+    rm -rfv /tmp/ioncube/* && \
     rm -rfv /tmp/composer-setup.php && \
-    rm -rfv /tmp/ioncube_loader_lin_7.4_10.4.0_beta2.so && \
     rm -rfv /tmp/ioncube.tar.gz
 
