@@ -35,6 +35,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     console-cyrillic \
     cron \
     curl \
+    dos2unix \
     ffmpeg \
     fontconfig \
     git \
