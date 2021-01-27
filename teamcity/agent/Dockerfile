@@ -1,3 +1,18 @@
+FROM epicmorg/php:latest AS php74
+LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
+ARG DEBIAN_FRONTEND=noninteractive
+
+##################################################################
+#                   ARGuments
+##################################################################
+ENV BuildDocker true
+
+ARG P4MODULE_PATH=/usr/lib/php/20190902
+
+##################################################################
+##################################################################
+##################################################################
+
 FROM epicmorg/devel:jdk11
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
@@ -170,6 +185,11 @@ RUN curl -fsSL https://packages.atlassian.com/api/gpg/key/public | apt-key add -
 ##################################################################
 #                   Installing PHP7.4
 ##################################################################
+ENV PHP_MODULE_PATH=/usr/lib/php/20190902
+ENV PHP_VER=7.4
+ENV PHP_DIR=/etc/php/${PHP_VER}
+ENV P4_PHP_INI=${PHP_DIR}/mods-available/perfroce.ini
+
 #installing php repo
 RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
 RUN sh -c 'echo "deb https://packages.sury.org/php/ buster main" > /etc/apt/sources.list.d/php.list'
@@ -181,6 +201,7 @@ RUN sh -c 'echo "deb https://packages.sury.org/apache2/ buster main" > /etc/apt/
 #Install base packages
 RUN apt-get update && \
     apt-get install -y  --allow-unauthenticated \
+      libmemcached-dev \
       php7.4 \
       php7.4-dev \
       php7.4-fpm \
@@ -191,13 +212,12 @@ RUN apt-get update && \
       php-snmp \
       php-ldap \
       php-mail  \
-#     php-mailparse \
-      php-interbase \
       php-soap \
       php-mysql \
       php-memcached \
       php-memcache \
       php-igbinary \
+      php-interbase \
       php-curl \
       php-gd \
       php-intl \
@@ -210,7 +230,6 @@ RUN apt-get update && \
       php-xmlrpc \
       php-xml \
       php-mbstring \
-#     php-gettext \
       php-apcu \
       php-common \
       php-json \
@@ -227,7 +246,6 @@ RUN apt-get update && \
       sendmail && \
     phpenmod \
       snmp \
-      interbase \
       gmp \
       calendar \
       ldap \
@@ -237,7 +255,6 @@ RUN apt-get update && \
       fileinfo \
       gd \
       geoip \
-#     gettext \
       gnupg \
       iconv \
       imap \
@@ -265,7 +282,32 @@ RUN apt-get update && \
       xsl \
       yaml && \
     ln -sf /etc/ssl/dhparam.pem /etc/php/dhparam.pem && \
-    php -v 
+    php -m && \
+    php -v
+
+##################################################################
+#                   Installing IOnCube addon
+##################################################################
+ADD https://downloads.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz /tmp/ioncube.tar.gz
+RUN tar -C /tmp -xvf /tmp/ioncube.tar.gz && \
+    cp /tmp/ioncube/ioncube_loader_lin_7.4.so ${PHP_MODULE_PATH} && \
+    echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_7.4.so" >> ${PHP_DIR}/cgi/php.ini && \
+    echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_7.4.so" >> ${PHP_DIR}/cli/php.ini && \
+    echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_7.4.so" >> ${PHP_DIR}/fpm/php.ini && \
+    php -m && \
+    php -v
+
+##################################################################
+#                   Installing P4 addon
+##################################################################
+COPY --from=php74 ${PHP_MODULE_PATH}/perforce.so ${PHP_MODULE_PATH}
+RUN echo "extension=perforce.so" > ${P4_PHP_INI} && \
+    ln -sf ${P4_PHP_INI} ${PHP_DIR}/cgi/conf.d/perforce.ini && \
+    ln -sf ${P4_PHP_INI} ${PHP_DIR}/cli/conf.d/perforce.ini && \
+    ln -sf ${P4_PHP_INI} ${PHP_DIR}/fpm/conf.d/perforce.ini && \
+    php -m && \
+    php -v
+
 
 ##################################################################
 #                   Installing Composer addon

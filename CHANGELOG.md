@@ -7,6 +7,7 @@
 	* updated `atlassian` images.
 	* deprecated `syspass` iamge. sorry.
 	* updated `nginx`. and reworked `php` image, now it based in splitted php-image. yay.
+	* updated `teamcity agent` image.
 -------------------------------------------------------------------
 ### 2020
 * `december`

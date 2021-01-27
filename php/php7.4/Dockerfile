@@ -106,7 +106,6 @@ RUN apt-get update && \
       php-snmp \
       php-ldap \
       php-mail  \
-#     php-mailparse \
       php-soap \
       php-mysql \
       php-memcached \
@@ -125,7 +124,6 @@ RUN apt-get update && \
       php-xmlrpc \
       php-xml \
       php-mbstring \
-#     php-gettext \
       php-apcu \
       php-common \
       php-json \
@@ -151,11 +149,9 @@ RUN apt-get update && \
       fileinfo \
       gd \
       geoip \
-#     gettext \
       gnupg \
       iconv \
       imap \
-      interbase \
       json \
       mbstring \
       memcached \
@@ -180,6 +176,7 @@ RUN apt-get update && \
       xsl \
       yaml && \
     ln -sf /etc/ssl/dhparam.pem /etc/php/dhparam.pem && \
+    php -m && \
     php -v
 
 ##################################################################

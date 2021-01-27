@@ -168,6 +168,7 @@ RUN apt-get update && \
       xsl \
       yaml && \
     ln -sf /etc/ssl/dhparam.pem /etc/php/dhparam.pem && \
+    php -m && \
     php -v
 
 ##################################################################
