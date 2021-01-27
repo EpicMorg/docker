@@ -308,6 +308,11 @@ jobs:
     - name: Push PHP 7.4
       run:  docker push epicmorg/php:7.4
 
+    - name: PHP 7.2
+      run:  docker build --compress -t epicmorg/php:php7.2 php/php7.2
+    - name: Push PHP 7.2
+      run:  docker push epicmorg/php:7.2
+
     - name: Build Apache + PHP7.4
       run:  docker build --compress -t epicmorg/websites:php7.4 websites/php7.4
     - name: Push Apache + PHP7.4
