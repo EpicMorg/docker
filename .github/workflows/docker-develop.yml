@@ -149,6 +149,12 @@ jobs:
     - name: Build NGinx + RTMP-HLS
       run:  docker build --compress -t epicmorg/balancer:rtmp-hls balancer/rtmp-hls
 
+    - name: PHP (latest)
+      run:  docker build --compress -t epicmorg/php:latest php/latest
+
+    - name: PHP 7.4
+      run:  docker build --compress -t epicmorg/php:php7.4 php/php7.4
+
     - name: Build Apache (latest)
       run:  docker build --compress -t epicmorg/websites:latest websites/latest
 
