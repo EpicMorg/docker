@@ -218,26 +218,26 @@ jobs:
 
 ##################################################################################
 
-    - name: Build TeamCity Agent
-      run:  docker build --compress -t epicmorg/teamcity-agent:latest teamcity/agent
-    - name: Push TeamCity Agent
-      run:  docker push epicmorg/teamcity-agent:latest
+    - name: PHP (latest)
+      run:  docker build --compress -t epicmorg/php:latest php/latest
+    - name: Push PHP (latest)
+      run:  docker push epicmorg/php:latest
 
     - name: Build Apache (latest)
       run:  docker build --compress -t epicmorg/websites:latest websites/latest
     - name: Push Apache (latest)
       run:  docker push epicmorg/websites:latest
 
-    - name: PHP (latest)
-      run:  docker build --compress -t epicmorg/php:latest php/latest
-    - name: Push PHP (latest)
-      run:  docker push epicmorg/php:latest
-
     - name: Build NGinx (latest)
       run:  docker build --compress -t epicmorg/balancer:latest balancer/latest
     - name: Push NGinx (latest)
       run:  docker push epicmorg/balancer:latest
- 
+
+    - name: Build TeamCity Agent
+      run:  docker build --compress -t epicmorg/teamcity-agent:latest teamcity/agent
+    - name: Push TeamCity Agent
+      run:  docker push epicmorg/teamcity-agent:latest
+
     - name: Build Postgres (latest)
       run:  docker build --compress -t epicmorg/postgres:latest postgres/latest
     - name: Push Postgres (latest)
