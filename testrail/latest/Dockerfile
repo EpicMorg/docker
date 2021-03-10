@@ -1,4 +1,4 @@
-FROM epicmorg/websites:php7.2
+FROM epicmorg/websites:php7.4
 
 ARG TESTRAIL_VERSION=latest
 ARG DOWNLOAD_URL=https://secure.gurock.com/downloads/testrail/testrail-${TESTRAIL_VERSION}-ion71.zip
