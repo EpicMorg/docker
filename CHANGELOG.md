@@ -4,7 +4,7 @@
 	* `apache2`, `nginx`, `php` - fixed php versions, fixed dependency hell. code updated.
 	* `nginx` 1.19.8
 	* `testrail` v7+ migrated to `php 7.4`
-	 updated `atlassian` images
+	 updated `atlassian` images, `nextcloud`
 * `february`
 	* hm.. nothing
 * `january`
