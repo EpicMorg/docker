@@ -20,7 +20,7 @@ ARG P4API_URL=https://www.perforce.com/downloads/perforce/${P4API_VER}/bin.linux
 ARG P4PHP_VER=r20.1
 ARG P4PHP_URL=https://www.perforce.com/downloads/perforce/${P4PHP_VER}/bin.tools/p4php-php7.tgz
 
-ARG P4MODULE_PATH=/usr/lib/php/20190902
+ARG PHP_MODULE_PATH=/usr/lib/php/20190902
 
 ##################################################################
 #                   Files and folders
@@ -30,14 +30,11 @@ RUN mkdir -p ${BUILDS_DIR} ${SRC_DIR} ${EXPORT_DIR} ${MAKE_DIR} ${P4API_DIR} ${P
 ##################################################################
 #                   Installing  PHP7
 ##################################################################
-#installing php repo
-RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
-RUN sh -c 'echo "deb https://packages.sury.org/php/ buster main" > /etc/apt/sources.list.d/php.list'
-
 #Install base packages
 RUN apt-get update && \
     apt-get install -y  --allow-unauthenticated \
       libmemcached-dev \
+      smbclient libsmbclient libsmbclient-dev \
       php7.4 \
       php7.4-dev \
       php7.4-fpm \
@@ -70,7 +67,14 @@ RUN cd ${MAKE_DIR} && \
     make && \
     make test && \
     make install && \
-    cp ${P4MODULE_PATH}/perforce.so ${EXPORT_DIR}
+    cp ${PHP_MODULE_PATH}/perforce.so ${EXPORT_DIR}
+
+
+##################################################################
+#                   compilling smbclient
+##################################################################
+RUN pecl install smbclient && \
+    cp ${PHP_MODULE_PATH}/smbclient.so ${EXPORT_DIR}
 
 ##################################################################
 ##################################################################
@@ -84,14 +88,11 @@ ARG PHP_MODULE_PATH=/usr/lib/php/20190902
 ARG PHP_VER=7.4
 ARG PHP_DIR=/etc/php/${PHP_VER}
 ARG P4_PHP_INI=${PHP_DIR}/mods-available/perfroce.ini
+ARG SMB_PHP_INI=${PHP_DIR}/mods-available/smbclient.ini
 
 ##################################################################
 #                   Installing  PHP7
 ##################################################################
-#installing php repo
-RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
-RUN sh -c 'echo "deb https://packages.sury.org/php/ buster main" > /etc/apt/sources.list.d/php.list'
-
 #Install base packages
 RUN apt-get update && \
     apt-get install -y  --allow-unauthenticated \
@@ -102,42 +103,44 @@ RUN apt-get update && \
       php7.4-cli \
       php7.4-cgi \
       php-pear \
-      php-gmp \
-      php-snmp \
-      php-ldap \
-      php-mail  \
-      php-soap \
-      php-mysql \
-      php-memcached \
-      php-memcache \
-      php-igbinary \
-      php-interbase \
-      php-curl \
-      php-gd \
-      php-intl \
-      php-zip \
-      php-bcmath \
-      php-imap \
-      php-pspell \
-      php-sqlite3 \
-      php-tidy \
-      php-xmlrpc \
-      php-xml \
-      php-mbstring \
-      php-apcu \
-      php-common \
-      php-json \
-      php-readline \
-      php-enchant \
-      php-ssh2 \
-      php-oauth \
-      php-gmagick \
-      php-gnupg \
-      php-redis \
-      php-smbclient \
-      php-yaml \
-      php-geoip \
+      php7.4-gmp \
+      php7.4-snmp \
+      php7.4-ldap \
+      php7.4-mail  \
+      php7.4-soap \
+      php7.4-mysql \
+      php7.4-memcached \
+      php7.4-memcache \
+      php7.4-igbinary \
+      php7.4-interbase \
+      php7.4-curl \
+      php7.4-gd \
+      php7.4-intl \
+      php7.4-zip \
+      php7.4-bcmath \
+      php7.4-imap \
+      php7.4-pspell \
+      php7.4-sqlite3 \
+      php7.4-tidy \
+      php7.4-xmlrpc \
+      php7.4-xml \
+      php7.4-mbstring \
+      php7.4-apcu \
+      php7.4-common \
+      php7.4-json \
+      php7.4-readline \
+      php7.4-enchant \
+      php7.4-ssh2 \
+      php7.4-oauth \
+      php7.4-gmagick \
+      php7.4-gnupg \
+      php7.4-redis \
+      smbclient libsmbclient \
+#      php-smbclient \
+      php7.4-yaml \
+      php7.4-geoip \
       sendmail && \
+    update-alternatives --set php /usr/bin/php7.4 && \
     phpenmod \
       snmp \
       gmp \
@@ -200,6 +203,17 @@ RUN echo "extension=perforce.so" > ${P4_PHP_INI} && \
     ln -sf ${P4_PHP_INI} ${PHP_DIR}/cgi/conf.d/perforce.ini && \
     ln -sf ${P4_PHP_INI} ${PHP_DIR}/cli/conf.d/perforce.ini && \
     ln -sf ${P4_PHP_INI} ${PHP_DIR}/fpm/conf.d/perforce.ini && \
+    php -m && \
+    php -v
+
+##################################################################
+#                   Installing smbclient addon
+##################################################################
+COPY --from=builder /builds/export/smbclient.so ${PHP_MODULE_PATH}
+RUN echo "extension=smbclient.so" > ${SMB_PHP_INI} && \
+    ln -sf ${SMB_PHP_INI} ${PHP_DIR}/cgi/conf.d/smbclient.ini && \
+    ln -sf ${SMB_PHP_INI} ${PHP_DIR}/cli/conf.d/smbclient.ini && \
+    ln -sf ${SMB_PHP_INI} ${PHP_DIR}/fpm/conf.d/smbclient.ini && \
     php -m && \
     php -v
 
