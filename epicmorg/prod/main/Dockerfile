@@ -26,6 +26,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     apt-get install -y --allow-unauthenticated \
     apt-transport-https \
     apt-utils \
+    aptitude \
     bash \
     binutils \
     ca-certificates \
