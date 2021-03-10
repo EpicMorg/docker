@@ -1,4 +1,4 @@
-FROM epicmorg/php:php7.4
+FROM epicmorg/php:latest
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -6,6 +6,7 @@ ARG PHP_MODULE_PATH=/usr/lib/php/20190902
 ARG PHP_VER=7.4
 ARG PHP_DIR=/etc/php/${PHP_VER}
 ARG P4_PHP_INI=${PHP_DIR}/mods-available/perfroce.ini
+ARG SMB_PHP_INI=${PHP_DIR}/mods-available/smbclient.ini
 
 ##################################################################
 #                   Installing Apache2
@@ -22,8 +23,7 @@ RUN apt-get update && \
       libapache2-mod-php7.4 \
       libapache2-mod-webauth \
       libapache2-mod-xforward \
-      libapache2-mod-security2 \
-      libmemcached-dev && \
+      libapache2-mod-security2 && \
     a2enmod \
       php7.4 \
       rewrite \
@@ -63,6 +63,13 @@ RUN echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_7.4.so" >> ${PH
 #                   Installing P4 addon
 ##################################################################
 RUN ln -sf ${P4_PHP_INI} ${PHP_DIR}/apache2/conf.d/perforce.ini && \
+    php -m && \
+    php -v
+
+##################################################################
+#                   Installing smbclient addon
+##################################################################
+RUN ln -sf ${SMB_PHP_INI} ${PHP_DIR}/apache2/conf.d/smbclient.ini  && \
     php -m && \
     php -v
 

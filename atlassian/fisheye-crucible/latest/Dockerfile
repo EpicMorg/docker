@@ -5,7 +5,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 #                   ARGuments
 ##################################################################
-ARG FECRU_VERSION=4.8.5
+ARG FECRU_VERSION=4.8.6
 ARG DOWNLOAD_URL=https://product-downloads.atlassian.com/software/fisheye/downloads/fisheye-${FECRU_VERSION}.zip
 
 ##################################################################

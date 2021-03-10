@@ -1,5 +1,12 @@
 ## Changelog
 ### 2021
+* `march`
+	* `apache2`, `nginx`, `php` - fixed php versions, fixed dependency hell. code updated.
+	* `nginx` 1.19.8
+	* `testrail` v7+ migrated to `php 7.4`
+	 updated `atlassian` images
+* `february`
+	* hm.. nothing
 * `january`
 	* splitted `php` from `websites` images. all versions - `7.2-7.4`.
 	* updated `ioncube loader` for `php7.4`. enabled by degault.
