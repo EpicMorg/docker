@@ -64,6 +64,9 @@ jobs:
     - name: Build NextCloud (20)
       run:  docker build --compress -t epicmorg/nextcloud:20 nextcloud/20
 
+    - name: Build NextCloud (21)
+      run:  docker build --compress -t epicmorg/nextcloud:21 nextcloud/21
+
 ######################################################################################################################################################
 
 #########################################
