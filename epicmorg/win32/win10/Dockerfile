@@ -3,6 +3,10 @@ LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 
 ENV chocolateyUseWindowsCompression false
 
+####################################################################################################################################
+# https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-docker/manage-windows-dockerfile
+####################################################################################################################################
+
 ##################################################################
 #                   Installing ocolatey.org
 ##################################################################
@@ -11,29 +15,9 @@ RUN powershell -Command \
 	iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 
 ##################################################################
-#                   install base packages
+#                   install vcredist packages
 ##################################################################
 RUN cinst --no-progress  -y  -IgnoreChecksums \
-    7zip-zstd \
-    7zip.commandline \
-    7zip.portable \
-    asar7z \
-    curl \
-    directx \
-    dotnetfx \
-    exfat7z \
-    far \
-    git \
-    grit7z \
-    iso7z \
-    mc \
-    modern7z \
-    powershell \
-    powershell-core \
-    steamcmd \
-    sudo \
-    tartool \
-    thumbs7z \
     vcredist-all \
     vcredist140 \
     vcredist2005 \
@@ -42,9 +26,60 @@ RUN cinst --no-progress  -y  -IgnoreChecksums \
     vcredist2012 \
     vcredist2013 \
     vcredist2013 \
-    vcredist2015 \
+    vcredist2015
+
+##################################################################
+#                   install dotnet packages
+##################################################################
+RUN cinst --no-progress  -y  -IgnoreChecksums \
+    directx \
+   dotnet \
+#   dotnet-aspnetruntime \
+#    dotnet-windowshosting \
+    dotnet-runtime \
+    dotnet-sdk \
+    dotnetfx \
+    powershell-core
+ 
+##################################################################
+#                   install base packages
+##################################################################
+RUN cinst --no-progress  -y  -IgnoreChecksums \
+    curl \
+    far \
+    findutils \
+    ffmpeg-shared \
+    git \
+    make \
+    mc \
+    nano \
+    openssl \
+    sed \
+    steamcmd \
+    sudo \
+    tartool \
     unrar \
     unzip \
-    wavpack7z \
-    winrar \
     wget
+
+##################################################################
+#                   install archive packages
+##################################################################
+RUN cinst --no-progress  -y  -IgnoreChecksums \
+    7zip \
+    7zip-zstd \
+    7zip.commandline \
+    7zip.portable \
+    asar7z \
+    exfat7z \
+    grit7z \
+    iso7z \
+    modern7z \
+    thumbs7z \
+    wavpack7z \
+    winrar 
+ 
+##################################################################
+#                   install steamcmd update
+##################################################################
+#RUN steamcmd +login anonymous +quit
