@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/windows:20H2
+FROM mcr.microsoft.com/windows:20H2-amd64
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 
 ENV chocolateyUseWindowsCompression false
