@@ -17,7 +17,7 @@ RUN powershell -Command \
 ##################################################################
 #                   install vcredist packages
 ##################################################################
-RUN cinst --no-progress  -y  -IgnoreChecksums \
+RUN cinst --no-progress  -y  -IgnoreChecksums --ignoredetectedreboot \
     vcredist-all \
     vcredist140 \
     vcredist2005 \
@@ -31,19 +31,18 @@ RUN cinst --no-progress  -y  -IgnoreChecksums \
 ##################################################################
 #                   install dotnet packages
 ##################################################################
-RUN cinst --no-progress  -y  -IgnoreChecksums \
+RUN cinst --no-progress  -y  -IgnoreChecksums --ignoredetectedreboot \
     directx \
-   dotnet \
-#   dotnet-aspnetruntime \
-#    dotnet-windowshosting \
+    dotnet \
     dotnet-runtime \
     dotnet-sdk \
+    dotnetfx \
     powershell-core
  
 ##################################################################
 #                   install base packages
 ##################################################################
-RUN cinst --no-progress  -y  -IgnoreChecksums \
+RUN cinst --no-progress  -y  -IgnoreChecksums --ignoredetectedreboot \
     curl \
     far \
     findutils \
@@ -64,7 +63,7 @@ RUN cinst --no-progress  -y  -IgnoreChecksums \
 ##################################################################
 #                   install archive packages
 ##################################################################
-RUN cinst --no-progress  -y  -IgnoreChecksums \
+RUN cinst --no-progress  -y  -IgnoreChecksums --ignoredetectedreboot \
     7zip \
     7zip-zstd \
     7zip.commandline \
