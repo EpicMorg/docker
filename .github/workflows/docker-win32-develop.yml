@@ -14,12 +14,17 @@ jobs:
   build-forked-fixed-independed-images:
     name: EpicMorg Base Production images
     runs-on: windows-latest
-
+    env:
+      DOCKER_CLI_EXPERIMENTAL: enabled
+ 
     steps:
     - uses: actions/checkout@v2
     - name: Log into registry
       run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
+    - name: Experimental Status
+      run: |
+          docker version -f '{{.Server.Experimental}}'
 ##################################################################################
 
     - name: Build Base Win32 Production
