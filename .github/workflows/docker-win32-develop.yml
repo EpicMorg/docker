@@ -25,6 +25,11 @@ jobs:
     - name: Experimental Status
       run: |
           docker version -f '{{.Server.Experimental}}'
+
+    - name: Docker
+      run: |
+          type C:\ProgramData\docker\config\daemon.json
+  
 ##################################################################################
 
     - name: Build Base Win32 Production
