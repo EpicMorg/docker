@@ -316,6 +316,9 @@ jobs:
     - name: Push PHP 7.2
       run:  docker push epicmorg/php:php7.2
 
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+ 
     - name: Build Apache + PHP7.4
       run:  docker build --compress -t epicmorg/websites:php7.4 websites/php7.4
     - name: Push Apache + PHP7.4
@@ -515,6 +518,9 @@ jobs:
     - name: Push PostgresSQL (9.0)
       run:  docker push epicmorg/postgres:9.0
 
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+ 
     - name: Build PostgresSQL (9.1)
       run:  docker build --compress -t epicmorg/postgres:9.1 postgres/9.1
     - name: Push PostgresSQL (9.1)
@@ -540,6 +546,9 @@ jobs:
     - name: Push PostgresSQL (9.5)
       run:  docker push epicmorg/postgres:9.5
 
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+ 
     - name: Build PostgresSQL (9.6)
       run:  docker build --compress -t epicmorg/postgres:9.6 postgres/9.6
     - name: Push PostgresSQL (9.6)
@@ -597,6 +606,9 @@ jobs:
     - name: Push NextCloud (17)
       run:  docker push epicmorg/nextcloud:17
 
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+ 
     - name: Build NextCloud (18)
       run:  docker build --compress -t epicmorg/nextcloud:18 nextcloud/18
     - name: Push NextCloud (18)
@@ -711,6 +723,9 @@ jobs:
       run:  docker build --compress -t epicmorg/bitbucket:6.0.6 atlassian/bitbucket/6/6.0.6
     - name: Push Bitbucket 6.0.6 + JDK 8
       run:  docker push epicmorg/bitbucket:6.0.6
+
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
 
     - name: Build Bitbucket 6.0.6 + JDK 11
       run:  docker build --compress -t epicmorg/bitbucket:6.0.6-jdk11 -f atlassian/bitbucket/6/6.0.6/Dockerfile.jdk11 atlassian/bitbucket/6/6.0.6
@@ -902,6 +917,9 @@ jobs:
     - name: Push Bitbucket 6.2.3 + JDK 8
       run:  docker push epicmorg/bitbucket:6.2.3
 
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+      
     - name: Build Bitbucket 6.2.3 + JDK 11
       run:  docker build --compress -t epicmorg/bitbucket:6.2.3-jdk11 -f atlassian/bitbucket/6/6.2.3/Dockerfile.jdk11 atlassian/bitbucket/6/6.2.3
     - name: Push Bitbucket 6.2.3 + JDK 11
@@ -982,6 +1000,9 @@ jobs:
     - name: Push Bitbucket 6.3.2 + JDK 11
       run:  docker push epicmorg/bitbucket:6.3.2-jdk11
 
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+      
     - name: Build Bitbucket 6.3.3 + JDK 8
       run:  docker build --compress -t epicmorg/bitbucket:6.3.3 atlassian/bitbucket/6/6.3.3
     - name: Push Bitbucket 6.3.3 + JDK 8
@@ -1047,6 +1068,9 @@ jobs:
     - name: Push Bitbucket 6.4.1 + JDK 11
       run:  docker push epicmorg/bitbucket:6.4.1-jdk11
 
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+      
     - name: Build Bitbucket 6.4.2 + JDK 8
       run:  docker build --compress -t epicmorg/bitbucket:6.4.2 atlassian/bitbucket/6/6.4.2
     - name: Push Bitbucket 6.4.2 + JDK 8
@@ -1097,6 +1121,9 @@ jobs:
     - name: Push Bitbucket 6.5.1 + JDK 8
       run:  docker push epicmorg/bitbucket:6.5.1
 
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+      
     - name: Build Bitbucket 6.5.1 + JDK 11
       run:  docker build --compress -t epicmorg/bitbucket:6.5.1-jdk11 -f atlassian/bitbucket/6/6.5.1/Dockerfile.jdk11 atlassian/bitbucket/6/6.5.1
     - name: Push Bitbucket 6.5.1 + JDK 11
@@ -1157,6 +1184,9 @@ jobs:
     - name: Push Bitbucket 6.6.2 + JDK 11
       run:  docker push epicmorg/bitbucket:6.6.2-jdk11
 
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+      
     - name: Build Bitbucket 6.6.3 + JDK 8
       run:  docker build --compress -t epicmorg/bitbucket:6.6.3 atlassian/bitbucket/6/6.6.3
     - name: Push Bitbucket 6.6.3 + JDK 8
@@ -1212,6 +1242,9 @@ jobs:
     - name: Push Bitbucket 6.7.2 + JDK 11
       run:  docker push epicmorg/bitbucket:6.7.2-jdk11
 
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+      
     - name: Build Bitbucket 6.7.3 + JDK 8
       run:  docker build --compress -t epicmorg/bitbucket:6.7.3 atlassian/bitbucket/6/6.7.3
     - name: Push Bitbucket 6.7.3 + JDK 8
@@ -1262,6 +1295,9 @@ jobs:
     - name: Push Bitbucket 6.8.2 + JDK 8
       run:  docker push epicmorg/bitbucket:6.8.2
 
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+      
     - name: Build Bitbucket 6.8.2 + JDK 11
       run:  docker build --compress -t epicmorg/bitbucket:6.8.2-jdk11 -f atlassian/bitbucket/6/6.8.2/Dockerfile.jdk11 atlassian/bitbucket/6/6.8.2
     - name: Push Bitbucket 6.8.2 + JDK 11
@@ -1764,6 +1800,9 @@ jobs:
     - name: Push Confluence 6.6.4 LTS + JDK 8
       run:  docker push epicmorg/confluence:6.6.4
 
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+      
     - name: Build Confluence 6.6.5 LTS + JDK 8
       run:  docker build --compress -t epicmorg/confluence:6.6.5 atlassian/confluence/6/6.6.5
     - name: Push Confluence 6.6.5 LTS + JDK 8
@@ -1804,6 +1843,9 @@ jobs:
     - name: Push Confluence 6.6.12 LTS + JDK 8
       run:  docker push epicmorg/confluence:6.6.12
 
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+      
     - name: Build Confluence 6.6.13 LTS + JDK 8
       run:  docker build --compress -t epicmorg/confluence:6.6.13 atlassian/confluence/6/6.6.13
     - name: Push Confluence 6.6.13 LTS + JDK 8
@@ -2011,6 +2053,9 @@ jobs:
     - name: Push Confluence 6.13.6 LTS + JDK 8
       run:  docker push epicmorg/confluence:6.13.6
 
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+      
     - name: Build Confluence 6.13.7 LTS + JDK 8
       run:  docker build --compress -t epicmorg/confluence:6.13.7 atlassian/confluence/6/6.13.7
     - name: Push Confluence 6.13.7 LTS + JDK 8
@@ -2507,6 +2552,9 @@ jobs:
     - name: Push Jira 7.2.4 + JDK 8
       run:  docker push epicmorg/jira:7.2.4
 
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+      
     - name: Build Jira 7.2.6 + JDK 8
       run:  docker build --compress -t epicmorg/jira:7.2.6 atlassian/jira/7/7.2.6
     - name: Push Jira 7.2.6 + JDK 8
@@ -2587,6 +2635,9 @@ jobs:
     - name: Push Jira 7.3.4 + JDK 8
       run:  docker push epicmorg/jira:7.3.4
 
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+      
     - name: Build Jira 7.3.5 + JDK 8
       run:  docker build --compress -t epicmorg/jira:7.3.5 atlassian/jira/7/7.3.5
     - name: Push Jira 7.3.5 + JDK 8
@@ -2722,6 +2773,9 @@ jobs:
     - name: Push Jira 7.6.7 LTS + JDK 8
       run:  docker push epicmorg/jira:7.6.7
 
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+      
     - name: Build Jira 7.6.8 LTS + JDK 8
       run:  docker build --compress -t epicmorg/jira:7.6.8 atlassian/jira/7/7.6.8
     - name: Push Jira 7.6.8 LTS + JDK 8
@@ -2927,6 +2981,9 @@ jobs:
     - name: Push Jira 7.13.4 LTS + JDK 8
       run:  docker push epicmorg/jira:7.13.4
 
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+      
     - name: Build Jira 7.13.5 LTS + JDK 8
       run:  docker build --compress -t epicmorg/jira:7.13.5 atlassian/jira/7/7.13.5
     - name: Push Jira 7.13.5 LTS + JDK 8
@@ -3066,6 +3123,9 @@ jobs:
     - name: Push Jira 8.2.3 + JDK 8
       run:  docker push epicmorg/jira:8.2.3
 
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+      
     - name: Build Jira 8.2.3 + JDK 11
       run:  docker build --compress -t epicmorg/jira:8.2.3-jdk11 -f atlassian/jira/8/8.2.3/Dockerfile.jdk11 atlassian/jira/8/8.2.3
     - name: Push Jira 8.2.3 + JDK 11
@@ -3146,6 +3206,9 @@ jobs:
     - name: Push Jira 8.3.3 + JDK 11
       run:  docker push epicmorg/jira:8.3.3-jdk11
 
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+      
     - name: Build Jira 8.3.4 + JDK 8
       run:  docker build --compress -t epicmorg/jira:8.3.4 atlassian/jira/8/8.3.4
     - name: Push Jira 8.3.4 + JDK 8
