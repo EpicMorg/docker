@@ -1,4 +1,4 @@
-name: master
+name: master-win32
 
 on:
   push:

@@ -1,4 +1,4 @@
-name: develop
+name: develop-win32
 
 on:
   pull_request:
