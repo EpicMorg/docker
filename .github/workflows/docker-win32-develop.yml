@@ -25,7 +25,7 @@ jobs:
     - name: test
       run: |
           docker version -f '{{.Server.Experimental}}'
-          dir C:/Users/RMAgentLocAcct
+          whoami
 
     - name: restart docker
       run: restart-service *docker*
