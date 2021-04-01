@@ -65,7 +65,7 @@ jobs:
       run:  docker push epicmorg/teamcity-server:latest
 
     - name: Build MatterMost (latest)
-      run:  docker build --compress -t epicmorg/mattermost-enterprise-edition:latest mattermost/latest
+      run:  docker build --compress -t epicmorg/mattermost-enterprise-edition:latest linux/mattermost/latest
     - name: Push MatterMost (latest)
       run:  docker push epicmorg/mattermost-enterprise-edition:latest
 
