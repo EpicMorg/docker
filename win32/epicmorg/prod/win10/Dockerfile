@@ -38,7 +38,6 @@ RUN cinst --no-progress  -y  -IgnoreChecksums \
 #    dotnet-windowshosting \
     dotnet-runtime \
     dotnet-sdk \
-    dotnetfx \
     powershell-core
  
 ##################################################################

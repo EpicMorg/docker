@@ -38,12 +38,10 @@ RUN cinst --no-progress  -y  -IgnoreChecksums \
 #                   install dotnet packages
 ##################################################################
 RUN cinst --no-progress  -y  -IgnoreChecksums \
-    dotnet \
     dotnet-aspnetruntime \
     dotnet-windowshosting \
     dotnet-runtime \
     dotnet-sdk \
-    dotnetfx \
     powershell-core
  
 ##################################################################
