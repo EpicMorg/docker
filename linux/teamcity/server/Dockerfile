@@ -12,7 +12,7 @@ COPY locale.gen /etc/locale.gen
 ##################################################################
 #                   perforce client binary
 ##################################################################
-ARG P4_VERSION=r20.2
+ARG P4_VERSION=r20.1
 ARG P4_DOWNLOAD_URL=http://www.perforce.com/downloads/perforce/${P4_VERSION}/bin.linux26x86_64/p4
 
 ##################################################################
