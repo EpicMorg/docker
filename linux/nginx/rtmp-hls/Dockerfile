@@ -1,4 +1,4 @@
-FROM epicmorg/balancer
+FROM epicmorg/nginx
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 

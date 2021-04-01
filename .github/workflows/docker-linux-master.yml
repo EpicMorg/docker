@@ -1,4 +1,4 @@
-name: master-linux
+name: master
 
 on:
   push:

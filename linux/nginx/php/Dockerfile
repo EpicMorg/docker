@@ -83,7 +83,7 @@ RUN pecl install smbclient && \
 ##################################################################
 
 
-FROM epicmorg/balancer:latest
+FROM epicmorg/nginx:latest
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
