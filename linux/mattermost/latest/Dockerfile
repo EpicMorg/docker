@@ -6,6 +6,7 @@ FROM python:2.7-buster as edit
 COPY edit.py /tmp/edit.py
 COPY --from=bootstrap /mattermost/bin/mattermost /tmp/mattermost
 RUN cd /tmp && \
+    chmod +x ./edit.py && \
     ./edit.py
 
 FROM mattermost/mattermost-enterprise-edition
