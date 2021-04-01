@@ -22,12 +22,10 @@ jobs:
     - name: Log into registry
       run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
-    - name: Get Experimental Status
+    - name: test
       run: |
           docker version -f '{{.Server.Experimental}}'
-           dir C:/
-           dir C:/ProgramData
-           dir C:/ProgramData/Docker
+          dir C:/ProgramData/Docker/config
 
     - name: restart docker
       run: restart-service *docker*
