@@ -15,7 +15,7 @@ jobs:
     name: EpicMorg Base Production images
     runs-on: windows-latest
     env:
-      DOCKER_CLI_EXPERIMENTAL: enabled
+      DOCKER_CLI_EXPERIMENTAL: true
  
     steps:
     - uses: actions/checkout@v2
