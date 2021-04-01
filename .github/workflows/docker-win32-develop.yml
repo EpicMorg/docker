@@ -28,7 +28,7 @@ jobs:
 
     - name: Docker
       run: |
-          type C:\ProgramData\docker\config\daemon.json
+          powershell -Command "Get-ChildItem -Path C:\ -Filter daemon.json -Recurse -ErrorAction SilentlyContinue -Force"
   
 ##################################################################################
 
