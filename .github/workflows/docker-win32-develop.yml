@@ -12,7 +12,7 @@ on:
 
 jobs:
   build-forked-fixed-independed-images:
-    name: EpicMorg Base Production images
+    name: EpicMorg Base Win32 Production images
     runs-on: windows-latest
     env:
       DOCKER_CLI_EXPERIMENTAL: true
@@ -22,14 +22,20 @@ jobs:
     - name: Log into registry
       run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
-    - name: Experimental Status
+    - name: Get Experimental Status
+      run: |
+          docker version -f '{{.Server.Experimental}}'
+           dir C:/
+           dir C:/ProgramData
+           dir C:/ProgramData/Docker
+
+    - name: restart docker
+      run: restart-service *docker*
+
+    - name: Get Experimental Status
       run: |
           docker version -f '{{.Server.Experimental}}'
 
-    - name: Docker
-      run: |
-          powershell -Command "Get-ChildItem -Path C:\ -Filter daemon.json -Recurse -ErrorAction SilentlyContinue -Force"
-  
 ##################################################################################
 
     - name: Build Base Win32 Production

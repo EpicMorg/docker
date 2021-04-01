@@ -23,13 +23,17 @@ jobs:
 ##################################################################################
 
   build-base-prod-iamges:
-    name: EpicMorg Base Production images
+    name: EpicMorg Base Win32 Production images
     runs-on: windows-latest
 
     steps:
     - uses: actions/checkout@v2
     - name: Log into registry
       run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Get Experimental Status
+      run: |
+          docker version -f '{{.Server.Experimental}}'
 
 ##################################################################################
 
