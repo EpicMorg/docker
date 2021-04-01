@@ -55,7 +55,7 @@ jobs:
       run:  docker push epicmorg/zabbix-proxy-sqlite3:latest
 
     - name: Build NextCloud (latest)
-      run:  docker build --compress -t epicmorg/nextcloud:latest nextcloud/latest
+      run:  docker build --compress -t epicmorg/nextcloud:latest linux/nextcloud/latest
     - name: Push NextCloud (latest)
       run:  docker push epicmorg/nextcloud:latest
 
@@ -587,22 +587,22 @@ jobs:
 ##################################################################################
 
     - name: Build NextCloud (14)
-      run:  docker build --compress -t epicmorg/nextcloud:14 nextcloud/14
+      run:  docker build --compress -t epicmorg/nextcloud:14 linux/nextcloud/14
     - name: Push NextCloud (14)
       run:  docker push epicmorg/nextcloud:14
 
     - name: Build NextCloud (15)
-      run:  docker build --compress -t epicmorg/nextcloud:15 nextcloud/15
+      run:  docker build --compress -t epicmorg/nextcloud:15 linux/nextcloud/15
     - name: Push NextCloud (15)
       run:  docker push epicmorg/nextcloud:15
 
     - name: Build NextCloud (16)
-      run:  docker build --compress -t epicmorg/nextcloud:16 nextcloud/16
+      run:  docker build --compress -t epicmorg/nextcloud:16 linux/nextcloud/16
     - name: Push NextCloud (16)
       run:  docker push epicmorg/nextcloud:16
 
     - name: Build NextCloud (17)
-      run:  docker build --compress -t epicmorg/nextcloud:17 nextcloud/17
+      run:  docker build --compress -t epicmorg/nextcloud:17 linux/nextcloud/17
     - name: Push NextCloud (17)
       run:  docker push epicmorg/nextcloud:17
 
@@ -610,22 +610,22 @@ jobs:
       run: docker system prune --all --force --volumes
  
     - name: Build NextCloud (18)
-      run:  docker build --compress -t epicmorg/nextcloud:18 nextcloud/18
+      run:  docker build --compress -t epicmorg/nextcloud:18 linux/nextcloud/18
     - name: Push NextCloud (18)
       run:  docker push epicmorg/nextcloud:18
 
     - name: Build NextCloud (19)
-      run:  docker build --compress -t epicmorg/nextcloud:19 nextcloud/19
+      run:  docker build --compress -t epicmorg/nextcloud:19 linux/nextcloud/19
     - name: Push NextCloud (19)
       run:  docker push epicmorg/nextcloud:19
 
     - name: Build NextCloud (20)
-      run:  docker build --compress -t epicmorg/nextcloud:20 nextcloud/20
+      run:  docker build --compress -t epicmorg/nextcloud:20 linux/nextcloud/20
     - name: Push NextCloud (20)
       run:  docker push epicmorg/nextcloud:20
 
     - name: Build NextCloud (21)
-      run:  docker build --compress -t epicmorg/nextcloud:21 nextcloud/21
+      run:  docker build --compress -t epicmorg/nextcloud:21 linux/nextcloud/21
     - name: Push NextCloud (21)
       run:  docker push epicmorg/nextcloud:21
 
