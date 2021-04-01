@@ -160,13 +160,13 @@ jobs:
       run:  docker build --compress -t epicmorg/teamcity-agent:latest linux/teamcity/agent
 
     - name: Build NGinx (latest)
-      run:  docker build --compress -t epicmorg/balancer:latest  linux/balancer/latest
+      run:  docker build --compress -t epicmorg/nginx:latest  linux/nginx/latest
 
     - name: Build NGinx + PHP7.4
-      run:  docker build --compress -t epicmorg/balancer:php  linux/balancer/php
+      run:  docker build --compress -t epicmorg/nginx:php  linux/nginx/php
 
     - name: Build NGinx + RTMP-HLS
-      run:  docker build --compress -t epicmorg/balancer:rtmp-hls  linux/balancer/rtmp-hls
+      run:  docker build --compress -t epicmorg/nginx:rtmp-hls  linux/nginx/rtmp-hls
 
     - name: Cleanup
       run: docker system prune --all --force --volumes

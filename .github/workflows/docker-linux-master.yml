@@ -229,8 +229,10 @@ jobs:
       run:  docker push epicmorg/websites:latest
 
     - name: Build NGinx (latest)
-      run:  docker build --compress -t epicmorg/balancer:latest linux/balancer/latest
+      run:  docker build --compress -t epicmorg/nginx:latest linux/nginx/latest
     - name: Push NGinx (latest)
+      run:  docker push epicmorg/nginx:latest
+    - name: Push NGinx:balancer (latest)
       run:  docker push epicmorg/balancer:latest
 
     - name: Build TeamCity Agent
@@ -292,13 +294,17 @@ jobs:
 ##################################################################################
 
     - name: Build NGinx + PHP7.4
-      run:  docker build --compress -t epicmorg/balancer:php linux/balancer/php
+      run:  docker build --compress -t epicmorg/nginx:php linux/nginx/php
     - name: Push NGinx + PHP7.4
+      run:  docker push epicmorg/nginx:php
+    - name: Push NGinx:balancer + PHP7.4
       run:  docker push epicmorg/balancer:php
 
     - name: Build NGinx + RTMP-HLS
-      run:  docker build --compress -t epicmorg/balancer:rtmp-hls linux/balancer/rtmp-hls
+      run:  docker build --compress -t epicmorg/nginx:rtmp-hls linux/nginx/rtmp-hls
     - name: Push NGinx + RTMP-HLS
+      run:  docker push epicmorg/nginx:rtmp-hls
+    - name: Push NGinx:balancer + RTMP-HLS
       run:  docker push epicmorg/balancer:rtmp-hls
 
     - name: PHP 7.4
