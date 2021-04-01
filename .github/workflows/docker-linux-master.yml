@@ -60,7 +60,7 @@ jobs:
       run:  docker push epicmorg/nextcloud:latest
 
     - name: Build TeamCity Server (latest)
-      run:  docker build --compress -t epicmorg/teamcity-server:latest teamcity/server
+      run:  docker build --compress -t epicmorg/teamcity-server:latest linux/teamcity/server
     - name: Push TeamCity Server (latest)
       run:  docker push epicmorg/teamcity-server:latest
 
@@ -88,27 +88,27 @@ jobs:
 ##################################################################################
 
     - name: Build Base Production
-      run:  docker build --compress -t epicmorg/prod:latest epicmorg/prod/main
+      run:  docker build --compress -t epicmorg/prod:latest linux/epicmorg/prod/main
     - name: Push Base Production
       run:  docker push epicmorg/prod:latest
 
     - name: Build Base Production + JDK 6
-      run:  docker build --compress -t epicmorg/prod:jdk6 epicmorg/prod/jdk6
+      run:  docker build --compress -t epicmorg/prod:jdk6 linux/epicmorg/prod/jdk6
     - name: Push Base Production + JDK 6
       run:  docker push epicmorg/prod:jdk6
 
     - name: Build Base Production + JDK 7
-      run:  docker build --compress -t epicmorg/prod:jdk7 epicmorg/prod/jdk7
+      run:  docker build --compress -t epicmorg/prod:jdk7 linux/epicmorg/prod/jdk7
     - name: Push Base Production + JDK 7
       run:  docker push epicmorg/prod:jdk7
 
     - name: Build Base Production + JDK 8
-      run:  docker build --compress -t epicmorg/prod:jdk8 epicmorg/prod/jdk8
+      run:  docker build --compress -t epicmorg/prod:jdk8 linux/epicmorg/prod/jdk8
     - name: Push Base Production + JDK 8
       run:  docker push epicmorg/prod:jdk8
 
     - name: Build Base Production + JDK 11
-      run:  docker build --compress -t epicmorg/prod:jdk11 epicmorg/prod/jdk11
+      run:  docker build --compress -t epicmorg/prod:jdk11 linux/epicmorg/prod/jdk11
     - name: Push Base Production + JDK 11
       run:  docker push epicmorg/prod:jdk11
 
@@ -131,27 +131,27 @@ jobs:
 ##################################################################################
 
     - name: Build Base Edge
-      run:  docker build --compress -t epicmorg/edge:latest epicmorg/edge/main
+      run:  docker build --compress -t epicmorg/edge:latest linux/epicmorg/edge/main
     - name: Push Base Edge
       run:  docker push epicmorg/edge:latest
 
     - name: Build Base Edge + JDK 6
-      run:  docker build --compress -t epicmorg/edge:jdk6 epicmorg/edge/jdk6
+      run:  docker build --compress -t epicmorg/edge:jdk6 linux/epicmorg/edge/jdk6
     - name: Push Base Edge + JDK 6
       run:  docker push epicmorg/edge:jdk6
 
     - name: Build Base Edge + JDK 7
-      run:  docker build --compress -t epicmorg/edge:jdk7 epicmorg/edge/jdk7
+      run:  docker build --compress -t epicmorg/edge:jdk7 linux/epicmorg/edge/jdk7
     - name: Push Base Edge + JDK 7
       run:  docker push epicmorg/edge:jdk7
 
     - name: Build Base Edge + JDK 8
-      run:  docker build --compress -t epicmorg/edge:jdk8 epicmorg/edge/jdk8
+      run:  docker build --compress -t epicmorg/edge:jdk8 linux/epicmorg/edge/jdk8
     - name: Push Base Edge + JDK 8
       run:  docker push epicmorg/edge:jdk8
 
     - name: Build Base Edge + JDK 11
-      run:  docker build --compress -t epicmorg/edge:jdk11 epicmorg/edge/jdk11
+      run:  docker build --compress -t epicmorg/edge:jdk11 linux/epicmorg/edge/jdk11
     - name: Push Base Edge + JDK 11
       run:  docker push epicmorg/edge:jdk11
  
@@ -175,27 +175,27 @@ jobs:
 ##################################################################################
 
     - name: Build Base Develop
-      run:  docker build --compress -t epicmorg/devel:latest epicmorg/devel/main
+      run:  docker build --compress -t epicmorg/devel:latest linux/epicmorg/devel/main
     - name: Push Base Develop
       run:  docker push epicmorg/devel:latest
 
     - name: Build Base Develop + JDK 6
-      run:  docker build --compress -t epicmorg/devel:jdk6 epicmorg/devel/jdk6
+      run:  docker build --compress -t epicmorg/devel:jdk6 linux/epicmorg/devel/jdk6
     - name: Push Base Develop + JDK 6
       run:  docker push epicmorg/devel:jdk6
 
     - name: Build Base Develop + JDK 7
-      run:  docker build --compress -t epicmorg/devel:jdk7 epicmorg/devel/jdk7
+      run:  docker build --compress -t epicmorg/devel:jdk7 linux/epicmorg/devel/jdk7
     - name: Push Base Develop + JDK 7
       run:  docker push epicmorg/devel:jdk7
 
     - name: Build Base Develop + JDK 8
-      run:  docker build --compress -t epicmorg/devel:jdk8 epicmorg/devel/jdk8
+      run:  docker build --compress -t epicmorg/devel:jdk8 linux/epicmorg/devel/jdk8
     - name: Push Base Develop + JDK 8
       run:  docker push epicmorg/devel:jdk8
 
     - name: Build Base Develop + JDK 11
-      run:  docker build --compress -t epicmorg/devel:jdk11 epicmorg/devel/jdk11
+      run:  docker build --compress -t epicmorg/devel:jdk11 linux/epicmorg/devel/jdk11
     - name: Push Base Develop + JDK 11
       run:  docker push epicmorg/devel:jdk11
  
@@ -219,32 +219,32 @@ jobs:
 ##################################################################################
 
     - name: PHP (latest)
-      run:  docker build --compress -t epicmorg/php:latest php/latest
+      run:  docker build --compress -t epicmorg/php:latest linux/php/latest
     - name: Push PHP (latest)
       run:  docker push epicmorg/php:latest
 
     - name: Build Apache (latest)
-      run:  docker build --compress -t epicmorg/websites:latest websites/latest
+      run:  docker build --compress -t epicmorg/websites:latest linux/websites/latest
     - name: Push Apache (latest)
       run:  docker push epicmorg/websites:latest
 
     - name: Build NGinx (latest)
-      run:  docker build --compress -t epicmorg/balancer:latest balancer/latest
+      run:  docker build --compress -t epicmorg/balancer:latest linux/balancer/latest
     - name: Push NGinx (latest)
       run:  docker push epicmorg/balancer:latest
 
     - name: Build TeamCity Agent
-      run:  docker build --compress -t epicmorg/teamcity-agent:latest teamcity/agent
+      run:  docker build --compress -t epicmorg/teamcity-agent:latest linux/teamcity/agent
     - name: Push TeamCity Agent
       run:  docker push epicmorg/teamcity-agent:latest
 
     - name: Build Postgres (latest)
-      run:  docker build --compress -t epicmorg/postgres:latest postgres/latest
+      run:  docker build --compress -t epicmorg/postgres:latest linux/postgres/latest
     - name: Push Postgres (latest)
       run:  docker push epicmorg/postgres:latest
 
     - name: Build vk2discord (latest)
-      run:  docker build --compress -t epicmorg/vk2discord:latest vk2discord/latest
+      run:  docker build --compress -t epicmorg/vk2discord:latest linux/vk2discord/latest
     - name: Push vk2discord (latest)
       run:  docker push epicmorg/vk2discord:latest
  
@@ -268,7 +268,7 @@ jobs:
 ##################################################################################
 
     - name: Build Testrail (always latest)
-      run:  docker build --compress -t epicmorg/testrail:latest testrail/latest
+      run:  docker build --compress -t epicmorg/testrail:latest linux/testrail/latest
     - name: Push Testrail (always latest)
       run:  docker push epicmorg/testrail:latest
  
@@ -292,27 +292,27 @@ jobs:
 ##################################################################################
 
     - name: Build NGinx + PHP7.4
-      run:  docker build --compress -t epicmorg/balancer:php balancer/php
+      run:  docker build --compress -t epicmorg/balancer:php linux/balancer/php
     - name: Push NGinx + PHP7.4
       run:  docker push epicmorg/balancer:php
 
     - name: Build NGinx + RTMP-HLS
-      run:  docker build --compress -t epicmorg/balancer:rtmp-hls balancer/rtmp-hls
+      run:  docker build --compress -t epicmorg/balancer:rtmp-hls linux/balancer/rtmp-hls
     - name: Push NGinx + RTMP-HLS
       run:  docker push epicmorg/balancer:rtmp-hls
 
     - name: PHP 7.4
-      run:  docker build --compress -t epicmorg/php:php7.4 php/php7.4
+      run:  docker build --compress -t epicmorg/php:php7.4 linux/php/php7.4
     - name: Push PHP 7.4
       run:  docker push epicmorg/php:php7.4
 
     - name: PHP 7.3
-      run:  docker build --compress -t epicmorg/php:php7.3 php/php7.3
+      run:  docker build --compress -t epicmorg/php:php7.3 linux/php/php7.3
     - name: Push PHP 7.3
       run:  docker push epicmorg/php:php7.3
 
     - name: PHP 7.2
-      run:  docker build --compress -t epicmorg/php:php7.2 php/php7.2
+      run:  docker build --compress -t epicmorg/php:php7.2 linux/php/php7.2
     - name: Push PHP 7.2
       run:  docker push epicmorg/php:php7.2
 
@@ -320,17 +320,17 @@ jobs:
       run: docker system prune --all --force --volumes
  
     - name: Build Apache + PHP7.4
-      run:  docker build --compress -t epicmorg/websites:php7.4 websites/php7.4
+      run:  docker build --compress -t epicmorg/websites:php7.4 linux/websites/php7.4
     - name: Push Apache + PHP7.4
       run:  docker push epicmorg/websites:php7.4
 
     - name: Build Apache + PHP7.3
-      run:  docker build --compress -t epicmorg/websites:php7.3 websites/php7.3
+      run:  docker build --compress -t epicmorg/websites:php7.3 linux/websites/php7.3
     - name: Push Apache + PHP7.3
       run:  docker push epicmorg/websites:php7.3
 
     - name: Build Apache + PHP7.2
-      run:  docker build --compress -t epicmorg/websites:php7.2 websites/php7.2
+      run:  docker build --compress -t epicmorg/websites:php7.2 linux/websites/php7.2
     - name: Push Apache + PHP7.2
       run:  docker push epicmorg/websites:php7.2
 
@@ -465,17 +465,17 @@ jobs:
 ##################################################################################
 
     - name: Build qBitTorrent (latest)
-      run:  docker build --compress -t epicmorg/qbittorrent:latest qbittorrent/latest
+      run:  docker build --compress -t epicmorg/qbittorrent:latest linux/qbittorrent/latest
     - name: Push qBitTorrent (latest)
       run:  docker push epicmorg/qbittorrent:latest
 
     - name: Build qBitTorrent (unstable)
-      run:  docker build --compress -t epicmorg/qbittorrent:unstable qbittorrent/latest
+      run:  docker build --compress -t epicmorg/qbittorrent:unstable linux/qbittorrent/latest
     - name: Push qBitTorrent (unstable)
       run:  docker push epicmorg/qbittorrent:unstable
 
     - name: Build qBitTorrent (stable)
-      run:  docker build --compress -t epicmorg/qbittorrent:stable qbittorrent/stable
+      run:  docker build --compress -t epicmorg/qbittorrent:stable linux/qbittorrent/stable
     - name: Push qBitTorrent (stable)
       run:  docker push epicmorg/qbittorrent:stable
 
@@ -499,22 +499,22 @@ jobs:
 ##################################################################################
 
     - name: Build PostgresSQL (8.2)
-      run:  docker build --compress -t epicmorg/postgres:8.2 postgres/8.2
+      run:  docker build --compress -t epicmorg/postgres:8.2 linux/postgres/8.2
     - name: Push PostgresSQL (8.2)
       run:  docker push epicmorg/postgres:8.2
 
     - name: Build PostgresSQL (8.3)
-      run:  docker build --compress -t epicmorg/postgres:8.3 postgres/8.3
+      run:  docker build --compress -t epicmorg/postgres:8.3 linux/postgres/8.3
     - name: Push PostgresSQL (8.3)
       run:  docker push epicmorg/postgres:8.3
 
     - name: Build PostgresSQL (8.4)
-      run:  docker build --compress -t epicmorg/postgres:8.4 postgres/8.4
+      run:  docker build --compress -t epicmorg/postgres:8.4 linux/postgres/8.4
     - name: Push PostgresSQL (8.4)
       run:  docker push epicmorg/postgres:8.4
 
     - name: Build PostgresSQL (9.0)
-      run:  docker build --compress -t epicmorg/postgres:9.0 postgres/9.0
+      run:  docker build --compress -t epicmorg/postgres:9.0 linux/postgres/9.0
     - name: Push PostgresSQL (9.0)
       run:  docker push epicmorg/postgres:9.0
 
@@ -522,27 +522,27 @@ jobs:
       run: docker system prune --all --force --volumes
  
     - name: Build PostgresSQL (9.1)
-      run:  docker build --compress -t epicmorg/postgres:9.1 postgres/9.1
+      run:  docker build --compress -t epicmorg/postgres:9.1 linux/postgres/9.1
     - name: Push PostgresSQL (9.1)
       run:  docker push epicmorg/postgres:9.1
 
     - name: Build PostgresSQL (9.2)
-      run:  docker build --compress -t epicmorg/postgres:9.2 postgres/9.2
+      run:  docker build --compress -t epicmorg/postgres:9.2 linux/postgres/9.2
     - name: Push PostgresSQL (9.2)
       run:  docker push epicmorg/postgres:9.2
 
     - name: Build PostgresSQL (9.3)
-      run:  docker build --compress -t epicmorg/postgres:9.3 postgres/9.3
+      run:  docker build --compress -t epicmorg/postgres:9.3 linux/postgres/9.3
     - name: Push PostgresSQL (9.3)
       run:  docker push epicmorg/postgres:9.3
 
     - name: Build PostgresSQL (9.4)
-      run:  docker build --compress -t epicmorg/postgres:9.4 postgres/9.4
+      run:  docker build --compress -t epicmorg/postgres:9.4 linux/postgres/9.4
     - name: Push PostgresSQL (9.4)
       run:  docker push epicmorg/postgres:9.4
 
     - name: Build PostgresSQL (9.5)
-      run:  docker build --compress -t epicmorg/postgres:9.5 postgres/9.5
+      run:  docker build --compress -t epicmorg/postgres:9.5 linux/postgres/9.5
     - name: Push PostgresSQL (9.5)
       run:  docker push epicmorg/postgres:9.5
 
@@ -550,22 +550,22 @@ jobs:
       run: docker system prune --all --force --volumes
  
     - name: Build PostgresSQL (9.6)
-      run:  docker build --compress -t epicmorg/postgres:9.6 postgres/9.6
+      run:  docker build --compress -t epicmorg/postgres:9.6 linux/postgres/9.6
     - name: Push PostgresSQL (9.6)
       run:  docker push epicmorg/postgres:9.6
 
     - name: Build PostgresSQL (10)
-      run:  docker build --compress -t epicmorg/postgres:10 postgres/10
+      run:  docker build --compress -t epicmorg/postgres:10 linux/postgres/10
     - name: Push PostgresSQL (10)
       run:  docker push epicmorg/postgres:10
 
     - name: Build PostgresSQL (11)
-      run:  docker build --compress -t epicmorg/postgres:11 postgres/11
+      run:  docker build --compress -t epicmorg/postgres:11 linux/postgres/11
     - name: Push PostgresSQL (11)
       run:  docker push epicmorg/postgres:11
 
     - name: Build PostgresSQL (12)
-      run:  docker build --compress -t epicmorg/postgres:12 postgres/12
+      run:  docker build --compress -t epicmorg/postgres:12 linux/postgres/12
     - name: Push PostgresSQL (12)
       run:  docker push epicmorg/postgres:12
 
