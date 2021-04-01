@@ -8,6 +8,12 @@ ENV chocolateyUseWindowsCompression false
 ####################################################################################################################################
 
 ##################################################################
+#                   Creating workdir for future
+##################################################################
+RUN mkdir C:\\EpicMorg
+WORKDIR  C:\\EpicMorg
+
+##################################################################
 #                   Installing ocolatey.org
 ##################################################################
 RUN powershell -Command \
@@ -36,7 +42,6 @@ RUN cinst --no-progress  -y  -IgnoreChecksums --ignoredetectedreboot \
     dotnet \
     dotnet-runtime \
     dotnet-sdk \
-    dotnetfx \
     powershell-core
  
 ##################################################################

@@ -8,6 +8,12 @@ ENV chocolateyUseWindowsCompression false
 ####################################################################################################################################
 
 ##################################################################
+#                   Creating workdir for future
+##################################################################
+RUN mkdir C:\\EpicMorg
+WORKDIR  C:\\EpicMorg
+
+##################################################################
 #                   Installing IIS
 ##################################################################
 RUN powershell -Command  Add-WindowsFeature Web-Server;  \
@@ -43,7 +49,6 @@ RUN cinst --no-progress  -y  -IgnoreChecksums --ignoredetectedreboot \
     dotnet-windowshosting \
     dotnet-runtime \
     dotnet-sdk \
-    dotnetfx \
     powershell-core
  
 ##################################################################
