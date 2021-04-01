@@ -1,4 +1,4 @@
-name: develop
+name: develop-linux
 
 on:
   pull_request:
