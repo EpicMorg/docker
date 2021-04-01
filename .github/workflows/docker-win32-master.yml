@@ -1,0 +1,54 @@
+name: master
+
+on:
+  push:
+    branches:
+      - 'master'
+  schedule:
+    - cron:  '00 00 * * 6' # At 12:00 AM, only on Saturday
+
+jobs:
+
+##################################################################################
+####  Template
+##################################################################################
+#    - name: Build Template
+#      run:  docker build --compress -t user/repo:tag path/to/folder/contains/dockerfile
+#    - name: Push Template
+#      run:  docker push user/repo:tag
+##################################################################################
+ 
+##################################################################################
+####  EpicMorg Base Production images
+##################################################################################
+
+  build-base-prod-iamges:
+    name: EpicMorg Base Production images
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Log into registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+##################################################################################
+
+    - name: Build Base Win32 Production
+      run:  docker build --compress -t prod:win10 win32/epicmorg/prod/win10
+    - name: Push Build Base Win32 Production
+      run:  docker push epicmorg/prod:win10
+
+    - name: Build Base Win32-Server Production
+      run:  docker build --compress -t prod:win-server-core win32/epicmorg/prod/win-server-core
+    - name: Push Base Win32-Server Production
+      run:  docker push epicmorg/prod:win-server-core
+  
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+
+#########################################
+####  secondary images and backports
+#########################################
+
+    - name: Cleanup
+      run: docker system prune --all --force --volumes

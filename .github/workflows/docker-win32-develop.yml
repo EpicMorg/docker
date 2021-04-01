@@ -1,0 +1,39 @@
+name: develop
+
+on:
+  pull_request:
+    branches:
+      - '*'
+    tags:
+      - '*'
+  push:
+    branches:
+      - 'develop'
+
+jobs:
+  build-forked-fixed-independed-images:
+    name: EpicMorg Base Production images
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Log into registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+##################################################################################
+
+    - name: Build Base Win32 Production
+      run:  docker build --compress -t prod:win10 win32/epicmorg/prod/win10
+
+    - name: Build Base Win32-Server Production
+      run:  docker build --compress -t prod:win-server-core win32/epicmorg/prod/win-server-core
+
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
+
+#########################################
+####  secondary images and backports
+#########################################
+
+    - name: Cleanup
+      run: docker system prune --all --force --volumes
