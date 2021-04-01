@@ -30,27 +30,27 @@ jobs:
 ##################################################################################
 
     - name: Build Zabbix Agent
-      run:  docker build --compress -t epicmorg/zabbix-agent:latest zabbix/agent
+      run:  docker build --compress -t epicmorg/zabbix-agent:latest linux/zabbix/agent
     - name: Push Zabbix Agent
       run:  docker push epicmorg/zabbix-agent:latest
 
     - name: Build Zabbix Java Gateway
-      run:  docker build --compress -t epicmorg/zabbix-java-gateway:latest zabbix/java-gateway
+      run:  docker build --compress -t epicmorg/zabbix-java-gateway:latest linux/zabbix/java-gateway
     - name: Push Zabbix Java Gateway
       run:  docker push epicmorg/zabbix-java-gateway:latest
 
     - name: Build Zabbix Server with MySQL
-      run:  docker build --compress -t epicmorg/zabbix-server-mysql:latest zabbix/server
+      run:  docker build --compress -t epicmorg/zabbix-server-mysql:latest linux/zabbix/server
     - name: Push Zabbix Server with MySQL
       run:  docker push epicmorg/zabbix-server-mysql:latest
 
     - name: Build Zabbix Web Apache2 with MySQL
-      run:  docker build --compress -t epicmorg/zabbix-web-apache-mysql:latest zabbix/web
+      run:  docker build --compress -t epicmorg/zabbix-web-apache-mysql:latest linux/zabbix/web
     - name: Push Zabbix Web Apache2 with MySQL
       run:  docker push epicmorg/zabbix-web-apache-mysql:latest
 
     - name: Build Zabbix Proxy SQLite3
-      run:  docker build --compress -t epicmorg/zabbix-proxy-sqlite3:latest zabbix/proxy
+      run:  docker build --compress -t epicmorg/zabbix-proxy-sqlite3:latest linux/zabbix/proxy
     - name: Push Zabbix Proxy SQLite3
       run:  docker push epicmorg/zabbix-proxy-sqlite3:latest
 
