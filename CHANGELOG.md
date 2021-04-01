@@ -1,10 +1,16 @@
 ## Changelog
 ### 2021
+* `april`
+	* reorganised space
+	* `[BREAKING CHANGES]` images `balancer` and `websites` was renamed to `nginx` and `apache2`. 
+		* support of old repos will be unlin `jan/2022`. please usen new instead.
+	* updated `atlassian` images
+	* added suport of `win32` images. just experemental.
 * `march`
 	* `apache2`, `nginx`, `php` - fixed php versions, fixed dependency hell. code updated.
 	* `nginx` 1.19.8
 	* `testrail` v7+ migrated to `php 7.4`
-	 updated `atlassian` images, `nextcloud`
+	* updated `atlassian` images, `nextcloud`
 * `february`
 	* hm.. nothing
 * `january`
