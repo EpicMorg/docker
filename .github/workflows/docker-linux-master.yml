@@ -224,8 +224,10 @@ jobs:
       run:  docker push epicmorg/php:latest
 
     - name: Build Apache (latest)
-      run:  docker build --compress -t epicmorg/websites:latest linux/websites/latest
+      run:  docker build --compress -t epicmorg/apache2:latest linux/apache2/latest
     - name: Push Apache (latest)
+      run:  docker push epicmorg/apache2:latest
+    - name: Push Apache:websites (latest)
       run:  docker push epicmorg/websites:latest
 
     - name: Build NGinx (latest)
@@ -326,18 +328,24 @@ jobs:
       run: docker system prune --all --force --volumes
  
     - name: Build Apache + PHP7.4
-      run:  docker build --compress -t epicmorg/websites:php7.4 linux/websites/php7.4
+      run:  docker build --compress -t epicmorg/apache2:php7.4 linux/apache2/php7.4
     - name: Push Apache + PHP7.4
+      run:  docker push epicmorg/apache2:php7.4
+    - name: Push Apache:websites + PHP7.4
       run:  docker push epicmorg/websites:php7.4
 
     - name: Build Apache + PHP7.3
-      run:  docker build --compress -t epicmorg/websites:php7.3 linux/websites/php7.3
+      run:  docker build --compress -t epicmorg/apache2:php7.3 linux/apache2/php7.3
     - name: Push Apache + PHP7.3
+      run:  docker push epicmorg/apache2:php7.3
+    - name: Push Apache:websites + PHP7.3
       run:  docker push epicmorg/websites:php7.3
 
     - name: Build Apache + PHP7.2
-      run:  docker build --compress -t epicmorg/websites:php7.2 linux/websites/php7.2
+      run:  docker build --compress -t epicmorg/apache2:php7.2 linux/apache2/php7.2
     - name: Push Apache + PHP7.2
+      run:  docker push epicmorg/apache2:php7.2
+    - name: Push Apache:websites + PHP7.2
       run:  docker push epicmorg/websites:php7.2
 
     - name: Cleanup

@@ -187,16 +187,16 @@ jobs:
       run: docker system prune --all --force --volumes
 
     - name: Build Apache (latest)
-      run:  docker build --compress -t epicmorg/websites:latest linux/websites/latest
+      run:  docker build --compress -t epicmorg/apache2:latest linux/apache2/latest
 
     - name: Build Apache + PHP7.4
-      run:  docker build --compress -t epicmorg/websites:php7.4 linux/websites/php7.4
+      run:  docker build --compress -t epicmorg/apache2:php7.4 linux/apache2/php7.4
 
     - name: Build Apache + PHP7.3
-      run:  docker build --compress -t epicmorg/websites:php7.3 linux/websites/php7.3
+      run:  docker build --compress -t epicmorg/apache2:php7.3 linux/apache2/php7.3
 
     - name: Build Apache + PHP7.2
-      run:  docker build --compress -t epicmorg/websites:php7.2 linux/websites/php7.2
+      run:  docker build --compress -t epicmorg/apache2:php7.2 linux/apache2/php7.2
 
     - name: Build Testrail (always latest)
       run:  docker build --compress -t epicmorg/testrail:latest linux/testrail/latest
