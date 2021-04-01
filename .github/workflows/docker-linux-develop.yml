@@ -23,49 +23,49 @@ jobs:
 ##########
 
     - name: Build Zabbix Agent
-      run:  docker build --compress -t epicmorg/zabbix-agent:latest zabbix/agent
+      run:  docker build --compress -t epicmorg/zabbix-agent:latest linux/zabbix/agent
 
     - name: Build Zabbix Java Gateway
-      run:  docker build --compress -t epicmorg/zabbix-java-gateway:latest zabbix/java-gateway
+      run:  docker build --compress -t epicmorg/zabbix-java-gateway:latest linux/zabbix/java-gateway
 
     - name: Build Zabbix Server with MySQL
-      run:  docker build --compress -t epicmorg/zabbix-server-mysql:latest zabbix/server
+      run:  docker build --compress -t epicmorg/zabbix-server-mysql:latest linux/zabbix/server
 
     - name: Build Zabbix Web Apache2 with MySQL
-      run:  docker build --compress -t epicmorg/zabbix-web-apache-mysql:latest zabbix/web
+      run:  docker build --compress -t epicmorg/zabbix-web-apache-mysql:latest linux/zabbix/web
 
     - name: Build Zabbix Proxy SQLite3
-      run:  docker build --compress -t epicmorg/zabbix-proxy-sqlite3:latest zabbix/proxy
+      run:  docker build --compress -t epicmorg/zabbix-proxy-sqlite3:latest linux/zabbix/proxy
 
     - name: Build NextCloud (latest)
-      run:  docker build --compress -t epicmorg/nextcloud:latest nextcloud/latest
+      run:  docker build --compress -t epicmorg/nextcloud:latest linux/nextcloud/latest
 
     - name: Build TeamCity Server (latest)
-      run:  docker build --compress -t epicmorg/teamcity-server:latest teamcity/server
+      run:  docker build --compress -t epicmorg/teamcity-server:latest linux/teamcity/server
 
     - name: Build NextCloud (14)
-      run:  docker build --compress -t epicmorg/nextcloud:14 nextcloud/14
+      run:  docker build --compress -t epicmorg/nextcloud:14 linux/nextcloud/14
 
     - name: Build NextCloud (15)
-      run:  docker build --compress -t epicmorg/nextcloud:15 nextcloud/15
+      run:  docker build --compress -t epicmorg/nextcloud:15 linux/nextcloud/15
 
     - name: Build NextCloud (16)
-      run:  docker build --compress -t epicmorg/nextcloud:16 nextcloud/16
+      run:  docker build --compress -t epicmorg/nextcloud:16 linux/nextcloud/16
 
     - name: Build NextCloud (17)
-      run:  docker build --compress -t epicmorg/nextcloud:17 nextcloud/17
+      run:  docker build --compress -t epicmorg/nextcloud:17 linux/nextcloud/17
 
     - name: Build NextCloud (18)
-      run:  docker build --compress -t epicmorg/nextcloud:18 nextcloud/18
+      run:  docker build --compress -t epicmorg/nextcloud:18 linux/nextcloud/18
 
     - name: Build NextCloud (19)
-      run:  docker build --compress -t epicmorg/nextcloud:19 nextcloud/19
+      run:  docker build --compress -t epicmorg/nextcloud:19 linux/nextcloud/19
 
     - name: Build NextCloud (20)
-      run:  docker build --compress -t epicmorg/nextcloud:20 nextcloud/20
+      run:  docker build --compress -t epicmorg/nextcloud:20 linux/nextcloud/20
 
     - name: Build NextCloud (21)
-      run:  docker build --compress -t epicmorg/nextcloud:21 nextcloud/21
+      run:  docker build --compress -t epicmorg/nextcloud:21 linux/nextcloud/21
 
 ######################################################################################################################################################
 
@@ -87,180 +87,180 @@ jobs:
 ##########
 
     - name: Build Base Production
-      run:  docker build --compress -t epicmorg/prod:latest epicmorg/prod/main
+      run:  docker build --compress -t epicmorg/prod:latest  linux/epicmorg/prod/main
 
     - name: Build Base Production + JDK 6
-      run:  docker build --compress -t epicmorg/prod:jdk6 epicmorg/prod/jdk6
+      run:  docker build --compress -t epicmorg/prod:jdk6  linux/epicmorg/prod/jdk6
 
     - name: Build Base Production + JDK 7
-      run:  docker build --compress -t epicmorg/prod:jdk7 epicmorg/prod/jdk7
+      run:  docker build --compress -t epicmorg/prod:jdk7  linux/epicmorg/prod/jdk7
 
     - name: Build Base Production + JDK 8
-      run:  docker build --compress -t epicmorg/prod:jdk8 epicmorg/prod/jdk8
+      run:  docker build --compress -t epicmorg/prod:jdk8  linux/epicmorg/prod/jdk8
 
     - name: Build Base Production + JDK 11
-      run:  docker build --compress -t epicmorg/prod:jdk11 epicmorg/prod/jdk11
+      run:  docker build --compress -t epicmorg/prod:jdk11  linux/epicmorg/prod/jdk11
 
 ##########
 
     - name: Build Base Edge
-      run:  docker build --compress -t epicmorg/edge:latest epicmorg/edge/main
+      run:  docker build --compress -t epicmorg/edge:latest  linux/epicmorg/edge/main
 
     - name: Build Base Edge + JDK 6
-      run:  docker build --compress -t epicmorg/edge:jdk6 epicmorg/edge/jdk6
+      run:  docker build --compress -t epicmorg/edge:jdk6  linux/epicmorg/edge/jdk6
 
     - name: Build Base Edge + JDK 7
-      run:  docker build --compress -t epicmorg/edge:jdk7 epicmorg/edge/jdk7
+      run:  docker build --compress -t epicmorg/edge:jdk7  linux/epicmorg/edge/jdk7
 
     - name: Build Base Edge + JDK 8
-      run:  docker build --compress -t epicmorg/edge:jdk8 epicmorg/edge/jdk8
+      run:  docker build --compress -t epicmorg/edge:jdk8  linux/epicmorg/edge/jdk8
 
     - name: Build Base Edge + JDK 11
-      run:  docker build --compress -t epicmorg/edge:jdk11 epicmorg/edge/jdk11
+      run:  docker build --compress -t epicmorg/edge:jdk11  linux/epicmorg/edge/jdk11
 
 ##########
 
     - name: Build Base Develop
-      run:  docker build --compress -t epicmorg/devel:latest epicmorg/devel/main
+      run:  docker build --compress -t epicmorg/devel:latest  linux/epicmorg/devel/main
 
     - name: Build Base Develop + JDK 6
-      run:  docker build --compress -t epicmorg/devel:jdk6 epicmorg/devel/jdk6
+      run:  docker build --compress -t epicmorg/devel:jdk6  linux/epicmorg/devel/jdk6
 
     - name: Build Base Develop + JDK 7
-      run:  docker build --compress -t epicmorg/devel:jdk7 epicmorg/devel/jdk7
+      run:  docker build --compress -t epicmorg/devel:jdk7  linux/epicmorg/devel/jdk7
 
     - name: Build Base Develop + JDK 8
-      run:  docker build --compress -t epicmorg/devel:jdk8 epicmorg/devel/jdk8
+      run:  docker build --compress -t epicmorg/devel:jdk8  linux/epicmorg/devel/jdk8
 
     - name: Build Base Develop + JDK 11
-      run:  docker build --compress -t epicmorg/devel:jdk11 epicmorg/devel/jdk11
+      run:  docker build --compress -t epicmorg/devel:jdk11  linux/epicmorg/devel/jdk11
 
 ##########
 
     - name: Build MatterMost (latest)
-      run:  docker build --compress -t epicmorg/mattermost-enterprise-edition:latest mattermost/latest
+      run:  docker build --compress -t epicmorg/mattermost-enterprise-edition:latest linux/mattermost/latest
 
     - name: Build TeamCity Agent
-      run:  docker build --compress -t epicmorg/teamcity-agent:latest teamcity/agent
+      run:  docker build --compress -t epicmorg/teamcity-agent:latest linux/teamcity/agent
 
     - name: Build NGinx (latest)
-      run:  docker build --compress -t epicmorg/balancer:latest balancer/latest
+      run:  docker build --compress -t epicmorg/balancer:latest  linux/balancer/latest
 
     - name: Build NGinx + PHP7.4
-      run:  docker build --compress -t epicmorg/balancer:php balancer/php
+      run:  docker build --compress -t epicmorg/balancer:php  linux/balancer/php
 
     - name: Build NGinx + RTMP-HLS
-      run:  docker build --compress -t epicmorg/balancer:rtmp-hls balancer/rtmp-hls
+      run:  docker build --compress -t epicmorg/balancer:rtmp-hls  linux/balancer/rtmp-hls
 
     - name: PHP (latest)
-      run:  docker build --compress -t epicmorg/php:latest php/latest
+      run:  docker build --compress -t epicmorg/php:latest linux/php/latest
 
     - name: PHP 7.4
-      run:  docker build --compress -t epicmorg/php:php7.4 php/php7.4
+      run:  docker build --compress -t epicmorg/php:php7.4 linux/php/php7.4
 
     - name: PHP 7.3
-      run:  docker build --compress -t epicmorg/php:php7.3 php/php7.3
+      run:  docker build --compress -t epicmorg/php:php7.3 linux/php/php7.3
 
     - name: PHP 7.2
-      run:  docker build --compress -t epicmorg/php:php7.2 php/php7.2
+      run:  docker build --compress -t epicmorg/php:php7.2 linux/php/php7.2
 
     - name: Build Apache (latest)
-      run:  docker build --compress -t epicmorg/websites:latest websites/latest
+      run:  docker build --compress -t epicmorg/websites:latest linux/websites/latest
 
     - name: Build Apache + PHP7.4
-      run:  docker build --compress -t epicmorg/websites:php7.4 websites/php7.4
+      run:  docker build --compress -t epicmorg/websites:php7.4 linux/websites/php7.4
 
     - name: Build Apache + PHP7.3
-      run:  docker build --compress -t epicmorg/websites:php7.3 websites/php7.3
+      run:  docker build --compress -t epicmorg/websites:php7.3 linux/websites/php7.3
 
     - name: Build Apache + PHP7.2
-      run:  docker build --compress -t epicmorg/websites:php7.2 websites/php7.2
+      run:  docker build --compress -t epicmorg/websites:php7.2 linux/websites/php7.2
 
     - name: Build Testrail (always latest)
-      run:  docker build --compress -t epicmorg/testrail:latest testrail/latest
+      run:  docker build --compress -t epicmorg/testrail:latest linux/testrail/latest
 
     - name: Build PostgresSQL (latest)
-      run:  docker build --compress -t epicmorg/postgres:latest postgres/latest
+      run:  docker build --compress -t epicmorg/postgres:latest linux/postgres/latest
 
 ##########
 
     - name: Build Bitbucket + JDK 8 (latest)
-      run:  docker build --compress -t epicmorg/bitbucket:latest atlassian/bitbucket/latest 
+      run:  docker build --compress -t epicmorg/bitbucket:latest linux/atlassian/bitbucket/latest 
 
     - name: Build Bitbucket + JDK 11 (latest-jdk11)
-      run:  docker build --compress -t epicmorg/bitbucket:latest-jdk11 -f atlassian/bitbucket/latest/Dockerfile.jdk11 atlassian/bitbucket/latest
+      run:  docker build --compress -t epicmorg/bitbucket:latest-jdk11 -f linux/atlassian/bitbucket/latest/Dockerfile.jdk11 linux/atlassian/bitbucket/latest
 
     - name: Build Confluence + JDK 8 (latest)
-      run:  docker build --compress -t epicmorg/confluence:latest atlassian/confluence/latest
+      run:  docker build --compress -t epicmorg/confluence:latest linux/atlassian/confluence/latest
 
     - name: Build Confluence + JDK 11 (latest-jdk11)
-      run:  docker build --compress -t epicmorg/confluence:latest-jdk11 -f atlassian/confluence/latest/Dockerfile.jdk11 atlassian/confluence/latest
+      run:  docker build --compress -t epicmorg/confluence:latest-jdk11 -f linux/atlassian/confluence/latest/Dockerfile.jdk11 linux/atlassian/confluence/latest
 
     - name: Build Jira + JDK 8 (latest)
-      run:  docker build --compress -t epicmorg/jira:latest atlassian/jira/latest
+      run:  docker build --compress -t epicmorg/jira:latest linux/atlassian/jira/latest
 
     - name: Build Jira + JDK 11 (latest-jdk11)
-      run:  docker build --compress -t epicmorg/jira:latest-jdk11 -f atlassian/jira/latest/Dockerfile.jdk11 atlassian/jira/latest
+      run:  docker build --compress -t epicmorg/jira:latest-jdk11 -f linux/atlassian/jira/latest/Dockerfile.jdk11 linux/atlassian/jira/latest
 
     - name: Build Fisheye + Crucible + JDK 8 (latest)
-      run:  docker build --compress -t epicmorg/fisheye-crucible:latest atlassian/fisheye-crucible/latest
+      run:  docker build --compress -t epicmorg/fisheye-crucible:latest linux/atlassian/fisheye-crucible/latest
 
     - name: Build Postgres (latest)
-      run:  docker build --compress -t epicmorg/postgres:latest postgres/latest
+      run:  docker build --compress -t epicmorg/postgres:latest linux/postgres/latest
 
 ##########
 
     - name: Build qBitTorrent (latest)
-      run:  docker build --compress -t epicmorg/qbittorrent:latest qbittorrent/latest
+      run:  docker build --compress -t epicmorg/qbittorrent:latest linux/qbittorrent/latest
 
     - name: Build qBitTorrent (unstable)
-      run:  docker build --compress -t epicmorg/qbittorrent:unstable qbittorrent/latest
+      run:  docker build --compress -t epicmorg/qbittorrent:unstable linux/qbittorrent/latest
 
     - name: Build qBitTorrent (stable)
-      run:  docker build --compress -t epicmorg/qbittorrent:stable qbittorrent/stable
+      run:  docker build --compress -t epicmorg/qbittorrent:stable linux/qbittorrent/stable
 
 #########################################
 ####  secondary images and backports
 #########################################
 
     - name: Build vk2discord (latest)
-      run:  docker build --compress -t epicmorg/vk2discord:latest vk2discord/latest
+      run:  docker build --compress -t epicmorg/vk2discord:latest linux/vk2discord/latest
 
     - name: Build PostgresSQL (8.2)
-      run:  docker build --compress -t epicmorg/postgres:8.2 postgres/8.2
+      run:  docker build --compress -t epicmorg/postgres:8.2 linux/postgres/8.2
 
     - name: Build PostgresSQL (8.3)
-      run:  docker build --compress -t epicmorg/postgres:8.3 postgres/8.3
+      run:  docker build --compress -t epicmorg/postgres:8.3 linux/postgres/8.3
 
     - name: Build PostgresSQL (8.4)
-      run:  docker build --compress -t epicmorg/postgres:8.4 postgres/8.4
+      run:  docker build --compress -t epicmorg/postgres:8.4 linux/postgres/8.4
 
     - name: Build PostgresSQL (9.0)
-      run:  docker build --compress -t epicmorg/postgres:9.0 postgres/9.0
+      run:  docker build --compress -t epicmorg/postgres:9.0 linux/postgres/9.0
 
     - name: Build PostgresSQL (9.1)
-      run:  docker build --compress -t epicmorg/postgres:9.1 postgres/9.1
+      run:  docker build --compress -t epicmorg/postgres:9.1 linux/postgres/9.1
 
     - name: Build PostgresSQL (9.2)
-      run:  docker build --compress -t epicmorg/postgres:9.2 postgres/9.2
+      run:  docker build --compress -t epicmorg/postgres:9.2 linux/postgres/9.2
 
     - name: Build PostgresSQL (9.3)
-      run:  docker build --compress -t epicmorg/postgres:9.3 postgres/9.3
+      run:  docker build --compress -t epicmorg/postgres:9.3 linux/postgres/9.3
 
     - name: Build PostgresSQL (9.4)
-      run:  docker build --compress -t epicmorg/postgres:9.4 postgres/9.4
+      run:  docker build --compress -t epicmorg/postgres:9.4 linux/postgres/9.4
 
     - name: Build PostgresSQL (9.5)
-      run:  docker build --compress -t epicmorg/postgres:9.5 postgres/9.5
+      run:  docker build --compress -t epicmorg/postgres:9.5 linux/postgres/9.5
 
     - name: Build PostgresSQL (9.6)
-      run:  docker build --compress -t epicmorg/postgres:9.6 postgres/9.6
+      run:  docker build --compress -t epicmorg/postgres:9.6 linux/postgres/9.6
 
     - name: Build PostgresSQL (10)
-      run:  docker build --compress -t epicmorg/postgres:10 postgres/10
+      run:  docker build --compress -t epicmorg/postgres:10 linux/postgres/10
 
     - name: Build PostgresSQL (11)
-      run:  docker build --compress -t epicmorg/postgres:11 postgres/11
+      run:  docker build --compress -t epicmorg/postgres:11 linux/postgres/11
 
     - name: Build PostgresSQL (12)
-      run:  docker build --compress -t epicmorg/postgres:12 postgres/12
+      run:  docker build --compress -t epicmorg/postgres:12 linux/postgres/12
