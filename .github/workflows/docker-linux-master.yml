@@ -318,8 +318,8 @@ jobs:
 
     - name: Retag and Push Nginx + RTMP-HLS (legacy)
       run:  |
-             docker tag epicmorg/apache2:latest epicmorg/websites:latest
-             docker push epicmorg/websites:latest
+             docker tag epicmorg/nginx:rtmp-hls epicmorg/balancer:rtmp-hls
+             docker push epicmorg/balancer:rtmp-hls
 
     - name: PHP 7.4
       run:  docker build --compress -t epicmorg/php:php7.4 linux/php/php7.4
