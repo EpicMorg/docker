@@ -227,15 +227,21 @@ jobs:
       run:  docker build --compress -t epicmorg/apache2:latest linux/apache2/latest
     - name: Push Apache (latest)
       run:  docker push epicmorg/apache2:latest
-    - name: Push Apache:websites (latest)
-      run:  docker push epicmorg/websites:latest
-
-    - name: Build NGinx (latest)
+      
+    - name: Retag and Push Apache (legacy)
+      run:  |
+             docker tag epicmorg/apache2:latest epicmorg/websites:latest
+             docker push epicmorg/websites:latest
+             
+    - name: Build Nginx (latest)
       run:  docker build --compress -t epicmorg/nginx:latest linux/nginx/latest
-    - name: Push NGinx (latest)
+    - name: Push Nginx (latest)
       run:  docker push epicmorg/nginx:latest
-    - name: Push NGinx:balancer (latest)
-      run:  docker push epicmorg/balancer:latest
+
+    - name: Retag and Push Nginx (legacy)
+      run:  |
+            docker tag epicmorg/nginx:latest epicmorg/balancer:latest
+            docker push epicmorg/balancer:latest
 
     - name: Build TeamCity Agent
       run:  docker build --compress -t epicmorg/teamcity-agent:latest linux/teamcity/agent
@@ -295,19 +301,25 @@ jobs:
 
 ##################################################################################
 
-    - name: Build NGinx + PHP7.4
+    - name: Build Nginx + PHP7.4
       run:  docker build --compress -t epicmorg/nginx:php linux/nginx/php
-    - name: Push NGinx + PHP7.4
+    - name: Push Nginx + PHP7.4
       run:  docker push epicmorg/nginx:php
-    - name: Push NGinx:balancer + PHP7.4
-      run:  docker push epicmorg/balancer:php
 
-    - name: Build NGinx + RTMP-HLS
+    - name: Retag and Push Nginx + PHP7.4 (legacy)
+      run:  |
+             docker tag epicmorg/nginx:php epicmorg/balancer:php
+             docker push epicmorg/balancer:php
+
+    - name: Build Nginx + RTMP-HLS
       run:  docker build --compress -t epicmorg/nginx:rtmp-hls linux/nginx/rtmp-hls
-    - name: Push NGinx + RTMP-HLS
+    - name: Push Nginx + RTMP-HLS
       run:  docker push epicmorg/nginx:rtmp-hls
-    - name: Push NGinx:balancer + RTMP-HLS
-      run:  docker push epicmorg/balancer:rtmp-hls
+
+    - name: Retag and Push Nginx + RTMP-HLS (legacy)
+      run:  |
+             docker tag epicmorg/apache2:latest epicmorg/websites:latest
+             docker push epicmorg/websites:latest
 
     - name: PHP 7.4
       run:  docker build --compress -t epicmorg/php:php7.4 linux/php/php7.4
@@ -331,22 +343,31 @@ jobs:
       run:  docker build --compress -t epicmorg/apache2:php7.4 linux/apache2/php7.4
     - name: Push Apache + PHP7.4
       run:  docker push epicmorg/apache2:php7.4
-    - name: Push Apache:websites + PHP7.4
-      run:  docker push epicmorg/websites:php7.4
+
+    - name: Retag and Push Apache + PHP7.4 (legacy)
+      run:  |
+             docker tag epicmorg/apache2:php7.4 epicmorg/websites:php7.4
+             docker push epicmorg/websites:php7.4
 
     - name: Build Apache + PHP7.3
       run:  docker build --compress -t epicmorg/apache2:php7.3 linux/apache2/php7.3
     - name: Push Apache + PHP7.3
       run:  docker push epicmorg/apache2:php7.3
-    - name: Push Apache:websites + PHP7.3
-      run:  docker push epicmorg/websites:php7.3
+
+    - name: Retag and Push Apache + PHP7.3 (legacy)
+      run:  |
+             docker tag epicmorg/apache2:php7.3 epicmorg/websites:php7.3
+             docker push epicmorg/websites:php7.3
 
     - name: Build Apache + PHP7.2
       run:  docker build --compress -t epicmorg/apache2:php7.2 linux/apache2/php7.2
     - name: Push Apache + PHP7.2
       run:  docker push epicmorg/apache2:php7.2
-    - name: Push Apache:websites + PHP7.2
-      run:  docker push epicmorg/websites:php7.2
+
+    - name: Retag and Push Apache + PHP7.2 (legacy)
+      run:  |
+             docker tag epicmorg/apache2:php7.2 epicmorg/websites:php7.2
+             docker push epicmorg/websites:php7.2
 
     - name: Cleanup
       run: docker system prune --all --force --volumes
