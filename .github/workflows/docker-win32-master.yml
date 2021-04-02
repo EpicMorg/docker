@@ -38,12 +38,12 @@ jobs:
 ##################################################################################
 
     - name: Build Base Win32 Production
-      run:  docker build --compress -t prod:win10 win32/epicmorg/prod/win10
+      run:  docker build --compress -t epicmorg/prod:win10 win32/epicmorg/prod/win10
     - name: Push Build Base Win32 Production
       run:  docker push epicmorg/prod:win10
 
     - name: Build Base Win32-Server Production
-      run:  docker build --compress -t prod:win-server-core win32/epicmorg/prod/win-server-core
+      run:  docker build --compress -t epicmorg/prod:win-server-core win32/epicmorg/prod/win-server-core
     - name: Push Base Win32-Server Production
       run:  docker push epicmorg/prod:win-server-core
   
