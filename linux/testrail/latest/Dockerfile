@@ -14,7 +14,6 @@ ENV OPENSSL_CONF=/etc/ssl/
 
 RUN \
     apt-get update && \
-    apt-get install -y --no-install-recommends curl zip unzip wget iputils-ping mariadb-client openssl && \
     apt-get install -y --no-install-recommends zlib1g-dev libcurl4-gnutls-dev libldap2-dev zlib1g-dev libxml2-dev libfontconfig1 && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
