@@ -14,7 +14,7 @@ ARG P4API_DIR=${SRC_DIR}/p4api
 ARG P4PHP_DIR=${SRC_DIR}/p4php
 ARG MAKE_DIR=${SRC_DIR}/p4php-7.3
 
-ARG P4API_VER=r20.2
+ARG P4API_VER=r20.1
 ARG P4API_URL=https://www.perforce.com/downloads/perforce/${P4API_VER}/bin.linux26x86_64/p4api.tgz
 
 ARG P4PHP_VER=r20.1
