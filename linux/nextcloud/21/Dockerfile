@@ -16,11 +16,17 @@ RUN apt update -y && \
         apt-transport-https \
         curl \
         ca-certificates \
+        ghostscript \
         nload \
         htop \
         mc \
         nano \
         sudo \
+        imagemagick \
+        imagemagick-common \
+        sqlite3 \
+        smbclient \
+        libsmbclient \
         wget
 
 ##################################################################
@@ -28,9 +34,28 @@ RUN apt update -y && \
 ##################################################################
 RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
 RUN sh -c 'echo "deb https://packages.sury.org/php/ buster main" > /etc/apt/sources.list.d/php.list'
-RUN apt update -y &&  apt install -y --allow-unauthenticated smbclient libsmbclient libsmbclient-dev
-RUN pecl install smbclient
-RUN docker-php-ext-enable smbclient
+RUN apt update -y &&  \
+    apt install -y --allow-unauthenticated \
+        libsmbclient-dev \
+        libmagickwand-dev \
+        libmagickcore-dev \
+        libc-client-dev \
+        libkrb5-dev \
+        libsqlite3-dev \
+        libssl-dev
+
+RUN pecl install inotify && \
+    docker-php-ext-enable inotify
+
+RUN pecl install smbclient && \
+    docker-php-ext-enable smbclient
+
+RUN docker-php-ext-configure imap --with-kerberos --with-imap-ssl && \
+    docker-php-ext-install imap  && \
+    docker-php-ext-enable imap
+
+RUN docker-php-ext-install fileinfo bz2 intl ftp pdo_sqlite && \
+    docker-php-ext-enable fileinfo bz2 intl ftp pdo_sqlite
 
 ##################################################################
 #      thank u, mac users. rolling back normal ZipStreammer

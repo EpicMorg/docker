@@ -1,8 +1,9 @@
 ## Changelog
 ### 2021
 * `april`
+	* updated `nextcloud` images
 	* `[BREAKING CHANGES]` reorganized space - `linux` and `win32` folders
-	* `[BREAKING CHANGES]` images `balancer` and `websites` was renamed to `nginx` and `apache2`. 
+	* `[BREAKING CHANGES]` images `balancer` and `websites` was renamed to `nginx` and `apache2`.
 		* support of old repos will be unlin `jan/2022`. please usen new instead.
 	* updated `atlassian` images
 	* fixed scripts by `find . -name '*.sh' -type f | xargs chmod +x` by [sof](https://stackoverflow.com/questions/13377606/chmod-recursively).
