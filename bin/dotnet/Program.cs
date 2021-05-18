@@ -16,13 +16,14 @@
         /// <param name="json">Atlassian product JSON</param>
         /// <param name="product">Product name</param>
         /// <param name="force">Overwrite existing directories</param>
+        /// <param name="archiveType">Overwrite archive type</param>
         /// <param name="ignoreVersionsWithoutTemplates">Silently ignore versions without templates</param>
         /// <returns></returns>
-        public static async Task Main(DirectoryInfo workdir, FileInfo json, string product, bool force = false, bool ignoreVersionsWithoutTemplates = false)
+        public static async Task Main(DirectoryInfo workdir, FileInfo json, string product, bool force = false, bool ignoreVersionsWithoutTemplates = false,string archiveType = ".tar.gz")
         {
             var jsonData = File.ReadAllText(json.FullName)["downloads(".Length..^1];
             var items = JsonSerializer.Deserialize<ResponseItem[]>(jsonData, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-            foreach (var item in items.Where(a=>a.ZipUrl.ToString().EndsWith(".tar.gz")))
+            foreach (var item in items.Where(a=>a.ZipUrl.ToString().EndsWith(archiveType)))
             {
                 var majorVersion = item.Version.Split(".").First();
                 var templatePath = Path.Combine(workdir.FullName, product, "templates", majorVersion);
