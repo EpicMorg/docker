@@ -5,8 +5,11 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 #                   ARGuments
 ##################################################################
-ARG JIRA_VERSION=7.13.0
-ARG DOWNLOAD_URL=https://www.atlassian.com/software/jira/downloads/binary/atlassian-jira-software-${JIRA_VERSION}.tar.gz
+
+#configured by dockerfile / .ENV
+ARG RELEASE
+ARG DOWNLOAD_URL
+
 
 ##################################################################
 #                   Setup

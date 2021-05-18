@@ -1,4 +1,5 @@
-all: jr
+all: app
 
-jr:
-	docker build --compress -t epicmorg/jira:7.0.10 .
+app:
+	docker-compose build --compress
+	docker-compose push
