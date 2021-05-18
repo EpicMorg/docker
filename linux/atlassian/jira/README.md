@@ -161,7 +161,7 @@ The `latest` tag matches the most recent release of Atlassian JIRA Software. Thu
 ## Versions available
 
 * `epicmorg/jira:latest`
-* `epicmorg/jira:7.10.0`
+*  another like sub-directories names (like `7.10.0`, `8.16.1`, etc)
   
 # Support
 
