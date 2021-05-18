@@ -1,5 +1,10 @@
 ## Changelog
 ### 2021
+* `may`
+	* @kasthack was wrote docker-template generator for atlassian products
+		* was regenerated and updated *all* `jira` images with `5`, `6`, `7` and `8` versions.
+		* all actual download links was get from [EpicMorg/atlassian-json](https://github.com/EpicMorg/atlassian-json) repo.
+	* asap will be updated and added all additional `atlassian` images.
 * `april`
 	* updated `nextcloud` images
 	* `[BREAKING CHANGES]` reorganized space - `linux` and `win32` folders
