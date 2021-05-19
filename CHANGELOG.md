@@ -3,6 +3,7 @@
 * `may`
 	* @kasthack was wrote docker-template generator for atlassian products
 		* was regenerated and updated *all* `jira` images with `5`, `6`, `7` and `8` versions.
+		*  was regenerated and updated *all* `fisheye-crucible` images with `2`, `3` and `4` versions.
 		* all actual download links was get from [EpicMorg/atlassian-json](https://github.com/EpicMorg/atlassian-json) repo.
 	* asap will be updated and added all additional `atlassian` images.
 * `april`
