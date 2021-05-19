@@ -5,8 +5,11 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 #                   ARGuments
 ##################################################################
-ARG CONFLUENCE_VERSION=6.15.6
-ARG DOWNLOAD_URL=http://www.atlassian.com/software/confluence/downloads/binary/atlassian-confluence-${CONFLUENCE_VERSION}.tar.gz
+
+#configured by dockerfile / .ENV
+ARG RELEASE
+ARG DOWNLOAD_URL
+
 
 ##################################################################
 #                   Setup

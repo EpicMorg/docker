@@ -1,5 +1,5 @@
-all: confl
+all: app
 
-confl:
-	docker build --compress -t epicmorg/confluence:6.8.0 .
-
+app:
+	docker-compose build --compress
+	docker-compose push
