@@ -23,7 +23,7 @@
         {
             var jsonData = File.ReadAllText(json.FullName)["downloads(".Length..^1];
             var items = JsonSerializer.Deserialize<ResponseItem[]>(jsonData, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-            foreach (var item in items.Where(a=>a.ZipUrl.ToString().EndsWith(archiveType)))
+            foreach (var item in items.Where(a=>a.ZipUrl.ToString().EndsWith(archiveType) && !a.ZipUrl .ToString().Contains("-war")))
             {
                 var majorVersion = item.Version.Split(".").First();
                 var templatePath = Path.Combine(workdir.FullName, product, "templates", majorVersion);
