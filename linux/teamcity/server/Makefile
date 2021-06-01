@@ -1,4 +1,5 @@
-all: tcs
-tcs:
-	docker build --compress -t epicmorg/teamcity-server:latest .
-	docker push epicmorg/teamcity-server:latest
+all: app
+
+app:
+	docker-compose build --compress
+	docker-compose push
