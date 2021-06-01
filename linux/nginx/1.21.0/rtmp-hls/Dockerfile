@@ -13,6 +13,11 @@ ARG DEBIAN_FRONTEND=noninteractive
 ARG  NGINX_RTMP_MODULE_VERSION=1.2.1
 
 ##################################################################
+#                   Clear sources.list.d
+##################################################################
+RUN rm -rfv /etc/apt/sources.list.d/*
+
+##################################################################
 #                   sid sources list
 ##################################################################
 RUN rm -rfv /etc/apt/sources.list
