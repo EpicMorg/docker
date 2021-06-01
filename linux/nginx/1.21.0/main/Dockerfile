@@ -1,3 +1,11 @@
+##################################################################
+#                   Set Global ARG to build process
+##################################################################
+ARG NGINX_VERSION
+
+##################################################################
+#                   Start build process
+##################################################################
 FROM epicmorg/devel AS builder
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
