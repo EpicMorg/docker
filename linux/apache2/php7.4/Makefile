@@ -1,4 +1,5 @@
-all: apache2
-apache2:
-	docker build --compress -t epicmorg/apache2:php7.4 .
-	docker push  epicmorg/apache2:php7.4
+all: app
+
+app:
+	docker-compose build --compress
+	docker-compose push

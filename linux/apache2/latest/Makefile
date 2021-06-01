@@ -1,4 +1,5 @@
-all: apache2
-apache2:
-	docker build --compress -t epicmorg/apache2:latest .
-	docker push  epicmorg/apache2:latest
+all: app
+
+app:
+	docker-compose build --compress
+	docker-compose push
