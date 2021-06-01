@@ -1,6 +1,5 @@
-all: tr
+all: app
 
-tr:
-	docker build --compress -t epicmorg/testrail .
-	docker push epicmorg/testrail
-
+app:
+	docker-compose build --compress
+	docker-compose push
