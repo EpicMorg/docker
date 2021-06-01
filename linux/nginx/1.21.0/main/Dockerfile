@@ -11,8 +11,8 @@ ARG SRC_DIR=${BUILDS_DIR}/src
 ARG EXPORT_DIR=${BUILDS_DIR}/export
 ARG PRE_DIR=${BUILDS_DIR}/pre
 ARG NGINX_SRC_DIR=${SRC_DIR}/nginx
-ARG NGINX_VERSION=1.20.0
-ARG NGINX_DOWNLOAD_URL=http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz
+ARG NGINX_VERSION
+ARG NGINX_DOWNLOAD_URL
 ARG LUAJIT_INC=/usr/local/include/luajit-2.1
 ARG LUAJIT_LIB=/usr/local/lib
 
@@ -39,6 +39,7 @@ RUN cd ${SRC_DIR} && \
     ln -s /usr/local/lib/libIP2Location.so /lib/libIP2Location.so && \
     ln -s /usr/local/lib/libIP2Location.so.1 /lib/libIP2Location.so.1 && \
     ln -s /usr/local/lib/libIP2Location.so.2 /lib/libIP2Location.so.2 && \
+	ln -s /lib/x86_64-linux-gnu/libcrypto.so.1.1 ln -s /lib/x86_64-linux-gnu/libcrypto.so.1 && \
     dpkg --force-all -i ${EXPORT_DIR}/*.deb
 
 ##################################################################
@@ -148,7 +149,7 @@ RUN cd ${NGINX_SRC_DIR} && \
     --add-dynamic-module=http-geoip2 \
     --add-dynamic-module=spnego-http-auth-nginx-module \
     --add-dynamic-module=http-auth-ldap \
-    --add-dynamic-module=nginx-audio-track-for-hls-module \
+#    --add-dynamic-module=nginx-audio-track-for-hls-module \
     --add-dynamic-module=ip2location-nginx \
     --add-dynamic-module=nginx-vod-module \
 #    --add-dynamic-module=nginx-module-vts \
@@ -207,6 +208,7 @@ RUN apt-get update && \
     ln -s /usr/local/lib/libIP2Location.so.3 /lib/libIP2Location.so.3 && \
     ln -s /usr/local/lib/libIP2Location.so.4 /lib/libIP2Location.so.4 && \
     ln -s /usr/local/lib/libIP2Location.so.5 /lib/libIP2Location.so.5 && \
+	ln -s /lib/x86_64-linux-gnu/libcrypto.so.1.1 ln -s /lib/x86_64-linux-gnu/libcrypto.so.1 && \
     ln -sf /dev/stdout /var/log/nginx/access.log && \
     ln -sf /dev/stderr /var/log/nginx/error.log && \
     ln -sf /etc/ssl/dhparam.pem /etc/nginx/dhparam.pem && \
