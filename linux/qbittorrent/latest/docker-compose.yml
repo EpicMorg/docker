@@ -1,18 +1,10 @@
-version: '3.7'
+version: '3.9'
 services:
-  qbittorrent:
-    image: epicmorg/qbittorrent:latest
-    restart: always
-    container_name: qbittorrent
-    ports:
-      - "0.0.0.0:8282:8282"
-    volumes:
-      - /etc/localtime:/etc/localtime
-      - /etc/timezone:/etc/timezone
-      - /etc/letsencrypt:/etc/letsencrypt
-      - /opt/qbittorrent/profiles:/opt/qbittorrent/profiles
-    tmpfs:
-      - /tmp
-    environment:
-      - QBT_PROFILE_NAME=docker
-
+  app:
+    image: "epicmorg/qbittorrent:latest"
+    build:
+      context: .
+  app-unstable:
+    image: "epicmorg/qbittorrent:unstable"
+    build:
+      context: .

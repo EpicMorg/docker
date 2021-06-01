@@ -1,4 +1,5 @@
-all: emgqb
-emgqb:
-	docker build --compress -t epicmorg/qbittorrent:latest .
-	docker push epicmorg/qbittorrent:latest
+all: app
+
+app:
+	docker-compose build --compress
+	docker-compose push
