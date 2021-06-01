@@ -1,4 +1,5 @@
-all: za
-za:
-	docker build --compress -t epicmorg/zabbix-agent .
-	docker push epicmorg/zabbix-agent
+all: app
+
+app:
+	docker-compose build --compress
+	docker-compose push

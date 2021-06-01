@@ -1,5 +1,5 @@
-all: zwam
-zwam:
-	docker build --compress -t epicmorg/zabbix-web-apache-mysql .
-	docker push epicmorg/zabbix-web-apache-mysql
+all: app
 
+app:
+	docker-compose build --compress
+	docker-compose push

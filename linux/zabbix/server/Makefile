@@ -1,4 +1,5 @@
-all: zsm
-zsm:
-	docker build --compress -t epicmorg/zabbix-server-mysql .
-	docker push epicmorg/zabbix-server-mysql
+all: app
+
+app:
+	docker-compose build --compress
+	docker-compose push
