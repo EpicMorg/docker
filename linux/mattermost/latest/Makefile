@@ -1,4 +1,5 @@
-all: mmed
-mmed:
-	docker build --compress -t epicmorg/mattermost-enterprise-edition .
-	docker push epicmorg/mattermost-enterprise-edition:latest
+all: app
+
+app:
+	docker-compose build --compress
+	docker-compose push
