@@ -1,5 +1,5 @@
-all: vk2d
+all: app
 
-vk2d:
-	docker build --compress -t epicmorg/vk2discord:latest .
-	docker push epicmorg/vk2discord
+app:
+	docker-compose build --compress
+	docker-compose push
