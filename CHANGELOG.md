@@ -1,5 +1,8 @@
 ## Changelog
 ### 2021
+* `june`
+	* migrated to `docker-compose` build-system.
+	* added older versions of `nginx`.
 * `may`
 	* @kasthack was wrote docker-template generator for atlassian products
 		* was regenerated and updated *all* `jira` images with `5`, `6`, `7` and `8` versions.
