@@ -17,10 +17,11 @@ Containers was Splited to another sub-repositories. Now current repo will be con
 | ` ` | [![confluence-5](https://img.shields.io/badge/Atlassian-Confluence%205-orange?style=popout-square)](https://github.com/EpicMorg/docker-scripts/tree/master/atlassian/confluence/5) [![GHA](https://img.shields.io/github/workflow/status/EpicMorg/docker-scripts/master/master?label=build%20master&style=flat-square)](https://github.com/EpicMorg/docker-scripts/actions?query=workflow%3Amaster) | [![atlassian-jira-6](https://img.shields.io/badge/Atlassian-Jira%206-orange?style=popout-square)](https://github.com/EpicMorg/docker-scripts/tree/master/atlassian/jira/6) [![GHA](https://img.shields.io/github/workflow/status/EpicMorg/docker-scripts/master/master?label=build%20master&style=flat-square)](https://github.com/EpicMorg/docker-scripts/actions?query=workflow%3Amaster)  | [![NextCloud](https://img.shields.io/badge/EpicMorg-NextCloud%20Backports-yellow?style=popout-square)](https://github.com/EpicMorg/docker-scripts/tree/master/nextcloud) [![GHA](https://img.shields.io/github/workflow/status/EpicMorg/docker-scripts/master/master?label=build%20master&style=flat-square)](https://github.com/EpicMorg/docker-scripts/actions?query=workflow%3Amaster) |
 | ` ` | ` ` | [![atlassian-jira-5](https://img.shields.io/badge/Atlassian-Jira%205-red?style=popout-square)](https://github.com/EpicMorg/docker-scripts/tree/master/atlassian/jira/5) [![GHA](https://img.shields.io/github/workflow/status/EpicMorg/docker-scripts/master/master?label=build%20master&style=flat-square)](https://github.com/EpicMorg/docker-scripts/actions?query=workflow%3Amaster) | [![PostgreSQL](https://img.shields.io/badge/EpicMorg-PostgreSQL%20Backports-yellow?style=popout-square)](https://github.com/EpicMorg/docker-scripts/tree/master/postgres) [![GHA](https://img.shields.io/github/workflow/status/EpicMorg/docker-scripts/master/master?label=build%20master&style=flat-square)](https://github.com/EpicMorg/docker-scripts/actions?query=workflow%3Amaster) | |
  
- 
-# Containers Map
+# Stargazers
+[![Stargazers repo roster for @nastyox/Repo-Roster](https://reporoster.com/stars/EpicMorg/docker-scripts)](https://github.com/EpicMorg/docker-scripts/stargazers)
 
-![](https://raw.githubusercontent.com/EpicMorg/docker-scripts/master/.github/docker-scripts.png)
+# Forkers
+[![Forkers repo roster for @nastyox/Repo-Roster](https://reporoster.com/forks/EpicMorg/docker-scripts)](https://github.com/EpicMorg/docker-scripts/network/members)
 
 # Some popular products  [![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/B0B81CUI4)
 
@@ -29,9 +30,9 @@ Containers was Splited to another sub-repositories. Now current repo will be con
 | [![Atlassian Bitbucket](https://img.shields.io/badge/Atlassian%20Bitbucket--brightgreen.svg?style=popout-square)](https://www.atlassian.com/software/bitbucket/download) | [![](https://img.shields.io/docker/pulls/epicmorg/bitbucket.svg?style=popout-square)](https://hub.docker.com/r/epicmorg/bitbucket/) | `Atlassian Bitbucket` server. You also can install `datacenter` edition.
 | [![Atlassian Confluence](https://img.shields.io/badge/Atlassian%20Confluence--brightgreen.svg?style=popout-square)](https://www.atlassian.com/software/confluence/download) |   [![](https://img.shields.io/docker/pulls/epicmorg/confluence.svg?style=popout-square)](https://hub.docker.com/r/epicmorg/confluence/) | `Atlassian Confluence` server. You also can install `datacenter` edition.
 | [![Atlassian Jira](https://img.shields.io/badge/Atlassian%20Jira--brightgreen.svg?style=popout-square)](https://www.atlassian.com/software/jira/download) | [![](https://img.shields.io/docker/pulls/epicmorg/jira.svg?style=popout-square)](https://hub.docker.com/r/epicmorg/jira/) | `Atlassian Jira: Softrware` server.  You also can install `servicedesk`, `core` or `datacenter` editions.
-| [![Nginx Mainline](https://img.shields.io/badge/Nginx--brightgreen.svg?style=popout-square)](https://nginx.org/en/download.html) |   [![](https://img.shields.io/docker/pulls/epicmorg/balancer.svg?style=popout-square)](https://hub.docker.com/r/epicmorg/balancer/) | Mainline custom build by [EpicMorg Team](https://github.com/EpicMorg) with http2 support and some modules.
-| [![Apache2](https://img.shields.io/badge/Apache2--brightgreen.svg?style=popout-square)](https://deb.sury.org/)  |  [![](https://img.shields.io/docker/pulls/epicmorg/websites.svg?style=popout-square)](https://hub.docker.com/r/epicmorg/websites/ ) | Latest pure apache2.
-| [![php7](https://img.shields.io/badge/php7--brightgreen.svg?style=popout-square)](https://deb.sury.org/) | [![](https://img.shields.io/docker/pulls/epicmorg/websites.svg?style=popout-square)](https://hub.docker.com/r/epicmorg/websites/ ) |  php 7.3 custom build by [Ondrej Sury](https://launchpad.net/~ondrej). Component of container above.
+| [![Nginx Mainline](https://img.shields.io/badge/Nginx--brightgreen.svg?style=popout-square)](https://nginx.org/en/download.html) |   [![](https://img.shields.io/docker/pulls/epicmorg/nginx.svg?style=popout-square)](https://hub.docker.com/r/epicmorg/nginx/) | Mainline custom build by [EpicMorg Team](https://github.com/EpicMorg) with http2 support and some modules.
+| [![Apache2](https://img.shields.io/badge/Apache2--brightgreen.svg?style=popout-square)](https://deb.sury.org/)  |  [![](https://img.shields.io/docker/pulls/epicmorg/apache2.svg?style=popout-square)](https://hub.docker.com/r/epicmorg/apache2/ ) | Latest pure apache2.
+| [![php7](https://img.shields.io/badge/php7--brightgreen.svg?style=popout-square)](https://deb.sury.org/) | [![](https://img.shields.io/docker/pulls/epicmorg/apache2.svg?style=popout-square)](https://hub.docker.com/r/epicmorg/apache2/ ) |  php 7.3 custom build by [Ondrej Sury](https://launchpad.net/~ondrej). Component of container above.
 | [![nc](https://img.shields.io/badge/NextCloud--brightgreen.svg?style=popout-square)](https://hub.docker.com/_/nextcloud)  |  [![](https://img.shields.io/docker/pulls/epicmorg/nextcloud.svg?style=popout-square)](https://hub.docker.com/r/epicmorg/nextcloud/ ) | Fixed `nextcloud:latest` build by [EpicMorg Team](https://github.com/EpicMorg) with benefits.
 | [![zabbix-agent](https://img.shields.io/badge/Zabbix%20Agent--brightgreen.svg?style=popout-square)](https://github.com/zabbix/zabbix-docker)  | [![](https://img.shields.io/docker/pulls/epicmorg/zabbix-agent.svg?style=popout-square)](https://hub.docker.com/r/epicmorg/zabbix-agent/ ) | Fixed `zabbix/zabbix-agent:ubuntu-latest` build by [EpicMorg Team](https://github.com/EpicMorg) with benefits.
 | [![zabbix-server](https://img.shields.io/badge/Zabbix%20Server--brightgreen.svg?style=popout-square)](https://github.com/zabbix/zabbix-docker)  | [![](https://img.shields.io/docker/pulls/epicmorg/zabbix-server-mysql.svg?style=popout-square)](https://hub.docker.com/r/epicmorg/zabbix-server-mysql/ ) | Fixed `zabbix/zabbix-server-mysql:ubuntu-latest` build by [EpicMorg Team](https://github.com/EpicMorg) with benefits.
@@ -40,8 +41,12 @@ Containers was Splited to another sub-repositories. Now current repo will be con
 | [![teamcity-agent](https://img.shields.io/badge/TeamCity%20Agent--brightgreen.svg?style=popout-square)](https://github.com/JetBrains/teamcity-docker-agent)  | [![](https://img.shields.io/docker/pulls/epicmorg/teamcity-agent.svg?style=popout-square)](https://hub.docker.com/r/epicmorg/teamcity-agent/ ) | Custom build by [EpicMorg Team](https://github.com/EpicMorg) with benefits.
 | [![qbittorrent](https://img.shields.io/badge/qBittorrent--brightgreen.svg?style=popout-square)](https://github.com/qbittorrent/qBittorrent)  | [![](https://img.shields.io/docker/pulls/epicmorg/qbittorrent.svg?style=popout-square)](https://hub.docker.com/r/epicmorg/qbittorrent/ ) | Custom build by [EpicMorg Team](https://github.com/EpicMorg) with benefits.
 
+# Containers Map
 
-## Thanks
+![](https://raw.githubusercontent.com/EpicMorg/docker-scripts/master/.github/docker-scripts.png)
+
+
+# &#8627; Special Thanks:
 
 * [@Aleks-Z](https://github.com/Aleks-Z)
 * [@alex4rks](https://github.com/alex4rks)
