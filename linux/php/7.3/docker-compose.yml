@@ -1,6 +1,6 @@
 version: '3.9'
 services:
   app:
-    image: "epicmorg/php:7.3"
+    image: "epicmorg/php:php7.3"
     build:
       context: .
