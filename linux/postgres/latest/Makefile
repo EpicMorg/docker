@@ -1,4 +1,5 @@
-all: pssql
-pssql:
-	docker build --compress -t epicmorg/postgres:latest .
-	docker push epicmorg/postgres:latest
+all: app
+
+app:
+	docker-compose build --compress
+	docker-compose push
