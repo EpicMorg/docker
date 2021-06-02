@@ -17,12 +17,6 @@ Containers was Splited to another sub-repositories. Now current repo will be con
 | ` ` | [![confluence-5](https://img.shields.io/badge/Atlassian-Confluence%205-orange?style=popout-square)](https://github.com/EpicMorg/docker-scripts/tree/master/atlassian/confluence/5) [![GHA](https://img.shields.io/github/workflow/status/EpicMorg/docker-scripts/master/master?label=build%20master&style=flat-square)](https://github.com/EpicMorg/docker-scripts/actions?query=workflow%3Amaster) | [![atlassian-jira-6](https://img.shields.io/badge/Atlassian-Jira%206-orange?style=popout-square)](https://github.com/EpicMorg/docker-scripts/tree/master/atlassian/jira/6) [![GHA](https://img.shields.io/github/workflow/status/EpicMorg/docker-scripts/master/master?label=build%20master&style=flat-square)](https://github.com/EpicMorg/docker-scripts/actions?query=workflow%3Amaster)  | [![NextCloud](https://img.shields.io/badge/EpicMorg-NextCloud%20Backports-yellow?style=popout-square)](https://github.com/EpicMorg/docker-scripts/tree/master/nextcloud) [![GHA](https://img.shields.io/github/workflow/status/EpicMorg/docker-scripts/master/master?label=build%20master&style=flat-square)](https://github.com/EpicMorg/docker-scripts/actions?query=workflow%3Amaster) |
 | ` ` | ` ` | [![atlassian-jira-5](https://img.shields.io/badge/Atlassian-Jira%205-red?style=popout-square)](https://github.com/EpicMorg/docker-scripts/tree/master/atlassian/jira/5) [![GHA](https://img.shields.io/github/workflow/status/EpicMorg/docker-scripts/master/master?label=build%20master&style=flat-square)](https://github.com/EpicMorg/docker-scripts/actions?query=workflow%3Amaster) | [![PostgreSQL](https://img.shields.io/badge/EpicMorg-PostgreSQL%20Backports-yellow?style=popout-square)](https://github.com/EpicMorg/docker-scripts/tree/master/postgres) [![GHA](https://img.shields.io/github/workflow/status/EpicMorg/docker-scripts/master/master?label=build%20master&style=flat-square)](https://github.com/EpicMorg/docker-scripts/actions?query=workflow%3Amaster) | |
  
-# Stargazers
-[![Stargazers repo roster for @nastyox/Repo-Roster](https://reporoster.com/stars/EpicMorg/docker-scripts)](https://github.com/EpicMorg/docker-scripts/stargazers)
-
-# Forkers
-[![Forkers repo roster for @nastyox/Repo-Roster](https://reporoster.com/forks/EpicMorg/docker-scripts)](https://github.com/EpicMorg/docker-scripts/network/members)
-
 # Some popular products  [![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/B0B81CUI4)
 
 | Application   | Pulls | Notes
@@ -45,6 +39,11 @@ Containers was Splited to another sub-repositories. Now current repo will be con
 
 ![](https://raw.githubusercontent.com/EpicMorg/docker-scripts/master/.github/docker-scripts.png)
 
+# Stargazers
+[![Stargazers repo roster for @EpicMorg/docker-scripts](https://reporoster.com/stars/dark/EpicMorg/docker-scripts)](https://github.com/EpicMorg/docker-scripts/stargazers)
+
+# Forkers
+[![Forkers repo roster for @EpicMorg/docker-scripts](https://reporoster.com/forks/dark/EpicMorg/docker-scripts)](https://github.com/EpicMorg/docker-scripts/network/members)
 
 # &#8627; Special Thanks:
 
