@@ -1,5 +1,5 @@
-all: emgdev
-emgdev:
-	docker build --compress -t epicmorg/edge .
-	docker push epicmorg/edge
+all: app
 
+app:
+	docker-compose build --compress
+	docker-compose push
