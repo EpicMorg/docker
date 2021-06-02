@@ -1,5 +1,5 @@
-all: emgprod
-emgprod:
-	docker build --compress -t epicmorg/prod:jdk6 .
-	docker push epicmorg/prod:jdk6
+all: app
 
+app:
+	docker-compose build --compress
+	docker-compose push
