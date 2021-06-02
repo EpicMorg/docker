@@ -1,4 +1,5 @@
-all: nc
-nc:
-	docker build --compress -t epicmorg/nextcloud:19 .
-	docker push epicmorg/nextcloud:19
+all: app
+
+app:
+	docker-compose build --compress
+	docker-compose push
