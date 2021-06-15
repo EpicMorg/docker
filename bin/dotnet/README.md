@@ -10,5 +10,5 @@ Epicmorg.DockerGenerator.exe
 
 ## inline
 ```
-Epicmorg.DockerGenerator.exe --workdir "D:\Work\GitHub\EpicMorg\Main\docker-scripts\linux\atlassian\" --json "D:\Work\GitHub\EpicMorg\Main\atlassian-json\json-backups\archived\jira-software.json" \\  --product "jira" --ignore-versions-without-templates
+Epicmorg.DockerGenerator.exe --workdir "D:\Work\GitHub\EpicMorg\Main\docker-scripts\linux\atlassian\" --json "D:\Work\GitHub\EpicMorg\Main\atlassian-json\json-backups\archived\jira-software.json"  --product "jira" --ignore-versions-without-templates
 ```
