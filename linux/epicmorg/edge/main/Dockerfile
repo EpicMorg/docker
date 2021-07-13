@@ -10,6 +10,7 @@ COPY sources.list /etc/apt/sources.list
 RUN  apt update && \
      apt autoremove -y && \
      apt-get install -y libc6  && \
+     apt upgrade -y && \
      apt dist-upgrade -y && \
      apt autoremove -y
 

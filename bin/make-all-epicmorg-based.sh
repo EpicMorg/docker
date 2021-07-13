@@ -36,4 +36,26 @@ cd ${SCRIPTPATH}/../linux/nginx/latest/main      && pwd && make
 cd ${SCRIPTPATH}/../linux/nginx/latest/php       && pwd && make
 cd ${SCRIPTPATH}/../linux/nginx/latest/rtmp-hls  && pwd && make
 
+cd ${SCRIPTPATH}/../linux/postgres/latest       && pwd && make
+cd ${SCRIPTPATH}/../linux/postgres/8.2          && pwd && make
+cd ${SCRIPTPATH}/../linux/postgres/8.3          && pwd && make
+cd ${SCRIPTPATH}/../linux/postgres/8.4          && pwd && make
+cd ${SCRIPTPATH}/../linux/postgres/9.0          && pwd && make
+cd ${SCRIPTPATH}/../linux/postgres/9.1          && pwd && make
+cd ${SCRIPTPATH}/../linux/postgres/9.2          && pwd && make
+cd ${SCRIPTPATH}/../linux/postgres/9.3          && pwd && make
+cd ${SCRIPTPATH}/../linux/postgres/9.4          && pwd && make
+cd ${SCRIPTPATH}/../linux/postgres/9.5          && pwd && make
+cd ${SCRIPTPATH}/../linux/postgres/9.6          && pwd && make
+cd ${SCRIPTPATH}/../linux/postgres/10           && pwd && make
+cd ${SCRIPTPATH}/../linux/postgres/11           && pwd && make
+cd ${SCRIPTPATH}/../linux/postgres/12           && pwd && make
+
+cd ${SCRIPTPATH}/../linux/qbittorrent/latest    && pwd && make
+cd ${SCRIPTPATH}/../linux/qbittorrent/stable    && pwd && make
+
+cd ${SCRIPTPATH}/../linux/vk2discord/latest     && pwd && make
+
+cd ${SCRIPTPATH}/../linux/teamcity/agent        && pwd && make
+
 exit 0

@@ -60,6 +60,13 @@ RUN echo "zend_extension =  ${PHP_MODULE_PATH}/ioncube_loader_lin_7.3.so" >> ${P
     php -v
 
 ##################################################################
+#                   Installing imagic addon
+##################################################################
+RUN echo "extension = ${PHP_MODULE_PATH}/imagick.so" >> ${PHP_DIR}/apache2/php.ini && \
+    php -m && \
+    php -v
+
+##################################################################
 #                   Installing Composer addon
 ##################################################################
 RUN cd /tmp && \

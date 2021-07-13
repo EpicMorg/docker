@@ -89,11 +89,8 @@ ARG P4_PHP_INI=${PHP_DIR}/mods-available/perfroce.ini
 ##################################################################
 #                   Installing  PHP7
 ##################################################################
-#installing php repo
 RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
 RUN sh -c 'echo "deb https://packages.sury.org/php/ buster main" > /etc/apt/sources.list.d/php.list'
-
-#Install base packages
 RUN apt-get update && \
     apt-get install -y  --allow-unauthenticated \
       libmemcached-dev \
@@ -134,7 +131,15 @@ RUN apt-get update && \
       php7.2-yaml \
       php7.2-geoip \
       sendmail && \
-    phpenmod \
+    ln -sf /etc/ssl/dhparam.pem /etc/php/dhparam.pem && \
+    update-alternatives --set php /usr/bin/php7.2 && \
+    php -m && \
+    php -v
+
+##################################################################
+#                   Enabling extensions
+##################################################################
+RUN phpenmod \
       calendar \
       ldap \
       curl \
@@ -167,7 +172,21 @@ RUN apt-get update && \
       xmlwriter \
       xsl \
       yaml && \
-    ln -sf /etc/ssl/dhparam.pem /etc/php/dhparam.pem && \
+    php -m && \
+    php -v
+
+##################################################################
+#                   Installing imagic addon
+##################################################################
+RUN apt-get update && \
+    apt-get install -y  --allow-unauthenticated \
+      libmagickwand-dev \
+      imagemagick && \
+    pecl install imagick && \
+#    echo "extension = ${PHP_MODULE_PATH}/imagick.so" >> ${PHP_DIR}/apache2/php.ini && \
+    echo "extension = ${PHP_MODULE_PATH}/imagick.so" >> ${PHP_DIR}/cgi/php.ini && \
+    echo "extension = ${PHP_MODULE_PATH}/imagick.so" >> ${PHP_DIR}/cli/php.ini && \
+    echo "extension = ${PHP_MODULE_PATH}/imagick.so" >> ${PHP_DIR}/fpm/php.ini && \
     php -m && \
     php -v
 
@@ -188,7 +207,8 @@ RUN tar -C /tmp -xvf /tmp/ioncube.tar.gz && \
 #                   Installing P4 addon
 ##################################################################
 COPY --from=builder /builds/export/perforce.so ${PHP_MODULE_PATH}
-RUN echo "extension=perforce.so" > ${P4_PHP_INI} && \
+RUN echo "extensio n= ${PHP_MODULE_PATH}/perforce.so" > ${P4_PHP_INI} && \
+#    ln -sf ${P4_PHP_INI} ${PHP_DIR}/apache2/conf.d/perforce.ini && \
     ln -sf ${P4_PHP_INI} ${PHP_DIR}/cgi/conf.d/perforce.ini && \
     ln -sf ${P4_PHP_INI} ${PHP_DIR}/cli/conf.d/perforce.ini && \
     ln -sf ${P4_PHP_INI} ${PHP_DIR}/fpm/conf.d/perforce.ini && \

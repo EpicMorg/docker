@@ -69,7 +69,6 @@ RUN cd ${MAKE_DIR} && \
     make install && \
     cp ${PHP_MODULE_PATH}/perforce.so ${EXPORT_DIR}
 
-
 ##################################################################
 #                   compilling smbclient
 ##################################################################
@@ -93,7 +92,6 @@ ARG SMB_PHP_INI=${PHP_DIR}/mods-available/smbclient.ini
 ##################################################################
 #                   Installing  PHP7
 ##################################################################
-#Install base packages
 RUN apt-get update && \
     apt-get install -y  --allow-unauthenticated \
       libmemcached-dev \
@@ -136,12 +134,18 @@ RUN apt-get update && \
       php7.4-gnupg \
       php7.4-redis \
       smbclient libsmbclient \
-#      php-smbclient \
       php7.4-yaml \
       php7.4-geoip \
       sendmail && \
+    ln -sf /etc/ssl/dhparam.pem /etc/php/dhparam.pem && \
     update-alternatives --set php /usr/bin/php7.4 && \
-    phpenmod \
+    php -m && \
+    php -v
+
+##################################################################
+#                   Enabling extensions
+##################################################################
+RUN phpenmod \
       snmp \
       gmp \
       calendar \
@@ -178,7 +182,21 @@ RUN apt-get update && \
       xmlwriter \
       xsl \
       yaml && \
-    ln -sf /etc/ssl/dhparam.pem /etc/php/dhparam.pem && \
+    php -m && \
+    php -v
+
+##################################################################
+#                   Installing imagic addon
+##################################################################
+RUN apt-get update && \
+    apt-get install -y  --allow-unauthenticated \
+      libmagickwand-dev \
+      imagemagick && \
+    pecl install imagick && \
+#    echo "extension = ${PHP_MODULE_PATH}/imagick.so" >> ${PHP_DIR}/apache2/php.ini && \
+    echo "extension = ${PHP_MODULE_PATH}/imagick.so" >> ${PHP_DIR}/cgi/php.ini && \
+    echo "extension = ${PHP_MODULE_PATH}/imagick.so" >> ${PHP_DIR}/cli/php.ini && \
+    echo "extension = ${PHP_MODULE_PATH}/imagick.so" >> ${PHP_DIR}/fpm/php.ini && \
     php -m && \
     php -v
 
@@ -199,7 +217,7 @@ RUN tar -C /tmp -xvf /tmp/ioncube.tar.gz && \
 #                   Installing P4 addon
 ##################################################################
 COPY --from=builder /builds/export/perforce.so ${PHP_MODULE_PATH}
-RUN echo "extension=perforce.so" > ${P4_PHP_INI} && \
+RUN echo "extension = ${PHP_MODULE_PATH}/perforce.so" > ${P4_PHP_INI} && \
     ln -sf ${P4_PHP_INI} ${PHP_DIR}/cgi/conf.d/perforce.ini && \
     ln -sf ${P4_PHP_INI} ${PHP_DIR}/cli/conf.d/perforce.ini && \
     ln -sf ${P4_PHP_INI} ${PHP_DIR}/fpm/conf.d/perforce.ini && \
@@ -210,7 +228,7 @@ RUN echo "extension=perforce.so" > ${P4_PHP_INI} && \
 #                   Installing smbclient addon
 ##################################################################
 COPY --from=builder /builds/export/smbclient.so ${PHP_MODULE_PATH}
-RUN echo "extension=smbclient.so" > ${SMB_PHP_INI} && \
+RUN echo "extension = ${PHP_MODULE_PATH}/smbclient.so" > ${SMB_PHP_INI} && \
     ln -sf ${SMB_PHP_INI} ${PHP_DIR}/cgi/conf.d/smbclient.ini && \
     ln -sf ${SMB_PHP_INI} ${PHP_DIR}/cli/conf.d/smbclient.ini && \
     ln -sf ${SMB_PHP_INI} ${PHP_DIR}/fpm/conf.d/smbclient.ini && \
