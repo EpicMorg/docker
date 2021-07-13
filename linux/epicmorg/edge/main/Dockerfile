@@ -5,10 +5,11 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 #                   bullseye sources list
 ##################################################################
-COPY  sources.list /etc/apt/sources.list.d/sources.sid.list
+RUN  rm -rfv /etc/apt/sources.list
+COPY sources.list /etc/apt/sources.list
 RUN  apt update && \
      apt autoremove -y && \
-     apt-get install -y -o APT::Immediate-Configure=0 -t sid libc6  && \
+     apt-get install -y libc6  && \
      apt dist-upgrade -y && \
      apt autoremove -y
 
