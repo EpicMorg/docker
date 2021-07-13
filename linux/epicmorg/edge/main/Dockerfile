@@ -3,9 +3,9 @@ LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
 ##################################################################
-#                   sid sources list
+#                   bullseye sources list
 ##################################################################
-COPY  sources.sid.list /etc/apt/sources.list.d/sources.sid.list
+COPY  sources.list /etc/apt/sources.list.d/sources.sid.list
 RUN  apt update && \
      apt autoremove -y && \
      apt-get install -y -o APT::Immediate-Configure=0 -t sid libc6  && \
