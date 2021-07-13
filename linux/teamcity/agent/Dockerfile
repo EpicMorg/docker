@@ -18,9 +18,10 @@ LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
 ##################################################################
-#                  bullseye  sources list
+#                   sid sources list
 ##################################################################
-#COPY sources.bullseye.list /etc/apt/sources.list.d/sources.bullseye.list
+RUN rm -rfv /etc/apt/sources.list
+COPY  sources.sid.list /etc/apt/sources.list
 RUN  apt update && \
      apt autoremove -y && \
      apt dist-upgrade -y && \
@@ -65,7 +66,7 @@ ENV DOTNET_CLI_TELEMETRY_OPTOUT=true
 ENV DOTNET_SKIP_FIRST_TIME_EXPERIENCE=true
 
 # Configure Kestrel web server to bind to port 80 when present
-ENV ASPNETCORE_URLS=http://+:80
+ENV ASPNETCORE_URLS=\
 
 # Enable detection of running in a container
 ENV DOTNET_RUNNING_IN_CONTAINER=true
@@ -78,6 +79,9 @@ ENV NUGET_XMLDOC_MODE=skip
 
 #unofficial support of openssl1.1 instead of 1.0 [https://stackoverflow.com/questions/51901359]
 ENV CLR_OPENSSL_VERSION_OVERRIDE=45
+
+# PowerShell telemetry for docker image usage
+ENV POWERSHELL_DISTRIBUTION_CHANNEL=PSDocker-DotnetSDK-Debian-10
 
 #Install packages
 RUN curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add - && \
@@ -92,15 +96,21 @@ RUN curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add - 
       libssl1.1 \
       libstdc++6 \
       zlib1g \
-      dotnet-sdk-3.1  \
-      aspnetcore-runtime-3.1 \
-      dotnet-runtime-3.1 \
+      dotnet-sdk-5.0 \
+      dotnet-targeting-pack-5.0 \
+      dotnet-runtime-deps-5.0 \
+      dotnet-runtime-5.0 \
+      dotnet-hostfxr-5.0 \
+      dotnet-apphost-pack-5.0 \
+      dotnet-host \
+      powershell-preview \
       powershell
 
 # Trigger .NET CLI first run experience by running arbitrary cmd to populate local package cache
 RUN ln -s /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1 /usr/lib/x86_64-linux-gnu/libcrypto.so.1.0 && \
     ln -s /usr/lib/x86_64-linux-gnu/libssl.so.1.1 /usr/lib/x86_64-linux-gnu/libssl.so.1.0 && \
     dotnet help && \
+    pwsh-preview -v && \
     pwsh -v
 
 ##################################################################
@@ -198,7 +208,9 @@ RUN sh -c 'echo "deb https://packages.sury.org/php/ buster main" > /etc/apt/sour
 RUN wget -O /etc/apt/trusted.gpg.d/apache2.gpg https://packages.sury.org/apache2/apt.gpg
 RUN sh -c 'echo "deb https://packages.sury.org/apache2/ buster main" > /etc/apt/sources.list.d/apache2.list'
 
-#Install base packages
+##################################################################
+#                   Installing  PHP7
+##################################################################
 RUN apt-get update && \
     apt-get install -y  --allow-unauthenticated \
       libmemcached-dev \
@@ -208,43 +220,51 @@ RUN apt-get update && \
       php7.4-cli \
       php7.4-cgi \
       php-pear \
-      php-gmp \
-      php-snmp \
-      php-ldap \
-      php-mail  \
-      php-soap \
-      php-mysql \
-      php-memcached \
-      php-memcache \
-      php-igbinary \
-      php-interbase \
-      php-curl \
-      php-gd \
-      php-intl \
-      php-zip \
-      php-bcmath \
-      php-imap \
-      php-pspell \
-      php-sqlite3 \
-      php-tidy \
-      php-xmlrpc \
-      php-xml \
-      php-mbstring \
-      php-apcu \
-      php-common \
-      php-json \
-      php-readline \
-      php-enchant \
-      php-ssh2 \
-      php-oauth \
-      php-gmagick \
-      php-gnupg \
-      php-redis \
-      php-smbclient \
-      php-yaml \
-      php-geoip \
+      php7.4-gmp \
+      php7.4-snmp \
+      php7.4-ldap \
+      php7.4-mail  \
+      php7.4-soap \
+      php7.4-mysql \
+      php7.4-memcached \
+      php7.4-memcache \
+      php7.4-igbinary \
+      php7.4-interbase \
+      php7.4-curl \
+      php7.4-gd \
+      php7.4-intl \
+      php7.4-zip \
+      php7.4-bcmath \
+      php7.4-imap \
+      php7.4-pspell \
+      php7.4-sqlite3 \
+      php7.4-tidy \
+      php7.4-xmlrpc \
+      php7.4-xml \
+      php7.4-mbstring \
+      php7.4-apcu \
+      php7.4-common \
+      php7.4-json \
+      php7.4-readline \
+      php7.4-enchant \
+      php7.4-ssh2 \
+      php7.4-oauth \
+      php7.4-gmagick \
+      php7.4-gnupg \
+      php7.4-redis \
+      smbclient libsmbclient \
+      php7.4-yaml \
+      php7.4-geoip \
       sendmail && \
-    phpenmod \
+    ln -sf /etc/ssl/dhparam.pem /etc/php/dhparam.pem && \
+    update-alternatives --set php /usr/bin/php7.4 && \
+    php -m && \
+    php -v
+
+##################################################################
+#                   Enabling extensions
+##################################################################
+RUN phpenmod \
       snmp \
       gmp \
       calendar \
@@ -281,7 +301,6 @@ RUN apt-get update && \
       xmlwriter \
       xsl \
       yaml && \
-    ln -sf /etc/ssl/dhparam.pem /etc/php/dhparam.pem && \
     php -m && \
     php -v
 
@@ -322,13 +341,14 @@ RUN cd /tmp && \
 
 
 ##################################################################
-#                   Node.js 15.x
+#                   Node.js 16.x
 ##################################################################
-RUN curl -sL https://deb.nodesource.com/setup_15.x | bash - && \
+RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
     curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - && \
     echo "deb https://nightly.yarnpkg.com/debian/ nightly main" > /etc/apt/sources.list.d/yarn.list && \
     apt-get update && \
-    apt-get install -y nodejs yarn
+    apt-get install -y nodejs yarn && \
+    npm install -g npm@7.19.1
 
 ##################################################################
 #                   steam runtime and ssdk

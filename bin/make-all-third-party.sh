@@ -2,6 +2,14 @@ export SCRIPTPATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 
 clear
 
+cd ${SCRIPTPATH}/../linux/zabbix/agent          && pwd && make
+cd ${SCRIPTPATH}/../linux/zabbix/java-gateway   && pwd && make
+cd ${SCRIPTPATH}/../linux/zabbix/proxy          && pwd && make
+cd ${SCRIPTPATH}/../linux/zabbix/server         && pwd && make
+cd ${SCRIPTPATH}/../linux/zabbix/web            && pwd && make
+
+exit 1
+
 cd ${SCRIPTPATH}/../linux/mattermost/latest     && pwd && make
 cd ${SCRIPTPATH}/../linux/nextcloud/latest      && pwd && make
 cd ${SCRIPTPATH}/../linux/teamcity/server       && pwd && make
