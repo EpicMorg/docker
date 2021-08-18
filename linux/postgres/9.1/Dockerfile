@@ -11,12 +11,12 @@ RUN groupadd -r postgres && useradd -r -g postgres postgres
 ####################################################################################################################################
 # grab gosu for easy step-down from root
 ####################################################################################################################################
+ENV GOSU_VER 1.14
 
 RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/* \
-        && curl -o /usr/local/bin/gosu -SL 'https://github.com/tianon/gosu/releases/download/1.11/gosu-amd64' \
-        && chmod +x /usr/local/bin/gosu \
-
-        && apt-get purge -y --auto-remove curl
+    && curl -o /usr/local/bin/gosu -SL https://github.com/tianon/gosu/releases/download/$GOSU_VER/gosu-amd64 \
+    && chmod +x /usr/local/bin/gosu \
+    && apt-get purge -y --auto-remove curl
 
 ####################################################################################################################################
 # make the "en_US.UTF-8" locale so postgres will be utf-8 enabled by default
@@ -29,13 +29,13 @@ ENV LANG en_US.utf8
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8
 
 ####################################################################################################################################
-# http://apt.postgresql.org/pub/repos/apt/pool/9.0/p/postgresql-9.0/
+# http://apt.postgresql.org/pub/repos/apt/pool/9.1/p/postgresql-9.1/
 ####################################################################################################################################
 ENV PG_MAJOR 9.1
 
 
-RUN echo 'deb http://apt.postgresql.org/pub/repos/apt/ sid-pgdg main' $PG_MAJOR > /etc/apt/sources.list.d/pgdg.list && \
-    echo 'deb http://apt.postgresql.org/pub/repos/apt/ sid-pgdg-testing main' $PG_MAJOR >> /etc/apt/sources.list.d/pgdg.list
+RUN echo 'deb http://apt.postgresql.org/pub/repos/apt/ bullseye-pgdg main' $PG_MAJOR > /etc/apt/sources.list.d/pgdg.list && \
+    echo 'deb http://apt.postgresql.org/pub/repos/apt/ bullseye-pgdg-testing main' $PG_MAJOR >> /etc/apt/sources.list.d/pgdg.list
 
 RUN apt-get update \
         && apt-get install -y postgresql-common \
@@ -45,12 +45,14 @@ RUN apt-get update \
                 postgresql-contrib-$PG_MAJOR \
         && rm -rf /var/lib/apt/lists/*
 
+RUN mkdir /docker-entrypoint-initdb.d
 RUN mkdir -p /var/run/postgresql && chown -R postgres /var/run/postgresql
 
 
 ENV PATH /usr/lib/postgresql/$PG_MAJOR/bin:$PATH
 ENV PGDATA /var/lib/postgresql/data
 VOLUME /var/lib/postgresql/data
+WORKDIR /var/lib/postgresql/data
 
 COPY ./docker-entrypoint.sh /
 

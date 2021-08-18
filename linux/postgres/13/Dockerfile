@@ -29,9 +29,9 @@ ENV LANG en_US.utf8
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8
 
 ####################################################################################################################################
-# http://apt.postgresql.org/pub/repos/apt/pool/9.6/p/postgresql-9.6/
+# http://apt.postgresql.org/pub/repos/apt/pool/13/p/postgresql-13/
 ####################################################################################################################################
-ENV PG_MAJOR 9.6
+ENV PG_MAJOR 13
 
 RUN echo 'deb http://apt.postgresql.org/pub/repos/apt/ bullseye-pgdg main' $PG_MAJOR > /etc/apt/sources.list.d/pgdg.list && \
     echo 'deb http://apt.postgresql.org/pub/repos/apt/ bullseye-pgdg-testing main' $PG_MAJOR >> /etc/apt/sources.list.d/pgdg.list

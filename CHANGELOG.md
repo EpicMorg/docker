@@ -1,5 +1,10 @@
 ## Changelog
 ### 2021
+* `august`
+	* fixed `PostgreSQL` images
+	* added `PostgreSQL 13` and  `PostgreSQL 14`. `latest` tag symlinked to `14`.
+* `july`
+	* nothing
 * `june`
 	* migrated to `docker-compose` build-system.
 	* added older versions of `nginx`.
