@@ -1,6 +1,7 @@
 ## Changelog
 ### 2021
 * `august`
+	* splited `tc-agents` with `nodejs`
 	* fixed `PostgreSQL` images
 	* added `PostgreSQL 13` and  `PostgreSQL 14`. `latest` tag symlinked to `14`.
 * `july`
