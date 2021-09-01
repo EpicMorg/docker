@@ -1,5 +1,7 @@
 ## Changelog
 ### 2021
+* `september`
+	* added [ArekSredzki/electron-release-server](https://github.com/ArekSredzki/electron-release-server/) support.
 * `august`
 	* splited `tc-agents` with `nodejs`
 	* fixed `PostgreSQL` images

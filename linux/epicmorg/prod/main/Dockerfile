@@ -71,7 +71,6 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     tini \
     tmux \
     tree \
-    ttf-dejavu \
     util-linux \
     uuid-runtime \
     wget \
@@ -81,10 +80,18 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     openssl dhparam -out /etc/ssl/dhparam.pem 4096
 
 ##################################################################
+#                   Post-cosmetics
+##################################################################
+COPY ./.selected_editor /root/.selected_editor
+COPY ./mc.patch /tmp/mc.patch
+#RUN patch /tmp/mc.patch /root/.config/mc/ini
+
+##################################################################
 #                   cleaninig up
 ##################################################################
 RUN apt purge policykit-1 -y && \
     apt clean -y && \
     apt autoclean -y && \
     rm -rfv /var/lib/apt/lists/* && \
+    rm -rfv /tmp/mc.patch && \
     rm -rfv /var/cache/apt/archives/*.deb

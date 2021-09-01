@@ -1,0 +1,17 @@
+86,88c86
+< skin=default
+< 
+< filepos_max_saved_entries=1024
+---
+> skin=dark
+109c107
+< display_codepage=ASCII
+---
+> display_codepage=UTF-8
+132c130
+< navigate_with_arrows=false
+---
+> navigate_with_arrows=true
+140a139,140
+> 
+> simple_swap=false
