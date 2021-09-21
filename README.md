@@ -6,10 +6,10 @@
 | [![GHA](https://img.shields.io/github/workflow/status/EpicMorg/docker-scripts/master-win32/master?label=build%20master-win32&style=flat-square)](https://github.com/EpicMorg/docker-scripts/actions?query=workflow%3Amaster-win32)   | [![GHA](https://img.shields.io/github/workflow/status/EpicMorg/docker-scripts/develop-win32/develop?label=build%20develop-win32&style=flat-square)](https://github.com/EpicMorg/docker-scripts/actions?query=workflow%3Adevelop-win32)
 
 ## Description
-A collection of different docker images for production use. This repo contains 2 types of images - `advanced` and `ecosystem`. We are support `linux x86_64` docker engine (`Win64` still in testing).
+A collection of docker images for production use. This repo contains 2 types of images - `advanced` and `ecosystem`. We support `linux x86_64` docker engine (`Win64` is still in the ***testing*** stage).
 
-* At `linux/advanced` folder placed improved images like `nextcloud` or `teamcity server`, `zabbix collection`, etc.  This images just forked from original developers and few reworked.
-* In `linux/ecosystem` placed images developed by our team like full `Atlassian Stack`, compilled `nginx`, `php`, `testrail` and othres.
+* `linux/advanced` folder contains improved images like `nextcloud` or `teamcity server`, `zabbix collection`, etc. These images just forked from original developers and patched a bit.
+* `linux/ecosystem` folder contains images developed by our team like full `Atlassian Stack`, compilled `nginx`, `php`, `testrail` and othres.
 
 See more at [DESCRIPTION.md](DESCRIPTION.md)
 
