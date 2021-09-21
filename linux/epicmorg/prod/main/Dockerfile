@@ -15,8 +15,14 @@ RUN for i in $(seq 1 8); do mkdir -p "/usr/share/man/man${i}"; done
 ##################################################################
 #                   perforce client binary
 ##################################################################
-ARG P4_VERSION=r21.1
-ARG P4_DOWNLOAD_URL=http://www.perforce.com/downloads/perforce/${P4_VERSION}/bin.linux26x86_64/p4
+ENV P4_VERSION=r21.1
+ENV P4_DOWNLOAD_URL=https://www.perforce.com/downloads/perforce/${P4_VERSION}/bin.linux26x86_64/p4
+
+##################################################################
+#                   7z official binary
+##################################################################
+ENV SZ_VERSION=7z2103
+ENV SZ_DOWNLOAD_URL=https://www.7-zip.org/a/${SZ_VERSION}-linux-x64.tar.xz
 
 ##################################################################
 #                   installing utils
@@ -29,12 +35,14 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     aptitude \
     bash \
     binutils \
+    bzip2 \
     ca-certificates \
     cmatrix \
     cmatrix-xfont \
     console-cyrillic \
     cron \
     curl \
+    clzip \
     dos2unix \
     ffmpeg \
     fontconfig \
@@ -42,17 +50,24 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     gnupg \
     gnupg2 \
     graphicsmagick \
+    gzip \
     htop \
     iftop \
     iputils-ping \
     jq \
     kmod \
+    libxml2-dev \
+    libxml2-utils \
+    lbzip2 \
     libsvn-java \
-    libzip4 \
     locales \
     lsb-release \
     lsof \
     lynx \
+    lzma \
+    libzip4 \
+    lzip \
+    lzop \
     mc \
     mercurial \
     nano \
@@ -61,7 +76,12 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     openssl \
     perl \
     procps \
+    pbzip2 \
+    plzip \
+    p7zip-full \
+    p7zip-rar \
     rsync \
+    rar \
     screenfetch \
     smbclient \
     software-properties-common \
@@ -73,18 +93,32 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     tree \
     util-linux \
     uuid-runtime \
+    unrar \
+    xz-utils \
     wget \
-    zip && \
-    wget -nv --random-wait -c -P /usr/bin ${P4_DOWNLOAD_URL} && \
-    chmod +x /usr/bin/p4 && \
-    openssl dhparam -out /etc/ssl/dhparam.pem 4096
+    zip
 
 ##################################################################
-#                   Post-cosmetics
+#                   Install p4client
 ##################################################################
-COPY ./.selected_editor /root/.selected_editor
-COPY ./mc.patch /tmp/mc.patch
-#RUN patch /tmp/mc.patch /root/.config/mc/ini
+RUN wget -nv --random-wait -c -P /usr/bin ${P4_DOWNLOAD_URL} && \
+    chmod +x /usr/bin/p4
+
+##################################################################
+#                   Install 7z official binary
+##################################################################
+RUN wget -nv --random-wait -c -O /tmp/7z.tar.xz ${SZ_DOWNLOAD_URL} && \
+    mkdir -p /tmp/7z && \
+    tar -xf /tmp/7z.tar.xz -C /tmp/7z && \
+    chmod +x /tmp/7z/7zz && \
+    mv -fv /tmp/7z/7zz /usr/bin/ && \
+    7zz | head -4 && \
+    7z | head -4
+
+##################################################################
+#                   Generate ssl key
+##################################################################
+RUN openssl dhparam -out /etc/ssl/dhparam.pem 4096
 
 ##################################################################
 #                   cleaninig up
@@ -94,4 +128,5 @@ RUN apt purge policykit-1 -y && \
     apt autoclean -y && \
     rm -rfv /var/lib/apt/lists/* && \
     rm -rfv /tmp/mc.patch && \
-    rm -rfv /var/cache/apt/archives/*.deb
+    rm -rfv /var/cache/apt/archives/*.deb && \
+    rm -rfv /tmp/7z
