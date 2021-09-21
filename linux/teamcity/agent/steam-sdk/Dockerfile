@@ -3,22 +3,17 @@ LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
 ##################################################################
-#                   Node.js 12.x
+#                   steam runtime and ssdk
 ##################################################################
-RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
-    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - && \
-    echo "deb https://nightly.yarnpkg.com/debian/ nightly main" > /etc/apt/sources.list.d/yarn.list && \
-    apt-get update && \
-    apt-get install -y nodejs yarn
-
-#   curl -L https://www.npmjs.com/install.sh | sh
-#   npm install -g npm
-
-RUN echo "=============================================" && \
-    echo node $(node --version) && \
-    echo npm $(npm --version) && \
-    echo yarn $(yarn --version) && \
-    echo "============================================="
+RUN cd / && \
+    sudo mkdir valve && \
+    cd valve && \
+    sudo wget http://media.steampowered.com/client/runtime/steam-runtime-sdk_latest.tar.xz && \
+    sudo tar xvf steam-runtime-sdk_latest.tar.xz && \
+    sudo mv steam-runtime-sdk_2013-09-05 steam-runtime && \
+    sudo chown root:root * -R && \
+    cd steam-runtime && \
+    printf '%s\n' 3 1 Y Y Y | ./setup.sh
 
 ##################################################################
 #                   cleaninig up
@@ -33,3 +28,4 @@ RUN apt clean -y && \
     rm -rfv /tmp/amxx_base_latest.tar.gz && \
     rm -rfv /tmp/atlassian-plugin-sdk.deb && \
     rm -rfv /tmp/addons
+

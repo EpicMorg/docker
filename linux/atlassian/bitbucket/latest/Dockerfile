@@ -32,7 +32,6 @@ RUN mkdir -p                                    ${BITBUCKET_INSTALL_DIR} \
     && curl -L                                  ${DOWNLOAD_URL} | tar -xz --strip-components=1 -C "${BITBUCKET_INSTALL_DIR}" \
     && chown -R ${RUN_USER}:${RUN_GROUP}        ${BITBUCKET_INSTALL_DIR}/ \
     && sed -i -e 's/^# umask/umask/'            ${BITBUCKET_INSTALL_DIR}/bin/_start-webapp.sh && \
-
     update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8 && \
     apt clean -y && \
     apt autoclean -y && \
