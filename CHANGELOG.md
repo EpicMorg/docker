@@ -4,6 +4,8 @@
 	* added [ArekSredzki/electron-release-server](https://github.com/ArekSredzki/electron-release-server/) support.
 	* fully reworked `teamcity-agent` images.
 	* added `java 16` support to base images.
+	* moved images to `advanced` and `ecosystem` folders.
+	* migrated from `country code` to `httpredir` (more stable) official `debian` mirror.
 * `august`
 	* splited `tc-agents` with `nodejs`
 	* fixed `PostgreSQL` images
