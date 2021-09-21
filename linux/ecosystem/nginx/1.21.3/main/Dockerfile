@@ -47,7 +47,7 @@ RUN cd ${SRC_DIR} && \
     ln -s /usr/local/lib/libIP2Location.so /lib/libIP2Location.so && \
     ln -s /usr/local/lib/libIP2Location.so.1 /lib/libIP2Location.so.1 && \
     ln -s /usr/local/lib/libIP2Location.so.2 /lib/libIP2Location.so.2 && \
-	ln -s /lib/x86_64-linux-gnu/libcrypto.so.1.1 /lib/x86_64-linux-gnu/libcrypto.so.1 && \
+    ln -s /lib/x86_64-linux-gnu/libcrypto.so.1.1 /lib/x86_64-linux-gnu/libcrypto.so.1 && \
     dpkg --force-all -i ${EXPORT_DIR}/*.deb
 
 ##################################################################
