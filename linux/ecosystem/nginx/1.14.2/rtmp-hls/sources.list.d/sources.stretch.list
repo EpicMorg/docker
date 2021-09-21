@@ -1,19 +1,19 @@
 #main
-deb http://ftp.ru.debian.org/debian/ stretch main contrib non-free
-deb-src http://ftp.ru.debian.org/debian/ stretch main contrib non-free
-deb http://ftp.ru.debian.org/debian/ stretch-updates main contrib non-free
-deb-src http://ftp.ru.debian.org/debian/ stretch-updates main contrib non-free
-deb http://ftp.ru.debian.org/debian/ stretch-backports main contrib non-free
-deb-src http://ftp.ru.debian.org/debian/ stretch-backports main contrib non-free
-deb http://ftp.ru.debian.org/debian/ stretch-proposed-updates main contrib non-free
-deb-src http://ftp.ru.debian.org/debian/ stretch-proposed-updates main contrib non-free
+deb http://httpredir.debian.org/debian/ stretch main contrib non-free
+deb-src http://httpredir.debian.org/debian/ stretch main contrib non-free
+deb http://httpredir.debian.org/debian/ stretch-updates main contrib non-free
+deb-src http://httpredir.debian.org/debian/ stretch-updates main contrib non-free
+deb http://httpredir.debian.org/debian/ stretch-backports main contrib non-free
+deb-src http://httpredir.debian.org/debian/ stretch-backports main contrib non-free
+deb http://httpredir.debian.org/debian/ stretch-proposed-updates main contrib non-free
+deb-src http://httpredir.debian.org/debian/ stretch-proposed-updates main contrib non-free
 
 #security
-deb http://ftp.ru.debian.org/debian-security/ stretch/updates main contrib non-free
-deb-src http://ftp.ru.debian.org/debian-security/ stretch/updates main contrib non-free
+deb http://httpredir.debian.org/debian-security/ stretch/updates main contrib non-free
+deb-src http://httpredir.debian.org/debian-security/ stretch/updates main contrib non-free
 
 ##multimedia
-#deb http://ftp.ru.debian.org/debian-multimedia/ stretch main non-free
-#deb-src http://ftp.ru.debian.org/debian-multimedia/ stretch main non-free
-#deb http://ftp.ru.debian.org/debian-multimedia/ stretch-backports main
-#deb-src http://ftp.ru.debian.org/debian-multimedia/ stretch-backports main
+#deb http://httpredir.debian.org/debian-multimedia/ stretch main non-free
+#deb-src http://httpredir.debian.org/debian-multimedia/ stretch main non-free
+#deb http://httpredir.debian.org/debian-multimedia/ stretch-backports main
+#deb-src http://httpredir.debian.org/debian-multimedia/ stretch-backports main
