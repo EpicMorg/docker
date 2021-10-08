@@ -111,6 +111,7 @@ RUN apt-get update && \
       php7.2-pspell \
       php7.2-recode \
       php7.2-sqlite3 \
+      php7.2-pgsql \
       php7.2-tidy \
       php7.2-xmlrpc \
       php7.2-xml \
@@ -133,6 +134,7 @@ RUN apt-get update && \
       sendmail && \
     ln -sf /etc/ssl/dhparam.pem /etc/php/dhparam.pem && \
     update-alternatives --set php /usr/bin/php7.2 && \
+    pecl channel-update pecl.php.net && \
     php -m && \
     php -v
 

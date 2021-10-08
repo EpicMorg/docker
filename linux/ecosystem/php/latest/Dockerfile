@@ -119,6 +119,7 @@ RUN apt-get update && \
       php7.4-imap \
       php7.4-pspell \
       php7.4-sqlite3 \
+      php7.4-pgsql \
       php7.4-tidy \
       php7.4-xmlrpc \
       php7.4-xml \
@@ -139,6 +140,7 @@ RUN apt-get update && \
       sendmail && \
     ln -sf /etc/ssl/dhparam.pem /etc/php/dhparam.pem && \
     update-alternatives --set php /usr/bin/php7.4 && \
+    pecl channel-update pecl.php.net && \
     php -m && \
     php -v
 

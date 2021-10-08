@@ -115,6 +115,7 @@ RUN apt-get update && \
       php7.3-pspell \
       php7.3-recode \
       php7.3-sqlite3 \
+      php7.3-pgsql \
       php7.3-tidy \
       php7.3-xmlrpc \
       php7.3-xml \
