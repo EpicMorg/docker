@@ -1,7 +1,7 @@
 ## Changelog
 ### 2021
 * `october`
-	* ....
+	* ...
 * `september`
 	* added [ArekSredzki/electron-release-server](https://github.com/ArekSredzki/electron-release-server/) support.
 	* fully reworked `teamcity-agent` images.
