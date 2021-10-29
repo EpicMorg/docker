@@ -9,6 +9,9 @@ ENV BuildDocker true
 ARG BUILDS_DIR=/builds
 ARG SRC_DIR=${BUILDS_DIR}/src
 ARG EXPORT_DIR=${BUILDS_DIR}/export
+ARG NINJA_ARCH=linux
+ARG NINJA_VERSION=latest
+ARG NINJA_RELEASE_URL=https://api.github.com/repos/ninja-build/ninja/releases/${NINJA_VERSION}
 
 ##################################################################
 #                   Files and folders
@@ -30,6 +33,9 @@ RUN apt-get update && \
     build-essential \
     autoconf-archive \
     gnu-standards \
+    cmake \
+    libunwind-dev \
+    golang \
     at \
     autopkgtest \
     gcc-multilib \
@@ -40,6 +46,7 @@ RUN apt-get update && \
     libegl1-mesa-dev \
     libgles2-mesa-dev \
     libgbm-dev \
+    uuid-dev \
     nvidia-cg-toolkit \
     nvidia-cg-dev \
     libavcodec-dev \
@@ -47,7 +54,6 @@ RUN apt-get update && \
     libsdl-image1.2-dev \
     libxml2-dev yasm \
     devscripts \
-    autoconf \
     automake \
     libtool \
     autotools-dev \
@@ -84,6 +90,15 @@ RUN apt-get update && \
     libvpx6 \
     tcl
 
+##################################################################
+#                   Get NINJA binary
+##################################################################
+RUN curl -s ${NINJA_RELEASE_URL} | jq -r ".assets[] | select(.name | test(\"${NINJA_ARCH}\")) | .browser_download_url" > /tmp/ninja-url.txt && \
+    cat /tmp/ninja-url.txt && \
+    cd /tmp && \
+    wget -q -c --input-file=/tmp/ninja-url.txt && \
+    unzip -o /tmp/ninja-linux.zip -d /bin && \
+    printf "\n--------------------------------\nninja version: $(ninja --version)\n--------------------------------\n\n"
 
 ##################################################################
 #                   other   customisations
@@ -97,4 +112,5 @@ RUN apt purge policykit-1 -y && \
     apt clean -y && \
     apt autoclean -y && \
     rm -rfv /var/lib/apt/lists/* && \
-    rm -rfv /var/cache/apt/archives/*.deb
+    rm -rfv /var/cache/apt/archives/*.deb  && \
+    rm -rfv /tmp/*
