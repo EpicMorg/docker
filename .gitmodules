@@ -1,3 +1,0 @@
-[submodule "linux/advanced/redash/redash-repo"]
-	path = linux/advanced/redash/redash-repo
-	url = git@github.com:getredash/redash.git
