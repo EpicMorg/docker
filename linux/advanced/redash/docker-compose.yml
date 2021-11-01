@@ -3,4 +3,4 @@ services:
   app:
     image: "epicmorg/redash:latest"
     build:
-      context: .
+      context: ./redash-repo

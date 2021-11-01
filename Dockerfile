@@ -12,8 +12,8 @@ RUN useradd -m -d /frontend redash
 USER redash
 
 WORKDIR /frontend
-COPY --chown=redash package.json yarn.lock .yarnrc /frontend/
-COPY --chown=redash viz-lib /frontend/viz-lib
+COPY --chown=redash ./redash-repo/package.json  ./redash-repo/yarn.lock  ./redash-repo/.yarnrc /frontend/
+COPY --chown=redash ./redash-repo/viz-lib /frontend/viz-lib
 
 # Controls whether to instrument code for coverage information
 ARG code_coverage
@@ -21,8 +21,8 @@ ENV BABEL_ENV=${code_coverage:+test}
 
 RUN if [ "x$skip_frontend_build" = "x" ] ; then yarn --frozen-lockfile --network-concurrency 1; fi
 
-COPY --chown=redash client /frontend/client
-COPY --chown=redash webpack.config.js /frontend/
+COPY --chown=redash ./redash-repo/client /frontend/client
+COPY --chown=redash ./redash-repo/webpack.config.js /frontend/
 RUN if [ "x$skip_frontend_build" = "x" ] ; then yarn build; else mkdir -p /frontend/client/dist && touch /frontend/client/dist/multi_org.html && touch /frontend/client/dist/index.html; fi
 
 FROM python:3.7-slim-buster
@@ -96,7 +96,7 @@ RUN if [ "x$skip_dev_deps" = "x" ] ; then pip install -r requirements_dev.txt ; 
 COPY ./redash-repo/requirements.txt ./
 RUN pip install -r requirements.txt
 
-COPY . /app
+COPY ./redash-repo/ /app
 COPY --from=frontend-builder /frontend/client/dist /app/client/dist
 RUN chown -R redash /app
 USER redash
