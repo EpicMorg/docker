@@ -75,5 +75,6 @@ cd ${SCRIPTPATH}/../linux/ecosystem/teamcity/agent/steam-sdk      && pwd && make
 cd ${SCRIPTPATH}/../linux/ecosystem/nginx/latest/main      && pwd && make
 cd ${SCRIPTPATH}/../linux/ecosystem/nginx/latest/php       && pwd && make
 cd ${SCRIPTPATH}/../linux/ecosystem/nginx/latest/rtmp-hls  && pwd && make
+cd ${SCRIPTPATH}/../linux/ecosystem/nginx/latest/quic      && pwd && make
 
 exit 0

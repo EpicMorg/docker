@@ -10,10 +10,10 @@ cd ${SCRIPTPATH}/../linux/advanced/zabbix/web            && pwd && make
 
 exit 1
 
-cd ${SCRIPTPATH}/../linux/advanced/mattermost/latest     && pwd && make
+cd ${SCRIPTPATH}/../linux/advanced/mattermost            && pwd && make
 cd ${SCRIPTPATH}/../linux/advanced/nextcloud/latest      && pwd && make
 cd ${SCRIPTPATH}/../linux/advanced/teamcity/server       && pwd && make
-
+cd ${SCRIPTPATH}/../linux/advanced/redash                && pwd && make
 
 cd ${SCRIPTPATH}/../linux/advanced/nextcloud/14          && pwd && make
 cd ${SCRIPTPATH}/../linux/advanced/nextcloud/15          && pwd && make
