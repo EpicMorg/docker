@@ -8,6 +8,7 @@ app:
 	make clean
 
 sync:
+	rm -rfv redash-repo
 	git submodule init
 	git submodule update --init --recursive
 	git submodule sync --recursive
