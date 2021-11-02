@@ -1,5 +1,19 @@
-all: bitbucket
+all: app
 
-bitbucket:
-	docker build --compress -t epicmorg/bitbucket .
-	docker push epicmorg/bitbucket:latest
+app:
+	make build
+	make deploy
+	make clean
+
+build:
+	docker-compose build --compress --parallel
+
+deploy:
+	docker-compose push
+
+clean:
+	docker container prune -f
+	docker image prune -f
+	docker network prune -f
+	docker volume prune -f
+	docker system prune -af

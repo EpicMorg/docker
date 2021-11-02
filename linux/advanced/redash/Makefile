@@ -4,7 +4,7 @@ app:
 	make sync
 	make patch
 	make build
-	make push
+	make deploy
 	make clean
 
 sync:
@@ -19,7 +19,7 @@ patch:
 build:
 	docker-compose build --compress --parallel
 
-push:
+deploy:
 	docker-compose push
 
 clean:

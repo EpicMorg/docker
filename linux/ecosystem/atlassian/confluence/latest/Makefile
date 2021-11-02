@@ -1,5 +1,19 @@
-all: confl
+all: app
 
-confl:
-	docker build --compress -t epicmorg/confluence .
-	docker push epicmorg/confluence
+app:
+	make build
+	make deploy
+	make clean
+
+build:
+	docker-compose build --compress --parallel
+
+deploy:
+	docker-compose push
+
+clean:
+	docker container prune -f
+	docker image prune -f
+	docker network prune -f
+	docker volume prune -f
+	docker system prune -af
