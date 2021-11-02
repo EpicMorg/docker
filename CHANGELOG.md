@@ -3,6 +3,7 @@
 * `october-november`
 	* added `nginx:quic` image. UNSTABLE.
 	* added `redash:latest` image in to `advanced` pack.
+	* improved `Makefile`s.
 * `september`
 	* added [ArekSredzki/electron-release-server](https://github.com/ArekSredzki/electron-release-server/) support.
 	* fully reworked `teamcity-agent` images.

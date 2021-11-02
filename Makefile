@@ -1,4 +1,5 @@
-VERSION	   =  "2021.11.01"
+VERSION             =  "2021.11.01"
+DOCKER_SCAN_SUGGEST = false
 
 all: app
 
