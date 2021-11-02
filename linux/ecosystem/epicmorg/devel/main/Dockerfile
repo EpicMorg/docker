@@ -52,7 +52,8 @@ RUN apt-get update && \
     libavcodec-dev \
     libsdl2-dev \
     libsdl-image1.2-dev \
-    libxml2-dev yasm \
+    libxml2-dev \
+    yasm \
     devscripts \
     automake \
     libtool \
@@ -64,7 +65,6 @@ RUN apt-get update && \
     zlib1g \
     zlib1g-dev \
     libssl-dev \
-    libxml2-dev \
     libxslt-dev \
     libgd-dev \
     libpcre3-dev \

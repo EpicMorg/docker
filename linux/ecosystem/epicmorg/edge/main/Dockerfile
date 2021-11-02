@@ -9,7 +9,7 @@ RUN  rm -rfv /etc/apt/sources.list
 COPY sources.list /etc/apt/sources.list
 RUN  apt update && \
      apt autoremove -y && \
-     apt-get install -y libc6  && \
+     apt-get install -y libc6 libxml2-utils && \
      apt upgrade -y && \
      apt dist-upgrade -y && \
      apt autoremove -y
