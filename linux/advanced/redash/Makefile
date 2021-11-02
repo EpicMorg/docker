@@ -23,7 +23,6 @@ deploy:
 	docker-compose push
 
 clean:
-	rm -rfv redash-repo
 	docker container prune -f
 	docker image prune -f
 	docker network prune -f

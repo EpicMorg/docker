@@ -59,19 +59,19 @@ advanced-images:
 	cd `pwd`/linux/advanced/zabbix/web			&& pwd && make
 
 	cd `pwd`/linux/advanced/mattermost			&& pwd && make
-	cd `pwd`/linux/advanced/nextcloud/latest	  && pwd && make
+#	cd `pwd`/linux/advanced/nextcloud/latest	  && pwd && make
 	cd `pwd`/linux/advanced/teamcity/server	   && pwd && make
 	cd `pwd`/linux/advanced/redash				&& pwd && make
 
-	cd `pwd`/linux/advanced/nextcloud/14		  && pwd && make
-	cd `pwd`/linux/advanced/nextcloud/15		  && pwd && make
-	cd `pwd`/linux/advanced/nextcloud/16		  && pwd && make
-	cd `pwd`/linux/advanced/nextcloud/17		  && pwd && make
-	cd `pwd`/linux/advanced/nextcloud/18		  && pwd && make
-	cd `pwd`/linux/advanced/nextcloud/19		  && pwd && make
-	cd `pwd`/linux/advanced/nextcloud/20		  && pwd && make
-	cd `pwd`/linux/advanced/nextcloud/21		  && pwd && make
-	cd `pwd`/linux/advanced/nextcloud/22		  && pwd && make
+#	cd `pwd`/linux/advanced/nextcloud/14		  && pwd && make
+#	cd `pwd`/linux/advanced/nextcloud/15		  && pwd && make
+#	cd `pwd`/linux/advanced/nextcloud/16		  && pwd && make
+#	cd `pwd`/linux/advanced/nextcloud/17		  && pwd && make
+#	cd `pwd`/linux/advanced/nextcloud/18		  && pwd && make
+#	cd `pwd`/linux/advanced/nextcloud/19		  && pwd && make
+#	cd `pwd`/linux/advanced/nextcloud/20		  && pwd && make
+#	cd `pwd`/linux/advanced/nextcloud/21		  && pwd && make
+#	cd `pwd`/linux/advanced/nextcloud/22		  && pwd && make
 
 ecosystem-images:
 	@echo "======================================="
@@ -109,7 +109,7 @@ ecosystem-images:
 	cd `pwd`/linux/ecosystem/apache2/php7.3         && pwd && make
 	cd `pwd`/linux/ecosystem/apache2/php7.4         && pwd && make
 
-	cd `pwd`/linux/ecosystem/testrail/latest        && pwd && make
+	cd `pwd`/linux/ecosystem/testrail              && pwd && make
 
 	cd `pwd`/linux/ecosystem/postgres/latest       && pwd && make
 	cd `pwd`/linux/ecosystem/postgres/8.2          && pwd && make
@@ -131,7 +131,7 @@ ecosystem-images:
 	cd `pwd`/linux/ecosystem/qbittorrent/latest    && pwd && make
 	cd `pwd`/linux/ecosystem/qbittorrent/stable    && pwd && make
 
-	cd `pwd`/linux/ecosystem/vk2discord/latest     && pwd && make
+	cd `pwd`/linux/ecosystem/vk2discord     && pwd && make
 
 	cd `pwd`/linux/ecosystem/teamcity/agent/latest         && pwd && make
 
