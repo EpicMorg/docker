@@ -59,19 +59,30 @@ advanced-images:
 	cd `pwd`/linux/advanced/zabbix/web			&& pwd && make
 
 	cd `pwd`/linux/advanced/mattermost			&& pwd && make
-#	cd `pwd`/linux/advanced/nextcloud/latest	  && pwd && make
+	cd `pwd`/linux/advanced/nextcloud/pure/latest	  && pwd && make
+	cd `pwd`/linux/advanced/nextcloud/patched/latest	  && pwd && make
 	cd `pwd`/linux/advanced/teamcity/server	   && pwd && make
 	cd `pwd`/linux/advanced/redash				&& pwd && make
 
-#	cd `pwd`/linux/advanced/nextcloud/14		  && pwd && make
-#	cd `pwd`/linux/advanced/nextcloud/15		  && pwd && make
-#	cd `pwd`/linux/advanced/nextcloud/16		  && pwd && make
-#	cd `pwd`/linux/advanced/nextcloud/17		  && pwd && make
-#	cd `pwd`/linux/advanced/nextcloud/18		  && pwd && make
-#	cd `pwd`/linux/advanced/nextcloud/19		  && pwd && make
-#	cd `pwd`/linux/advanced/nextcloud/20		  && pwd && make
-#	cd `pwd`/linux/advanced/nextcloud/21		  && pwd && make
-#	cd `pwd`/linux/advanced/nextcloud/22		  && pwd && make
+	cd `pwd`/linux/advanced/nextcloud/pure/14		  && pwd && make
+	cd `pwd`/linux/advanced/nextcloud/pure/15		  && pwd && make
+	cd `pwd`/linux/advanced/nextcloud/pure/16		  && pwd && make
+	cd `pwd`/linux/advanced/nextcloud/pure/17		  && pwd && make
+	cd `pwd`/linux/advanced/nextcloud/pure/18		  && pwd && make
+	cd `pwd`/linux/advanced/nextcloud/pure/19		  && pwd && make
+	cd `pwd`/linux/advanced/nextcloud/pure/20		  && pwd && make
+	cd `pwd`/linux/advanced/nextcloud/pure/21		  && pwd && make
+	cd `pwd`/linux/advanced/nextcloud/pure/22		  && pwd && make
+
+	cd `pwd`/linux/advanced/nextcloud/patched/14		  && pwd && make
+	cd `pwd`/linux/advanced/nextcloud/patched/15		  && pwd && make
+	cd `pwd`/linux/advanced/nextcloud/patched/16		  && pwd && make
+	cd `pwd`/linux/advanced/nextcloud/patched/17		  && pwd && make
+	cd `pwd`/linux/advanced/nextcloud/patched/18		  && pwd && make
+	cd `pwd`/linux/advanced/nextcloud/patched/19		  && pwd && make
+	cd `pwd`/linux/advanced/nextcloud/patched/20		  && pwd && make
+	cd `pwd`/linux/advanced/nextcloud/patched/21		  && pwd && make
+	cd `pwd`/linux/advanced/nextcloud/patched/22		  && pwd && make
 
 ecosystem-images:
 	@echo "======================================="
