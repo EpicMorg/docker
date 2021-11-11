@@ -1,4 +1,6 @@
-VERSION             =  "2021.11.01"
+VERSION             =  "2021.11.12"
+AUTHOR              =  "EpicMorg"
+MODIFIED            =  "AlexZ"
 DOCKER_SCAN_SUGGEST = false
 
 all: app
@@ -121,6 +123,8 @@ ecosystem-images:
 	cd `pwd`/linux/ecosystem/apache2/php7.4         && pwd && make
 
 	cd `pwd`/linux/ecosystem/testrail              && pwd && make
+	
+	cd `pwd`/linux/ecosystem/torrserver            && pwd && make
 
 	cd `pwd`/linux/ecosystem/postgres/latest       && pwd && make
 	cd `pwd`/linux/ecosystem/postgres/8.2          && pwd && make
