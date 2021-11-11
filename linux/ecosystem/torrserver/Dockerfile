@@ -20,7 +20,7 @@ EXPOSE \
   $UI_PORT \
   $UPNP_PORT \
   $UPNP_PORT/udp
-  
+
 VOLUME \
   /config
 

@@ -1,0 +1,36 @@
+name: torrserver-temp
+
+on:
+  push:
+    branches:
+      - 'develop'
+  schedule:
+    - cron:  '0 0 * * *' # At the end of every day
+
+jobs:
+
+##################################################################################
+####  Template
+##################################################################################
+#    - name: Build Template
+#      run:  docker build --compress -t user/repo:tag path/to/folder/contains/dockerfile
+#    - name: Push Template
+#      run:  docker push user/repo:tag
+##################################################################################
+
+  build-forked-fixed-independed-images:
+    name: Forked and fixed independed images
+    runs-on: ubuntu-20.04
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Log into registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+##################################################################################
+
+    - name: Build TorrServer
+      run:  cd linux/ecosystem/torrserver && make build
+
+    - name: Push TorrServer
+      run:  cd linux/ecosystem/torrserver && make deploy
