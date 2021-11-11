@@ -1,9 +1,9 @@
 name: torrserver-temp
 
 on:
-  push:
-    branches:
-      - 'develop'
+#  push:
+#    branches:
+#      - 'develop'
   schedule:
     - cron:  '0 0 * * *' # At the end of every day
 
