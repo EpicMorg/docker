@@ -168,12 +168,12 @@ ecosystem-images:
 	cd `pwd`/linux/ecosystem/nginx/latest/rtmp-hls  && pwd && make
 	cd `pwd`/linux/ecosystem/nginx/latest/quic      && pwd && make
 
-	cd `pwd`/linux/advanced/vscode-server/latest      && pwd && make
-	cd `pwd`/linux/advanced/vscode-server/devops      && pwd && make
-	cd `pwd`/linux/advanced/vscode-server/amxx           && pwd && make
-	cd `pwd`/linux/advanced/vscode-server/android        && pwd && make
-	cd `pwd`/linux/advanced/vscode-server/cpp            && pwd && make
-	cd `pwd`/linux/advanced/vscode-server/docker         && pwd && make
-	cd `pwd`/linux/advanced/vscode-server/dotnet-full    && pwd && make
-	cd `pwd`/linux/advanced/vscode-server/dotnet         && pwd && make
-	cd `pwd`/linux/advanced/vscode-server/mono           && pwd && make
+	cd `pwd`/linux/advanced/vscode-server/latest         && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/vscode-server/devops         && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/vscode-server/amxx           && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/vscode-server/android        && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/vscode-server/cpp            && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/vscode-server/docker         && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/vscode-server/dotnet-full    && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/vscode-server/dotnet         && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/vscode-server/mono           && pwd && make build && make deploy
