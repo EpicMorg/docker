@@ -6,6 +6,8 @@ FROM ghcr.io/linuxserver/code-server:focal
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
+USER root
+
 ##################################################################
 #                   ARGuments
 ##################################################################
@@ -106,7 +108,7 @@ RUN wget -nv --random-wait -c -O /tmp/7z.tar.xz ${SZ_DOWNLOAD_URL} && \
     7z | head -4
 
 ##################################################################
-#                    teamcity docker setup
+#                    docker setup
 ##################################################################
 
 #Install packages
@@ -128,15 +130,19 @@ RUN chmod +x /services/run-docker.sh && \
     sync
 
 ##################################################################
-#                    teamcity docker compose setup
+#                    docker compose setup
 ##################################################################
+COPY docker-compose-update /usr/local/bin/docker-compose-update
+RUN chmod +x /usr/local/bin/docker-compose-update && \
+    sync
+RUN docker-compose-update
 
 #Install packages
-RUN export  DOCKER_COMPOSE_VERSION=`curl --silent https://api.github.com/repos/docker/compose/releases/latest | jq .name -r` && \
-    echo "Latest compose is: ${DOCKER_COMPOSE_VERSION}" && \
-    curl -SL https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-Linux-x86_64 -o /usr/local/bin/docker-compose && \
-    chmod +x /usr/local/bin/docker-compose && \
-    docker-compose -v
+#RUN export  DOCKER_COMPOSE_VERSION=`curl --silent https://api.github.com/repos/docker/compose/releases/latest | jq .name -r` && \
+#    echo "Latest compose is: ${DOCKER_COMPOSE_VERSION}" && \
+#    curl -SL https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-Linux-x86_64 -o /usr/local/bin/docker-compose && \
+#    chmod +x /usr/local/bin/docker-compose && \
+#    docker-compose -v
 
 ##################################################################
 #                   installing java11
@@ -350,17 +356,19 @@ RUN echo "24333f8a63b6825ea9c5514f83c2829b004d1fee" > /usr/lib/android-sdk/licen
 ##################################################################
 #                   SDKMAN
 ##################################################################
-RUN curl -s "https://get.sdkman.io" | bash
+#USER root
+#RUN export SDKMAN_DIR="/usr/local/sdkman" && curl -s "https://get.sdkman.io?rcupdate=false" | bash
+RUN export SDKMAN_DIR="/config/.sdkman" && curl -s "https://get.sdkman.io" | bash
 
 ##################################################################
 #                   Gradle
 ##################################################################
-RUN /bin/bash -c "source /root/.sdkman/bin/sdkman-init.sh; sdk install gradle;"
+RUN /bin/bash -c "source /config/.sdkman/bin/sdkman-init.sh; sdk install gradle;"
 
 ##################################################################
 #                   Kotlin
 ##################################################################
-RUN /bin/bash -c "source /root/.sdkman/bin/sdkman-init.sh; sdk install kotlin;"
+RUN /bin/bash -c "source /config/.sdkman/bin/sdkman-init.sh; sdk install kotlin;"
 
 ##################################################################
 #                   cleaninig up

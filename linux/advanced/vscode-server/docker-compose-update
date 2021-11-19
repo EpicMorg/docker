@@ -1,0 +1,27 @@
+#!/bin/bash
+
+export DOCKER_COMPOSE_REMOTE_VERSION=`curl --silent https://api.github.com/repos/docker/compose/releases/latest | jq .name -r`
+
+export DOCKER_COMPOSE_LOCAL_VERSION=`docker-compose -v`
+
+echo "========================================================================================"
+echo "Local Docker Compose version is: ${DOCKER_COMPOSE_LOCAL_VERSION}"
+echo "========================================================================================"
+echo "Latest Docker Compose version is: ${DOCKER_COMPOSE_REMOTE_VERSION}"
+echo "========================================================================================"
+
+
+echo "========================================================================================"
+echo "Installing remote version:"
+echo "========================================================================================"
+curl -SL https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_REMOTE_VERSION}/docker-compose-Linux-x86_64 -o /usr/local/bin/docker-compose
+
+echo "========================================================================================"
+echo "Setting up permissions..."
+echo "========================================================================================"
+chmod +x /usr/local/bin/docker-compose
+
+
+echo "========================================================================================"
+echo "Updated Docker Compose version is: ${DOCKER_COMPOSE_LOCAL_VERSION}"
+echo "========================================================================================"
