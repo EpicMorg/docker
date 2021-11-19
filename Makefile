@@ -167,3 +167,12 @@ ecosystem-images:
 	cd `pwd`/linux/ecosystem/nginx/latest/php       && pwd && make
 	cd `pwd`/linux/ecosystem/nginx/latest/rtmp-hls  && pwd && make
 	cd `pwd`/linux/ecosystem/nginx/latest/quic      && pwd && make
+
+	cd `pwd`/linux/advanced/vscode-server/latest      && pwd && make
+	cd `pwd`/linux/advanced/vscode-server/devops      && pwd && make
+
+	cd `pwd`/linux/advanced/vscode-server/amxx        && pwd && make
+	cd `pwd`/linux/advanced/vscode-server/android     && pwd && make
+	cd `pwd`/linux/advanced/vscode-server/cpp         && pwd && make
+	cd `pwd`/linux/advanced/vscode-server/docker      && pwd && make
+	cd `pwd`/linux/advanced/vscode-server/dotnet      && pwd && make

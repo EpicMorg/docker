@@ -1,0 +1,39 @@
+#!/bin/bash
+
+export DOCKER_COMPOSE_REMOTE_VERSION=`curl --silent https://api.github.com/repos/docker/compose/releases/latest | jq .name -r`
+
+export DOCKER_COMPOSE_LOCAL_VERSION=`docker-compose -v`
+
+export DOCKER_COMPOSE_BIN=/usr/local/bin/docker-compose
+
+if [ -f $DOCKER_COMPOSE_BIN ]; then
+   echo "========================================================================================"
+   echo "The file '$DOCKER_COMPOSE_BIN' exists."
+   echo "========================================================================================"
+   echo "Local Docker Compose version is: ${DOCKER_COMPOSE_LOCAL_VERSION}"
+   echo "========================================================================================"
+else
+   echo "========================================================================================"
+   echo "The file '$DOCKER_COMPOSE_BIN' in not found. Installing..."
+   echo "========================================================================================"
+fi
+
+echo "========================================================================================"
+echo "Latest Docker Compose version is: ${DOCKER_COMPOSE_REMOTE_VERSION}"
+echo "========================================================================================"
+
+
+echo "========================================================================================"
+echo "Installing remote version:"
+echo "========================================================================================"
+curl -SL https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_REMOTE_VERSION}/docker-compose-Linux-x86_64 -o $DOCKER_COMPOSE_BIN
+
+echo "========================================================================================"
+echo "Setting up permissions..."
+echo "========================================================================================"
+chmod +x $DOCKER_COMPOSE_BIN
+
+
+echo "========================================================================================"
+echo "Updated Docker Compose version is: ${DOCKER_COMPOSE_LOCAL_VERSION}"
+echo "========================================================================================"
