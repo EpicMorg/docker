@@ -1,0 +1,9 @@
+version: '3.9'
+services:
+  app:
+    image: "epicmorg/nginx:${NGINX_VERSION}-php"
+    build:
+      context: .
+      args:
+        NGINX_VERSION: ${NGINX_VERSION}
+        NGINX_DOWNLOAD_URL: ${NGINX_DOWNLOAD_URL}

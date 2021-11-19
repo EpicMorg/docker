@@ -1,5 +1,35 @@
 ## Changelog
 ### 2021
+* `october-november`
+	* added `nginx:quic` image. UNSTABLE.
+	* added `redash:latest` image in to `advanced` pack.
+	* improved `Makefile`s.
+	* fixed `nextcloud` images.
+		* splited `nextcloud` images to `pure` and `patched` (`zipstreamer`) tags.
+	* added `torrserver`
+	* added `advanced` image of `vcsode server`. original image by [linuxserver/docker-code-server](https://github.com/linuxserver/docker-code-server).
+* `september`
+	* added [ArekSredzki/electron-release-server](https://github.com/ArekSredzki/electron-release-server/) support.
+	* fully reworked `teamcity-agent` images.
+	* added `java 16` support to base images.
+	* moved images to `advanced` and `ecosystem` folders.
+	* migrated from `country code` to `httpredir` (more stable) official `debian` mirror.
+	* `nginx 1.21.3`.
+* `august`
+	* splited `tc-agents` with `nodejs`
+	* fixed `PostgreSQL` images
+	* added `PostgreSQL 13` and  `PostgreSQL 14`. `latest` tag symlinked to `14`.
+* `july`
+	* nothing
+* `june`
+	* migrated to `docker-compose` build-system.
+	* added older versions of `nginx`.
+* `may`
+	* @kasthack was wrote docker-template generator for atlassian products
+		* was regenerated and updated *all* `jira` images with `5`, `6`, `7` and `8` versions.
+		*  was regenerated and updated *all* `fisheye-crucible` images with `2`, `3` and `4` versions.
+		* all actual download links was get from [EpicMorg/atlassian-json](https://github.com/EpicMorg/atlassian-json) repo.
+	* asap will be updated and added all additional `atlassian` images.
 * `april`
 	* updated `nextcloud` images
 	* `[BREAKING CHANGES]` reorganized space - `linux` and `win32` folders

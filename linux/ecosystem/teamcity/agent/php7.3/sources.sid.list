@@ -1,0 +1,7 @@
+#main
+deb http://ftp.ru.debian.org/debian/ sid main contrib non-free
+deb-src http://ftp.ru.debian.org/debian/ sid main contrib non-free
+
+##multimedia
+#deb http://ftp.ru.debian.org/debian-multimedia/ sid main non-free
+#deb-src http://ftp.ru.debian.org/debian-multimedia/ sid main non-free
