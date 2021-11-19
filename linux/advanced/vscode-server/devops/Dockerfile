@@ -1,12 +1,10 @@
 ################################################################################
 # https://github.com/linuxserver/docker-code-server/pkgs/container/code-server
 ################################################################################
-FROM ghcr.io/linuxserver/code-server:focal
+FROM epicmorg/vscode-server:latest
 
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
-
-USER root
 
 ##################################################################
 #                   ARGuments
@@ -15,97 +13,6 @@ ENV BuildDocker true
 ARG NINJA_ARCH=linux
 ARG NINJA_VERSION=latest
 ARG NINJA_RELEASE_URL=https://api.github.com/repos/ninja-build/ninja/releases/${NINJA_VERSION}
-
-##################################################################
-#                   7z official binary
-##################################################################
-ENV SZ_VERSION=7z2103
-ENV SZ_DOWNLOAD_URL=https://www.7-zip.org/a/${SZ_VERSION}-linux-x64.tar.xz
-
-##################################################################
-#                   installing utils
-##################################################################
-#    libzip4 \
-#    lbzip2 \
-RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections && \
-    apt-get update &&  \
-    apt-get install -y --allow-unauthenticated \
-    apt-transport-https \
-    apt-utils \
-    aptitude \
-    bash \
-    binutils \
-    bzip2 \
-    ca-certificates \
-    cmatrix \
-    cmatrix-xfont \
-    console-cyrillic \
-    cron \
-    curl \
-    clzip \
-    dos2unix \
-    ffmpeg \
-    fontconfig \
-    git \
-    gnupg \
-    gnupg2 \
-    graphicsmagick \
-    gzip \
-    htop \
-    iftop \
-    iputils-ping \
-    jq \
-    kmod \
-    libxml2-dev \
-    libxml2-utils \
-    libsvn-java \
-    locales \
-    lsb-release \
-    lsof \
-    lynx \
-    lzma \
-    lzip \
-    lzop \
-    mc \
-    mercurial \
-    nano \
-    nload \
-    nmap \
-    openssl \
-    perl \
-    procps \
-    pbzip2 \
-    plzip \
-    p7zip-full \
-    p7zip-rar \
-    rsync \
-    rar \
-    screenfetch \
-    smbclient \
-    software-properties-common \
-    subversion \
-    sudo \
-    telnet \
-    tini \
-    tmux \
-    tree \
-    util-linux \
-    uuid-runtime \
-    unrar \
-    xz-utils \
-    wget \
-    zip
-
-##################################################################
-#                   Install 7z official binary
-##################################################################
-RUN wget -nv --random-wait -c -O /tmp/7z.tar.xz ${SZ_DOWNLOAD_URL} && \
-    mkdir -p /tmp/7z && \
-    tar -xf /tmp/7z.tar.xz -C /tmp/7z && \
-    chmod +x /tmp/7z/7zz && \
-    mv -fv /tmp/7z/7zz /usr/bin/ && \
-    7zz | head -4 && \
-    7z | head -4
 
 ##################################################################
 #                    docker setup
@@ -135,14 +42,18 @@ RUN chmod +x /services/run-docker.sh && \
 COPY docker-compose-update /usr/local/bin/docker-compose-update
 RUN chmod +x /usr/local/bin/docker-compose-update && \
     sync
+
+#Try to test
 RUN docker-compose-update
 
 #Install packages
-#RUN export  DOCKER_COMPOSE_VERSION=`curl --silent https://api.github.com/repos/docker/compose/releases/latest | jq .name -r` && \
-#    echo "Latest compose is: ${DOCKER_COMPOSE_VERSION}" && \
-#    curl -SL https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-Linux-x86_64 -o /usr/local/bin/docker-compose && \
-#    chmod +x /usr/local/bin/docker-compose && \
-#    docker-compose -v
+RUN export  DOCKER_COMPOSE_VERSION=`curl --silent https://api.github.com/repos/docker/compose/releases/latest | jq .name -r` && \
+    echo "Latest compose is: ${DOCKER_COMPOSE_VERSION}" && \
+    curl -SL https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-Linux-x86_64 -o /usr/local/bin/docker-compose && \
+    chmod +x /usr/local/bin/docker-compose && \
+    docker-compose -v
+
+
 
 ##################################################################
 #                   installing java11

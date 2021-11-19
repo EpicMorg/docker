@@ -1,6 +1,6 @@
 version: '3.9'
 services:
   app:
-    image: "epicmorg/vscode-server:latest"
+    image: "epicmorg/vscode-server:devops"
     build:
       context: .
