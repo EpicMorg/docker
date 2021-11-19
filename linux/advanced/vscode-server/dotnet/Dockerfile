@@ -69,6 +69,11 @@ RUN dotnet help && \
     pwsh-preview -v && \
     pwsh -v
 
+# install dotnet tools
+RUN dotnet tool list -g && \
+    dotnet tool install -g dotnet-script && \
+    dotnet tool list -g
+
 ##################################################################
 #                   cleaninig up
 ##################################################################
