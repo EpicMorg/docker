@@ -7,6 +7,7 @@
 	* fixed `nextcloud` images.
 		* splited `nextcloud` images to `pure` and `patched` (`zipstreamer`) tags.
 	* added `torrserver`
+	* added `advanced` image of `vcsode server`. original image by [linuxserver/docker-code-server](https://github.com/linuxserver/docker-code-server).
 * `september`
 	* added [ArekSredzki/electron-release-server](https://github.com/ArekSredzki/electron-release-server/) support.
 	* fully reworked `teamcity-agent` images.
