@@ -3,7 +3,7 @@ all: app
 app:
 	make build
 	make deploy
-#	make clean
+	make clean
 
 build:
 	docker-compose build --compress --parallel

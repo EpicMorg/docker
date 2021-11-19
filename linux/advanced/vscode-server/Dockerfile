@@ -105,6 +105,38 @@ RUN wget -nv --random-wait -c -O /tmp/7z.tar.xz ${SZ_DOWNLOAD_URL} && \
     7zz | head -4 && \
     7z | head -4
 
+##################################################################
+#                    teamcity docker setup
+##################################################################
+
+#Install packages
+RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - && \
+    echo 'deb  https://download.docker.com/linux/ubuntu focal test' > /etc/apt/sources.list.d/docker.list  && \
+    apt-cache policy docker-ce && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends --allow-unauthenticated \
+      docker-ce \
+      docker-ce-cli \
+      containerd.io systemd && \
+    systemctl disable docker
+
+# A better fix for TW-52939 Dockerfile build fails because of aufs
+VOLUME /var/lib/docker
+
+COPY run-docker.sh /services/run-docker.sh
+RUN chmod +x /services/run-docker.sh && \
+    sync
+
+##################################################################
+#                    teamcity docker compose setup
+##################################################################
+
+#Install packages
+RUN export  DOCKER_COMPOSE_VERSION=`curl --silent https://api.github.com/repos/docker/compose/releases/latest | jq .name -r` && \
+    echo "Latest compose is: ${DOCKER_COMPOSE_VERSION}" && \
+    curl -SL https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-Linux-x86_64 -o /usr/local/bin/docker-compose && \
+    chmod +x /usr/local/bin/docker-compose && \
+    docker-compose -v
 
 ##################################################################
 #                   installing java11
