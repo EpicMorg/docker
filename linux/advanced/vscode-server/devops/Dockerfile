@@ -15,59 +15,6 @@ ARG NINJA_VERSION=latest
 ARG NINJA_RELEASE_URL=https://api.github.com/repos/ninja-build/ninja/releases/${NINJA_VERSION}
 
 ##################################################################
-#                    docker setup
-##################################################################
-
-#Install packages
-RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - && \
-    echo 'deb  https://download.docker.com/linux/ubuntu focal test' > /etc/apt/sources.list.d/docker.list  && \
-    apt-cache policy docker-ce && \
-    apt-get update && \
-    apt-get install -y --no-install-recommends --allow-unauthenticated \
-      docker-ce \
-      docker-ce-cli \
-      containerd.io systemd && \
-    systemctl disable docker
-
-# A better fix for TW-52939 Dockerfile build fails because of aufs
-VOLUME /var/lib/docker
-
-COPY run-docker.sh /services/run-docker.sh
-RUN chmod +x /services/run-docker.sh && \
-    sync
-
-##################################################################
-#                    docker compose setup
-##################################################################
-COPY docker-compose-update /usr/local/bin/docker-compose-update
-RUN chmod +x /usr/local/bin/docker-compose-update && \
-    sync
-
-#Try to test
-RUN docker-compose-update
-
-#Install packages
-RUN export  DOCKER_COMPOSE_VERSION=`curl --silent https://api.github.com/repos/docker/compose/releases/latest | jq .name -r` && \
-    echo "Latest compose is: ${DOCKER_COMPOSE_VERSION}" && \
-    curl -SL https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-Linux-x86_64 -o /usr/local/bin/docker-compose && \
-    chmod +x /usr/local/bin/docker-compose && \
-    docker-compose -v
-
-
-
-##################################################################
-#                   installing java11
-##################################################################
-RUN wget -qO - https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public | apt-key add - && \
-    echo 'deb https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/ focal main' > /etc/apt/sources.list.d/adoptopenjdk-official.list && \
-    apt-get update && \
-    apt-get autoremove -y && \
-    apt-get install -y --allow-unauthenticated adoptopenjdk-11-hotspot && \
-    mkdir /usr/lib/jvm/adoptopenjdk-11-hotspot-amd64/jre && \
-    ln -s /usr/lib/jvm/adoptopenjdk-11-hotspot-amd64/bin/ /usr/lib/jvm/adoptopenjdk-11-hotspot-amd64/jre/bin && \
-    ln -s /usr/lib/jvm/adoptopenjdk-11-hotspot-amd64/lib/ /usr/lib/jvm/adoptopenjdk-11-hotspot-amd64/jre/lib
-
-##################################################################
 #                   deps
 ##################################################################
 RUN apt-get update && \
@@ -149,6 +96,58 @@ RUN curl -s ${NINJA_RELEASE_URL} | jq -r ".assets[] | select(.name | test(\"${NI
     printf "\n--------------------------------\nninja version: $(ninja --version)\n--------------------------------\n\n"
 
 ##################################################################
+#                   steam runtime and ssdk
+##################################################################
+RUN cd / && \
+    sudo mkdir valve && \
+    cd valve && \
+    sudo wget http://media.steampowered.com/client/runtime/steam-runtime-sdk_latest.tar.xz && \
+    sudo tar xvf steam-runtime-sdk_latest.tar.xz && \
+    sudo mv steam-runtime-sdk_2013-09-05 steam-runtime && \
+    sudo chown root:root * -R && \
+    cd steam-runtime && \
+    printf '%s\n' 3 1 Y Y Y | ./setup.sh
+
+##################################################################
+#                    docker setup
+##################################################################
+
+#Install packages
+RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - && \
+    echo 'deb  https://download.docker.com/linux/ubuntu focal test' > /etc/apt/sources.list.d/docker.list  && \
+    apt-cache policy docker-ce && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends --allow-unauthenticated \
+      docker-ce \
+      docker-ce-cli \
+      containerd.io systemd && \
+    systemctl disable docker
+
+# A better fix for TW-52939 Dockerfile build fails because of aufs
+VOLUME /var/lib/docker
+
+COPY run-docker.sh /services/run-docker.sh
+RUN chmod +x /services/run-docker.sh && \
+    sync
+
+##################################################################
+#                    docker compose setup
+##################################################################
+COPY docker-compose-update /usr/local/bin/docker-compose-update
+RUN chmod +x /usr/local/bin/docker-compose-update && \
+    sync
+
+#Try to test
+RUN docker-compose-update
+
+#Install packages
+RUN export  DOCKER_COMPOSE_VERSION=`curl --silent https://api.github.com/repos/docker/compose/releases/latest | jq .name -r` && \
+    echo "Latest compose is: ${DOCKER_COMPOSE_VERSION}" && \
+    curl -SL https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-Linux-x86_64 -o /usr/local/bin/docker-compose && \
+    chmod +x /usr/local/bin/docker-compose && \
+    docker-compose -v
+
+##################################################################
 #                    dotnet+powershell setup
 ##################################################################
 # Opt out of the telemetry feature
@@ -206,7 +205,6 @@ RUN dotnet help && \
     pwsh-preview -v && \
     pwsh -v
 
-
 ##################################################################
 #                    AMXXModX setup
 ##################################################################
@@ -233,19 +231,6 @@ RUN export AMXX_BASE_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.
     mv -f /tmp/addons/amxmodx/* $AMXX_INSTALL_PATH && \
     chmod +x $AMXX_BIN_PATH/amxxpc && \
     chmod +x $AMXX_BIN_PATH/compile.sh
-
-##################################################################
-#                   steam runtime and ssdk
-##################################################################
-RUN cd / && \
-    sudo mkdir valve && \
-    cd valve && \
-    sudo wget http://media.steampowered.com/client/runtime/steam-runtime-sdk_latest.tar.xz && \
-    sudo tar xvf steam-runtime-sdk_latest.tar.xz && \
-    sudo mv steam-runtime-sdk_2013-09-05 steam-runtime && \
-    sudo chown root:root * -R && \
-    cd steam-runtime && \
-    printf '%s\n' 3 1 Y Y Y | ./setup.sh
 
 ##################################################################
 #                   Android SDK
@@ -280,6 +265,18 @@ RUN /bin/bash -c "source /config/.sdkman/bin/sdkman-init.sh; sdk install gradle;
 #                   Kotlin
 ##################################################################
 RUN /bin/bash -c "source /config/.sdkman/bin/sdkman-init.sh; sdk install kotlin;"
+
+##################################################################
+#                   installing java11
+##################################################################
+RUN wget -qO - https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public | apt-key add - && \
+    echo 'deb https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/ focal main' > /etc/apt/sources.list.d/adoptopenjdk-official.list && \
+    apt-get update && \
+    apt-get autoremove -y && \
+    apt-get install -y --allow-unauthenticated adoptopenjdk-11-hotspot && \
+    mkdir /usr/lib/jvm/adoptopenjdk-11-hotspot-amd64/jre && \
+    ln -s /usr/lib/jvm/adoptopenjdk-11-hotspot-amd64/bin/ /usr/lib/jvm/adoptopenjdk-11-hotspot-amd64/jre/bin && \
+    ln -s /usr/lib/jvm/adoptopenjdk-11-hotspot-amd64/lib/ /usr/lib/jvm/adoptopenjdk-11-hotspot-amd64/jre/lib
 
 ##################################################################
 #                   cleaninig up
