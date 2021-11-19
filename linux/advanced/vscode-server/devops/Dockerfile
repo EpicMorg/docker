@@ -208,7 +208,9 @@ RUN dotnet help && \
 # install dotnet tools
 RUN dotnet tool list -g && \
     dotnet tool install -g dotnet-script && \
-    dotnet tool list -g
+    curl -s https://raw.githubusercontent.com/filipw/dotnet-script/master/install/install.sh | bash && \
+    dotnet tool list -g && \
+    dotnet-script --version
 
 
 ##################################################################
