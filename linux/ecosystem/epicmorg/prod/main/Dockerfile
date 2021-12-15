@@ -15,7 +15,7 @@ RUN for i in $(seq 1 8); do mkdir -p "/usr/share/man/man${i}"; done
 ##################################################################
 #                   perforce client binary
 ##################################################################
-ENV P4_VERSION=r21.1
+ENV P4_VERSION=r21.2
 ENV P4_DOWNLOAD_URL=https://www.perforce.com/downloads/perforce/${P4_VERSION}/bin.linux26x86_64/p4
 
 ##################################################################
@@ -29,6 +29,7 @@ ENV SZ_DOWNLOAD_URL=https://www.7-zip.org/a/${SZ_VERSION}-linux-x64.tar.xz
 ##################################################################
 ENV LZGIT_VERSION=0.31.4
 ENV LZGIT_DOWNLOAD_URL=https://github.com/jesseduffield/lazygit/releases/download/v${LZGIT_VERSION}/lazygit_${LZGIT_VERSION}_Linux_x86_64.tar.gz
+
 
 ##################################################################
 #                   installing utils
@@ -104,6 +105,17 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     xz-utils \
     wget \
     zip
+
+##################################################################
+#                   git-lfs official binary
+##################################################################
+RUN curl -L https://packagecloud.io/github/git-lfs/gpgkey | apt-key add - && \
+    rm -rfv /etc/apt/sources.list.d/github_git-lfs.list
+COPY github_git-lfs.list /etc/apt/sources.list.d/github_git-lfs.list
+RUN apt-get update &&  \
+    apt-get install -y --allow-unauthenticated \
+    git \
+    git-lfs
 
 ##################################################################
 #                   Install p4client

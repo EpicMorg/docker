@@ -3,6 +3,13 @@ LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
 ##################################################################
+#                   git-lfs official binary
+##################################################################
+RUN curl -L https://packagecloud.io/github/git-lfs/gpgkey | apt-key add - && \
+    rm -rfv /etc/apt/sources.list.d/github_git-lfs.list
+COPY github_git-lfs.list /etc/apt/sources.list.d/github_git-lfs.list
+
+##################################################################
 #                   bullseye sources list
 ##################################################################
 RUN  rm -rfv /etc/apt/sources.list
