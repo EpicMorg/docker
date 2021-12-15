@@ -2,6 +2,8 @@
 ### 2021
 * `december`
 	* added `git-lfs`, `lazygit`, bumped versions of nginx, jira, conflunce and bitbucket.
+	* added another git addons
+	* added `gh` - `github-cli` support
 * `october-november`
 	* added `nginx:quic` image. UNSTABLE.
 	* added `redash:latest` image in to `advanced` pack.
