@@ -5,11 +5,16 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 #                   buster sources list
 ##################################################################
-COPY deb-multimedia-keyring.gpg /etc/apt/trusted.gpg.d/deb-multimedia-keyring.gpg
+COPY trusted.gpg.d/deb-multimedia-keyring.gpg /etc/apt/trusted.gpg.d/deb-multimedia-keyring.gpg
+COPY trusted.gpg.d/githubcli-archive-keyring.gpg /etc/apt/trusted.gpg.d/githubcli-archive-keyring.gpg
+
 RUN rm /etc/apt/sources.list
-COPY sources.list /etc/apt/sources.list
+COPY sources.list.d/sources.list /etc/apt/sources.list
+
 RUN apt update && apt dist-upgrade -y
-COPY locale.gen /etc/locale.gen
+
+COPY etc/locale.gen /etc/locale.gen
+
 RUN for i in $(seq 1 8); do mkdir -p "/usr/share/man/man${i}"; done
 
 ##################################################################
@@ -115,11 +120,12 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     zip
 
 ##################################################################
-#                   gh official binary
+#                   git-lfs official binary
 ##################################################################
-RUN curl -L https://cli.github.com/packages/githubcli-archive-keyring.gpg | apt-key add - && \
+#RUN curl -s https://packagecloud.io/github/git-lfs/gpgkey | sudo gpg --no-default-keyring --keyring gnupg-ring:/etc/apt/trusted.gpg.d/git-lfs.gpg --import && \
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 6B05F25D762E3157 && \
     rm -rfv /etc/apt/sources.list.d/github_git-lfs.list
-COPY github_git-lfs.list /etc/apt/sources.list.d/github_git-lfs.list
+COPY sources.list.d/github_git-lfs.list /etc/apt/sources.list.d/github_git-lfs.list
 RUN apt-get update &&  \
     apt-get install -y --allow-unauthenticated \
     git \
@@ -128,10 +134,9 @@ RUN apt-get update &&  \
     git-lfs --version
 
 ##################################################################
-#                   git-lfs official binary
+#                   gh official binary
 ##################################################################
-RUN curl -L https://packagecloud.io/github/git-lfs/gpgkey | apt-key add -
-COPY github-cli.list /etc/apt/sources.list.d/github-cli.list
+COPY sources.list.d/github-cli.list /etc/apt/sources.list.d/github-cli.list
 RUN apt-get update &&  \
     apt-get install -y --allow-unauthenticated \
     gh && \
@@ -162,6 +167,7 @@ RUN wget -nv --random-wait -c -O /tmp/lazygit.tar.xz ${LZGIT_DOWNLOAD_URL} && \
     tar -zxvf /tmp/lazygit.tar.xz -C /tmp/lazygit && \
     chmod +x /tmp/lazygit/lazygit && \
     mv -fv /tmp/lazygit/lazygit /usr/bin/ && \
+    echo "lazygit version:" && \
     lazygit --version
 
 ##################################################################

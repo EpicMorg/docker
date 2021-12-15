@@ -5,15 +5,14 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 #                   git-lfs official binary
 ##################################################################
-RUN curl -L https://packagecloud.io/github/git-lfs/gpgkey | apt-key add - && \
-    rm -rfv /etc/apt/sources.list.d/github_git-lfs.list
-COPY github_git-lfs.list /etc/apt/sources.list.d/github_git-lfs.list
+RUN rm -rfv /etc/apt/sources.list.d/github_git-lfs.list
+COPY sources.list.d/github_git-lfs.list /etc/apt/sources.list.d/github_git-lfs.list
 
 ##################################################################
 #                   bullseye sources list
 ##################################################################
 RUN  rm -rfv /etc/apt/sources.list
-COPY sources.list /etc/apt/sources.list
+COPY sources.list.d/sources.list /etc/apt/sources.list
 RUN  apt update && \
      apt autoremove -y && \
      apt-get install -y libc6 libxml2-utils && \
