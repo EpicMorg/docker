@@ -25,6 +25,12 @@ ENV SZ_VERSION=7z2103
 ENV SZ_DOWNLOAD_URL=https://www.7-zip.org/a/${SZ_VERSION}-linux-x64.tar.xz
 
 ##################################################################
+#                   LazyGit official binary
+##################################################################
+ENV LZGIT_VERSION=0.31.4
+ENV LZGIT_DOWNLOAD_URL=https://github.com/jesseduffield/lazygit/releases/download/v${LZGIT_VERSION}/lazygit_${LZGIT_VERSION}_Linux_x86_64.tar.gz
+
+##################################################################
 #                   installing utils
 ##################################################################
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections && \
@@ -47,6 +53,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     ffmpeg \
     fontconfig \
     git \
+    git-lfs \
     gnupg \
     gnupg2 \
     graphicsmagick \
@@ -116,6 +123,16 @@ RUN wget -nv --random-wait -c -O /tmp/7z.tar.xz ${SZ_DOWNLOAD_URL} && \
     7z | head -4
 
 ##################################################################
+#                   Install LazyGit official binary
+##################################################################
+RUN wget -nv --random-wait -c -O /tmp/lazygit.tar.xz ${LZGIT_DOWNLOAD_URL} && \
+    mkdir -p /tmp/lazygit && \
+    tar -zxvf /tmp/lazygit.tar.xz -C /tmp/lazygit && \
+    chmod +x /tmp/lazygit/lazygit && \
+    mv -fv /tmp/lazygit/lazygit /usr/bin/ && \
+    lazygit --version
+
+##################################################################
 #                   Generate ssl key
 ##################################################################
 RUN openssl dhparam -out /etc/ssl/dhparam.pem 4096
@@ -129,4 +146,5 @@ RUN apt purge policykit-1 -y && \
     rm -rfv /var/lib/apt/lists/* && \
     rm -rfv /tmp/mc.patch && \
     rm -rfv /var/cache/apt/archives/*.deb && \
-    rm -rfv /tmp/7z
+    rm -rfv /tmp/7z && \
+    rm -rfv /tmp/lazygit

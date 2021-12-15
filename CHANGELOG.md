@@ -1,5 +1,7 @@
 ## Changelog
 ### 2021
+* `december`
+	* added `git-lfs`, `lazygit`, bumped versions of nginx, jira, conflunce and bitbucket.
 * `october-november`
 	* added `nginx:quic` image. UNSTABLE.
 	* added `redash:latest` image in to `advanced` pack.
