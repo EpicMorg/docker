@@ -87,7 +87,7 @@ RUN wget -qO - ${NGINX_DOWNLOAD_URL} | tar -zxv --strip-components=1 -C ${NGINX_
     git clone https://github.com/masterzen/nginx-upload-progress-module.git http-uploadprogress && \
     git clone https://github.com/yaoweibin/ngx_http_substitutions_filter_module http-subs-filter && \
     git clone https://github.com/grahamedgecombe/nginx-ct.git ssl-ct && \
-    git clone https://github.com/stnoonan/spnego-http-auth-nginx-module.git spnego-http-auth-nginx-module && \
+#    git clone https://github.com/stnoonan/spnego-http-auth-nginx-module.git spnego-http-auth-nginx-module && \
     git clone https://github.com/leev/ngx_http_geoip2_module http-geoip2 && \
     git clone https://github.com/flavioribeiro/nginx-audio-track-for-hls-module.git nginx-audio-track-for-hls-module && \
     git clone https://github.com/chrislim2888/ip2location-nginx.git ip2location-nginx && \
@@ -167,7 +167,7 @@ RUN cd ${NGINX_SRC_DIR} && \
     --add-dynamic-module=http-subs-filter \
     --add-dynamic-module=ssl-ct \
     --add-dynamic-module=http-geoip2 \
-    --add-dynamic-module=spnego-http-auth-nginx-module \
+#    --add-dynamic-module=spnego-http-auth-nginx-module \
     --add-dynamic-module=http-auth-ldap \
 #    --add-dynamic-module=nginx-audio-track-for-hls-module \
     --add-dynamic-module=ip2location-nginx \
