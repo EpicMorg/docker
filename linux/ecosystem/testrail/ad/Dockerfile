@@ -1,7 +1,7 @@
 FROM epicmorg/apache2:php7.4
 
 ARG TESTRAIL_VERSION=latest
-ARG DOWNLOAD_URL=https://secure.gurock.com/downloads/testrail/testrail-${TESTRAIL_VERSION}-ion71.zip
+ARG DOWNLOAD_URL=https://secure.gurock.com/downloads/testrail/testrail-${TESTRAIL_VERSION}-ion72.zip
 ARG TESTRAIL_RELEASE_DIR=testrail-release
 
 ENV TR_DEFAULT_TASK_EXECUTION=60
