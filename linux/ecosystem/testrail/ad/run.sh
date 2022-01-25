@@ -16,6 +16,10 @@ function createOptDirectory {
 echo "##############"
 echo "Unzipping testrail"
 unzip -o /testrail-release/testrail.zip -d /var/www/
+unzip -o -j /testrail-release/testrail-auth-ad-1.4.zip testrail-auth-ad-1.4/auth.php -d ${TR_CUSTOM_AUTH_DIR} && \
+ls -las ${TR_CUSTOM_AUTH_DIR}
+
+
 
 createOptDirectory $TR_DEFAULT_LOG_DIR
 createOptDirectory $TR_DEFAULT_AUDIT_DIR

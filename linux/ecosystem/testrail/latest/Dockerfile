@@ -32,6 +32,8 @@ RUN \
   mkdir -p /opt/testrail/attachments /opt/testrail/reports /opt/testrail/logs /opt/testrail/audit && \
   wget --no-check-certificate -O /${TESTRAIL_RELEASE_DIR}/testrail.zip ${DOWNLOAD_URL} && \
   chown -R www-data:www-data /${TESTRAIL_RELEASE_DIR} && \
+  unzip -o /testrail-release/testrail.zip -d /var/www/ && \
+  ls -las /var/www/testrail && \
   chown -R www-data:www-data /var/www/testrail && \
   chown -R www-data:www-data /opt/testrail
 
