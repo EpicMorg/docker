@@ -185,6 +185,17 @@ RUN phpenmod \
     php -v
 
 ##################################################################
+#                   Installing timezonedb addon
+##################################################################
+RUN pecl install timezonedb && \
+#    echo "extension = ${PHP_MODULE_PATH}/timezonedb.so" >> ${PHP_DIR}/apache2/php.ini && \
+    echo "extension = ${PHP_MODULE_PATH}/timezonedb.so" >> ${PHP_DIR}/cgi/php.ini && \
+    echo "extension = ${PHP_MODULE_PATH}/timezonedb.so" >> ${PHP_DIR}/cli/php.ini && \
+    echo "extension = ${PHP_MODULE_PATH}/timezonedb.so" >> ${PHP_DIR}/fpm/php.ini && \
+    php -m && \
+    php -v
+
+##################################################################
 #                   Installing imagic addon
 ##################################################################
 RUN apt-get update && \

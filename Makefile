@@ -166,7 +166,6 @@ ecosystem-images:
 	cd `pwd`/linux/ecosystem/nginx/latest/main      && pwd && make
 	cd `pwd`/linux/ecosystem/nginx/latest/php       && pwd && make
 	cd `pwd`/linux/ecosystem/nginx/latest/rtmp-hls  && pwd && make
-	cd `pwd`/linux/ecosystem/nginx/latest/quic      && pwd && make
 
 	cd `pwd`/linux/advanced/vscode-server/latest         && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/vscode-server/devops         && pwd && make build && make deploy
