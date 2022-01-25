@@ -4,7 +4,7 @@
 function createOptDirectory {
     if [ ! -d $1 ]
     then
-        echo "Creating " $1
+        echo "[testrail] Creating " $1
         mkdir -p $1
     fi
 
@@ -13,13 +13,11 @@ function createOptDirectory {
 
 /bin/cp -rf /testrail-release/apache-conf/000-default.conf /etc/apache2/sites-enabled/000-default.conf
 
-echo "##############"
-echo "Unzipping testrail"
+echo "[testrail] Unzipping testrail service"
 unzip -o /testrail-release/testrail.zip -d /var/www/
-unzip -o -j /testrail-release/testrail-auth-ad-1.4.zip testrail-auth-ad-1.4/auth.php -d ${TR_CUSTOM_AUTH_DIR} && \
-ls -las ${TR_CUSTOM_AUTH_DIR}
 
-
+echo "[testrail] Unzipping testrail Active Directory auth plugin"
+unzip -o -j /testrail-release/testrail-auth-ad-1.4.zip testrail-auth-ad-1.4/auth.php -d ${TR_CUSTOM_AUTH_DIR}
 
 createOptDirectory $TR_DEFAULT_LOG_DIR
 createOptDirectory $TR_DEFAULT_AUDIT_DIR
@@ -28,21 +26,38 @@ createOptDirectory $TR_DEFAULT_ATTACHMENT_DIR
 
 chown -R www-data:www-data /var/www/testrail/config
 
-echo "##############"
-echo "Waiting for background task file"
+
+#################################################################################
+
+echo "[testrail] Waiting for background task file"
 while [ ! -f /var/www/testrail/task.php ]
 do
   sleep 2
 done
 
-echo "Starting background task"
+echo "[testrail] Starting background task"
 while /bin/true; do
     php /var/www/testrail/task.php || true
     sleep $TR_DEFAULT_TASK_EXECUTION
 done &
-echo "##############"
+echo "[testrail] Background task stoped"
 
-chown www-data:www-data /var/www -R
+
+#################################################################################
+
+if [[ -z "${FIX_WWW_DATA}" ]]; then
+  echo "[apache2] env FIX_WWW_DATA is not set. Skipping..."
+elif [ "${FIX_WWW_DATA}" == "false" ]; then
+  echo "[apache2] env FIX_WWW_DATA is set to false. Skipping..."
+elif  [ "${FIX_WWW_DATA}" == "true" ]; then
+  echo "[apache2] Changing permissions for /var/www path. Dont worry, please wait."
+  chown www-data:www-data /var/www -R
+  echo "[apache2] Done"
+else
+  echo "[apache2] env FIX_WWW_DATA is set to strange value. Skipping..."
+fi
+
+echo "[apache2] Starting up"
 
 source /etc/apache2/envvars
 tail -F /var/log/apache2/* &

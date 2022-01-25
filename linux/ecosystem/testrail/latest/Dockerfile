@@ -1,8 +1,8 @@
 FROM epicmorg/apache2:php7.4
 
-ARG TESTRAIL_VERSION=latest
-ARG DOWNLOAD_URL=https://secure.gurock.com/downloads/testrail/testrail-${TESTRAIL_VERSION}-ion72.zip
-ARG TESTRAIL_RELEASE_DIR=testrail-release
+ENV TESTRAIL_VERSION=latest
+ENV DOWNLOAD_URL=https://secure.gurock.com/downloads/testrail/testrail-${TESTRAIL_VERSION}-ion72.zip
+ENV TESTRAIL_RELEASE_DIR=/testrail-release
 
 ENV TR_DEFAULT_TASK_EXECUTION=60
 ENV TR_WWWPATH="/var/www/testrail/"
@@ -30,15 +30,15 @@ RUN \
   mkdir -p /${TESTRAIL_RELEASE_DIR} && \
   mkdir -p /var/www/testrail && \
   mkdir -p /opt/testrail/attachments /opt/testrail/reports /opt/testrail/logs /opt/testrail/audit && \
-  wget --no-check-certificate -O /${TESTRAIL_RELEASE_DIR}/testrail.zip ${DOWNLOAD_URL} && \
-  chown -R www-data:www-data /${TESTRAIL_RELEASE_DIR} && \
-  unzip -o /testrail-release/testrail.zip -d /var/www/ && \
+  wget --no-check-certificate -O ${TESTRAIL_RELEASE_DIR}/testrail.zip ${DOWNLOAD_URL} && \
+  chown -R www-data:www-data ${TESTRAIL_RELEASE_DIR} && \
+  unzip -o ${TESTRAIL_RELEASE_DIR}/testrail.zip -d /var/www/ && \
   ls -las /var/www/testrail && \
   chown -R www-data:www-data /var/www/testrail && \
   chown -R www-data:www-data /opt/testrail
 
 
-COPY apache_testrail.conf /${TESTRAIL_RELEASE_DIR}/apache-conf/000-default.conf
+COPY apache_testrail.conf ${TESTRAIL_RELEASE_DIR}/apache-conf/000-default.conf
 COPY run.sh /run.sh
 
 WORKDIR /var/www/testrail
