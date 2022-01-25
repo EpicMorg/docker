@@ -1,11 +1,13 @@
-FROM epicmorg/php:php7.3
+FROM epicmorg/php:php8.0
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
-ARG PHP_MODULE_PATH=/usr/lib/php/20180731
-ARG PHP_VER=7.3
+ARG PHP_MODULE_VER=20200930
+ARG PHP_MODULE_PATH=/usr/lib/php/${PHP_MODULE_VER}
+ARG PHP_VER=8.0
 ARG PHP_DIR=/etc/php/${PHP_VER}
 ARG P4_PHP_INI=${PHP_DIR}/mods-available/perfroce.ini
+ARG SMB_PHP_INI=${PHP_DIR}/mods-available/smbclient.ini
 
 ##################################################################
 #                   Installing Apache2
@@ -19,13 +21,12 @@ RUN apt-get update && \
     apt-get install -y  --allow-unauthenticated \
       apache2 \
       apache2-utils \
-      libapache2-mod-php7.3 \
+      libapache2-mod-php8.0 \
       libapache2-mod-webauth \
       libapache2-mod-xforward \
-      libapache2-mod-security2 \
-      libmemcached-dev && \
+      libapache2-mod-security2 && \
     a2enmod \
-      php7.3 \
+      php8.0 \
       rewrite \
       ldap \
       heartmonitor \
@@ -55,14 +56,14 @@ RUN echo "TLS_REQCERT never" >> /etc/ldap/ldap.conf
 ##################################################################
 #                   Installing IOnCube addon
 ##################################################################
-RUN echo "zend_extension =  ${PHP_MODULE_PATH}/ioncube_loader_lin_7.3.so" >> ${PHP_DIR}/apache2/php.ini && \
+RUN echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_7.4.so" >> ${PHP_DIR}/apache2/php.ini && \
     php -m && \
     php -v
 
 ##################################################################
 #                   Installing timezonedb addon
 ##################################################################
-RUN echo "extension = ${PHP_MODULE_PATH}/timezonedb.so" >> ${PHP_DIR}/apache2/php.ini & \
+RUN echo "extension = ${PHP_MODULE_PATH}/timezonedb.so" >> ${PHP_DIR}/apache2/php.ini && \
     php -m && \
     php -v
 
@@ -74,12 +75,18 @@ RUN echo "extension = ${PHP_MODULE_PATH}/imagick.so" >> ${PHP_DIR}/apache2/php.i
     php -v
 
 ##################################################################
-#                   Installing Composer addon
+#                   Installing P4 addon
 ##################################################################
-RUN cd /tmp && \
-     php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
-     php composer-setup.php  --install-dir=/usr/local/bin --filename=composer && \
-     rm /tmp/composer-setup.php
+RUN ln -sf ${P4_PHP_INI} ${PHP_DIR}/apache2/conf.d/perforce.ini && \
+    php -m && \
+    php -v
+
+##################################################################
+#                   Installing smbclient addon
+##################################################################
+RUN ln -sf ${SMB_PHP_INI} ${PHP_DIR}/apache2/conf.d/smbclient.ini  && \
+    php -m && \
+    php -v
 
 ##################################################################
 #                   cleaninig up
@@ -89,6 +96,7 @@ RUN apt clean -y && \
     rm -rfv /var/lib/apt/lists/* && \
     rm -rfv /var/cache/apt/archives/*.deb && \
     rm -rfv /tmp/deb/* && \
+    rm -rfv /tmp/ioncube/* && \
     rm -rfv /tmp/composer-setup.php && \
     rm -rfv /tmp/ioncube.tar.gz
 

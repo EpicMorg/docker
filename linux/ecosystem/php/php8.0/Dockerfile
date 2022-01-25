@@ -96,7 +96,7 @@ ARG P4_PHP_INI=${PHP_DIR}/mods-available/perfroce.ini
 ARG SMB_PHP_INI=${PHP_DIR}/mods-available/smbclient.ini
 
 ##################################################################
-#                   Installing  PHP7
+#                   Installing  PHP8
 ##################################################################
 RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg && \
     sh -c 'echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list'
@@ -193,6 +193,17 @@ RUN phpenmod \
       xmlwriter \
       xsl \
       yaml && \
+    php -m && \
+    php -v
+
+##################################################################
+#                   Installing timezonedb addon
+##################################################################
+RUN pecl install timezonedb && \
+#    echo "extension = ${PHP_MODULE_PATH}/timezonedb.so" >> ${PHP_DIR}/apache2/php.ini && \
+    echo "extension = ${PHP_MODULE_PATH}/timezonedb.so" >> ${PHP_DIR}/cgi/php.ini && \
+    echo "extension = ${PHP_MODULE_PATH}/timezonedb.so" >> ${PHP_DIR}/cli/php.ini && \
+    echo "extension = ${PHP_MODULE_PATH}/timezonedb.so" >> ${PHP_DIR}/fpm/php.ini && \
     php -m && \
     php -v
 
