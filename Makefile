@@ -122,7 +122,9 @@ ecosystem-images:
 	cd `pwd`/linux/ecosystem/apache2/php7.3         && pwd && make
 	cd `pwd`/linux/ecosystem/apache2/php7.4         && pwd && make
 
-	cd `pwd`/linux/ecosystem/testrail              && pwd && make
+	cd `pwd`/linux/ecosystem/testrail/latest       && pwd && make
+	cd `pwd`/linux/ecosystem/testrail/ad           && pwd && make
+	cd `pwd`/linux/ecosystem/testrail/ldap         && pwd && make
 	
 	cd `pwd`/linux/ecosystem/torrserver            && pwd && make
 
