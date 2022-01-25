@@ -27,6 +27,7 @@ RUN \
     apt-get update && \
     apt-get install -y --no-install-recommends zlib1g-dev libcurl4-gnutls-dev libldap2-dev zlib1g-dev libxml2-dev libfontconfig1 && \
     apt-get clean && \
+    echo "ServerName localhost" >> /etc/apache2/apache2.conf && \
     rm -rf /var/lib/apt/lists/* && \
     rm -rf /run.sh
 
@@ -39,7 +40,7 @@ RUN \
   echo "[testrail] Downloading and installing" && \
   wget --no-check-certificate -O ${TESTRAIL_RELEASE_DIR}/testrail.zip ${DOWNLOAD_URL} && \
   chown -R www-data:www-data ${TESTRAIL_RELEASE_DIR} && \
-  unzip -o ${TESTRAIL_RELEASE_DIR}/testrail.zip -d /var/www/ && \
+  unzip -q -o ${TESTRAIL_RELEASE_DIR}/testrail.zip -d /var/www/ && \
   chown -R www-data:www-data ${TR_WWW_PATH} && \
   ls -las ${TR_WWW_PATH} && \
   chown -R www-data:www-data ${TR_OPT_PATH} && \
