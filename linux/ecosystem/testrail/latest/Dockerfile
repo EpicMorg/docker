@@ -7,6 +7,7 @@ ENV TR_DEFAULT_TASK_EXECUTION=60
 ENV TESTRAIL_RELEASE_DIR=/testrail-release
 
 ENV TR_WWW_PATH=/var/www/testrail
+ENV TR_CONFIGPATH=${TR_CONFIG_DIR}
 ENV TR_CONFIG_DIR=${TR_WWW_PATH}/config
 ENV TR_CUSTOM_DIR=${TR_WWW_PATH}/custom
 ENV TR_CUSTOM_AUTH_DIR=${TR_CUSTOM_DIR}/auth
@@ -16,6 +17,9 @@ ENV TR_DEFAULT_LOG_DIR=${TR_OPT_PATH}/logs
 ENV TR_DEFAULT_AUDIT_DIR=${TR_OPT_PATH}/audit
 ENV TR_DEFAULT_REPORT_DIR=${TR_OPT_PATH}/reports
 ENV TR_DEFAULT_ATTACHMENT_DIR=${TR_OPT_PATH}/attachments
+
+ENV TR_OPTPATH="/opt/testrail/"
+ENV TR_CONFIGPATH="/var/www/testrail/config/"
 
 ENV OPENSSL_CONF=/etc/ssl/
 
@@ -36,9 +40,10 @@ RUN \
   wget --no-check-certificate -O ${TESTRAIL_RELEASE_DIR}/testrail.zip ${DOWNLOAD_URL} && \
   chown -R www-data:www-data ${TESTRAIL_RELEASE_DIR} && \
   unzip -o ${TESTRAIL_RELEASE_DIR}/testrail.zip -d /var/www/ && \
-  ls -las ${TR_WWW_PATH} && \
   chown -R www-data:www-data ${TR_WWW_PATH} && \
-  chown -R www-data:www-data ${TR_OPT_PATH}
+  ls -las ${TR_WWW_PATH} && \
+  chown -R www-data:www-data ${TR_OPT_PATH} && \
+  ls -las ${TR_OPT_PATH}
 
 
 COPY apache_testrail.conf ${TESTRAIL_RELEASE_DIR}/apache-conf/000-default.conf
