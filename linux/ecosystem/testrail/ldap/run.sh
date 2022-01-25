@@ -46,7 +46,8 @@ echo "[testrail] Background task stoped"
 #################################################################################
 
 if [[ -z "${FIX_WWW_DATA}" ]]; then
-  echo "[apache2] env FIX_WWW_DATA is not set. Skipping..."
+  echo "[apache2] env FIX_WWW_DATA is not set. Fixing permissions anyway"
+  chown www-data:www-data /var/www -R
 elif [ "${FIX_WWW_DATA}" == "false" ]; then
   echo "[apache2] env FIX_WWW_DATA is set to false. Skipping..."
 elif  [ "${FIX_WWW_DATA}" == "true" ]; then
