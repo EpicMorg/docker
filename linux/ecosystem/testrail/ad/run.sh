@@ -1,5 +1,8 @@
 #!/bin/bash
 #set -e
+#env
+
+##################################################################################
 
 function createOptDirectory {
     if [ ! -d $1 ]
@@ -11,20 +14,20 @@ function createOptDirectory {
     chown -R www-data:www-data $1
 }
 
-/bin/cp -rf /testrail-release/apache-conf/000-default.conf /etc/apache2/sites-enabled/000-default.conf
+/bin/cp -rf ${TESTRAIL_RELEASE_DIR}/apache-conf/000-default.conf /etc/apache2/sites-enabled/000-default.conf
 
 echo "[testrail] Unzipping testrail service"
-unzip -o /testrail-release/testrail.zip -d /var/www/
+unzip -o ${TESTRAIL_RELEASE_DIR}/testrail.zip -d /var/www/
 
 echo "[testrail] Unzipping testrail Active Directory auth plugin"
-unzip -o -j /testrail-release/testrail-auth-ad-1.4.zip testrail-auth-ad-1.4/auth.php -d ${TR_CUSTOM_AUTH_DIR}
+unzip -o -j ${TESTRAIL_RELEASE_DIR}/${TESTRAIL_PLUGIN_FILE} ${TESTRAIL_PLUGIN_FULLNAME}/auth.php -d ${TR_CUSTOM_AUTH_DIR}
 
-createOptDirectory $TR_DEFAULT_LOG_DIR
-createOptDirectory $TR_DEFAULT_AUDIT_DIR
-createOptDirectory $TR_DEFAULT_REPORT_DIR
-createOptDirectory $TR_DEFAULT_ATTACHMENT_DIR
+createOptDirectory ${TR_DEFAULT_LOG_DIR}
+createOptDirectory ${TR_DEFAULT_AUDIT_DIR}
+createOptDirectory ${TR_DEFAULT_REPORT_DIR}
+createOptDirectory ${TR_DEFAULT_ATTACHMENT_DIR}
 
-chown -R www-data:www-data /var/www/testrail/config
+chown -R www-data:www-data ${TR_CONFIG_DIR}
 
 
 #################################################################################
@@ -38,7 +41,7 @@ done
 echo "[testrail] Starting background task"
 while /bin/true; do
     php /var/www/testrail/task.php || true
-    sleep $TR_DEFAULT_TASK_EXECUTION
+    sleep ${TR_DEFAULT_TASK_EXECUTION}
 done &
 echo "[testrail] Background task stoped"
 

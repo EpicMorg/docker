@@ -19,12 +19,12 @@ function createOptDirectory {
 echo "[testrail] Unzipping testrail service"
 unzip -o ${TESTRAIL_RELEASE_DIR}/testrail.zip -d /var/www/
 
-createOptDirectory $TR_DEFAULT_LOG_DIR
-createOptDirectory $TR_DEFAULT_AUDIT_DIR
-createOptDirectory $TR_DEFAULT_REPORT_DIR
-createOptDirectory $TR_DEFAULT_ATTACHMENT_DIR
+createOptDirectory ${TR_DEFAULT_LOG_DIR}
+createOptDirectory ${TR_DEFAULT_AUDIT_DIR}
+createOptDirectory ${TR_DEFAULT_REPORT_DIR}
+createOptDirectory ${TR_DEFAULT_ATTACHMENT_DIR}
 
-chown -R www-data:www-data ${TR_CONFIGPATH}
+chown -R www-data:www-data ${TR_CONFIG_DIR}
 
 
 #################################################################################
@@ -38,7 +38,7 @@ done
 echo "[testrail] Starting background task"
 while /bin/true; do
     php /var/www/testrail/task.php || true
-    sleep $TR_DEFAULT_TASK_EXECUTION
+    sleep ${TR_DEFAULT_TASK_EXECUTION}
 done &
 echo "[testrail] Background task stoped"
 

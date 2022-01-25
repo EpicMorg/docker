@@ -2,19 +2,21 @@ FROM epicmorg/apache2:php7.4
 
 ENV TESTRAIL_VERSION=latest
 ENV DOWNLOAD_URL=https://secure.gurock.com/downloads/testrail/testrail-${TESTRAIL_VERSION}-ion72.zip
+ENV TR_DEFAULT_TASK_EXECUTION=60
+
 ENV TESTRAIL_RELEASE_DIR=/testrail-release
 
-ENV TR_DEFAULT_TASK_EXECUTION=60
-ENV TR_WWWPATH="/var/www/testrail/"
-ENV TR_CONFIGPATH="/var/www/testrail/config/"
-ENV TR_CUSTOM_DIR="/var/www/testrail/custom/"
-ENV TR_CUSTOM_AUTH_DIR="/var/www/testrail/custom/auth/"
+ENV TR_WWW_PATH=/var/www/testrail
+ENV TR_CONFIG_DIR=${TR_WWW_PATH}/config
+ENV TR_CUSTOM_DIR=${TR_WWW_PATH}/custom
+ENV TR_CUSTOM_AUTH_DIR=${TR_CUSTOM_DIR}/auth
 
-ENV TR_OPTPATH="/opt/testrail/"
-ENV TR_DEFAULT_LOG_DIR="/opt/testrail/logs/"
-ENV TR_DEFAULT_AUDIT_DIR="/opt/testrail/audit/"
-ENV TR_DEFAULT_REPORT_DIR="/opt/testrail/reports/"
-ENV TR_DEFAULT_ATTACHMENT_DIR="/opt/testrail/attachments/"
+ENV TR_OPT_PATH=/opt/testrail
+ENV TR_DEFAULT_LOG_DIR=${TR_OPT_PATH}/logs
+ENV TR_DEFAULT_AUDIT_DIR=${TR_OPT_PATH}/audit
+ENV TR_DEFAULT_REPORT_DIR=${TR_OPT_PATH}/reports
+ENV TR_DEFAULT_ATTACHMENT_DIR=${TR_OPT_PATH}/attachments
+
 ENV OPENSSL_CONF=/etc/ssl/
 
 RUN \
@@ -26,16 +28,17 @@ RUN \
 
 
 RUN \
-  echo "WGET" && \
-  mkdir -p /${TESTRAIL_RELEASE_DIR} && \
-  mkdir -p /var/www/testrail && \
-  mkdir -p /opt/testrail/attachments /opt/testrail/reports /opt/testrail/logs /opt/testrail/audit && \
+  echo "[testrail] Preparing folders" && \
+  mkdir -p ${TESTRAIL_RELEASE_DIR} && \
+  mkdir -p ${TR_WWW_PATH} && \
+  mkdir -p ${TR_DEFAULT_ATTACHMENT_DIR} ${TR_DEFAULT_REPORT_DIR} ${TR_DEFAULT_AUDIT_DIR} ${TR_DEFAULT_LOG_DIR} && \
+  echo "[testrail] Downloading and installing" && \
   wget --no-check-certificate -O ${TESTRAIL_RELEASE_DIR}/testrail.zip ${DOWNLOAD_URL} && \
   chown -R www-data:www-data ${TESTRAIL_RELEASE_DIR} && \
   unzip -o ${TESTRAIL_RELEASE_DIR}/testrail.zip -d /var/www/ && \
-  ls -las /var/www/testrail && \
-  chown -R www-data:www-data /var/www/testrail && \
-  chown -R www-data:www-data /opt/testrail
+  ls -las ${TR_WWW_PATH} && \
+  chown -R www-data:www-data ${TR_WWW_PATH} && \
+  chown -R www-data:www-data ${TR_OPT_PATH}
 
 
 COPY apache_testrail.conf ${TESTRAIL_RELEASE_DIR}/apache-conf/000-default.conf
