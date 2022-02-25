@@ -1,16 +1,18 @@
-FROM epicmorg/devel:jdk11
+FROM epicmorg/php:php8.1
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
 ##################################################################
-#                   sid sources list
+#                   installing java11
 ##################################################################
-RUN rm -rfv /etc/apt/sources.list
-COPY  sources.sid.list /etc/apt/sources.list
-RUN  apt update && \
-     apt autoremove -y && \
-     apt dist-upgrade -y && \
-     apt autoremove -y
+RUN wget -qO - https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public | apt-key add - && \
+    echo 'deb https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/ buster main' > /etc/apt/sources.list.d/adoptopenjdk-official.list && \
+    apt-get update && \
+    apt-get autoremove -y && \
+    apt-get install -y --allow-unauthenticated adoptopenjdk-11-hotspot && \
+    mkdir /usr/lib/jvm/adoptopenjdk-11-hotspot-amd64/jre && \
+    ln -s /usr/lib/jvm/adoptopenjdk-11-hotspot-amd64/bin/ /usr/lib/jvm/adoptopenjdk-11-hotspot-amd64/jre/bin && \
+    ln -s /usr/lib/jvm/adoptopenjdk-11-hotspot-amd64/lib/ /usr/lib/jvm/adoptopenjdk-11-hotspot-amd64/jre/lib
 
 ##################################################################
 #                   teamcity minimal agent
@@ -42,38 +44,11 @@ RUN useradd -m buildagent && \
     chmod +x /run-agent.sh /run-services.sh && sync
 
 ##################################################################
-#                    teamcity docker setup
+#                   php
 ##################################################################
+RUN php -m && \
+    php -v
 
-#Install packages
-RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - && \
-    echo 'deb  https://download.docker.com/linux/debian bullseye test' > /etc/apt/sources.list.d/docker.list  && \
-    echo 'deb  https://download.docker.com/linux/debian bullseye nightly' >> /etc/apt/sources.list.d/docker.list  && \
-    apt-cache policy docker-ce && \
-    apt-get update && \
-    apt-get install -y --no-install-recommends --allow-unauthenticated \
-      docker-ce \
-      docker-ce-cli \
-      containerd.io systemd && \
-    systemctl disable docker && \
-    usermod -aG docker buildagent
-
-# A better fix for TW-52939 Dockerfile build fails because of aufs
-VOLUME /var/lib/docker
-
-COPY run-docker.sh /services/run-docker.sh
-RUN chmod +x /services/run-docker.sh && \
-    sync
-
-##################################################################
-#                    teamcity docker compose setup
-##################################################################
-
-#Install packages
-RUN export  DOCKER_COMPOSE_VERSION=`curl --silent https://api.github.com/repos/docker/compose/releases/latest | jq .name -r` && \
-    echo "Latest compose is: ${DOCKER_COMPOSE_VERSION}" && \
-    curl -SL https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-Linux-x86_64 -o /usr/local/bin/docker-compose && \
-    chmod +x /usr/local/bin/docker-compose
 
 ##################################################################
 #                   cleaninig up
