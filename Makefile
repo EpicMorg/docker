@@ -1,4 +1,4 @@
-VERSION             =  "2021.11.12"
+VERSION             =  "2022.03.01"
 AUTHOR              =  "EpicMorg"
 MODIFIED            =  "AlexZ"
 DOCKER_SCAN_SUGGEST = false
@@ -75,6 +75,7 @@ advanced-images:
 	cd `pwd`/linux/advanced/nextcloud/pure/20		  && pwd && make
 	cd `pwd`/linux/advanced/nextcloud/pure/21		  && pwd && make
 	cd `pwd`/linux/advanced/nextcloud/pure/22		  && pwd && make
+	cd `pwd`/linux/advanced/nextcloud/pure/23		  && pwd && make
 
 	cd `pwd`/linux/advanced/nextcloud/patched/14		  && pwd && make
 	cd `pwd`/linux/advanced/nextcloud/patched/15		  && pwd && make
@@ -85,6 +86,7 @@ advanced-images:
 	cd `pwd`/linux/advanced/nextcloud/patched/20		  && pwd && make
 	cd `pwd`/linux/advanced/nextcloud/patched/21		  && pwd && make
 	cd `pwd`/linux/advanced/nextcloud/patched/22		  && pwd && make
+	cd `pwd`/linux/advanced/nextcloud/patched/23		  && pwd && make
 
 ecosystem-images:
 	@echo "======================================="
@@ -116,11 +118,13 @@ ecosystem-images:
 	cd `pwd`/linux/ecosystem/php/php7.2             && pwd && make
 	cd `pwd`/linux/ecosystem/php/php7.3             && pwd && make
 	cd `pwd`/linux/ecosystem/php/php7.4             && pwd && make
+	cd `pwd`/linux/ecosystem/php/php8.0             && pwd && make
 
 	cd `pwd`/linux/ecosystem/apache2/latest         && pwd && make
 	cd `pwd`/linux/ecosystem/apache2/php7.2         && pwd && make
 	cd `pwd`/linux/ecosystem/apache2/php7.3         && pwd && make
 	cd `pwd`/linux/ecosystem/apache2/php7.4         && pwd && make
+	cd `pwd`/linux/ecosystem/apache2/php8.0         && pwd && make
 
 	cd `pwd`/linux/ecosystem/testrail/latest       && pwd && make
 	cd `pwd`/linux/ecosystem/testrail/ad           && pwd && make
@@ -163,6 +167,7 @@ ecosystem-images:
 	cd `pwd`/linux/ecosystem/teamcity/agent/php7.2         && pwd && make
 	cd `pwd`/linux/ecosystem/teamcity/agent/php7.3         && pwd && make
 	cd `pwd`/linux/ecosystem/teamcity/agent/php7.4         && pwd && make
+	cd `pwd`/linux/ecosystem/teamcity/agent/php8.0         && pwd && make
 	cd `pwd`/linux/ecosystem/teamcity/agent/steam-sdk      && pwd && make
 
 	cd `pwd`/linux/ecosystem/nginx/latest/main      && pwd && make

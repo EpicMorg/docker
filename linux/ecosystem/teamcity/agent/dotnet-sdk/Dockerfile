@@ -31,7 +31,7 @@ RUN curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add - 
       libc6 \
       libgcc1 \
       libgssapi-krb5-2 \
-      libicu63 \
+#      libicu63 \
       liblttng-ust0 \
       libssl1.1 \
       libstdc++6 \

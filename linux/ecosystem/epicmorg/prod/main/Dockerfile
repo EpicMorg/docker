@@ -67,7 +67,6 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     git-crypt \
     git-lfs \
     git-ftp \
-    git-hub \
     gnupg \
     gnupg2 \
     graphicsmagick \
@@ -101,6 +100,12 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     plzip \
     p7zip-full \
     p7zip-rar \
+    python2.7 \
+    python3 \
+    python3-pil \
+    python3-numpy \
+    python3-pip \
+    hugin-tools \
     rsync \
     rar \
     screenfetch \

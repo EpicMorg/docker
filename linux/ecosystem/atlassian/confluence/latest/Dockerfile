@@ -5,7 +5,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 #                   ARGuments
 ##################################################################
-ARG CONFLUENCE_VERSION=7.15.0
+ARG CONFLUENCE_VERSION=7.16.2
 ARG DOWNLOAD_URL=https://www.atlassian.com/software/confluence/downloads/binary/atlassian-confluence-${CONFLUENCE_VERSION}.tar.gz
 
 ##################################################################
