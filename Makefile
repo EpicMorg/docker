@@ -132,6 +132,11 @@ ecosystem-images:
 	
 	cd `pwd`/linux/ecosystem/torrserver            && pwd && make
 
+	cd `pwd`/linux/ecosystem/nodejs/node12         && pwd && make
+	cd `pwd`/linux/ecosystem/nodejs/node14         && pwd && make
+	cd `pwd`/linux/ecosystem/nodejs/node15         && pwd && make
+	cd `pwd`/linux/ecosystem/nodejs/node16         && pwd && make
+
 	cd `pwd`/linux/ecosystem/postgres/latest       && pwd && make
 	cd `pwd`/linux/ecosystem/postgres/8.2          && pwd && make
 	cd `pwd`/linux/ecosystem/postgres/8.3          && pwd && make
