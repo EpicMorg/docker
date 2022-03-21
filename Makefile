@@ -165,6 +165,9 @@ ecosystem-testrail-images:
 ecosystem-torrserver-images:
 	cd `pwd`/linux/ecosystem/torrserver            && pwd && make
 
+ecosystem-electron-release-server-images:
+	cd `pwd`/linux/ecosystem/electron-release-server  && pwd && make
+
 ecosystem-nodejs-images: 
 	cd `pwd`/linux/ecosystem/nodejs/current        && pwd && make
 	cd `pwd`/linux/ecosystem/nodejs/lts            && pwd && make
