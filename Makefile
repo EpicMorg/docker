@@ -260,3 +260,12 @@ bundle-atlassian:
 	cd `pwd`/linux/ecosystem/atlassian/fisheye/latest             && pwd && make
 	cd `pwd`/linux/ecosystem/atlassian/fisheye-crucible/latest    && pwd && make
 	cd `pwd`/linux/ecosystem/atlassian/jira/latest                && pwd && make
+
+bundle-web:
+	@echo "======================================="
+	@echo "=====   Building    web    images ====="
+	@echo "======================================="
+	make ecosystem-php-images
+	make ecosystem-apache2-images
+	make ecosystem-nginx-images
+	

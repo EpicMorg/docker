@@ -46,11 +46,18 @@ RUN \
   chown -R www-data:www-data ${TR_OPT_PATH} && \
   ls -las ${TR_OPT_PATH}
 
-
 COPY apache_testrail.conf ${TESTRAIL_RELEASE_DIR}/apache-conf/000-default.conf
-COPY run.sh /run.sh
 
+#healthcheck. good practice
+HEALTHCHECK --interval=2m --timeout=3s CMD curl -f http://localhost:80/ || exit 1
+
+# Add image configuration and scripts
+COPY docker-entrypoint.sh /usr/bin/docker-entrypoint.sh
+RUN chmod 755 /usr/bin/docker-entrypoint.sh
+
+#Final config
 WORKDIR /var/www/testrail
-EXPOSE 80
+EXPOSE 80 443
 
-CMD ["/run.sh"]
+ENTRYPOINT ["tini", "-s", "--", "docker-entrypoint.sh"]
+CMD ["docker-entrypoint.sh"]

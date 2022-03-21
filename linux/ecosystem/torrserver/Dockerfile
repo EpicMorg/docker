@@ -24,4 +24,7 @@ EXPOSE \
 VOLUME \
   /config
 
+#healthcheck. good practice
+HEALTHCHECK --interval=2m --timeout=3s CMD curl -f http://localhost:${UI_PORT}/ || exit 1
+
 ENTRYPOINT /opt/torrServer --port $UI_PORT -path /config

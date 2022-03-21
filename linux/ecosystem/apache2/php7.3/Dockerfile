@@ -92,14 +92,17 @@ RUN apt clean -y && \
     rm -rfv /tmp/composer-setup.php && \
     rm -rfv /tmp/ioncube.tar.gz
 
-#volumes
-VOLUME ["/var/www"]
+#healthcheck. good practice
+HEALTHCHECK --interval=2m --timeout=3s CMD curl -f http://localhost:80/ || exit 1
 
 # Add image configuration and scripts
-COPY run.sh /run.sh
-RUN chmod 755 /*.sh
+COPY docker-entrypoint.sh /usr/bin/docker-entrypoint.sh
+RUN chmod 755 /usr/bin/docker-entrypoint.sh
 
-# Configure application
-EXPOSE 80
+#Final config
+VOLUME ["/var/www"]
 WORKDIR /var/www/
-CMD ["/run.sh"]
+EXPOSE 80 443
+
+ENTRYPOINT ["tini", "-s", "--", "docker-entrypoint.sh"]
+CMD ["docker-entrypoint.sh"]
