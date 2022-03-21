@@ -106,12 +106,7 @@ advanced-nextcloud-patched-images:
 	cd `pwd`/linux/advanced/nextcloud/patched/23		  && pwd && make
 
 ecosystem-images:
-	@echo "======================================="
-	@echo "===== Building  EpicMorg   images ====="
-	@echo "======================================="
-	make ecosystem-prod-images
-	make ecosystem-edge-images
-	make ecosystem-devel-images
+	make bundle-base-images
 	make ecosystem-php-images
 	make ecosystem-apache2-images
 	make ecosystem-testrail-images
@@ -239,3 +234,29 @@ ecosystem-vscode-server-images:
 	cd `pwd`/linux/advanced/vscode-server/dotnet-full    && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/vscode-server/dotnet         && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/vscode-server/mono           && pwd && make build && make deploy
+
+bundle-base-images:
+	@echo "======================================="
+	@echo "===== Building  EpicMorg   images ====="
+	@echo "======================================="
+	make ecosystem-prod-images
+	make ecosystem-edge-images
+	make ecosystem-devel-images
+
+bundle-teamcity:
+	@echo "======================================="
+	@echo "===== Building  TeamCity   images ====="
+	@echo "======================================="
+	make advanced-teamcity-server-images
+	make ecosystem-teamcity-agent-images
+
+bundle-atlassian:
+	@echo "======================================="
+	@echo "===== Building  Atlassian  images ====="
+	@echo "======================================="
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/latest           && pwd && make
+	cd `pwd`/linux/ecosystem/atlassian/confluence/latest          && pwd && make
+	cd `pwd`/linux/ecosystem/atlassian/crucible/latest            && pwd && make
+	cd `pwd`/linux/ecosystem/atlassian/fisheye/latest             && pwd && make
+	cd `pwd`/linux/ecosystem/atlassian/fisheye-crucible/latest    && pwd && make
+	cd `pwd`/linux/ecosystem/atlassian/jira/latest                && pwd && make
