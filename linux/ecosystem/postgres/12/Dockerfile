@@ -53,14 +53,13 @@ VOLUME /var/lib/postgresql/data
 WORKDIR /var/lib/postgresql/data
 
 #healthcheck. good practice
-HEALTHCHECK --interval=2m --timeout=3s CMD pg_isready -h localhost -p 5433 || exit 1
+HEALTHCHECK --interval=3m --timeout=3s CMD pg_isready || exit 1
 
 # Add image configuration and scripts
 COPY docker-entrypoint.sh /usr/bin/docker-entrypoint.sh
 RUN chmod 755 /usr/bin/docker-entrypoint.sh
 
 ENTRYPOINT ["tini", "-s", "--", "docker-entrypoint.sh"]
-CMD ["docker-entrypoint.sh"]
 
 # We set the default STOPSIGNAL to SIGINT, which corresponds to what PostgreSQL
 # calls "Fast Shutdown mode" wherein new connections are disallowed and any
