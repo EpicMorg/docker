@@ -2,6 +2,7 @@
 ### 2022
 * `february, march`
 	* new `nextcloud` images, updated `atlassian` images.
+	* new `nodejs` iamges.
 * `january`
 	* fixed `apache2`
 	* added `php8` support
