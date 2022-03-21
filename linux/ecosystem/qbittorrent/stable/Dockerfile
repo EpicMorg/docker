@@ -26,7 +26,6 @@ RUN apt-get update && \
     apt install -y --allow-unauthenticated --allow-downgrades \
     qbittorrent-nox
 
-
 ##################################################################
 #                   other   customisations
 ##################################################################
@@ -44,7 +43,15 @@ RUN apt clean -y && \
 
 VOLUME ${QBT_DIR}
 
+#healthcheck. good practice
+HEALTHCHECK --interval=2m --timeout=3s CMD curl -f http://localhost:8282/ || exit 1
+
+# Add image configuration and scripts
+COPY docker-entrypoint.sh /usr/bin/docker-entrypoint.sh
+RUN chmod 755 /usr/bin/docker-entrypoint.sh
+
+#Final config
 EXPOSE 8282
 
-COPY entrypoint.sh /entrypoint.sh
-ENTRYPOINT /entrypoint.sh
+ENTRYPOINT ["tini", "-s", "--", "docker-entrypoint.sh"]
+CMD ["docker-entrypoint.sh"]
