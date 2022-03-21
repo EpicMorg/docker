@@ -134,6 +134,8 @@ ecosystem-images:
 
 	cd `pwd`/linux/ecosystem/nodejs/current        && pwd && make
 	cd `pwd`/linux/ecosystem/nodejs/lts            && pwd && make
+	cd `pwd`/linux/ecosystem/nodejs/node10         && pwd && make
+	cd `pwd`/linux/ecosystem/nodejs/node11         && pwd && make
 	cd `pwd`/linux/ecosystem/nodejs/node12         && pwd && make
 	cd `pwd`/linux/ecosystem/nodejs/node13         && pwd && make
 	cd `pwd`/linux/ecosystem/nodejs/node14         && pwd && make
