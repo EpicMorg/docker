@@ -1,4 +1,4 @@
-VERSION             =  "2022.03.01"
+VERSION             =  "2022.03.21"
 AUTHOR              =  "EpicMorg"
 MODIFIED            =  "AlexZ"
 DOCKER_SCAN_SUGGEST = false
@@ -53,19 +53,35 @@ advanced-images:
 	@echo "======================================="
 	@echo "===== Building third-party images ====="
 	@echo "======================================="
+	make advanced-mattermost-images
+	make advanced-nextcloud-latest-images
+	make advanced-teamcity-server-images
+	make advanced-redash-images
+	make advanced-zabbix-images
+	make advanced-nextcloud-images
+	make advanced-nextcloud-patched-images
 
+advanced-mattermost-images:
+	cd `pwd`/linux/advanced/mattermost			&& pwd && make
+
+advanced-nextcloud-latest-images:
+	cd `pwd`/linux/advanced/nextcloud/pure/latest	  && pwd && make
+	cd `pwd`/linux/advanced/nextcloud/patched/latest	  && pwd && make
+
+advanced-teamcity-server-images:
+	cd `pwd`/linux/advanced/teamcity/server	   && pwd && make
+
+advanced-redash-images:
+	cd `pwd`/linux/advanced/redash				&& pwd && make
+
+advanced-zabbix-images:
 	cd `pwd`/linux/advanced/zabbix/agent		  && pwd && make
 	cd `pwd`/linux/advanced/zabbix/java-gateway   && pwd && make
 	cd `pwd`/linux/advanced/zabbix/proxy		  && pwd && make
 	cd `pwd`/linux/advanced/zabbix/server		 && pwd && make
 	cd `pwd`/linux/advanced/zabbix/web			&& pwd && make
 
-	cd `pwd`/linux/advanced/mattermost			&& pwd && make
-	cd `pwd`/linux/advanced/nextcloud/pure/latest	  && pwd && make
-	cd `pwd`/linux/advanced/nextcloud/patched/latest	  && pwd && make
-	cd `pwd`/linux/advanced/teamcity/server	   && pwd && make
-	cd `pwd`/linux/advanced/redash				&& pwd && make
-
+advanced-nextcloud-images:
 	cd `pwd`/linux/advanced/nextcloud/pure/14		  && pwd && make
 	cd `pwd`/linux/advanced/nextcloud/pure/15		  && pwd && make
 	cd `pwd`/linux/advanced/nextcloud/pure/16		  && pwd && make
@@ -77,6 +93,7 @@ advanced-images:
 	cd `pwd`/linux/advanced/nextcloud/pure/22		  && pwd && make
 	cd `pwd`/linux/advanced/nextcloud/pure/23		  && pwd && make
 
+advanced-nextcloud-patched-images:
 	cd `pwd`/linux/advanced/nextcloud/patched/14		  && pwd && make
 	cd `pwd`/linux/advanced/nextcloud/patched/15		  && pwd && make
 	cd `pwd`/linux/advanced/nextcloud/patched/16		  && pwd && make
@@ -92,7 +109,22 @@ ecosystem-images:
 	@echo "======================================="
 	@echo "===== Building  EpicMorg   images ====="
 	@echo "======================================="
+	make ecosystem-prod-images
+	make ecosystem-edge-images
+	make ecosystem-devel-images
+	make ecosystem-php-images
+	make ecosystem-apache2-images
+	make ecosystem-testrail-images
+	make ecosystem-torrserver-images
+	make ecosystem-nodejs-images
+	make ecosystem-qbittorrent-images
+	make ecosystem-vk2discord-images
+	make ecosystem-postgres-images
+	make ecosystem-teamcity-agent-images
+	make ecosystem-nginx-images
+	make ecosystem-vscode-server-images
 
+ecosystem-prod-images:
 	cd `pwd`/linux/ecosystem/epicmorg/prod/main    && pwd && make
 	cd `pwd`/linux/ecosystem/epicmorg/prod/jdk6    && pwd && make
 	cd `pwd`/linux/ecosystem/epicmorg/prod/jdk7    && pwd && make
@@ -100,6 +132,7 @@ ecosystem-images:
 	cd `pwd`/linux/ecosystem/epicmorg/prod/jdk11   && pwd && make
 	cd `pwd`/linux/ecosystem/epicmorg/prod/jdk16   && pwd && make
 
+ecosystem-edge-images:
 	cd `pwd`/linux/ecosystem/epicmorg/edge/main    && pwd && make
 	cd `pwd`/linux/ecosystem/epicmorg/edge/jdk6    && pwd && make
 	cd `pwd`/linux/ecosystem/epicmorg/edge/jdk7    && pwd && make
@@ -107,6 +140,7 @@ ecosystem-images:
 	cd `pwd`/linux/ecosystem/epicmorg/edge/jdk11   && pwd && make
 	cd `pwd`/linux/ecosystem/epicmorg/edge/jdk16   && pwd && make
 
+ecosystem-devel-images:
 	cd `pwd`/linux/ecosystem/epicmorg/devel/main    && pwd && make
 	cd `pwd`/linux/ecosystem/epicmorg/devel/jdk6    && pwd && make
 	cd `pwd`/linux/ecosystem/epicmorg/devel/jdk7    && pwd && make
@@ -114,24 +148,29 @@ ecosystem-images:
 	cd `pwd`/linux/ecosystem/epicmorg/devel/jdk11   && pwd && make
 	cd `pwd`/linux/ecosystem/epicmorg/devel/jdk16   && pwd && make
 
+ecosystem-php-images:
 	cd `pwd`/linux/ecosystem/php/latest             && pwd && make
 	cd `pwd`/linux/ecosystem/php/php7.2             && pwd && make
 	cd `pwd`/linux/ecosystem/php/php7.3             && pwd && make
 	cd `pwd`/linux/ecosystem/php/php7.4             && pwd && make
 	cd `pwd`/linux/ecosystem/php/php8.0             && pwd && make
 
+ecosystem-apache2-images:
 	cd `pwd`/linux/ecosystem/apache2/latest         && pwd && make
 	cd `pwd`/linux/ecosystem/apache2/php7.2         && pwd && make
 	cd `pwd`/linux/ecosystem/apache2/php7.3         && pwd && make
 	cd `pwd`/linux/ecosystem/apache2/php7.4         && pwd && make
 	cd `pwd`/linux/ecosystem/apache2/php8.0         && pwd && make
 
+ecosystem-testrail-images:
 	cd `pwd`/linux/ecosystem/testrail/latest       && pwd && make
 	cd `pwd`/linux/ecosystem/testrail/ad           && pwd && make
 	cd `pwd`/linux/ecosystem/testrail/ldap         && pwd && make
-	
+
+ecosystem-torrserver-images:
 	cd `pwd`/linux/ecosystem/torrserver            && pwd && make
 
+ecosystem-nodejs-images: 
 	cd `pwd`/linux/ecosystem/nodejs/current        && pwd && make
 	cd `pwd`/linux/ecosystem/nodejs/lts            && pwd && make
 	cd `pwd`/linux/ecosystem/nodejs/node10         && pwd && make
@@ -143,6 +182,14 @@ ecosystem-images:
 	cd `pwd`/linux/ecosystem/nodejs/node16         && pwd && make
 	cd `pwd`/linux/ecosystem/nodejs/node17         && pwd && make
 
+ecosystem-vk2discord-images: 
+	cd `pwd`/linux/ecosystem/vk2discord     && pwd && make
+
+ecosystem-qbittorrent-images: 
+	cd `pwd`/linux/ecosystem/qbittorrent/latest    && pwd && make
+	cd `pwd`/linux/ecosystem/qbittorrent/stable    && pwd && make
+
+ecosystem-postgres-images:
 	cd `pwd`/linux/ecosystem/postgres/latest       && pwd && make
 	cd `pwd`/linux/ecosystem/postgres/8.2          && pwd && make
 	cd `pwd`/linux/ecosystem/postgres/8.3          && pwd && make
@@ -160,13 +207,8 @@ ecosystem-images:
 	cd `pwd`/linux/ecosystem/postgres/13           && pwd && make
 	cd `pwd`/linux/ecosystem/postgres/14           && pwd && make
 
-	cd `pwd`/linux/ecosystem/qbittorrent/latest    && pwd && make
-	cd `pwd`/linux/ecosystem/qbittorrent/stable    && pwd && make
-
-	cd `pwd`/linux/ecosystem/vk2discord     && pwd && make
-
+ecosystem-teamcity-agent-images:
 	cd `pwd`/linux/ecosystem/teamcity/agent/latest         && pwd && make
-
 	cd `pwd`/linux/ecosystem/teamcity/agent/amxx-sdk       && pwd && make
 	cd `pwd`/linux/ecosystem/teamcity/agent/android-sdk    && pwd && make
 	cd `pwd`/linux/ecosystem/teamcity/agent/atlassian-sdk  && pwd && make
@@ -175,16 +217,19 @@ ecosystem-images:
 	cd `pwd`/linux/ecosystem/teamcity/agent/node14         && pwd && make
 	cd `pwd`/linux/ecosystem/teamcity/agent/node15         && pwd && make
 	cd `pwd`/linux/ecosystem/teamcity/agent/node16         && pwd && make
+	cd `pwd`/linux/ecosystem/teamcity/agent/node17         && pwd && make
 	cd `pwd`/linux/ecosystem/teamcity/agent/php7.2         && pwd && make
 	cd `pwd`/linux/ecosystem/teamcity/agent/php7.3         && pwd && make
 	cd `pwd`/linux/ecosystem/teamcity/agent/php7.4         && pwd && make
 	cd `pwd`/linux/ecosystem/teamcity/agent/php8.0         && pwd && make
 	cd `pwd`/linux/ecosystem/teamcity/agent/steam-sdk      && pwd && make
 
+ecosystem-nginx-images:
 	cd `pwd`/linux/ecosystem/nginx/latest/main      && pwd && make
 	cd `pwd`/linux/ecosystem/nginx/latest/php       && pwd && make
 	cd `pwd`/linux/ecosystem/nginx/latest/rtmp-hls  && pwd && make
 
+ecosystem-vscode-server-images:
 	cd `pwd`/linux/advanced/vscode-server/latest         && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/vscode-server/devops         && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/vscode-server/amxx           && pwd && make build && make deploy
