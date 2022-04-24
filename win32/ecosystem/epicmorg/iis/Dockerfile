@@ -1,7 +1,21 @@
-FROM mcr.microsoft.com/windows:1809-amd64
+FROM mcr.microsoft.com/windows/servercore:ltsc2022
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 
 ENV chocolateyUseWindowsCompression false
+# Opt out of the telemetry feature
+ENV DOTNET_CLI_TELEMETRY_OPTOUT=true
+# Disable first time experience
+ENV DOTNET_SKIP_FIRST_TIME_EXPERIENCE=true
+# Configure Kestrel web server to bind to port 80 when present
+ENV ASPNETCORE_URLS=\
+# Enable detection of running in a container
+ENV DOTNET_RUNNING_IN_CONTAINER=true
+# Enable correct mode for dotnet watch (only mode supported in a container)
+ENV DOTNET_USE_POLLING_FILE_WATCHER=true
+# Skip extraction of XML docs - generally not useful within an image/container - helps perfomance
+ENV NUGET_XMLDOC_MODE=skip
+# PowerShell telemetry for docker image usage
+ENV POWERSHELL_DISTRIBUTION_CHANNEL=docker-windows
 
 ####################################################################################################################################
 # https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-docker/manage-windows-dockerfile
@@ -12,6 +26,12 @@ ENV chocolateyUseWindowsCompression false
 ##################################################################
 RUN mkdir C:\\EpicMorg
 WORKDIR  C:\\EpicMorg
+
+##################################################################
+#                   Installing IIS
+##################################################################
+RUN powershell -Command  Add-WindowsFeature Web-Server;  \
+    Invoke-WebRequest -UseBasicParsing -Uri "https://dotnetbinaries.blob.core.windows.net/servicemonitor/2.0.1.10/ServiceMonitor.exe" -OutFile "C:\ServiceMonitor.exe"
 
 ##################################################################
 #                   Installing ocolatey.org
@@ -38,8 +58,9 @@ RUN cinst --no-progress  -y  -IgnoreChecksums --ignoredetectedreboot \
 #                   install dotnet packages
 ##################################################################
 RUN cinst --no-progress  -y  -IgnoreChecksums --ignoredetectedreboot \
-    directx \
     dotnet \
+    dotnet-aspnetruntime \
+    dotnet-windowshosting \
     dotnet-runtime \
     dotnet-sdk \
     powershell-core
@@ -51,7 +72,6 @@ RUN cinst --no-progress  -y  -IgnoreChecksums --ignoredetectedreboot \
     curl \
     far \
     findutils \
-    ffmpeg-shared \
     git \
     make \
     mc \
@@ -81,4 +101,7 @@ RUN cinst --no-progress  -y  -IgnoreChecksums --ignoredetectedreboot \
     thumbs7z \
     wavpack7z \
     winrar 
- 
+
+EXPOSE 80
+
+ENTRYPOINT ["C:\\ServiceMonitor.exe", "w3svc"]
