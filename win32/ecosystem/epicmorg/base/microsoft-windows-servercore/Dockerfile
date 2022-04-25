@@ -43,17 +43,10 @@ VOLUME  C:\\EpicMorg\\mount
 RUN powershell -Command \
     Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
 
-# set mirror of chocolatey to bypass ratelimits
-RUN choco source disable -n=chocolatey
-RUN choco source add -n=vault -s="https://repo.vault.center/artifactory/api/nuget/chocolatey"
-RUN choco source
-
 ##################################################################
 #                   install vcredist packages
 ##################################################################
-RUN cinst -y --force --ignore-checksums --allow-empty-checksums --ignoredetectedreboot  \
-#    vb5runtime \
-    vjredist \
+RUN cinst -y --ignore-checksums --allow-empty-checksums --ignoredetectedreboot --ignore-package-exit-codes \
     visualfsharptools \
     vcredist2005 \
     vcredist2008 \
@@ -69,10 +62,9 @@ RUN cinst -y --force --ignore-checksums --allow-empty-checksums --ignoredetected
 ##################################################################
 #                   install dotnet packages
 ##################################################################
-RUN cinst -y --force --ignore-checksums --allow-empty-checksums --ignoredetectedreboot \
+RUN cinst -y --ignore-checksums --allow-empty-checksums --ignoredetectedreboot --ignore-package-exit-codes \
     dotnet1.1 \
     dotnetsdk1.1 \
-    dotnet3.5 \
     dotnetfx \
     netfx-4.8-devpack \
     dotnet \
@@ -88,7 +80,7 @@ RUN curl -fSLo patch.msu https://download.microsoft.com/download/1/d/1/1d162522-
     mkdir patch&& \
     && expand patch.msu patch -F:* && \
     && del /F /Q patch.msu && \
-    && dism /Online /Quiet /Add-Package /PackagePath:C:\patch\windows10.0-kb9008395-x64-ndp48.cab && \
+    && dism /Online /Quiet /Add-Package /PackagePath:C:\EpicMorg\patch\windows10.0-kb9008395-x64-ndp48.cab && \
     && rmdir /S /Q patch && \ 
 # Ngen top of assembly graph to optimize a set of frequently used assemblies
     && %windir%\Microsoft.NET\Framework64\v4.0.30319\ngen install "Microsoft.PowerShell.Utility.Activities, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35"  && \ 
@@ -101,7 +93,7 @@ RUN curl -fSLo patch.msu https://download.microsoft.com/download/1/d/1/1d162522-
 ##################################################################
 #                   install base packages
 ##################################################################
-RUN cinst -y --force --ignore-checksums --allow-empty-checksums --ignoredetectedreboot \
+RUN cinst -y --ignore-checksums --allow-empty-checksums --ignoredetectedreboot --ignore-package-exit-codes \
     psexec \
     curl \
     far \
@@ -125,7 +117,7 @@ RUN cinst -y --force --ignore-checksums --allow-empty-checksums --ignoredetected
 ##################################################################
 #                   install archive packages
 ##################################################################
-RUN cinst -y --force --ignore-checksums --allow-empty-checksums --ignoredetectedreboot \
+RUN cinst -y --ignore-checksums --allow-empty-checksums --ignoredetectedreboot --ignore-package-exit-codes \
     7zip \
     7zip-zstd \
     7zip.commandline \
