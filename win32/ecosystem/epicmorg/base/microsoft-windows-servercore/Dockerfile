@@ -63,13 +63,9 @@ RUN cinst -y --ignore-checksums --allow-empty-checksums --ignoredetectedreboot -
 #                   install dotnet packages
 ##################################################################
 RUN cinst -y --ignore-checksums --allow-empty-checksums --ignoredetectedreboot --ignore-package-exit-codes \
-    dotnet1.1 \
-    dotnetsdk1.1 \
     dotnetfx \
     netfx-4.8-devpack \
     dotnet \
-    dotnet-aspnetruntime \
-    dotnet-windowshosting \
     dotnet-runtime \
     dotnet-desktopruntime \
     dotnet-sdk \
