@@ -1,0 +1,24 @@
+#main
+#deb http://archive.debian.org/debian/ jessie main
+#deb-src http://archive.debian.org/debian/ jessie main contrib non-free
+
+deb http://httpredir.debian.org/debian/ jessie main
+#deb-src http://httpredir.debian.org/debian/ jessie main contrib non-free
+
+deb http://httpredir.debian.org/debian/ jessie-updates main contrib non-free
+#deb-src http://httpredir.debian.org/debian/ jessie-updates main contrib non-free
+
+#backports
+deb http://archive.debian.org/debian/ jessie-backports main
+#deb-src http://archive.debian.org/debian/ jessie-backports main contrib non-free
+
+deb http://archive.debian.org/debian/ jessie-backports-sloppy main
+#deb-src http://archive.debian.org/debian/ jessie-backports-sloppy main contrib non-free
+
+#security
+deb http://security.debian.org/debian/ jessie/updates main
+#deb-src http://security.debian.org/debian/ jessie/updates main contrib
+
+deb http://archive.debian.org/debian-security/ jessie main
+#deb-src http://archive.debian.org/debian-security/ jessie main contrib non-free
+
