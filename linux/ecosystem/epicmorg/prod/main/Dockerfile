@@ -187,7 +187,5 @@ RUN apt purge policykit-1 -y && \
     apt clean -y && \
     apt autoclean -y && \
     rm -rfv /var/lib/apt/lists/* && \
-    rm -rfv /tmp/mc.patch && \
-    rm -rfv /var/cache/apt/archives/*.deb && \
-    rm -rfv /tmp/7z && \
-    rm -rfv /tmp/lazygit
+    rm -rfv /tmp/* && \
+    rm -rfv /var/cache/apt/archives/*.deb

@@ -1,4 +1,4 @@
-FROM debian:jessie-slim
+FROM debian:stretch-slim
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -13,17 +13,14 @@ RUN for i in $(seq 1 8); do mkdir -p "/usr/share/man/man${i}"; done
 RUN rm -rfv /etc/apt/sources.list
 RUN rm -rfv /etc/locale.gen
 
+COPY etc/apt/trusted.gpg.d/deb-multimedia-keyring.gpg /etc/apt/trusted.gpg.d/deb-multimedia-keyring.gpg
 COPY etc/apt/apt.conf.d/99-no-check-valid-until /etc/apt/apt.conf.d/99-no-check-valid-until
 COPY etc/apt/sources.list /etc/apt/sources.list
 COPY etc/locale.gen.full /etc/locale.gen
 
-RUN apt-key adv --keyserver keyserver.ubuntu.com --refresh-keys
-
 RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get dist-upgrade -y
-
-RUN apt-key list  | grep "expired: " | sed -ne 's|pub .*/\([^ ]*\) .*|\1|gp' | xargs -n1  apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 
 
 ##################################################################
 #                   installing utils
@@ -32,6 +29,9 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     apt-get install -y --allow-unauthenticated \
     apt-transport-https \
     apt-utils \
+    gnupg \
+    gnupg1 \
+    gnupg2 \
     aptitude \
     bash \
     binutils \
@@ -40,6 +40,9 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     locales \
     software-properties-common \
     sudo
+
+RUN apt-key adv --keyserver keyserver.ubuntu.com --refresh-keys
+RUN apt-key list  | grep "expired: " | sed -ne 's|pub .*/\([^ ]*\) .*|\1|gp' | xargs -n1  apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 
 
 ##################################################################
 #                  update locales

@@ -119,6 +119,38 @@ ecosystem-images:
 	make ecosystem-nginx-images
 	make ecosystem-vscode-server-images
 
+ecosystem-debian-jessie-images:
+	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/slim    && pwd && make
+	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/main    && pwd && make
+	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/jdk6    && pwd && make
+	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/jdk7    && pwd && make
+	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/jdk8    && pwd && make
+	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/jdk11    && pwd && make
+	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/jdk12    && pwd && make
+	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/jdk13    && pwd && make
+	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/jdk14    && pwd && make
+	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/jdk15    && pwd && make
+	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/jdk16    && pwd && make
+	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/jdk17    && pwd && make
+	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/jdk18    && pwd && make
+	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/develop    && pwd && make
+
+ecosystem-debian-stretch-images:
+	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/slim    && pwd && make
+	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/main    && pwd && make
+	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/jdk6    && pwd && make
+	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/jdk7    && pwd && make
+	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/jdk8    && pwd && make
+	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/jdk11    && pwd && make
+	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/jdk12    && pwd && make
+	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/jdk13    && pwd && make
+	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/jdk14    && pwd && make
+	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/jdk15    && pwd && make
+	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/jdk16    && pwd && make
+	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/jdk17    && pwd && make
+	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/jdk18    && pwd && make
+	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/develop    && pwd && make
+
 ecosystem-prod-images:
 	cd `pwd`/linux/ecosystem/epicmorg/prod/main    && pwd && make
 	cd `pwd`/linux/ecosystem/epicmorg/prod/jdk6    && pwd && make

@@ -1,4 +1,4 @@
-FROM epicmorg/debian:jessie
+FROM epicmorg/debian:stretch
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -86,7 +86,18 @@ RUN apt-get update && \
     libcrypto++-dev \
     libbz2-dev \
     libvpx-dev \
+    libvpx6 \
     tcl
+
+##################################################################
+#                   Get NINJA binary
+##################################################################
+RUN curl -s ${NINJA_RELEASE_URL} | jq -r ".assets[] | select(.name | test(\"${NINJA_ARCH}\")) | .browser_download_url" > /tmp/ninja-url.txt && \
+    cat /tmp/ninja-url.txt && \
+    cd /tmp && \
+    wget -q -c --input-file=/tmp/ninja-url.txt && \
+    unzip -o /tmp/ninja-linux.zip -d /bin && \
+    printf "\n--------------------------------\nninja version: $(ninja --version)\n--------------------------------\n\n"
 
 ##################################################################
 #                   other   customisations

@@ -1,12 +1,29 @@
-FROM epicmorg/debian:jessie-slim
+FROM epicmorg/debian:stretch-slim
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
+
+##################################################################
+#                   perforce client binary
+##################################################################
+ENV P4_VERSION=r21.2
+ENV P4_DOWNLOAD_URL=https://www.perforce.com/downloads/perforce/${P4_VERSION}/bin.linux26x86_64/p4
+
+##################################################################
+#                   7z official binary
+##################################################################
+ENV SZ_VERSION=7z2103
+ENV SZ_DOWNLOAD_URL=https://www.7-zip.org/a/${SZ_VERSION}-linux-x64.tar.xz
+
+##################################################################
+#                   update lists
+##################################################################
+RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections && \
+    apt-get update
 
 ##################################################################
 #                   installing utils
 ##################################################################
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections && \
-    apt-get update && \
     apt-get install -y --allow-unauthenticated \
     bzip2 \
     cmatrix \
@@ -27,7 +44,6 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     git-crypt \
     git-lfs \
     git-ftp \
-    git-hub \
     gnupg \
     gnupg2 \
     graphicsmagick \
@@ -49,7 +65,6 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     lsof \
     lynx \
     lzma \
-    libzip4 \
     lzip \
     lzop \
     mc \
@@ -71,7 +86,6 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     smbclient \
     subversion \
     telnet \
-    tini \
     tmux \
     tree \
     util-linux \
@@ -85,10 +99,9 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
 #                   installing fs-tools
 ##################################################################
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections && \
-    apt-get update && \
     apt-get install -y --allow-unauthenticated \
     btrfs-progs \
-    exfatprogs \
+    exfat-utils \
     e2fsprogs \
     f2fs-tools \
     dosfstools \
@@ -107,6 +120,56 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     xfsprogs \
     xfsdump
 
+##################################################################
+#                   git-lfs official binary
+##################################################################
+#RUN curl -s https://packagecloud.io/github/git-lfs/gpgkey | sudo gpg --no-default-keyring --keyring gnupg-ring:/etc/apt/trusted.gpg.d/git-lfs.gpg --import && \
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 6B05F25D762E3157 && \
+    rm -rfv /etc/apt/sources.list.d/github_git-lfs.list
+COPY sources.list.d/github_git-lfs.list /etc/apt/sources.list.d/github_git-lfs.list
+RUN apt-get update &&  \
+    apt-get install -y --allow-unauthenticated \
+    git \
+    git-lfs && \
+    git --version && \
+    git-lfs --version
+
+##################################################################
+#                   gh official binary
+##################################################################
+COPY sources.list.d/github-cli.list /etc/apt/sources.list.d/github-cli.list
+RUN apt-get update &&  \
+    apt-get install -y --allow-unauthenticated \
+    gh && \
+    gh --version
+
+##################################################################
+#                   Install p4client
+##################################################################
+RUN wget -nv --random-wait -c -P /usr/bin ${P4_DOWNLOAD_URL} && \
+    chmod +x /usr/bin/p4
+
+##################################################################
+#                   Install 7z official binary
+##################################################################
+RUN wget -nv --random-wait -c -O /tmp/7z.tar.xz ${SZ_DOWNLOAD_URL} && \
+    mkdir -p /tmp/7z && \
+    tar -xf /tmp/7z.tar.xz -C /tmp/7z && \
+    chmod +x /tmp/7z/7zz && \
+    mv -fv /tmp/7z/7zz /usr/bin/ && \
+    7zz | head -4 && \
+    7z | head -4
+
+##################################################################
+#                   Install LazyGit official binary
+##################################################################
+RUN wget -nv --random-wait -c -O /tmp/lazygit.tar.xz ${LZGIT_DOWNLOAD_URL} && \
+    mkdir -p /tmp/lazygit && \
+    tar -zxvf /tmp/lazygit.tar.xz -C /tmp/lazygit && \
+    chmod +x /tmp/lazygit/lazygit && \
+    mv -fv /tmp/lazygit/lazygit /usr/bin/ && \
+    echo "lazygit version:" && \
+    lazygit --version
 
 ##################################################################
 #                   Generate ssl key

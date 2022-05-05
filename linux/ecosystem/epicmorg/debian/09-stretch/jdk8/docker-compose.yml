@@ -1,6 +1,6 @@
 version: '3.9'
 services:
   app:
-    image: "epicmorg/debian:stretch"
+    image: "epicmorg/debian:stretch-jdk8"
     build:
       context: .

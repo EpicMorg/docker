@@ -1,6 +1,6 @@
 version: '3.9'
 services:
   app:
-    image: "epicmorg/debian:jessie-slim"
+    image: "epicmorg/debian:stretch-slim"
     build:
       context: .
