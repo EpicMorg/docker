@@ -4,3 +4,9 @@ services:
     image: "epicmorg/debian:stretch-jdk11"
     build:
       context: .
+  app-old:
+    image: "epicmorg/debian:stretch-jdk11-adopted"
+    build:
+      context: .
+      dockerfile: ./Dockerfile.adopted
+

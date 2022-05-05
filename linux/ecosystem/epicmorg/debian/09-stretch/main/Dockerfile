@@ -15,6 +15,12 @@ ENV SZ_VERSION=7z2103
 ENV SZ_DOWNLOAD_URL=https://www.7-zip.org/a/${SZ_VERSION}-linux-x64.tar.xz
 
 ##################################################################
+#                   LazyGit official binary
+##################################################################
+ENV LZGIT_VERSION=0.31.4
+ENV LZGIT_DOWNLOAD_URL=https://github.com/jesseduffield/lazygit/releases/download/v${LZGIT_VERSION}/lazygit_${LZGIT_VERSION}_Linux_x86_64.tar.gz
+
+##################################################################
 #                   update lists
 ##################################################################
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections && \
@@ -71,7 +77,6 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     mercurial \
     nano \
     nload \
-    ntop \
     nmap \
     openssl \
     perl \
@@ -93,7 +98,8 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     unrar \
     xz-utils \
     wget \
-    zip
+    zip \
+    libzip4
 
 ##################################################################
 #                   installing fs-tools
@@ -126,7 +132,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
 #RUN curl -s https://packagecloud.io/github/git-lfs/gpgkey | sudo gpg --no-default-keyring --keyring gnupg-ring:/etc/apt/trusted.gpg.d/git-lfs.gpg --import && \
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 6B05F25D762E3157 && \
     rm -rfv /etc/apt/sources.list.d/github_git-lfs.list
-COPY sources.list.d/github_git-lfs.list /etc/apt/sources.list.d/github_git-lfs.list
+COPY etc/apt/sources.list.d/github_git-lfs.list /etc/apt/sources.list.d/github_git-lfs.list
 RUN apt-get update &&  \
     apt-get install -y --allow-unauthenticated \
     git \
@@ -137,7 +143,7 @@ RUN apt-get update &&  \
 ##################################################################
 #                   gh official binary
 ##################################################################
-COPY sources.list.d/github-cli.list /etc/apt/sources.list.d/github-cli.list
+COPY etc/apt/sources.list.d/github-cli.list /etc/apt/sources.list.d/github-cli.list
 RUN apt-get update &&  \
     apt-get install -y --allow-unauthenticated \
     gh && \

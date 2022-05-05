@@ -119,6 +119,10 @@ ecosystem-images:
 	make ecosystem-nginx-images
 	make ecosystem-vscode-server-images
 
+ecosystem-debian-images:
+	make ecosystem-debian-jessie-images
+	make ecosystem-debian-stretch-images
+
 ecosystem-debian-jessie-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/slim    && pwd && make
 	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/main    && pwd && make

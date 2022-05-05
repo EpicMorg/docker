@@ -1,2 +1,2 @@
-deb https://packagecloud.io/github/git-lfs/debian/ buster main
-deb-src https://packagecloud.io/github/git-lfs/debian/ buster main
+deb https://packagecloud.io/github/git-lfs/debian/ stretch main
+deb-src https://packagecloud.io/github/git-lfs/debian/ stretch main
