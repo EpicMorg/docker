@@ -3,16 +3,12 @@ LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
 ##################################################################
-#                   installing java17
+#                   installing java6
 ##################################################################
-RUN wget -qO - https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public  | apt-key add - && \
-    echo 'deb https://packages.adoptium.net/artifactory/deb buster main' > /etc/apt/sources.list.d/temurin-official.list && \
-    apt-get update && \
-    apt-get autoremove -y && \
-    apt-get install -y --allow-unauthenticated temurin-17-jdk && \
-    mkdir /usr/lib/jvm/temurin-17-jdk-amd64/jre && \
-    ln -s /usr/lib/jvm/temurin-17-jdk-amd64/bin/ /usr/lib/jvm/temurin-17-jdk-amd64/jre/bin && \
-    ln -s /usr/lib/jvm/temurin-17-jdk-amd64/lib/ /usr/lib/jvm/temurin-17-jdk-amd64/jre/lib && \
+RUN wget -qO - http://repos.azulsystems.com/RPM-GPG-KEY-azulsystems | apt-key add - && \
+    echo 'deb http://repos.azulsystems.com/debian stable main' > /etc/apt/sources.list.d/zulu.list && \
+    apt-get update -y && \
+    apt-get install -y --allow-unauthenticated zulu-6 && \
     java -version
 
 ##################################################################

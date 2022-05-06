@@ -1,6 +1,6 @@
 version: '3.9'
 services:
   app:
-    image: "epicmorg/debian:buster-jdk7"
+    image: "epicmorg/debian:bullseye-jdk15"
     build:
       context: .

@@ -1,4 +1,4 @@
-FROM epicmorg/debian:jessie
+FROM epicmorg/debian:bullseye
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -6,7 +6,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 #                   installing java17
 ##################################################################
 RUN wget -qO - https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public  | apt-key add - && \
-    echo 'deb https://packages.adoptium.net/artifactory/deb stretch main' > /etc/apt/sources.list.d/temurin-official.list && \
+    echo 'deb https://packages.adoptium.net/artifactory/deb bullseye main' > /etc/apt/sources.list.d/temurin-official.list && \
     apt-get update && \
     apt-get autoremove -y && \
     apt-get install -y --allow-unauthenticated temurin-17-jdk && \
