@@ -155,29 +155,21 @@ ecosystem-debian-stretch-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/jdk18    && pwd && make
 	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/develop    && pwd && make
 
-ecosystem-prod-images:
-	cd `pwd`/linux/ecosystem/epicmorg/prod/main    && pwd && make
-	cd `pwd`/linux/ecosystem/epicmorg/prod/jdk6    && pwd && make
-	cd `pwd`/linux/ecosystem/epicmorg/prod/jdk7    && pwd && make
-	cd `pwd`/linux/ecosystem/epicmorg/prod/jdk8    && pwd && make
-	cd `pwd`/linux/ecosystem/epicmorg/prod/jdk11   && pwd && make
-	cd `pwd`/linux/ecosystem/epicmorg/prod/jdk16   && pwd && make
-
-ecosystem-edge-images:
-	cd `pwd`/linux/ecosystem/epicmorg/edge/main    && pwd && make
-	cd `pwd`/linux/ecosystem/epicmorg/edge/jdk6    && pwd && make
-	cd `pwd`/linux/ecosystem/epicmorg/edge/jdk7    && pwd && make
-	cd `pwd`/linux/ecosystem/epicmorg/edge/jdk8    && pwd && make
-	cd `pwd`/linux/ecosystem/epicmorg/edge/jdk11   && pwd && make
-	cd `pwd`/linux/ecosystem/epicmorg/edge/jdk16   && pwd && make
-
-ecosystem-devel-images:
-	cd `pwd`/linux/ecosystem/epicmorg/devel/main    && pwd && make
-	cd `pwd`/linux/ecosystem/epicmorg/devel/jdk6    && pwd && make
-	cd `pwd`/linux/ecosystem/epicmorg/devel/jdk7    && pwd && make
-	cd `pwd`/linux/ecosystem/epicmorg/devel/jdk8    && pwd && make
-	cd `pwd`/linux/ecosystem/epicmorg/devel/jdk11   && pwd && make
-	cd `pwd`/linux/ecosystem/epicmorg/devel/jdk16   && pwd && make
+ecosystem-debian-buster-images:
+	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/slim    && pwd && make
+	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/main    && pwd && make
+	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/jdk6    && pwd && make
+	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/jdk7    && pwd && make
+	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/jdk8    && pwd && make
+	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/jdk11    && pwd && make
+	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/jdk12    && pwd && make
+	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/jdk13    && pwd && make
+	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/jdk14    && pwd && make
+	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/jdk15    && pwd && make
+	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/jdk16    && pwd && make
+	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/jdk17    && pwd && make
+	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/jdk18    && pwd && make
+	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/develop    && pwd && make
 
 ecosystem-php-images:
 	cd `pwd`/linux/ecosystem/php/latest             && pwd && make
