@@ -144,6 +144,7 @@ RUN apt-get update &&  \
 ##################################################################
 #                   gh official binary
 ##################################################################
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys C99B11DEB97541F0
 COPY etc/apt/sources.list.d/github-cli.list /etc/apt/sources.list.d/github-cli.list
 RUN apt-get update &&  \
     apt-get install -y --allow-unauthenticated \
