@@ -14,9 +14,6 @@ deb-src http://httpredir.debian.org/debian/ bullseye-backports-sloppy main contr
 deb http://httpredir.debian.org/debian/ bullseye-proposed-updates main contrib non-free
 deb-src http://httpredir.debian.org/debian/ bullseye-proposed-updates main contrib non-free
 
-deb http://httpredir.debian.org/debian/ bullseye-updates main contrib non-free
-deb-src http://httpredir.debian.org/debian/ bullseye-updates main contrib non-free
-
 #security
 deb http://httpredir.debian.org/debian-security/ bullseye-security main contrib non-free
 deb-src http://httpredir.debian.org/debian-security/ bullseye-security main contrib non-free

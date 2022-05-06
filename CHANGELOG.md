@@ -1,5 +1,6 @@
 ## Changelog
 ### 2022
+* `april, may` - :x: `BREAKING CHANGES` :x: - deprecating `epicmorg/prod`, `epicmorg/edge`, `epicmorg/develop` iamges.
 * `february, march`
 	* new `nextcloud` images, updated `atlassian` images.
 	* new `nodejs` iamges.

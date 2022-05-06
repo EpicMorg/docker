@@ -1,4 +1,4 @@
-FROM epicmorg/debian:bullseye
+FROM epicmorg/debian:bookworm
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -19,7 +19,7 @@ ARG NINJA_RELEASE_URL=https://api.github.com/repos/ninja-build/ninja/releases/${
 RUN mkdir -p ${SRC_DIR} ${EXPORT_DIR} ${PRE_DIR}
 
 ##################################################################
-#                   sid sources list
+#                   bookworm sources list
 ##################################################################
 RUN apt-get update && \
     apt-get dist-upgrade -y

@@ -122,138 +122,173 @@ ecosystem-images:
 ecosystem-debian-images:
 	make ecosystem-debian-jessie-images
 	make ecosystem-debian-stretch-images
+	make ecosystem-debian-buster-images
+	make ecosystem-debian-bullseye-images
+	make ecosystem-debian-bookworm-images
 
 ecosystem-debian-jessie-images:
-	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/slim    && pwd && make
-	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/main    && pwd && make
-	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/jdk6    && pwd && make
-	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/jdk7    && pwd && make
-	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/jdk8    && pwd && make
-	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/jdk11    && pwd && make
-	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/jdk12    && pwd && make
-	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/jdk13    && pwd && make
-	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/jdk14    && pwd && make
-	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/jdk15    && pwd && make
-	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/jdk16    && pwd && make
-	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/jdk17    && pwd && make
-	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/jdk18    && pwd && make
-	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/develop    && pwd && make
+	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/slim    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/main    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/jdk6    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/jdk7    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/jdk8    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/jdk11    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/jdk12    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/jdk13    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/jdk14    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/jdk15    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/jdk16    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/jdk17    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/jdk18    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/develop    && pwd && make build && make deploy
 
 ecosystem-debian-stretch-images:
-	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/slim    && pwd && make
-	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/main    && pwd && make
-	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/jdk6    && pwd && make
-	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/jdk7    && pwd && make
-	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/jdk8    && pwd && make
-	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/jdk11    && pwd && make
-	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/jdk12    && pwd && make
-	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/jdk13    && pwd && make
-	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/jdk14    && pwd && make
-	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/jdk15    && pwd && make
-	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/jdk16    && pwd && make
-	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/jdk17    && pwd && make
-	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/jdk18    && pwd && make
-	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/develop    && pwd && make
+	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/slim    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/main    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/jdk6    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/jdk7    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/jdk8    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/jdk11    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/jdk12    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/jdk13    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/jdk14    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/jdk15    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/jdk16    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/jdk17    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/jdk18    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/develop    && pwd && make build && make deploy
 
 ecosystem-debian-buster-images:
-	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/slim    && pwd && make
-	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/main    && pwd && make
-	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/jdk6    && pwd && make
-	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/jdk7    && pwd && make
-	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/jdk8    && pwd && make
-	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/jdk11    && pwd && make
-	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/jdk12    && pwd && make
-	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/jdk13    && pwd && make
-	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/jdk14    && pwd && make
-	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/jdk15    && pwd && make
-	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/jdk16    && pwd && make
-	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/jdk17    && pwd && make
-	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/jdk18    && pwd && make
-	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/develop    && pwd && make
+	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/slim    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/main    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/jdk6    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/jdk7    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/jdk8    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/jdk11    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/jdk12    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/jdk13    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/jdk14    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/jdk15    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/jdk16    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/jdk17    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/jdk18    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/develop    && pwd && make build && make deploy
+
+ecosystem-debian-bullseye-images:
+	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/slim    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/main    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk6    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk7    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk8    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk11    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk12    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk13    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk14    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk15    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk16    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk17    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk18    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/develop    && pwd && make build && make deploy
+
+ecosystem-debian-bookworm-images:
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/slim    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/main    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk6    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk7    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk8    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk11    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk12    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk13    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk14    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk15    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk16    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk17    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk18    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/develop    && pwd && make build && make deploy
 
 ecosystem-php-images:
-	cd `pwd`/linux/ecosystem/php/latest             && pwd && make
-	cd `pwd`/linux/ecosystem/php/php7.2             && pwd && make
-	cd `pwd`/linux/ecosystem/php/php7.3             && pwd && make
-	cd `pwd`/linux/ecosystem/php/php7.4             && pwd && make
-	cd `pwd`/linux/ecosystem/php/php8.0             && pwd && make
+	cd `pwd`/linux/ecosystem/php/latest             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/php/php7.2             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/php/php7.3             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/php/php7.4             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/php/php8.0             && pwd && make build && make deploy
 
 ecosystem-apache2-images:
-	cd `pwd`/linux/ecosystem/apache2/latest         && pwd && make
-	cd `pwd`/linux/ecosystem/apache2/php7.2         && pwd && make
-	cd `pwd`/linux/ecosystem/apache2/php7.3         && pwd && make
-	cd `pwd`/linux/ecosystem/apache2/php7.4         && pwd && make
-	cd `pwd`/linux/ecosystem/apache2/php8.0         && pwd && make
+	cd `pwd`/linux/ecosystem/apache2/latest         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apache2/php7.2         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apache2/php7.3         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apache2/php7.4         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apache2/php8.0         && pwd && make build && make deploy
 
 ecosystem-testrail-images:
-	cd `pwd`/linux/ecosystem/testrail/latest       && pwd && make
-	cd `pwd`/linux/ecosystem/testrail/ad           && pwd && make
-	cd `pwd`/linux/ecosystem/testrail/ldap         && pwd && make
+	cd `pwd`/linux/ecosystem/testrail/latest       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/ldap         && pwd && make build && make deploy
 
 ecosystem-torrserver-images:
-	cd `pwd`/linux/ecosystem/torrserver            && pwd && make
+	cd `pwd`/linux/ecosystem/torrserver            && pwd && make build && make deploy
 
 ecosystem-electron-release-server-images:
-	cd `pwd`/linux/ecosystem/electron-release-server  && pwd && make
+	cd `pwd`/linux/ecosystem/electron-release-server  && pwd && make build && make deploy
 
 ecosystem-nodejs-images: 
-	cd `pwd`/linux/ecosystem/nodejs/current        && pwd && make
-	cd `pwd`/linux/ecosystem/nodejs/lts            && pwd && make
-	cd `pwd`/linux/ecosystem/nodejs/node10         && pwd && make
-	cd `pwd`/linux/ecosystem/nodejs/node11         && pwd && make
-	cd `pwd`/linux/ecosystem/nodejs/node12         && pwd && make
-	cd `pwd`/linux/ecosystem/nodejs/node13         && pwd && make
-	cd `pwd`/linux/ecosystem/nodejs/node14         && pwd && make
-	cd `pwd`/linux/ecosystem/nodejs/node15         && pwd && make
-	cd `pwd`/linux/ecosystem/nodejs/node16         && pwd && make
-	cd `pwd`/linux/ecosystem/nodejs/node17         && pwd && make
+	cd `pwd`/linux/ecosystem/nodejs/current        && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/nodejs/lts            && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/nodejs/node10         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/nodejs/node11         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/nodejs/node12         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/nodejs/node13         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/nodejs/node14         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/nodejs/node15         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/nodejs/node16         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/nodejs/node17         && pwd && make build && make deploy
 
 ecosystem-vk2discord-images: 
-	cd `pwd`/linux/ecosystem/vk2discord     && pwd && make
+	cd `pwd`/linux/ecosystem/vk2discord     && pwd && make build && make deploy
 
 ecosystem-qbittorrent-images: 
-	cd `pwd`/linux/ecosystem/qbittorrent/latest    && pwd && make
-	cd `pwd`/linux/ecosystem/qbittorrent/stable    && pwd && make
+	cd `pwd`/linux/ecosystem/qbittorrent/latest    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/qbittorrent/stable    && pwd && make build && make deploy
 
 ecosystem-postgres-images:
-	cd `pwd`/linux/ecosystem/postgres/latest       && pwd && make
-	cd `pwd`/linux/ecosystem/postgres/8.2          && pwd && make
-	cd `pwd`/linux/ecosystem/postgres/8.3          && pwd && make
-	cd `pwd`/linux/ecosystem/postgres/8.4          && pwd && make
-	cd `pwd`/linux/ecosystem/postgres/9.0          && pwd && make
-	cd `pwd`/linux/ecosystem/postgres/9.1          && pwd && make
-	cd `pwd`/linux/ecosystem/postgres/9.2          && pwd && make
-	cd `pwd`/linux/ecosystem/postgres/9.3          && pwd && make
-	cd `pwd`/linux/ecosystem/postgres/9.4          && pwd && make
-	cd `pwd`/linux/ecosystem/postgres/9.5          && pwd && make
-	cd `pwd`/linux/ecosystem/postgres/9.6          && pwd && make
-	cd `pwd`/linux/ecosystem/postgres/10           && pwd && make
-	cd `pwd`/linux/ecosystem/postgres/11           && pwd && make
-	cd `pwd`/linux/ecosystem/postgres/12           && pwd && make
-	cd `pwd`/linux/ecosystem/postgres/13           && pwd && make
-	cd `pwd`/linux/ecosystem/postgres/14           && pwd && make
+	cd `pwd`/linux/ecosystem/postgres/latest       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/postgres/8.2          && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/postgres/8.3          && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/postgres/8.4          && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/postgres/9.0          && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/postgres/9.1          && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/postgres/9.2          && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/postgres/9.3          && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/postgres/9.4          && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/postgres/9.5          && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/postgres/9.6          && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/postgres/10           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/postgres/11           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/postgres/12           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/postgres/13           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/postgres/14           && pwd && make build && make deploy
 
 ecosystem-teamcity-agent-images:
-	cd `pwd`/linux/ecosystem/teamcity/agent/latest         && pwd && make
-	cd `pwd`/linux/ecosystem/teamcity/agent/amxx-sdk       && pwd && make
-	cd `pwd`/linux/ecosystem/teamcity/agent/android-sdk    && pwd && make
-	cd `pwd`/linux/ecosystem/teamcity/agent/atlassian-sdk  && pwd && make
-	cd `pwd`/linux/ecosystem/teamcity/agent/dotnet-sdk     && pwd && make
-	cd `pwd`/linux/ecosystem/teamcity/agent/node12         && pwd && make
-	cd `pwd`/linux/ecosystem/teamcity/agent/node14         && pwd && make
-	cd `pwd`/linux/ecosystem/teamcity/agent/node15         && pwd && make
-	cd `pwd`/linux/ecosystem/teamcity/agent/node16         && pwd && make
-	cd `pwd`/linux/ecosystem/teamcity/agent/node17         && pwd && make
-	cd `pwd`/linux/ecosystem/teamcity/agent/php7.2         && pwd && make
-	cd `pwd`/linux/ecosystem/teamcity/agent/php7.3         && pwd && make
-	cd `pwd`/linux/ecosystem/teamcity/agent/php7.4         && pwd && make
-	cd `pwd`/linux/ecosystem/teamcity/agent/php8.0         && pwd && make
-	cd `pwd`/linux/ecosystem/teamcity/agent/steam-sdk      && pwd && make
+	cd `pwd`/linux/ecosystem/teamcity/agent/latest         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/amxx-sdk       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/android-sdk    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/atlassian-sdk  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/dotnet-sdk     && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/node12         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/node14         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/node15         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/node16         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/node17         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/php7.2         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/php7.3         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/php7.4         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/php8.0         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/steam-sdk      && pwd && make build && make deploy
 
 ecosystem-nginx-images:
-	cd `pwd`/linux/ecosystem/nginx/latest/main      && pwd && make
-	cd `pwd`/linux/ecosystem/nginx/latest/php       && pwd && make
-	cd `pwd`/linux/ecosystem/nginx/latest/rtmp-hls  && pwd && make
+	cd `pwd`/linux/ecosystem/nginx/latest/main      && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/nginx/latest/php       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/nginx/latest/rtmp-hls  && pwd && make build && make deploy
 
 ecosystem-vscode-server-images:
 	cd `pwd`/linux/advanced/vscode-server/latest         && pwd && make build && make deploy
@@ -285,12 +320,12 @@ bundle-atlassian:
 	@echo "======================================="
 	@echo "===== Building  Atlassian  images ====="
 	@echo "======================================="
-	cd `pwd`/linux/ecosystem/atlassian/bitbucket/latest           && pwd && make
-	cd `pwd`/linux/ecosystem/atlassian/confluence/latest          && pwd && make
-	cd `pwd`/linux/ecosystem/atlassian/crucible/latest            && pwd && make
-	cd `pwd`/linux/ecosystem/atlassian/fisheye/latest             && pwd && make
-	cd `pwd`/linux/ecosystem/atlassian/fisheye-crucible/latest    && pwd && make
-	cd `pwd`/linux/ecosystem/atlassian/jira/latest                && pwd && make
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/latest           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/latest          && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crucible/latest            && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/fisheye/latest             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/fisheye-crucible/latest    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/latest                && pwd && make build && make deploy
 
 bundle-web:
 	@echo "======================================="

@@ -1,0 +1,11 @@
+version: '3.9'
+services:
+  app:
+    image: "epicmorg/debian:byster-jdk8"
+    build:
+      context: .
+  app-old:
+    image: "epicmorg/debian:bookworm-jdk8-adopted"
+    build:
+      context: .
+      dockerfile: ./Dockerfile.adopted

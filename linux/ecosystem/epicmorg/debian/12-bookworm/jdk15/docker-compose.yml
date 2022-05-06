@@ -1,0 +1,6 @@
+version: '3.9'
+services:
+  app:
+    image: "epicmorg/debian:bookworm-jdk15"
+    build:
+      context: .
