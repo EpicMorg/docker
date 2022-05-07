@@ -108,7 +108,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections && \
     apt-get install -y --allow-unauthenticated \
     btrfs-progs \
-    exfat-utils \
+#    exfat-utils \ #not avalible now
     e2fsprogs \
     f2fs-tools \
     dosfstools \
