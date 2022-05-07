@@ -43,10 +43,10 @@ docker-clean:
 	docker system prune -af
 
 images:
-	make docker-clean
+#	make docker-clean
 	make advanced-images
 	make ecosystem-images
-	make docker-clean
+#	make docker-clean
 
 advanced-images:
 	@echo "======================================="
@@ -181,9 +181,9 @@ ecosystem-debian-bullseye-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk7    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk8    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk11    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk12    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk13    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk14    && pwd && make build && make deploy
+#	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk12    && pwd && make build && make deploy
+#	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk13    && pwd && make build && make deploy
+#	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk14    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk15    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk16    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk17    && pwd && make build && make deploy
