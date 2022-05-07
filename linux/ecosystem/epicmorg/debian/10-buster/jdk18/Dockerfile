@@ -3,7 +3,7 @@ LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
 ##################################################################
-#                   installing java16
+#                   installing java18
 ##################################################################
 RUN wget -qO - https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public  | apt-key add - && \
     echo 'deb https://packages.adoptium.net/artifactory/deb buster main' > /etc/apt/sources.list.d/temurin-official.list && \

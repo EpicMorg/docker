@@ -4,3 +4,8 @@ services:
     image: "epicmorg/debian:stretch-jdk15"
     build:
       context: .
+  app-develop:
+    image: "epicmorg/debian:stretch-develop-jdk15"
+    build:
+      context: .
+      dockerfile: ./Dockerfile.develop

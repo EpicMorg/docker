@@ -9,4 +9,8 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile.adopted
-
+  app-develop:
+    image: "epicmorg/debian:bookworm-develop-jdk11"
+    build:
+      context: .
+      dockerfile: ./Dockerfile.develop

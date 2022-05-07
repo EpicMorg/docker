@@ -4,3 +4,8 @@ services:
     image: "epicmorg/debian:stretch-jdk6"
     build:
       context: .
+  app-develop:
+    image: "epicmorg/debian:stretch-develop-jdk6"
+    build:
+      context: .
+      dockerfile: ./Dockerfile.develop
