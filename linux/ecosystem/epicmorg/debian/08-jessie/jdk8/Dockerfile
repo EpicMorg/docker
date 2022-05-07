@@ -5,7 +5,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 #                   installing java8
 ##################################################################
-RUN wget -qO - https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public | apt-key add - && \
+RUN wget -qO - https://packages.adoptium.net/artifactory/api/gpg/key/public | apt-key add - && \
     echo 'deb https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/ jessie main' > /etc/apt/sources.list.d/adoptopenjdk-official.list && \
     apt-get update && \
     apt-get autoremove -y && \

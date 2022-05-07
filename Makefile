@@ -43,11 +43,11 @@ docker-clean:
 	docker system prune -af
 
 images:
-	make docker-clean
-	make advanced-images
-	make docker-clean
+#	make docker-clean
+#	make advanced-images
+#	make docker-clean
 	make ecosystem-images
-	make docker-clean
+#	make docker-clean
 
 advanced-images:
 	@echo "======================================="

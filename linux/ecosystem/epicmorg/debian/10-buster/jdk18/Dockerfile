@@ -5,7 +5,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 #                   installing java18
 ##################################################################
-RUN wget -qO - https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public  | apt-key add - && \
+RUN wget -qO - https://packages.adoptium.net/artifactory/api/gpg/key/public  | apt-key add - && \
     echo 'deb https://packages.adoptium.net/artifactory/deb buster main' > /etc/apt/sources.list.d/temurin-official.list && \
     apt-get update && \
     apt-get autoremove -y && \
