@@ -307,9 +307,7 @@ bundle-base-images:
 	@echo "======================================="
 	@echo "===== Building  EpicMorg   images ====="
 	@echo "======================================="
-	make ecosystem-prod-images
-	make ecosystem-edge-images
-	make ecosystem-devel-images
+	make ecosystem-debian-images
 
 bundle-teamcity:
 	@echo "======================================="
