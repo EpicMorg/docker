@@ -62,17 +62,17 @@ advanced-images:
 	make advanced-nextcloud-patched-images
 
 advanced-mattermost-images:
-	cd `pwd`/linux/advanced/mattermost			&& pwd && make
+	cd `pwd`/linux/advanced/mattermost			&& pwd && make build && make deploy
 
 advanced-nextcloud-latest-images:
-	cd `pwd`/linux/advanced/nextcloud/pure/latest	  && pwd && make
-	cd `pwd`/linux/advanced/nextcloud/patched/latest	  && pwd && make
+	cd `pwd`/linux/advanced/nextcloud/pure/latest	  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/patched/latest	  && pwd && make build && make deploy
 
 advanced-teamcity-server-images:
-	cd `pwd`/linux/advanced/teamcity/server	   && pwd && make
+	cd `pwd`/linux/advanced/teamcity/server	   && pwd && make build && make deploy
 
 advanced-redash-images:
-	cd `pwd`/linux/advanced/redash				&& pwd && make
+	cd `pwd`/linux/advanced/redash				&& pwd && make build && make deploy
 
 advanced-zabbix-images:
 	cd `pwd`/linux/advanced/zabbix/agent		  && pwd && make build && make deploy
