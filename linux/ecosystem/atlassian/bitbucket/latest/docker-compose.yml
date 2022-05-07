@@ -4,3 +4,8 @@ services:
     image: "epicmorg/bitbucket:latest"
     build:
       context: .
+  app-jdk11:
+    image: "epicmorg/bitbucket:latest-jdk11"
+    build:
+      context: .
+      dockerfile: ./Dockerfile.jdk11
