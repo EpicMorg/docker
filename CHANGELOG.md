@@ -4,6 +4,7 @@
 	* deprecating `epicmorg/prod`, `epicmorg/edge`, `epicmorg/develop` images.
 	* legacy images are replaced by new base images. see `epicmorg/debian` section.
 	* added `nodejs18`
+	* updated `jira8`, `bitbucket`, `vscode`
 * `february, march`
 	* new `nextcloud` images, updated `atlassian` images.
 	* new `nodejs` iamges.
