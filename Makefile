@@ -1,4 +1,4 @@
-VERSION             =  "2022.05.27"
+VERSION             =  "2022.05.07"
 AUTHOR              =  "EpicMorg"
 MODIFIED            =  "STAM"
 DOCKER_SCAN_SUGGEST = false
@@ -43,11 +43,10 @@ docker-clean:
 	docker system prune -af
 
 images:
-#	make docker-clean
-#	make advanced-images
-#	make docker-clean
+	make docker-clean
+	make advanced-images
 	make ecosystem-images
-#	make docker-clean
+	make docker-clean
 
 advanced-images:
 	@echo "======================================="
