@@ -5,6 +5,7 @@
 	* legacy images are replaced by new base images. see `epicmorg/debian` section.
 	* added `nodejs18`
 	* updated `jira8`, `bitbucket`, `vscode`
+	* updated `apache2`
 * `february, march`
 	* new `nextcloud` images, updated `atlassian` images.
 	* new `nodejs` iamges.
