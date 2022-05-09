@@ -285,6 +285,11 @@ RUN export SDKMAN_DIR="/config/.sdkman" && chmod +x /tmp/sdkman.sh
 RUN /tmp/sdkman.sh
 
 ##################################################################
+#                   Upgrade SDK-man
+##################################################################
+RUN /bin/bash -c "source /config/.sdkman/bin/sdkman-init.sh; sdk selfupdate force;"
+
+##################################################################
 #                   Gradle
 ##################################################################
 RUN /bin/bash -c "source /config/.sdkman/bin/sdkman-init.sh; sdk install gradle;"
