@@ -16,7 +16,7 @@ ENV BuildDocker true
 ##################################################################
 #                   7z official binary
 ##################################################################
-ENV SZ_VERSION=7z2103
+ENV SZ_VERSION=7z2107
 ENV SZ_DOWNLOAD_URL=https://www.7-zip.org/a/${SZ_VERSION}-linux-x64.tar.xz
 
 ##################################################################

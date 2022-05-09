@@ -139,7 +139,7 @@ RUN apt-get update &&  \
 ##################################################################
 #                   Install p4client
 ##################################################################
-RUN wget --no-check-certificate -nv --random-wait -c -P /usr/bin ${P4_DOWNLOAD_URL} && \
+RUN wget --no-check-certificate -nv --random-wait --retry-connrefused --continue -P /usr/bin ${P4_DOWNLOAD_URL} && \
     chmod +x /usr/bin/p4
 
 ##################################################################

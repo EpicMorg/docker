@@ -11,7 +11,7 @@ ENV P4_DOWNLOAD_URL=https://www.perforce.com/downloads/perforce/${P4_VERSION}/bi
 ##################################################################
 #                   7z official binary
 ##################################################################
-ENV SZ_VERSION=7z2103
+ENV SZ_VERSION=7z2107
 ENV SZ_DOWNLOAD_URL=https://www.7-zip.org/a/${SZ_VERSION}-linux-x64.tar.xz
 
 ##################################################################
@@ -154,13 +154,13 @@ RUN apt-get update &&  \
 ##################################################################
 #                   Install p4client
 ##################################################################
-RUN wget -nv --random-wait -c -P /usr/bin ${P4_DOWNLOAD_URL} && \
+RUN wget --no-check-certificate -nv --random-wait --retry-connrefused --continue -P /usr/bin ${P4_DOWNLOAD_URL} && \
     chmod +x /usr/bin/p4
 
 ##################################################################
 #                   Install 7z official binary
 ##################################################################
-RUN wget -nv --random-wait -c -O /tmp/7z.tar.xz ${SZ_DOWNLOAD_URL} && \
+RUN wget --no-check-certificate -nv --random-wait --retry-connrefused --continue -O /tmp/7z.tar.xz ${SZ_DOWNLOAD_URL} && \
     mkdir -p /tmp/7z && \
     tar -xf /tmp/7z.tar.xz -C /tmp/7z && \
     chmod +x /tmp/7z/7zz && \
@@ -171,7 +171,7 @@ RUN wget -nv --random-wait -c -O /tmp/7z.tar.xz ${SZ_DOWNLOAD_URL} && \
 ##################################################################
 #                   Install LazyGit official binary
 ##################################################################
-RUN wget -nv --random-wait -c -O /tmp/lazygit.tar.xz ${LZGIT_DOWNLOAD_URL} && \
+RUN wget --no-check-certificate -nv --random-wait --retry-connrefused --continue -O /tmp/lazygit.tar.xz ${LZGIT_DOWNLOAD_URL} && \
     mkdir -p /tmp/lazygit && \
     tar -zxvf /tmp/lazygit.tar.xz -C /tmp/lazygit && \
     chmod +x /tmp/lazygit/lazygit && \
