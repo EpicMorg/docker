@@ -24,7 +24,8 @@ RUN echo "24333f8a63b6825ea9c5514f83c2829b004d1fee" > /usr/lib/android-sdk/licen
 ##################################################################
 #RUN curl -A "Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/81.0" -s "http://get.sdkman.io" | bash
 COPY ./sdkman.sh /tmp/sdkman.sh
-RUN export SDKMAN_DIR="/config/.sdkman" && chmod +x /tmp/sdkman.sh && bash /tmp/sdkman.sh
+RUN export SDKMAN_DIR="/config/.sdkman" && chmod +x /tmp/sdkman.sh
+RUN /tmp/sdkman.sh
 
 ##################################################################
 #                   Gradle
@@ -44,8 +45,4 @@ RUN apt clean -y && \
     apt autoclean -y && \
     rm -rfv /var/lib/apt/lists/* && \
     rm -rfv /var/cache/apt/archives/*.deb && \
-    rm -rfv /tmp/deb/* && \
-    rm -rfv /tmp/composer-setup.php && \
-    rm -rfv /tmp/amxx_base_latest.tar.gz && \
-    rm -rfv /tmp/atlassian-plugin-sdk.deb && \
-    rm -rfv /tmp/addons
+    rm -rfv /tmp/*

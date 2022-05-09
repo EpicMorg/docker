@@ -281,7 +281,8 @@ RUN echo "24333f8a63b6825ea9c5514f83c2829b004d1fee" > /usr/lib/android-sdk/licen
 #RUN export SDKMAN_DIR="/usr/local/sdkman" && curl -s "https://get.sdkman.io?rcupdate=false" | bash
 #RUN export SDKMAN_DIR="/config/.sdkman" && curl -A "Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/81.0" -s "https://get.sdkman.io" | bash
 COPY ./sdkman.sh /tmp/sdkman.sh
-RUN export SDKMAN_DIR="/config/.sdkman" && chmod +x /tmp/sdkman.sh && bash /tmp/sdkman.sh
+RUN export SDKMAN_DIR="/config/.sdkman" && chmod +x /tmp/sdkman.sh
+RUN /tmp/sdkman.sh
 
 ##################################################################
 #                   Gradle
