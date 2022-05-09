@@ -91,6 +91,7 @@ advanced-nextcloud-images:
 	cd `pwd`/linux/advanced/nextcloud/pure/21		  && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/nextcloud/pure/22		  && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/nextcloud/pure/23		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/pure/24		  && pwd && make build && make deploy
 
 advanced-nextcloud-patched-images:
 	cd `pwd`/linux/advanced/nextcloud/patched/14		  && pwd && make build && make deploy
@@ -103,6 +104,7 @@ advanced-nextcloud-patched-images:
 	cd `pwd`/linux/advanced/nextcloud/patched/21		  && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/nextcloud/patched/22		  && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/nextcloud/patched/23		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/patched/24		  && pwd && make build && make deploy
 
 ecosystem-images:
 	make bundle-base-images
