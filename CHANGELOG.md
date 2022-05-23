@@ -6,6 +6,7 @@
 	* added `nodejs18`
 	* updated `jira8`, `bitbucket`, `vscode`
 	* updated `apache2`, `zabbix`, `nextcloud`
+	* added `retracker` by [vvampirius/retracker](https://github.com/vvampirius/retracker).
 * `february, march`
 	* new `nextcloud` images, updated `atlassian` images.
 	* new `nodejs` iamges.
