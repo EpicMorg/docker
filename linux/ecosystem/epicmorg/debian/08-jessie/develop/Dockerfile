@@ -6,6 +6,8 @@ ARG DEBIAN_FRONTEND=noninteractive
 #                   ARGuments
 ##################################################################
 ENV BuildDocker true
+ENV GOPATH=/go
+ENV PATH="${GOPATH}/bin:${PATH}"
 ARG BUILDS_DIR=/builds
 ARG SRC_DIR=${BUILDS_DIR}/src
 ARG EXPORT_DIR=${BUILDS_DIR}/export
@@ -86,7 +88,19 @@ RUN apt-get update && \
     libcrypto++-dev \
     libbz2-dev \
     libvpx-dev \
-    tcl
+    tcl \
+    g++ \
+    gcc \
+    libc6-dev \
+    make \
+    pkg-config \
+    golang \
+    golang-go
+
+##################################################################
+#                   GO compillers
+##################################################################
+RUN printf "\n--------------------------------\n$(go version)\n--------------------------------\n\n"
 
 ##################################################################
 #                   other   customisations
