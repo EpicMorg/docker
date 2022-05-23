@@ -44,6 +44,7 @@ if ! [[ $RETRACKER_PORT =~ $re ]] ; then
    export RETRACKER_PORT_S=""
    exit 1
 fi
+echo "[retracker] Port env RETRACKER_PORT is set to ${RETRACKER_PORT}."
 export RETRACKER_PORT_S="-l :${RETRACKER_PORT}"
 
 
@@ -52,9 +53,11 @@ if ! [[ $RETRACKER_MINUTS =~ $re ]] ; then
    export RETRACKER_MINUTS_S=""
    exit 1
 fi
+echo "[retracker] Keep N minutes env RETRACKER_MINUTS peer in memory is set to ${RETRACKER_MINUTS}."
 export RETRACKER_MINUTS_S="-a ${RETRACKER_MINUTS}"
 
 #Building final options string
+echo "[retracker] Building final options string: ${RETRACKER_OPTS}"
 export RETRACKER_OPTS="${RETRACKER_REAL_IP_S} ${RETRACKER_DEBUG_S} ${RETRACKER_MINUTS_S} ${RETRACKER_PORT_S}"
 
 echo "[retracker] Starting up"
