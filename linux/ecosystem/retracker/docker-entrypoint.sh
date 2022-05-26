@@ -6,6 +6,8 @@ set -euo pipefail
 : ${RETRACKER_MINUTS:=180}
 : ${RETRACKER_DEBUG:=false}
 : ${RETRACKER_REAL_IP:=true}
+: ${RETRACKER_OPTS:=}
+
 re='^[0-9]+$'
 
 
