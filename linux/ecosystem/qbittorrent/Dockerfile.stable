@@ -8,6 +8,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ENV QBT_DIR=/opt/qbittorrent
 ENV QBT_PORT_WEBUI=8282
 ENV QBT_PORT_TRACKER=9000
+ENV QBT_PORT_NAT=1337
 
 ##################################################################
 #                   Files and folders
@@ -53,7 +54,7 @@ COPY docker-entrypoint.sh /usr/bin/docker-entrypoint.sh
 RUN chmod 755 /usr/bin/docker-entrypoint.sh
 
 #Final config
-EXPOSE ${QBT_PORT_WEBUI} ${QBT_PORT_WEBUI}/udp ${QBT_PORT_TRACKER} ${QBT_PORT_TRACKER}/udp
+EXPOSE ${QBT_PORT_WEBUI} ${QBT_PORT_WEBUI}/udp ${QBT_PORT_NAT} ${QBT_PORT_NAT}/udp ${QBT_PORT_TRACKER} ${QBT_PORT_TRACKER}/udp
 
 ENTRYPOINT ["tini", "-s", "--", "docker-entrypoint.sh"]
 CMD ["docker-entrypoint.sh"]

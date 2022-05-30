@@ -1,8 +1,10 @@
 #!/bin/bash
 
+: ${QBT_DIR:=/opt/qbittorrent}
 : ${QBT_PROFILES_DIR:=/opt/qbittorrent/profiles}
 : ${QBT_PROFILE_NAME:=docker}
 : ${QBT_PORT_WEBUI:=8282}
+: ${QBT_PORT_NAT:=1337}
 : ${QBT_PORT_TRACKER:=9000}
 
 
