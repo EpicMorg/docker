@@ -11,4 +11,4 @@ echo "[qbittorrent] Starting `qbittorrent-nox -v`..."
 echo "======================================================"
 
 tail -n 512 -f  ${QBT_PROFILES_DIR}/qBittorrent_${QBT_PROFILE_NAME}/data/logs/* &
-exec qbittorrent-nox -d --profile=${QBT_PROFILES_DIR} --configuration=${QBT_PROFILE_NAME} --webui-port=${QBT_PORT_WEBUI}
+exec qbittorrent-nox --profile=${QBT_PROFILES_DIR} --configuration=${QBT_PROFILE_NAME} --webui-port=${QBT_PORT_WEBUI}
