@@ -5,7 +5,9 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 #                   ARGuments
 ##################################################################
-ARG QBT_DIR=/opt/qbittorrent
+ENV QBT_DIR=/opt/qbittorrent
+ENV QBT_PORT_WEBUI=8282
+ENV QBT_PORT_TRACKER=9000
 
 ##################################################################
 #                   Files and folders
@@ -44,14 +46,14 @@ RUN apt clean -y && \
 VOLUME ${QBT_DIR}
 
 #healthcheck. good practice
-HEALTHCHECK --interval=2m --timeout=3s CMD curl -f http://localhost:8282/ || exit 1
+HEALTHCHECK --interval=2m --timeout=3s CMD curl -f http://localhost:${QBT_PORT_WEBUI}/ || exit 1
 
 # Add image configuration and scripts
 COPY docker-entrypoint.sh /usr/bin/docker-entrypoint.sh
 RUN chmod 755 /usr/bin/docker-entrypoint.sh
 
 #Final config
-EXPOSE 8282
+EXPOSE ${QBT_PORT_WEBUI} ${QBT_PORT_WEBUI}/udp ${QBT_PORT_TRACKER} ${QBT_PORT_TRACKER}/udp
 
 ENTRYPOINT ["tini", "-s", "--", "docker-entrypoint.sh"]
 CMD ["docker-entrypoint.sh"]
