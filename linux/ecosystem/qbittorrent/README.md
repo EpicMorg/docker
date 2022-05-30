@@ -48,3 +48,33 @@ services:
     tmpfs:
       - /tmp
 ```
+
+
+### Ngnix
+
+```
+server {
+
+        listen 443 ssl http2;
+        
+        server_name torrent.domain.tld;
+        
+        ssl_certificate /etc/ssl/torrent.domain.tld.fullchain.crt;
+        ssl_certificate_key /etc/ssl/torrent.domain.tld.key;
+
+        location / {
+
+            proxy_pass http://qbittorrent:8282;
+            proxy_http_version 1.1;
+
+            proxy_set_header   Host               127.0.0.1:8282;
+            proxy_set_header   X-Forwarded-Host   $http_host;
+            proxy_set_header   X-Forwarded-For    $remote_addr;
+            proxy_cookie_path  /                  "/; Secure";
+
+            client_max_body_size        0;
+
+        }
+}
+
+```
