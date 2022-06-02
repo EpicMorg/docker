@@ -1,4 +1,4 @@
-FROM python:3.11-bullseye
+FROM python:3.11-rc-bullseye
 
 ARG DEBIAN_FRONTEND=noninteractive
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"

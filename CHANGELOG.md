@@ -1,5 +1,8 @@
 ## Changelog
 ### 2022
+* `june`:
+	* new `python` base images. supported `2.7`, `3.6`, `3.7`, `3.8`, `3.9`, `3.10`, `3.11`
+	* added some soft to `debian` base images.
 * `april, may` - :x: `BREAKING CHANGES` :x:
 	* deprecating `epicmorg/prod`, `epicmorg/edge`, `epicmorg/develop` images.
 	* legacy images are replaced by new base images. see `epicmorg/debian` section.

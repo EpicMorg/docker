@@ -120,6 +120,28 @@ ecosystem-images:
 	make ecosystem-nginx-images
 	make ecosystem-vscode-server-images
 
+ecosystem-pyhton-images:
+	make ecosystem-pyhton-images-main
+	make ecosystem-pyhton-images-develop
+
+ecosystem-pyhton-images-main:
+	cd `pwd`/linux/ecosystem/epicmorg/python/main/2.7 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/python/main/3.6 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/python/main/3.7 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/python/main/3.8 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/python/main/3.9 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/python/main/3.10 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/python/main/3.11 && pwd && make build && make deploy
+
+ecosystem-pyhton-images-develop:
+	cd `pwd`/linux/ecosystem/epicmorg/python/develop/2.7 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/python/develop/3.6 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/python/develop/3.7 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/python/develop/3.8 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/python/develop/3.9 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/python/develop/3.10 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/python/develop/3.11 && pwd && make build && make deploy
+
 ecosystem-debian-images:
 	make ecosystem-debian-jessie-images
 	make ecosystem-debian-stretch-images
@@ -308,6 +330,7 @@ bundle-base-images:
 	@echo "======================================="
 	@echo "===== Building  EpicMorg   images ====="
 	@echo "======================================="
+	make ecosystem-pyhton-images
 	make ecosystem-debian-images
 
 bundle-teamcity:
