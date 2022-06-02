@@ -1,0 +1,25 @@
+#main
+deb http://httpredir.debian.org/debian/ buster main contrib non-free
+deb-src http://httpredir.debian.org/debian/ buster main contrib non-free
+
+deb http://httpredir.debian.org/debian/ buster-updates main contrib non-free
+deb-src http://httpredir.debian.org/debian/ buster-updates main contrib non-free
+
+deb http://httpredir.debian.org/debian/ buster-backports main contrib non-free
+deb-src http://httpredir.debian.org/debian/ buster-backports main contrib non-free
+
+deb http://httpredir.debian.org/debian/ buster-backports-sloppy main contrib non-free
+deb-src http://httpredir.debian.org/debian/ buster-backports-sloppy main contrib non-free
+
+deb http://httpredir.debian.org/debian/ buster-proposed-updates main contrib non-free
+deb-src http://httpredir.debian.org/debian/ buster-proposed-updates main contrib non-free
+
+#security
+deb http://httpredir.debian.org/debian-security/ buster/updates main contrib non-free
+deb-src http://httpredir.debian.org/debian-security/ buster/updates main contrib non-free
+
+##multimedia
+#deb http://httpredir.debian.org/debian-multimedia/ buster main non-free
+#deb-src http://httpredir.debian.org/debian-multimedia/ buster main non-free
+#deb http://httpredir.debian.org/debian-multimedia/ buster-backports main
+#deb-src http://httpredir.debian.org/debian-multimedia/ buster-backports main
