@@ -99,13 +99,24 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     xz-utils \
     wget \
     zip \
-    libzip4
+    libzip4 \
+    acl \
+    aptitude  \
+    sudo  \
+    cvs \
+    python-pip \
+    python3-pip \
+    python3-all \
+    python-all \
+    rclone \
+    logrotate \
+    subversion-tools
 
 ##################################################################
 #                   installing fs-tools
 ##################################################################
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections && \
-    apt-get install -y --allow-unauthenticated \
+    apt-+get install -y --allow-unauthenticated \
     btrfs-progs \
     exfat-utils \
     e2fsprogs \

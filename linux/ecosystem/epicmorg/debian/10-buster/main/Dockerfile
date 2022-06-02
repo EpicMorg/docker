@@ -100,7 +100,19 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     wget \
     zip \
     tini \
-    libzip4
+    libzip4 \
+    acl \
+    aptitude  \
+    sudo  \
+    cvs \
+    python-pip \
+    python3-pip \
+    python3-all \
+    python-all \
+    rclone \
+    logrotate \
+    subversion-tools
+
 
 ##################################################################
 #                   installing fs-tools

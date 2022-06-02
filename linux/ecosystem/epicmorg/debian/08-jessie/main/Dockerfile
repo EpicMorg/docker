@@ -19,12 +19,14 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
 ##################################################################
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections && \
     apt-get install -y --allow-unauthenticated \
+    acl \
     bzip2 \
     cmatrix \
     cmatrix-xfont \
     cron \
     curl \
     clzip \
+    cvs \
     dos2unix \
     ffmpeg \
     fontconfig \
@@ -72,6 +74,11 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     plzip \
     p7zip-full \
     p7zip-rar \
+    python3-all \
+    python-all \
+    python-pip \
+    python3-pip \
+#    rclone \
     rsync \
     rar \
     screenfetch \
@@ -85,6 +92,10 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     unrar \
     xz-utils \
     wget \
+    aptitude  \
+    sudo  \
+    logrotate \
+    subversion-tools \
     zip
 
 ##################################################################

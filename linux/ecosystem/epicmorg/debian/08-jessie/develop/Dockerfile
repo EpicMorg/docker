@@ -95,7 +95,16 @@ RUN apt-get update && \
     make \
     pkg-config \
     golang \
-    golang-go
+    golang-go \
+    python3-all-dev \
+    python-dev-all \
+    g++-multilib \
+    autoconf \
+    automake \
+    libtool \
+    gdb \
+    strace
+
 
 ##################################################################
 #                   GO compillers
