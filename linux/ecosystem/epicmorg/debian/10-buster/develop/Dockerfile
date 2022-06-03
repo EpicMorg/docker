@@ -97,7 +97,7 @@ RUN apt-get update && \
     pkg-config \
     golang \
     golang-go \
-    python-dev-all  \
+    python-dev \
     python3-all-dev \
     g++-multilib \
     autoconf \

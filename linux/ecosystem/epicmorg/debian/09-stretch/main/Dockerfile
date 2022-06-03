@@ -116,7 +116,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
 #                   installing fs-tools
 ##################################################################
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections && \
-    apt-+get install -y --allow-unauthenticated \
+    apt-get install -y --allow-unauthenticated \
     btrfs-progs \
     exfat-utils \
     e2fsprogs \
