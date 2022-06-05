@@ -105,7 +105,6 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     aptitude  \
     sudo  \
     cvs \
-    python-pip \
     python3-pip \
     python3-all \
     python-all \

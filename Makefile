@@ -178,8 +178,8 @@ ecosystem-debian-stretch-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/jdk14    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/jdk15    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/jdk16    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/jdk17    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/jdk18    && pwd && make build && make deploy
+#	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/jdk17    && pwd && make build && make deploy
+#	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/jdk18    && pwd && make build && make deploy
 
 ecosystem-debian-buster-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/slim    && pwd && make build && make deploy
@@ -271,8 +271,7 @@ ecosystem-vk2discord-images:
 	cd `pwd`/linux/ecosystem/vk2discord     && pwd && make build && make deploy
 
 ecosystem-qbittorrent-images: 
-	cd `pwd`/linux/ecosystem/qbittorrent/latest    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/qbittorrent/stable    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/qbittorrent    && pwd && make build && make deploy
 
 ecosystem-postgres-images:
 	cd `pwd`/linux/ecosystem/postgres/latest       && pwd && make build && make deploy

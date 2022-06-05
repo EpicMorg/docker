@@ -11,8 +11,9 @@ RUN groupadd node && \
 RUN curl -sL https://deb.nodesource.com/setup_15.x | bash - && \
     curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - && \
     echo "deb https://nightly.yarnpkg.com/debian/ nightly main" > /etc/apt/sources.list.d/yarn.list && \
+    apt-get clean && apt-get autoclean && \
     apt-get update && \
-    apt-get install -y nodejs yarn
+    apt-get install -y -o 'Acquire::Retries=3' nodejs yarn
 
 #   curl -L https://www.npmjs.com/install.sh | sh
 #   npm install -g npm

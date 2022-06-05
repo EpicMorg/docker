@@ -4,6 +4,7 @@ services:
     image: "epicmorg/debian:bullseye-jdk11"
     build:
       context: .
+      dockerfile: ./Dockerfile.adopted
   app-old:
     image: "epicmorg/debian:bullseye-jdk11-adopted"
     build:
