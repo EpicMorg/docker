@@ -5,7 +5,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 #                   perforce client binary
 ##################################################################
-ENV P4_VERSION=r21.2
+ENV P4_VERSION=r22.1
 ENV P4_DOWNLOAD_URL=https://www.perforce.com/downloads/perforce/${P4_VERSION}/bin.linux26x86_64/p4
 
 ##################################################################
@@ -96,7 +96,8 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     sudo  \
     logrotate \
     subversion-tools \
-    zip
+    zip \
+    pev
 
 ##################################################################
 #                   installing fs-tools

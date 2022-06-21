@@ -5,19 +5,19 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 #                   perforce client binary
 ##################################################################
-ENV P4_VERSION=r21.2
+ENV P4_VERSION=r22.1
 ENV P4_DOWNLOAD_URL=https://www.perforce.com/downloads/perforce/${P4_VERSION}/bin.linux26x86_64/p4
 
 ##################################################################
 #                   7z official binary
 ##################################################################
-ENV SZ_VERSION=7z2107
+ENV SZ_VERSION=7z2200
 ENV SZ_DOWNLOAD_URL=https://www.7-zip.org/a/${SZ_VERSION}-linux-x64.tar.xz
 
 ##################################################################
 #                   LazyGit official binary
 ##################################################################
-ENV LZGIT_VERSION=0.31.4
+ENV LZGIT_VERSION=0.34
 ENV LZGIT_DOWNLOAD_URL=https://github.com/jesseduffield/lazygit/releases/download/v${LZGIT_VERSION}/lazygit_${LZGIT_VERSION}_Linux_x86_64.tar.gz
 
 ##################################################################
@@ -111,7 +111,8 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     python-all \
     rclone \
     logrotate \
-    subversion-tools
+    subversion-tools \
+    pev
 
 
 ##################################################################
