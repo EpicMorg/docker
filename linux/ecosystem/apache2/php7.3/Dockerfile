@@ -33,6 +33,7 @@ RUN apt-get update && \
       authnz_ldap \
       headers \
       heartbeat \
+      slotmem_shm \
       lua \
       mime \
       status \
