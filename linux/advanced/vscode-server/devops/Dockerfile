@@ -218,8 +218,8 @@ RUN dotnet tool list -g && \
 ##################################################################
 RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF && \
     echo "deb https://download.mono-project.com/repo/ubuntu stable-focal main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list && \
-    echo "deb https://download.mono-project.com/repo/ubuntu nightly-focal main" | sudo tee /etc/apt/sources.list.d/mono-official-nightly.list && \
-    echo "deb https://download.mono-project.com/repo/ubuntu preview-focal main" | sudo tee /etc/apt/sources.list.d/mono-official-preview.list && \
+#    echo "deb https://download.mono-project.com/repo/ubuntu nightly-focal main" | sudo tee /etc/apt/sources.list.d/mono-official-nightly.list && \
+#    echo "deb https://download.mono-project.com/repo/ubuntu preview-focal main" | sudo tee /etc/apt/sources.list.d/mono-official-preview.list && \
     apt-get update && \
     apt-get install -y  --allow-unauthenticated \
     mono-complete \
@@ -279,7 +279,15 @@ RUN echo "24333f8a63b6825ea9c5514f83c2829b004d1fee" > /usr/lib/android-sdk/licen
 ##################################################################
 #USER root
 #RUN export SDKMAN_DIR="/usr/local/sdkman" && curl -s "https://get.sdkman.io?rcupdate=false" | bash
-RUN export SDKMAN_DIR="/config/.sdkman" && curl -s "https://get.sdkman.io" | bash
+#RUN export SDKMAN_DIR="/config/.sdkman" && curl -A "Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/81.0" -s "https://get.sdkman.io" | bash
+COPY ./sdkman.sh /tmp/sdkman.sh
+RUN export SDKMAN_DIR="/config/.sdkman" && chmod +x /tmp/sdkman.sh
+RUN /tmp/sdkman.sh
+
+##################################################################
+#                   Upgrade SDK-man
+##################################################################
+RUN /bin/bash -c "source /config/.sdkman/bin/sdkman-init.sh; sdk selfupdate force;"
 
 ##################################################################
 #                   Gradle
@@ -294,14 +302,15 @@ RUN /bin/bash -c "source /config/.sdkman/bin/sdkman-init.sh; sdk install kotlin;
 ##################################################################
 #                   installing java11
 ##################################################################
-RUN wget -qO - https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public | apt-key add - && \
-    echo 'deb https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/ focal main' > /etc/apt/sources.list.d/adoptopenjdk-official.list && \
+RUN wget -qO - https://packages.adoptium.net/artifactory/api/gpg/key/public  | apt-key add - && \
+    echo 'deb https://packages.adoptium.net/artifactory/deb focal main' > /etc/apt/sources.list.d/temurin-official.list && \
     apt-get update && \
     apt-get autoremove -y && \
-    apt-get install -y --allow-unauthenticated adoptopenjdk-11-hotspot && \
-    mkdir /usr/lib/jvm/adoptopenjdk-11-hotspot-amd64/jre && \
-    ln -s /usr/lib/jvm/adoptopenjdk-11-hotspot-amd64/bin/ /usr/lib/jvm/adoptopenjdk-11-hotspot-amd64/jre/bin && \
-    ln -s /usr/lib/jvm/adoptopenjdk-11-hotspot-amd64/lib/ /usr/lib/jvm/adoptopenjdk-11-hotspot-amd64/jre/lib
+    apt-get install -y --allow-unauthenticated temurin-11-jdk && \
+    mkdir /usr/lib/jvm/temurin-11-jdk-amd64/jre && \
+    ln -s /usr/lib/jvm/temurin-11-jdk-amd64/bin/ /usr/lib/jvm/temurin-11-jdk-amd64/jre/bin && \
+    ln -s /usr/lib/jvm/temurin-11-jdk-amd64/lib/ /usr/lib/jvm/temurin-11-jdk-amd64/jre/lib && \
+    java -version
 
 ##################################################################
 #                   cleaninig up

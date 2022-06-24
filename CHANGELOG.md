@@ -1,5 +1,18 @@
 ## Changelog
 ### 2022
+* `june`:
+	* new `python` base images. supported `2.7`, `3.6`, `3.7`, `3.8`, `3.9`, `3.10`, `3.11`
+	* added some soft to `debian` base images.
+* `april, may` - :x: `BREAKING CHANGES` :x:
+	* deprecating `epicmorg/prod`, `epicmorg/edge`, `epicmorg/develop` images.
+	* legacy images are replaced by new base images. see `epicmorg/debian` section.
+	* added `nodejs18`
+	* updated `jira8`, `bitbucket`, `vscode`
+	* updated `apache2`, `zabbix`, `nextcloud`
+	* added `retracker` by [vvampirius/retracker](https://github.com/vvampirius/retracker).
+* `february, march`
+	* new `nextcloud` images, updated `atlassian` images.
+	* new `nodejs` iamges.
 * `january`
 	* fixed `apache2`
 	* added `php8` support

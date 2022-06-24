@@ -193,7 +193,7 @@ RUN cd ${NGINX_SRC_DIR} && \
 ##################################################################
 ##################################################################
 
-FROM epicmorg/edge
+FROM epicmorg/debian:bullseye
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -239,8 +239,16 @@ RUN apt-get update && \
     rm -rf /builds/* && \
     rm -rf /valve/*
 
+#healthcheck. good practice
+HEALTHCHECK --interval=2m --timeout=3s CMD curl -f http://localhost:80/ || exit 1
+
+# Add image configuration and scripts
+COPY docker-entrypoint.sh /usr/bin/docker-entrypoint.sh
+RUN chmod 755 /usr/bin/docker-entrypoint.sh
+
 #Final config
 VOLUME ["/var/cache/nginx"]
 EXPOSE 80 443
 
-CMD ["nginx", "-g", "daemon off;"]
+ENTRYPOINT ["tini", "-s", "--", "docker-entrypoint.sh"]
+CMD ["docker-entrypoint.sh"]

@@ -1,0 +1,7 @@
+version: '3.9'
+services:
+  app:
+    image: "epicmorg/windows-server:2022-base"
+    isolation: "hyperv"
+    build:
+      context: .

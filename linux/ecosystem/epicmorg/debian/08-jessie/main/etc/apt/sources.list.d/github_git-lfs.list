@@ -1,0 +1,2 @@
+deb https://packagecloud.io/github/git-lfs/debian/ jessie main
+deb-src https://packagecloud.io/github/git-lfs/debian/ jessie main

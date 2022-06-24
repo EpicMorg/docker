@@ -1,0 +1,2 @@
+deb https://packagecloud.io/github/git-lfs/debian/ bullseye main
+deb-src https://packagecloud.io/github/git-lfs/debian/ bullseye main

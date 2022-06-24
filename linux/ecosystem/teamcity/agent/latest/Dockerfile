@@ -1,4 +1,4 @@
-FROM epicmorg/devel:jdk11
+FROM epicmorg/debian:bullseye-develop-jdk11
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -47,7 +47,8 @@ RUN useradd -m buildagent && \
 
 #Install packages
 RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - && \
-    echo 'deb  https://download.docker.com/linux/debian buster test' > /etc/apt/sources.list.d/docker.list  && \
+    echo 'deb  https://download.docker.com/linux/debian bullseye test' > /etc/apt/sources.list.d/docker.list  && \
+    echo 'deb  https://download.docker.com/linux/debian bullseye nightly' >> /etc/apt/sources.list.d/docker.list  && \
     apt-cache policy docker-ce && \
     apt-get update && \
     apt-get install -y --no-install-recommends --allow-unauthenticated \

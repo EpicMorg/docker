@@ -38,7 +38,6 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     libx264-dev \
     libx265-dev
 
-
 ##################################################################
 #                   stretch  sources list + libvpx
 ##################################################################
@@ -48,7 +47,6 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     apt-get update &&  \
     apt-get install -y --allow-unauthenticated \
     libvpx4
-
 
 ##################################################################
 #                   buster sources list + libvpx
@@ -60,7 +58,6 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     apt-get install -y --allow-unauthenticated \
     libvpx5
 
-
 ##################################################################
 #                   sid sources list + libvpx
 ##################################################################
@@ -70,7 +67,6 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     apt-get update &&  \
     apt-get install -y --allow-unauthenticated \
     libvpx6
-
 
 ##################################################################
 #                   installing deps for rtmp module
@@ -120,8 +116,16 @@ RUN apt clean -y && \
     rm -rfv /var/lib/apt/lists/* && \
     rm -rfv /var/cache/apt/archives/*.deb
 
+#healthcheck. good practice
+HEALTHCHECK --interval=2m --timeout=3s CMD curl -f http://localhost:80/ || exit 1
 
-EXPOSE 1935
-EXPOSE 8080
+# Add image configuration and scripts
+COPY docker-entrypoint.sh /usr/bin/docker-entrypoint.sh
+RUN chmod 755 /usr/bin/docker-entrypoint.sh
 
-CMD ["nginx", "-g", "daemon off;"]
+#Final config
+VOLUME ["/var/cache/nginx"]
+EXPOSE 80 443 1935 8080
+
+ENTRYPOINT ["tini", "-s", "--", "docker-entrypoint.sh"]
+CMD ["docker-entrypoint.sh"]

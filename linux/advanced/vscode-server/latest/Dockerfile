@@ -1,7 +1,7 @@
 ################################################################################
 # https://github.com/linuxserver/docker-code-server/pkgs/container/code-server
 ################################################################################
-FROM ghcr.io/linuxserver/code-server:focal
+FROM ghcr.io/linuxserver/code-server:latest
 
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
@@ -16,7 +16,7 @@ ENV BuildDocker true
 ##################################################################
 #                   7z official binary
 ##################################################################
-ENV SZ_VERSION=7z2103
+ENV SZ_VERSION=7z2107
 ENV SZ_DOWNLOAD_URL=https://www.7-zip.org/a/${SZ_VERSION}-linux-x64.tar.xz
 
 ##################################################################

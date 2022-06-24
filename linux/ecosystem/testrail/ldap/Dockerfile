@@ -7,7 +7,7 @@ ENV TESTRAIL_PLUGIN_FILE=${TESTRAIL_PLUGIN_FULLNAME}.zip
 ENV TESTRAIL_PLUGIN_DONWLOAD_URL=https://media.gurock.com/gk-media/downloads/${TESTRAIL_PLUGIN_FILE}
 ENV TESTRAIL_PLUGIN_TEMP=${TESTRAIL_RELEASE_DIR}/${TESTRAIL_PLUGIN_FILE}
 
-RUN rm -rfv /run.sh
-COPY run.sh /run.sh
+RUN rm -rfv /usr/bin/docker-entrypoint.sh
+COPY docker-entrypoint.sh /usr/bin/docker-entrypoint.sh
 
 RUN wget --no-check-certificate -O ${TESTRAIL_PLUGIN_TEMP} ${TESTRAIL_PLUGIN_DONWLOAD_URL}

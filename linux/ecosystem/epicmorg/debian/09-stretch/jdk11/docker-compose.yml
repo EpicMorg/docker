@@ -1,0 +1,22 @@
+version: '3.9'
+services:
+  app:
+    image: "epicmorg/debian:stretch-jdk11"
+    build:
+      context: .
+      dockerfile: ./Dockerfile.adopted
+  app-develop:
+    image: "epicmorg/debian:stretch-develop-jdk11"
+    build:
+      context: .
+      dockerfile: ./Dockerfile.adopted.develop
+  app-adopted:
+    image: "epicmorg/debian:stretch-jdk11-adopted"
+    build:
+      context: .
+      dockerfile: ./Dockerfile.adopted
+  app-adopted-develop:
+    image: "epicmorg/debian:stretch-jdk11-adopted-develop"
+    build:
+      context: .
+      dockerfile: ./Dockerfile.adopted.develop

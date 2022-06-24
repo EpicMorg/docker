@@ -1,0 +1,11 @@
+version: '3.9'
+services:
+  app:
+    image: "epicmorg/debian:stretch-jdk18"
+    build:
+      context: .
+  app-develop:
+    image: "epicmorg/debian:stretch-develop-jdk18"
+    build:
+      context: .
+      dockerfile: ./Dockerfile.develop

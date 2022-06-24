@@ -11,12 +11,41 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 ENV BuildDocker true
 
-##################################################################
-#                   Android SDK
-##################################################################
 ENV ANDROID_HOME=/usr/lib/android-sdk
 ENV ANDROID_SDK_ROOT=/usr/lib/android-sdk
 
+ENV GRADLE_VERSION=7.4.2
+ENV GRADLE_LINK=https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-all.zip
+ENV GRADLE_ROOT=/opt/gradle
+ENV GRADLE_PATH=${GRADLE_ROOT}/gradle-${GRADLE_VERSION}
+ENV GRADLE_BIN=$GRADLE_PATH/bin
+ARG GRADLE_TEMP=/tmp/gradle.zip
+
+ENV KTC_VERSION=1.6.21
+ENV KTC_LINK=https://github.com/JetBrains/kotlin/releases/download/v${KTC_VERSION}/kotlin-compiler-${KTC_VERSION}.zip
+ARG KTC_TEMP=/tmp/kotlinc.tgz
+ENV KTC_ROOT=/opt/kotlin
+ENV KTC_PATH=${KTC_ROOT}/kotlinc
+ENV KTC_BIN=$KTC_PATH/bin
+
+ENV PATH=PATH=$PATH:$GRADLE_BIN:${KTC_BIN}
+
+##################################################################
+#                   installing java11
+##################################################################
+RUN wget -qO - https://packages.adoptium.net/artifactory/api/gpg/key/public  | apt-key add - && \
+    echo 'deb https://packages.adoptium.net/artifactory/deb focal main' > /etc/apt/sources.list.d/temurin-official.list && \
+    apt-get update && \
+    apt-get autoremove -y && \
+    apt-get install -y --allow-unauthenticated temurin-11-jdk && \
+    mkdir /usr/lib/jvm/temurin-11-jdk-amd64/jre && \
+    ln -s /usr/lib/jvm/temurin-11-jdk-amd64/bin/ /usr/lib/jvm/temurin-11-jdk-amd64/jre/bin && \
+    ln -s /usr/lib/jvm/temurin-11-jdk-amd64/lib/ /usr/lib/jvm/temurin-11-jdk-amd64/jre/lib && \
+    java -version
+
+##################################################################
+#                   Android SDK
+##################################################################
 RUN apt update && \
     apt install -y --allow-unauthenticated \
       android-sdk \
@@ -29,33 +58,22 @@ RUN apt update && \
 RUN echo "24333f8a63b6825ea9c5514f83c2829b004d1fee" > /usr/lib/android-sdk/licenses/android-sdk-license
 
 ##################################################################
-#                   SDKMAN
+#                   GRADLE
 ##################################################################
-#USER root
-#RUN export SDKMAN_DIR="/usr/local/sdkman" && curl -s "https://get.sdkman.io?rcupdate=false" | bash
-RUN export SDKMAN_DIR="/config/.sdkman" && curl -s "https://get.sdkman.io" | bash
+RUN mkdir -p $GRADLE_PATH
+RUN wget --no-check-certificate -nv --random-wait --retry-connrefused --continue $GRADLE_LINK -O $GRADLE_TEMP
+RUN 7zz x $GRADLE_TEMP -o$GRADLE_ROOT
+RUN chmod +x -R $GRADLE_BIN
+RUN gradle -v
 
 ##################################################################
-#                   Gradle
+#                   KOTLIN
 ##################################################################
-RUN /bin/bash -c "source /config/.sdkman/bin/sdkman-init.sh; sdk install gradle;"
-
-##################################################################
-#                   Kotlin
-##################################################################
-RUN /bin/bash -c "source /config/.sdkman/bin/sdkman-init.sh; sdk install kotlin;"
-
-##################################################################
-#                   installing java11
-##################################################################
-RUN wget -qO - https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public | apt-key add - && \
-    echo 'deb https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/ focal main' > /etc/apt/sources.list.d/adoptopenjdk-official.list && \
-    apt-get update && \
-    apt-get autoremove -y && \
-    apt-get install -y --allow-unauthenticated adoptopenjdk-11-hotspot && \
-    mkdir /usr/lib/jvm/adoptopenjdk-11-hotspot-amd64/jre && \
-    ln -s /usr/lib/jvm/adoptopenjdk-11-hotspot-amd64/bin/ /usr/lib/jvm/adoptopenjdk-11-hotspot-amd64/jre/bin && \
-    ln -s /usr/lib/jvm/adoptopenjdk-11-hotspot-amd64/lib/ /usr/lib/jvm/adoptopenjdk-11-hotspot-amd64/jre/lib
+RUN mkdir -p ${KTC_PATH}
+RUN wget --no-check-certificate -nv --random-wait --retry-connrefused --continue ${KTC_LINK} -O ${KTC_TEMP}
+RUN 7zz x $KTC_TEMP -o$KTC_ROOT
+RUN chmod +x -R ${KTC_BIN}
+RUN kotlinc -version
 
 ##################################################################
 #                   cleaninig up

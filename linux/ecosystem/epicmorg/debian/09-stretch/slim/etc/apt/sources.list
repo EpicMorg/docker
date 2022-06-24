@@ -1,0 +1,19 @@
+#main
+deb http://httpredir.debian.org/debian/ stretch main contrib non-free
+deb-src http://httpredir.debian.org/debian/ stretch main contrib non-free
+
+deb http://httpredir.debian.org/debian/ stretch-updates main contrib non-free
+deb-src http://httpredir.debian.org/debian/ stretch-updates main contrib non-free
+
+deb http://httpredir.debian.org/debian/ stretch-backports main contrib non-free
+deb-src http://httpredir.debian.org/debian/ stretch-backports main contrib non-free
+
+deb http://httpredir.debian.org/debian/ stretch-backports-sloppy main contrib non-free
+deb-src http://httpredir.debian.org/debian/ stretch-backports-sloppy main contrib non-free
+
+deb http://httpredir.debian.org/debian/ stretch-proposed-updates main contrib non-free
+deb-src http://httpredir.debian.org/debian/ stretch-proposed-updates main contrib non-free
+
+#security
+deb http://httpredir.debian.org/debian-security/ stretch/updates main contrib non-free
+deb-src http://httpredir.debian.org/debian-security/ stretch/updates main contrib non-free

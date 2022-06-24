@@ -1,0 +1,16 @@
+version: '3.9'
+services:
+  app:
+    image: "epicmorg/debian:bullseye-jdk8"
+    build:
+      context: .
+  app-old:
+    image: "epicmorg/debian:bullseye-jdk8-adopted"
+    build:
+      context: .
+      dockerfile: ./Dockerfile.adopted
+  app-develop:
+    image: "epicmorg/debian:bullseye-develop-jdk8"
+    build:
+      context: .
+      dockerfile: ./Dockerfile.develop

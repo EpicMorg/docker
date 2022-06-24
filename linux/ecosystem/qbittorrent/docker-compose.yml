@@ -1,0 +1,15 @@
+version: '3.9'
+services:
+  qbt-latest:
+    image: "epicmorg/qbittorrent:latest"
+    build:
+      context: .
+  qbt-unstable:
+    image: "epicmorg/qbittorrent:unstable"
+    build:
+      context: .
+  qbt-stable:
+    image: "epicmorg/qbittorrent:stable"
+    build:
+      context: .
+      dockerfile: Dockerfile.stable

@@ -1,0 +1,11 @@
+version: '3.9'
+services:
+  app:
+    image: "epicmorg/debian:bullseye-jdk13"
+    build:
+      context: .
+  app-develop:
+    image: "epicmorg/debian:bullseye-develop-jdk13"
+    build:
+      context: .
+      dockerfile: ./Dockerfile.develop
