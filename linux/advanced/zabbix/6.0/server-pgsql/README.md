@@ -16,91 +16,86 @@ The server performs the polling and trapping of data, it calculates triggers, se
 
 # Zabbix server images
 
-These are the only official Zabbix server Docker images. They are based on Alpine Linux v3.11, Ubuntu 18.04 (bionic) and CentOS 7 images. The available versions of Zabbix server are:
+These are the only official Zabbix server Docker images. They are based on Alpine Linux v3.12, Ubuntu 20.04 (focal), 22.04 (jammy), CentOS Stream 8 and Oracle Linux 8 images. The available versions of Zabbix server are:
 
-    Zabbix server 3.0 (tags: alpine-3.0-latest, ubuntu-3.0-latest, centos-3.0-latest)
-    Zabbix server 3.0.* (tags: alpine-3.0.*, ubuntu-3.0.*, centos-3.0.*)
-    Zabbix server 3.2 (tags: alpine-3.2-latest, ubuntu-3.2-latest, centos-3.2.*) (unsupported)
-    Zabbix server 3.2.* (tags: alpine-3.2.*, ubuntu-3.2.*, centos-3.2.*) (unsupported)
-    Zabbix server 3.4 (tags: alpine-3.4-latest, ubuntu-3.4-latest, centos-3.4.*) (unsupported)
-    Zabbix server 3.4.* (tags: alpine-3.4.*, ubuntu-3.4.*, centos-3.4.*) (unsupported)
     Zabbix server 4.0 (tags: alpine-4.0-latest, ubuntu-4.0-latest, centos-4.0-latest)
     Zabbix server 4.0.* (tags: alpine-4.0.*, ubuntu-4.0.*, centos-4.0.*)
-    Zabbix server 4.2 (tags: alpine-4.2-latest, ubuntu-4.2-latest, centos-4.2.*) (unsupported)
-    Zabbix server 4.2.* (tags: alpine-4.2.*, ubuntu-4.2.*, centos-4.2.*) (unsupported)
-    Zabbix server 4.4 (tags: alpine-4.4-latest, ubuntu-4.4-latest, centos-4.4-latest) (unsupported)
-    Zabbix server 4.4.* (tags: alpine-4.4.*, ubuntu-4.4.*, centos-4.4.*) (unsupported)
-    Zabbix server 5.0 (tags: alpine-5.0-latest, ubuntu-5.0-latest, centos-5.0-latest, alpine-latest, ubuntu-latest, centos-latest, latest)
-    Zabbix server 5.0.* (tags: alpine-5.0.*, ubuntu-5.0.*, centos-5.0.*)
-    Zabbix server 5.2 (tags: alpine-trunk, ubuntu-trunk, centos-trunk)
+    Zabbix server 5.0 (tags: alpine-5.0-latest, ubuntu-5.0-latest, ol-5.0-latest)
+    Zabbix server 5.0.* (tags: alpine-5.0.*, ubuntu-5.0.*, ol-5.0.*)
+    Zabbix server 6.0 (tags: alpine-6.0-latest, ubuntu-6.0-latest, ol-6.0-latest)
+    Zabbix server 6.0.* (tags: alpine-6.0.*, ubuntu-6.0.*, ol-6.0.*)
+    Zabbix server 6.2 (tags: alpine-6.2-latest, ubuntu-6.2-latest, ol-6.2-latest, alpine-latest, ubuntu-latest, ol-latest, latest)
+    Zabbix server 6.2.* (tags: alpine-6.2.*, ubuntu-6.2.*, ol-6.2.*)
+    Zabbix server 6.4 (tags: alpine-trunk, ubuntu-trunk, ol-trunk)
 
 Images are updated when new releases are published. The image with ``latest`` tag is based on Alpine Linux.
 
-The image uses MySQL database. It uses the next procedure to start:
+The image uses PostgreSQL database. It uses the next procedure to start:
 - Checking database availability
-- If ``MYSQL_ROOT_PASSWORD`` or ``MYSQL_ALLOW_EMPTY_PASSWORD`` are specified, the instance tries to create ``MYSQL_USER`` user with ``MYSQL_PASSWORD`` to use these credentials then for Zabbix server.
-- Checking of having `MYSQL_DATABASE` database. Creating `MYSQL_DATABASE` database name if it does not exist
+- Checking of having `POSTGRES_DB` database. Creating `POSTGRES_DB` database name if it does not exist
 - Checking of having `dbversion` table. Creating Zabbix server database schema and upload initial data sample if no `dbversion` table
 
 # How to use this image
 
-## Start `zabbix-server-mysql`
+## Start `zabbix-server-pgsql`
 
 Start a Zabbix server container as follows:
 
-    docker run --name some-zabbix-server-mysql -e DB_SERVER_HOST="some-mysql-server" -e MYSQL_USER="some-user" -e MYSQL_PASSWORD="some-password" -d zabbix/zabbix-server-mysql:tag
+    docker run --name some-zabbix-server-pgsql -e DB_SERVER_HOST="some-postgres-server" -e POSTGRES_USER="some-user" -e POSTGRES_PASSWORD="some-password" -d zabbix/zabbix-server-pgsql:tag
 
-Where `some-zabbix-server-mysql` is the name you want to assign to your container, `some-mysql-server` is IP or DNS name of MySQL server, `some-user` is user to connect to Zabbix database on MySQL server, `some-password` is the password to connect to MySQL server and `tag` is the tag specifying the version you want. See the list above for relevant tags, or look at the [full list of tags](https://hub.docker.com/r/zabbix/zabbix-server-mysql/tags/).
+Where `some-zabbix-server-pgsql` is the name you want to assign to your container, `some-postgres-server` is IP or DNS name of PostgreSQL server, `some-user` is user to connect to Zabbix database on PostgreSQL server, `some-password` is the password to connect to PostgreSQL server and `tag` is the tag specifying the version you want. See the list above for relevant tags, or look at the [full list of tags](https://hub.docker.com/r/zabbix/zabbix-server-pgsql/tags/).
 
 ## Container shell access and viewing Zabbix server logs
 
-The `docker exec` command allows you to run commands inside a Docker container. The following command line will give you a bash shell inside your `zabbix-server-mysql` container:
+The `docker exec` command allows you to run commands inside a Docker container. The following command line will give you a bash shell inside your `zabbix-server-pgsql` container:
 
 ```console
-$ docker exec -ti some-zabbix-server-mysql /bin/bash
+$ docker exec -ti some-zabbix-server-pgsql /bin/bash
 ```
 
 The Zabbix server log is available through Docker's container log:
 
 ```console
-$ docker logs some-zabbix-server-mysql
+$ docker logs some-zabbix-server-pgsql
 ```
 
 ## Environment Variables
 
-When you start the `zabbix-server-mysql` image, you can adjust the configuration of the Zabbix server by passing one or more environment variables on the `docker run` command line.
+When you start the `zabbix-server-pgsql` image, you can adjust the configuration of the Zabbix server by passing one or more environment variables on the `docker run` command line.
 
 ### `DB_SERVER_HOST`
 
-This variable is IP or DNS name of MySQL server. By default, value is 'mysql-server'
+This variable is IP or DNS name of PostgreSQL server. By default, value is 'postgres-server'
 
 ### `DB_SERVER_PORT`
 
-This variable is port of MySQL server. By default, value is '3306'.
+This variable is port of PostgreSQL server. By default, value is '5432'.
 
-### `MYSQL_USER`, `MYSQL_PASSWORD`, `MYSQL_USER_FILE`, `MYSQL_PASSWORD_FILE`
+### `POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_USER_FILE`, `POSTGRES_PASSWORD_FILE`
 
-These variables are used by Zabbix server to connect to Zabbix database. With the `_FILE` variables you can instead provide the path to a file which contains the user / the password instead. Without Docker Swarm or Kubernetes you also have to map the files. Those are exclusive so you can just provide one type - either `MYSQL_USER` or `MYSQL_USER_FILE`!
+These variables are used by Zabbix server to connect to Zabbix database. With the `_FILE` variables you can instead provide the path to a file which contains the user / the password instead. Without Docker Swarm or Kubernetes you also have to map the files. Those are exclusive so you can just provide one type - either `POSTGRES_USER` or `POSTGRES_USER_FILE`!
 
 ```console
-docker run --name some-zabbix-server-mysql -e DB_SERVER_HOST="some-mysql-server" -v ./.MYSQL_USER:/run/secrets/MYSQL_USER -e MYSQL_USER_FILE=/run/secrets/MYSQL_USER -v ./.MYSQL_PASSWORD:/run/secrets/MYSQL_PASSWORD -e MYSQL_PASSWORD_FILE=/var/run/secrets/MYSQL_PASSWORD -d zabbix/zabbix-server-mysql:tag
+docker run --name some-zabbix-server-pgsql -e DB_SERVER_HOST="some-postgres-server" -v ./.POSTGRES_USER:/run/secrets/POSTGRES_USER -e POSTGRES_USER_FILE=/run/secrets/POSTGRES_USER -v ./.POSTGRES_PASSWORD:/run/secrets/POSTGRES_PASSWORD -e POSTGRES_PASSWORD_FILE=/var/run/secrets/POSTGRES_PASSWORD -d zabbix/zabbix-server-pgsql:tag
 ```
 
 With Docker Swarm or Kubernetes this works with secrets. That way it is replicated in your cluster!
 
 ```console
-printf "zabbix" | docker secret create MYSQL_USER -
-printf "zabbix" | docker secret create MYSQL_PASSWORD -
-docker run --name some-zabbix-server-mysql -e DB_SERVER_HOST="some-mysql-server" -e MYSQL_USER_FILE=/run/secrets/MYSQL_USER -e MYSQL_PASSWORD_FILE=/run/secrets/MYSQL_PASSWORD -d zabbix/zabbix-server-mysql:tag
+printf "zabbix" | docker secret create POSTGRES_USER -
+printf "zabbix" | docker secret create POSTGRES_PASSWORD -
+docker run --name some-zabbix-server-pgsql -e DB_SERVER_HOST="some-postgres-server" -e POSTGRES_USER_FILE=/run/secrets/POSTGRES_USER -e POSTGRES_PASSWORD_FILE=/run/secrets/POSTGRES_PASSWORD -d zabbix/zabbix-server-pgsql:tag
 ```
 
-This method is also applicable for `MYSQL_ROOT_PASSWORD` with `MYSQL_ROOT_PASSWORD_FILE`.
+By default, values for `POSTGRES_USER` and `POSTGRES_PASSWORD` are `zabbix`, `zabbix`.
 
-By default, values for `MYSQL_USER` and `MYSQL_PASSWORD` are `zabbix`, `zabbix`.
-
-### `MYSQL_DATABASE`
+### `POSTGRES_DB`
 
 The variable is Zabbix database name. By default, value is `zabbix`.
+
+### `POSTGRES_USE_IMPLICIT_SEARCH_PATH`
+
+In some setups, for example including [PgBouncer](https://www.pgbouncer.org), setting the `search_path` via connection parameters fails. If this variable is set to `"true"`, the image skips setting the `search_path` and trusts that the `search_path` of the Zabbix user is setup correctly in PostgreSQL database.
 
 ### `ZBX_LOADMODULE`
 
@@ -113,14 +108,14 @@ The variable is used to specify debug level. By default, value is ``3``. It is `
 - ``1`` - critical information
 - ``2`` - error information
 - ``3`` - warnings
-- ``4`` - for debugging (produces lots of information)
+- ``4`` -  for debugging (produces lots of information)
 - ``5`` - extended debugging (produces even more information)
 
 ### `ZBX_TIMEOUT`
 
 The variable is used to specify timeout for processing checks. By default, value is ``4``.
 
-### `ZBX_JAVAGATEWAY_ENABLE`
+### ``ZBX_JAVAGATEWAY_ENABLE``
 
 The variable enable communication with Zabbix Java Gateway to collect Java related checks. By default, value is `false`.
 
@@ -129,13 +124,22 @@ The variable enable communication with Zabbix Java Gateway to collect Java relat
 Additionally the image allows to specify many other environment variables listed below:
 
 ```
+ZBX_ALLOWUNSUPPORTEDDBVERSIONS=0 # Available since 6.0.0
 ZBX_DBTLSCONNECT= # Available since 5.0.0
 ZBX_DBTLSCAFILE= # Available since 5.0.0
 ZBX_DBTLSCERTFILE= # Available since 5.0.0
 ZBX_DBTLSKEYFILE= # Available since 5.0.0
 ZBX_DBTLSCIPHER= # Available since 5.0.0
 ZBX_DBTLSCIPHER13= # Available since 5.0.0
+ZBX_VAULTDBPATH= # Available since 5.2.0
+ZBX_VAULTURL=https://127.0.0.1:8200 # Available since 5.2.0
+VAULT_TOKEN= # Available since 5.2.0
 ZBX_LISTENIP=
+ZBX_LISTENPORT=10051
+ZBX_LISTENBACKLOG=
+ZBX_STARTREPORTWRITERS=0 # Available since 5.4.0
+ZBX_WEBSERVICEURL=http://zabbix-web-service:10053/report # Available since 5.4.0
+ZBX_SERVICEMANAGERSYNCFREQUENCY=60 # Available since 6.0.0
 ZBX_HISTORYSTORAGEURL= # Available since 3.4.0
 ZBX_HISTORYSTORAGETYPES=uint,dbl,str,log,text # Available since 3.4.0
 ZBX_STARTPOLLERS=5
@@ -145,7 +149,9 @@ ZBX_STARTPOLLERSUNREACHABLE=1
 ZBX_STARTTRAPPERS=5
 ZBX_STARTPINGERS=1
 ZBX_STARTDISCOVERERS=1
+ZBX_STARTHISTORYPOLLERS=5 # Available since 5.4.0
 ZBX_STARTHTTPPOLLERS=1
+ZBX_STARTODBCPOLLERS=1 # Available since 6.0.0
 ZBX_STARTTIMERS=1
 ZBX_STARTESCALATORS=1
 ZBX_STARTALERTERS=3 # Available since 3.4.0
@@ -163,17 +169,25 @@ ZBX_ENABLE_SNMP_TRAPS=false
 ZBX_SOURCEIP=
 ZBX_HOUSEKEEPINGFREQUENCY=1
 ZBX_MAXHOUSEKEEPERDELETE=5000
+ZBX_PROBLEMHOUSEKEEPINGFREQUENCY=60 # Available since 6.0.0
 ZBX_SENDERFREQUENCY=30
 ZBX_CACHESIZE=8M
 ZBX_CACHEUPDATEFREQUENCY=60
 ZBX_STARTDBSYNCERS=4
 ZBX_EXPORTFILESIZE=1G # Available since 4.0.0
+ZBX_EXPORTTYPE= # Available since 5.0.10 and 5.2.6
+ZBX_AUTOHANODENAME=fqdn # Allowed values: fqdn, hostname. Available since 6.0.0
+ZBX_HANODENAME= # Available since 6.0.0
+ZBX_AUTONODEADDRESS=fqdn # Allowed values: fqdn, hostname. Available since 6.0.0
+ZBX_NODEADDRESSPORT=10051 # Allowed to use with ZBX_AUTONODEADDRESS variable only. Available since 6.0.0
+ZBX_NODEADDRESS=localhost # Available since 6.0.0
 ZBX_HISTORYCACHESIZE=16M
 ZBX_HISTORYINDEXCACHESIZE=4M
 ZBX_HISTORYSTORAGEDATEINDEX=0 # Available since 4.0.0
 ZBX_TRENDCACHESIZE=4M
+ZBX_TRENDFUNCTIONCACHESIZE=4M
 ZBX_VALUECACHESIZE=8M
-ZBX_TRAPPERIMEOUT=300
+ZBX_TRAPPERTIMEOUT=300
 ZBX_UNREACHABLEPERIOD=45
 ZBX_UNAVAILABLEDELAY=60
 ZBX_UNREACHABLEDELAY=15
@@ -248,19 +262,23 @@ Directory for real-time export of events, history and trends in newline-delimite
 
 # The image variants
 
-The `zabbix-server-mysql` images come in many flavors, each designed for a specific use case.
+The `zabbix-server-pgsql` images come in many flavors, each designed for a specific use case.
 
-## `zabbix-server-mysql:ubuntu-<version>`
-
-This is the defacto image. If you are unsure about what your needs are, you probably want to use this one. It is designed to be used both as a throw away container (mount your source code and start the container to start your app), as well as the base to build other images off of.
-
-## `zabbix-server-mysql:alpine-<version>`
+## `zabbix-server-pgsql:alpine-<version>`
 
 This image is based on the popular [Alpine Linux project](http://alpinelinux.org), available in [the `alpine` official image](https://hub.docker.com/_/alpine). Alpine Linux is much smaller than most distribution base images (~5MB), and thus leads to much slimmer images in general.
 
 This variant is highly recommended when final image size being as small as possible is desired. The main caveat to note is that it does use [musl libc](http://www.musl-libc.org) instead of [glibc and friends](http://www.etalabs.net/compare_libcs.html), so certain software might run into issues depending on the depth of their libc requirements. However, most software doesn't have an issue with this, so this variant is usually a very safe choice. See [this Hacker News comment thread](https://news.ycombinator.com/item?id=10782897) for more discussion of the issues that might arise and some pro/con comparisons of using Alpine-based images.
 
 To minimize image size, it's uncommon for additional related tools (such as `git` or `bash`) to be included in Alpine-based images. Using this image as a base, add the things you need in your own Dockerfile (see the [`alpine` image description](https://hub.docker.com/_/alpine/) for examples of how to install packages if you are unfamiliar).
+
+## `zabbix-server-pgsql:ubuntu-<version>`
+
+This is the defacto image. If you are unsure about what your needs are, you probably want to use this one. It is designed to be used both as a throw away container (mount your source code and start the container to start your app), as well as the base to build other images off of.
+
+## `zabbix-server-pgsql:ol-<version>`
+
+Oracle Linux is an open-source operating system available under the GNU General Public License (GPLv2). Suitable for general purpose or Oracle workloads, it benefits from rigorous testing of more than 128,000 hours per day with real-world workloads and includes unique innovations such as Ksplice for zero-downtime kernel patching, DTrace for real-time diagnostics, the powerful Btrfs file system, and more.
 
 # Supported Docker versions
 
@@ -274,13 +292,15 @@ Please see [the Docker installation documentation](https://docs.docker.com/insta
 
 ## Documentation
 
-Documentation for this image is stored in the [`server-mysql/` directory](https://github.com/zabbix/zabbix-docker/tree/3.0/server-mysql) of the [`zabbix/zabbix-docker` GitHub repo](https://github.com/zabbix/zabbix-docker/). Be sure to familiarize yourself with the [repository's `README.md` file](https://github.com/zabbix/zabbix-docker/blob/master/README.md) before attempting a pull request.
+Documentation for this image is stored in the [`server-pgsql/` directory](https://github.com/zabbix/zabbix-docker/tree/3.0/server-pgsql) of the [`zabbix/zabbix-docker` GitHub repo](https://github.com/zabbix/zabbix-docker/). Be sure to familiarize yourself with the [repository's `README.md` file](https://github.com/zabbix/zabbix-docker/blob/master/README.md) before attempting a pull request.
 
 ## Issues
 
 If you have any problems with or questions about this image, please contact us through a [GitHub issue](https://github.com/zabbix/zabbix-docker/issues).
 
 ### Known issues
+
+Zabbix server does not support Jabber notifications on Alpine Linux because of `iksemel` package is in testing repository and not available in stable repository.
 
 ## Contributing
 

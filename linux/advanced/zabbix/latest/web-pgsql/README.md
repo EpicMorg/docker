@@ -14,69 +14,63 @@ Zabbix web interface is a part of Zabbix software. It is used to manage resource
 
 # Zabbix web interface images
 
-These are the only official Zabbix web interface Docker images. They are based on Alpine Linux v3.11, Ubuntu 18.04 (bionic) and CentOS 7 images. The available versions of Zabbix web interface are:
+These are the only official Zabbix web interface Docker images. They are based on Alpine Linux v3.12, Ubuntu 20.04 (focal), 22.04 (jammy), CentOS Stream 8 and Oracle Linux 8 images. The available versions of Zabbix web interface are:
 
-    Zabbix web interface 3.0 (tags: alpine-3.0-latest, ubuntu-3.0-latest, centos-3.0-latest)
-    Zabbix web interface 3.0.* (tags: alpine-3.0.*, ubuntu-3.0.*, centos-3.0.*)
-    Zabbix web interface 3.2 (tags: alpine-3.2-latest, ubuntu-3.2-latest, centos-3.2.*) (unsupported)
-    Zabbix web interface 3.2.* (tags: alpine-3.2.*, ubuntu-3.2.*, centos-3.2.*) (unsupported)
-    Zabbix web interface 3.4 (tags: alpine-3.4-latest, ubuntu-3.4-latest, centos-3.4.*) (unsupported)
-    Zabbix web interface 3.4.* (tags: alpine-3.4.*, ubuntu-3.4.*, centos-3.4.*) (unsupported)
     Zabbix web interface 4.0 (tags: alpine-4.0-latest, ubuntu-4.0-latest, centos-4.0-latest)
     Zabbix web interface 4.0.* (tags: alpine-4.0.*, ubuntu-4.0.*, centos-4.0.*)
-    Zabbix web interface 4.2 (tags: alpine-4.2-latest, ubuntu-4.2-latest, centos-4.2.*) (unsupported)
-    Zabbix web interface 4.2.* (tags: alpine-4.2.*, ubuntu-4.2.*, centos-4.2.*) (unsupported)
-    Zabbix web interface 4.4 (tags: alpine-4.4-latest, ubuntu-4.4-latest, centos-4.4-latest) (unsupported)
-    Zabbix web interface 4.4.* (tags: alpine-4.4.*, ubuntu-4.4.*, centos-4.4.*) (unsupported)
-    Zabbix web interface 5.0 (tags: alpine-5.0-latest, ubuntu-5.0-latest, centos-5.0-latest, alpine-latest, ubuntu-latest, centos-latest, latest)
-    Zabbix web interface 5.0.* (tags: alpine-5.0.*, ubuntu-5.0.*, centos-5.0.*)
-    Zabbix web interface 5.2 (tags: alpine-trunk, ubuntu-trunk, centos-trunk)
+    Zabbix web interface 5.0 (tags: alpine-5.0-latest, ubuntu-5.0-latest, ol-5.0-latest)
+    Zabbix web interface 5.0.* (tags: alpine-5.0.*, ubuntu-5.0.*, ol-5.0.*)
+    Zabbix web interface 6.0 (tags: alpine-6.0-latest, ubuntu-6.0-latest, ol-6.0-latest)
+    Zabbix web interface 6.0.* (tags: alpine-6.0.*, ubuntu-6.0.*, ol-6.0.*)
+    Zabbix web interface 6.2 (tags: alpine-6.2-latest, ubuntu-6.2-latest, ol-6.2-latest, alpine-latest, ubuntu-latest, ol-latest, latest)
+    Zabbix web interface 6.2.* (tags: alpine-6.2.*, ubuntu-6.2.*, ol-6.2.*)
+    Zabbix web interface 6.4 (tags: alpine-trunk, ubuntu-trunk, ol-trunk)
 
 Images are updated when new releases are published. The image with ``latest`` tag is based on Alpine Linux.
 
-Zabbix web interface available in three editions:
+Zabbix web interface available in four editions:
 - Zabbix web-interface based on Apache2 web server with MySQL database support
 - Zabbix web-interface based on Apache2 web server with PostgreSQL database support
 - Zabbix web-interface based on Nginx web server with MySQL database support
 - Zabbix web-interface based on Nginx web server with PostgreSQL database support
 
-The image based on Apache2 web server with MySQL database support.
+The image based on Apache2 web server with PostgreSQL database support.
 
 # How to use this image
 
-## Start `zabbix-web-apache-mysql`
+## Start `zabbix-web-apache-pgsql`
 
 Start a Zabbix web-interface container as follows:
 
-    docker run --name some-zabbix-web-apache-mysql -e DB_SERVER_HOST="some-mysql-server" -e MYSQL_USER="some-user" -e MYSQL_PASSWORD="some-password" -e ZBX_SERVER_HOST="some-zabbix-server" -e PHP_TZ="some-timezone" -d zabbix/zabbix-web-apache-mysql:tag
+    docker run --name some-zabbix-web-apache-pgsql -e DB_SERVER_HOST="some-postgres-server" -e POSTGRES_USER="some-user" -e POSTGRES_PASSWORD="some-password" -e ZBX_SERVER_HOST="some-zabbix-server" -e PHP_TZ="some-timezone" -d zabbix/zabbix-web-apache-pgsql:tag
 
-Where `some-zabbix-web-apache-mysql` is the name you want to assign to your container, `some-mysql-server` is IP or DNS name of MySQL server, `some-user` is user to connect to Zabbix database on MySQL server, `some-password` is the password to connect to MySQL server, `some-zabbix-server` is IP or DNS name of Zabbix server or proxy, `some-timezone` is PHP like timezone name and `tag` is the tag specifying the version you want. See the list above for relevant tags, or look at the [full list of tags](https://hub.docker.com/r/zabbix/zabbix-web-apache-mysql/tags/).
+Where `some-zabbix-web-apache-pgsql` is the name you want to assign to your container, `some-postgres-server` is IP or DNS name of PostgreSQL server, `some-user` is user to connect to Zabbix database on PostgreSQL server, `some-password` is the password to connect to PostgreSQL server, `some-zabbix-server` is IP or DNS name of Zabbix server or proxy, `some-timezone` is PHP like timezone name and `tag` is the tag specifying the version you want. See the list above for relevant tags, or look at the [full list of tags](https://hub.docker.com/r/zabbix/zabbix-web-apache-pgsql/tags/).
 
 ## Linking the container to Zabbix server
 
-    docker run --name some-zabbix-web-apache-mysql --link some-zabbix-server:zabbix-server -e DB_SERVER_HOST="some-mysql-server" -e MYSQL_USER="some-user" -e MYSQL_PASSWORD="some-password" -e ZBX_SERVER_HOST="some-zabbix-server" -e PHP_TZ="some-timezone" -d zabbix/zabbix-web-apache-mysql:tag
+    docker run --name some-zabbix-web-apache-pgsql --link some-zabbix-server:zabbix-server -e DB_SERVER_HOST="some-postgres-server" -e POSTGRES_USER="some-user" -e POSTGRES_PASSWORD="some-password" -e ZBX_SERVER_HOST="some-zabbix-server" -e PHP_TZ="some-timezone" -d zabbix/zabbix-web-apache-pgsql:tag
 
-## Linking the container to MySQL database
+## Linking the container to PostgreSQL database
 
-    docker run --name some-zabbix-web-apache-mysql --link some-mysql-server:mysql -e DB_SERVER_HOST="some-mysql-server" -e MYSQL_USER="some-user" -e MYSQL_PASSWORD="some-password" -e ZBX_SERVER_HOST="some-zabbix-server" -e PHP_TZ="some-timezone" -d zabbix/zabbix-web-apache-mysql:tag
+    docker run --name some-zabbix-web-apache-pgsql --link some-postgres-server:postgres -e DB_SERVER_HOST="some-postgres-server" -e POSTGRES_USER="some-user" -e POSTGRES_PASSWORD="some-password" -e ZBX_SERVER_HOST="some-zabbix-server" -e PHP_TZ="some-timezone" -d zabbix/zabbix-web-apache-pgsql:tag
 
 ## Container shell access and viewing Zabbix web interface logs
 
-The `docker exec` command allows you to run commands inside a Docker container. The following command line will give you a bash shell inside your `zabbix-web-apache-mysql` container:
+The `docker exec` command allows you to run commands inside a Docker container. The following command line will give you a bash shell inside your `zabbix-web-apache-pgsql` container:
 
 ```console
-$ docker exec -ti some-zabbix-web-apache-mysql /bin/bash
+$ docker exec -ti some-zabbix-web-apache-pgsql /bin/bash
 ```
 
 The Zabbix web interface log is available through Docker's container log:
 
 ```console
-$ docker logs  some-zabbix-web-apache-mysql
+$ docker logs  some-zabbix-web-apache-pgsql
 ```
 
 ## Environment Variables
 
-When you start the `zabbix-web-apache-mysql` image, you can adjust the configuration of the Zabbix web interface by passing one or more environment variables on the `docker run` command line.
+When you start the `zabbix-web-apache-pgsql` image, you can adjust the configuration of the Zabbix web interface by passing one or more environment variables on the `docker run` command line.
 
 ### `ZBX_SERVER_HOST`
 
@@ -88,35 +82,37 @@ This variable is port Zabbix server listening on. By default, value is `10051`.
 
 ### `DB_SERVER_HOST`
 
-This variable is IP or DNS name of MySQL server. By default, value is 'mysql-server'
+This variable is IP or DNS name of PostgreSQL server. By default, value is 'postgres-server'
 
 ### `DB_SERVER_PORT`
 
-This variable is port of MySQL server. By default, value is '3306'.
+This variable is port of PostgreSQL server. By default, value is '5432'.
 
-### `MYSQL_USER`, `MYSQL_PASSWORD`, `MYSQL_USER_FILE`, `MYSQL_PASSWORD_FILE`
+### `POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_USER_FILE`, `POSTGRES_PASSWORD_FILE`
 
-These variables are used by Zabbix web-interface to connect to Zabbix database. With the `_FILE` variables you can instead provide the path to a file which contains the user / the password instead. Without Docker Swarm or Kubernetes you also have to map the files. Those are exclusive so you can just provide one type - either `MYSQL_USER` or `MYSQL_USER_FILE`!
+These variables are used by Zabbix web interface to connect to Zabbix database. With the `_FILE` variables you can instead provide the path to a file which contains the user / the password instead. Without Docker Swarm or Kubernetes you also have to map the files. Those are exclusive so you can just provide one type - either `POSTGRES_USER` or `POSTGRES_USER_FILE`!
 
 ```console
-docker run --name some-zabbix-web-apache-mysql -e DB_SERVER_HOST="some-mysql-server" -v ./.MYSQL_USER:/run/secrets/MYSQL_USER -e MYSQL_USER_FILE=/run/secrets/MYSQL_USER -v ./.MYSQL_PASSWORD:/run/secrets/MYSQL_PASSWORD -e MYSQL_PASSWORD_FILE=/var/run/secrets/MYSQL_PASSWORD -e PHP_TZ="some-timezone" -d zabbix/zabbix-web-apache-mysql:tag
+docker run --name some-zabbix-web-apache-pgsql -e DB_SERVER_HOST="some-postgres-server" -v ./.POSTGRES_USER:/run/secrets/POSTGRES_USER -e POSTGRES_USER_FILE=/run/secrets/POSTGRES_USER -v ./.POSTGRES_PASSWORD:/run/secrets/POSTGRES_PASSWORD -e POSTGRES_PASSWORD_FILE=/var/run/secrets/POSTGRES_PASSWORD -e ZBX_SERVER_HOST="some-zabbix-server" -e PHP_TZ="some-timezone" -d zabbix/zabbix-web-apache-pgsql:tag
 ```
 
 With Docker Swarm or Kubernetes this works with secrets. That way it is replicated in your cluster!
 
 ```console
-printf "zabbix" | docker secret create MYSQL_USER -
-printf "zabbix" | docker secret create MYSQL_PASSWORD -
-docker run --name some-zabbix-web-apache-mysql -e DB_SERVER_HOST="some-mysql-server" -e MYSQL_USER_FILE=/run/secrets/MYSQL_USER -e MYSQL_PASSWORD_FILE=/run/secrets/MYSQL_PASSWORD -e ZBX_SERVER_HOST="some-zabbix-server" -e PHP_TZ="some-timezone" -d zabbix/zabbix-web-apache-mysql:tag
+printf "zabbix" | docker secret create POSTGRES_USER -
+printf "zabbix" | docker secret create POSTGRES_PASSWORD -
+docker run --name some-zabbix-web-apache-pgsql -e DB_SERVER_HOST="some-postgres-server" -e POSTGRES_USER_FILE=/run/secrets/POSTGRES_USER -e POSTGRES_PASSWORD_FILE=/run/secrets/POSTGRES_PASSWORD -e ZBX_SERVER_HOST="some-zabbix-server" -e PHP_TZ="some-timezone" -d zabbix/zabbix-web-apache-pgsql:tag
 ```
 
-This method is also applicable for `MYSQL_ROOT_PASSWORD` with `MYSQL_ROOT_PASSWORD_FILE`.
+By default, values for `POSTGRES_USER` and `POSTGRES_PASSWORD` are `zabbix`, `zabbix`.
 
-By default, values for `MYSQL_USER` and `MYSQL_PASSWORD` are `zabbix`, `zabbix`.
-
-### `MYSQL_DATABASE`
+### `POSTGRES_DB`
 
 The variable is Zabbix database name. By default, value is `zabbix`.
+
+### `POSTGRES_USE_IMPLICIT_SEARCH_PATH`
+
+In some setups, for example including [PgBouncer](https://www.pgbouncer.org), setting the `search_path` via connection parameters fails. If this variable is set to `"true"`, the image skips setting the `search_path` and trusts that the `search_path` of the Zabbix user is setup correctly in PostgreSQL database.
 
 ### `ZBX_HISTORYSTORAGEURL`
 
@@ -128,7 +124,7 @@ Array of value types to be sent to the history storage. An example: ['uint', 'db
 
 ### `PHP_TZ`
 
-The variable is timezone in PHP format. Full list of supported timezones are available on [`php.net`](http://php.net/manual/en/timezones.php). By default, value is 'Europe/Riga'.
+The variable is timezone in PHP format. Full list of supported timezones are available on [`php.net`](http://php.net/manual/en/timezones.php). By default, value is 'Europe/Riga' and system timezone since Zabbix 5.2.0.
 
 ### `ZBX_SERVER_NAME`
 
@@ -164,7 +160,19 @@ The varable is PHP ``max_input_time`` option. By default, value is `300`.
 
 ### `ZBX_SESSION_NAME`
 
-The variable is Zabbix frontend [definition](https://www.zabbix.com/documentation/4.2/manual/web_interface/definitions). String used as the name of the Zabbix frontend session cookie. By default, value is `zbx_sessionid`.
+The variable is Zabbix frontend [definition](https://www.zabbix.com/documentation/current/manual/web_interface/definitions). String used as the name of the Zabbix frontend session cookie. By default, value is `zbx_sessionid`.
+
+### `ZBX_DENY_GUI_ACCESS`
+
+Enable (``true``) maintenance mode for Zabbix web-interface.
+
+### `ZBX_GUI_ACCESS_IP_RANGE`
+
+Array of IP addresses which are allowed for accessing to Zabbix web-interface during maintenance period.
+
+### `ZBX_GUI_WARNING_MSG`
+
+Information message about maintenance period for Zabbix web-interface.
 
 ### `ZBX_DB_ENCRYPTION`
 
@@ -186,9 +194,27 @@ The variable allows to specify the full path to a valid TLS certificate authorit
 
 The variable allows to activate host verification. Available since 5.0.0.
 
-### `ZBX_DB_CIPHER_LIST`
+## `ZBX_SSO_SETTINGS`
 
-The variable allows to specify a custom list of valid ciphers. The format of the cipher list must conform to the OpenSSL standard. Available since 5.0.0.
+The variable allows to specify custom SSO settings in JSON format. Available since 5.0.0.
+
+### Other variables
+
+Additionally the image allows to specify many other environment variables listed below:
+
+```
+ZBX_VAULTDBPATH= # Available since 5.2.0
+ZBX_VAULTURL=https://127.0.0.1:8200 # Available since 5.2.0
+VAULT_TOKEN= # Available since 5.2.0
+
+Allowed PHP-FPM configuration options:
+PHP_FPM_PM=dynamic
+PHP_FPM_PM_MAX_CHILDREN=50
+PHP_FPM_PM_START_SERVERS=5
+PHP_FPM_PM_MIN_SPARE_SERVERS=5
+PHP_FPM_PM_MAX_SPARE_SERVERS=35
+PHP_FPM_PM_MAX_REQUESTS=0
+```
 
 ## Allowed volumes for the Zabbix web interface container
 
@@ -198,21 +224,29 @@ The volume allows to enable HTTPS for the Zabbix web interface. The volume must 
 
 Please follow official Apache2 [documentation](https://httpd.apache.org/docs/2.4/ssl/ssl_howto.html) to get more details about how to create certificate files.
 
+### ``/etc/zabbix/web/certs``
+
+The volume allows to use custom certificates for SAML authentification. The volume must contains three files ``sp.key``, ``sp.crt`` and ``idp.crt``. Available since 5.0.0.
+
 # The image variants
 
-The `zabbix-web-apache-mysql` images come in many flavors, each designed for a specific use case.
+The `zabbix-web-apache-pgsql` images come in many flavors, each designed for a specific use case.
 
-## `zabbix-web-apache-mysql:ubuntu-<version>`
-
-This is the defacto image. If you are unsure about what your needs are, you probably want to use this one. It is designed to be used both as a throw away container (mount your source code and start the container to start your app), as well as the base to build other images off of.
-
-## `zabbix-web-apache-mysql:alpine-<version>`
+## `zabbix-web-apache-pgsql:alpine-<version>`
 
 This image is based on the popular [Alpine Linux project](http://alpinelinux.org), available in [the `alpine` official image](https://hub.docker.com/_/alpine). Alpine Linux is much smaller than most distribution base images (~5MB), and thus leads to much slimmer images in general.
 
 This variant is highly recommended when final image size being as small as possible is desired. The main caveat to note is that it does use [musl libc](http://www.musl-libc.org) instead of [glibc and friends](http://www.etalabs.net/compare_libcs.html), so certain software might run into issues depending on the depth of their libc requirements. However, most software doesn't have an issue with this, so this variant is usually a very safe choice. See [this Hacker News comment thread](https://news.ycombinator.com/item?id=10782897) for more discussion of the issues that might arise and some pro/con comparisons of using Alpine-based images.
 
 To minimize image size, it's uncommon for additional related tools (such as `git` or `bash`) to be included in Alpine-based images. Using this image as a base, add the things you need in your own Dockerfile (see the [`alpine` image description](https://hub.docker.com/_/alpine/) for examples of how to install packages if you are unfamiliar).
+
+## `zabbix-web-apache-pgsql:ubuntu-<version>`
+
+This is the defacto image. If you are unsure about what your needs are, you probably want to use this one. It is designed to be used both as a throw away container (mount your source code and start the container to start your app), as well as the base to build other images off of.
+
+## `zabbix-web-apache-pgsql:ol-<version>`
+
+Oracle Linux is an open-source operating system available under the GNU General Public License (GPLv2). Suitable for general purpose or Oracle workloads, it benefits from rigorous testing of more than 128,000 hours per day with real-world workloads and includes unique innovations such as Ksplice for zero-downtime kernel patching, DTrace for real-time diagnostics, the powerful Btrfs file system, and more.
 
 # Supported Docker versions
 
@@ -226,7 +260,7 @@ Please see [the Docker installation documentation](https://docs.docker.com/insta
 
 ## Documentation
 
-Documentation for this image is stored in the [`web-apache-mysql/` directory](https://github.com/zabbix/zabbix-docker/tree/3.0/web-apache-mysql) of the [`zabbix/zabbix-docker` GitHub repo](https://github.com/zabbix/zabbix-docker/). Be sure to familiarize yourself with the [repository's `README.md` file](https://github.com/zabbix/zabbix-docker/blob/master/README.md) before attempting a pull request.
+Documentation for this image is stored in the [`web-apache-pgsql/` directory](https://github.com/zabbix/zabbix-docker/tree/3.0/web-apache-pgsql) of the [`zabbix/zabbix-docker` GitHub repo](https://github.com/zabbix/zabbix-docker/). Be sure to familiarize yourself with the [repository's `README.md` file](https://github.com/zabbix/zabbix-docker/blob/master/README.md) before attempting a pull request.
 
 ## Issues
 
