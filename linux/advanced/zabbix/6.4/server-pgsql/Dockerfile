@@ -1,4 +1,4 @@
-FROM zabbix/zabbix-server-pqsql:6.4-ubuntu-latest
+FROM zabbix/zabbix-server-pgsql:6.4-ubuntu-latest
 ENV DEBIAN_FRONTEND noninteractive
 
 USER root
@@ -6,8 +6,8 @@ USER root
 ##################################################################
 #                   installing utils
 ##################################################################
-RUN apt update -y && \
-    apt install -y --allow-unauthenticated \
+RUN apt-get update -y && \
+    apt-get install -y --allow-unauthenticated \
         acl \
         apt-transport-https \
         apt-utils \

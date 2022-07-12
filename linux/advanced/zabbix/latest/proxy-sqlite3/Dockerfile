@@ -49,8 +49,8 @@ RUN set -eux && \
             libxml2 \
             snmp-mibs-downloader \
             unixodbc" && \
-    apt-get -y update && \
-    DEBIAN_FRONTEND=noninteractive apt-get -y \
+    apt-get-get -y update && \
+    DEBIAN_FRONTEND=noninteractive apt-get-get -y \
             --no-install-recommends install \
         ${INSTALL_PKGS} && \
     groupadd \
@@ -82,8 +82,8 @@ RUN set -eux && \
     chown --quiet -R zabbix:root /etc/zabbix/ /var/lib/zabbix/ && \
     chgrp -R 0 /etc/zabbix/ /var/lib/zabbix/ && \
     chmod -R g=u /etc/zabbix/ /var/lib/zabbix/ && \
-    apt-get -y autoremove && \
-    rm -rf /var/lib/apt/lists/*
+    apt-get-get -y autoremove && \
+    rm -rf /var/lib/apt-get/lists/*
 
 EXPOSE 10051/TCP
 

@@ -12,8 +12,8 @@ COPY locale.gen /etc/locale.gen
 ##################################################################
 #                   installing utils
 ##################################################################
-RUN apt update -y && \
-    apt install -y --allow-unauthenticated \
+RUN apt-get update -y && \
+    apt-get install -y --allow-unauthenticated \
         acl \
         apt-transport-https \
         apt-utils \

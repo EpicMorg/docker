@@ -1,7 +1,7 @@
 ## Changelog
 ### 2022
 * `july`:
-	* splited `zabbix` versions from `4.0` to `6.4`.
+	* splited `zabbix` versions from `3.0` to `6.4` and `latest`.
 * `june`:
 	* new `python` base images. supported `2.7`, `3.6`, `3.7`, `3.8`, `3.9`, `3.10`, `3.11`
 	* added some soft to `debian` base images.
