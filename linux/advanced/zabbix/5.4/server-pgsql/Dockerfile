@@ -1,4 +1,4 @@
-FROM zabbix/zabbix-server-pqsql:5.4-ubuntu-latest
+FROM zabbix/zabbix-server-pgsql:5.4-ubuntu-latest
 ENV DEBIAN_FRONTEND noninteractive
 
 USER root

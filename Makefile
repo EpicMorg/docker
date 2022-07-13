@@ -75,14 +75,23 @@ advanced-redash-images:
 
 advanced-zabbix-images:
 	make advanced-zabbix-30-images
+	make echo-done
 	make advanced-zabbix-40-images
+	make echo-done
 	make advanced-zabbix-50-images
+	make echo-done
 	make advanced-zabbix-52-images
+	make echo-done
 	make advanced-zabbix-54-images
+	make echo-done
 	make advanced-zabbix-60-images
+	make echo-done
 	make advanced-zabbix-62-images
-	make advanced-zabbix-64-images
+	make echo-done
+#	make advanced-zabbix-64-images
+	make echo-done
 	make advanced-zabbix-latest-images
+	make echo-done
 
 advanced-zabbix-30-images:
 	cd `pwd`/linux/advanced/zabbix/3.0/agent				&& pwd && make build && make deploy
@@ -470,4 +479,8 @@ bundle-web:
 	make ecosystem-php-images
 	make ecosystem-apache2-images
 	make ecosystem-nginx-images
-	
+
+echo-done:
+	@echo "======================================="
+	@echo "=====           D O N E           ====="
+	@echo "======================================="
