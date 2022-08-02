@@ -1,0 +1,6 @@
+version: '3.9'
+services:
+  app:
+    image: "epicmorg/p4p:r22.1"
+    build:
+      context: .

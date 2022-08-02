@@ -1,5 +1,7 @@
 ## Changelog
 ### 2022
+* `aug`:
+	* added basic support of perforce images. `p4p` already added. versions: `r16.2`, `r17.1`, `r17.2`, `r18.1`, `r18.2`, `r19.1`, `r19.2`, `r20.1`, `r20.2`, `r21.1`, `r21.2`, `r22.1`.
 * `july`:
 	* splited `zabbix` versions from `3.0` to `6.4` and `latest`.
 * `june`:

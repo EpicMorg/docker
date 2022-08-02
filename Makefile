@@ -227,6 +227,7 @@ advanced-nextcloud-patched-images:
 
 ecosystem-images:
 	make bundle-base-images
+	make buldle-perforce
 	make ecosystem-php-images
 	make ecosystem-apache2-images
 	make ecosystem-testrail-images
@@ -347,6 +348,35 @@ ecosystem-debian-bookworm-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk16    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk17    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk18    && pwd && make build && make deploy
+
+ecosystem-perforce-base-images:
+	cd `pwd`/linux/ecosystem/perforce/base/r16.2     && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/perforce/base/r17.1     && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/perforce/base/r17.2     && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/perforce/base/r18.1     && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/perforce/base/r18.2     && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/perforce/base/r19.1     && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/perforce/base/r19.2     && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/perforce/base/r20.1     && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/perforce/base/r20.2     && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/perforce/base/r21.1     && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/perforce/base/r21.2     && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/perforce/base/r22.1     && pwd && make build && make deploy
+
+
+ecosystem-p4p-images:
+	cd `pwd`/linux/ecosystem/perforce/p4p/r16.2     && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/perforce/p4p/r17.1     && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/perforce/p4p/r17.2     && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/perforce/p4p/r18.1     && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/perforce/p4p/r18.2     && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/perforce/p4p/r19.1     && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/perforce/p4p/r19.2     && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/perforce/p4p/r20.1     && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/perforce/p4p/r20.2     && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/perforce/p4p/r21.1     && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/perforce/p4p/r21.2     && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/perforce/p4p/r22.1     && pwd && make build && make deploy
 
 ecosystem-php-images:
 	cd `pwd`/linux/ecosystem/php/latest             && pwd && make build && make deploy
@@ -479,6 +509,13 @@ bundle-web:
 	make ecosystem-php-images
 	make ecosystem-apache2-images
 	make ecosystem-nginx-images
+
+buldle-perforce:
+	@echo "======================================="
+	@echo "=====   Building  Perforce images ====="
+	@echo "======================================="
+	make ecosystem-perforce-base-images
+	make ecosystem-p4p-images
 
 echo-done:
 	@echo "======================================="
