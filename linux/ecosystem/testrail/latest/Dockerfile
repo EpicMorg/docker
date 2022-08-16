@@ -1,5 +1,37 @@
 FROM epicmorg/apache2:php7.4
 
+ARG PHP_MODULE_PATH=/usr/lib/php/20190902
+ARG PHP_VER=7.4
+ARG PHP_DIR=/etc/php/${PHP_VER}
+ARG CAS_PHP_INI=${PHP_DIR}/mods-available/cassandra.ini
+
+##############################################################################
+# Cassandra CPP Support Install
+##############################################################################
+
+##############################################################################
+# Cassandra PHP Drivers Install
+##############################################################################
+
+COPY addons/cassandra-php-driver /tmp/cassandra-php-driver
+RUN cd /tmp/cassandra-php-driver && \
+    dpkg -i ./multiarch-support_2.28-10+deb10u1_amd64.deb && \
+    dpkg -i ./libuv1_1.35.0-1_amd64.deb && \
+    dpkg -i ./cassandra-cpp-driver_2.16.0-1_amd64.deb
+
+COPY addons/Drivers.Cassandra/Linux/7.4/cassandra.so ${PHP_MODULE_PATH}
+RUN echo "extension = ${PHP_MODULE_PATH}/cassandra.so" > ${CAS_PHP_INI} && \
+    ln -sf ${CAS_PHP_INI} ${PHP_DIR}/cgi/conf.d/cassandra.ini && \
+    ln -sf ${CAS_PHP_INI} ${PHP_DIR}/cli/conf.d/cassandra.ini && \
+    ln -sf ${CAS_PHP_INI} ${PHP_DIR}/fpm/conf.d/cassandra.ini && \
+    ln -sf ${CAS_PHP_INI} ${PHP_DIR}/apache2/conf.d/cassandra.ini  && \
+    php -m && \
+    php -v
+
+##############################################################################
+# Testrail Install
+##############################################################################
+
 ENV TESTRAIL_VERSION=latest
 ENV DOWNLOAD_URL=https://secure.gurock.com/downloads/testrail/testrail-${TESTRAIL_VERSION}-ion72.zip
 ENV TR_DEFAULT_TASK_EXECUTION=60
@@ -29,7 +61,8 @@ RUN \
     apt-get clean && \
     echo "ServerName localhost" >> /etc/apache2/apache2.conf && \
     rm -rf /var/lib/apt/lists/* && \
-    rm -rf /run.sh
+    rm -rf /run.sh && \
+    rm -rf /tmp/*
 
 
 RUN \
