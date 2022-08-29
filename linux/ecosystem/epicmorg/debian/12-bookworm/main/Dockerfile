@@ -86,7 +86,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     p7zip-full \
     p7zip-rar \
     rsync \
-    rar \
+#    rar \
     screenfetch \
     smbclient \
     subversion \
@@ -135,8 +135,8 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     reiser4progs \
     reiserfsprogs \
     udftools \
-    xfsprogs \
-    xfsdump
+    xfsprogs
+#    xfsdump
 
 ##################################################################
 #                   git-lfs official binary

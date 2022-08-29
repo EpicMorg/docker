@@ -493,11 +493,21 @@ bundle-atlassian:
 	@echo "===== Building  Atlassian  images ====="
 	@echo "======================================="
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/latest           && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/atlassian/confluence/latest          && pwd && make build && make deploy
+#	cd `pwd`/linux/ecosystem/atlassian/confluence/latest          && pwd && make build && make deploy
 ##	cd `pwd`/linux/ecosystem/atlassian/crucible/latest            && pwd && make build && make deploy
 ##	cd `pwd`/linux/ecosystem/atlassian/fisheye/latest             && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/atlassian/fisheye-crucible/latest    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/atlassian/jira/latest                && pwd && make build && make deploy
+#	cd `pwd`/linux/ecosystem/atlassian/fisheye-crucible/latest    && pwd && make build && make deploy
+#	cd `pwd`/linux/ecosystem/atlassian/jira/latest                && pwd && make build && make deploy
+
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.0.0    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.0.3    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.1.0    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.1.3    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.2.0    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.2.2    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.3.0    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.3.1    && pwd && make build && make deploy
+
 
 
 bundle-web:
