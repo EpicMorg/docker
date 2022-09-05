@@ -1,6 +1,7 @@
 ## Changelog
 ### 2022
 * `sep`
+	* added `p2pool` and `monerod` servers.
 	* added new versions of `jira`
 	* added new versions of `confluence
 	* added new versions of `bitbucket`
