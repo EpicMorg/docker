@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+  monerod:
+    image: sethsimmons/simple-monerod:latest
+    user: ${FIXUID:-1000}:${FIXGID:-1000}
+    restart: unless-stopped
+    container_name: monerod
+    volumes:
+      - bitmonero:/home/monero/.bitmonero
+    ports:
+      - 18080:18080
+      - 18089:18089
+    command:
+      - "--rpc-restricted-bind-ip=0.0.0.0"
+      - "--rpc-restricted-bind-port=18089"
+      - "--public-node"
+      - "--no-igd"
+      - "--enable-dns-blocklist"
+      - "--prune-blockchain"
+
+  tor:
+    image: goldy/tor-hidden-service:latest
+    container_name: tor
+    restart: unless-stopped
+    links:
+        - monerod
+    environment:
+        MONEROD_TOR_SERVICE_HOSTS: 18089:monerod:18089
+        MONEROD_TOR_SERVICE_VERSION: '3'
+    volumes:
+        - tor-keys:/var/lib/tor/hidden_service/
+
+  watchtower:
+    image: containrrr/watchtower:latest
+    container_name: watchtower
+    restart: unless-stopped
+    volumes:
+        - "/var/run/docker.sock:/var/run/docker.sock"
+
+volumes:
+  bitmonero:
+  tor-keys:

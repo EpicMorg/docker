@@ -6,7 +6,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 #                   perforce client binary
 ##################################################################
 ENV P4_VERSION=r22.1
-ENV P4_DOWNLOAD_URL=https://www.perforce.com/downloads/perforce/${P4_VERSION}/bin.linux26x86_64/p4
+ENV P4_DOWNLOAD_URL=https://filehost.perforce.com/perforce/${P4_VERSION}/bin.linux26x86_64/p4
 
 ##################################################################
 #                   7z official binary
@@ -155,12 +155,12 @@ RUN apt-get update &&  \
 ##################################################################
 #                   gh official binary
 ##################################################################
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys C99B11DEB97541F0
-COPY etc/apt/sources.list.d/github-cli.list /etc/apt/sources.list.d/github-cli.list
-RUN apt-get update &&  \
-    apt-get install -y --allow-unauthenticated \
-    gh && \
-    gh --version
+#RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys C99B11DEB97541F0
+#COPY etc/apt/sources.list.d/github-cli.list /etc/apt/sources.list.d/github-cli.list
+#RUN apt-get update &&  \
+#    apt-get install -y --allow-unauthenticated \
+#    gh && \
+#    gh --version
 
 ##################################################################
 #                   Install p4client
