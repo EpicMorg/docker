@@ -15,7 +15,7 @@ ENV PATH="${PATH}:${MONERO_BIN}"
 ##################################################################
 #                   Installing
 ##################################################################
-RUN mkdir /monero /monero/bin /monero/data
+RUN mkdir ${MONERO_DIR} ${MONERO_BIN} ${MONERO_DATA}
 
 RUN apt-get update && \
     apt-get install -y \
@@ -47,3 +47,13 @@ ENTRYPOINT [ "/entrypoint.sh" ]
 
 # Start monerod with sane defaults that are overridden by user input (if applicable)
 CMD ["--rpc-restricted-bind-ip=0.0.0.0", "--rpc-restricted-bind-port=18089", "--no-igd", "--no-zmq", "--enable-dns-blocklist"]
+
+##################################################################
+#                  cleanup
+##################################################################
+RUN apt-get purge policykit-1 -y && \
+    apt-get clean -y && \
+    apt-get autoclean -y && \
+    rm -rfv /var/lib/apt/lists/* && \
+    rm -rfv /tmp/* && \
+    rm -rfv /var/cache/apt/archives/*.deb

@@ -508,7 +508,12 @@ bundle-atlassian:
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.3.0    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.3.1    && pwd && make build && make deploy
 
-
+bundle-monero
+	@echo "======================================="
+	@echo "===== Building  Monerod    images ====="
+	@echo "======================================="
+	cd `pwd`/linux/ecosystem/monero/monerod                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/monero/p2pool                  && pwd && make build && make deploy
 
 bundle-web:
 	@echo "======================================="
