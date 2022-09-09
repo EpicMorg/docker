@@ -1,4 +1,4 @@
-FROM debian:squeeze
+FROM debian/eol:squeeze-slim
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -17,7 +17,6 @@ COPY etc/apt/trusted.gpg.d/deb-multimedia-keyring.gpg /etc/apt/trusted.gpg.d/deb
 COPY etc/apt/apt.conf.d/99-no-check-valid-until /etc/apt/apt.conf.d/99-no-check-valid-until
 COPY etc/apt/sources.list /etc/apt/sources.list
 COPY etc/locale.gen /etc/locale.gen
-
 
 RUN apt-get update && \
     apt-get upgrade -y && \
@@ -38,7 +37,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     console-cyrillic \
     ca-certificates \
     locales \
-    software-properties-common \
+#    software-properties-common \
     sudo
 
 RUN apt-key list  | grep "expired: " | sed -ne 's|pub .*/\([^ ]*\) .*|\1|gp' | xargs -n1  apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 

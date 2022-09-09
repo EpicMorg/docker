@@ -1,6 +1,7 @@
 ## Changelog
 ### 2022
 * `sep`
+	* added `debian 6` and `debian 7` iamges. to build them - add `GRUB_CMDLINE_LINUX_DEFAULT="quiet vsyscall=emulate"` if you have newest kernel!
 	* added `p2pool` and `monerod` servers.
 	* added new versions of `jira`
 	* added new versions of `confluence

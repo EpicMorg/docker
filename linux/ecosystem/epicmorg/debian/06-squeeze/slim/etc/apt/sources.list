@@ -12,7 +12,7 @@ deb http://archive.debian.org/debian-backports/ squeeze-backports main contrib n
 deb-src http://archive.debian.org/debian-backports/ squeeze-backports main contrib non-free
 
 deb http://archive.debian.org/debian-backports/ squeeze-backports-sloppy main contrib non-free
-deb-src http://archive.debian.org/debian-backports/ squeeze-backports main-sloppy contrib non-free
+deb-src http://archive.debian.org/debian-backports/ squeeze-backports-sloppy main contrib non-free
 
 deb http://archive.debian.org/backports.org/ squeeze-backports main contrib non-free
 deb-src http://archive.debian.org/backports.org/ squeeze-backports main contrib non-free
