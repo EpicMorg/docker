@@ -119,6 +119,17 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     xfsdump
 
 ##################################################################
+#                   gh official binary
+##################################################################
+RUN wget -c https://cli.github.com/packages/githubcli-archive-keyring.gpg -O /etc/apt/trusted.gpg.d/githubcli-archive-keyring.gpg && \
+    chmod go+r /etc/apt/trusted.gpg.d/githubcli-archive-keyring.gpg && \
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/trusted.gpg.d/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list && \
+    apt-get update &&  \
+    apt-get install -y --allow-unauthenticated \
+    gh && \
+    gh --version
+
+##################################################################
 #                   Install p4client
 ##################################################################
 RUN wget --no-check-certificate -nv --random-wait --retry-connrefused --continue -P /usr/bin ${P4_DOWNLOAD_URL} && \
