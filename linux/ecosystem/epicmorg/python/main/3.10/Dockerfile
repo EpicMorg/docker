@@ -209,9 +209,10 @@ RUN apt-get update &&  \
 ##################################################################
 #                   gh official binary
 ##################################################################
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys C99B11DEB97541F0
-COPY etc/apt/sources.list.d/github-cli.list /etc/apt/sources.list.d/github-cli.list
-RUN apt-get update &&  \
+RUN wget -c https://cli.github.com/packages/githubcli-archive-keyring.gpg -O /etc/apt/trusted.gpg.d/githubcli-archive-keyring.gpg && \
+    chmod go+r /etc/apt/trusted.gpg.d/githubcli-archive-keyring.gpg && \
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/trusted.gpg.d/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list && \
+    apt-get update &&  \
     apt-get install -y --allow-unauthenticated \
     gh && \
     gh --version
