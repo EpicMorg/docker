@@ -23,7 +23,6 @@ RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get dist-upgrade -y
 
-
 ##################################################################
 #                   Version
 ##################################################################
@@ -51,6 +50,8 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
 
 RUN apt-key adv --keyserver keyserver.ubuntu.com --refresh-keys
 RUN apt-key list  | grep "expired: " | sed -ne 's|pub .*/\([^ ]*\) .*|\1|gp' | xargs -n1  apt-key adv --keyserver keyserver.ubuntu.com --recv-keys
+
+RUN update-ca-certificates
 
 ##################################################################
 #                   perforce client binary
@@ -161,7 +162,6 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     logrotate \
     subversion-tools \
     pev
-
 
 ##################################################################
 #                   installing fs-tools
