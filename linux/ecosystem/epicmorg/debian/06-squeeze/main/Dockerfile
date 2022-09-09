@@ -25,19 +25,19 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     cmatrix-xfont \
     cron \
     curl \
-    clzip \
+#    clzip \
     cvs \
     dos2unix \
     ffmpeg \
     fontconfig \
     git \
-    git-extras \
+#    git-extras \
     git-flow \
     git-cvs \
     git-doc \
     git-email \
-    git-mediawiki \
-    git-ftp \
+#    git-mediawiki \
+#    git-ftp \
     gnupg \
     gnupg2 \
     graphicsmagick \
@@ -46,10 +46,10 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     iftop \
     iotop \
     iperf \
-    iperf3 \
+#    iperf3 \
     iputils-ping \
-    jq \
-    kmod \
+#    jq \
+#    kmod \
     libxml2-dev \
     libxml2-utils \
     lbzip2 \
@@ -71,17 +71,17 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     perl \
     procps \
     pbzip2 \
-    plzip \
+#    plzip \
     p7zip-full \
     p7zip-rar \
     python3-all \
     python-all \
     python-pip \
-    python3-pip \
+#    python3-pip \
 #    rclone \
     rsync \
     rar \
-    screenfetch \
+#    screenfetch \
     smbclient \
     subversion \
     telnet \
@@ -96,8 +96,8 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     sudo  \
     logrotate \
     subversion-tools \
-    zip \
-    pev
+    zip
+#    pev
 
 ##################################################################
 #                   installing fs-tools

@@ -36,7 +36,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     git-cvs \
     git-doc \
     git-email \
-    git-mediawiki \
+#    git-mediawiki \
     git-ftp \
     gnupg \
     gnupg2 \
@@ -46,13 +46,13 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     iftop \
     iotop \
     iperf \
-    iperf3 \
+#    iperf3 \
     iputils-ping \
     jq \
     kmod \
     libxml2-dev \
     libxml2-utils \
-    lbzip2 \
+#    lbzip2 \
     libsvn-java \
     locales \
     lsb-release \

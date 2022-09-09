@@ -1,4 +1,4 @@
-FROM debian:stretch-slim
+FROM debian/eol:stretch-slim
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
