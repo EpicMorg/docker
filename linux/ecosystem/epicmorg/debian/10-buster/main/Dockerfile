@@ -6,7 +6,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 #                   perforce client binary
 ##################################################################
 ENV P4_VERSION=r22.1
-ENV P4_DOWNLOAD_URL=https://www.perforce.com/downloads/perforce/${P4_VERSION}/bin.linux26x86_64/p4
+ENV P4_DOWNLOAD_URL=https://filehost.perforce.com/perforce/${P4_VERSION}/bin.linux26x86_64/p4
 
 ##################################################################
 #                   7z official binary

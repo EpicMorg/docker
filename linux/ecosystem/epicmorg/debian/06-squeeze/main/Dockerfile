@@ -6,7 +6,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 #                   perforce client binary
 ##################################################################
 ENV P4_VERSION=r22.1
-ENV P4_DOWNLOAD_URL=https://www.perforce.com/downloads/perforce/${P4_VERSION}/bin.linux26x86_64/p4
+ENV P4_DOWNLOAD_URL=http://filehost.perforce.com/perforce/${P4_VERSION}/bin.linux26x86_64/p4
 
 ##################################################################
 #                   update lists
@@ -25,19 +25,15 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     cmatrix-xfont \
     cron \
     curl \
-#    clzip \
     cvs \
     dos2unix \
     ffmpeg \
     fontconfig \
     git \
-#    git-extras \
     git-flow \
     git-cvs \
     git-doc \
     git-email \
-#    git-mediawiki \
-#    git-ftp \
     gnupg \
     gnupg2 \
     graphicsmagick \
@@ -46,10 +42,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     iftop \
     iotop \
     iperf \
-#    iperf3 \
     iputils-ping \
-#    jq \
-#    kmod \
     libxml2-dev \
     libxml2-utils \
     lbzip2 \
@@ -71,17 +64,13 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     perl \
     procps \
     pbzip2 \
-#    plzip \
     p7zip-full \
     p7zip-rar \
     python3-all \
     python-all \
     python-pip \
-#    python3-pip \
-#    rclone \
     rsync \
     rar \
-#    screenfetch \
     smbclient \
     subversion \
     telnet \
@@ -97,17 +86,15 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     logrotate \
     subversion-tools \
     zip
-#    pev
 
 ##################################################################
 #                   installing fs-tools
 ##################################################################
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections && \
     apt-get install -y --allow-unauthenticated \
-    btrfs-progs \
+    btrfs-tools \
     exfat-utils \
     e2fsprogs \
-    f2fs-tools \
     dosfstools \
     hfsutils \
     hfsprogs \
