@@ -37,13 +37,11 @@ RUN apt-get update && \
     autoconf-archive \
     gnu-standards \
     cmake \
-    libunwind-dev \
     golang \
     at \
     autopkgtest \
     gcc-multilib \
     g++-multilib \
-    libxkbcommon-dev \
     libsqlite3-dev \
     liblzma-dev \
     libgtk-3-dev \
@@ -72,7 +70,6 @@ RUN apt-get update && \
     zlib1g-dev \
     libssl-dev \
     libxslt-dev \
-    libgd-dev \
     libpcre3-dev \
     libgeoip-dev \
     libkrb5-dev \
@@ -80,7 +77,6 @@ RUN apt-get update && \
     krb5-user \
     luajit \
     liblua5.1-0-dev \
-    libmaxminddb-dev \
     libpam0g-dev \
     libldap2-dev \
     libavformat-dev \
@@ -109,26 +105,6 @@ RUN apt-get update && \
     libtool \
     gdb \
     strace
-
-##################################################################
-#                   Rust compillers
-##################################################################
-RUN curl https://sh.rustup.rs -sSf | sh -s -- -y --profile complete --default-toolchain stable --verbose
-RUN printf "\n--------------------------------\n$(cargo --version)\n--------------------------------\n\n"
-
-##################################################################
-#                   Flutter SDK
-##################################################################
-RUN git clone https://github.com/flutter/flutter.git -b stable /flutter
-RUN flutter precache
-RUN flutter config --no-analytics
-RUN dart --disable-analytics
-RUN printf "\n--------------------------------\n$(flutter --version)\n--------------------------------\n\n"
-
-##################################################################
-#                   GO compillers
-##################################################################
-RUN printf "\n--------------------------------\n$(go version)\n--------------------------------\n\n"
 
 ##################################################################
 #                   other   customisations

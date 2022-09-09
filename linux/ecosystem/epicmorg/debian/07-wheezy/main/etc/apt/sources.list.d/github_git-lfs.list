@@ -1,2 +1,0 @@
-deb https://packagecloud.io/github/git-lfs/debian/ wheezy main
-deb-src https://packagecloud.io/github/git-lfs/debian/ wheezy main

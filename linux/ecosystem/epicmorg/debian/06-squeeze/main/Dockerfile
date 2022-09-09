@@ -144,7 +144,7 @@ RUN wget --no-check-certificate -nv --random-wait --retry-connrefused --continue
 ##################################################################
 #                   Generate ssl key
 ##################################################################
-RUN openssl dhparam -out /etc/ssl/dhparam.pem 4096
+RUN openssl dhparam -out /etc/ssl/dhparam.pem 512
 
 ##################################################################
 #                  cleanup

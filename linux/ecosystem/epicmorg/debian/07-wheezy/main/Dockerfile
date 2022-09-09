@@ -36,7 +36,6 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     git-cvs \
     git-doc \
     git-email \
-#    git-mediawiki \
     git-ftp \
     gnupg \
     gnupg2 \
@@ -46,13 +45,11 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     iftop \
     iotop \
     iperf \
-#    iperf3 \
     iputils-ping \
     jq \
     kmod \
     libxml2-dev \
     libxml2-utils \
-#    lbzip2 \
     libsvn-java \
     locales \
     lsb-release \
@@ -78,7 +75,6 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     python-all \
     python-pip \
     python3-pip \
-#    rclone \
     rsync \
     rar \
     screenfetch \
@@ -104,10 +100,8 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
 ##################################################################
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections && \
     apt-get install -y --allow-unauthenticated \
-    btrfs-progs \
     exfat-utils \
     e2fsprogs \
-    f2fs-tools \
     dosfstools \
     hfsutils \
     hfsprogs \
@@ -125,30 +119,6 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     xfsdump
 
 ##################################################################
-#                   git-lfs official binary
-##################################################################
-#RUN curl -s https://packagecloud.io/github/git-lfs/gpgkey | sudo gpg --no-default-keyring --keyring gnupg-ring:/etc/apt/trusted.gpg.d/git-lfs.gpg --import && \
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 6B05F25D762E3157 && \
-    rm -rfv /etc/apt/sources.list.d/github_git-lfs.list
-COPY etc/apt/sources.list.d/github_git-lfs.list /etc/apt/sources.list.d/github_git-lfs.list
-RUN apt-get update &&  \
-    apt-get install -y --allow-unauthenticated \
-    git \
-    git-lfs && \
-    git --version && \
-    git-lfs --version
-
-##################################################################
-#                   gh official binary
-##################################################################
-#RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys C99B11DEB97541F0
-#COPY etc/apt/sources.list.d/github-cli.list /etc/apt/sources.list.d/github-cli.list
-#RUN apt-get update &&  \
-#    apt-get install -y --allow-unauthenticated \
-#    gh && \
-#    gh --version
-
-##################################################################
 #                   Install p4client
 ##################################################################
 RUN wget --no-check-certificate -nv --random-wait --retry-connrefused --continue -P /usr/bin ${P4_DOWNLOAD_URL} && \
@@ -157,7 +127,7 @@ RUN wget --no-check-certificate -nv --random-wait --retry-connrefused --continue
 ##################################################################
 #                   Generate ssl key
 ##################################################################
-RUN openssl dhparam -out /etc/ssl/dhparam.pem 4096
+RUN openssl dhparam -out /etc/ssl/dhparam.pem 512
 
 ##################################################################
 #                  cleanup
