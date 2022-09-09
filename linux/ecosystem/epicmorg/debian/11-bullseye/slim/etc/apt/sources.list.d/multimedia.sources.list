@@ -1,0 +1,5 @@
+##multimedia
+#deb http://httpredir.debian.org/debian-multimedia/ bullsyeye main non-free
+#deb-src http://httpredir.debian.org/debian-multimedia/ bullsyeye main non-free
+#deb http://httpredir.debian.org/debian-multimedia/ bullsyeye-backports main
+#deb-src http://httpredir.debian.org/debian-multimedia/ bullsyeye-backports main

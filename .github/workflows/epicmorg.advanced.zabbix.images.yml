@@ -1,0 +1,383 @@
+name: epicmorg.advanced.nextcloud
+
+on:
+#  push:
+#    branches:
+#      - 'master'
+  schedule:
+    - cron: '0 03 * * 2,4,6'
+
+jobs:
+
+  build-latest-images:
+    name: Build EpicMorg Advanced Zabbix Images
+    runs-on: ubuntu-22.04
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Log into registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Test Make
+      run:  make
+
+    - name: Docker Compose Update
+      run:  make docker-compose-update
+
+    - name: "Build and Deploy Advanced Zabbix Agent Images:"
+      run:  cd linux/advanced/zabbix/latest/agent && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Agent2 Images:"
+      run:  cd linux/advanced/zabbix/latest/agent2 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Java Gateway  Images:"
+      run:  cd linux/advanced/zabbix/latest/java-gateway && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Proxy Mysql Images:"
+      run:  cd linux/advanced/zabbix/latest/proxy-mysql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Proxy Sqlite3 Images:"
+      run:  cd linux/advanced/zabbix/latest/proxy-sqlite3 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Server Mysql Images:"
+      run:  cd linux/advanced/zabbix/latest/server-mysql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Server Pgsql Images:"
+      run:  cd linux/advanced/zabbix/latest/server-pgsql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Snmptraps Images:"
+      run:  cd linux/advanced/zabbix/latest/snmptraps && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Web Mysql Images:"
+      run:  cd linux/advanced/zabbix/latest/web-mysql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Web Pgsql Images:"
+      run:  cd linux/advanced/zabbix/latest/web-pgsql && pwd && make build && make deploy
+
+##################################################################################
+
+  build-30-images:
+    name: Build EpicMorg Advanced Zabbix Images
+    runs-on: ubuntu-22.04
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Log into registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Test Make
+      run:  make
+
+    - name: Docker Compose Update
+      run:  make docker-compose-update
+
+    - name: "Build and Deploy Advanced Zabbix Agent Images:"
+      run:  cd linux/advanced/zabbix/3.0/agent && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Java Gateway  Images:"
+      run:  cd linux/advanced/zabbix/3.0/java-gateway && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Proxy Mysql Images:"
+      run:  cd linux/advanced/zabbix/3.0/proxy-mysql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Proxy Sqlite3 Images:"
+      run:  cd linux/advanced/zabbix/3.0/proxy-sqlite3 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Server Mysql Images:"
+      run:  cd linux/advanced/zabbix/3.0/server-mysql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Server Pgsql Images:"
+      run:  cd linux/advanced/zabbix/3.0/server-pgsql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Snmptraps Images:"
+      run:  cd linux/advanced/zabbix/3.0/snmptraps && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Web Mysql Images:"
+      run:  cd linux/advanced/zabbix/3.0/web-mysql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Web Pgsql Images:"
+      run:  cd linux/advanced/zabbix/3.0/web-pgsql && pwd && make build && make deploy
+
+##################################################################################
+
+  build-40-images:
+    name: Build EpicMorg Advanced Zabbix Images
+    runs-on: ubuntu-22.04
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Log into registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Test Make
+      run:  make
+
+    - name: Docker Compose Update
+      run:  make docker-compose-update
+
+    - name: "Build and Deploy Advanced Zabbix Agent Images:"
+      run:  cd linux/advanced/zabbix/4.0/agent && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Java Gateway  Images:"
+      run:  cd linux/advanced/zabbix/4.0/java-gateway && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Proxy Mysql Images:"
+      run:  cd linux/advanced/zabbix/4.0/proxy-mysql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Proxy Sqlite3 Images:"
+      run:  cd linux/advanced/zabbix/4.0/proxy-sqlite3 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Server Mysql Images:"
+      run:  cd linux/advanced/zabbix/4.0/server-mysql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Server Pgsql Images:"
+      run:  cd linux/advanced/zabbix/4.0/server-pgsql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Snmptraps Images:"
+      run:  cd linux/advanced/zabbix/4.0/snmptraps && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Web Mysql Images:"
+      run:  cd linux/advanced/zabbix/4.0/web-mysql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Web Pgsql Images:"
+      run:  cd linux/advanced/zabbix/4.0/web-pgsql && pwd && make build && make deploy
+
+##################################################################################
+
+  build-50-images:
+    name: Build EpicMorg Advanced Zabbix Images
+    runs-on: ubuntu-22.04
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Log into registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Test Make
+      run:  make
+
+    - name: Docker Compose Update
+      run:  make docker-compose-update
+
+    - name: "Build and Deploy Advanced Zabbix Agent Images:"
+      run:  cd linux/advanced/zabbix/5.0/agent && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Agent2 Images:"
+      run:  cd linux/advanced/zabbix/5.0/agent2 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Java Gateway  Images:"
+      run:  cd linux/advanced/zabbix/5.0/java-gateway && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Proxy Mysql Images:"
+      run:  cd linux/advanced/zabbix/5.0/proxy-mysql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Proxy Sqlite3 Images:"
+      run:  cd linux/advanced/zabbix/5.0/proxy-sqlite3 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Server Mysql Images:"
+      run:  cd linux/advanced/zabbix/5.0/server-mysql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Server Pgsql Images:"
+      run:  cd linux/advanced/zabbix/5.0/server-pgsql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Snmptraps Images:"
+      run:  cd linux/advanced/zabbix/5.0/snmptraps && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Web Mysql Images:"
+      run:  cd linux/advanced/zabbix/5.0/web-mysql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Web Pgsql Images:"
+      run:  cd linux/advanced/zabbix/5.0/web-pgsql && pwd && make build && make deploy
+
+##################################################################################
+
+  build-52-images:
+    name: Build EpicMorg Advanced Zabbix Images
+    runs-on: ubuntu-22.04
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Log into registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Test Make
+      run:  make
+
+    - name: Docker Compose Update
+      run:  make docker-compose-update
+
+    - name: "Build and Deploy Advanced Zabbix Agent Images:"
+      run:  cd linux/advanced/zabbix/5.2/agent && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Agent2 Images:"
+      run:  cd linux/advanced/zabbix/5.2/agent2 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Java Gateway  Images:"
+      run:  cd linux/advanced/zabbix/5.2/java-gateway && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Proxy Mysql Images:"
+      run:  cd linux/advanced/zabbix/5.2/proxy-mysql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Proxy Sqlite3 Images:"
+      run:  cd linux/advanced/zabbix/5.2/proxy-sqlite3 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Server Mysql Images:"
+      run:  cd linux/advanced/zabbix/5.2/server-mysql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Server Pgsql Images:"
+      run:  cd linux/advanced/zabbix/5.2/server-pgsql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Snmptraps Images:"
+      run:  cd linux/advanced/zabbix/5.2/snmptraps && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Web Mysql Images:"
+      run:  cd linux/advanced/zabbix/5.2/web-mysql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Web Pgsql Images:"
+      run:  cd linux/advanced/zabbix/5.2/web-pgsql && pwd && make build && make deploy
+
+##################################################################################
+
+  build-54-images:
+    name: Build EpicMorg Advanced Zabbix Images
+    runs-on: ubuntu-22.04
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Log into registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Test Make
+      run:  make
+
+    - name: Docker Compose Update
+      run:  make docker-compose-update
+
+    - name: "Build and Deploy Advanced Zabbix Agent Images:"
+      run:  cd linux/advanced/zabbix/5.4/agent && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Agent2 Images:"
+      run:  cd linux/advanced/zabbix/5.4/agent2 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Java Gateway  Images:"
+      run:  cd linux/advanced/zabbix/5.4/java-gateway && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Proxy Mysql Images:"
+      run:  cd linux/advanced/zabbix/5.4/proxy-mysql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Proxy Sqlite3 Images:"
+      run:  cd linux/advanced/zabbix/5.4/proxy-sqlite3 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Server Mysql Images:"
+      run:  cd linux/advanced/zabbix/5.4/server-mysql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Server Pgsql Images:"
+      run:  cd linux/advanced/zabbix/5.4/server-pgsql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Snmptraps Images:"
+      run:  cd linux/advanced/zabbix/5.4/snmptraps && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Web Mysql Images:"
+      run:  cd linux/advanced/zabbix/5.4/web-mysql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Web Pgsql Images:"
+      run:  cd linux/advanced/zabbix/5.4/web-pgsql && pwd && make build && make deploy
+
+##################################################################################
+
+  build-60-images:
+    name: Build EpicMorg Advanced Zabbix Images
+    runs-on: ubuntu-22.04
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Log into registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Test Make
+      run:  make
+
+    - name: Docker Compose Update
+      run:  make docker-compose-update
+
+    - name: "Build and Deploy Advanced Zabbix Agent Images:"
+      run:  cd linux/advanced/zabbix/6.0/agent && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Agent2 Images:"
+      run:  cd linux/advanced/zabbix/6.0/agent2 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Java Gateway  Images:"
+      run:  cd linux/advanced/zabbix/6.0/java-gateway && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Proxy Mysql Images:"
+      run:  cd linux/advanced/zabbix/6.0/proxy-mysql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Proxy Sqlite3 Images:"
+      run:  cd linux/advanced/zabbix/6.0/proxy-sqlite3 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Server Mysql Images:"
+      run:  cd linux/advanced/zabbix/6.0/server-mysql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Server Pgsql Images:"
+      run:  cd linux/advanced/zabbix/6.0/server-pgsql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Snmptraps Images:"
+      run:  cd linux/advanced/zabbix/6.0/snmptraps && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Web Mysql Images:"
+      run:  cd linux/advanced/zabbix/6.0/web-mysql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Web Pgsql Images:"
+      run:  cd linux/advanced/zabbix/6.0/web-pgsql && pwd && make build && make deploy
+
+##################################################################################
+
+  build-62-images:
+    name: Build EpicMorg Advanced Zabbix Images
+    runs-on: ubuntu-22.04
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Log into registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Test Make
+      run:  make
+
+    - name: Docker Compose Update
+      run:  make docker-compose-update
+
+    - name: "Build and Deploy Advanced Zabbix Agent Images:"
+      run:  cd linux/advanced/zabbix/6.2/agent && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Agent2 Images:"
+      run:  cd linux/advanced/zabbix/6.2/agent2 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Java Gateway  Images:"
+      run:  cd linux/advanced/zabbix/6.2/java-gateway && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Proxy Mysql Images:"
+      run:  cd linux/advanced/zabbix/6.2/proxy-mysql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Proxy Sqlite3 Images:"
+      run:  cd linux/advanced/zabbix/6.2/proxy-sqlite3 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Server Mysql Images:"
+      run:  cd linux/advanced/zabbix/6.2/server-mysql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Server Pgsql Images:"
+      run:  cd linux/advanced/zabbix/6.2/server-pgsql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Snmptraps Images:"
+      run:  cd linux/advanced/zabbix/6.2/snmptraps && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Web Mysql Images:"
+      run:  cd linux/advanced/zabbix/6.2/web-mysql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Web Pgsql Images:"
+      run:  cd linux/advanced/zabbix/6.2/web-pgsql && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean

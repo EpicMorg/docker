@@ -1,5 +1,18 @@
 ## Changelog
 ### 2022
+* `sep`
+	* added `debian 6` and `debian 7` iamges. to build them - add `GRUB_CMDLINE_LINUX_DEFAULT="quiet vsyscall=emulate"` if you have newest kernel!
+	* added `p2pool` and `monerod` servers.
+	* added new versions of `jira`
+	* added new versions of `confluence
+	* added new versions of `bitbucket`
+* `aug`:
+	* added basic support of perforce images. `p4p` already added. versions: `r16.2`, `r17.1`, `r17.2`, `r18.1`, `r18.2`, `r19.1`, `r19.2`, `r20.1`, `r20.2`, `r21.1`, `r21.2`, `r22.1`.
+	* added `torrust-tracker`
+	* improved `testrail` images: added support of latest versions with `cassandra`
+	* added `cassandra` but `3.11` version only
+* `july`:
+	* splited `zabbix` versions from `3.0` to `6.4` and `latest`.
 * `june`:
 	* new `python` base images. supported `2.7`, `3.6`, `3.7`, `3.8`, `3.9`, `3.10`, `3.11`
 	* added some soft to `debian` base images.

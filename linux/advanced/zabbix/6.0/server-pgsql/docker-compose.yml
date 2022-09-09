@@ -1,0 +1,6 @@
+version: '3.9'
+services:
+  app:
+    image: "epicmorg/zabbix-server-pgsql:6.0"
+    build:
+      context: .

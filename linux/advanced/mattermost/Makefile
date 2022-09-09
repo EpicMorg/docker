@@ -6,7 +6,7 @@ app:
 	make clean
 
 build:
-	docker-compose build --compress --parallel --progress=plain
+	docker-compose build --compress --parallel --progress plain --progress=plain
 
 deploy:
 	docker-compose push

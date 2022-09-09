@@ -1,0 +1,119 @@
+name: epicmorg.advanced.nextcloud
+
+on:
+#  push:
+#    branches:
+#      - 'master'
+  schedule:
+    - cron: '0 02 * * 2,4,6'
+
+jobs:
+
+  build-pure-images:
+    name: Advanced Nextcloud Stock Images
+    runs-on: ubuntu-22.04
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Log into registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Test Make
+      run:  make
+
+    - name: Docker Compose Update
+      run:  make docker-compose-update
+
+    - name: "Build and Deploy Advanced Nextcloud 14 Stock Images:"
+      run:  cd linux/advanced/nextcloud/pure/14 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Nextcloud 15 Stock Images:"
+      run:  cd linux/advanced/nextcloud/pure/15 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Nextcloud 16 Stock Images:"
+      run:  cd linux/advanced/nextcloud/pure/16 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Nextcloud 17 Stock Images:"
+      run:  cd linux/advanced/nextcloud/pure/17 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Nextcloud 18 Stock Images:"
+      run:  cd linux/advanced/nextcloud/pure/18 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Nextcloud 19 Stock Images:"
+      run:  cd linux/advanced/nextcloud/pure/19 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Nextcloud 20 Stock Images:"
+      run:  cd linux/advanced/nextcloud/pure/20 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Nextcloud 21 Stock Images:"
+      run:  cd linux/advanced/nextcloud/pure/21 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Nextcloud 22 Stock Images:"
+      run:  cd linux/advanced/nextcloud/pure/22 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Nextcloud 23 Stock Images:"
+      run:  cd linux/advanced/nextcloud/pure/23 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Nextcloud 24 Stock Images:"
+      run:  cd linux/advanced/nextcloud/pure/24 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Nextcloud Stock Images:"
+      run:  cd linux/advanced/nextcloud/pure/latest && pwd && make build && make deploy
+
+##################################################################################
+
+  build-patched-images:
+    name: Advanced Nextcloud Patched Images
+    runs-on: ubuntu-22.04
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Log into registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Test Make
+      run:  make
+
+    - name: Docker Compose Update
+      run:  make docker-compose-update
+
+    - name: "Build and Deploy Advanced Nextcloud 14 Patched Images:"
+      run:  cd linux/advanced/nextcloud/patched/14 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Nextcloud 15 Patched Images:"
+      run:  cd linux/advanced/nextcloud/patched/15 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Nextcloud 16 Patched Images:"
+      run:  cd linux/advanced/nextcloud/patched/16 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Nextcloud 17 Patched Images:"
+      run:  cd linux/advanced/nextcloud/patched/17 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Nextcloud 18 Patched Images:"
+      run:  cd linux/advanced/nextcloud/patched/18 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Nextcloud 19 Patched Images:"
+      run:  cd linux/advanced/nextcloud/patched/19 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Nextcloud 20 Patched Images:"
+      run:  cd linux/advanced/nextcloud/patched/20 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Nextcloud 21 Patched Images:"
+      run:  cd linux/advanced/nextcloud/patched/21 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Nextcloud 22 Patched Images:"
+      run:  cd linux/advanced/nextcloud/patched/22 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Nextcloud 23 Patched Images:"
+      run:  cd linux/advanced/nextcloud/patched/23 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Nextcloud 24 Patched Images:"
+      run:  cd linux/advanced/nextcloud/patched/24 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Nextcloud Patched Images:"
+      run:  cd linux/advanced/nextcloud/patched/latest && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean

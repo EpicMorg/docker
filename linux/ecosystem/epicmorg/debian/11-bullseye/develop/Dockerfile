@@ -7,7 +7,9 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 ENV BuildDocker true
 ENV GOPATH=/go
-ENV PATH="${GOPATH}/bin:${PATH}"
+ENV CARGOPATH=/root/.cargo
+ENV FLUTTERPATH=/flutter
+ENV PATH="${FLUTTERPATH}/bin:${CARGOPATH}/bin:${GOPATH}/bin:${PATH}"
 ARG BUILDS_DIR=/builds
 ARG SRC_DIR=${BUILDS_DIR}/src
 ARG EXPORT_DIR=${BUILDS_DIR}/export
@@ -43,6 +45,9 @@ RUN apt-get update && \
     g++-multilib \
     libxkbcommon-dev \
     zlib1g-dev \
+    libsqlite3-dev \
+    liblzma-dev \
+    libgtk-3-dev \
     libfreetype6-dev \
     libegl1-mesa-dev \
     libgles2-mesa-dev \
@@ -105,6 +110,21 @@ RUN apt-get update && \
     libtool \
     gdb \
     strace
+
+##################################################################
+#                   Rust compillers
+##################################################################
+RUN curl https://sh.rustup.rs -sSf | sh -s -- -y --profile complete --default-toolchain stable --verbose
+RUN printf "\n--------------------------------\n$(cargo --version)\n--------------------------------\n\n"
+
+##################################################################
+#                   Flutter SDK
+##################################################################
+RUN git clone https://github.com/flutter/flutter.git -b stable /flutter
+RUN flutter precache
+RUN flutter config --no-analytics
+RUN dart --disable-analytics
+RUN printf "\n--------------------------------\n$(flutter --version)\n--------------------------------\n\n"
 
 ##################################################################
 #                   GO compillers
