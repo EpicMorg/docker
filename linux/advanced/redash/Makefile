@@ -17,7 +17,7 @@ patch:
 	sed -i -e 's/# ldap3==2.2.4/ldap3==2.2.4/g' ./redash-repo/requirements.txt
 
 build:
-	docker-compose build --compress --parallel
+	docker-compose build --compress --parallel --progress plain
 
 deploy:
 	docker-compose push

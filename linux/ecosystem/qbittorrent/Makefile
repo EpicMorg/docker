@@ -21,14 +21,14 @@ clean:
 	docker system prune -af
 
 qbt-latest:
-	docker-compose build --compress --parallel qbt-latest
+	docker-compose build --compress --parallel --progress plain qbt-latest
 	docker-compose push qbt-latest
 
 
 qbt-unstable:
-	docker-compose build --compress --parallel qbt-unstable
+	docker-compose build --compress --parallel --progress plain qbt-unstable
 	docker-compose push qbt-unstable
 
 qbt-stable:
-	docker-compose build --compress --parallel qbt-stable
+	docker-compose build --compress --parallel --progress plain qbt-stable
 	docker-compose push qbt-stable
