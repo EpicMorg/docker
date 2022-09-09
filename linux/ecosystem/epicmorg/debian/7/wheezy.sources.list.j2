@@ -1,0 +1,16 @@
+#main
+deb http://archive.debian.org/{{ ansible_distribution | lower }}/ {{ ansible_distribution_release }} main contrib non-free
+deb-src http://archive.debian.org/{{ ansible_distribution | lower }}/ {{ ansible_distribution_release }} main contrib non-free
+
+deb http://archive.debian.org/{{ ansible_distribution | lower }}/ {{ ansible_distribution_release }}-kfreebsd main contrib non-free
+deb-src http://archive.debian.org/{{ ansible_distribution | lower }}/ {{ ansible_distribution_release }}-kfreebsd main contrib non-free
+
+deb http://archive.debian.org/{{ ansible_distribution | lower }}/ {{ ansible_distribution_release }}-backports main contrib non-free
+deb-src http://archive.debian.org/{{ ansible_distribution | lower }}/ {{ ansible_distribution_release }}-backports main contrib non-free
+
+deb http://archive.debian.org/{{ ansible_distribution | lower }}/ {{ ansible_distribution_release }}-backports-sloppy main contrib non-free
+deb-src http://archive.debian.org/{{ ansible_distribution | lower }}/ {{ ansible_distribution_release }}-backports-sloppy main contrib non-free
+
+#security
+deb http://archive.debian.org/{{ ansible_distribution | lower }}-security/ {{ ansible_distribution_release }}/updates main contrib non-free
+deb-src http://archive.debian.org/{{ ansible_distribution | lower }}-security/ {{ ansible_distribution_release }}/updates main contrib non-free
