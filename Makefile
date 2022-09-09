@@ -148,11 +148,21 @@ ecosystem-pyhton-images-develop:
 	cd `pwd`/linux/ecosystem/epicmorg/python/develop/3.11 && pwd && make build && make deploy
 
 ecosystem-debian-images:
+	make ecosystem-debian-squeeze-images
+	make ecosystem-debian-wheezy-images
 	make ecosystem-debian-jessie-images
 	make ecosystem-debian-stretch-images
 	make ecosystem-debian-buster-images
 	make ecosystem-debian-bullseye-images
 	make ecosystem-debian-bookworm-images
+
+ecosystem-debian-squeeze-images:
+	cd `pwd`/linux/ecosystem/epicmorg/debian/06-squeeze/slim    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/06-squeeze/main    && pwd && make build && make deploy
+
+ecosystem-debian-wheezy-images:
+	cd `pwd`/linux/ecosystem/epicmorg/debian/07-wheezy/slim    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/07-wheezy/main    && pwd && make build && make deploy
 
 ecosystem-debian-jessie-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/slim    && pwd && make build && make deploy
