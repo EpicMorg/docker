@@ -12,7 +12,7 @@ ENV P4_DOWNLOAD_URL=https://www.perforce.com/downloads/perforce/${P4_VERSION}/bi
 #                   update lists
 ##################################################################
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections && \
-    GNUTLS_CPUID_OVERRIDE=0x1 apt-get update
+    apt-get update
 
 ##################################################################
 #                   installing utils

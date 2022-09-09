@@ -1,4 +1,4 @@
-FROM debian:wheezy-slim
+FROM debian/eol:wheezy-slim
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
