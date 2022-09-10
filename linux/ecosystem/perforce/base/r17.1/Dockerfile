@@ -6,7 +6,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 #                   perforce default envs
 ##################################################################
 ENV P4_VERSION=r17.1
-ENV P4_CDN_URL=https://www.perforce.com/downloads/perforce/${P4_VERSION}/bin.linux26x86_64
+ENV P4_CDN_URL=http://filehost.perforce.com/perforce/${P4_VERSION}/bin.linux26x86_64
 ENV P4_DOWNLOAD_URL=${P4_CDN_URL}/p4
 ENV P4BROKER_DOWNLOAD_URL=${P4_CDN_URL}/p4broker
 ENV P4D_DOWNLOAD_URL=${P4_CDN_URL}/p4d

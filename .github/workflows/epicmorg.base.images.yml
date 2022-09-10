@@ -1,4 +1,4 @@
-name: epicmorg.base.images
+name: EpicMorg Base images
 
 on:
 #  push:
@@ -10,7 +10,7 @@ on:
 jobs:
 
   build-images:
-    name: Build EpicMorg Base images
+    name: Build EpicMorg Base Images
     runs-on: ubuntu-22.04
 
     steps:
@@ -28,3 +28,8 @@ jobs:
 
     - name: Build Bundle of Base Images
       run:  make bundle-base-images
+
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean

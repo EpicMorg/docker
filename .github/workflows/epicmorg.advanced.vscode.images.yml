@@ -1,4 +1,4 @@
-name: epicmorg.advanced.vscode.images
+name: "EpicMorg Advanced Vscode Server Images"
 
 on:
 #  push:
@@ -10,7 +10,7 @@ on:
 jobs:
 
   build-images:
-    name: Build EpicMorg Advanced Images
+    name: Build EpicMorg Advanced Vscode Server Images
     runs-on: ubuntu-22.04
 
     steps:
@@ -56,5 +56,5 @@ jobs:
 ##################################################################################
 
     - name: Cleanup
-      run: make clean
+      run: make docker-clean
 

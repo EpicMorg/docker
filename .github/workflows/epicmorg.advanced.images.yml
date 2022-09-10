@@ -1,4 +1,4 @@
-name: epicmorg.advanced.images
+name: EpicMorg Advanced Images
 
 on:
 #  push:
@@ -34,3 +34,8 @@ jobs:
 
     - name: "Build and Deploy Advanced Redash Images:"
       run:  cd linux/advanced/redash && pwd && make sync && make patch && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean

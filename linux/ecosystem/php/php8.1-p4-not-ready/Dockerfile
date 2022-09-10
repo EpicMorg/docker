@@ -16,10 +16,10 @@ ARG P4PHP_DIR=${SRC_DIR}/p4php
 ARG PHP_VER=8.1
 ARG MAKE_DIR=${SRC_DIR}/p4php-${PHP_VER}
 ARG P4API_VER=r21.1
-ARG P4API_URL=https://www.perforce.com/downloads/perforce/${P4API_VER}/bin.linux26x86_64/p4api.tgz
+ARG P4API_URL=http://filehost.perforce.com/perforce/${P4API_VER}/bin.linux26x86_64/p4api.tgz
 
 ARG P4PHP_VER=r20.2
-ARG P4PHP_URL=https://www.perforce.com/downloads/perforce/${P4PHP_VER}/bin.tools/p4php.tgz
+ARG P4PHP_URL=http://filehost.perforce.com/perforce/${P4PHP_VER}/bin.tools/p4php.tgz
 
 ARG PHP_MODULE_VER=20210902
 ARG PHP_MODULE_PATH=/usr/lib/php/${PHP_MODULE_VER}

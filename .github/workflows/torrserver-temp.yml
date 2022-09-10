@@ -31,3 +31,8 @@ jobs:
 
     - name: Push TorrServer
       run:  cd linux/ecosystem/torrserver && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean

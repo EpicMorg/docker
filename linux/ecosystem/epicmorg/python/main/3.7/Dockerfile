@@ -45,11 +45,13 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
 RUN apt-key adv --keyserver keyserver.ubuntu.com --refresh-keys
 RUN apt-key list  | grep "expired: " | sed -ne 's|pub .*/\([^ ]*\) .*|\1|gp' | xargs -n1  apt-key adv --keyserver keyserver.ubuntu.com --recv-keys
 
+RUN update-ca-certificates
+
 ##################################################################
 #                   perforce client binary
 ##################################################################
 ENV P4_VERSION=r22.1
-ENV P4_DOWNLOAD_URL=https://www.perforce.com/downloads/perforce/${P4_VERSION}/bin.linux26x86_64/p4
+ENV P4_DOWNLOAD_URL=http://filehost.perforce.com/perforce/${P4_VERSION}/bin.linux26x86_64/p4
 
 ##################################################################
 #                   7z official binary
@@ -156,7 +158,6 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     subversion-tools \
     pev
 
-
 ##################################################################
 #                   installing fs-tools
 ##################################################################
@@ -199,9 +200,10 @@ RUN apt-get update &&  \
 ##################################################################
 #                   gh official binary
 ##################################################################
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys C99B11DEB97541F0
-COPY etc/apt/sources.list.d/github-cli.list /etc/apt/sources.list.d/github-cli.list
-RUN apt-get update &&  \
+RUN wget -c https://cli.github.com/packages/githubcli-archive-keyring.gpg -O /etc/apt/trusted.gpg.d/githubcli-archive-keyring.gpg && \
+    chmod go+r /etc/apt/trusted.gpg.d/githubcli-archive-keyring.gpg && \
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/trusted.gpg.d/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list && \
+    apt-get update &&  \
     apt-get install -y --allow-unauthenticated \
     gh && \
     gh --version
