@@ -1,4 +1,4 @@
-name: epicmorg.advanced.nextcloud
+name: EpicMorg Advanced Zabbix Images
 
 on:
 #  push:
@@ -10,7 +10,7 @@ on:
 jobs:
 
   build-latest-images:
-    name: Build EpicMorg Advanced Zabbix Images
+    name: EpicMorg Advanced Zabbix Latest Images
     runs-on: ubuntu-22.04
 
     steps:
@@ -57,7 +57,7 @@ jobs:
 ##################################################################################
 
   build-30-images:
-    name: Build EpicMorg Advanced Zabbix Images
+    name: Build EpicMorg Advanced Zabbix 3.0 Images
     runs-on: ubuntu-22.04
 
     steps:
@@ -101,7 +101,7 @@ jobs:
 ##################################################################################
 
   build-40-images:
-    name: Build EpicMorg Advanced Zabbix Images
+    name: Build EpicMorg Advanced Zabbix 4.0 Images
     runs-on: ubuntu-22.04
 
     steps:
@@ -145,7 +145,7 @@ jobs:
 ##################################################################################
 
   build-50-images:
-    name: Build EpicMorg Advanced Zabbix Images
+    name: Build EpicMorg Advanced Zabbix 5.0 Images
     runs-on: ubuntu-22.04
 
     steps:
@@ -192,7 +192,7 @@ jobs:
 ##################################################################################
 
   build-52-images:
-    name: Build EpicMorg Advanced Zabbix Images
+    name: Build EpicMorg Advanced Zabbix 5.2 Images
     runs-on: ubuntu-22.04
 
     steps:
@@ -239,7 +239,7 @@ jobs:
 ##################################################################################
 
   build-54-images:
-    name: Build EpicMorg Advanced Zabbix Images
+    name: Build EpicMorg Advanced Zabbix 5.4 Images
     runs-on: ubuntu-22.04
 
     steps:
@@ -286,7 +286,7 @@ jobs:
 ##################################################################################
 
   build-60-images:
-    name: Build EpicMorg Advanced Zabbix Images
+    name: Build EpicMorg Advanced Zabbix 6.0 Images
     runs-on: ubuntu-22.04
 
     steps:
@@ -333,7 +333,7 @@ jobs:
 ##################################################################################
 
   build-62-images:
-    name: Build EpicMorg Advanced Zabbix Images
+    name: Build EpicMorg Advanced Zabbix 6.2 Images
     runs-on: ubuntu-22.04
 
     steps:
@@ -380,4 +380,4 @@ jobs:
 ##################################################################################
 
     - name: Cleanup
-      run: make clean
+      run: make docker-clean

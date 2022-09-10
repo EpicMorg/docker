@@ -1,4 +1,4 @@
-name: epicmorg.advanced.nextcloud
+name:  EpicMorg Advanced Nextcloud Images
 
 on:
 #  push:
@@ -10,7 +10,7 @@ on:
 jobs:
 
   build-pure-images:
-    name: Advanced Nextcloud Stock Images
+    name: EpicMorg Advanced Nextcloud Stock Images
     runs-on: ubuntu-22.04
 
     steps:
@@ -116,4 +116,4 @@ jobs:
 ##################################################################################
 
     - name: Cleanup
-      run: make clean
+      run: make docker-clean
