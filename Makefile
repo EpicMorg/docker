@@ -261,6 +261,7 @@ ecosystem-apache2-images:
 	cd `pwd`/linux/ecosystem/apache2/php8.0         && pwd && make build && make deploy
 
 ecosystem-testrail-images:
+	cd `pwd`/linux/ecosystem/cassandra/3.11       && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/testrail/latest       && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/testrail/ad           && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/testrail/ldap         && pwd && make build && make deploy
@@ -290,6 +291,19 @@ ecosystem-vk2discord-images:
 ecosystem-qbittorrent-images: 
 	cd `pwd`/linux/ecosystem/qbittorrent    && pwd && make build && make deploy
 
+ecosystem-retracker-images: 
+	cd `pwd`/linux/ecosystem/retracker    && pwd && make build && make deploy
+
+ecosystem-opentracker-images: 
+	cd `pwd`/linux/ecosystem/opentracker    && pwd && make build && make deploy
+
+ecosystem-torrust-tracker-images: 
+	cd `pwd`/linux/ecosystem/torrust-tracker    && pwd && make build && make deploy
+
+ecosystem-monero-images: 
+	cd `pwd`/linux/ecosystem/monero/monerod    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/monero/p2pool    && pwd && make build && make deploy
+
 ecosystem-postgres-images:
 	cd `pwd`/linux/ecosystem/postgres/latest       && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/postgres/8.2          && pwd && make build && make deploy
@@ -307,6 +321,8 @@ ecosystem-postgres-images:
 	cd `pwd`/linux/ecosystem/postgres/12           && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/postgres/13           && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/postgres/14           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/postgres/15           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/postgres/16           && pwd && make build && make deploy
 
 ecosystem-teamcity-agent-images:
 	cd `pwd`/linux/ecosystem/teamcity/agent/latest         && pwd && make build && make deploy
@@ -342,6 +358,34 @@ ecosystem-vscode-server-images:
 	cd `pwd`/linux/advanced/vscode-server/dotnet         && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/vscode-server/mono           && pwd && make build && make deploy
 
+ecosystem-perforce-base-images:
+	cd `pwd`/linuxecosystem/perforce/base/r16.2    && pwd && make build && make deploy
+	cd `pwd`/linuxecosystem/perforce/base/r17.1    && pwd && make build && make deploy
+	cd `pwd`/linuxecosystem/perforce/base/r17.2    && pwd && make build && make deploy
+	cd `pwd`/linuxecosystem/perforce/base/r18.1    && pwd && make build && make deploy
+	cd `pwd`/linuxecosystem/perforce/base/r18.2    && pwd && make build && make deploy
+	cd `pwd`/linuxecosystem/perforce/base/r19.1    && pwd && make build && make deploy
+	cd `pwd`/linuxecosystem/perforce/base/r19.2    && pwd && make build && make deploy
+	cd `pwd`/linuxecosystem/perforce/base/r20.1    && pwd && make build && make deploy
+	cd `pwd`/linuxecosystem/perforce/base/r20.2    && pwd && make build && make deploy
+	cd `pwd`/linuxecosystem/perforce/base/r21.1    && pwd && make build && make deploy
+	cd `pwd`/linuxecosystem/perforce/base/r21.2    && pwd && make build && make deploy
+	cd `pwd`/linuxecosystem/perforce/base/r22.1    && pwd && make build && make deploy
+
+ecosystem-perforce-proxy-images:
+	cd `pwd`/linuxecosystem/perforce/p4p/r16.2    && pwd && make build && make deploy
+	cd `pwd`/linuxecosystem/perforce/p4p/r17.1    && pwd && make build && make deploy
+	cd `pwd`/linuxecosystem/perforce/p4p/r17.2    && pwd && make build && make deploy
+	cd `pwd`/linuxecosystem/perforce/p4p/r18.1    && pwd && make build && make deploy
+	cd `pwd`/linuxecosystem/perforce/p4p/r18.2    && pwd && make build && make deploy
+	cd `pwd`/linuxecosystem/perforce/p4p/r19.1    && pwd && make build && make deploy
+	cd `pwd`/linuxecosystem/perforce/p4p/r19.2    && pwd && make build && make deploy
+	cd `pwd`/linuxecosystem/perforce/p4p/r20.1    && pwd && make build && make deploy
+	cd `pwd`/linuxecosystem/perforce/p4p/r20.2    && pwd && make build && make deploy
+	cd `pwd`/linuxecosystem/perforce/p4p/r21.1    && pwd && make build && make deploy
+	cd `pwd`/linuxecosystem/perforce/p4p/r21.2    && pwd && make build && make deploy
+	cd `pwd`/linuxecosystem/perforce/p4p/r22.1    && pwd && make build && make deploy
+
 bundle-base-images:
 	@echo "======================================="
 	@echo "===== Building  EpicMorg   images ====="
@@ -362,13 +406,10 @@ bundle-atlassian:
 	@echo "======================================="
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/latest           && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/confluence/latest          && pwd && make build && make deploy
-#	cd `pwd`/linux/ecosystem/atlassian/crucible/latest            && pwd && make build && make deploy
-#	cd `pwd`/linux/ecosystem/atlassian/fisheye/latest             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crucible/latest            && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/fisheye/latest             && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/fisheye-crucible/latest    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/latest                && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.22.0                && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.22.1                && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.22.2                && pwd && make build && make deploy
 
 bundle-web:
 	@echo "======================================="
@@ -378,3 +419,9 @@ bundle-web:
 	make ecosystem-apache2-images
 	make ecosystem-nginx-images
 	
+bundle-p4:
+	@echo "======================================="
+	@echo "=====   Building    p4    images ====="
+	@echo "======================================="
+	make ecosystem-perforce-base-images
+	make ecosystem-perforce-proxy-images

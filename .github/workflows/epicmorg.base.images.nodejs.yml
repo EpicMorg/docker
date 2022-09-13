@@ -1,0 +1,63 @@
+name: EpicMorg EcoSystem NodeJS Images
+
+on:
+#  push:
+#    branches:
+#      - 'master'
+  schedule:
+    - cron:  '5 5 * * 1,3,5'
+
+jobs:
+
+  build-node-images:
+    name: Build EpicMorg NodeJS Images
+    runs-on: ubuntu-22.04
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Log into registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Test Make
+      run:  make
+
+    - name: "Build and Deploy NodeJS LTS Image:"
+      run:  cd linux/ecosystem/nodejs/lts    && pwd && make build && make deploy
+
+    - name: "Build and Deploy NodeJS Current Image:"
+      run:  cd linux/ecosystem/nodejs/current    && pwd && make build && make deploy
+
+    - name: "Build and Deploy NodeJS 10 Image:"
+      run:  cd linux/ecosystem/nodejs/node10    && pwd && make build && make deploy
+
+    - name: "Build and Deploy NodeJS 11 Image:"
+      run:  cd linux/ecosystem/nodejs/node11    && pwd && make build && make deploy
+
+    - name: "Build and Deploy NodeJS 12 Image:"
+      run:  cd linux/ecosystem/nodejs/node12    && pwd && make build && make deploy
+
+    - name: "Build and Deploy NodeJS 13 Image:"
+      run:  cd linux/ecosystem/nodejs/node13    && pwd && make build && make deploy
+
+    - name: "Build and Deploy NodeJS 14 Image:"
+      run:  cd linux/ecosystem/nodejs/node14    && pwd && make build && make deploy
+
+    - name: "Build and Deploy NodeJS 15 Image:"
+      run:  cd linux/ecosystem/nodejs/node15    && pwd && make build && make deploy
+
+    - name: "Build and Deploy NodeJS 16 Image:"
+      run:  cd linux/ecosystem/nodejs/node16    && pwd && make build && make deploy
+
+    - name: "Build and Deploy NodeJS 17 Image:"
+      run:  cd linux/ecosystem/nodejs/node17    && pwd && make build && make deploy
+
+    - name: "Build and Deploy NodeJS 18 Image:"
+      run:  cd linux/ecosystem/nodejs/node18    && pwd && make build && make deploy
+
+    - name: "Build and Deploy NodeJS 18 Image:"
+      run:  cd linux/ecosystem/nodejs/node18    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
