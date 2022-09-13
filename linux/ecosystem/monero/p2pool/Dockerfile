@@ -7,16 +7,13 @@ ARG DEBIAN_FRONTEND=noninteractive
 #                   ARGuments
 ##################################################################
 ENV P2POOL_DIR=/p2pool
-ENV P2POOL_BIN=${P2POOL_DIR}/bin
-ENV P2POOL_DATA=${P2POOL_DIR}/data
 ENV P2POOL_VERSION=2.3
 ENV P2POOL_DOWNLOAD_URL=https://github.com/SChernykh/p2pool/releases/download/v${P2POOL_VERSION}/p2pool-v${P2POOL_VERSION}-linux-x64.tar.gz
-ENV PATH="${PATH}:${P2POOL_BIN}"
 
 ##################################################################
 #                   Installing
 ##################################################################
-RUN mkdir -p ${P2POOL_DIR} ${P2POOL_BIN} ${P2POOL_DATA}
+RUN mkdir -p ${P2POOL_DIR}
 
 # Install remaining dependencies
 RUN apt-get update \
@@ -26,10 +23,9 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-RUN echo ${P2POOL_BIN}
-RUN wget -qO-  ${P2POOL_DOWNLOAD_URL} | tar -xvz --strip-components=1 -C ${P2POOL_BIN}
+RUN wget -qO-  ${P2POOL_DOWNLOAD_URL} | tar -xvz --strip-components=1 -C /tmp
 
-RUN export PATH="${PATH}:${P2POOL_BIN}"
+RUN mv /tmp/p2pool /bin
 
 RUN p2pool --help
 
@@ -39,6 +35,7 @@ WORKDIR ${P2POOL_DIR}
 # Expose p2p and restricted RPC ports
 EXPOSE 3333
 EXPOSE 37889
+EXPOSE 37888
 
 # Start p2pool with required --non-interactive flag and sane defaults that are overridden by user input (if applicable)
 ENTRYPOINT ["p2pool"]
