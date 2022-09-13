@@ -52,7 +52,6 @@ jobs:
       
     - name: "Build and Deploy Debian 7 develop Image:"
       run:  cd linux/ecosystem/epicmorg/debian/07-wheezy/develop    && pwd && make build && make deploy
-      
 
 ##################################################################################
 
