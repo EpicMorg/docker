@@ -5,7 +5,7 @@ on:
 #    branches:
 #      - 'develop'
   schedule:
-    - cron:  '0 0 * * *' # At the end of every day
+    - cron:  '0 0 * * 2,4,6'
 
 jobs:
 
@@ -21,12 +21,145 @@ jobs:
     - name: Test Make
       run:  make
 
-##################################################################################
-
     - name: Build and Deploy TorrServer
       run:  cd linux/ecosystem/torrserver && make build && make deploy
 
 ##################################################################################
 
+  build-ers-image:
+    name: EpicMorg EcoSystem Electron Release Server Image
+    runs-on: ubuntu-20.04
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Log into registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Test Make
+      run:  make
+
+    - name: Build and Deploy Electron Release Server
+      run:  cd llinux/ecosystem/electron-release-server && make build && make deploy
+
+##################################################################################
+
+  build-vk2discord-image:
+    name: EpicMorg EcoSystem vk2discord Image
+    runs-on: ubuntu-20.04
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Log into registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Test Make
+      run:  make
+
+    - name: Build and Deploy vk2discord
+      run:  cd llinux/ecosystem/vk2discord && make build && make deploy
+
+##################################################################################
+
+  build-qbittorrent-image:
+    name: EpicMorg EcoSystem qBittorrent Image
+    runs-on: ubuntu-20.04
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Log into registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Test Make
+      run:  make
+
+    - name: Build and Deploy qBittorrent
+      run:  cd llinux/ecosystem/qbittorrent && make build && make deploy
+
+##################################################################################
+
+  build-opentracker-image:
+    name: EpicMorg EcoSystem openTracker Image
+    runs-on: ubuntu-20.04
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Log into registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Test Make
+      run:  make
+
+    - name: Build and Deploy openTracker
+      run:  cd llinux/ecosystem/opentracker && make build && make deploy
+
+##################################################################################
+
+  build-retracker-image:
+    name: EpicMorg EcoSystem reTracker Image
+    runs-on: ubuntu-20.04
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Log into registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Test Make
+      run:  make
+
+    - name: Build and Deploy reTracker
+      run:  cd llinux/ecosystem/retracker && make build && make deploy
+
+##################################################################################
+
+  build-torrust-tracker-image:
+    name: EpicMorg EcoSystem Torrust Tracker Image
+    runs-on: ubuntu-20.04
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Log into registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Test Make
+      run:  make
+
+    - name: Build and Deploy Torrust Tracker
+      run:  cd llinux/ecosystem/torrust-tracker && make build && make deploy
+
+##################################################################################
+
+  build-monero-cli-image:
+    name: EpicMorg EcoSystem Monero CLI Image
+    runs-on: ubuntu-20.04
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Log into registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Test Make
+      run:  make
+
+    - name: Build and Deploy Monero CLI
+      run:  cd llinux/ecosystem/monero/monerod && make build && make deploy
+
+##################################################################################
+
+  build-monero-p2pool-image:
+    name: EpicMorg EcoSystem Monero p2pool Image
+    runs-on: ubuntu-20.04
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Log into registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Test Make
+      run:  make
+
+    - name: Build and Deploy Monero p2pool
+      run:  cd llinux/ecosystem/monero/p2pool && make build && make deploy
+      
+##################################################################################
     - name: Cleanup
       run: make docker-clean
