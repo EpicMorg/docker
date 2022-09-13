@@ -21,37 +21,34 @@ jobs:
     - name: Test Make
       run:  make
 
-    - name: Docker Compose Update
-      run:  make docker-compose-update
-
 ##################################################################################
 
     - name: "Build and Deploy Advanced Vscode Server Images:"
-      run:  cd linux/advanced/vscode-server/latest && pwd && make sync && make patch && make build && make deploy
+      run:  cd linux/advanced/vscode-server/latest && pwd && make build && make deploy
 
     - name: "Build and Deploy Advanced  Vscode Server AMXX Images:"
-      run:  cd linux/advanced/vscode-server/amxx && pwd && make sync && make patch && make build && make deploy
+      run:  cd linux/advanced/vscode-server/amxx && pwd && make build && make deploy
 
     - name: "Build and Deploy Advanced Vscode Server Android Images:"
-      run:  cd linux/advanced/vscode-server/android && pwd && make sync && make patch && make build && make deploy
+      run:  cd linux/advanced/vscode-server/android && pwd && make build && make deploy
 
     - name: "Build and Deploy Advanced Vscode Server CPP Images:"
-      run:  cd linux/advanced/vscode-server/cpp && pwd && make sync && make patch && make build && make deploy
+      run:  cd linux/advanced/vscode-server/cpp && pwd && make build && make deploy
 
     - name: "Build and Deploy Advanced Vscode Server DevOps Images:"
-      run:  cd linux/advanced/vscode-server/devops && pwd && make sync && make patch && make build && make deploy
+      run:  cd linux/advanced/vscode-server/devops && pwd && make build && make deploy
 
     - name: "Build and Deploy Advanced Vscode Server Docker Images:"
-      run:  cd linux/advanced/vscode-server/docker && pwd && make sync && make patch && make build && make deploy
+      run:  cd linux/advanced/vscode-server/docker && pwd && make build && make deploy
 
     - name: "Build and Deploy Advanced Vscode Server dotnet Images:"
-      run:  cd linux/advanced/vscode-server/dotnet && pwd && make sync && make patch && make build && make deploy
+      run:  cd linux/advanced/vscode-server/dotnet && pwd && make build && make deploy
 
     - name: "Build and Deploy Advanced Vscode Server dotnat Full Images:"
-      run:  cd linux/advanced/vscode-server/dotnet-full && pwd && make sync && make patch && make build && make deploy
+      run:  cd linux/advanced/vscode-server/dotnet-full && pwd && make build && make deploy
 
     - name: "Build and Deploy Advanced Vscode Server Mono Images:"
-      run:  cd linux/advanced/vscode-server/mono && pwd && make sync && make patch && make build && make deploy
+      run:  cd linux/advanced/vscode-server/mono && pwd && make build && make deploy
 
 ##################################################################################
 

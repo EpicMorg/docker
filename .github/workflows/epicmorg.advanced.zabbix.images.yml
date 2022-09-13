@@ -21,9 +21,6 @@ jobs:
     - name: Test Make
       run:  make
 
-    - name: Docker Compose Update
-      run:  make docker-compose-update
-
     - name: "Build and Deploy Advanced Zabbix Agent Images:"
       run:  cd linux/advanced/zabbix/latest/agent && pwd && make build && make deploy
 
@@ -68,9 +65,6 @@ jobs:
     - name: Test Make
       run:  make
 
-    - name: Docker Compose Update
-      run:  make docker-compose-update
-
     - name: "Build and Deploy Advanced Zabbix Agent Images:"
       run:  cd linux/advanced/zabbix/3.0/agent && pwd && make build && make deploy
 
@@ -112,9 +106,6 @@ jobs:
     - name: Test Make
       run:  make
 
-    - name: Docker Compose Update
-      run:  make docker-compose-update
-
     - name: "Build and Deploy Advanced Zabbix Agent Images:"
       run:  cd linux/advanced/zabbix/4.0/agent && pwd && make build && make deploy
 
@@ -155,9 +146,6 @@ jobs:
 
     - name: Test Make
       run:  make
-
-    - name: Docker Compose Update
-      run:  make docker-compose-update
 
     - name: "Build and Deploy Advanced Zabbix Agent Images:"
       run:  cd linux/advanced/zabbix/5.0/agent && pwd && make build && make deploy
@@ -203,9 +191,6 @@ jobs:
     - name: Test Make
       run:  make
 
-    - name: Docker Compose Update
-      run:  make docker-compose-update
-
     - name: "Build and Deploy Advanced Zabbix Agent Images:"
       run:  cd linux/advanced/zabbix/5.2/agent && pwd && make build && make deploy
 
@@ -249,9 +234,6 @@ jobs:
 
     - name: Test Make
       run:  make
-
-    - name: Docker Compose Update
-      run:  make docker-compose-update
 
     - name: "Build and Deploy Advanced Zabbix Agent Images:"
       run:  cd linux/advanced/zabbix/5.4/agent && pwd && make build && make deploy
@@ -297,9 +279,6 @@ jobs:
     - name: Test Make
       run:  make
 
-    - name: Docker Compose Update
-      run:  make docker-compose-update
-
     - name: "Build and Deploy Advanced Zabbix Agent Images:"
       run:  cd linux/advanced/zabbix/6.0/agent && pwd && make build && make deploy
 
@@ -343,9 +322,6 @@ jobs:
 
     - name: Test Make
       run:  make
-
-    - name: Docker Compose Update
-      run:  make docker-compose-update
 
     - name: "Build and Deploy Advanced Zabbix Agent Images:"
       run:  cd linux/advanced/zabbix/6.2/agent && pwd && make build && make deploy

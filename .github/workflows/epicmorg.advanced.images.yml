@@ -21,9 +21,6 @@ jobs:
     - name: Test Make
       run:  make
 
-    - name: Docker Compose Update
-      run:  make docker-compose-update
-
 ##################################################################################
 
     - name: "Build and Deploy Advanced Mattermost Images:"
