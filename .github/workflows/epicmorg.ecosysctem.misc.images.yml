@@ -1,17 +1,17 @@
-name: EpicMorg Base images
+name:  EpicMorg EcoSystem Misc Images
 
 on:
 #  push:
 #    branches:
-#      - 'master'
+#      - 'develop'
   schedule:
-    - cron:  '0 0 * * 1,3,5' # At the end of every day
+    - cron:  '0 0 * * *' # At the end of every day
 
 jobs:
 
-  build-images:
-    name: Build EpicMorg Base Images
-    runs-on: ubuntu-22.04
+  build-torrserver-image:
+    name: EpicMorg EcoSystem TorrServer Image
+    runs-on: ubuntu-20.04
 
     steps:
     - uses: actions/checkout@v2
@@ -21,13 +21,10 @@ jobs:
     - name: Test Make
       run:  make
 
-    - name: Docker Compose Update
-      run:  make docker-compose-update
-
 ##################################################################################
 
-    - name: Build Bundle of Base Images
-      run:  make bundle-base-images
+    - name: Build and Deploy TorrServer
+      run:  cd linux/ecosystem/torrserver && make build && make deploy
 
 ##################################################################################
 
