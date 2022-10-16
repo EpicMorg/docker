@@ -1,4 +1,4 @@
-FROM epicmorg/devel AS builder
+FROM epicmorg/debian:buster-develop AS builder
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -76,7 +76,7 @@ RUN cd ${MAKE_DIR} && \
 ##################################################################
 ##################################################################
 
-FROM epicmorg/prod
+FROM epicmorg/debian:buster
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
