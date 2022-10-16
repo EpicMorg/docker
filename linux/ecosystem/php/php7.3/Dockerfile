@@ -76,7 +76,7 @@ RUN cd ${MAKE_DIR} && \
 ##################################################################
 ##################################################################
 
-FROM epicmorg/prod
+FROM epicmorg/debian:bullseye
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
