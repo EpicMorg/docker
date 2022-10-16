@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
-    - uses: actions/checkout
+    - uses: actions/checkout@v3
     - name: Log into registry
       run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
@@ -50,7 +50,7 @@ jobs:
     needs: build-python-base-images
 
     steps:
-    - uses: actions/checkout
+    - uses: actions/checkout@v3
     - name: Log into registry
       run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 

@@ -6,7 +6,7 @@ ARG NGINX_VERSION
 ##################################################################
 #                   Start build process
 ##################################################################
-FROM epicmorg/devel AS builder
+FROM epicmorg/debian:bullseye-develop AS builder
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
