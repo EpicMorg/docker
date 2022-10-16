@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout
     - name: Log into registry
       run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
@@ -27,11 +27,11 @@ jobs:
     - name: "Build and Deploy Atlassian Confluence Image:"
       run:  cd linux/ecosystem/atlassian/confluence/latest    && pwd && make build && make deploy
 
-    - name: "Build and Deploy Atlassian Crucible Image:"
-      run:  cd linux/ecosystem/atlassian/crucible/latest    && pwd && make build && make deploy
+#    - name: "Build and Deploy Atlassian Crucible Image:"
+#      run:  cd linux/ecosystem/atlassian/crucible/latest    && pwd && make build && make deploy
 
-    - name: "Build and Deploy Atlassian Fisheye Image:"
-      run:  cd linux/ecosystem/atlassian/fisheye/latest    && pwd && make build && make deploy
+#    - name: "Build and Deploy Atlassian Fisheye Image:"
+#      run:  cd linux/ecosystem/atlassian/fisheye/latest    && pwd && make build && make deploy
 
     - name: "Build and Deploy Atlassian Fisheye + Crucible Image:"
       run:  cd linux/ecosystem/atlassian/fisheye-crucible/latest    && pwd && make build && make deploy

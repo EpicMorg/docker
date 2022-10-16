@@ -98,25 +98,25 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
 ##################################################################
 #                   installing fs-tools
 ##################################################################
-RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections && \
-    apt-get install -y --allow-unauthenticated \
-    exfat-utils \
-    e2fsprogs \
-    dosfstools \
-    hfsutils \
-    hfsprogs \
-    jfsutils \
-    mdadm \
-    util-linux \
-    cryptsetup \
-    lvm2 \
-    nilfs-tools \
-    ntfs-3g \
-    reiser4progs \
-    reiserfsprogs \
-    udftools \
-    xfsprogs \
-    xfsdump
+#RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections && \
+#    apt-get install -y --allow-unauthenticated \
+#    exfat-utils \
+#    e2fsprogs \
+#    dosfstools \
+#    hfsutils \
+#    hfsprogs \
+#    jfsutils \
+#    mdadm \
+#    util-linux \
+#    cryptsetup \
+#    lvm2 \
+#    nilfs-tools \
+#    ntfs-3g \
+#    reiser4progs \
+#    reiserfsprogs \
+#    udftools \
+#    xfsprogs \
+#    xfsdump
 
 ##################################################################
 #                   gh official binary
