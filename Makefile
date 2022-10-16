@@ -262,9 +262,15 @@ ecosystem-apache2-images:
 
 ecosystem-testrail-images:
 	cd `pwd`/linux/ecosystem/cassandra/3.11       && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/testrail/latest       && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/testrail/ad           && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/testrail/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/latest/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/latest/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/latest/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/7.0.2.1016/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/7.0.2.1016/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/7.0.2.1016/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/7.4.1.8092/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/7.4.1.8092/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/7.4.1.8092/ldap         && pwd && make build && make deploy
 
 ecosystem-torrserver-images:
 	cd `pwd`/linux/ecosystem/torrserver            && pwd && make build && make deploy

@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout
     - name: Log into registry
       run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
@@ -44,7 +44,7 @@ jobs:
     needs: build-php-images
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout
     - name: Log into registry
       run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
@@ -74,7 +74,7 @@ jobs:
     needs: build-php-images
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout
     - name: Log into registry
       run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
@@ -89,33 +89,6 @@ jobs:
 
     - name: "Build and Deploy NginX + RTMP-HLS Image:"
       run:  cd linux/ecosystem/nginx/latest/rtmp-hls    && pwd && make build && make deploy
-
-##################################################################################
-
-  build-testrail-images:
-    name: Build EpicMorg Testrail Images
-    runs-on: ubuntu-22.04
-    needs: build-php-images
-
-    steps:
-    - uses: actions/checkout@v2
-    - name: Log into registry
-      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
-
-    - name: Test Make
-      run:  make
-
-    - name: "Build and Deploy Cassandra 3.11 Image:"
-      run:  cd linux/ecosystem/cassandra/3.11    && pwd && make build && make deploy
-
-    - name: "Build and Deploy Testrail Image:"
-      run:  cd linux/ecosystem/testrail/latest    && pwd && make build && make deploy
-
-    - name: "Build and Deploy Testrail + AD Image:"
-      run:  cd linux/ecosystem/testrail/ad    && pwd && make build && make deploy
-
-    - name: "Build and Deploy Testrail + LDAP Image:"
-      run:  cd linux/ecosystem/testrail/ldap    && pwd && make build && make deploy
 
 ##################################################################################
 
