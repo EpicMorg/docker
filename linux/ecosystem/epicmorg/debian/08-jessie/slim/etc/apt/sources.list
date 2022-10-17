@@ -2,8 +2,8 @@
 deb http://archive.debian.org/debian/ jessie main contrib non-free
 deb-src http://archive.debian.org/debian/ jessie main contrib non-free
 
-deb http://archive.debian.org/debian/ jessie-kfreebsd main contrib non-free
-deb-src http://archive.debian.org/debian/ jessie-kfreebsd main contrib non-free
+#deb http://archive.debian.org/debian/ jessie-kfreebsd main contrib non-free
+#deb-src http://archive.debian.org/debian/ jessie-kfreebsd main contrib non-free
 
 deb http://archive.debian.org/debian/ jessie-backports main contrib non-free
 deb-src http://archive.debian.org/debian/ jessie-backports main contrib non-free
