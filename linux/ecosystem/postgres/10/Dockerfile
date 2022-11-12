@@ -14,7 +14,7 @@ RUN groupadd -r postgres && useradd -r -g postgres postgres
 ENV GOSU_VER 1.14
 
 RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/* \
-    && wget --no-check-certificate -c https://github.com/tianon/gosu/releases/download/$GOSU_VER/gosu-amd64 --random-wait -P /usr/local/bin/gosu \
+    && wget -q --no-check-certificate -c https://github.com/tianon/gosu/releases/download/$GOSU_VER/gosu-amd64 --random-wait -O /usr/local/bin/gosu \
     && chmod +x /usr/local/bin/gosu \
     && apt-get purge -y --auto-remove curl
 
