@@ -14,7 +14,7 @@ RUN groupadd -r postgres && useradd -r -g postgres postgres
 ENV GOSU_VER 1.14
 
 RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/* \
-    && curl -o /usr/local/bin/gosu -SL https://github.com/tianon/gosu/releases/download/$GOSU_VER/gosu-amd64 \
+    && wget -q --no-check-certificate -c https://github.com/tianon/gosu/releases/download/$GOSU_VER/gosu-amd64 --random-wait -O /usr/local/bin/gosu \
     && chmod +x /usr/local/bin/gosu \
     && apt-get purge -y --auto-remove curl
 
@@ -29,17 +29,20 @@ ENV LANG en_US.utf8
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8
 
 ####################################################################################################################################
-# http://apt.postgresql.org/pub/repos/apt/pool/14/p/postgresql-14/
+# http://apt.postgresql.org/pub/repos/apt/pool/16/p/postgresql-16/
 ####################################################################################################################################
 ENV PG_MAJOR 16
 
 RUN echo 'deb http://apt.postgresql.org/pub/repos/apt/ bookworm-pgdg main' $PG_MAJOR > /etc/apt/sources.list.d/pgdg.list && \
+    echo 'deb http://apt.postgresql.org/pub/repos/apt/ bookworm-pgdg-snapshot main' $PG_MAJOR >> /etc/apt/sources.list.d/pgdg.list && \
     echo 'deb http://apt.postgresql.org/pub/repos/apt/ bookworm-pgdg-testing main' $PG_MAJOR >> /etc/apt/sources.list.d/pgdg.list
 
 RUN apt-get update \
     && apt-get install -y postgresql-common \
     && sed -ri 's/#(create_main_cluster) .*$/\1 = false/' /etc/postgresql-common/createcluster.conf \
+#    &&  apt-cache policy libpq5
     && apt-get install -y \
+    libpq5=16~~devel-1.pgdg120+~20221112.1758.g97c61f7 \
     postgresql-$PG_MAJOR \
     postgresql-contrib-$PG_MAJOR \
     && rm -rf /var/lib/apt/lists/*

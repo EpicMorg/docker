@@ -54,7 +54,10 @@ jobs:
     - name: "Build and Deploy Advanced Nextcloud 24 Stock Images:"
       run:  cd linux/advanced/nextcloud/pure/24 && pwd && make build && make deploy
 
-    - name: "Build and Deploy Advanced Nextcloud Stock Images:"
+    - name: "Build and Deploy Advanced Nextcloud 25 Stock Images:"
+      run:  cd linux/advanced/nextcloud/pure/25 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Nextcloud Latest Stock Images:"
       run:  cd linux/advanced/nextcloud/pure/latest && pwd && make build && make deploy
 
 ##################################################################################
@@ -104,7 +107,10 @@ jobs:
     - name: "Build and Deploy Advanced Nextcloud 24 Patched Images:"
       run:  cd linux/advanced/nextcloud/patched/24 && pwd && make build && make deploy
 
-    - name: "Build and Deploy Advanced Nextcloud Patched Images:"
+    - name: "Build and Deploy Advanced Nextcloud 25 Patched Images:"
+      run:  cd linux/advanced/nextcloud/patched/25 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Nextcloud Latest Patched Images:"
       run:  cd linux/advanced/nextcloud/patched/latest && pwd && make build && make deploy
 
 ##################################################################################

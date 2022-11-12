@@ -39,7 +39,7 @@ jobs:
       run:  make
 
     - name: Build and Deploy Electron Release Server
-      run:  cd llinux/ecosystem/electron-release-server && make build && make deploy
+      run:  cd linux/ecosystem/electron-release-server && make build && make deploy
 
 ##################################################################################
 
@@ -56,7 +56,7 @@ jobs:
       run:  make
 
     - name: Build and Deploy vk2discord
-      run:  cd llinux/ecosystem/vk2discord && make build && make deploy
+      run:  cd linux/ecosystem/vk2discord && make build && make deploy
 
 ##################################################################################
 
@@ -73,7 +73,7 @@ jobs:
       run:  make
 
     - name: Build and Deploy qBittorrent
-      run:  cd llinux/ecosystem/qbittorrent && make build && make deploy
+      run:  cd linux/ecosystem/qbittorrent && make build && make deploy
 
 ##################################################################################
 
@@ -90,7 +90,7 @@ jobs:
       run:  make
 
     - name: Build and Deploy openTracker
-      run:  cd llinux/ecosystem/opentracker && make build && make deploy
+      run:  cd linux/ecosystem/opentracker && make build && make deploy
 
 ##################################################################################
 
@@ -107,7 +107,7 @@ jobs:
       run:  make
 
     - name: Build and Deploy reTracker
-      run:  cd llinux/ecosystem/retracker && make build && make deploy
+      run:  cd linux/ecosystem/retracker && make build && make deploy
 
 ##################################################################################
 
@@ -124,7 +124,7 @@ jobs:
       run:  make
 
     - name: Build and Deploy Torrust Tracker
-      run:  cd llinux/ecosystem/torrust-tracker && make build && make deploy
+      run:  cd linux/ecosystem/torrust-tracker && make build && make deploy
 
 ##################################################################################
 
@@ -141,7 +141,7 @@ jobs:
       run:  make
 
     - name: Build and Deploy Monero CLI
-      run:  cd llinux/ecosystem/monero/monerod && make build && make deploy
+      run:  cd linux/ecosystem/monero/monerod && make build && make deploy
 
 ##################################################################################
 
@@ -158,7 +158,7 @@ jobs:
       run:  make
 
     - name: Build and Deploy Monero p2pool
-      run:  cd llinux/ecosystem/monero/p2pool && make build && make deploy
+      run:  cd linux/ecosystem/monero/p2pool && make build && make deploy
       
 ##################################################################################
     - name: Cleanup

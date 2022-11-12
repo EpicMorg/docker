@@ -76,11 +76,11 @@ RUN apt-get update && \
     libcrypto++-dev \
     libbz2-dev \
     libvpx-dev \
-    libvpx6 \
+#    libvpx6 \
     libc6 \
     libgssapi-krb5-2 \
-    liblttng-ust0 \
-    libssl1.1 \
+#    liblttng-ust0 \
+#    libssl1.1 \
     libstdc++6 \
     zlib1g \
     tcl
