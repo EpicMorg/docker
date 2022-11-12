@@ -49,30 +49,30 @@ RUN apt-get update && \
 ##################################################################
 #                   preparing p4src
 ##################################################################
-RUN wget -qO - ${P4API_URL} | tar -zxv --strip-components=1 -C ${P4API_DIR} && \
-    wget -qO - ${P4API_URL} | tar -zxv --strip-components=1 -C ${MAKE_DIR} && \
-    wget -qO - ${P4PHP_URL} | tar -zxv --strip-components=1 -C ${P4PHP_DIR} && \
-    wget -qO - ${P4PHP_URL} | tar -zxv --strip-components=1 -C ${MAKE_DIR} && \
-    cd ${P4API_DIR} && \
-    ls -las && \
-    cd ${P4PHP_DIR} && \
-    ls -las && \
-    cd ${MAKE_DIR} && \
-    ls -las && \
-    cd ${SRC_DIR} && \
-    ls -las
+#RUN wget -qO - ${P4API_URL} | tar -zxv --strip-components=1 -C ${P4API_DIR} && \
+#    wget -qO - ${P4API_URL} | tar -zxv --strip-components=1 -C ${MAKE_DIR} && \
+#    wget -qO - ${P4PHP_URL} | tar -zxv --strip-components=1 -C ${P4PHP_DIR} && \
+#    wget -qO - ${P4PHP_URL} | tar -zxv --strip-components=1 -C ${MAKE_DIR} && \
+#    cd ${P4API_DIR} && \
+#    ls -las && \
+#    cd ${P4PHP_DIR} && \
+#    ls -las && \
+#    cd ${MAKE_DIR} && \
+#    ls -las && \
+#    cd ${SRC_DIR} && \
+#    ls -las
 
 ##################################################################
 #                   compilling p4src
 ##################################################################
-RUN cd ${MAKE_DIR} && \
-    ls -las && \
-    phpize && \
-    ./configure --with-perforce=${P4API_DIR} && \
-    make && \
-    make test && \
-    make install && \
-    cp ${PHP_MODULE_PATH}/perforce.so ${EXPORT_DIR}
+#RUN cd ${MAKE_DIR} && \
+#    ls -las && \
+#    phpize && \
+#    ./configure --with-perforce=${P4API_DIR} && \
+#    make && \
+#    make test && \
+#    make install && \
+#    cp ${PHP_MODULE_PATH}/perforce.so ${EXPORT_DIR}
 
 ##################################################################
 #                   compilling smbclient
@@ -223,25 +223,28 @@ RUN apt-get update && \
     php -v
 
 ##################################################################
-#                   not supported with php8
-##################################################################
 #                   Installing IOnCube addon
 #################################################################
-#ADD https://downloads.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz /tmp/ioncube.tar.gz
-#RUN tar -C /tmp -xvf /tmp/ioncube.tar.gz && \
-#    cp /tmp/ioncube/ioncube_loader_lin_7.4.so ${PHP_MODULE_PATH} && \
-##    echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_7.4.so" >> ${PHP_DIR}/apache2/php.ini && \
-#    echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_7.4.so" >> ${PHP_DIR}/cgi/php.ini && \
-#    echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_7.4.so" >> ${PHP_DIR}/cli/php.ini && \
-#    echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_7.4.so" >> ${PHP_DIR}/fpm/php.ini && \
-#    php -m && \
-#    php -v
+ADD https://downloads.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz /tmp/ioncube.tar.gz
+RUN tar -C /tmp -xvf /tmp/ioncube.tar.gz && \
+    cp /tmp/ioncube/ioncube_loader_lin_8.1.so ${PHP_MODULE_PATH} && \
+##    echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_8.1.so" >> ${PHP_DIR}/apache2/php.ini && \
+    echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_8.1.so" >> ${PHP_DIR}/cgi/php.ini && \
+    echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_8.1.so" >> ${PHP_DIR}/cli/php.ini && \
+    echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_8.1.so" >> ${PHP_DIR}/fpm/php.ini && \
+    php -m && \
+    php -v
 
 ##################################################################
 #                   Installing P4 addon
 ##################################################################
-COPY --from=builder /builds/export/perforce.so ${PHP_MODULE_PATH}
-RUN echo "extension = ${PHP_MODULE_PATH}/perforce.so" > ${P4_PHP_INI} && \
+RUN wget --no-check-certificate -c http://ftp.perforce.com/perforce/r20.2/bin.linux26x86_64/perforce_php80.so --random-wait -P ${PHP_MODULE_PATH}/perforce_php80.so && \
+	wget --no-check-certificate -c http://ftp.perforce.com/perforce/r20.2/bin.linux26x86_64/perforce_php80-ssl1.0.2.so --random-wait -P ${PHP_MODULE_PATH}/perforce_php80-ssl1.0.2.so && \
+    wget --no-check-certificate -c http://ftp.perforce.com/perforce/r20.2/bin.linux26x86_64/perforce_php80-ssl1.1.1.so --random-wait -P ${PHP_MODULE_PATH}/perforce_php80-ssl1.1.1.so
+
+#COPY --from=builder /builds/export/perforce.so ${PHP_MODULE_PATH}
+
+RUN echo "extension = ${PHP_MODULE_PATH}/perforce_php80-ssl1.1.1.so" > ${P4_PHP_INI} && \
     ln -sf ${P4_PHP_INI} ${PHP_DIR}/cgi/conf.d/perforce.ini && \
     ln -sf ${P4_PHP_INI} ${PHP_DIR}/cli/conf.d/perforce.ini && \
     ln -sf ${P4_PHP_INI} ${PHP_DIR}/fpm/conf.d/perforce.ini && \
