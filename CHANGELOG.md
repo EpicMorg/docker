@@ -1,12 +1,17 @@
 ## Changelog
 ### 2022
+* `nov`
+	* added `php8.1`, `apache2 + php8.1` and `teamcity agent + php8.1` images
+	* build and ci fixes
+	* added `gitlab-runner` images
+	* updated `nextcloud`, `nginx` and `postgres` images
 * `oct`
 	* just fixes
 * `sep`
 	* added `debian 6` and `debian 7` iamges. to build them - add `GRUB_CMDLINE_LINUX_DEFAULT="quiet vsyscall=emulate"` if you have newest kernel!
 	* added `p2pool` and `monerod` servers.
 	* added new versions of `jira`
-	* added new versions of `confluence
+	* added new versions of `confluence`
 	* added new versions of `bitbucket`
 * `aug`:
 	* added basic support of perforce images. `p4p` already added. versions: `r16.2`, `r17.1`, `r17.2`, `r18.1`, `r18.2`, `r19.1`, `r19.2`, `r20.1`, `r20.2`, `r21.1`, `r21.2`, `r22.1`.

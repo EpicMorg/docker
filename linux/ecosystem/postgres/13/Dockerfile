@@ -34,6 +34,7 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys B97B0AFCAA1A47F044F
 ENV PG_MAJOR 13
 
 RUN echo 'deb http://apt.postgresql.org/pub/repos/apt/ bullseye-pgdg main' $PG_MAJOR > /etc/apt/sources.list.d/pgdg.list && \
+    echo 'deb http://apt.postgresql.org/pub/repos/apt/ bullseye-pgdg-snapshot main' $PG_MAJOR >> /etc/apt/sources.list.d/pgdg.list && \
     echo 'deb http://apt.postgresql.org/pub/repos/apt/ bullseye-pgdg-testing main' $PG_MAJOR >> /etc/apt/sources.list.d/pgdg.list
 
 RUN apt-get update \
