@@ -1,10 +1,10 @@
-FROM epicmorg/php:php8.0
+FROM epicmorg/php:php8.1
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
-ARG PHP_MODULE_VER=20200930
+ARG PHP_MODULE_VER=20210902
 ARG PHP_MODULE_PATH=/usr/lib/php/${PHP_MODULE_VER}
-ARG PHP_VER=8.0
+ARG PHP_VER=8.1
 ARG PHP_DIR=/etc/php/${PHP_VER}
 ARG P4_PHP_INI=${PHP_DIR}/mods-available/perfroce.ini
 ARG SMB_PHP_INI=${PHP_DIR}/mods-available/smbclient.ini
@@ -21,12 +21,12 @@ RUN apt-get update && \
     apt-get install -y  --allow-unauthenticated \
       apache2 \
       apache2-utils \
-      libapache2-mod-php8.0 \
+      libapache2-mod-php8.1 \
       libapache2-mod-webauth \
       libapache2-mod-xforward \
       libapache2-mod-security2 && \
     a2enmod \
-      php8.0 \
+      php8.1 \
       rewrite \
       ldap \
       heartmonitor \
@@ -55,6 +55,13 @@ RUN apt-get update && \
 RUN echo "TLS_REQCERT never" >> /etc/ldap/ldap.conf
 
 ##################################################################
+#                   Installing IOnCube addon
+##################################################################
+RUN echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_8.1.so" >> ${PHP_DIR}/apache2/php.ini && \
+    php -m && \
+    php -v
+
+##################################################################
 #                   Installing timezonedb addon
 ##################################################################
 RUN echo "extension = ${PHP_MODULE_PATH}/timezonedb.so" >> ${PHP_DIR}/apache2/php.ini && \
@@ -65,13 +72,6 @@ RUN echo "extension = ${PHP_MODULE_PATH}/timezonedb.so" >> ${PHP_DIR}/apache2/ph
 #                   Installing imagic addon
 ##################################################################
 RUN echo "extension = ${PHP_MODULE_PATH}/imagick.so" >> ${PHP_DIR}/apache2/php.ini && \
-    php -m && \
-    php -v
-
-##################################################################
-#                   Installing P4 addon
-##################################################################
-RUN ln -sf ${P4_PHP_INI} ${PHP_DIR}/apache2/conf.d/perforce.ini && \
     php -m && \
     php -v
 
