@@ -313,4 +313,6 @@
     * default preinstalled packages to `balancer` and `websites` containers: `ca-certificates`, `apt-transport-https`, `mc`, `iputils-ping` and some other.
     * added support for additional locales to `balancer` and `websites` containers (default is `en_US.UTF-8`).
     * apt sources switched to `Yandex-Mirror`.
+-------------------------------------------------------------------
+## 2018
 * 01/01/1970 - see commit history. sorry.

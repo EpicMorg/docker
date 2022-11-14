@@ -436,10 +436,26 @@ ecosystem-teamcity-agent-images:
 	cd `pwd`/linux/ecosystem/teamcity/agent/php7.3         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/teamcity/agent/php7.4         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/teamcity/agent/php8.0         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/php8.1         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/teamcity/agent/steam-sdk      && pwd && make build && make deploy
 
 ecosystem-gitlab-runner-images:
 	cd `pwd`/linux/ecosystem/gitlab/runner/latest         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/amxx-sdk       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/android-sdk    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/atlassian-sdk  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/dotnet-sdk     && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/node12         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/node14         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/node15         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/node16         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/node17         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/node18         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/php7.2         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/php7.3         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/php7.4         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/php8.1         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/steam-sdk      && pwd && make build && make deploy
 
 ecosystem-nginx-images:
 	cd `pwd`/linux/ecosystem/nginx/latest/mainline/main      && pwd && make build && make deploy
