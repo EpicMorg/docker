@@ -79,11 +79,103 @@ advanced-redash-images:
 	cd `pwd`/linux/advanced/redash				&& pwd && make sync &&  make patch &&  make build && make deploy
 
 advanced-zabbix-images:
-	cd `pwd`/linux/advanced/zabbix/agent		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/zabbix/java-gateway   && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/zabbix/proxy		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/zabbix/server		 && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/zabbix/web			&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/latest/agent		      && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/latest/agent2		    && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/latest/java-gateway  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/latest/proxy-mysql		&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/latest/proxy-sqlite3	&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/latest/server-mysql	&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/latest/server-pgsql	&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/latest/snmptraps			&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/latest/web-mysql			&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/latest/web-pgsql			&& pwd && make build && make deploy
+ 
+ 	cd `pwd`/linux/advanced/zabbix/3.0/agent		      && pwd && make build && make deploy 
+	cd `pwd`/linux/advanced/zabbix/3.0/java-gateway   && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/3.0/proxy-mysql		&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/3.0/proxy-sqlite3	&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/3.0/server-mysql 	&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/3.0/server-pgsql 	&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/3.0/snmptraps			&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/3.0/web-mysql			&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/3.0/web-pgsql			&& pwd && make build && make deploy
+ 
+ 	cd `pwd`/linux/advanced/zabbix/4.0/agent		      && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/4.0/java-gateway   && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/4.0/proxy-mysql		&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/4.0/proxy-sqlite3	&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/4.0/server-mysql	  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/4.0/server-pgsql	  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/4.0/snmptraps			&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/4.0/web-mysql			&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/4.0/web-pgsql			&& pwd && make build && make deploy
+  
+ 	cd `pwd`/linux/advanced/zabbix/5.0/agent		      && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/5.0/agent2		      && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/5.0/java-gateway   && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/5.0/proxy-mysql		&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/5.0/proxy-sqlite3	&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/5.0/server-mysql   && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/5.0/server-pgsql	  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/5.0/snmptraps			&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/5.0/web-mysql			&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/5.0/web-pgsql			&& pwd && make build && make deploy
+  
+ 	cd `pwd`/linux/advanced/zabbix/5.2/agent		      && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/5.2/agent2		      && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/5.2/java-gateway   && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/5.2/proxy-mysql		&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/5.2/proxy-sqlite3	&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/5.2/server-mysql	  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/5.2/server-pgsql  	&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/5.2/snmptraps			&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/5.2/web-mysql			&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/5.2/web-pgsql			&& pwd && make build && make deploy
+  
+ 	cd `pwd`/linux/advanced/zabbix/5.4/agent		      && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/5.4/agent2		      && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/5.4/java-gateway   && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/5.4/proxy-mysql		&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/5.4/proxy-sqlite3	&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/5.4/server-mysql	  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/5.4/server-pgsql	  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/5.4/snmptraps			&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/5.4/web-mysql			&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/5.4/web-pgsql			&& pwd && make build && make deploy
+  
+ 	cd `pwd`/linux/advanced/zabbix/6.0/agent		      && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/6.0/agent2		      && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/6.0/java-gateway   && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/6.0/proxy-mysql		&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/6.0/proxy-sqlite3	&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/6.0/server-mysql	  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/6.0/server-pgsql   && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/6.0/snmptraps			&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/6.0/web-mysql			&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/6.0/web-pgsql			&& pwd && make build && make deploy
+  
+ 	cd `pwd`/linux/advanced/zabbix/6.2/agent		      && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/6.2/agent2 		    && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/6.2/java-gateway   && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/6.2/proxy-mysql		&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/6.2/proxy-sqlite3	&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/6.2/server-mysql 	&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/6.2/server-pgsql 	&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/6.2/snmptraps			&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/6.2/web-mysql			&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/6.2/web-pgsql			&& pwd && make build && make deploy
+  
+ 	cd `pwd`/linux/advanced/zabbix/6.4/agent		      && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/6.4/agent2 		    && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/6.4/java-gateway   && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/6.4/proxy-mysql		&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/6.4/proxy-sqlite3	&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/6.4/server-mysql 	&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/6.4/server-pgsql 	&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/6.4/snmptraps			&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/6.4/web-mysql			&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/6.4/web-pgsql			&& pwd && make build && make deploy
+ 
 
 advanced-nextcloud-images:
 	cd `pwd`/linux/advanced/nextcloud/pure/14		  && pwd && make build && make deploy
@@ -110,6 +202,7 @@ advanced-nextcloud-patched-images:
 	cd `pwd`/linux/advanced/nextcloud/patched/22		  && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/nextcloud/patched/23		  && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/nextcloud/patched/24		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/patched/25		  && pwd && make build && make deploy
 
 ecosystem-images:
 	make bundle-base-images
@@ -252,6 +345,7 @@ ecosystem-php-images:
 	cd `pwd`/linux/ecosystem/php/php7.3             && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/php/php7.4             && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/php/php8.0             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/php/php8.1             && pwd && make build && make deploy
 
 ecosystem-apache2-images:
 	cd `pwd`/linux/ecosystem/apache2/latest         && pwd && make build && make deploy
@@ -259,6 +353,7 @@ ecosystem-apache2-images:
 	cd `pwd`/linux/ecosystem/apache2/php7.3         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apache2/php7.4         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apache2/php8.0         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apache2/php8.1         && pwd && make build && make deploy
 
 ecosystem-testrail-images:
 	cd `pwd`/linux/ecosystem/cassandra/3.11       && pwd && make build && make deploy
@@ -328,7 +423,7 @@ ecosystem-postgres-images:
 	cd `pwd`/linux/ecosystem/postgres/13           && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/postgres/14           && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/postgres/15           && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/postgres/16           && pwd && make build && make deploy
+#	cd `pwd`/linux/ecosystem/postgres/16           && pwd && make build && make deploy
 
 ecosystem-teamcity-agent-images:
 	cd `pwd`/linux/ecosystem/teamcity/agent/latest         && pwd && make build && make deploy
@@ -349,9 +444,12 @@ ecosystem-teamcity-agent-images:
 	cd `pwd`/linux/ecosystem/teamcity/agent/steam-sdk      && pwd && make build && make deploy
 
 ecosystem-nginx-images:
-	cd `pwd`/linux/ecosystem/nginx/latest/main      && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/nginx/latest/php       && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/nginx/latest/rtmp-hls  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/nginx/latest/mainline/main      && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/nginx/latest/mainline/php       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/nginx/latest/mainline/rtmp-hls  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/nginx/latest/quic/main      && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/nginx/latest/quic/php       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/nginx/latest/quic/rtmp-hls  && pwd && make build && make deploy
 
 ecosystem-vscode-server-images:
 	cd `pwd`/linux/advanced/vscode-server/latest         && pwd && make build && make deploy
