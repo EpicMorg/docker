@@ -200,6 +200,7 @@ RUN apt-get update &&  \
     git \
     git-lfs && \
     git --version && \
+    git-lfs install --skip-repo && \
     git-lfs --version
 
 ##################################################################
