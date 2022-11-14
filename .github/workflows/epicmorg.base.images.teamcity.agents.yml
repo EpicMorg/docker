@@ -81,6 +81,9 @@ jobs:
     - name: "Build and Deploy TeamCity Agent php8.0 Image:"
       run:  cd linux/ecosystem/teamcity/agent/php8.0    && pwd && make build && make deploy
 
+    - name: "Build and Deploy TeamCity Agent php8.1 Image:"
+      run:  cd linux/ecosystem/teamcity/agent/php8.1    && pwd && make build && make deploy
+
     - name: "Build and Deploy TeamCity Agent Steam SDK Image:"
       run:  cd linux/ecosystem/teamcity/agent/steam-sdk    && pwd && make build && make deploy
 

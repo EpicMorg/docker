@@ -151,6 +151,7 @@ RUN apt-get update &&  \
     git \
     git-lfs && \
     git --version && \
+    git-lfs install --skip-repo && \
     git-lfs --version
 
 ##################################################################
@@ -191,6 +192,23 @@ RUN wget --no-check-certificate -nv --random-wait --retry-connrefused --continue
     mv -fv /tmp/lazygit/lazygit /usr/bin/ && \
     echo "lazygit version:" && \
     lazygit --version
+
+
+##################################################################
+#                    dumb init
+##################################################################
+ENV DUMB_INIT_VERSION=1.2.5
+RUN wget -q --no-check-certificate -c https://github.com/Yelp/dumb-init/releases/download/v${DUMB_INIT_VERSION}/dumb-init_${DUMB_INIT_VERSION}_x86_64 --random-wait -O /usr/bin/dumb-init && \
+    chmod +x /usr/bin/dumb-init && \
+    dumb-init --version
+
+##################################################################
+#           grab gosu for easy step-down from root
+##################################################################
+ENV GOSU_VER 1.14
+RUN wget -q --no-check-certificate -c https://github.com/tianon/gosu/releases/download/${GOSU_VER}/gosu-amd64 --random-wait -O /usr/local/bin/gosu && \
+    chmod +x /usr/local/bin/gosu && \
+    gosu --version
 
 ##################################################################
 #                   Generate ssl key

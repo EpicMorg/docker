@@ -1,4 +1,4 @@
-FROM python:3.11-rc-bullseye
+FROM python:3.11-bullseye
 
 ARG DEBIAN_FRONTEND=noninteractive
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
@@ -195,6 +195,7 @@ RUN apt-get update &&  \
     git \
     git-lfs && \
     git --version && \
+    git-lfs install --skip-repo && \
     git-lfs --version
 
 ##################################################################

@@ -1,0 +1,29 @@
+FROM nginx AS build
+
+WORKDIR /src
+RUN apt-get update && \
+    apt-get install -y git gcc make g++ cmake perl libunwind-dev golang && \
+    git clone https://github.com/google/boringssl boringssl && \
+    mkdir boringssl/build && \
+    cd boringssl/build && \
+    cmake .. && \
+    make
+
+RUN apt-get install -y mercurial libperl-dev libpcre3-dev zlib1g-dev libxslt1-dev libgd-ocaml-dev libgeoip-dev
+RUN hg clone -b quic https://hg.nginx.org/nginx-quic && \
+    hg clone http://hg.nginx.org/njs && \
+    cd nginx-quic && \
+    hg update quic && \
+    hg update -C quic && \
+    hg branch && \
+    ls -las && \
+    auto/configure --with-debug --with-http_v3_module --with-stream_quic_module \
+                   --with-cc-opt="-I../boringssl/include"  \
+                   --with-ld-opt="-L../boringssl/build/ssl -L../boringssl/build/crypto" && \
+   make
+
+
+FROM nginx
+COPY --from=build /src/nginx-quic/objs/nginx /usr/sbin
+RUN /usr/sbin/nginx -V > /dev/stderr
+EXPOSE 80 443

@@ -1,12 +1,17 @@
-## Changelog
-### 2022
+# Changelog
+## 2023
+* `jan`
+-------------------------------------------------------------------
+## 2022
+* `dec`
 * `nov`
 	* added `php8.1`, `apache2 + php8.1` and `teamcity agent + php8.1` images
-	* build and ci fixes
+	* build and `ci` fixes
 	* added `gitlab-runner` images
 	* updated `nextcloud`, `nginx` and `postgres` images
-  * added `nginx` with `http3` and `quic` support
-  * fixed `GitHub Actions` and `Makefile`
+	* added `nginx` with `http3` and `quic` support
+	* fixed `GitHub Actions` and `Makefile`
+	* updated `base` images
 * `oct`
 	* just fixes
 * `sep`
@@ -39,6 +44,7 @@
 	* fixed `apache2`
 	* added `php8` support
 	* extended `testrail` releases with `active directory` and `ldap` auth support.
+-------------------------------------------------------------------
 ### 2021
 * `december`
 	* added `git-lfs`, `lazygit`, bumped versions of nginx, jira, conflunce and bitbucket.
@@ -98,7 +104,7 @@
 	* updated `nginx`. and reworked `php` image, now it based in splitted php-image. yay.
 	* updated `teamcity agent` image.
 -------------------------------------------------------------------
-### 2020
+## 2020
 * `december`
 	* added mattermost
 	* fixed some images
@@ -192,6 +198,8 @@
 		* switched `qbittorrent` images to `edge`
 		* switched final `balancer` image to `edge`
 	* reduced containers size by switching to `debian-slim` base-image.
+-------------------------------------------------------------------
+## 2019
 * 12/13/2019
     * updated `teamcity agent`. added `php 7.3` support.
     * fixed `nginx` image.
@@ -305,4 +313,6 @@
     * default preinstalled packages to `balancer` and `websites` containers: `ca-certificates`, `apt-transport-https`, `mc`, `iputils-ping` and some other.
     * added support for additional locales to `balancer` and `websites` containers (default is `en_US.UTF-8`).
     * apt sources switched to `Yandex-Mirror`.
+-------------------------------------------------------------------
+## 2018
 * 01/01/1970 - see commit history. sorry.

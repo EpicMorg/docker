@@ -1,0 +1,40 @@
+FROM epicmorg/gitlab-runner:latest
+LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
+ARG DEBIAN_FRONTEND=noninteractive
+
+##################################################################
+#                    teamcity AMXXModX setup
+##################################################################
+#
+# Reserved for future
+#    export AMXX_CSTRIKE_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.9/amxmodx-latest-cstrike-linux` && \
+#    export AMXX_DOD_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.9/amxmodx-latest-dod-linux` && \
+#    export AMXX_ESF_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.9/amxmodx-latest-esf-linux` && \
+#    export AMXX_NS_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.9/amxmodx-latest-ns-linux` && \
+#    export AMXX_TFC_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.9/amxmodx-latest-tfc-linux` && \
+#    export AMXX_TS_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.9/amxmodx-latest-base-linux` && \
+
+# Install packages
+ENV AMXX_VERSION=1.9
+ENV AMXX_INSTALL_PATH=/opt/amxmodx/$AMXX_VERSION
+ENV AMXX_BIN_PATH=$AMXX_INSTALL_PATH/scripting
+ENV PATH=$PATH:$AMXX_BIN_PATH
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$AMXX_BIN_PATH
+
+RUN export AMXX_BASE_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.9/amxmodx-latest-base-linux` && \
+    mkdir -p $AMXX_INSTALL_PATH && \
+    curl -SL https://www.amxmodx.org/amxxdrop/{$AMXX_VERSION}/{$AMXX_BASE_LATEST_VERSION} -o /tmp/amxx_base_latest.tar.gz && \
+    cd /tmp && tar -zxf /tmp/amxx_base_latest.tar.gz && cd / && \
+    mv -f /tmp/addons/amxmodx/* $AMXX_INSTALL_PATH && \
+    chmod +x $AMXX_BIN_PATH/amxxpc && \
+    chmod +x $AMXX_BIN_PATH/compile.sh
+
+##################################################################
+#                   cleaninig up
+##################################################################
+RUN apt clean -y && \
+    apt-get clean all && \
+    apt autoclean -y && \
+    rm -rfv /var/lib/apt/lists/* && \
+    rm -rfv /var/cache/apt/archives/*.deb && \
+    rm -rfv /tmp/*
