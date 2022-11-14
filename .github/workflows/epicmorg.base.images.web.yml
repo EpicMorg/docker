@@ -88,13 +88,22 @@ jobs:
       run:  make
 
     - name: "Build and Deploy NginX Image:"
-      run:  cd linux/ecosystem/nginx/latest/main    && pwd && make build && make deploy
+      run:  cd linux/ecosystem/nginx/latest/mainline/main    && pwd && make build && make deploy
 
-    - name: "Build and Deploy NginX + PHP Image:"
-      run:  cd linux/ecosystem/nginx/latest/php     && pwd && make build && make deploy
+    - name: "Build and Deploy NginX + PHP7.4 Image:"
+      run:  cd linux/ecosystem/nginx/latest/mainline/php     && pwd && make build && make deploy
 
     - name: "Build and Deploy NginX + RTMP-HLS Image:"
-      run:  cd linux/ecosystem/nginx/latest/rtmp-hls    && pwd && make build && make deploy
+      run:  cd linux/ecosystem/nginx/latest/mainline/rtmp-hls    && pwd && make build && make deploy
+
+    - name: "Build and Deploy NginX (quic, http3) Image:"
+      run:  cd linux/ecosystem/nginx/latest/quic/main    && pwd && make build && make deploy
+
+    - name: "Build and Deploy NginX  (quic, http3) + PHP7.4 Image:"
+      run:  cd linux/ecosystem/nginx/latest/quic/php     && pwd && make build && make deploy
+
+    - name: "Build and Deploy NginX  (quic, http3) + RTMP-HLS Image:"
+      run:  cd linux/ecosystem/nginx/latest/quic/rtmp-hls    && pwd && make build && make deploy
 
 ##################################################################################
 

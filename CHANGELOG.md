@@ -5,6 +5,8 @@
 	* build and ci fixes
 	* added `gitlab-runner` images
 	* updated `nextcloud`, `nginx` and `postgres` images
+  * added `nginx` with `http3` and `quic` support
+  * fixed `GitHub Actions` and `Makefile`
 * `oct`
 	* just fixes
 * `sep`
