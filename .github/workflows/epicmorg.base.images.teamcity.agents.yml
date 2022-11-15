@@ -39,8 +39,11 @@ jobs:
     - name: Test Make
       run:  make
 
-    - name: "Build and Deploy TeamCity Agent amxX SDK Image:"
-      run:  cd linux/ecosystem/teamcity/agent/amxx-sdk    && pwd && make build && make deploy
+    - name: "Build and Deploy TeamCity Agent amxX 1.9 SDK Image:"
+      run:  cd linux/ecosystem/teamcity/agent/amxx-sdk/1.9    && pwd && make build && make deploy
+
+    - name: "Build and Deploy TeamCity Agent amxX 1.10 SDK Image:"
+      run:  cd linux/ecosystem/teamcity/agent/amxx-sdk/1.10    && pwd && make build && make deploy
 
     - name: "Build and Deploy TeamCity Agent Android SDK Image:"
       run:  cd linux/ecosystem/teamcity/agent/android-sdk    && pwd && make build && make deploy

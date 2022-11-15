@@ -29,7 +29,7 @@ jobs:
   build-glr-other-images:
     name: Build EpicMorg Gitlab Runner Oter Images
     runs-on: ubuntu-22.04
-    needs: build-tca-main-images
+    needs: build-glr-main-images
 
     steps:
     - uses: actions/checkout@v3
@@ -39,8 +39,11 @@ jobs:
     - name: Test Make
       run:  make
 
-    - name: "Build and Deploy Gitlab Runner amxX SDK Image:"
-      run:  cd linux/ecosystem/gitlab/runner/amxx-sdk    && pwd && make build && make deploy
+    - name: "Build and Deploy Gitlab Runner amxX 1.9 SDK Image:"
+      run:  cd linux/ecosystem/gitlab/runner/amxx-sdk/1.9    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Gitlab Runner amxX 1.10 SDK Image:"
+      run:  cd linux/ecosystem/gitlab/runner/amxx-sdk/1.10    && pwd && make build && make deploy
 
     - name: "Build and Deploy Gitlab Runner Android SDK Image:"
       run:  cd linux/ecosystem/gitlab/runner/android-sdk    && pwd && make build && make deploy

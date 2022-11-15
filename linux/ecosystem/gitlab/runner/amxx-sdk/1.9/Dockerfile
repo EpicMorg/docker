@@ -1,4 +1,4 @@
-FROM epicmorg/teamcity-agent:latest
+FROM epicmorg/gitlab-runner:latest
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -13,7 +13,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 #    export AMXX_NS_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.9/amxmodx-latest-ns-linux` && \
 #    export AMXX_TFC_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.9/amxmodx-latest-tfc-linux` && \
 #    export AMXX_TS_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.9/amxmodx-latest-base-linux` && \
-#
+
 # Install packages
 ENV AMXX_VERSION=1.9
 ENV AMXX_INSTALL_PATH=/opt/amxmodx/$AMXX_VERSION
@@ -27,7 +27,8 @@ RUN export AMXX_BASE_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.
     cd /tmp && tar -zxf /tmp/amxx_base_latest.tar.gz && cd / && \
     mv -f /tmp/addons/amxmodx/* $AMXX_INSTALL_PATH && \
     chmod +x $AMXX_BIN_PATH/amxxpc && \
-    chmod +x $AMXX_BIN_PATH/compile.sh
+    chmod +x $AMXX_BIN_PATH/compile.sh && \
+    amxxpc --help 2>&1 | head -n 1
 
 ##################################################################
 #                   cleaninig up

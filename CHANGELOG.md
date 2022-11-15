@@ -12,6 +12,8 @@
 	* added `nginx` with `http3` and `quic` support
 	* fixed `GitHub Actions` and `Makefile`
 	* updated `base` images
+	* added `node19`
+	* added `amxX 1.10`
 * `oct`
 	* just fixes
 * `sep`

@@ -36,28 +36,34 @@ RUN curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add - 
     echo 'deb [arch=amd64,arm64,armhf] https://packages.microsoft.com/ubuntu/20.04/prod focal main' > /etc/apt/sources.list.d/microsoft.dotnet.list  && \
     apt-get update && \
     apt-get install -y --no-install-recommends --allow-unauthenticated \
-      dotnet-sdk-2.1 \
-      dotnet-runtime-deps-2.1 \
-      dotnet-runtime-2.1 \
-      dotnet-hostfxr-2.1 \
-      dotnet-sdk-3.1 \
-      dotnet-targeting-pack-3.1 \
-      dotnet-runtime-deps-3.1 \
-      dotnet-runtime-3.1 \
-      dotnet-hostfxr-3.1 \
-      dotnet-apphost-pack-3.1 \
-      dotnet-sdk-5.0 \
-      dotnet-targeting-pack-5.0 \
-      dotnet-runtime-deps-5.0 \
-      dotnet-runtime-5.0 \
-      dotnet-hostfxr-5.0 \
-      dotnet-apphost-pack-5.0 \
-      dotnet-sdk-6.0 \
-      dotnet-targeting-pack-6.0 \
-      dotnet-runtime-deps-6.0 \
-      dotnet-runtime-6.0 \
-      dotnet-hostfxr-6.0 \
-      dotnet-apphost-pack-6.0 \
+#      dotnet-sdk-2.1 \
+#      dotnet-runtime-deps-2.1 \
+#      dotnet-runtime-2.1 \
+#      dotnet-hostfxr-2.1 \
+#      dotnet-sdk-3.1 \
+#      dotnet-targeting-pack-3.1 \
+#      dotnet-runtime-deps-3.1 \
+#      dotnet-runtime-3.1 \
+#      dotnet-hostfxr-3.1 \
+#      dotnet-apphost-pack-3.1 \
+#      dotnet-sdk-5.0 \
+#      dotnet-targeting-pack-5.0 \
+#      dotnet-runtime-deps-5.0 \
+#      dotnet-runtime-5.0 \
+#      dotnet-hostfxr-5.0 \
+#      dotnet-apphost-pack-5.0 \
+#      dotnet-sdk-6.0 \
+#      dotnet-targeting-pack-6.0 \
+#      dotnet-runtime-deps-6.0 \
+#      dotnet-runtime-6.0 \
+#      dotnet-hostfxr-6.0 \
+#      dotnet-apphost-pack-6.0 \
+      dotnet-sdk-7.0 \
+      dotnet-targeting-pack-7.0 \
+      dotnet-runtime-deps-7.0 \
+      dotnet-runtime-7.0 \
+      dotnet-hostfxr-7.0 \
+      dotnet-apphost-pack-7.0 \
       dotnet-host \
       procdump \
       procmon \
@@ -85,9 +91,4 @@ RUN apt purge policykit-1 -y && \
     rm -rfv /var/lib/apt/lists/* && \
     rm -rfv /tmp/mc.patch && \
     rm -rfv /var/cache/apt/archives/*.deb && \
-    rm -rfv /tmp/7z && \
-    rm -rfv /tmp/deb/* && \
-    rm -rfv /tmp/composer-setup.php && \
-    rm -rfv /tmp/amxx_base_latest.tar.gz && \
-    rm -rfv /tmp/atlassian-plugin-sdk.deb && \
-    rm -rfv /tmp/addons
+    rm -rfv /tmp/*

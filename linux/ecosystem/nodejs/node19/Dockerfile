@@ -3,17 +3,17 @@ LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
 ##################################################################
-#                   Node.js 10.x
+#                   Node.js 19.x
 ##################################################################
 RUN groupadd node && \
     useradd --gid node --shell /bin/bash --create-home node
 
-RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
+RUN curl -sL https://deb.nodesource.com/setup_19.x | bash - && \
     curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - && \
     echo "deb https://nightly.yarnpkg.com/debian/ nightly main" > /etc/apt/sources.list.d/yarn.list && \
+    apt-get clean && apt-get autoclean && \
     apt-get update && \
-    apt-cache policy nodejs && \
-    apt-get install -y nodejs=10.24.1-deb-1nodesource1 yarn
+    apt-get install -y -o 'Acquire::Retries=3' nodejs yarn
 
 #   curl -L https://www.npmjs.com/install.sh | sh
 #   npm install -g npm
@@ -32,8 +32,4 @@ RUN apt clean -y && \
     apt autoclean -y && \
     rm -rfv /var/lib/apt/lists/* && \
     rm -rfv /var/cache/apt/archives/*.deb && \
-    rm -rfv /tmp/deb/* && \
-    rm -rfv /tmp/composer-setup.php && \
-    rm -rfv /tmp/amxx_base_latest.tar.gz && \
-    rm -rfv /tmp/atlassian-plugin-sdk.deb && \
-    rm -rfv /tmp/addons
+    rm -rfv /tmp/*

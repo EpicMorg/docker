@@ -1,18 +1,9 @@
-################################################################################
-# https://github.com/linuxserver/docker-code-server/pkgs/container/code-server
-################################################################################
-FROM epicmorg/vscode-server:latest
-
+FROM epicmorg/gitlab-runner:latest
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
 ##################################################################
-#                   ARGuments
-##################################################################
-ENV BuildDocker true
-
-##################################################################
-#                    AMXXModX setup
+#                    teamcity AMXXModX setup
 ##################################################################
 #
 # Reserved for future
@@ -22,7 +13,7 @@ ENV BuildDocker true
 #    export AMXX_NS_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.10/amxmodx-latest-ns-linux` && \
 #    export AMXX_TFC_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.10/amxmodx-latest-tfc-linux` && \
 #    export AMXX_TS_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.10/amxmodx-latest-base-linux` && \
-#
+
 # Install packages
 ENV AMXX_VERSION=1.10
 ENV AMXX_INSTALL_PATH=/opt/amxmodx/$AMXX_VERSION
@@ -36,16 +27,15 @@ RUN export AMXX_BASE_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.
     cd /tmp && tar -zxf /tmp/amxx_base_latest.tar.gz && cd / && \
     mv -f /tmp/addons/amxmodx/* $AMXX_INSTALL_PATH && \
     chmod +x $AMXX_BIN_PATH/amxxpc && \
-    chmod +x $AMXX_BIN_PATH/compile.sh
+    chmod +x $AMXX_BIN_PATH/compile.sh && \
+    amxxpc --help 2>&1 | head -n 1
 
 ##################################################################
 #                   cleaninig up
 ##################################################################
-RUN apt purge policykit-1 -y && \
-    apt clean -y && \
+RUN apt clean -y && \
+    apt-get clean all && \
     apt autoclean -y && \
     rm -rfv /var/lib/apt/lists/* && \
-    rm -rfv /tmp/mc.patch && \
     rm -rfv /var/cache/apt/archives/*.deb && \
-    rm -rfv /tmp/7z && \
     rm -rfv /tmp/*
