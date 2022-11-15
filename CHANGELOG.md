@@ -13,6 +13,7 @@
 	* fixed `GitHub Actions` and `Makefile`
 	* updated `base` images
 	* added `node19`
+	* added `amxX 1.10`
 * `oct`
 	* just fixes
 * `sep`

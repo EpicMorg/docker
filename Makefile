@@ -380,6 +380,7 @@ ecosystem-nodejs-images:
 	cd `pwd`/linux/ecosystem/nodejs/node16         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/nodejs/node17         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/nodejs/node18         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/nodejs/node19         && pwd && make build && make deploy
 
 ecosystem-vk2discord-images: 
 	cd `pwd`/linux/ecosystem/vk2discord     && pwd && make build && make deploy
@@ -422,7 +423,8 @@ ecosystem-postgres-images:
 
 ecosystem-teamcity-agent-images:
 	cd `pwd`/linux/ecosystem/teamcity/agent/latest         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/teamcity/agent/amxx-sdk       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/amxx-sdk/1.9   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/amxx-sdk/1.10  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/teamcity/agent/android-sdk    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/teamcity/agent/atlassian-sdk  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/teamcity/agent/dotnet-sdk     && pwd && make build && make deploy
@@ -441,7 +443,8 @@ ecosystem-teamcity-agent-images:
 
 ecosystem-gitlab-runner-images:
 	cd `pwd`/linux/ecosystem/gitlab/runner/latest         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/gitlab/runner/amxx-sdk       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/amxx-sdk/1.9   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/amxx-sdk/1.10  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/gitlab/runner/android-sdk    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/gitlab/runner/atlassian-sdk  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/gitlab/runner/dotnet-sdk     && pwd && make build && make deploy
