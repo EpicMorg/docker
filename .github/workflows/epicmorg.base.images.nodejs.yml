@@ -54,8 +54,8 @@ jobs:
     - name: "Build and Deploy NodeJS 18 Image:"
       run:  cd linux/ecosystem/nodejs/node18    && pwd && make build && make deploy
 
-    - name: "Build and Deploy NodeJS 18 Image:"
-      run:  cd linux/ecosystem/nodejs/node18    && pwd && make build && make deploy
+    - name: "Build and Deploy NodeJS 19 Image:"
+      run:  cd linux/ecosystem/nodejs/node19    && pwd && make build && make deploy
 
 ##################################################################################
 

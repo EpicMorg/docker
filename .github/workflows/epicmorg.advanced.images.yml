@@ -29,8 +29,8 @@ jobs:
     - name: "Build and Deploy Advanced Teamcity Server Image:"
       run:  cd linux/advanced/teamcity/server && pwd && make build && make deploy
 
-    - name: "Build and Deploy Advanced Redash Images:"
-      run:  cd linux/advanced/redash && pwd && make sync && make patch && make build && make deploy
+#    - name: "Build and Deploy Advanced Redash Images:"
+#      run:  cd linux/advanced/redash && pwd && make sync && make patch && make build && make deploy
 
 ##################################################################################
 

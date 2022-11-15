@@ -118,22 +118,6 @@ RUN wget --no-check-certificate -nv --random-wait --retry-connrefused --continue
     chmod +x /usr/bin/p4
 
 ##################################################################
-#                    dumb init
-##################################################################
-ENV DUMB_INIT_VERSION=1.2.5
-RUN wget -q --no-check-certificate -c https://github.com/Yelp/dumb-init/releases/download/v${DUMB_INIT_VERSION}/dumb-init_${DUMB_INIT_VERSION}_x86_64 --random-wait -O /usr/bin/dumb-init && \
-    chmod +x /usr/bin/dumb-init && \
-    dumb-init --version
-
-##################################################################
-#           grab gosu for easy step-down from root
-##################################################################
-ENV GOSU_VER 1.14
-RUN wget -q --no-check-certificate -c https://github.com/tianon/gosu/releases/download/${GOSU_VER}/gosu-amd64 --random-wait -O /usr/local/bin/gosu && \
-    chmod +x /usr/local/bin/gosu && \
-    gosu --version
-
-##################################################################
 #                   Generate ssl key
 ##################################################################
 RUN openssl dhparam -out /etc/ssl/dhparam.pem 512

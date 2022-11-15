@@ -29,7 +29,7 @@ jobs:
   build-glr-other-images:
     name: Build EpicMorg Gitlab Runner Oter Images
     runs-on: ubuntu-22.04
-    needs: build-tca-main-images
+    needs: build-glr-main-images
 
     steps:
     - uses: actions/checkout@v3
