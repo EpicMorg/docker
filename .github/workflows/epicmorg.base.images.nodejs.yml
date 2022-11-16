@@ -27,6 +27,15 @@ jobs:
     - name: "Build and Deploy NodeJS Current Image:"
       run:  cd linux/ecosystem/nodejs/current    && pwd && make build && make deploy
 
+    - name: "Build and Deploy NodeJS 4 Image:"
+      run:  cd linux/ecosystem/nodejs/node4    && pwd && make build && make deploy
+
+    - name: "Build and Deploy NodeJS 6 Image:"
+      run:  cd linux/ecosystem/nodejs/node6    && pwd && make build && make deploy
+
+    - name: "Build and Deploy NodeJS 8 Image:"
+      run:  cd linux/ecosystem/nodejs/node8    && pwd && make build && make deploy
+
     - name: "Build and Deploy NodeJS 10 Image:"
       run:  cd linux/ecosystem/nodejs/node10    && pwd && make build && make deploy
 

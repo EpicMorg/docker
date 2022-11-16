@@ -371,6 +371,9 @@ ecosystem-electron-release-server-images:
 ecosystem-nodejs-images: 
 	cd `pwd`/linux/ecosystem/nodejs/current        && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/nodejs/lts            && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/nodejs/node4          && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/nodejs/node6          && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/nodejs/node8          && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/nodejs/node10         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/nodejs/node11         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/nodejs/node12         && pwd && make build && make deploy
@@ -471,7 +474,8 @@ ecosystem-nginx-images:
 ecosystem-vscode-server-images:
 	cd `pwd`/linux/advanced/vscode-server/latest         && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/vscode-server/devops         && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/vscode-server/amxx           && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/vscode-server/amxx/1.9       && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/vscode-server/amxx/1.10      && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/vscode-server/android        && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/vscode-server/cpp            && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/vscode-server/docker         && pwd && make build && make deploy

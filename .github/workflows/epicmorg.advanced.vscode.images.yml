@@ -26,8 +26,11 @@ jobs:
     - name: "Build and Deploy Advanced Vscode Server Images:"
       run:  cd linux/advanced/vscode-server/latest && pwd && make build && make deploy
 
-    - name: "Build and Deploy Advanced  Vscode Server AMXX Images:"
-      run:  cd linux/advanced/vscode-server/amxx && pwd && make build && make deploy
+    - name: "Build and Deploy Advanced  Vscode Server AMXX 1.9 Images:"
+      run:  cd linux/advanced/vscode-server/amxx/1.9 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced  Vscode Server AMXX 1.10 Images:"
+      run:  cd linux/advanced/vscode-server/amxx/1.10 && pwd && make build && make deploy
 
     - name: "Build and Deploy Advanced Vscode Server Android Images:"
       run:  cd linux/advanced/vscode-server/android && pwd && make build && make deploy
