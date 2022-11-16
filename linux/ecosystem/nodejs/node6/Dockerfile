@@ -1,19 +1,19 @@
-FROM epicmorg/debian:bullseye
+FROM epicmorg/debian:buster
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
 ##################################################################
-#                   Node.js 14.x
+#                   Node.js 6.x
 ##################################################################
 RUN groupadd node && \
     useradd --gid node --shell /bin/bash --create-home node
 
-RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
+RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - && \
     curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - && \
     echo "deb https://nightly.yarnpkg.com/debian/ nightly main" > /etc/apt/sources.list.d/yarn.list && \
-    apt-get clean && apt-get autoclean && \
     apt-get update && \
-    apt-get install -y -o 'Acquire::Retries=3' nodejs yarn
+    apt-cache policy nodejs && \
+    apt-get install -y nodejs=6.14.4-1nodesource1 yarn
 
 #   curl -L https://www.npmjs.com/install.sh | sh
 #   npm install -g npm

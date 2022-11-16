@@ -1,9 +1,18 @@
-FROM epicmorg/teamcity-agent:latest
+################################################################################
+# https://github.com/linuxserver/docker-code-server/pkgs/container/code-server
+################################################################################
+FROM epicmorg/vscode-server:latest
+
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
 ##################################################################
-#                    teamcity AMXXModX setup
+#                   ARGuments
+##################################################################
+ENV BuildDocker true
+
+##################################################################
+#                    AMXXModX setup
 ##################################################################
 #
 # Reserved for future
@@ -15,7 +24,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 #    export AMXX_TS_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.9/amxmodx-latest-base-linux` && \
 #
 # Install packages
-ENV AMXX_VERSION=1.9
+ENV AMXX_VERSION=1.10
 ENV AMXX_INSTALL_PATH=/opt/amxmodx/$AMXX_VERSION
 ENV AMXX_BIN_PATH=$AMXX_INSTALL_PATH/scripting
 ENV AMXX_INC_PATH=$AMXX_BIN_PATH/include
@@ -29,20 +38,20 @@ RUN export AMXX_BASE_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.
     curl -SL https://www.amxmodx.org/amxxdrop/{$AMXX_VERSION}/{$AMXX_BASE_LATEST_VERSION} -o /tmp/amxx_base_latest.tar.gz && \
     cd /tmp && tar -zxf /tmp/amxx_base_latest.tar.gz && cd / && \
     mv -f /tmp/addons/amxmodx/* $AMXX_INSTALL_PATH && \
-    chmod +x $AMXX_BIN_PATH/amxxpc && \
-    chmod +x $AMXX_BIN_PATH/compile.sh && \
     tar -C $AMXX_INC_PATH -xvf /tmp/inc.tar && \
     chown -R buildagent:buildagent $AMXX_INC_PATH && \
     chmod -R 700 $AMXX_INC_PATH && \
-    amxxpc --help 2>&1 | head -n 1
-
+    chmod +x $AMXX_BIN_PATH/amxxpc && \
+    chmod +x $AMXX_BIN_PATH/compile.sh
 
 ##################################################################
 #                   cleaninig up
 ##################################################################
-RUN apt clean -y && \
-    apt-get clean all && \
+RUN apt purge policykit-1 -y && \
+    apt clean -y && \
     apt autoclean -y && \
     rm -rfv /var/lib/apt/lists/* && \
+    rm -rfv /tmp/mc.patch && \
     rm -rfv /var/cache/apt/archives/*.deb && \
+    rm -rfv /tmp/7z && \
     rm -rfv /tmp/*
