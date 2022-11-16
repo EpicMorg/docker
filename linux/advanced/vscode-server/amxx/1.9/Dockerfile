@@ -39,7 +39,6 @@ RUN export AMXX_BASE_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.
     cd /tmp && tar -zxf /tmp/amxx_base_latest.tar.gz && cd / && \
     mv -f /tmp/addons/amxmodx/* $AMXX_INSTALL_PATH && \
     tar -C $AMXX_INC_PATH -xvf /tmp/inc.tar && \
-    chown -R buildagent:buildagent $AMXX_INC_PATH && \
     chmod -R 700 $AMXX_INC_PATH && \
     chmod +x $AMXX_BIN_PATH/amxxpc && \
     chmod +x $AMXX_BIN_PATH/compile.sh
