@@ -14,6 +14,7 @@
 	* updated `base` images
 	* added `node19`, `node4`, `node6`, `node8`
 	* added `amxX 1.10`
+	* added `dotnet7`
 * `oct`
 	* just fixes
 * `sep`
