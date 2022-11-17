@@ -32,7 +32,7 @@ RUN export AMXX_BASE_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.
     chmod +x $AMXX_BIN_PATH/amxxpc && \
     chmod +x $AMXX_BIN_PATH/compile.sh && \
     tar -C $AMXX_INC_PATH -xvf /tmp/inc.tar && \
-    chown -R buildagent:buildagent $AMXX_INC_PATH && \
+    chown -R gitlab-runner:gitlab-runner $AMXX_INC_PATH && \
     chmod -R 700 $AMXX_INC_PATH && \
     amxxpc --help 2>&1 | head -n 1
 

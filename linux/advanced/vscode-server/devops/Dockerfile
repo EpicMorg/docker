@@ -172,33 +172,41 @@ RUN curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add - 
     echo 'deb [arch=amd64,arm64,armhf] https://packages.microsoft.com/ubuntu/20.04/prod focal main' > /etc/apt/sources.list.d/microsoft.dotnet.list  && \
     apt-get update && \
     apt-get install -y --no-install-recommends --allow-unauthenticated \
-      dotnet-sdk-2.1 \
-      dotnet-runtime-deps-2.1 \
-      dotnet-runtime-2.1 \
-      dotnet-hostfxr-2.1 \
-      dotnet-sdk-3.1 \
-      dotnet-targeting-pack-3.1 \
-      dotnet-runtime-deps-3.1 \
-      dotnet-runtime-3.1 \
-      dotnet-hostfxr-3.1 \
-      dotnet-apphost-pack-3.1 \
-      dotnet-sdk-5.0 \
-      dotnet-targeting-pack-5.0 \
-      dotnet-runtime-deps-5.0 \
-      dotnet-runtime-5.0 \
-      dotnet-hostfxr-5.0 \
-      dotnet-apphost-pack-5.0 \
+#      dotnet-sdk-2.1 \
+#      dotnet-runtime-deps-2.1 \
+#      dotnet-runtime-2.1 \
+#      dotnet-hostfxr-2.1 \
+#      dotnet-sdk-3.1 \
+#      dotnet-targeting-pack-3.1 \
+#      dotnet-runtime-deps-3.1 \
+#      dotnet-runtime-3.1 \
+#      dotnet-hostfxr-3.1 \
+#      dotnet-apphost-pack-3.1 \
+#      dotnet-sdk-5.0 \
+#      dotnet-targeting-pack-5.0 \
+#      dotnet-runtime-deps-5.0 \
+#      dotnet-runtime-5.0 \
+#      dotnet-hostfxr-5.0 \
+#      dotnet-apphost-pack-5.0 \
       dotnet-sdk-6.0 \
       dotnet-targeting-pack-6.0 \
       dotnet-runtime-deps-6.0 \
       dotnet-runtime-6.0 \
       dotnet-hostfxr-6.0 \
       dotnet-apphost-pack-6.0 \
+      dotnet-sdk-7.0 \
+      dotnet-targeting-pack-7.0 \
+      dotnet-runtime-deps-7.0 \
+      dotnet-runtime-7.0 \
+      dotnet-hostfxr-7.0 \
+      dotnet-apphost-pack-7.0 \
       dotnet-host \
       procdump \
       procmon \
       powershell-preview \
       powershell
+
+RUN mkdir -p /usr/share/dotnet/host/fxr
 
 # Trigger .NET CLI first run experience by running arbitrary cmd to populate local package cache
 RUN dotnet help && \
@@ -206,11 +214,11 @@ RUN dotnet help && \
     pwsh -v
 
 # install dotnet tools
-RUN dotnet tool list -g && \
-    dotnet tool install -g dotnet-script && \
-    curl -s https://raw.githubusercontent.com/filipw/dotnet-script/master/install/install.sh | bash && \
-    dotnet tool list -g && \
-    dotnet-script --version
+#RUN dotnet tool list -g && \
+#    dotnet tool install -g dotnet-script && \
+#    curl -s https://raw.githubusercontent.com/filipw/dotnet-script/master/install/install.sh | bash && \
+#    dotnet tool list -g && \
+#    dotnet-script --version
 
 
 ##################################################################
@@ -230,32 +238,39 @@ RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E03280
     ca-certificates-mono \
     mono-xsp4
 
+
 ##################################################################
-#                    AMXXModX setup
+#                    teamcity AMXXModX setup
 ##################################################################
 #
 # Reserved for future
-#    export AMXX_CSTRIKE_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.9/amxmodx-latest-cstrike-linux` && \
-#    export AMXX_DOD_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.9/amxmodx-latest-dod-linux` && \
-#    export AMXX_ESF_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.9/amxmodx-latest-esf-linux` && \
-#    export AMXX_NS_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.9/amxmodx-latest-ns-linux` && \
-#    export AMXX_TFC_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.9/amxmodx-latest-tfc-linux` && \
-#    export AMXX_TS_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.9/amxmodx-latest-base-linux` && \
-#
+#    export AMXX_CSTRIKE_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.10/amxmodx-latest-cstrike-linux` && \
+#    export AMXX_DOD_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.10/amxmodx-latest-dod-linux` && \
+#    export AMXX_ESF_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.10/amxmodx-latest-esf-linux` && \
+#    export AMXX_NS_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.10/amxmodx-latest-ns-linux` && \
+#    export AMXX_TFC_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.10/amxmodx-latest-tfc-linux` && \
+#    export AMXX_TS_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.10/amxmodx-latest-base-linux` && \
+
 # Install packages
-ENV AMXX_VERSION=1.9
+ENV AMXX_VERSION=1.10
 ENV AMXX_INSTALL_PATH=/opt/amxmodx/$AMXX_VERSION
 ENV AMXX_BIN_PATH=$AMXX_INSTALL_PATH/scripting
+ENV AMXX_INC_PATH=$AMXX_BIN_PATH/include
 ENV PATH=$PATH:$AMXX_BIN_PATH
 ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$AMXX_BIN_PATH
 
-RUN export AMXX_BASE_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.9/amxmodx-latest-base-linux` && \
+COPY inc.tar /tmp
+
+RUN export AMXX_BASE_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.10/amxmodx-latest-base-linux` && \
     mkdir -p $AMXX_INSTALL_PATH && \
     curl -SL https://www.amxmodx.org/amxxdrop/{$AMXX_VERSION}/{$AMXX_BASE_LATEST_VERSION} -o /tmp/amxx_base_latest.tar.gz && \
     cd /tmp && tar -zxf /tmp/amxx_base_latest.tar.gz && cd / && \
     mv -f /tmp/addons/amxmodx/* $AMXX_INSTALL_PATH && \
     chmod +x $AMXX_BIN_PATH/amxxpc && \
-    chmod +x $AMXX_BIN_PATH/compile.sh
+    chmod +x $AMXX_BIN_PATH/compile.sh && \
+    tar -C $AMXX_INC_PATH -xvf /tmp/inc.tar && \
+    chmod -R 700 $AMXX_INC_PATH && \
+    amxxpc --help 2>&1 | head -n 1
 
 ##################################################################
 #                   Android SDK

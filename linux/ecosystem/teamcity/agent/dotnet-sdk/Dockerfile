@@ -36,28 +36,34 @@ RUN curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add - 
       libssl1.1 \
       libstdc++6 \
       zlib1g \
-      dotnet-sdk-2.1 \
-      dotnet-runtime-deps-2.1 \
-      dotnet-runtime-2.1 \
-      dotnet-hostfxr-2.1 \
-      dotnet-sdk-3.1 \
-      dotnet-targeting-pack-3.1 \
-      dotnet-runtime-deps-3.1 \
-      dotnet-runtime-3.1 \
-      dotnet-hostfxr-3.1 \
-      dotnet-apphost-pack-3.1 \
-      dotnet-sdk-5.0 \
-      dotnet-targeting-pack-5.0 \
-      dotnet-runtime-deps-5.0 \
-      dotnet-runtime-5.0 \
-      dotnet-hostfxr-5.0 \
-      dotnet-apphost-pack-5.0 \
-      dotnet-sdk-6.0 \
-      dotnet-targeting-pack-6.0 \
-      dotnet-runtime-deps-6.0 \
-      dotnet-runtime-6.0 \
-      dotnet-hostfxr-6.0 \
-      dotnet-apphost-pack-6.0 \
+#      dotnet-sdk-2.1 \
+#      dotnet-runtime-deps-2.1 \
+#      dotnet-runtime-2.1 \
+#      dotnet-hostfxr-2.1 \
+#      dotnet-sdk-3.1 \
+#      dotnet-targeting-pack-3.1 \
+#      dotnet-runtime-deps-3.1 \
+#      dotnet-runtime-3.1 \
+#      dotnet-hostfxr-3.1 \
+#      dotnet-apphost-pack-3.1 \
+#      dotnet-sdk-5.0 \
+#      dotnet-targeting-pack-5.0 \
+#      dotnet-runtime-deps-5.0 \
+#      dotnet-runtime-5.0 \
+#      dotnet-hostfxr-5.0 \
+#      dotnet-apphost-pack-5.0 \
+#      dotnet-sdk-6.0 \
+#      dotnet-targeting-pack-6.0 \
+#      dotnet-runtime-deps-6.0 \
+#      dotnet-runtime-6.0 \
+#      dotnet-hostfxr-6.0 \
+#      dotnet-apphost-pack-6.0 \
+      dotnet-sdk-7.0 \
+      dotnet-targeting-pack-7.0 \
+      dotnet-runtime-deps-7.0 \
+      dotnet-runtime-7.0 \
+      dotnet-hostfxr-7.0 \
+      dotnet-apphost-pack-7.0 \
       dotnet-host \
       procdump \
 #      procmon \

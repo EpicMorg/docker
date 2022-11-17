@@ -24,7 +24,7 @@ ENV BuildDocker true
 #    export AMXX_TS_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.9/amxmodx-latest-base-linux` && \
 #
 # Install packages
-ENV AMXX_VERSION=1.10
+ENV AMXX_VERSION=1.9
 ENV AMXX_INSTALL_PATH=/opt/amxmodx/$AMXX_VERSION
 ENV AMXX_BIN_PATH=$AMXX_INSTALL_PATH/scripting
 ENV AMXX_INC_PATH=$AMXX_BIN_PATH/include
@@ -39,7 +39,6 @@ RUN export AMXX_BASE_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.
     cd /tmp && tar -zxf /tmp/amxx_base_latest.tar.gz && cd / && \
     mv -f /tmp/addons/amxmodx/* $AMXX_INSTALL_PATH && \
     tar -C $AMXX_INC_PATH -xvf /tmp/inc.tar && \
-    chown -R buildagent:buildagent $AMXX_INC_PATH && \
     chmod -R 700 $AMXX_INC_PATH && \
     chmod +x $AMXX_BIN_PATH/amxxpc && \
     chmod +x $AMXX_BIN_PATH/compile.sh
