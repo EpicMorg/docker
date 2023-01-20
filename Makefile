@@ -540,6 +540,17 @@ bundle-atlassian:
 	cd `pwd`/linux/ecosystem/atlassian/fisheye/latest             && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/fisheye-crucible/latest    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/latest                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9.2.1                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9.3.0                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9.3.1                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9.3.2                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9.3.3                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9.4.0                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9.4.1                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9.4.2                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9.5.0                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9.5.1                && pwd && make build && make deploy
+
 
 bundle-web:
 	@echo "======================================="
