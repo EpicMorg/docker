@@ -1,4 +1,4 @@
-FROM epicmorg/nodejs:node10
+FROM epicmorg/nodejs:node12
 
 RUN git clone https://github.com/ArekSredzki/electron-release-server.git /usr/src/electron-release-server && \
     tree /usr/src/electron-release-server

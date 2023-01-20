@@ -242,7 +242,7 @@ ecosystem-debian-images:
 	make ecosystem-debian-stretch-images
 	make ecosystem-debian-buster-images
 	make ecosystem-debian-bullseye-images
-	make ecosystem-debian-bookworm-images
+#	make ecosystem-debian-bookworm-images
 
 ecosystem-debian-squeeze-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/06-squeeze/slim    && pwd && make build && make deploy

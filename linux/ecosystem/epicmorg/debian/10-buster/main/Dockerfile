@@ -140,6 +140,19 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
 #    xfsdump
 
 ##################################################################
+#                   git fresh binary
+##################################################################
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A1715D88E1DF1F24 && \
+    rm -rfv /etc/apt/sources.list.d/launchpad_git-mainline.list && \
+    rm -rfv /etc/apt/sources.list.d/launchpad_git-stable.list
+COPY etc/apt/sources.list.d/launchpad_git-mainline.list /etc/apt/sources.list.d/launchpad_git-mainline.list
+COPY etc/apt/sources.list.d/launchpad_git-stable.list /etc/apt/sources.list.d/launchpad_git-stable.list
+RUN apt-get update &&  \
+    apt-get install -y --allow-unauthenticated \
+    git && \
+    git --version
+
+##################################################################
 #                   git-lfs official binary
 ##################################################################
 #RUN curl -s https://packagecloud.io/github/git-lfs/gpgkey | sudo gpg --no-default-keyring --keyring gnupg-ring:/etc/apt/trusted.gpg.d/git-lfs.gpg --import && \

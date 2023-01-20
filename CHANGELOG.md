@@ -4,6 +4,7 @@
 	* added new `jira` releases
 	* added new `bitbucket` releases
 	* added new `confluence` releases
+	* fixed `git` binary sources
 -------------------------------------------------------------------
 ## 2022
 * `dec`
