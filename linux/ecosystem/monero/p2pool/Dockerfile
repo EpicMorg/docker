@@ -7,7 +7,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 #                   ARGuments
 ##################################################################
 ENV P2POOL_DIR=/p2pool
-ENV P2POOL_VERSION=2.3
+ENV P2POOL_VERSION=2.7
 ENV P2POOL_DOWNLOAD_URL=https://github.com/SChernykh/p2pool/releases/download/v${P2POOL_VERSION}/p2pool-v${P2POOL_VERSION}-linux-x64.tar.gz
 
 ##################################################################

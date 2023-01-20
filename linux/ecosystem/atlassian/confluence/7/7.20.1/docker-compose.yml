@@ -1,0 +1,11 @@
+version: '3.9'
+services:
+  app:
+    image: "epicmorg/confluence:7.20.1"
+    build:
+      context: .
+  app-jdk11:
+    image: "epicmorg/confluence:7.20.1-jdk11"
+    build:
+      context: .
+      dockerfile: Dockerfile.jdk11

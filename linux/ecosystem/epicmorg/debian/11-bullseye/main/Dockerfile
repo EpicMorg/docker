@@ -5,20 +5,20 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 #                   perforce client binary
 ##################################################################
-ENV P4_VERSION=r22.1
-ENV P4_DOWNLOAD_URL=https://filehost.perforce.com/perforce/${P4_VERSION}/bin.linux26x86_64/p4
+ARG P4_VERSION=r22.1
+ARG P4_DOWNLOAD_URL=https://filehost.perforce.com/perforce/${P4_VERSION}/bin.linux26x86_64/p4
 
 ##################################################################
 #                   7z official binary
 ##################################################################
-ENV SZ_VERSION=7z2200
-ENV SZ_DOWNLOAD_URL=https://www.7-zip.org/a/${SZ_VERSION}-linux-x64.tar.xz
+ARG SZ_VERSION=7z2200
+ARG SZ_DOWNLOAD_URL=https://www.7-zip.org/a/${SZ_VERSION}-linux-x64.tar.xz
 
 ##################################################################
 #                   LazyGit official binary
 ##################################################################
-ENV LZGIT_VERSION=0.34
-ENV LZGIT_DOWNLOAD_URL=https://github.com/jesseduffield/lazygit/releases/download/v${LZGIT_VERSION}/lazygit_${LZGIT_VERSION}_Linux_x86_64.tar.gz
+ARG LZGIT_VERSION=0.34
+ARG LZGIT_DOWNLOAD_URL=https://github.com/jesseduffield/lazygit/releases/download/v${LZGIT_VERSION}/lazygit_${LZGIT_VERSION}_Linux_x86_64.tar.gz
 
 ##################################################################
 #                   update lists
@@ -139,6 +139,19 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
 #    xfsdump
 
 ##################################################################
+#                   git fresh binary
+##################################################################
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A1715D88E1DF1F24 && \
+    rm -rfv /etc/apt/sources.list.d/launchpad_git-mainline.list && \
+    rm -rfv /etc/apt/sources.list.d/launchpad_git-stable.list
+COPY etc/apt/sources.list.d/launchpad_git-mainline.list /etc/apt/sources.list.d/launchpad_git-mainline.list
+COPY etc/apt/sources.list.d/launchpad_git-stable.list /etc/apt/sources.list.d/launchpad_git-stable.list
+RUN apt-get update &&  \
+    apt-get install -y --allow-unauthenticated \
+    git && \
+    git --version
+
+##################################################################
 #                   git-lfs official binary
 ##################################################################
 #RUN curl -s https://packagecloud.io/github/git-lfs/gpgkey | sudo gpg --no-default-keyring --keyring gnupg-ring:/etc/apt/trusted.gpg.d/git-lfs.gpg --import && \
@@ -195,7 +208,7 @@ RUN wget --no-check-certificate -nv --random-wait --retry-connrefused --continue
 ##################################################################
 #                    dumb init
 ##################################################################
-ENV DUMB_INIT_VERSION=1.2.5
+ARG DUMB_INIT_VERSION=1.2.5
 RUN wget -q --no-check-certificate -c https://github.com/Yelp/dumb-init/releases/download/v${DUMB_INIT_VERSION}/dumb-init_${DUMB_INIT_VERSION}_x86_64 --random-wait -O /usr/bin/dumb-init && \
     chmod +x /usr/bin/dumb-init && \
     dumb-init --version
@@ -203,7 +216,7 @@ RUN wget -q --no-check-certificate -c https://github.com/Yelp/dumb-init/releases
 ##################################################################
 #           grab gosu for easy step-down from root
 ##################################################################
-ENV GOSU_VER 1.14
+ARG GOSU_VER 1.14
 RUN wget -q --no-check-certificate -c https://github.com/tianon/gosu/releases/download/${GOSU_VER}/gosu-amd64 --random-wait -O /usr/local/bin/gosu && \
     chmod +x /usr/local/bin/gosu && \
     gosu --version
