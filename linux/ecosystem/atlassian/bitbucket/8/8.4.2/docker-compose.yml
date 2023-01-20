@@ -1,0 +1,11 @@
+version: '3.9'
+services:
+  app:
+    image: "epicmorg/bitbucket:8.4.2"
+    build:
+      context: .
+  app-jdk11:
+    image: "epicmorg/bitbucket:8.4.2-jdk11"
+    build:
+      context: .
+      dockerfile: ./Dockerfile.jdk11

@@ -2,6 +2,7 @@
 ## 2023
 * `jan`
 	* added new `jira` releases
+	* added new `bitbucket` releases
 -------------------------------------------------------------------
 ## 2022
 * `dec`
