@@ -4,3 +4,13 @@ services:
     image: "epicmorg/confluence:latest"
     build:
       context: .
+  app-jdk11:
+    image: "epicmorg/confluence:latest-jdk11"
+    build:
+      context: .
+      dockerfile: Dockerfile.jdk11
+  app-jdk17:
+    image: "epicmorg/confluence:latest-jdk17"
+    build:
+      context: .
+      dockerfile: Dockerfile.jdk17

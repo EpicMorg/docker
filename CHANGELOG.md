@@ -3,6 +3,7 @@
 * `jan`
 	* added new `jira` releases
 	* added new `bitbucket` releases
+	* added new `confluence` releases
 -------------------------------------------------------------------
 ## 2022
 * `dec`

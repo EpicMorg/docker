@@ -546,6 +546,18 @@ bundle-atlassian:
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8.6.1           && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8.7.0           && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/confluence/latest          && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7.19.0          && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7.19.1          && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7.19.2          && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7.19.3          && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7.19.4          && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7.20.0          && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7.20.1          && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7.20.2          && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7.20.3          && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8.0.0          && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8.0.1          && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8.0.2          && pwd && make build && make deploy
 #	cd `pwd`/linux/ecosystem/atlassian/crucible/latest            && pwd && make build && make deploy
 #	cd `pwd`/linux/ecosystem/atlassian/fisheye/latest             && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/fisheye-crucible/latest    && pwd && make build && make deploy
