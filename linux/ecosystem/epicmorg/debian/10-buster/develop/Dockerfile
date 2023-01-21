@@ -114,7 +114,7 @@ RUN apt-get update && \
 ##################################################################
 #                   Rust compillers
 ##################################################################
-RUN curl https://sh.rustup.rs -sSf | sh -s -- -y --profile complete --default-toolchain stable --verbose
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile complete --default-toolchain stable --verbose
 RUN printf "\n--------------------------------\n$(cargo --version)\n--------------------------------\n\n"
 
 ##################################################################
