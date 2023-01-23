@@ -5,7 +5,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 #                   ARGuments
 ##################################################################
-ARG BITBUCKET_VERSION=7.21.0
+ARG BITBUCKET_VERSION=8.7.0
 ARG DOWNLOAD_URL=https://product-downloads.atlassian.com/software/stash/downloads/atlassian-bitbucket-${BITBUCKET_VERSION}.tar.gz
 
 ##################################################################
@@ -28,6 +28,9 @@ EXPOSE 7999
 ##################################################################
 #                   Installing
 ##################################################################
+RUN apt update && \
+    apt install --allow-downgrades -y git/bullseye-backports
+
 RUN mkdir -p                                    ${BITBUCKET_INSTALL_DIR} \
     && curl -L                                  ${DOWNLOAD_URL} | tar -xz --strip-components=1 -C "${BITBUCKET_INSTALL_DIR}" \
     && chown -R ${RUN_USER}:${RUN_GROUP}        ${BITBUCKET_INSTALL_DIR}/ \
