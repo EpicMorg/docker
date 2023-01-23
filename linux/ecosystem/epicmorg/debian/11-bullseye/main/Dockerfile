@@ -216,7 +216,7 @@ RUN wget -q --no-check-certificate -c https://github.com/Yelp/dumb-init/releases
 ##################################################################
 #           grab gosu for easy step-down from root
 ##################################################################
-ARG GOSU_VER 1.14
+ENV GOSU_VER 1.14
 RUN wget -q --no-check-certificate -c https://github.com/tianon/gosu/releases/download/${GOSU_VER}/gosu-amd64 --random-wait -O /usr/local/bin/gosu && \
     chmod +x /usr/local/bin/gosu && \
     gosu --version
