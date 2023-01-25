@@ -4,6 +4,7 @@
 	* added new `jira` releases
 	* added new `bitbucket` releases
 	* added new `confluence` releases
+	* added *first* `crowd` release (version `5.1.1`)
 	* fixed `git` binary sources
 -------------------------------------------------------------------
 ## 2022
