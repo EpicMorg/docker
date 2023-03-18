@@ -1,0 +1,26 @@
+version: '3.9'
+services:
+  app:
+    image: "epicmorg/crowd:${RELEASE}"
+    build:
+      context: .
+      args:
+        RELEASE: ${RELEASE}
+        DOWNLOAD_URL: ${DOWNLOAD_URL}
+  app-jdk11:
+    image: "epicmorg/crowd:${RELEASE}-jdk11"
+    build:
+      context: .
+      dockerfile: Dockerfile.jdk11
+      args:
+        RELEASE: ${RELEASE}
+        DOWNLOAD_URL: ${DOWNLOAD_URL}
+#  app-jdk17:
+#    image: "epicmorg/crowd:${RELEASE}-jdk17"
+#    build:
+#      context: .
+#      dockerfile: Dockerfile.jdk17
+#      args:
+#        RELEASE: ${RELEASE}
+#        DOWNLOAD_URL: ${DOWNLOAD_URL}
+#

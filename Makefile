@@ -78,6 +78,9 @@ advanced-teamcity-server-images:
 advanced-redash-images:
 	cd `pwd`/linux/advanced/redash				&& pwd && make sync &&  make patch &&  make build && make deploy
 
+advanced-sentry-images:
+	cd `pwd`/linux/advanced/sentry/latest				&& pwd && make sync &&  make patch &&  make build && make deploy
+
 advanced-zabbix-images:
 	cd `pwd`/linux/advanced/zabbix/latest/agent		      && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/zabbix/latest/agent2		    && pwd && make build && make deploy
@@ -536,6 +539,7 @@ bundle-atlassian:
 	@echo "======================================="
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/latest           && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/confluence/latest          && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/latest               && pwd && make build && make deploy
 #	cd `pwd`/linux/ecosystem/atlassian/crucible/latest            && pwd && make build && make deploy
 #	cd `pwd`/linux/ecosystem/atlassian/fisheye/latest             && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/fisheye-crucible/latest    && pwd && make build && make deploy
@@ -563,6 +567,7 @@ bundle-atlassian:
 	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.0.0          && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.0.1          && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.0.2          && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/5.1.1                 && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.2.1                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.3.0                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.3.1                && pwd && make build && make deploy
