@@ -1,5 +1,7 @@
 # Changelog
 ## 2023
+* `feb-mar`
+	* added new `sentry` advanced image
 * `jan`
 	* added new `jira` releases
 	* added new `bitbucket` releases

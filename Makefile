@@ -78,6 +78,9 @@ advanced-teamcity-server-images:
 advanced-redash-images:
 	cd `pwd`/linux/advanced/redash				&& pwd && make sync &&  make patch &&  make build && make deploy
 
+advanced-sentry-images:
+	cd `pwd`/linux/advanced/sentry/latest				&& pwd && make sync &&  make patch &&  make build && make deploy
+
 advanced-zabbix-images:
 	cd `pwd`/linux/advanced/zabbix/latest/agent		      && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/zabbix/latest/agent2		    && pwd && make build && make deploy
