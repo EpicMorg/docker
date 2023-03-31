@@ -50,6 +50,14 @@ RUN apt-get update && \
     php -v
 
 ##################################################################
+#                   Apache2 Fixes
+##################################################################
+RUN rm -fv /etc/apache2/sites-enabled/000-default.conf
+RUN rm -fv /etc/apache2/apache2.conf
+COPY etc/apache2/sites-enabled/localhost.conf /etc/apache2/sites-enabled/localhost.conf
+COPY etc/apache2/apache2.conf /etc/apache2/apache2.conf
+
+##################################################################
 #                   LDAP Fix
 ##################################################################
 RUN echo "TLS_REQCERT never" >> /etc/ldap/ldap.conf
