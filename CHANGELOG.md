@@ -1,5 +1,8 @@
 # Changelog
 ## 2023
+* `apr`
+	* `apache2` image fixed
+	* added `torrust-index` image
 * `feb-mar`
 	* added new `sentry` advanced image
 * `jan`

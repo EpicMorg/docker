@@ -126,6 +126,9 @@ jobs:
     - name: Build and Deploy Torrust Tracker
       run:  cd linux/ecosystem/torrust-tracker && make build && make deploy
 
+    - name: Build and Deploy Torrust Index
+      run:  cd linux/ecosystem/torrust-index && make build && make deploy
+
 ##################################################################################
 
   build-monero-cli-image:
