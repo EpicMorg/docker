@@ -1,0 +1,6 @@
+version: '3.9'
+services:
+  app:
+    image: "epicmorg/testrail:auth-ldap-7.5.3.1000"
+    build:
+      context: .
