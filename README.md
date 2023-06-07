@@ -59,3 +59,20 @@ A collection of docker images for production use. This repo contains 2 types of 
 * [@Aleks-Z](https://github.com/Aleks-Z)
 * [@alex4rks](https://github.com/alex4rks)
 * [@kasthack](https://github.com/kasthack)
+
+# :money_with_wings: Donate
+
+You could support us if you want.
+
+| Adress   | Name | Coin 
+| ------  | ------ | ------ 
+| `EQDvHXRK-K1ZieJhgTD9JZQk7xCnWzRbctYnUkWq1lZq1bUg` | Toncoin | TON
+| `0x26a8443a694f08cdfec966aa6fd72c45068753ec` | Ethereum | ETH
+| `bc1querz8ug9asjmsuy6yn4a94a2athgprnu7e5zq2` | Bitcoin | BTC	
+| `ltc1qtwwacq8f0n76fer2y83wxu540hddnmf8cdrlvg` | Litecoin | LTC	
+| `4SbMynYETyhmKdggu8f38ULU6yQKiJPuo6` | Novacoin | NVC 
+| `DHyfE1CZzWtyaQiaMmv6g4KvXVQRUgrYE6` | Dogecoin | DOGE	
+| `pQWArPzYoLppNe7ew3QPfto1k1eq66BYUB` | Peercoin | PPC	
+| `R9t2LKeLhDSZBKNgUzSDZAossA3UqNvbV3` | Ravencoin | RVN	
+| `t1KRMMmwMSZth8vJcd2ZHtPEFKTQ74yVixE` | ZCash | ZEC	
+| `884PqZ1gDjWW7fKxtbaeRoBeSh9EGZbkqUyLriWmuKbwLZrAJdYUs4wQxoVfEJoW7LBhdQMP9cFhZQpJr6xvg7esHLdCbb1` | Monero | XMR	

@@ -402,6 +402,7 @@ ecosystem-opentracker-images:
 
 ecosystem-torrust-tracker-images: 
 	cd `pwd`/linux/ecosystem/torrust-tracker    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/torrust-index    && pwd && make build && make deploy
 
 ecosystem-monero-images: 
 	cd `pwd`/linux/ecosystem/monero/monerod    && pwd && make build && make deploy
