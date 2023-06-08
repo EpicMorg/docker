@@ -448,13 +448,8 @@ ecosystem-teamcity-agent-images:
 	cd `pwd`/linux/ecosystem/teamcity/agent/android-sdk    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/teamcity/agent/atlassian-sdk  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/teamcity/agent/dotnet-sdk     && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/teamcity/agent/node4         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/teamcity/agent/node6         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/teamcity/agent/node8         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/teamcity/agent/node10         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/teamcity/agent/node11         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/teamcity/agent/node12         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/teamcity/agent/node13         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/teamcity/agent/node14         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/teamcity/agent/node15         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/teamcity/agent/node16         && pwd && make build && make deploy
@@ -476,13 +471,8 @@ ecosystem-gitlab-runner-images:
 	cd `pwd`/linux/ecosystem/gitlab/runner/android-sdk    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/gitlab/runner/atlassian-sdk  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/gitlab/runner/dotnet-sdk     && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/gitlab/runner/node4         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/gitlab/runner/node6         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/gitlab/runner/node8         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/gitlab/runner/node10         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/gitlab/runner/node11         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/gitlab/runner/node12         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/gitlab/runner/node13         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/gitlab/runner/node14         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/gitlab/runner/node15         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/gitlab/runner/node16         && pwd && make build && make deploy
