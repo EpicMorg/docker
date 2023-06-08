@@ -64,7 +64,7 @@ RUN curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add - 
       dotnet-runtime-7.0 \
       dotnet-hostfxr-7.0 \
       dotnet-apphost-pack-7.0 \
-      dotnet-host \
+#      dotnet-host \
       procdump \
 #      procmon \
       powershell-preview \
