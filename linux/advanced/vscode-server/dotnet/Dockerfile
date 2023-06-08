@@ -74,7 +74,7 @@ RUN curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add - 
 RUN mkdir -p /usr/share/dotnet/host/fxr
 
 # Trigger .NET CLI first run experience by running arbitrary cmd to populate local package cache
-RUN dotnet help && \
+RUN dotnet --info && \
     pwsh-preview -v && \
     pwsh -v
 
