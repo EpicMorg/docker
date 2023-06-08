@@ -54,8 +54,26 @@ jobs:
     - name: "Build and Deploy TeamCity Agent dotNet SDK Image:"
       run:  cd linux/ecosystem/teamcity/agent/dotnet-sdk    && pwd && make build && make deploy
 
+    - name: "Build and Deploy TeamCity Agent node4 Image:"
+      run:  cd linux/ecosystem/teamcity/agent/node4    && pwd && make build && make deploy
+
+    - name: "Build and Deploy TeamCity Agent node6 Image:"
+      run:  cd linux/ecosystem/teamcity/agent/node6    && pwd && make build && make deploy
+
+    - name: "Build and Deploy TeamCity Agent node8 Image:"
+      run:  cd linux/ecosystem/teamcity/agent/node8    && pwd && make build && make deploy
+
+    - name: "Build and Deploy TeamCity Agent node10 Image:"
+      run:  cd linux/ecosystem/teamcity/agent/node10    && pwd && make build && make deploy
+
+    - name: "Build and Deploy TeamCity Agent node11 Image:"
+      run:  cd linux/ecosystem/teamcity/agent/node11    && pwd && make build && make deploy
+
     - name: "Build and Deploy TeamCity Agent node12 Image:"
       run:  cd linux/ecosystem/teamcity/agent/node12    && pwd && make build && make deploy
+
+    - name: "Build and Deploy TeamCity Agent node13 Image:"
+      run:  cd linux/ecosystem/teamcity/agent/node13    && pwd && make build && make deploy
 
     - name: "Build and Deploy TeamCity Agent node14 Image:"
       run:  cd linux/ecosystem/teamcity/agent/node14    && pwd && make build && make deploy
@@ -71,6 +89,12 @@ jobs:
 
     - name: "Build and Deploy TeamCity Agent node18 Image:"
       run:  cd linux/ecosystem/teamcity/agent/node18    && pwd && make build && make deploy
+
+    - name: "Build and Deploy TeamCity Agent node19 Image:"
+      run:  cd linux/ecosystem/teamcity/agent/node19    && pwd && make build && make deploy
+
+    - name: "Build and Deploy TeamCity Agent node20 Image:"
+      run:  cd linux/ecosystem/teamcity/agent/node20    && pwd && make build && make deploy
 
     - name: "Build and Deploy TeamCity Agent php7.2 Image:"
       run:  cd linux/ecosystem/teamcity/agent/php7.2    && pwd && make build && make deploy

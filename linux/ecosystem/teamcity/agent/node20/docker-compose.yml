@@ -1,0 +1,6 @@
+version: '3.9'
+services:
+  app:
+    image: "epicmorg/teamcity-agent:node20"
+    build:
+      context: .

@@ -151,6 +151,18 @@ RUN tar -C /tmp -xvf /tmp/ioncube.tar.gz && \
     php -v
 
 ##################################################################
+#                   Installing Bolt addon
+##################################################################
+#ADD https://phpbolt.com/wp-content/uploads/2023/03/phpBolt-extension-1.0.4.zip /tmp/phpBolt.zip
+COPY usr/lib/php/20210902/phpBolt-extension-1.0.4-php81.so ${PHP_MODULE_PATH}/phpBolt-extension-1.0.4-php81.so
+#RUN echo "extension = ${PHP_MODULE_PATH}/phpBolt-extension-1.0.4-php81.so" >> ${PHP_DIR}/apache2/php.ini && \
+RUN echo "extension = ${PHP_MODULE_PATH}/phpBolt-extension-1.0.4-php81.so" >> ${PHP_DIR}/cgi/php.ini && \
+    echo "extension = ${PHP_MODULE_PATH}/phpBolt-extension-1.0.4-php81.so" >> ${PHP_DIR}/cli/php.ini && \
+    echo "extension = ${PHP_MODULE_PATH}/phpBolt-extension-1.0.4-php81.so" >> ${PHP_DIR}/fpm/php.ini && \
+    php -m && \
+    php -v
+
+##################################################################
 #                   Installing Composer addon
 ##################################################################
 RUN cd /tmp && \

@@ -355,5 +355,93 @@ jobs:
 
 ##################################################################################
 
+  build-64-images:
+    name: Build EpicMorg Advanced Zabbix 6.2 Images
+    runs-on: ubuntu-22.04
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Log into registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Test Make
+      run:  make
+
+    - name: "Build and Deploy Advanced Zabbix Agent Images:"
+      run:  cd linux/advanced/zabbix/6.4/agent && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Agent2 Images:"
+      run:  cd linux/advanced/zabbix/6.4/agent2 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Java Gateway  Images:"
+      run:  cd linux/advanced/zabbix/6.4/java-gateway && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Proxy Mysql Images:"
+      run:  cd linux/advanced/zabbix/6.4/proxy-mysql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Proxy Sqlite3 Images:"
+      run:  cd linux/advanced/zabbix/6.4/proxy-sqlite3 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Server Mysql Images:"
+      run:  cd linux/advanced/zabbix/6.4/server-mysql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Server Pgsql Images:"
+      run:  cd linux/advanced/zabbix/6.4/server-pgsql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Snmptraps Images:"
+      run:  cd linux/advanced/zabbix/6.4/snmptraps && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Web Mysql Images:"
+      run:  cd linux/advanced/zabbix/6.4/web-mysql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Web Pgsql Images:"
+      run:  cd linux/advanced/zabbix/6.4/web-pgsql && pwd && make build && make deploy
+
+##################################################################################
+
+  build-trunk-images:
+    name: Build EpicMorg Advanced Zabbix 6.2 Images
+    runs-on: ubuntu-22.04
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Log into registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Test Make
+      run:  make
+
+    - name: "Build and Deploy Advanced Zabbix Agent Images:"
+      run:  cd linux/advanced/zabbix/trunk/agent && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Agent2 Images:"
+      run:  cd linux/advanced/zabbix/trunk/agent2 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Java Gateway  Images:"
+      run:  cd linux/advanced/zabbix/trunk/java-gateway && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Proxy Mysql Images:"
+      run:  cd linux/advanced/zabbix/trunk/proxy-mysql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Proxy Sqlite3 Images:"
+      run:  cd linux/advanced/zabbix/trunk/proxy-sqlite3 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Server Mysql Images:"
+      run:  cd linux/advanced/zabbix/trunk/server-mysql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Server Pgsql Images:"
+      run:  cd linux/advanced/zabbix/trunk/server-pgsql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Snmptraps Images:"
+      run:  cd linux/advanced/zabbix/trunk/snmptraps && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Web Mysql Images:"
+      run:  cd linux/advanced/zabbix/trunk/web-mysql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Web Pgsql Images:"
+      run:  cd linux/advanced/zabbix/trunk/web-pgsql && pwd && make build && make deploy
+
+##################################################################################
+
     - name: Cleanup
       run: make docker-clean

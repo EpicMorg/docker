@@ -77,6 +77,11 @@ RUN echo "extension = ${PHP_MODULE_PATH}/imagick.so" >> ${PHP_DIR}/apache2/php.i
     php -v
 
 ##################################################################
+#                   Installing Bolt addon
+##################################################################
+RUN echo "extension = ${PHP_MODULE_PATH}/phpBolt-extension-1.0.4-php80.so" >> ${PHP_DIR}/apache2/php.ini
+
+##################################################################
 #                   Installing P4 addon
 ##################################################################
 RUN ln -sf ${P4_PHP_INI} ${PHP_DIR}/apache2/conf.d/perforce.ini && \

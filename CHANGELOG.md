@@ -1,5 +1,17 @@
 # Changelog
 ## 2023
+* `may-june`
+  * `base` images improved
+  * `nginx` images updated
+    * `nginx-quic` iamges soft-deprecated
+  * added `donation` info in `LABEL` sections of containers
+  * `nextcloud` images updated
+  * added `bolt` encryption to `php`, `apache2` and `testrail` images
+  * updated `zabbix` images
+    * added new tag `trunk` with `ubuntu-trunk` sync
+  * added new `nodejs` images
+  * updated `teamcity` `agent` images
+  * updated `gitlab` `runner` images
 * `apr`
 	* `apache2` image fixed
 	* added `torrust-index` image
@@ -14,6 +26,7 @@
 -------------------------------------------------------------------
 ## 2022
 * `dec`
+  * `Happy New Year` //Mainteiner's mental holidays
 * `nov`
 	* added `php8.1`, `apache2 + php8.1` and `teamcity agent + php8.1` images
 	* build and `ci` fixes

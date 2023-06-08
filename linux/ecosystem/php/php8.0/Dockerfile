@@ -138,6 +138,18 @@ RUN apt-get update && \
     php -v
 
 ##################################################################
+#                   Installing Bolt addon
+##################################################################
+#ADD https://phpbolt.com/wp-content/uploads/2023/03/phpBolt-extension-1.0.4.zip /tmp/phpBolt.zip
+COPY usr/lib/php/20200930/phpBolt-extension-1.0.4-php80.so ${PHP_MODULE_PATH}/phpBolt-extension-1.0.4-php80.so
+#RUN echo "extension = ${PHP_MODULE_PATH}/phpBolt-extension-1.0.4-php80.so" >> ${PHP_DIR}/apache2/php.ini && \
+RUN echo "extension = ${PHP_MODULE_PATH}/phpBolt-extension-1.0.4-php80.so" >> ${PHP_DIR}/cgi/php.ini && \
+    echo "extension = ${PHP_MODULE_PATH}/phpBolt-extension-1.0.4-php80.so" >> ${PHP_DIR}/cli/php.ini && \
+    echo "extension = ${PHP_MODULE_PATH}/phpBolt-extension-1.0.4-php80.so" >> ${PHP_DIR}/fpm/php.ini && \
+    php -m && \
+    php -v
+
+##################################################################
 #                   Installing P4 addon
 ##################################################################
 RUN wget -q --no-check-certificate -c http://ftp.perforce.com/perforce/r20.2/bin.linux26x86_64/perforce_php80.so --random-wait -O ${PHP_MODULE_PATH}/perforce_php80.so && \

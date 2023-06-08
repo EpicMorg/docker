@@ -1,4 +1,4 @@
-VERSION             =  "2022.11.14"
+VERSION             =  "2023.06.08"
 AUTHOR              =  "EpicMorg"
 MODIFIED            =  "STAM"
 DOCKER_SCAN_SUGGEST = false
@@ -160,16 +160,26 @@ advanced-zabbix-images:
 	cd `pwd`/linux/advanced/zabbix/6.2/snmptraps			&& pwd && make build && make deploy
 	cd `pwd`/linux/advanced/zabbix/6.2/web-mysql			&& pwd && make build && make deploy
 	cd `pwd`/linux/advanced/zabbix/6.2/web-pgsql			&& pwd && make build && make deploy
-#	cd `pwd`/linux/advanced/zabbix/6.4/agent		      && pwd && make build && make deploy
-#	cd `pwd`/linux/advanced/zabbix/6.4/agent2 		    && pwd && make build && make deploy
-#	cd `pwd`/linux/advanced/zabbix/6.4/java-gateway   && pwd && make build && make deploy
-#	cd `pwd`/linux/advanced/zabbix/6.4/proxy-mysql		&& pwd && make build && make deploy
-#	cd `pwd`/linux/advanced/zabbix/6.4/proxy-sqlite3	&& pwd && make build && make deploy
-#	cd `pwd`/linux/advanced/zabbix/6.4/server-mysql 	&& pwd && make build && make deploy
-#	cd `pwd`/linux/advanced/zabbix/6.4/server-pgsql 	&& pwd && make build && make deploy
-#	cd `pwd`/linux/advanced/zabbix/6.4/snmptraps			&& pwd && make build && make deploy
-#	cd `pwd`/linux/advanced/zabbix/6.4/web-mysql			&& pwd && make build && make deploy
-#	cd `pwd`/linux/advanced/zabbix/6.4/web-pgsql			&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/6.4/agent		      && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/6.4/agent2 		    && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/6.4/java-gateway   && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/6.4/proxy-mysql		&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/6.4/proxy-sqlite3	&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/6.4/server-mysql 	&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/6.4/server-pgsql 	&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/6.4/snmptraps			&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/6.4/web-mysql			&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/6.4/web-pgsql			&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/trunk/agent		      && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/trunk/agent2 		    && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/trunk/java-gateway   && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/trunk/proxy-mysql		&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/trunk/proxy-sqlite3	&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/trunk/server-mysql 	&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/trunk/server-pgsql 	&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/trunk/snmptraps			&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/trunk/web-mysql			&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/trunk/web-pgsql			&& pwd && make build && make deploy
 
 advanced-nextcloud-images:
 	cd `pwd`/linux/advanced/nextcloud/pure/14		  && pwd && make build && make deploy
@@ -184,6 +194,7 @@ advanced-nextcloud-images:
 	cd `pwd`/linux/advanced/nextcloud/pure/23		  && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/nextcloud/pure/24		  && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/nextcloud/pure/25		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/pure/26		  && pwd && make build && make deploy
 
 advanced-nextcloud-patched-images:
 	cd `pwd`/linux/advanced/nextcloud/patched/14		  && pwd && make build && make deploy
@@ -198,6 +209,7 @@ advanced-nextcloud-patched-images:
 	cd `pwd`/linux/advanced/nextcloud/patched/23		  && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/nextcloud/patched/24		  && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/nextcloud/patched/25		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/patched/26		  && pwd && make build && make deploy
 
 ecosystem-images:
 	make bundle-base-images
@@ -387,6 +399,7 @@ ecosystem-nodejs-images:
 	cd `pwd`/linux/ecosystem/nodejs/node17         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/nodejs/node18         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/nodejs/node19         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/nodejs/node20         && pwd && make build && make deploy
 
 ecosystem-vk2discord-images: 
 	cd `pwd`/linux/ecosystem/vk2discord     && pwd && make build && make deploy
@@ -435,12 +448,20 @@ ecosystem-teamcity-agent-images:
 	cd `pwd`/linux/ecosystem/teamcity/agent/android-sdk    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/teamcity/agent/atlassian-sdk  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/teamcity/agent/dotnet-sdk     && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/node4         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/node6         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/node8         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/node10         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/node11         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/teamcity/agent/node12         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/node13         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/teamcity/agent/node14         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/teamcity/agent/node15         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/teamcity/agent/node16         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/teamcity/agent/node17         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/teamcity/agent/node18         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/node19         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/node20         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/teamcity/agent/php7.2         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/teamcity/agent/php7.3         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/teamcity/agent/php7.4         && pwd && make build && make deploy
@@ -455,12 +476,20 @@ ecosystem-gitlab-runner-images:
 	cd `pwd`/linux/ecosystem/gitlab/runner/android-sdk    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/gitlab/runner/atlassian-sdk  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/gitlab/runner/dotnet-sdk     && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/node4         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/node6         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/node8         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/node10         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/node11         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/gitlab/runner/node12         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/node13         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/gitlab/runner/node14         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/gitlab/runner/node15         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/gitlab/runner/node16         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/gitlab/runner/node17         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/gitlab/runner/node18         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/node19         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/node20         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/gitlab/runner/php7.2         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/gitlab/runner/php7.3         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/gitlab/runner/php7.4         && pwd && make build && make deploy
@@ -471,9 +500,6 @@ ecosystem-nginx-images:
 	cd `pwd`/linux/ecosystem/nginx/latest/mainline/main      && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/nginx/latest/mainline/php       && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/nginx/latest/mainline/rtmp-hls  && pwd && make build && make deploy
-#	cd `pwd`/linux/ecosystem/nginx/latest/quic/main      && pwd && make build && make deploy
-#	cd `pwd`/linux/ecosystem/nginx/latest/quic/php       && pwd && make build && make deploy
-#	cd `pwd`/linux/ecosystem/nginx/latest/quic/rtmp-hls  && pwd && make build && make deploy
 
 ecosystem-vscode-server-images:
 	cd `pwd`/linux/advanced/vscode-server/latest         && pwd && make build && make deploy

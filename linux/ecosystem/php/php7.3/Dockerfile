@@ -224,6 +224,18 @@ RUN tar -C /tmp -xvf /tmp/ioncube.tar.gz && \
     php -v
 
 ##################################################################
+#                   Installing Bolt addon
+##################################################################
+#ADD https://phpbolt.com/wp-content/uploads/2023/03/phpBolt-extension-1.0.4.zip /tmp/phpBolt.zip
+COPY usr/lib/php/20180731/phpBolt-extension-1.0.4-php73.so ${PHP_MODULE_PATH}/phpBolt-extension-1.0.4-php73.so
+#RUN echo "extension = ${PHP_MODULE_PATH}/phpBolt-extension-1.0.4-php73.so" >> ${PHP_DIR}/apache2/php.ini && \
+RUN echo "extension = ${PHP_MODULE_PATH}/phpBolt-extension-1.0.4-php73.so" >> ${PHP_DIR}/cgi/php.ini && \
+    echo "extension = ${PHP_MODULE_PATH}/phpBolt-extension-1.0.4-php73.so" >> ${PHP_DIR}/cli/php.ini && \
+    echo "extension = ${PHP_MODULE_PATH}/phpBolt-extension-1.0.4-php73.so" >> ${PHP_DIR}/fpm/php.ini && \
+    php -m && \
+    php -v
+
+##################################################################
 #                   Installing P4 addon
 ##################################################################
 COPY --from=builder /builds/export/perforce.so ${PHP_MODULE_PATH}

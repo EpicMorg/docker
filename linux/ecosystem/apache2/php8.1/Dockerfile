@@ -70,6 +70,11 @@ RUN echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_8.1.so" >> ${PH
     php -v
 
 ##################################################################
+#                   Installing Bolt addon
+##################################################################
+RUN echo "extension = ${PHP_MODULE_PATH}/phpBolt-extension-1.0.4-php81.so" >> ${PHP_DIR}/apache2/php.ini
+
+##################################################################
 #                   Installing timezonedb addon
 ##################################################################
 RUN echo "extension = ${PHP_MODULE_PATH}/timezonedb.so" >> ${PHP_DIR}/apache2/php.ini && \
