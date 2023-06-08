@@ -52,19 +52,19 @@ RUN curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add - 
 #      dotnet-runtime-5.0 \
 #      dotnet-hostfxr-5.0 \
 #      dotnet-apphost-pack-5.0 \
-      dotnet-sdk-6.0 \
-      dotnet-targeting-pack-6.0 \
-      dotnet-runtime-deps-6.0 \
-      dotnet-runtime-6.0 \
-      dotnet-hostfxr-6.0 \
-      dotnet-apphost-pack-6.0 \
+#      dotnet-sdk-6.0 \
+#      dotnet-targeting-pack-6.0 \
+#      dotnet-runtime-deps-6.0 \
+#      dotnet-runtime-6.0 \
+#      dotnet-hostfxr-6.0 \
+#      dotnet-apphost-pack-6.0 \
       dotnet-sdk-7.0 \
       dotnet-targeting-pack-7.0 \
       dotnet-runtime-deps-7.0 \
       dotnet-runtime-7.0 \
       dotnet-hostfxr-7.0 \
       dotnet-apphost-pack-7.0 \
-      dotnet-host \
+#      dotnet-host \
       procdump \
       procmon \
       powershell-preview \
@@ -73,7 +73,7 @@ RUN curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add - 
 RUN mkdir -p /usr/share/dotnet/host/fxr
 
 # Trigger .NET CLI first run experience by running arbitrary cmd to populate local package cache
-RUN dotnet help && \
+RUN dotnet --info && \
     pwsh-preview -v && \
     pwsh -v
 
