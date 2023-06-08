@@ -245,7 +245,7 @@ ecosystem-debian-images:
 	make ecosystem-debian-stretch-images
 	make ecosystem-debian-buster-images
 	make ecosystem-debian-bullseye-images
-#	make ecosystem-debian-bookworm-images
+	make ecosystem-debian-bookworm-images
 
 ecosystem-debian-squeeze-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/06-squeeze/slim    && pwd && make build && make deploy
@@ -471,9 +471,9 @@ ecosystem-nginx-images:
 	cd `pwd`/linux/ecosystem/nginx/latest/mainline/main      && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/nginx/latest/mainline/php       && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/nginx/latest/mainline/rtmp-hls  && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/nginx/latest/quic/main      && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/nginx/latest/quic/php       && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/nginx/latest/quic/rtmp-hls  && pwd && make build && make deploy
+#	cd `pwd`/linux/ecosystem/nginx/latest/quic/main      && pwd && make build && make deploy
+#	cd `pwd`/linux/ecosystem/nginx/latest/quic/php       && pwd && make build && make deploy
+#	cd `pwd`/linux/ecosystem/nginx/latest/quic/rtmp-hls  && pwd && make build && make deploy
 
 ecosystem-vscode-server-images:
 	cd `pwd`/linux/advanced/vscode-server/latest         && pwd && make build && make deploy
