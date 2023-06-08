@@ -66,11 +66,11 @@ RUN curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add - 
       dotnet-apphost-pack-7.0 \
 #      dotnet-host \
       procdump \
-      procmon \
+#      procmon \
       powershell-preview \
       powershell
 
-# Trigger .NET CLI first run experience by running arbitrary cmd to populate local package cache
+# Trigger .NET CL\I first run experience by running arbitrary cmd to populate local package cache
 RUN dotnet --info && \
     pwsh-preview -v && \
     pwsh -v
