@@ -470,7 +470,8 @@ ecosystem-gitlab-runner-images:
 	cd `pwd`/linux/ecosystem/gitlab/runner/latest         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/gitlab/runner/amxx-sdk/1.9   && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/gitlab/runner/amxx-sdk/1.10  && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/gitlab/runner/android-sdk    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/android-sdk/jdk11    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/android-sdk/jdk17    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/gitlab/runner/atlassian-sdk  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/gitlab/runner/dotnet-sdk     && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/gitlab/runner/node10         && pwd && make build && make deploy

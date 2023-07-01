@@ -1,4 +1,4 @@
-FROM epicmorg/teamcity-agent:latest-jdk17
+FROM epicmorg/gitlab-runner:latest
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -20,6 +20,19 @@ ENV KTC_PATH=${KTC_ROOT}/kotlinc
 ENV KTC_BIN=$KTC_PATH/bin
 
 ENV PATH=$PATH:${GRADLE_BIN}:${KTC_BIN}
+
+##################################################################
+#                   installing java17
+##################################################################
+RUN wget -qO - https://packages.adoptium.net/artifactory/api/gpg/key/public  | apt-key add - && \
+    echo 'deb https://packages.adoptium.net/artifactory/deb bullseye main' > /etc/apt/sources.list.d/temurin-official.list && \
+    apt-get update && \
+    apt-get autoremove -y && \
+    apt-get install -y --allow-unauthenticated temurin-17-jdk && \
+    mkdir /usr/lib/jvm/temurin-17-jdk-amd64/jre && \
+    ln -s /usr/lib/jvm/temurin-17-jdk-amd64/bin/ /usr/lib/jvm/temurin-17-jdk-amd64/jre/bin && \
+    ln -s /usr/lib/jvm/temurin-17-jdk-amd64/lib/ /usr/lib/jvm/temurin-17-jdk-amd64/jre/lib && \
+    java -version
 
 ##################################################################
 #                   Android SDK

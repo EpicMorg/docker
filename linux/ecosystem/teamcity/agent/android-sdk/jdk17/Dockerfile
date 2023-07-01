@@ -19,7 +19,7 @@ ENV KTC_ROOT=/opt/kotlin
 ENV KTC_PATH=${KTC_ROOT}/kotlinc
 ENV KTC_BIN=$KTC_PATH/bin
 
-ENV PATH=PATH=$PATH:$GRADLE_BIN:${KTC_BIN}
+ENV PATH=$PATH:${GRADLE_BIN}:${KTC_BIN}
 
 ##################################################################
 #                   Android SDK
@@ -51,7 +51,7 @@ RUN mkdir -p ${KTC_PATH}
 RUN wget --no-check-certificate -nv --random-wait --retry-connrefused --continue ${KTC_LINK} -O ${KTC_TEMP}
 RUN 7zz x $KTC_TEMP -o$KTC_ROOT
 RUN chmod +x -R ${KTC_BIN}
-RUN kotlinc -version
+RUN kotlin -version
 
 ##################################################################
 #                   cleaninig up
