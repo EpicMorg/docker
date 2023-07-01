@@ -1,8 +1,7 @@
 # FreeGPT WebUI by Neurogen
 
-Improved docker images.
-
-Original here: [Em1tSan/freegpt-webui-ru](https://github.com/Em1tSan/freegpt-webui-ru)
+* Improved docker images.
+* Original repo here: [Em1tSan/freegpt-webui-ru](https://github.com/Em1tSan/freegpt-webui-ru)
 
 ## Ready docker-compose example
 
