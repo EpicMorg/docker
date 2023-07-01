@@ -2,7 +2,7 @@ FROM epicmorg/python:3.10-develop AS build
 
 WORKDIR /app    
 
-RUN git clone https://github.com/Em1tSan/freegpt-webui-ru.git /app && 
+RUN git clone https://github.com/Em1tSan/freegpt-webui-ru.git /app && \
     rm -rfv /app/.git
     
 RUN apt-get update && \  
@@ -18,7 +18,7 @@ COPY --from=build /root/.local /root/.local
 
 COPY --from=build /app /app
 
-#RUN git clone https://github.com/Em1tSan/freegpt-webui-ru.git /app && 
+#RUN git clone https://github.com/Em1tSan/freegpt-webui-ru.git /app && \
 #    rm -rfv /app/.git
     
 ENV PATH=/root/.local/bin:$PATH
