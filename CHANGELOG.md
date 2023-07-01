@@ -1,5 +1,10 @@
 # Changelog
 ## 2023
+* `july`
+  * `android-sdk` images of `teqmcity agents` and `gitlab runners` updated.
+    * `grade` fixed inside containers.
+    * added `jdk17` support.
+  * added `freegpt` webui by [Em1tSan/freegpt-webui-ru](https://github.com/Em1tSan/freegpt-webui-ru).
 * `may-june`
   * `base` images improved
   * `nginx` images updated

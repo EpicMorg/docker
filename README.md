@@ -59,6 +59,7 @@ A collection of docker images for production use. This repo contains 2 types of 
 * [@Aleks-Z](https://github.com/Aleks-Z)
 * [@alex4rks](https://github.com/alex4rks)
 * [@kasthack](https://github.com/kasthack)
+* [@Em1tSan](https://github.com/Em1tSan)
 
 # :money_with_wings: Donate
 
