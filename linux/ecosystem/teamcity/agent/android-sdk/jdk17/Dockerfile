@@ -30,7 +30,8 @@ RUN apt update && \
       android-sdk-build-tools \
       android-sdk-platform-tools-common \
       android-sdk-platform-tools \
-      adb fastboot f2fs-tools e2fsprogs libsqlite3-0 sqlite3
+      adb fastboot f2fs-tools e2fsprogs libsqlite3-0 sqlite3 && \
+    apt remove -y gradle
 
 # Activate android sdk
 RUN echo "24333f8a63b6825ea9c5514f83c2829b004d1fee" > /usr/lib/android-sdk/licenses/android-sdk-license
