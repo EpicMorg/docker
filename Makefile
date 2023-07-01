@@ -442,10 +442,12 @@ ecosystem-postgres-images:
 #	cd `pwd`/linux/ecosystem/postgres/16           && pwd && make build && make deploy
 
 ecosystem-teamcity-agent-images:
-	cd `pwd`/linux/ecosystem/teamcity/agent/latest         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/latest/jdk11         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/latest/jdk17         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/teamcity/agent/amxx-sdk/1.9   && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/teamcity/agent/amxx-sdk/1.10  && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/teamcity/agent/android-sdk    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/android-sdk/jdk11    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/android-sdk/jdk17    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/teamcity/agent/atlassian-sdk  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/teamcity/agent/dotnet-sdk     && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/teamcity/agent/node10         && pwd && make build && make deploy

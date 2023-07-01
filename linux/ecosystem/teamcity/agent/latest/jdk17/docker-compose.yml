@@ -1,0 +1,10 @@
+version: '3.9'
+services:
+  app:
+    image: "epicmorg/teamcity-agent:latest"
+    build:
+      context: .
+  app-jdk17:
+    image: "epicmorg/teamcity-agent:latest-jdk17"
+    build:
+      context: .
