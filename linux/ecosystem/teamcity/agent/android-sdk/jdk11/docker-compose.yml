@@ -1,6 +1,6 @@
 version: '3.9'
 services:
   app:
-    image: "epicmorg/teamcity-agent:latest"
+    image: "epicmorg/teamcity-agent:android-sdk-jdk11"
     build:
       context: .

@@ -1,18 +1,18 @@
-FROM epicmorg/teamcity-agent:latest
+FROM epicmorg/teamcity-agent:latest-jdk17
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
 ENV ANDROID_HOME=/usr/lib/android-sdk
 ENV ANDROID_SDK_ROOT=/usr/lib/android-sdk
 
-ENV GRADLE_VERSION=7.4.2
+ENV GRADLE_VERSION=8.2
 ENV GRADLE_LINK=https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-all.zip
 ENV GRADLE_ROOT=/opt/gradle
 ENV GRADLE_PATH=${GRADLE_ROOT}/gradle-${GRADLE_VERSION}
 ENV GRADLE_BIN=$GRADLE_PATH/bin
 ARG GRADLE_TEMP=/tmp/gradle.zip
 
-ENV KTC_VERSION=1.6.21
+ENV KTC_VERSION=1.8.22
 ENV KTC_LINK=https://github.com/JetBrains/kotlin/releases/download/v${KTC_VERSION}/kotlin-compiler-${KTC_VERSION}.zip
 ARG KTC_TEMP=/tmp/kotlinc.tgz
 ENV KTC_ROOT=/opt/kotlin
