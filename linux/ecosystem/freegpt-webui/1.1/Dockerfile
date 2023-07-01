@@ -22,7 +22,7 @@ RUN apt-get update && \
       build-essential \
       libffi-dev cmake \
       libcurl4-openssl-dev && \  
-    pip3 install --user --no-cache-dir -r ${FREEGPT_PATH}/requirements-docker.txt   
+    pip3 install --user --no-cache-dir -r ${FREEGPT_PATH}/requirements.txt
 
 ##################################################################
 ##################################################################
