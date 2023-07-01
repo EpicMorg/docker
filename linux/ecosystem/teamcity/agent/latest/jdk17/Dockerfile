@@ -1,4 +1,4 @@
-FROM epicmorg/debian:bullseye-develop-jdk11
+FROM epicmorg/debian:bullseye-develop-jdk17
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
