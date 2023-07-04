@@ -26,7 +26,7 @@ ENV PATH=$PATH:${GRADLE_BIN}:${KTC_BIN}
 ##################################################################
 RUN apt update && \
     apt install -y --allow-unauthenticated \
-      manven \
+      maven \
       android-sdk \
       sdkmanager \
       android-sdk-build-tools \
