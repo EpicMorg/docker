@@ -381,7 +381,7 @@ RUN sdkmanager --install \
       "ndk-bundle;r25b" \
       "ndk-bundle;r25c"
 
-RUN sdkmanager--install \
+RUN sdkmanager --install \
       "ndk;11.0.2655954" \
       "ndk;11.1.2683735" \
       "ndk;11.2.2725575" \
@@ -440,7 +440,7 @@ RUN sdkmanager--install \
       "ndk;25.1.8937393" \
       "ndk;25.2.9519653"
 
-RUN sdkmanager--install \
+RUN sdkmanager --install \
       "ndk;r10e" \
       "ndk;r11" \
       "ndk;r11b" \
@@ -499,7 +499,6 @@ RUN sdkmanager--install \
       "ndk;r25-beta4" \
       "ndk;r25b" \
       "ndk;r25c"
-
 
 RUN sdkmanager --install \
       "tools" \
