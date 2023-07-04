@@ -45,8 +45,11 @@ jobs:
     - name: "Build and Deploy Gitlab Runner amxX 1.10 SDK Image:"
       run:  cd linux/ecosystem/gitlab/runner/amxx-sdk/1.10    && pwd && make build && make deploy
 
-    - name: "Build and Deploy Gitlab Runner Android SDK Image:"
-      run:  cd linux/ecosystem/gitlab/runner/android-sdk    && pwd && make build && make deploy
+    - name: "Build and Deploy Gitlab Runner Android SDK Image (jdk11):"
+      run:  cd linux/ecosystem/gitlab/runner/android-sdk/jdk11    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Gitlab Runner Android SDK Image (jdk17):"
+      run:  cd linux/ecosystem/gitlab/runner/android-sdk/jdk17    && pwd && make build && make deploy
 
     - name: "Build and Deploy Gitlab Runner Atlassian SDK Image:"
       run:  cd linux/ecosystem/gitlab/runner/atlassian-sdk    && pwd && make build && make deploy
