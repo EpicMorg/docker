@@ -34,7 +34,8 @@ RUN apt update && \
       android-sdk-platform-tools \
       adb fastboot f2fs-tools e2fsprogs libsqlite3-0 sqlite3 && \
     apt remove -y gradle && \
-    sdkmanager --version
+    sdkmanager --version && \
+    mnv -v
 
 # Install ALL ANDROID SDK
 RUN sdkmanager --install \
