@@ -26,7 +26,7 @@ ENV PATH=$PATH:${GRADLE_BIN}:${KTC_BIN}
 ##################################################################
 RUN apt update && \
     apt install -y --allow-unauthenticated \
-      manven \
+      maven \
       android-sdk \
       sdkmanager \
       android-sdk-build-tools \
@@ -34,7 +34,8 @@ RUN apt update && \
       android-sdk-platform-tools \
       adb fastboot f2fs-tools e2fsprogs libsqlite3-0 sqlite3 && \
     apt remove -y gradle && \
-    sdkmanager --version
+    sdkmanager --version && \
+    mnv -v
 
 # Install ALL ANDROID SDK
 RUN sdkmanager --install \
