@@ -19,7 +19,7 @@ ENV KTC_ROOT=/opt/kotlin
 ENV KTC_PATH=${KTC_ROOT}/kotlinc
 ENV KTC_BIN=$KTC_PATH/bin
 
-ENV PATH=$PATH:${GRADLE_BIN}:${KTC_BIN}
+ENV PATH=$PATH:${GRADLE_BIN}:${KTC_BIN}:${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin:${ANDROID_SDK_ROOT}/platform-tools:$ANDROID_SDK_ROOT/tools/bin
 
 ##################################################################
 #                   installing java17
@@ -566,6 +566,7 @@ RUN sdkmanager --install \
 #RUN echo "24333f8a63b6825ea9c5514f83c2829b004d1fee" > /usr/lib/android-sdk/licenses/android-sdk-license
 RUN rm -rfv /usr/lib/android-sdk/licenses/*
 RUN yes | sdkmanager --licenses
+RUN ln -fs $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/screenshot2 $ANDROID_SDK_ROOT/tools/bin/screenshot2
 
 ##################################################################
 #                   GRADLE
