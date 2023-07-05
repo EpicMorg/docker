@@ -12,9 +12,9 @@ ENV GRADLE_PATH=${GRADLE_ROOT}/gradle-${GRADLE_VERSION}
 ENV GRADLE_BIN=$GRADLE_PATH/bin
 ARG GRADLE_TEMP=/tmp/gradle.zip
 
-ENV KTC_VERSION=1.8.22
+ENV KTC_VERSION=1.9.0-RC
 ENV KTC_LINK=https://github.com/JetBrains/kotlin/releases/download/v${KTC_VERSION}/kotlin-compiler-${KTC_VERSION}.zip
-ARG KTC_TEMP=/tmp/kotlinc.tgz
+ARG KTC_TEMP=/tmp/kotlinc.zip
 ENV KTC_ROOT=/opt/kotlin
 ENV KTC_PATH=${KTC_ROOT}/kotlinc
 ENV KTC_BIN=$KTC_PATH/bin
@@ -301,8 +301,8 @@ RUN sdkmanager --install \
 #      "platforms;android-8" \
 #      "platforms;android-9"
 
-RUN sdkmanager --install \
-      "ndk-bundle;25.2.9519653"
+#RUN sdkmanager --install \
+#      "ndk-bundle;25.2.9519653"
 #      "ndk-bundle;11.0.2655954" \
 #      "ndk-bundle;11.1.2683735" \
 #      "ndk-bundle;11.2.2725575" \
@@ -422,8 +422,8 @@ RUN sdkmanager --install \
 #      "ndk-bundle;r25b" \
 #      "ndk-bundle;r25c"
 
-RUN sdkmanager --install \
-      "ndk;25.2.9519653"
+#RUN sdkmanager --install \
+#      "ndk;25.2.9519653"
 #      "ndk;11.0.2655954" \
 #      "ndk;11.1.2683735" \
 #      "ndk;11.2.2725575" \
@@ -594,7 +594,7 @@ RUN sdkmanager --install \
 
 # Activate android sdk
 #RUN echo "24333f8a63b6825ea9c5514f83c2829b004d1fee" > /usr/lib/android-sdk/licenses/android-sdk-license
-RUN rm -rfv /usr/lib/android-sdk/licenses/*
+#RUN rm -rfv /usr/lib/android-sdk/licenses/*
 RUN yes | sdkmanager --licenses
 RUN ln -fs $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/screenshot2 $ANDROID_SDK_ROOT/tools/bin/screenshot2
 
