@@ -329,10 +329,10 @@ RUN sdkmanager --install \
 #      "ndk-bundle;24.0.7956693-beta2" \
 #      "ndk-bundle;24.0.8079956-beta3" \
 #      "ndk-bundle;24.0.8215888" \
-       "ndk-bundle;25.0.8141415-beta1" \
-       "ndk-bundle;25.0.8221429-beta2" \
-       "ndk-bundle;25.0.8355429-beta3" \
-       "ndk-bundle;25.0.8528842-beta4" \
+#      "ndk-bundle;25.0.8141415-beta1" \
+#      "ndk-bundle;25.0.8221429-beta2" \
+#      "ndk-bundle;25.0.8355429-beta3" \
+#      "ndk-bundle;25.0.8528842-beta4" \
        "ndk-bundle;25.0.8775105" \
        "ndk-bundle;25.1.8937393" \
        "ndk-bundle;25.2.9519653"
@@ -390,11 +390,11 @@ RUN sdkmanager --install \
 #      "ndk-bundle;r24-beta2" \
 #      "ndk-bundle;r24-rc1" \
        "ndk-bundle;r25" \
-       "ndk-bundle;r25-beta1" \
-       "ndk-bundle;r25-beta2" \
-       "ndk-bundle;r25-beta3" \
-       "ndk-bundle;r25-beta4" \
-       "ndk-bundle;r25b" \
+#      "ndk-bundle;r25-beta1" \
+#      "ndk-bundle;r25-beta2" \
+#      "ndk-bundle;r25-beta3" \
+#      "ndk-bundle;r25-beta4" \
+#      "ndk-bundle;r25b" \
        "ndk-bundle;r25c"
 
 RUN sdkmanager --install \
@@ -448,10 +448,10 @@ RUN sdkmanager --install \
 #      "ndk;24.0.7956693-beta2" \
 #      "ndk;24.0.8079956-beta3" \
 #      "ndk;24.0.8215888" \
-       "ndk;25.0.8141415-beta1" \
-       "ndk;25.0.8221429-beta2" \
-       "ndk;25.0.8355429-beta3" \
-       "ndk;25.0.8528842-beta4" \
+#      "ndk;25.0.8141415-beta1" \
+#      "ndk;25.0.8221429-beta2" \
+#      "ndk;25.0.8355429-beta3" \
+#      "ndk;25.0.8528842-beta4" \
        "ndk;25.0.8775105" \
        "ndk;25.1.8937393" \
        "ndk;25.2.9519653"
@@ -509,11 +509,11 @@ RUN sdkmanager --install \
 #      "ndk;r24-beta2" \
 #      "ndk;r24-rc1" \
        "ndk;r25" \
-       "ndk;r25-beta1" \
-       "ndk;r25-beta2" \
-       "ndk;r25-beta3" \
-       "ndk;r25-beta4" \
-       "ndk;r25b" \
+#      "ndk;r25-beta1" \
+#      "ndk;r25-beta2" \
+#      "ndk;r25-beta3" \
+#      "ndk;r25-beta4" \
+#      "ndk;r25b" \
        "ndk;r25c"
 
 RUN sdkmanager --install \
