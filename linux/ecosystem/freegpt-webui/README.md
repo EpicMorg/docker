@@ -3,32 +3,21 @@
 * Improved docker images.
 * Original repo here: [Em1tSan/freegpt-webui-ru](https://github.com/Em1tSan/freegpt-webui-ru)
 
-## Ready docker-compose example
+* All versions now running by `supervisord` instead of direct `CMD python3 ./run.py`
+* Since `v1.3+` image contain **both** applications in background - `webui` chat (via port `1338`) and `endpoint` api (via port `1337`).
 
-### Normal WebUI (All versions)
-
-```yml
-version: "3.9"
-services:
-  freegpt-webui:
-    image: epicmorg/freegpt-webui:latest #1.3.2, 1.3.1, etc
-    container_name: freegpt-webui
-    hostname: freegpt-webui
-    restart: always
-    ports:
-       - 1338:1338
-```
-
-### Endpoint API (v1.3+ only)
+# Ready docker-compose example
 
 ```yml
 version: "3.9"
 services:
   freegpt-webui:
-    image: epicmorg/freegpt-webui:latest-endpoint # 1.3, 1.3.1, 1.3.2, 1.4, etc
+    image: epicmorg/freegpt-webui:latest #1.3.2, <...>, 1.0, etc
     container_name: freegpt-webui
     hostname: freegpt-webui
     restart: always
     ports:
        - 1337:1337
+       - 1338:1338
 ```
+
