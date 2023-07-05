@@ -47,7 +47,7 @@ RUN apt-get update && \
     apt-get install -y \
       supervisor
 
-COPY etc/supervisor/conf.d/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY etc/supervisor/conf.d/freegpt.conf /etc/supervisor/conf.d/freegpt.conf
 
 ##################################################################
 #                   Copy bins
