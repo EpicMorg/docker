@@ -52,95 +52,88 @@ RUN apt update && \
 
 # Install ALL ANDROID SDK
 RUN sdkmanager --install \
+      "build-tools;17.0.0" \
+      "build-tools;18.0.0" \
+      "build-tools;18.0.1" \
+      "build-tools;18.1.0" \
+      "build-tools;18.1.1" \
+      "build-tools;19.0.0" \
+      "build-tools;19.0.1" \
+      "build-tools;19.0.2" \
+      "build-tools;19.0.3" \
+      "build-tools;19.1.0" \
+      "build-tools;20.0.0" \
+      "build-tools;21.0.0" \
+      "build-tools;21.0.1" \
+      "build-tools;21.0.2" \
+      "build-tools;21.1.0" \
+      "build-tools;21.1.1" \
+      "build-tools;21.1.2" \
+      "build-tools;22.0.0" \
+      "build-tools;22.0.1" \
+      "build-tools;23.0.0" \
+      "build-tools;23.0.1" \
+      "build-tools;23.0.2" \
+      "build-tools;23.0.3" \
+      "build-tools;24.0.0" \
+      "build-tools;24.0.1" \
+      "build-tools;24.0.2" \
+      "build-tools;24.0.3" \
+      "build-tools;25.0.0" \
+      "build-tools;25.0.1" \
+      "build-tools;25.0.2" \
+      "build-tools;25.0.3" \
+      "build-tools;26.0.0" \
+      "build-tools;26.0.0-rc1" \
+      "build-tools;26.0.0-rc2" \
+      "build-tools;26.0.1" \
+      "build-tools;26.0.2" \
+      "build-tools;26.0.3" \
+      "build-tools;27.0.0" \
+      "build-tools;27.0.1" \
+      "build-tools;27.0.2" \
+      "build-tools;27.0.3" \
+      "build-tools;28.0.0" \
+      "build-tools;28.0.0-rc1" \
+      "build-tools;28.0.0-rc2" \
+      "build-tools;28.0.1" \
+      "build-tools;28.0.2" \
       "build-tools;28.0.3" \
+      "build-tools;29.0.0" \
+      "build-tools;29.0.0-rc1" \
+      "build-tools;29.0.0-rc2" \
+      "build-tools;29.0.0-rc3" \
+      "build-tools;29.0.1" \
+      "build-tools;29.0.2" \
       "build-tools;29.0.3" \
+      "build-tools;30.0.0" \
+      "build-tools;30.0.0-rc1" \
+      "build-tools;30.0.0-rc2" \
+      "build-tools;30.0.0-rc3" \
+      "build-tools;30.0.0-rc4" \
+      "build-tools;30.0.1" \
+      "build-tools;30.0.2" \
       "build-tools;30.0.3" \
       "build-tools;31.0.0" \
+      "build-tools;31.0.0-rc1" \
+      "build-tools;31.0.0-rc2" \
+      "build-tools;31.0.0-rc3" \
+      "build-tools;31.0.0-rc4" \
+      "build-tools;31.0.0-rc5" \
       "build-tools;32.0.0" \
+      "build-tools;32.1.0-rc1" \
+      "build-tools;33.0.0" \
+      "build-tools;33.0.0-rc1" \
+      "build-tools;33.0.0-rc2" \
+      "build-tools;33.0.0-rc3" \
+      "build-tools;33.0.0-rc4" \
+      "build-tools;33.0.1" \
       "build-tools;33.0.2" \
-      "build-tools;34.0.0"
-#      "build-tools;17.0.0" \
-#      "build-tools;18.0.0" \
-#      "build-tools;18.0.1" \
-#      "build-tools;18.1.0" \
-#      "build-tools;18.1.1" \
-#      "build-tools;19.0.0" \
-#      "build-tools;19.0.1" \
-#      "build-tools;19.0.2" \
-#      "build-tools;19.0.3" \
-#      "build-tools;19.1.0" \
-#      "build-tools;20.0.0" \
-#      "build-tools;21.0.0" \
-#      "build-tools;21.0.1" \
-#      "build-tools;21.0.2" \
-#      "build-tools;21.1.0" \
-#      "build-tools;21.1.1" \
-#      "build-tools;21.1.2" \
-#      "build-tools;22.0.0" \
-#      "build-tools;22.0.1" \
-#      "build-tools;23.0.0" \
-#      "build-tools;23.0.1" \
-#      "build-tools;23.0.2" \
-#      "build-tools;23.0.3" \
-#      "build-tools;24.0.0" \
-#      "build-tools;24.0.1" \
-#      "build-tools;24.0.2" \
-#      "build-tools;24.0.3" \
-#      "build-tools;25.0.0" \
-#      "build-tools;25.0.1" \
-#      "build-tools;25.0.2" \
-#      "build-tools;25.0.3" \
-#      "build-tools;26.0.0" \
-#      "build-tools;26.0.0-rc1" \
-#      "build-tools;26.0.0-rc2" \
-#      "build-tools;26.0.1" \
-#      "build-tools;26.0.2" \
-#      "build-tools;26.0.3" \
-#      "build-tools;27.0.0" \
-#      "build-tools;27.0.1" \
-#      "build-tools;27.0.2" \
-#      "build-tools;27.0.3" \
-#      "build-tools;28.0.0" \
-#      "build-tools;28.0.0-rc1" \
-#      "build-tools;28.0.0-rc2" \
-#      "build-tools;28.0.1" \
-#      "build-tools;28.0.2" \
-#     "build-tools;28.0.3" \
-#      "build-tools;29.0.0" \
-#      "build-tools;29.0.0-rc1" \
-#      "build-tools;29.0.0-rc2" \
-#      "build-tools;29.0.0-rc3" \
-#      "build-tools;29.0.1" \
-#      "build-tools;29.0.2" \
-#     "build-tools;29.0.3" \
-#     "build-tools;30.0.0" \
-#     "build-tools;30.0.0-rc1" \
-#     "build-tools;30.0.0-rc2" \
-#     "build-tools;30.0.0-rc3" \
-#     "build-tools;30.0.0-rc4" \
-#     "build-tools;30.0.1" \
-#     "build-tools;30.0.2" \
-#     "build-tools;30.0.3" \
-#     "build-tools;31.0.0" \
-#     "build-tools;31.0.0-rc1" \
-#     "build-tools;31.0.0-rc2" \
-#     "build-tools;31.0.0-rc3" \
-#     "build-tools;31.0.0-rc4" \
-#     "build-tools;31.0.0-rc5" \
-#     "build-tools;32.0.0" \
-#     "build-tools;32.1.0-rc1" \
-#     "build-tools;33.0.0" \
-#     "build-tools;33.0.0-rc1" \
-#     "build-tools;33.0.0-rc2" \
-#     "build-tools;33.0.0-rc3" \
-#     "build-tools;33.0.0-rc4" \
-#     "build-tools;33.0.1" \
-#     "build-tools;33.0.2" \
-#     "build-tools;34.0.0" \
-#     "build-tools;34.0.0-rc1" \
-#     "build-tools;34.0.0-rc2" \
-#     "build-tools;34.0.0-rc3" \
-#     "build-tools;34.0.0-rc4"
+      "build-tools;34.0.0" \
+      "build-tools;34.0.0-rc1" \
+      "build-tools;34.0.0-rc2" \
+      "build-tools;34.0.0-rc3" \
+      "build-tools;34.0.0-rc4"
 
 
 RUN sdkmanager --install \
@@ -172,6 +165,48 @@ RUN sdkmanager --install \
 
 RUN sdkmanager --install \
       "extras;android;m2repository" \
+      "extras;android;m2repository;01" \
+      "extras;android;m2repository;02" \
+      "extras;android;m2repository;03" \
+      "extras;android;m2repository;04" \
+      "extras;android;m2repository;06" \
+      "extras;android;m2repository;07" \
+      "extras;android;m2repository;08" \
+      "extras;android;m2repository;09" \
+      "extras;android;m2repository;1" \
+      "extras;android;m2repository;10" \
+      "extras;android;m2repository;11" \
+      "extras;android;m2repository;12" \
+      "extras;android;m2repository;13" \
+      "extras;android;m2repository;14" \
+      "extras;android;m2repository;15" \
+      "extras;android;m2repository;16" \
+      "extras;android;m2repository;17" \
+      "extras;android;m2repository;18" \
+      "extras;android;m2repository;19" \
+      "extras;android;m2repository;2" \
+      "extras;android;m2repository;20" \
+      "extras;android;m2repository;21" \
+      "extras;android;m2repository;22" \
+      "extras;android;m2repository;23" \
+      "extras;android;m2repository;24" \
+      "extras;android;m2repository;25" \
+      "extras;android;m2repository;26" \
+      "extras;android;m2repository;27" \
+      "extras;android;m2repository;28" \
+      "extras;android;m2repository;29" \
+      "extras;android;m2repository;3" \
+      "extras;android;m2repository;30" \
+      "extras;android;m2repository;31" \
+      "extras;android;m2repository;32" \
+      "extras;android;m2repository;33" \
+      "extras;android;m2repository;34" \
+      "extras;android;m2repository;35" \
+      "extras;android;m2repository;36" \
+      "extras;android;m2repository;37" \
+      "extras;android;m2repository;38" \
+      "extras;android;m2repository;39" \
+      "extras;android;m2repository;4" \
       "extras;android;m2repository;40" \
       "extras;android;m2repository;41" \
       "extras;android;m2repository;42" \
@@ -179,62 +214,11 @@ RUN sdkmanager --install \
       "extras;android;m2repository;44" \
       "extras;android;m2repository;45" \
       "extras;android;m2repository;46" \
-      "extras;android;m2repository;47"
-#      "extras;android;m2repository" \
-#      "extras;android;m2repository;01" \
-#      "extras;android;m2repository;02" \
-#      "extras;android;m2repository;03" \
-#      "extras;android;m2repository;04" \
-#      "extras;android;m2repository;06" \
-#      "extras;android;m2repository;07" \
-#      "extras;android;m2repository;08" \
-#      "extras;android;m2repository;09" \
-#      "extras;android;m2repository;1" \
-#      "extras;android;m2repository;10" \
-#      "extras;android;m2repository;11" \
-#      "extras;android;m2repository;12" \
-#      "extras;android;m2repository;13" \
-#      "extras;android;m2repository;14" \
-#      "extras;android;m2repository;15" \
-#      "extras;android;m2repository;16" \
-#      "extras;android;m2repository;17" \
-#      "extras;android;m2repository;18" \
-#      "extras;android;m2repository;19" \
-#      "extras;android;m2repository;2" \
-#      "extras;android;m2repository;20" \
-#      "extras;android;m2repository;21" \
-#      "extras;android;m2repository;22" \
-#      "extras;android;m2repository;23" \
-#      "extras;android;m2repository;24" \
-#      "extras;android;m2repository;25" \
-#      "extras;android;m2repository;26" \
-#      "extras;android;m2repository;27" \
-#      "extras;android;m2repository;28" \
-#      "extras;android;m2repository;29" \
-#      "extras;android;m2repository;3" \
-#      "extras;android;m2repository;30" \
-#      "extras;android;m2repository;31" \
-#      "extras;android;m2repository;32" \
-#      "extras;android;m2repository;33" \
-#      "extras;android;m2repository;34" \
-#      "extras;android;m2repository;35" \
-#      "extras;android;m2repository;36" \
-#      "extras;android;m2repository;37" \
-#      "extras;android;m2repository;38" \
-#      "extras;android;m2repository;39" \
-#      "extras;android;m2repository;4" \
-#      "extras;android;m2repository;40" \
-#      "extras;android;m2repository;41" \
-#      "extras;android;m2repository;42" \
-#      "extras;android;m2repository;43" \
-#      "extras;android;m2repository;44" \
-#      "extras;android;m2repository;45" \
-#      "extras;android;m2repository;46" \
-#      "extras;android;m2repository;47" \
-#      "extras;android;m2repository;6" \
-#      "extras;android;m2repository;7" \
-#      "extras;android;m2repository;8" \
-#      "extras;android;m2repository;9"
+      "extras;android;m2repository;47" \
+      "extras;android;m2repository;6" \
+      "extras;android;m2repository;7" \
+      "extras;android;m2repository;8" \
+      "extras;android;m2repository;9"
 
 RUN sdkmanager --install \
       "platform-tools" \
@@ -261,48 +245,40 @@ RUN sdkmanager --install \
       "platform-tools;34.0.3"
 
 RUN sdkmanager --install \
+       "platforms;android-10" \
+       "platforms;android-11" \
+       "platforms;android-12" \
+       "platforms;android-13" \
+       "platforms;android-14" \
+       "platforms;android-15" \
+       "platforms;android-16" \
+       "platforms;android-17" \
+       "platforms;android-18" \
+       "platforms;android-19" \
+       "platforms;android-20" \
+       "platforms;android-21" \
+       "platforms;android-22" \
+       "platforms;android-23" \
+       "platforms;android-24" \
+       "platforms;android-25" \
+       "platforms;android-26" \
+       "platforms;android-27" \
        "platforms;android-28" \
        "platforms;android-29" \
+       "platforms;android-3" \
        "platforms;android-30" \
        "platforms;android-31" \
        "platforms;android-32" \
        "platforms;android-33" \
-       "platforms;android-34"
-#      "platforms;android-10" \
-#      "platforms;android-11" \
-#      "platforms;android-12" \
-#      "platforms;android-13" \
-#      "platforms;android-14" \
-#      "platforms;android-15" \
-#      "platforms;android-16" \
-#      "platforms;android-17" \
-#      "platforms;android-18" \
-#      "platforms;android-19" \
-#      "platforms;android-20" \
-#      "platforms;android-21" \
-#      "platforms;android-22" \
-#      "platforms;android-23" \
-#      "platforms;android-24" \
-#      "platforms;android-25" \
-#      "platforms;android-26" \
-#      "platforms;android-27" \
-#      "platforms;android-28" \
-#      "platforms;android-29" \
-#      "platforms;android-3" \
-#      "platforms;android-30" \
-#      "platforms;android-31" \
-#      "platforms;android-32" \
-#      "platforms;android-33" \
-#      "platforms;android-34" \
-#      "platforms;android-4" \
-#      "platforms;android-5" \
-#      "platforms;android-6" \
-#      "platforms;android-7" \
-#      "platforms;android-8" \
-#      "platforms;android-9"
+       "platforms;android-34" \
+       "platforms;android-4" \
+       "platforms;android-5" \
+       "platforms;android-6" \
+       "platforms;android-7" \
+       "platforms;android-8" \
+       "platforms;android-9"
 
-#RUN sdkmanager --install \
-#      "ndk-bundle;25.2.9519653"
+RUN sdkmanager --install \
 #      "ndk-bundle;11.0.2655954" \
 #      "ndk-bundle;11.1.2683735" \
 #      "ndk-bundle;11.2.2725575" \
@@ -353,16 +329,15 @@ RUN sdkmanager --install \
 #      "ndk-bundle;24.0.7956693-beta2" \
 #      "ndk-bundle;24.0.8079956-beta3" \
 #      "ndk-bundle;24.0.8215888" \
-#      "ndk-bundle;25.0.8141415-beta1" \
-#      "ndk-bundle;25.0.8221429-beta2" \
-#      "ndk-bundle;25.0.8355429-beta3" \
-#      "ndk-bundle;25.0.8528842-beta4" \
-#      "ndk-bundle;25.0.8775105" \
-#      "ndk-bundle;25.1.8937393" \
-#      "ndk-bundle;25.2.9519653"
+       "ndk-bundle;25.0.8141415-beta1" \
+       "ndk-bundle;25.0.8221429-beta2" \
+       "ndk-bundle;25.0.8355429-beta3" \
+       "ndk-bundle;25.0.8528842-beta4" \
+       "ndk-bundle;25.0.8775105" \
+       "ndk-bundle;25.1.8937393" \
+       "ndk-bundle;25.2.9519653"
 
 RUN sdkmanager --install \
-      "ndk-bundle;r25"
 #      "ndk-bundle;r10e" \
 #      "ndk-bundle;r11" \
 #      "ndk-bundle;r11b" \
@@ -414,16 +389,15 @@ RUN sdkmanager --install \
 #      "ndk-bundle;r24-beta1" \
 #      "ndk-bundle;r24-beta2" \
 #      "ndk-bundle;r24-rc1" \
-#      "ndk-bundle;r25" \
-#      "ndk-bundle;r25-beta1" \
-#      "ndk-bundle;r25-beta2" \
-#      "ndk-bundle;r25-beta3" \
-#      "ndk-bundle;r25-beta4" \
-#      "ndk-bundle;r25b" \
-#      "ndk-bundle;r25c"
+       "ndk-bundle;r25" \
+       "ndk-bundle;r25-beta1" \
+       "ndk-bundle;r25-beta2" \
+       "ndk-bundle;r25-beta3" \
+       "ndk-bundle;r25-beta4" \
+       "ndk-bundle;r25b" \
+       "ndk-bundle;r25c"
 
-#RUN sdkmanager --install \
-#      "ndk;25.2.9519653"
+RUN sdkmanager --install \
 #      "ndk;11.0.2655954" \
 #      "ndk;11.1.2683735" \
 #      "ndk;11.2.2725575" \
@@ -474,16 +448,15 @@ RUN sdkmanager --install \
 #      "ndk;24.0.7956693-beta2" \
 #      "ndk;24.0.8079956-beta3" \
 #      "ndk;24.0.8215888" \
-#      "ndk;25.0.8141415-beta1" \
-#      "ndk;25.0.8221429-beta2" \
-#      "ndk;25.0.8355429-beta3" \
-#      "ndk;25.0.8528842-beta4" \
-#      "ndk;25.0.8775105" \
-#      "ndk;25.1.8937393" \
-#      "ndk;25.2.9519653"
+       "ndk;25.0.8141415-beta1" \
+       "ndk;25.0.8221429-beta2" \
+       "ndk;25.0.8355429-beta3" \
+       "ndk;25.0.8528842-beta4" \
+       "ndk;25.0.8775105" \
+       "ndk;25.1.8937393" \
+       "ndk;25.2.9519653"
 
 RUN sdkmanager --install \
-      "ndk;r25"
 #      "ndk;r10e" \
 #      "ndk;r11" \
 #      "ndk;r11b" \
@@ -535,13 +508,13 @@ RUN sdkmanager --install \
 #      "ndk;r24-beta1" \
 #      "ndk;r24-beta2" \
 #      "ndk;r24-rc1" \
-#      "ndk;r25" \
-#      "ndk;r25-beta1" \
-#      "ndk;r25-beta2" \
-#      "ndk;r25-beta3" \
-#      "ndk;r25-beta4" \
-#      "ndk;r25b" \
-#      "ndk;r25c"
+       "ndk;r25" \
+       "ndk;r25-beta1" \
+       "ndk;r25-beta2" \
+       "ndk;r25-beta3" \
+       "ndk;r25-beta4" \
+       "ndk;r25b" \
+       "ndk;r25c"
 
 RUN sdkmanager --install \
       "tools" \
