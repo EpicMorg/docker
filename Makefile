@@ -403,21 +403,14 @@ ecosystem-nodejs-images:
 	cd `pwd`/linux/ecosystem/nodejs/node20         && pwd && make build && make deploy
 
 ecosystem-freegpt-webui-images: 
-	cd `pwd`/linux/ecosystem/freegpt-webui/chat/1.0     && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/freegpt-webui/chat/1.1     && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/freegpt-webui/chat/1.2     && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/freegpt-webui/chat/1.3     && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/freegpt-webui/chat/1.3.1     && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/freegpt-webui/chat/1.3.2     && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/freegpt-webui/chat/1.4     && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/freegpt-webui/chat/latest     && pwd && make build && make deploy
-
-	cd `pwd`/linux/ecosystem/freegpt-webui/endpoint/1.3     && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/freegpt-webui/endpoint/1.3.1     && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/freegpt-webui/endpoint/1.3.2     && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/freegpt-webui/endpoint/1.4     && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/freegpt-webui/endpoint/latest     && pwd && make build && make deploy
-
+	cd `pwd`/linux/ecosystem/freegpt-webui/1.0     && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/freegpt-webui/1.1     && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/freegpt-webui/1.2     && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/freegpt-webui/1.3     && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/freegpt-webui/1.3.1     && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/freegpt-webui/1.3.2     && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/freegpt-webui/1.4     && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/freegpt-webui/latest     && pwd && make build && make deploy
 
 ecosystem-vk2discord-images: 
 	cd `pwd`/linux/ecosystem/vk2discord     && pwd && make build && make deploy
