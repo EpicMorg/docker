@@ -1,16 +1,16 @@
 version: '3.9'
 services:
   app:
-    image: "epicmorg/bitbucket:latest"
+    image: "epicmorg/bitbucket:8.12.0"
     build:
       context: .
   app-jdk11:
-    image: "epicmorg/bitbucket:latest-jdk11"
+    image: "epicmorg/bitbucket:8.12.0-jdk11"
     build:
       context: .
       dockerfile: ./Dockerfile.jdk11
   app-jdk17:
-    image: "epicmorg/bitbucket:latest-jdk7"
+    image: "epicmorg/bitbucket:8.12.0-jdk17"
     build:
       context: .
       dockerfile: ./Dockerfile.jdk17
