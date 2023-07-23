@@ -1,0 +1,18 @@
+- name: Clear log file before write new stdout to it at this session
+  hosts: localhost
+  tasks:
+    - name: echo -n > output.log
+      shell: echo -n > output.log
+
+- name: Lets Go!
+  hosts: localhost
+  tasks:
+    - name: Create directory for ansible custom facts
+      debug:
+        msg: "[ Python: {{ ansible_facts['python_version'] }}, OS: {{ ansible_facts['distribution'] }} {{ ansible_facts['distribution_version'] }} ({{ansible_architecture }}), Ansible: {{ ansible_version.full }}]"
+
+- name: Generate Jira images
+  hosts: localhost
+  gather_facts: false
+  roles:
+    - atlassian.jira.9

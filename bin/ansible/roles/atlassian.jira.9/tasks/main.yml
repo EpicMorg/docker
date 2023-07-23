@@ -1,0 +1,30 @@
+- name: Read versions from file
+  slurp:
+     src: "{{ versions_file }}"
+  register: version_output
+
+- name: Set version variable
+  set_fact:
+    jira_versions: "{{ version_output['content'] | b64decode | trim | split('\n') }}"
+
+- name: Create directories for Jira versions
+  file:
+    path: "{{ target_directory }}/{{ item }}"
+    state: directory
+    mode: '0755'
+  with_items: "{{ jira_versions }}"
+
+- name: Copy template with link to each version directory
+  template:
+    src: "template.env.j2"
+    dest: "{{ target_directory }}/{{ item }}/.env"
+  with_items: "{{ jira_versions }}"
+
+- name: Copy all files from 'files' directory to each version directory
+  copy:
+    src: "files/"
+    dest: "{{ target_directory }}/{{ item }}/"
+  with_items: "{{ jira_versions }}"
+#  no_log: true
+
+ 
