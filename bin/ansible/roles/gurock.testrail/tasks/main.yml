@@ -1,8 +1,8 @@
 #- name: "Generate images for Testrail (PHP 5.5)"
 #  import_tasks: testrail.php55.yml
 
-#- name: "Generate images for Testrail (PHP 7.0)"
-#  import_tasks: testrail.php70.yml
+- name: "Generate images for Testrail (PHP 7.0)"
+  import_tasks: testrail.php70.yml
 
 #- name: "Generate images for Testrail (PHP 7.1)"
 #  import_tasks: testrail.php71.yml
@@ -13,6 +13,5 @@
 #- name: "Generate images for Testrail (PHP 7.4)"
 #  import_tasks: testrail.php74.yml
 
-- name: "Generate images for Testrail (PHP 8.1)"
-  import_tasks: testrail.php81.yml
-  
+#- name: "Generate images for Testrail (PHP 8.1)"
+#  import_tasks: testrail.php81.yml
