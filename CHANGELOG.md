@@ -1,23 +1,24 @@
 # Changelog
 ## 2023
 * `july`
-  * `android-sdk` images of `teqmcity agents` and `gitlab runners` updated.
-    * `grade` fixed inside containers.
-    * added `jdk17` support.
-  * added `freegpt` webui by [Em1tSan/freegpt-webui-ru](https://github.com/Em1tSan/freegpt-webui-ru).
+  * `android-sdk` images of `teqmcity agents` and `gitlab runners` updated
+    * `grade` fixed inside containers
+    * added `jdk17` support
+  * added `freegpt` webui by [Em1tSan/freegpt-webui-ru](https://github.com/Em1tSan/freegpt-webui-ru)
   * updated `atlassian` images
     * added `jira` version `9` images
+    * reworked `jira 5-8` iamges
   * updated `testrail` images
-  * added reworked `php5.5` iamge.
-  * added reworked `php7.0` + `apache2` images with `cassandra`, `ioncube` and `bolt` support.
-  * added reworked `php7.1` + `apache2` images with `cassandra`, `ioncube` and `bolt` support.
-  * updated reworked `php7.2` + `apache2` images with `cassandra`, `ioncube` and `bolt` support.
-  * updated reworked `php7.3` + `apache2` images with `cassandra`, `ioncube` and `bolt` support.
-  * updated reworked `php7.4` + `apache2` images with `cassandra`, `ioncube` and `bolt` support.
-  * updated reworked `php8.0` + `apache2` images with `cassandra`, `ioncube` and `bolt` support.
-  * updated reworked `php8.1` + `apache2` images with `cassandra`, `ioncube` and `bolt` support.
-  * added reworked `php8.2` + `apache2` images with `cassandra`, `ioncube` and `bolt` support.
-  * added reworked `php8.3` + `apache2` images with `cassandra`, `ioncube` and `bolt` support.
+  * added reworked `php5.5` iamge
+  * added reworked `php7.0` + `apache2` images with `cassandra`, `ioncube` and `bolt` support
+  * added reworked `php7.1` + `apache2` images with `cassandra`, `ioncube` and `bolt` support
+  * updated reworked `php7.2` + `apache2` images with `cassandra`, `ioncube` and `bolt` support
+  * updated reworked `php7.3` + `apache2` images with `cassandra`, `ioncube` and `bolt` support
+  * updated reworked `php7.4` + `apache2` images with `cassandra`, `ioncube` and `bolt` support
+  * updated reworked `php8.0` + `apache2` images with `cassandra` and `bolt` support
+  * updated reworked `php8.1` + `apache2` images with `cassandra`, `ioncube` and `bolt` support
+  * added reworked `php8.2` + `apache2` images with `bolt` support
+  * added reworked `php8.3` + `apache2` images
 * `may-june`
   * `base` images improved
   * `nginx` images updated
@@ -87,7 +88,7 @@
 * `january`
 	* fixed `apache2`
 	* added `php8` support
-	* extended `testrail` releases with `active directory` and `ldap` auth support.
+	* extended `testrail` releases with `active directory` and `ldap` auth support
 -------------------------------------------------------------------
 ### 2021
 * `december`
@@ -103,7 +104,7 @@
 	* added `torrserver` by @Aleks-Z :v:
 	* added `advanced` image of `vcsode server`. original image by [linuxserver/docker-code-server](https://github.com/linuxserver/docker-code-server).
 * `september`
-	* added [ArekSredzki/electron-release-server](https://github.com/ArekSredzki/electron-release-server/) support.
+	* added [ArekSredzki/electron-release-server](https://github.com/ArekSredzki/electron-release-server/) support
 	* fully reworked `teamcity-agent` images.
 	* added `java 16` support to base images.
 	* moved images to `advanced` and `ecosystem` folders.
@@ -245,7 +246,7 @@
 -------------------------------------------------------------------
 ## 2019
 * 12/13/2019
-    * updated `teamcity agent`. added `php 7.3` support.
+    * updated `teamcity agent`. added `php 7.3` support
     * fixed `nginx` image.
     * removed `7.12.2` and `8.0.1` of Jira.
 * 12/02/2019

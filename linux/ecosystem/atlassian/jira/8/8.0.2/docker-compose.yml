@@ -7,4 +7,3 @@ services:
       args:
         RELEASE: ${RELEASE}
         DOWNLOAD_URL: ${DOWNLOAD_URL}
-

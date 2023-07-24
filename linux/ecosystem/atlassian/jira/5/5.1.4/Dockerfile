@@ -10,7 +10,6 @@ ARG DEBIAN_FRONTEND=noninteractive
 ARG RELEASE
 ARG DOWNLOAD_URL
 
-
 ##################################################################
 #                   Setup
 ##################################################################
@@ -40,9 +39,10 @@ RUN mkdir -p                             ${JIRA_INSTALL_DIR} \
     apt clean -y && \
     apt autoclean -y && \
     rm -rfv /var/lib/apt/lists/* && \
-    rm -rfv /var/cache/apt/archives/*.deb
+    rm -rfv /var/cache/apt/archives/*.deb && \
+    rm -rfv /tmp/*
 
 CMD ["/entrypoint.sh", "-fg"]
 ENTRYPOINT ["/usr/bin/tini", "--"]
 COPY entrypoint.sh              /entrypoint.sh
-COPY . /tmp
+#COPY . /tmp
