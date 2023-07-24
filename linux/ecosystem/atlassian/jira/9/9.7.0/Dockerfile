@@ -40,7 +40,8 @@ RUN mkdir -p                             ${JIRA_INSTALL_DIR} \
     apt clean -y && \
     apt autoclean -y && \
     rm -rfv /var/lib/apt/lists/* && \
-    rm -rfv /var/cache/apt/archives/*.deb
+    rm -rfv /var/cache/apt/archives/*.deb && \
+    rm -rfv /tmp/*
 
 
 COPY entrypoint.sh /entrypoint.sh

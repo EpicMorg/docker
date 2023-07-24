@@ -28,7 +28,7 @@
 
 - name: Copy Dockerfile from 'files' directory to each version directory
   copy:
-    src: "Dockerfile"
+    src: "Dockerfile.jdk8"
     dest: "{{ target_directory }}/{{ item }}/Dockerfile"
   with_items: "{{ jira_versions }}"
 

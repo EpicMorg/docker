@@ -7,3 +7,11 @@ services:
       args:
         RELEASE: ${RELEASE}
         DOWNLOAD_URL: ${DOWNLOAD_URL}
+  app-jdk8:
+    image: "epicmorg/jira:${RELEASE}-jdk8"
+    build:
+      context: .
+      dockerfile: Dockerfile.jdk8
+      args:
+        RELEASE: ${RELEASE}
+        DOWNLOAD_URL: ${DOWNLOAD_URL}
