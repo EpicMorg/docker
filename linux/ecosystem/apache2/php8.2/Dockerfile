@@ -22,12 +22,12 @@ RUN apt-get update && \
     apt-get install -y  --allow-unauthenticated \
       apache2 \
       apache2-utils \
-      libapache2-mod-php8.1 \
+      libapache2-mod-php8.2 \
       libapache2-mod-webauth \
       libapache2-mod-xforward \
       libapache2-mod-security2 && \
     a2enmod \
-      php8.1 \
+      php8.2 \
       rewrite \
       ldap \
       heartmonitor \

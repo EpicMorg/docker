@@ -38,13 +38,18 @@ RUN sh -c 'echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /
 RUN apt-get update && \
     apt-get install -y  --allow-unauthenticated \
       libmemcached-dev \
+      php-pear \
       php7.2 \
       php7.2-common \
       php7.2-dev \
       php7.2-fpm \
       php7.2-cli \
+      php7.2-xml \
       php7.2-cgi && \
     update-alternatives --set php /usr/bin/php7.2 && \
+    pear upgrade && \
+    pear update-channels && \
+    pecl channel-update pecl.php.net && \
     php -m && \
     php -v
 
@@ -99,6 +104,7 @@ RUN apt-get update && \
     apt-get install -y  --allow-unauthenticated \
       libmemcached-dev \
       libgmp-dev \
+      php-pear \
       php7.2 \
       php7.2-common \
       php7.2-dev \

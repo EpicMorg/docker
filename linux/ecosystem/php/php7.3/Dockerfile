@@ -1,4 +1,4 @@
-FROM epicmorg/debian:buster-develop AS builder
+FROM epicmorg/debian:bullseye-develop AS builder
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -38,13 +38,18 @@ RUN sh -c 'echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /
 RUN apt-get update && \
     apt-get install -y  --allow-unauthenticated \
       libmemcached-dev \
+      php-pear \
       php7.3 \
       php7.3-common \
       php7.3-dev \
       php7.3-fpm \
       php7.3-cli \
+      php7.3-xml \
       php7.3-cgi && \
     update-alternatives --set php /usr/bin/php7.3 && \
+    pear upgrade && \
+    pear update-channels && \
+    pecl channel-update pecl.php.net && \
     php -m && \
     php -v
 
@@ -80,7 +85,7 @@ RUN cd ${MAKE_DIR} && \
 ##################################################################
 ##################################################################
 
-FROM epicmorg/debian:buster
+FROM epicmorg/debian:bullseye
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -99,6 +104,7 @@ RUN apt-get update && \
     apt-get install -y  --allow-unauthenticated \
       libmemcached-dev \
       libgmp-dev \
+      php-pear \
       php7.3 \
       php7.3-common \
       php7.3-dev \

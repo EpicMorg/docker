@@ -37,13 +37,18 @@ RUN apt-get update && \
     apt-get install -y  --allow-unauthenticated \
       libmemcached-dev \
       smbclient libsmbclient libsmbclient-dev \
+      php-pear \
       php7.4 \
       php7.4-common \
       php7.4-dev \
       php7.4-fpm \
       php7.4-cli \
+      php7.4-xml \
       php7.4-cgi && \
     update-alternatives --set php /usr/bin/php7.4 && \
+    pear upgrade && \
+    pear update-channels && \
+    pecl channel-update pecl.php.net && \
     php -m && \
     php -v
 
@@ -105,6 +110,7 @@ RUN apt-get update && \
     apt-get install -y  --allow-unauthenticated \
       libmemcached-dev \
       libgmp-dev \
+      php-pear \
       php7.4 \
       php7.4-common \
       php7.4-dev \
@@ -146,8 +152,8 @@ RUN apt-get update && \
       sendmail && \
     ln -sf /etc/ssl/dhparam.pem /etc/php/dhparam.pem && \
     update-alternatives --set php /usr/bin/php7.4 && \
-    pear update-channels && \
     pear upgrade && \
+    pear update-channels && \
     pecl channel-update pecl.php.net && \
     php -m && \
     php -v
