@@ -1,0 +1,2 @@
+- name: "Generate images for Jira 9 (jdk8, jdk11, jdk17)"
+  import_tasks: atlassian.jira.9.yml

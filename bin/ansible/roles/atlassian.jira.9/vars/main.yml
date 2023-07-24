@@ -1,4 +1,0 @@
-# Defaults
-versions_file: "roles/common/files/versions/jira/9.txt"
-target_directory: "/opt/tmp/jira/"
-template_file: "template.env.j2"

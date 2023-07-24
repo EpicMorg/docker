@@ -1,2 +1,4 @@
 # Temp make file for local builds and debug
 Makefile.temp 
+# debug ansible file
+output.log

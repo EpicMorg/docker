@@ -1,11 +1,13 @@
 - name: Clear log file before write new stdout to it at this session
   hosts: localhost
+  connection: local
   tasks:
     - name: echo -n > output.log
       shell: echo -n > output.log
 
 - name: Lets Go!
   hosts: localhost
+  connection: local
   tasks:
     - name: Create directory for ansible custom facts
       debug:
@@ -13,6 +15,8 @@
 
 - name: Generate Jira images
   hosts: localhost
+  connection: local
   gather_facts: false
   roles:
-    - atlassian.jira.9
+#    - atlassian.jira
+    - gurock.testrail

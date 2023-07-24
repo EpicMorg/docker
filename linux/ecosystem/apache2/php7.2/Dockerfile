@@ -6,13 +6,14 @@ ARG PHP_MODULE_PATH=/usr/lib/php/20170718
 ARG PHP_VER=7.2
 ARG PHP_DIR=/etc/php/${PHP_VER}
 ARG P4_PHP_INI=${PHP_DIR}/mods-available/perfroce.ini
+ARG CAS_PHP_INI=${PHP_DIR}/mods-available/cassandra.ini
 
 ##################################################################
 #                   Installing Apache2
 ##################################################################
 #installing apache2 repo
 RUN wget -O /etc/apt/trusted.gpg.d/apache2.gpg https://packages.sury.org/apache2/apt.gpg
-RUN sh -c 'echo "deb https://packages.sury.org/apache2/ buster main" > /etc/apt/sources.list.d/apache2.list'
+RUN sh -c 'echo "deb https://packages.sury.org/apache2/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/apache2.list'
 
 #Install base packages
 RUN apt-get update && \
@@ -61,6 +62,13 @@ COPY etc/apache2/apache2.conf /etc/apache2/apache2.conf
 ##################################################################
 RUN echo "TLS_REQCERT never" >> /etc/ldap/ldap.conf
 
+##############################################################################
+# Cassandra PHP Drivers Install
+##############################################################################
+RUN ln -sf ${CAS_PHP_INI} ${PHP_DIR}/apache2/conf.d/cassandra.ini  && \
+    php -m && \
+    php -v
+
 ##################################################################
 #                   Installing IOnCube addon
 ##################################################################
@@ -101,10 +109,7 @@ RUN apt clean -y && \
     apt autoclean -y && \
     rm -rfv /var/lib/apt/lists/* && \
     rm -rfv /var/cache/apt/archives/*.deb && \
-    rm -rfv /tmp/deb/* && \
-    rm -rfv /tmp/ioncube/* && \
-    rm -rfv /tmp/composer-setup.php && \
-    rm -rfv /tmp/ioncube.tar.gz
+    rm -rfv /tmp/*
 
 #healthcheck. good practice
 HEALTHCHECK --interval=2m --timeout=3s CMD curl -f http://localhost:80/ || exit 1

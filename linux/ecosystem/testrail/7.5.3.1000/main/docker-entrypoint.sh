@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "[testrail] Welcome to Testrail 7.5.3.1000"
+
 echo "[testrail] Starting testrail service"
 
 #################################################################################

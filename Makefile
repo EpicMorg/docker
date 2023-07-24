@@ -351,20 +351,26 @@ ecosystem-debian-bookworm-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk18    && pwd && make build && make deploy
 
 ecosystem-php-images:
-	cd `pwd`/linux/ecosystem/php/latest             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/php/php7.0             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/php/php7.1             && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/php/php7.2             && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/php/php7.3             && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/php/php7.4             && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/php/php8.0             && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/php/php8.1             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/php/php8.2             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/php/php8.3             && pwd && make build && make deploy
 
 ecosystem-apache2-images:
-	cd `pwd`/linux/ecosystem/apache2/latest         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apache2/php7.0         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apache2/php7.1         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apache2/php7.2         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apache2/php7.3         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apache2/php7.4         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apache2/php8.0         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apache2/php8.1         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apache2/php8.2         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apache2/php8.3         && pwd && make build && make deploy
 
 ecosystem-testrail-images:
 	cd `pwd`/linux/ecosystem/cassandra/3.11       && pwd && make build && make deploy

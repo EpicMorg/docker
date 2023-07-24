@@ -6,6 +6,17 @@
     * added `jdk17` support.
   * added `freegpt` webui by [Em1tSan/freegpt-webui-ru](https://github.com/Em1tSan/freegpt-webui-ru).
   * updated `atlassian` images
+  * updated `testrail` images
+  * added reworked `php5.5` iamge.
+  * added reworked `php7.0` + `apache2` images with `cassandra`, `ioncube` and `bolt` support.
+  * added reworked `php7.1` + `apache2` images with `cassandra`, `ioncube` and `bolt` support.
+  * updated reworked `php7.2` + `apache2` images with `cassandra`, `ioncube` and `bolt` support.
+  * updated reworked `php7.3` + `apache2` images with `cassandra`, `ioncube` and `bolt` support.
+  * updated reworked `php7.4` + `apache2` images with `cassandra`, `ioncube` and `bolt` support.
+  * updated reworked `php8.0` + `apache2` images with `cassandra`, `ioncube` and `bolt` support.
+  * updated reworked `php8.1` + `apache2` images with `cassandra`, `ioncube` and `bolt` support.
+  * added reworked `php8.2` + `apache2` images with `cassandra`, `ioncube` and `bolt` support.
+  * added reworked `php8.3` + `apache2` images with `cassandra`, `ioncube` and `bolt` support.
 * `may-june`
   * `base` images improved
   * `nginx` images updated

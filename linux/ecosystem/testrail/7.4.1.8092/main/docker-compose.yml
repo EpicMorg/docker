@@ -4,3 +4,6 @@ services:
     image: "epicmorg/testrail:7.4.1.8092"
     build:
       context: .
+      args:
+        RELEASE: ${TESTRAIL_VERSION}
+        DOWNLOAD_URL: ${DOWNLOAD_URL}

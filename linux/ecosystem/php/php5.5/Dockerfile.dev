@@ -1,0 +1,74 @@
+FROM epicmorg/debian:bullseye-develop AS builder
+LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
+ARG DEBIAN_FRONTEND=noninteractive
+
+##################################################################
+#                   ARGuments
+##################################################################
+ENV BuildDocker true
+
+ARG BUILDS_DIR=/builds
+ARG SRC_DIR=${BUILDS_DIR}/src
+ARG EXPORT_DIR=${BUILDS_DIR}/export
+ARG P4API_DIR=${SRC_DIR}/p4api
+ARG P4PHP_DIR=${SRC_DIR}/p4php
+ARG MAKE_DIR=${SRC_DIR}/p4php-5.0
+
+ARG P4API_VER=r20.1
+ARG P4API_URL=http://filehost.perforce.com/perforce/${P4API_VER}/bin.linux26x86_64/p4api.tgz
+
+ARG P4PHP_VER=r20.1
+ARG P4PHP_URL=http://filehost.perforce.com/perforce/${P4PHP_VER}/bin.tools/p4php-php7.tgz
+
+ARG P4MODULE_PATH=/usr/lib/php/20121113
+
+ARG PHP_INI_DIR=/usr/local/etc/php
+ARG PHP_FILENAME=php-5.5.38.tar.xz
+ARG PHPIZE_DEPS=autoconf  
+ARG PHP_SHA256=cb527c44b48343c8557fe2446464ff1d4695155a95601083e5d1f175df95580f
+ARG PHP_VERSION=5.5.38
+
+##################################################################
+#                   Files and folders
+##################################################################
+RUN mkdir -p ${BUILDS_DIR} ${SRC_DIR} ${EXPORT_DIR} ${MAKE_DIR} ${P4API_DIR} ${P4PHP_DIR}
+
+##################################################################
+#                   Installing  PHP5.5
+##################################################################
+COPY --from=php:5.5 /usr/local/bin /usr/local/bin
+COPY --from=php:5.5 /usr/local/etc/php /usr/local/etc/php
+COPY --from=php:5.5 /usr/local/etc/pear.conf /usr/local/etc/pear.conf
+COPY --from=php:5.5 /usr/local/include/php /usr/local/include/php
+COPY --from=php:5.5 /usr/local/lib/php /usr/local/lib/php
+COPY --from=php:5.5 /usr/local/php /usr/local/php
+COPY --from=php:5.5 /usr/src/php.tar.xz /usr/src/php.tar.xz
+COPY --from=php:5.5 /usr/src/php.tar.xz.asc /usr/src/php.tar.xz.asc
+
+##################################################################
+#                   preparing p4src
+##################################################################
+RUN wget -qO - ${P4API_URL} | tar -zxv --strip-components=1 -C ${P4API_DIR} && \
+    wget -qO - ${P4API_URL} | tar -zxv --strip-components=1 -C ${MAKE_DIR} && \
+    wget -qO - ${P4PHP_URL} | tar -zxv --strip-components=1 -C ${P4PHP_DIR} && \
+    wget -qO - ${P4PHP_URL} | tar -zxv --strip-components=1 -C ${MAKE_DIR} && \
+    cd ${P4API_DIR} && \
+    ls -las && \
+    cd ${P4PHP_DIR} && \
+    ls -las && \
+    cd ${MAKE_DIR} && \
+    ls -las && \
+    cd ${SRC_DIR} && \
+    ls -las
+
+##################################################################
+#                   compilling p4src
+##################################################################
+RUN cd ${MAKE_DIR} && \
+    ls -las && \
+    phpize && \
+    ./configure --with-perforce=${P4API_DIR} && \
+    make && \
+    make test && \
+    make install && \
+    cp ${P4MODULE_PATH}/perforce.so ${EXPORT_DIR}

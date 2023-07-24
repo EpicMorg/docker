@@ -1,0 +1,6 @@
+version: '3.9'
+services:
+  app:
+    image: "epicmorg/testrail:auth-ad-5.7.0.3942"
+    build:
+      context: .

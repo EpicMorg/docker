@@ -1,6 +1,6 @@
 ## Testrail
 
-* Based on `websites:php7.2` of our ecosystem.
+* Based on `websites:php7.4` of our ecosystem.
 
 # Compose example
 
@@ -8,7 +8,7 @@
 version: '3.7'
 services:
   testrail:
-    image: epicmorg/testrail
+    image: epicmorg/testrail:7.0.2.1016
 #    depends_on:
 #      - mysql
 #      - memcached
