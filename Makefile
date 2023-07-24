@@ -778,6 +778,26 @@ bundle-p4:
 	make ecosystem-perforce-proxy-images
 
 atlassian-jira-all-images:
+	cd `pwd`/linux/ecosystem/atlassian/jira/4/4.1.1                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/4/4.1.2                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/4/4.2                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/4/4.2.1                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/4/4.2.2                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/4/4.2.3                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/4/4.2.4                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/4/4.3                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/4/4.3.1                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/4/4.3.2                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/4/4.3.3                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/4/4.3.4                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/4/4.4                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/4/4.4.1                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/4/4.4.3                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/4/4.4.4                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/4/4.4.5                && pwd && make build && make deploy
+
+	make docker-clean
+
 	cd `pwd`/linux/ecosystem/atlassian/jira/5/5.0                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/5/5.0.1                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/5/5.0.2                && pwd && make build && make deploy
