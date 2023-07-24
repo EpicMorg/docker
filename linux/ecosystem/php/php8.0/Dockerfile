@@ -20,6 +20,7 @@ RUN apt-get update && \
     apt-get install -y  --allow-unauthenticated \
       libmemcached-dev \
       libgmp-dev \
+      php-pear \
       php8.0 \
       php8.0-common \
       php8.0-dev \
@@ -36,7 +37,6 @@ RUN apt-get update && \
       php8.0-fpm \
       php8.0-imap \
       php8.0-pspell \
-      php8.0-recode \
       php8.0-sqlite3 \
       php8.0-pgsql \
       php8.0-tidy \
@@ -48,7 +48,6 @@ RUN apt-get update && \
       php8.0-cli \
       php8.0-common \
       php8.0-cgi \
-      php8.0-json \
       php8.0-readline \
       php8.0-enchant \
       php8.0-ssh2 \
@@ -57,7 +56,6 @@ RUN apt-get update && \
       php8.0-redis \
       php8.0-smbclient \
       php8.0-yaml \
-      php8.0-geoip \
       smbclient libsmbclient \
       sendmail && \
     ln -sf /etc/ssl/dhparam.pem /etc/php/dhparam.pem && \

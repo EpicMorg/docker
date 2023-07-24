@@ -20,6 +20,7 @@ RUN apt-get update && \
     apt-get install -y  --allow-unauthenticated \
       libmemcached-dev \
       libgmp-dev \
+      php-pear \
       php8.3 \
       php8.3-common \
       php8.3-dev \
