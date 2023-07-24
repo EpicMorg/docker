@@ -121,7 +121,6 @@ RUN apt-get update && \
       php7.4-fpm \
       php7.4-imap \
       php7.4-pspell \
-      php7.4-recode \
       php7.4-sqlite3 \
       php7.4-pgsql \
       php7.4-tidy \

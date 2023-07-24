@@ -1,0 +1,57 @@
+- name: Read versions from file
+  slurp:
+     src: "roles/common/files/versions/jira/9.jdk8-11-17.txt"
+  register: version_output
+
+- name: Set version variable
+  set_fact:
+    jira_versions: "{{ version_output['content'] | b64decode | trim | split('\n') }}"
+
+- name: Create directories for Jira versions
+  file:
+    path: "{{ target_directory }}/{{ item }}"
+    state: directory
+    mode: '0755'
+  with_items: "{{ jira_versions }}"
+
+- name: Copy template with link to each version directory
+  template:
+    src: "template.env.j2"
+    dest: "{{ target_directory }}/{{ item }}/.env"
+  with_items: "{{ jira_versions }}"
+
+- name: Copy docker-compose.yml from 'files' directory to each version directory
+  copy:
+    src: "docker-compose.jdk8-11-17.yml"
+    dest: "{{ target_directory }}/{{ item }}/docker-compose.yml"
+  with_items: "{{ jira_versions }}"
+
+- name: Copy Dockerfile from 'files' directory to each version directory
+  copy:
+    src: "Dockerfile"
+    dest: "{{ target_directory }}/{{ item }}/Dockerfile"
+  with_items: "{{ jira_versions }}"
+
+- name: Copy Dockerfile.jdk11 from 'files' directory to each version directory
+  copy:
+    src: "Dockerfile.jdk11"
+    dest: "{{ target_directory }}/{{ item }}/Dockerfile.jdk11"
+  with_items: "{{ jira_versions }}"
+
+- name: Copy Dockerfile.jdk17 from 'files' directory to each version directory
+  copy:
+    src: "Dockerfile.jdk17"
+    dest: "{{ target_directory }}/{{ item }}/Dockerfile.jdk17"
+  with_items: "{{ jira_versions }}"
+
+- name: Copy entrypoint.sh from 'files' directory to each version directory
+  copy:
+    src: "entrypoint.sh"
+    dest: "{{ target_directory }}/{{ item }}/entrypoint.sh"
+  with_items: "{{ jira_versions }}"
+
+- name: Copy Makefile from 'files' directory to each version directory
+  copy:
+    src: "Makefile"
+    dest: "{{ target_directory }}/{{ item }}/Makefile"
+  with_items: "{{ jira_versions }}"
