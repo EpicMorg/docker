@@ -25,15 +25,6 @@ jobs:
     - name: "Build and Deploy Cassandra 3.11 Image:"
       run:  cd linux/ecosystem/cassandra/3.11    && pwd && make build && make deploy
 
-    - name: "Build and Deploy Testrail Image:"
-      run:  cd linux/ecosystem/testrail/latest/main    && pwd && make build && make deploy
-
-    - name: "Build and Deploy Testrail + AD Image:"
-      run:  cd linux/ecosystem/testrail/latest/ad    && pwd && make build && make deploy
-
-    - name: "Build and Deploy Testrail + LDAP Image:"
-      run:  cd linux/ecosystem/testrail/latest/ldap    && pwd && make build && make deploy
-
 ##################################################################################
 
   build-testrail-702-images:

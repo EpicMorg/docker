@@ -21,8 +21,14 @@ jobs:
     - name: Test Make
       run:  make
 
-    - name: "Build and Deploy PHP Latest Image:"
-      run:  cd linux/ecosystem/php/latest    && pwd && make build && make deploy
+#    - name: "Build and Deploy PHP Latest Image:"
+#      run:  cd linux/ecosystem/php/latest    && pwd && make build && make deploy
+
+    - name: "Build and Deploy PHP 7.0 Image:"
+      run:  cd linux/ecosystem/php/php7.0    && pwd && make build && make deploy
+
+    - name: "Build and Deploy PHP 7.1 Image:"
+      run:  cd linux/ecosystem/php/php7.1    && pwd && make build && make deploy
 
     - name: "Build and Deploy PHP 7.2 Image:"
       run:  cd linux/ecosystem/php/php7.2    && pwd && make build && make deploy
@@ -39,6 +45,12 @@ jobs:
     - name: "Build and Deploy PHP 8.1 Image:"
       run:  cd linux/ecosystem/php/php8.1    && pwd && make build && make deploy
 
+    - name: "Build and Deploy PHP 8.2 Image:"
+      run:  cd linux/ecosystem/php/php8.2    && pwd && make build && make deploy
+
+    - name: "Build and Deploy PHP 8.3 Image:"
+      run:  cd linux/ecosystem/php/php8.3    && pwd && make build && make deploy
+
 ##################################################################################
 
   build-apache2-images:
@@ -54,8 +66,14 @@ jobs:
     - name: Test Make
       run:  make
 
-    - name: "Build and Deploy Apache 2 Latest Image:"
-      run:  cd linux/ecosystem/apache2/latest    && pwd && make build && make deploy
+#    - name: "Build and Deploy Apache 2 Latest Image:"
+#      run:  cd linux/ecosystem/apache2/latest    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Apache 2 + PHP 7.0 Image:"
+      run:  cd linux/ecosystem/apache2/php7.0    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Apache 2 + PHP 7.1 Image:"
+      run:  cd linux/ecosystem/apache2/php7.1    && pwd && make build && make deploy
 
     - name: "Build and Deploy Apache 2 + PHP 7.2 Image:"
       run:  cd linux/ecosystem/apache2/php7.2    && pwd && make build && make deploy
@@ -71,6 +89,12 @@ jobs:
 
     - name: "Build and Deploy Apache 2 + PHP 8.1 Image:"
       run:  cd linux/ecosystem/apache2/php8.1    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Apache 2 + PHP 8.2 Image:"
+      run:  cd linux/ecosystem/apache2/php8.2    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Apache 2 + PHP 8.3 Image:"
+      run:  cd linux/ecosystem/apache2/php8.3    && pwd && make build && make deploy
 
 ##################################################################################
 

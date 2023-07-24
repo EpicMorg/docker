@@ -351,32 +351,213 @@ ecosystem-debian-bookworm-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk18    && pwd && make build && make deploy
 
 ecosystem-php-images:
-	cd `pwd`/linux/ecosystem/php/latest             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/php/php7.0             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/php/php7.1             && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/php/php7.2             && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/php/php7.3             && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/php/php7.4             && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/php/php8.0             && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/php/php8.1             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/php/php8.2             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/php/php8.3             && pwd && make build && make deploy
 
 ecosystem-apache2-images:
-	cd `pwd`/linux/ecosystem/apache2/latest         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apache2/php7.0         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apache2/php7.1         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apache2/php7.2         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apache2/php7.3         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apache2/php7.4         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apache2/php8.0         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apache2/php8.1         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apache2/php8.2         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apache2/php8.3         && pwd && make build && make deploy
 
 ecosystem-testrail-images:
 	cd `pwd`/linux/ecosystem/cassandra/3.11       && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/testrail/latest/main       && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/testrail/latest/ad           && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/testrail/latest/ldap         && pwd && make build && make deploy
+
+	cd `pwd`/linux/ecosystem/testrail/5.4.1.3669/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/5.5.0.3727/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/5.5.0.3731/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/5.5.0.3735/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/5.5.1.3746/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/5.6.0.3853/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/5.6.0.3856/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/5.6.0.3861/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/5.6.0.3862/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/5.6.0.3865/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/5.7.0.3938/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/5.7.0.3942/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/5.7.0.3951/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/5.7.1.4026/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/5.7.1.4028/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.0.0.4140/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.0.1.4163/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.1.0.4367/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.1.0.4369/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.1.1.1020/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.1.1.1021/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.2.0.1085/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.2.1.1003/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.2.1.1005/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.2.2.1107/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.2.3.1114/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.3.0.1120/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.3.1.1004/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.3.1.1006/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.4.0.1284/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.4.0.1293/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.5.0.1298/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.5.1.1002/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.5.3.1001/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.5.4.1002/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.5.4.1007/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.5.5.1009/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.5.6.1014/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.5.7.1000/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.6.0.1156/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.6.1.1166/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.7.1.1020/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.7.2.1037/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.7.2.1043/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/7.0.0.1057/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/7.0.1.1002/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/7.0.1.1013/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/7.0.2.1014/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/7.0.2.1015/main       && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/testrail/7.0.2.1016/main       && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/testrail/7.0.2.1016/ad           && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/testrail/7.0.2.1016/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/7.4.1.8079/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/7.4.1.8091/main       && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/testrail/7.4.1.8092/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/7.5.1.7010/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/7.5.1.7012/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/7.5.1.7013/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/7.5.2.1002/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/7.5.3.1000/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/8.0.0.1089/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/8.0.1.1029/main       && pwd && make build && make deploy
+
+	cd `pwd`/linux/ecosystem/testrail/5.4.1.3669/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/5.5.0.3727/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/5.5.0.3731/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/5.5.0.3735/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/5.5.1.3746/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/5.6.0.3853/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/5.6.0.3856/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/5.6.0.3861/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/5.6.0.3862/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/5.6.0.3865/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/5.7.0.3938/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/5.7.0.3942/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/5.7.0.3951/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/5.7.1.4026/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/5.7.1.4028/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.0.0.4140/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.0.1.4163/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.1.0.4367/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.1.0.4369/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.1.1.1020/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.1.1.1021/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.2.0.1085/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.2.1.1003/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.2.1.1005/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.2.2.1107/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.2.3.1114/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.3.0.1120/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.3.1.1004/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.3.1.1006/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.4.0.1284/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.4.0.1293/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.5.0.1298/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.5.1.1002/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.5.3.1001/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.5.4.1002/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.5.4.1007/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.5.5.1009/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.5.6.1014/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.5.7.1000/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.6.0.1156/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.6.1.1166/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.7.1.1020/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.7.2.1037/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.7.2.1043/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/7.0.0.1057/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/7.0.1.1002/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/7.0.1.1013/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/7.0.2.1014/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/7.0.2.1015/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/7.0.2.1016/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/7.4.1.8079/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/7.4.1.8091/ad           && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/testrail/7.4.1.8092/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/7.5.1.7010/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/7.5.1.7012/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/7.5.1.7013/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/7.5.2.1002/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/7.5.3.1000/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/8.0.0.1089/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/8.0.1.1029/ad           && pwd && make build && make deploy
+    
+	cd `pwd`/linux/ecosystem/testrail/5.4.1.3669/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/5.5.0.3727/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/5.5.0.3731/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/5.5.0.3735/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/5.5.1.3746/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/5.6.0.3853/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/5.6.0.3856/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/5.6.0.3861/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/5.6.0.3862/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/5.6.0.3865/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/5.7.0.3938/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/5.7.0.3942/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/5.7.0.3951/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/5.7.1.4026/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/5.7.1.4028/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.0.0.4140/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.0.1.4163/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.1.0.4367/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.1.0.4369/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.1.1.1020/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.1.1.1021/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.2.0.1085/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.2.1.1003/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.2.1.1005/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.2.2.1107/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.2.3.1114/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.3.0.1120/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.3.1.1004/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.3.1.1006/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.4.0.1284/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.4.0.1293/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.5.0.1298/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.5.1.1002/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.5.3.1001/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.5.4.1002/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.5.4.1007/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.5.5.1009/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.5.6.1014/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.5.7.1000/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.6.0.1156/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.6.1.1166/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.7.1.1020/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.7.2.1037/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.7.2.1043/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/7.0.0.1057/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/7.0.1.1002/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/7.0.1.1013/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/7.0.2.1014/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/7.0.2.1015/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/7.0.2.1016/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/7.4.1.8079/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/7.4.1.8091/ldap         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/testrail/7.4.1.8092/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/7.5.1.7010/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/7.5.1.7012/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/7.5.1.7013/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/7.5.2.1002/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/7.5.3.1000/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/8.0.0.1089/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/8.0.1.1029/ldap         && pwd && make build && make deploy
+
 
 ecosystem-torrserver-images:
 	cd `pwd`/linux/ecosystem/torrserver            && pwd && make build && make deploy

@@ -1,0 +1,100 @@
+- name: Read versions from file testrail.php81.txt
+  slurp:
+     src: "roles/common/files/versions/testrail/testrail.php81.txt"
+  register: version_output
+
+- name: Set version variable
+  set_fact:
+    testrail_versions: "{{ version_output['content'] | b64decode | trim | split('\n') }}"
+
+- name: Create directories for Testrail versions with php81
+  file:
+    path: "{{ target_directory }}/{{ item }}"
+    state: directory
+    mode: '0755'
+  with_items: "{{ testrail_versions }}"
+
+- name: Copy all files from 'files' directory to each version directory
+  copy:
+    src: "php81/"
+    dest: "{{ target_directory }}/{{ item }}/"
+  with_items: "{{ testrail_versions }}"
+#  no_log: true
+
+- name: Copy template with link to each version directory
+  template:
+    src: "template.env.php81.j2"
+    dest: "{{ target_directory }}/{{ item }}/main/.env"
+  with_items: "{{ testrail_versions }}"
+
+- name: Copy main template docker-compose.yml to each version directory
+  template:
+    src: "php81/main/docker-compose.yml.j2"
+    dest: "{{ target_directory }}/{{ item }}/main/docker-compose.yml"
+  with_items: "{{ testrail_versions }}"
+
+- name: Copy main template docker-entrypoint.sh to each version directory
+  template:
+    src: "php81/main/docker-entrypoint.sh.j2"
+    dest: "{{ target_directory }}/{{ item }}/main/docker-entrypoint.sh"
+  with_items: "{{ testrail_versions }}"
+
+- name: Copy main template Dockerfile to each version directory
+  template:
+    src: "php81/main/Dockerfile.j2"
+    dest: "{{ target_directory }}/{{ item }}/main/Dockerfile"
+  with_items: "{{ testrail_versions }}"
+
+- name: Copy main template README.md to each version directory
+  template:
+    src: "php81/main/README.md.j2"
+    dest: "{{ target_directory }}/{{ item }}/main/README.md"
+  with_items: "{{ testrail_versions }}"
+
+- name: Copy AD template docker-compose.yml to each version directory
+  template:
+    src: "php81/ad/docker-compose.yml.j2"
+    dest: "{{ target_directory }}/{{ item }}/ad/docker-compose.yml"
+  with_items: "{{ testrail_versions }}"
+
+- name: Copy AD template docker-entrypoint.sh to each version directory
+  template:
+    src: "php81/ad/docker-entrypoint.sh.j2"
+    dest: "{{ target_directory }}/{{ item }}/ad/docker-entrypoint.sh"
+  with_items: "{{ testrail_versions }}"
+
+- name: Copy AD template Dockerfile to each version directory
+  template:
+    src: "php81/ad/Dockerfile.j2"
+    dest: "{{ target_directory }}/{{ item }}/ad/Dockerfile"
+  with_items: "{{ testrail_versions }}"
+
+- name: Copy AD template README.md to each version directory
+  template:
+    src: "php81/ad/README.md.j2"
+    dest: "{{ target_directory }}/{{ item }}/ad/README.md"
+  with_items: "{{ testrail_versions }}"
+
+- name: Copy LDAP template docker-compose.yml to each version directory
+  template:
+    src: "php81/ldap/docker-compose.yml.j2"
+    dest: "{{ target_directory }}/{{ item }}/ldap/docker-compose.yml"
+  with_items: "{{ testrail_versions }}"
+
+- name: Copy LDAP template docker-entrypoint.sh to each version directory
+  template:
+    src: "php81/ldap/docker-entrypoint.sh.j2"
+    dest: "{{ target_directory }}/{{ item }}/ldap/docker-entrypoint.sh"
+  with_items: "{{ testrail_versions }}"
+
+- name: Copy LDAP template Dockerfile to each version directory
+  template:
+    src: "php81/ldap/Dockerfile.j2"
+    dest: "{{ target_directory }}/{{ item }}/ldap/Dockerfile"
+  with_items: "{{ testrail_versions }}"
+
+- name: Copy LDAP template README.md to each version directory
+  template:
+    src: "php81/ldap/README.md.j2"
+    dest: "{{ target_directory }}/{{ item }}/ldap/README.md"
+  with_items: "{{ testrail_versions }}"

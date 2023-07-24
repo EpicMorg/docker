@@ -1,0 +1,3 @@
+# Defaults
+versions_file: "roles/common/files/versions/jira/9.txt"
+target_directory: "/opt/tmp/jira/"

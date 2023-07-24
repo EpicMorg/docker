@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "[testrail] Welcome to Testrail 7.4.1.8092 with LDAP plugin"
+
 echo "[testrail] Starting testrail service"
 
 #################################################################################
