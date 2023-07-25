@@ -42,7 +42,7 @@ RUN echo "[testrail] Preparing folders" && \
     mkdir -p ${TR_WWW_PATH} && \
     mkdir -p ${TR_DEFAULT_ATTACHMENT_DIR} ${TR_DEFAULT_REPORT_DIR} ${TR_DEFAULT_AUDIT_DIR} ${TR_DEFAULT_LOG_DIR} && \
     echo "[testrail] Downloading and installing" && \
-    wget --no-check-certificate -O ${TESTRAIL_RELEASE_DIR}/testrail.zip ${DOWNLOAD_URL} && \
+    wget --user-agent "Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/81.0" --no-check-certificate -O ${TESTRAIL_RELEASE_DIR}/testrail.zip ${DOWNLOAD_URL} && \
     chown -R www-data:www-data ${TESTRAIL_RELEASE_DIR} && \
     unzip -q -o ${TESTRAIL_RELEASE_DIR}/testrail.zip -d /var/www/ && \
     chown -R www-data:www-data ${TR_WWW_PATH} && \
