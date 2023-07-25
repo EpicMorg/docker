@@ -19,4 +19,4 @@
   gather_facts: false
   roles:
     - atlassian.jira
-#    - gurock.testrail
+    - gurock.testrail
