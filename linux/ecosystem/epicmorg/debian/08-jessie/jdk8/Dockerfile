@@ -9,7 +9,7 @@ RUN wget -qO - https://packages.adoptium.net/artifactory/api/gpg/key/public | ap
     echo 'deb https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/ jessie main' > /etc/apt/sources.list.d/adoptopenjdk-official.list && \
     apt-get update && \
     apt-get autoremove -y && \
-    apt-get install -y --allow-unauthenticated adoptopenjdk-8-hotspot && \
+    apt-get install -y --allow-unauthenticated adoptopenjdk-8-hotspot adoptopenjdk-8-hotspot-jre && \
     java -version
 
 ##################################################################

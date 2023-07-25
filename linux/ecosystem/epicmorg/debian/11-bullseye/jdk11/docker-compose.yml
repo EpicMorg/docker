@@ -15,3 +15,8 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile.develop
+  app-old-develop:
+    image: "epicmorg/debian:buster-develop-jdk11-adopted"
+    build:
+      context: .
+      dockerfile: ./Dockerfile.adopted.develop

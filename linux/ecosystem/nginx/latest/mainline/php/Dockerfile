@@ -6,7 +6,7 @@ ARG NGINX_VERSION
 ##################################################################
 #                   Start build process
 ##################################################################
-FROM epicmorg/debian:bullseye-develop AS builder
+FROM epicmorg/debian:bookworm-develop AS builder
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -38,18 +38,27 @@ RUN mkdir -p ${BUILDS_DIR} ${SRC_DIR} ${EXPORT_DIR} ${MAKE_DIR} ${P4API_DIR} ${P
 ##################################################################
 #                   Installing  PHP7
 ##################################################################
-#installing php repo
-
 #Install base packages
+RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
+RUN sh -c 'echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list'
 RUN apt-get update && \
     apt-get install -y  --allow-unauthenticated \
       libmemcached-dev \
       smbclient libsmbclient libsmbclient-dev \
+      php-pear \
       php7.4 \
+      php7.4-common \
       php7.4-dev \
       php7.4-fpm \
       php7.4-cli \
-      php7.4-cgi
+      php7.4-xml \
+      php7.4-cgi && \
+    update-alternatives --set php /usr/bin/php7.4 && \
+    pear upgrade && \
+    pear update-channels && \
+    pecl channel-update pecl.php.net && \
+    php -m && \
+    php -v
 
 ##################################################################
 #                   preparing p4src
@@ -102,58 +111,70 @@ ARG PHP_VER=7.4
 ARG PHP_DIR=/etc/php/${PHP_VER}
 ARG P4_PHP_INI=${PHP_DIR}/mods-available/perfroce.ini
 ARG SMB_PHP_INI=${PHP_DIR}/mods-available/smbclient.ini
+ARG CAS_PHP_INI=${PHP_DIR}/mods-available/cassandra.ini
+
 
 ##################################################################
 #                   Installing  PHP7
 ##################################################################
-#Install base packages
+RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
+RUN sh -c 'echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list'
 RUN apt-get update && \
     apt-get install -y  --allow-unauthenticated \
-      php7.4 \
-      php7.4-dev \
-      php7.4-fpm \
-      php7.4-cli \
-      php7.4-cgi \
+      libmemcached-dev \
+      libgmp-dev \
       php-pear \
-      php7.4-gmp \
-      php7.4-snmp \
+      php7.4 \
+      php7.4-common \
+      php7.4-dev \
       php7.4-ldap \
-      php7.4-mail  \
+      php7.4-mail \
+      php7.4-mailparse \
       php7.4-soap \
       php7.4-mysql \
-      php7.4-memcached \
-      php7.4-memcache \
-      php7.4-igbinary \
-      php7.4-interbase \
       php7.4-curl \
       php7.4-gd \
       php7.4-intl \
       php7.4-zip \
       php7.4-bcmath \
+      php7.4-fpm \
       php7.4-imap \
       php7.4-pspell \
       php7.4-sqlite3 \
+      php7.4-pgsql \
       php7.4-tidy \
       php7.4-xmlrpc \
       php7.4-xml \
       php7.4-mbstring \
+      php7.4-gettext \
       php7.4-apcu \
+      php7.4-cli \
       php7.4-common \
+      php7.4-cgi \
       php7.4-json \
       php7.4-readline \
       php7.4-enchant \
       php7.4-ssh2 \
       php7.4-oauth \
       php7.4-gmagick \
-      php7.4-gnupg \
       php7.4-redis \
-      smbclient libsmbclient \
-#      php-smbclient \
+      php7.4-smbclient \
       php7.4-yaml \
       php7.4-geoip \
+      smbclient libsmbclient \
       sendmail && \
+    ln -sf /etc/ssl/dhparam.pem /etc/php/dhparam.pem && \
     update-alternatives --set php /usr/bin/php7.4 && \
-    phpenmod \
+    pear upgrade && \
+    pear update-channels && \
+    pecl channel-update pecl.php.net && \
+    php -m && \
+    php -v
+
+##################################################################
+#                   Enabling extensions
+##################################################################
+RUN phpenmod \
       snmp \
       gmp \
       calendar \
@@ -190,7 +211,67 @@ RUN apt-get update && \
       xmlwriter \
       xsl \
       yaml && \
-    ln -sf /etc/ssl/dhparam.pem /etc/php/dhparam.pem && \
+    php -m && \
+    php -v
+
+##############################################################################
+# Cassandra CPP Support Install
+##############################################################################
+COPY addons/multiarch-support_2.28_amd64.deb /tmp/cassandra-php-driver/multiarch-support_2.28_amd64.deb
+RUN wget -c --random-wait --user-agent="Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36" --directory-prefix=/tmp/cassandra-php-driver \ 
+    https://downloads.datastax.com/cpp-driver/ubuntu/18.04/dependencies/libuv/v1.35.0/libuv1_1.35.0-1_amd64.deb \
+    https://downloads.datastax.com/cpp-driver/ubuntu/18.04/dependencies/libuv/v1.35.0/libuv1-dev_1.35.0-1_amd64.deb \
+    https://downloads.datastax.com/cpp-driver/ubuntu/18.04/dependencies/libuv/v1.35.0/libuv1-dbg_1.35.0-1_amd64.deb \
+    https://downloads.datastax.com/cpp-driver/ubuntu/18.04/cassandra/v2.16.0/cassandra-cpp-driver-dbg_2.16.0-1_amd64.deb \
+    https://downloads.datastax.com/cpp-driver/ubuntu/18.04/cassandra/v2.16.0/cassandra-cpp-driver-dev_2.16.0-1_amd64.deb \
+    https://downloads.datastax.com/cpp-driver/ubuntu/18.04/cassandra/v2.16.0/cassandra-cpp-driver_2.16.0-1_amd64.deb
+
+RUN cd /tmp/cassandra-php-driver && \
+    dpkg -i ./multiarch-support_2.28_amd64.deb && \
+    dpkg -i ./libuv1_1.35.0-1_amd64.deb && \
+    dpkg -i ./libuv1-dev_1.35.0-1_amd64.deb && \
+    dpkg -i ./libuv1-dbg_1.35.0-1_amd64.deb && \
+    dpkg -i ./cassandra-cpp-driver_2.16.0-1_amd64.deb && \
+    dpkg -i ./cassandra-cpp-driver-dev_2.16.0-1_amd64.deb && \
+    dpkg -i ./cassandra-cpp-driver-dbg_2.16.0-1_amd64.deb
+
+##############################################################################
+# Cassandra PHP Drivers Install
+##############################################################################
+#RUN pecl install cassandra && \
+COPY usr/lib/php/20190902/cassandra.so ${PHP_MODULE_PATH}/cassandra.so
+RUN     echo "extension = ${PHP_MODULE_PATH}/cassandra.so" > ${CAS_PHP_INI} && \
+    ln -sf ${CAS_PHP_INI} ${PHP_DIR}/cgi/conf.d/cassandra.ini && \
+    ln -sf ${CAS_PHP_INI} ${PHP_DIR}/cli/conf.d/cassandra.ini && \
+    ln -sf ${CAS_PHP_INI} ${PHP_DIR}/fpm/conf.d/cassandra.ini && \
+#    ln -sf ${CAS_PHP_INI} ${PHP_DIR}/apache2/conf.d/cassandra.ini  && \
+    php -m && \
+    php -v
+
+##################################################################
+#                   Installing timezonedb addon
+##################################################################
+RUN pecl install timezonedb && \
+#    echo "extension = ${PHP_MODULE_PATH}/timezonedb.so" >> ${PHP_DIR}/apache2/php.ini && \
+    echo "extension = ${PHP_MODULE_PATH}/timezonedb.so" >> ${PHP_DIR}/cgi/php.ini && \
+    echo "extension = ${PHP_MODULE_PATH}/timezonedb.so" >> ${PHP_DIR}/cli/php.ini && \
+    echo "extension = ${PHP_MODULE_PATH}/timezonedb.so" >> ${PHP_DIR}/fpm/php.ini && \
+    php -m && \
+    php -v
+
+##################################################################
+#                   Installing imagic addon
+##################################################################
+RUN apt-get update && \
+    apt-get install -y  --allow-unauthenticated \
+      libmagickwand-dev \
+      imagemagick && \
+    pecl install imagick && \
+#    echo "extension = ${PHP_MODULE_PATH}/imagick.so" >> ${PHP_DIR}/apache2/php.ini && \
+    echo "extension = ${PHP_MODULE_PATH}/imagick.so" >> ${PHP_DIR}/cgi/php.ini && \
+    echo "extension = ${PHP_MODULE_PATH}/imagick.so" >> ${PHP_DIR}/cli/php.ini && \
+    echo "extension = ${PHP_MODULE_PATH}/imagick.so" >> ${PHP_DIR}/fpm/php.ini && \
+    php -m && \
     php -v
 
 ##################################################################
@@ -222,7 +303,7 @@ RUN echo "extension = ${PHP_MODULE_PATH}/phpBolt-extension-1.0.4-php74.so" >> ${
 #                   Installing P4 addon
 ##################################################################
 COPY --from=builder /builds/export/perforce.so ${PHP_MODULE_PATH}
-RUN echo "extension=perforce.so" > ${P4_PHP_INI} && \
+RUN echo "extension = ${PHP_MODULE_PATH}/perforce.so" > ${P4_PHP_INI} && \
     ln -sf ${P4_PHP_INI} ${PHP_DIR}/cgi/conf.d/perforce.ini && \
     ln -sf ${P4_PHP_INI} ${PHP_DIR}/cli/conf.d/perforce.ini && \
     ln -sf ${P4_PHP_INI} ${PHP_DIR}/fpm/conf.d/perforce.ini && \
@@ -233,7 +314,7 @@ RUN echo "extension=perforce.so" > ${P4_PHP_INI} && \
 #                   Installing smbclient addon
 ##################################################################
 COPY --from=builder /builds/export/smbclient.so ${PHP_MODULE_PATH}
-RUN echo "extension=smbclient.so" > ${SMB_PHP_INI} && \
+RUN echo "extension = ${PHP_MODULE_PATH}/smbclient.so" > ${SMB_PHP_INI} && \
     ln -sf ${SMB_PHP_INI} ${PHP_DIR}/cgi/conf.d/smbclient.ini && \
     ln -sf ${SMB_PHP_INI} ${PHP_DIR}/cli/conf.d/smbclient.ini && \
     ln -sf ${SMB_PHP_INI} ${PHP_DIR}/fpm/conf.d/smbclient.ini && \
@@ -255,10 +336,7 @@ RUN apt clean -y && \
     apt autoclean -y && \
     rm -rfv /var/lib/apt/lists/* && \
     rm -rfv /var/cache/apt/archives/*.deb && \
-    rm -rfv /tmp/deb/* && \
-    rm -rfv /tmp/ioncube/* && \
-    rm -rfv /tmp/composer-setup.php && \
-    rm -rfv /tmp/ioncube.tar.gz
+    rm -rfv /tmp/*
 
 #healthcheck. good practice
 HEALTHCHECK --interval=2m --timeout=3s CMD curl -f http://localhost:80/ || exit 1

@@ -63,8 +63,11 @@ jobs:
     - name: "Build and Deploy Debian 10 jdk18 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/10-buster/jdk18    && pwd && make build && make deploy
 
-#    - name: "Build and Deploy Debian 10 jdk19 Image:"
-#    run:  cd linux/ecosystem/epicmorg/debian/10-buster/jdk19    && pwd && make build && make deploy
+    - name: "Build and Deploy Debian 10 jdk19 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/10-buster/jdk19    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 10 jdk20 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/10-buster/jdk20    && pwd && make build && make deploy
 
 ##################################################################################
 

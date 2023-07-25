@@ -1,10 +1,10 @@
-FROM epicmorg/debian:bullseye
+FROM epicmorg/debian:bookworm
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
+ARG PHP_VER=8.1
 ARG PHP_MODULE_VER=20210902
 ARG PHP_MODULE_PATH=/usr/lib/php/${PHP_MODULE_VER}
-ARG PHP_VER=8.1
 ARG PHP_DIR=/etc/php/${PHP_VER}
 ARG P4_PHP_INI=${PHP_DIR}/mods-available/perfroce.ini
 ARG SMB_PHP_INI=${PHP_DIR}/mods-available/smbclient.ini

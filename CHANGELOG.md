@@ -8,6 +8,7 @@
   * updated `atlassian` images
     * added `jira` version `9` images
     * reworked `jira 5-8` iamges
+  * updated `nginx` image to `1.25.1`
   * updated `testrail` images
   * added reworked `php5.5` iamge
   * added reworked `php7.0` + `apache2` images with `cassandra`, `ioncube` and `bolt` support

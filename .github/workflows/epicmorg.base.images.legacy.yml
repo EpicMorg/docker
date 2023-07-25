@@ -168,8 +168,8 @@ jobs:
     - name: "Build and Deploy Debian 9 jdk18 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/09-stretch/jdk18    && pwd && make build && make deploy
 
-#    - name: "Build and Deploy Debian 9 jdk19 Image:"
-#    run:  cd linux/ecosystem/epicmorg/debian/09-stretch/jdk19    && pwd && make build && make deploy
+    - name: "Build and Deploy Debian 9 jdk19 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/09-stretch/jdk19    && pwd && make build && make deploy
 
 ##################################################################################
 

@@ -66,6 +66,9 @@ jobs:
     - name: "Build and Deploy NodeJS 19 Image:"
       run:  cd linux/ecosystem/nodejs/node19    && pwd && make build && make deploy
 
+    - name: "Build and Deploy NodeJS 20 Image:"
+      run:  cd linux/ecosystem/nodejs/node20    && pwd && make build && make deploy
+
 ##################################################################################
 
     - name: Cleanup
