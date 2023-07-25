@@ -726,58 +726,7 @@ ecosystem-perforce-proxy-images:
 	cd `pwd`/linuxecosystem/perforce/p4p/r21.2    && pwd && make build && make deploy
 	cd `pwd`/linuxecosystem/perforce/p4p/r22.1    && pwd && make build && make deploy
 
-bundle-base-images:
-	@echo "======================================="
-	@echo "===== Building  EpicMorg   images ====="
-	@echo "======================================="
-	make advanced-pyhton-images
-	make ecosystem-debian-images
-
-bundle-teamcity:
-	@echo "======================================="
-	@echo "===== Building  TeamCity   images ====="
-	@echo "======================================="
-	make advanced-teamcity-server-images
-
-bundle-gitlab:
-	@echo "======================================="
-	@echo "===== Building  GitLab     images ====="
-	@echo "======================================="
-	make ecosystem-gitlab-runner-images
-
-bundle-atlassian:
-	@echo "======================================="
-	@echo "===== Building  Atlassian  images ====="
-	@echo "======================================="
-	cd `pwd`/linux/ecosystem/atlassian/bitbucket/latest           && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/atlassian/confluence/latest          && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/atlassian/crowd/latest               && pwd && make build && make deploy
-#	cd `pwd`/linux/ecosystem/atlassian/crucible/latest            && pwd && make build && make deploy
-#	cd `pwd`/linux/ecosystem/atlassian/fisheye/latest             && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/atlassian/fisheye-crucible/latest    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/atlassian/jira/latest                && pwd && make build && make deploy
-#
-	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.12.0           && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.4.0          && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.10.0                && pwd && make build && make deploy
-
-
-bundle-web:
-	@echo "======================================="
-	@echo "=====   Building    web    images ====="
-	@echo "======================================="
-	make ecosystem-php-images
-	make ecosystem-apache2-images
-	make ecosystem-nginx-images
-	
-bundle-p4:
-	@echo "======================================="
-	@echo "=====   Building    p4    images ====="
-	@echo "======================================="
-	make ecosystem-perforce-base-images
-	make ecosystem-perforce-proxy-images
-
-atlassian-jira-all-images:
+ecosystem-jira-4-images:
 	cd `pwd`/linux/ecosystem/atlassian/jira/4/4.1.1                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/4/4.1.2                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/4/4.2                && pwd && make build && make deploy
@@ -796,8 +745,7 @@ atlassian-jira-all-images:
 	cd `pwd`/linux/ecosystem/atlassian/jira/4/4.4.4                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/4/4.4.5                && pwd && make build && make deploy
 
-	make docker-clean
-
+ecosystem-jira-5-images:
 	cd `pwd`/linux/ecosystem/atlassian/jira/5/5.0                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/5/5.0.1                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/5/5.0.2                && pwd && make build && make deploy
@@ -829,8 +777,7 @@ atlassian-jira-all-images:
 	cd `pwd`/linux/ecosystem/atlassian/jira/5/5.2.8                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/5/5.2.9                && pwd && make build && make deploy
 
-	make docker-clean
-
+ecosystem-jira-6-images:
 	cd `pwd`/linux/ecosystem/atlassian/jira/6/6.0                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/6/6.0.1                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/6/6.0.2                && pwd && make build && make deploy
@@ -889,8 +836,7 @@ atlassian-jira-all-images:
 	cd `pwd`/linux/ecosystem/atlassian/jira/6/6.4.13                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/6/6.4.14                && pwd && make build && make deploy
 
-	make docker-clean
-
+ecosystem-jira-7-images:
 	cd `pwd`/linux/ecosystem/atlassian/jira/7/7.0.0                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/7/7.0.2                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/7/7.0.4                && pwd && make build && make deploy
@@ -943,9 +889,6 @@ atlassian-jira-all-images:
 	cd `pwd`/linux/ecosystem/atlassian/jira/7/7.5.2                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/7/7.5.3                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/7/7.5.4                && pwd && make build && make deploy
-
-	make docker-clean
-
 	cd `pwd`/linux/ecosystem/atlassian/jira/7/7.6.0                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/7/7.6.1                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/7/7.6.2                && pwd && make build && make deploy
@@ -1000,8 +943,7 @@ atlassian-jira-all-images:
 	cd `pwd`/linux/ecosystem/atlassian/jira/7/7.13.17                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/7/7.13.18                && pwd && make build && make deploy
 
-	make docker-clean
-
+ecosystem-jira-8-images:
 	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.0.0                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.0.2                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.0.3                && pwd && make build && make deploy
@@ -1036,9 +978,6 @@ atlassian-jira-all-images:
 	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.5.7                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.5.8                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.5.9                && pwd && make build && make deploy
-
-	make docker-clean
-
 	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.5.10                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.5.11                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.5.12                && pwd && make build && make deploy
@@ -1092,9 +1031,6 @@ atlassian-jira-all-images:
 	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.13.25                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.13.26                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.13.27                && pwd && make build && make deploy
-
-	make docker-clean
-
 	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.14.0                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.14.1                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.15.0                && pwd && make build && make deploy
@@ -1141,8 +1077,7 @@ atlassian-jira-all-images:
 	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.22.4                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.22.6                && pwd && make build && make deploy
 
-	make docker-clean
-
+ecosystem-jira-9-images:
 	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.0.0                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.1.0                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.1.1                && pwd && make build && make deploy
@@ -1171,3 +1106,67 @@ atlassian-jira-all-images:
 	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.9.0                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.9.1                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.10.0                && pwd && make build && make deploy
+
+bundle-base-images:
+	@echo "======================================="
+	@echo "===== Building  EpicMorg   images ====="
+	@echo "======================================="
+	make advanced-pyhton-images
+	make ecosystem-debian-images
+
+bundle-teamcity:
+	@echo "======================================="
+	@echo "===== Building  TeamCity   images ====="
+	@echo "======================================="
+	make advanced-teamcity-server-images
+
+bundle-gitlab:
+	@echo "======================================="
+	@echo "===== Building  GitLab     images ====="
+	@echo "======================================="
+	make ecosystem-gitlab-runner-images
+
+bundle-jira:
+	@echo "======================================="
+	@echo "===== Building  All Jira  images  ====="
+	@echo "======================================="
+#	make ecosystem-jira-4-images
+	make ecosystem-jira-5-images
+	make ecosystem-jira-6-images
+	make ecosystem-jira-7-images
+	make ecosystem-jira-8-images
+	make ecosystem-jira-9-images
+
+bundle-atlassian-altest:
+	@echo "=============================================="
+	@echo "===== Building  Atlassian Latest images  ====="
+	@echo "=============================================="
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/latest           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/latest          && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/latest               && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crucible/latest            && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/fisheye/latest             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/fisheye-crucible/latest    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/latest                && pwd && make build && make deploy
+
+bundle-atlassian:
+	@echo "======================================="
+	@echo "===== Building  Atlassian  images ====="
+	@echo "======================================="
+	make bundle-jira
+
+bundle-web:
+	@echo "======================================="
+	@echo "=====   Building    web    images ====="
+	@echo "======================================="
+	make ecosystem-php-images
+	make ecosystem-apache2-images
+	make ecosystem-nginx-images
+	
+bundle-p4:
+	@echo "======================================="
+	@echo "=====   Building    p4    images ====="
+	@echo "======================================="
+	make ecosystem-perforce-base-images
+	make ecosystem-perforce-proxy-images
+ 

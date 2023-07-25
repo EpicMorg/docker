@@ -1,6 +1,6 @@
-# broken
-#- name: "Generate images for Jira 4 (jdk6)"
-#  import_tasks: atlassian.jira.5.jdk6.yml
+# broken envs, generating without it
+- name: "Generate images for Jira 4 (jdk6)"
+  import_tasks: atlassian.jira.5.jdk6.yml
 
 - name: "Generate images for Jira 5.0-5.1 (jdk6)"
   import_tasks: atlassian.jira.5.jdk6.yml

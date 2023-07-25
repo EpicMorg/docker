@@ -1,4 +1,4 @@
-# Cant template because each versions have unical link. need to rework
+# Cant template urls because each versions have unical link. need to rework
 
 - name: Read versions from file
   slurp:
@@ -16,11 +16,11 @@
     mode: '0755'
   with_items: "{{ jira_versions }}"
 
-- name: Copy template with link to each version directory
-  template:
-    src: "template.env.j2"
-    dest: "{{ target_directory }}/{{ item }}/.env"
-  with_items: "{{ jira_versions }}"
+#- name: Copy template with link to each version directory
+#  template:
+#    src: "template.env.j2"
+#    dest: "{{ target_directory }}/{{ item }}/.env"
+#  with_items: "{{ jira_versions }}"
 
 - name: Copy docker-compose.yml from 'files' directory to each version directory
   copy:
