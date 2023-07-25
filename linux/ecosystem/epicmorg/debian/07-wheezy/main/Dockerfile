@@ -132,14 +132,14 @@ RUN wget -c https://cli.github.com/packages/githubcli-archive-keyring.gpg -O /et
 ##################################################################
 #                   Install p4client
 ##################################################################
-RUN wget --no-check-certificate -nv --random-wait --retry-connrefused --continue -P /usr/bin ${P4_DOWNLOAD_URL} && \
+RUN wget --sslcheckcert=0 --no-check-certificate -nv --random-wait --retry-connrefused --continue -P /usr/bin ${P4_DOWNLOAD_URL} && \
     chmod +x /usr/bin/p4
 
 ##################################################################
 #                    dumb init
 ##################################################################
 ENV DUMB_INIT_VERSION=1.2.5
-RUN wget -q --no-check-certificate -c https://github.com/Yelp/dumb-init/releases/download/v${DUMB_INIT_VERSION}/dumb-init_${DUMB_INIT_VERSION}_x86_64 --random-wait -O /usr/bin/dumb-init && \
+RUN wget -q --sslcheckcert=0 --no-check-certificate -c https://github.com/Yelp/dumb-init/releases/download/v${DUMB_INIT_VERSION}/dumb-init_${DUMB_INIT_VERSION}_x86_64 --random-wait -O /usr/bin/dumb-init && \
     chmod +x /usr/bin/dumb-init && \
     dumb-init --version
 
