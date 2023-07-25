@@ -9,7 +9,7 @@ RUN wget -qO - https://packages.adoptium.net/artifactory/api/gpg/key/public  | a
     echo 'deb https://packages.adoptium.net/artifactory/deb stretch main' > /etc/apt/sources.list.d/temurin-official.list && \
     apt-get update && \
     apt-get autoremove -y && \
-    apt-get install -y --allow-unauthenticated temurin-8-jdk temurin-8-jre && \
+    apt-get install -y --allow-unauthenticated temurin-8-jdk && \
     java -version
 
 ##################################################################
