@@ -88,6 +88,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     unrar \
     xz-utils \
     wget \
+    wget2 \
     aptitude  \
     sudo  \
     logrotate \
@@ -132,7 +133,7 @@ RUN wget -c https://cli.github.com/packages/githubcli-archive-keyring.gpg -O /et
 ##################################################################
 #                   Install p4client
 ##################################################################
-RUN wget --secure-protocol=TLSv1 --no-check-certificate -nv --random-wait --retry-connrefused --continue -P /usr/bin ${P4_DOWNLOAD_URL} && \
+RUN wget2 --no-check-certificate -nv --random-wait --retry-connrefused --continue -P /usr/bin ${P4_DOWNLOAD_URL} && \
     chmod +x /usr/bin/p4
 
 ##################################################################
