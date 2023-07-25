@@ -132,7 +132,7 @@ RUN wget -c https://cli.github.com/packages/githubcli-archive-keyring.gpg -O /et
 ##################################################################
 #                   Install p4client
 ##################################################################
-RUN wget --no-check-certificate -nv --random-wait --retry-connrefused --continue -P /usr/bin ${P4_DOWNLOAD_URL} && \
+RUN curl --insecure -o /usr/bin/p4 ${P4_DOWNLOAD_URL} && \
     chmod +x /usr/bin/p4
 
 ##################################################################
