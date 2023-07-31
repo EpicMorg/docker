@@ -84,8 +84,12 @@ RUN wget -qO - ${NGINX_DOWNLOAD_URL} | tar -zxv --strip-components=1 -C ${NGINX_
     git clone https://github.com/openresty/echo-nginx-module.git http-echo && \
     git clone https://github.com/aperezdc/ngx-fancyindex.git http-fancyindex && \
     git clone https://github.com/slact/nchan.git nchan && \
-#    git clone https://github.com/msva/nginx-upload-progress-module.git http-uploadprogress && \
-#    git clone https://github.com/masterzen/nginx-upload-progress-module.git http-uploadprogress && \
+    #<=1.25
+    git clone https://github.com/kaprog/nginx-upload-progress-module.git http-uploadprogress && \ 
+    #<=1.23<=1.24, 1.25 broken
+#   git clone https://github.com/msva/nginx-upload-progress-module.git http-uploadprogress && \ 
+    #<=1.23
+#   git clone https://github.com/masterzen/nginx-upload-progress-module.git http-uploadprogress && \
     git clone https://github.com/yaoweibin/ngx_http_substitutions_filter_module http-subs-filter && \
     git clone https://github.com/grahamedgecombe/nginx-ct.git ssl-ct && \
 #    git clone https://github.com/stnoonan/spnego-http-auth-nginx-module.git spnego-http-auth-nginx-module && \
