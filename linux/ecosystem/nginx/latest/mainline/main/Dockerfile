@@ -54,8 +54,8 @@ RUN cd ${SRC_DIR} && \
     ls -las && \
     fakeroot checkinstall -D --pakdir=${EXPORT_DIR} --maintainer="EpicMorg, developer@epicm.org" --pkgname=ip2-custom  --conflicts=ip2 --install=yes -y  && \
 #    ln -s /usr/local/lib/libIP2Location.so /usr/lib/libIP2Location.so && \
-    ln -s /usr/local/lib/libIP2Location.so.1 /usr/lib/libIP2Location.so.1 && \&& \
-    ln -s /usr/local/lib/libIP2Location.so.2 /usr/lib/libIP2Location.so.2 && \&& \
+    ln -s /usr/local/lib/libIP2Location.so.1 /usr/lib/libIP2Location.so.1 && \
+    ln -s /usr/local/lib/libIP2Location.so.2 /usr/lib/libIP2Location.so.2 && \
     ln -s /usr/local/lib/libIP2Location.so.3 /usr/lib/libIP2Location.so.3 && \
     ln -s /usr/local/lib/libIP2Location.so.4 /usr/lib/libIP2Location.so.4 && \
     ln -s /usr/local/lib/libIP2Location.so.5 /usr/lib/libIP2Location.so.5 && \
