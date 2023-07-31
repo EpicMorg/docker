@@ -168,7 +168,7 @@ RUN cd ${NGINX_SRC_DIR} && \
     --add-dynamic-module=http-echo \
     --add-dynamic-module=http-fancyindex \
     --add-dynamic-module=nchan \
-    --add-dynamic-module=http-uploadprogress \
+#    --add-dynamic-module=http-uploadprogress \
     --add-dynamic-module=http-subs-filter \
     --add-dynamic-module=ssl-ct \
     --add-dynamic-module=http-geoip2 \
