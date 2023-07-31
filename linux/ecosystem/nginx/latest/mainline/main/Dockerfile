@@ -53,12 +53,12 @@ RUN cd ${SRC_DIR} && \
     make check && \
     ls -las && \
     fakeroot checkinstall -D --pakdir=${EXPORT_DIR} --maintainer="EpicMorg, developer@epicm.org" --pkgname=ip2-custom  --conflicts=ip2 --install=yes -y  && \
-    ln -s /usr/local/lib/libIP2Location.so /usr/lib/libIP2Location.so && \
-    ln -s /usr/local/lib/libIP2Location.so.1 /usr/lib/libIP2Location.so.1 && \
-    ln -s /usr/local/lib/libIP2Location.so.2 /usr/lib/libIP2Location.so.2 && \
-    ln -s /usr/local/lib/libIP2Location.so /lib/libIP2Location.so && \
-    ln -s /usr/local/lib/libIP2Location.so.1 /lib/libIP2Location.so.1 && \
-    ln -s /usr/local/lib/libIP2Location.so.2 /lib/libIP2Location.so.2 && \
+#    ln -s /usr/local/lib/libIP2Location.so /usr/lib/libIP2Location.so && \
+    ln -s /usr/local/lib/libIP2Location.so.1 /usr/lib/libIP2Location.so.1 && \&& \
+    ln -s /usr/local/lib/libIP2Location.so.2 /usr/lib/libIP2Location.so.2 && \&& \
+    ln -s /usr/local/lib/libIP2Location.so.3 /usr/lib/libIP2Location.so.3 && \
+    ln -s /usr/local/lib/libIP2Location.so.4 /usr/lib/libIP2Location.so.4 && \
+    ln -s /usr/local/lib/libIP2Location.so.5 /usr/lib/libIP2Location.so.5 && \
     ln -s /lib/x86_64-linux-gnu/libcrypto.so.1.1 /lib/x86_64-linux-gnu/libcrypto.so.1 && \
     dpkg --force-all -i ${EXPORT_DIR}/*.deb
 
@@ -217,18 +217,13 @@ RUN apt-get update && \
     libgd3 \
     libxslt1.1 && \
     dpkg --force-all -i /tmp/deb/*.deb && \
-    ln -s /usr/local/lib/libIP2Location.so /usr/lib/libIP2Location.so && \
+#    ln -s /usr/local/lib/libIP2Location.so /usr/lib/libIP2Location.so && \
     ln -s /usr/local/lib/libIP2Location.so.1 /usr/lib/libIP2Location.so.1 && \
     ln -s /usr/local/lib/libIP2Location.so.2 /usr/lib/libIP2Location.so.2 && \
     ln -s /usr/local/lib/libIP2Location.so.3 /usr/lib/libIP2Location.so.3 && \
     ln -s /usr/local/lib/libIP2Location.so.4 /usr/lib/libIP2Location.so.4 && \
     ln -s /usr/local/lib/libIP2Location.so.5 /usr/lib/libIP2Location.so.5 && \
-    ln -s /usr/local/lib/libIP2Location.so /lib/libIP2Location.so && \
-    ln -s /usr/local/lib/libIP2Location.so.1 /lib/libIP2Location.so.1 && \
-    ln -s /usr/local/lib/libIP2Location.so.2 /lib/libIP2Location.so.2 && \
-    ln -s /usr/local/lib/libIP2Location.so.3 /lib/libIP2Location.so.3 && \
-    ln -s /usr/local/lib/libIP2Location.so.4 /lib/libIP2Location.so.4 && \
-    ln -s /usr/local/lib/libIP2Location.so.5 /lib/libIP2Location.so.5 && \
+    ln -s /lib/x86_64-linux-gnu/libcrypto.so.1.1 /lib/x86_64-linux-gnu/libcrypto.so.1 && \
     ln -sf /dev/stdout /var/log/nginx/access.log && \
     ln -sf /dev/stderr /var/log/nginx/error.log && \
     ln -sf /etc/ssl/dhparam.pem /etc/nginx/dhparam.pem && \
