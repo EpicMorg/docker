@@ -103,6 +103,7 @@ RUN phpenmod \
 # Cassandra CPP Support Install
 ##############################################################################
 COPY addons/multiarch-support_2.28_amd64.deb /tmp/cassandra-php-driver/multiarch-support_2.28_amd64.deb
+COPY addons/libssl1.1_1.1.1_amd64.deb /tmp/cassandra-php-driver/libssl1.1_1.1.1_amd64.deb
 RUN wget -c --random-wait --user-agent="Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36" --directory-prefix=/tmp/cassandra-php-driver \ 
     https://downloads.datastax.com/cpp-driver/ubuntu/18.04/dependencies/libuv/v1.35.0/libuv1_1.35.0-1_amd64.deb \
     https://downloads.datastax.com/cpp-driver/ubuntu/18.04/dependencies/libuv/v1.35.0/libuv1-dev_1.35.0-1_amd64.deb \
@@ -112,6 +113,7 @@ RUN wget -c --random-wait --user-agent="Mozilla/5.0 (Windows NT 6.1) AppleWebKit
     https://downloads.datastax.com/cpp-driver/ubuntu/18.04/cassandra/v2.16.0/cassandra-cpp-driver_2.16.0-1_amd64.deb
 
 RUN cd /tmp/cassandra-php-driver && \
+    dpkg -i ./libssl1.1_1.1.1_amd64.deb && \
     dpkg -i ./multiarch-support_2.28_amd64.deb && \
     dpkg -i ./libuv1_1.35.0-1_amd64.deb && \
     dpkg -i ./libuv1-dev_1.35.0-1_amd64.deb && \

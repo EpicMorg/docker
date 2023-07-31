@@ -65,9 +65,9 @@ RUN echo "TLS_REQCERT never" >> /etc/ldap/ldap.conf
 ##############################################################################
 # Cassandra PHP Drivers Install
 ##############################################################################
-#RUN ln -sf ${CAS_PHP_INI} ${PHP_DIR}/apache2/conf.d/cassandra.ini  && \
-#    php -m && \
-#    php -v
+RUN ln -sf ${CAS_PHP_INI} ${PHP_DIR}/apache2/conf.d/cassandra.ini  && \
+    php -m && \
+    php -v
 
 ##################################################################
 #                   Installing IOnCube addon
