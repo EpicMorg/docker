@@ -225,7 +225,7 @@ RUN apt-get update && \
     mkdir -p /opt/nginx/install && \
     cp /tmp/deb/*.deb /opt/nginx/install/ && \
     cp /tmp/ngninx.pre.tar.gz /opt/nginx/install/ && \
-#    ln -s /usr/local/lib/libIP2Location.so /usr/lib/libIP2Location.so && \
+    ln -s /usr/local/lib/libIP2Location.so /usr/lib/libIP2Location.so && \
     ln -s /usr/local/lib/libIP2Location.so.1 /usr/lib/libIP2Location.so.1 && \
     ln -s /usr/local/lib/libIP2Location.so.2 /usr/lib/libIP2Location.so.2 && \
     ln -s /usr/local/lib/libIP2Location.so.3 /usr/lib/libIP2Location.so.3 && \
@@ -239,12 +239,11 @@ RUN apt-get update && \
     apt autoclean -y && \
     rm -rf /var/lib/apt/lists/* && \
     rm -rf /var/cache/apt/archives/*.deb && \
-    rm -rf /tmp/deb/* && \
     rm -rf /tmp/* && \
     rm -rf /builds/* && \
     rm -rf /valve/*  && \
-    rm -rf /builds && \
-    rm -rf /valve
+    rm -rfv /builds && \
+    rm -rfv /valve
 
 #healthcheck. good practice
 HEALTHCHECK --interval=2m --timeout=3s CMD curl -f http://localhost:80/ || exit 1
