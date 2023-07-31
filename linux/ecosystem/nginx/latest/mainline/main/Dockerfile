@@ -176,8 +176,8 @@ RUN cd ${NGINX_SRC_DIR} && \
     --add-dynamic-module=http-auth-ldap \
 #    --add-dynamic-module=nginx-audio-track-for-hls-module \
     --add-dynamic-module=ip2location-nginx \
-#    --add-dynamic-module=nginx-vod-module \
-    --add-dynamic-module=nginx-module-vts \
+    --add-dynamic-module=nginx-vod-module \
+#    --add-dynamic-module=nginx-module-vts \
     --add-dynamic-module=mod-zip \
     --add-dynamic-module=nginx-http-user-agent \
     --add-dynamic-module=nginx-unzip-module \
