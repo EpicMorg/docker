@@ -85,7 +85,7 @@ RUN wget -qO - ${NGINX_DOWNLOAD_URL} | tar -zxv --strip-components=1 -C ${NGINX_
     git clone https://github.com/aperezdc/ngx-fancyindex.git http-fancyindex && \
     git clone https://github.com/slact/nchan.git nchan && \
     #<=1.25
-    git clone https://github.com/kaprog/nginx-upload-progress-module.git http-uploadprogress && \ 
+#    git clone https://github.com/kaprog/nginx-upload-progress-module.git http-uploadprogress && \ 
     #<=1.23<=1.24, 1.25 broken
 #   git clone https://github.com/msva/nginx-upload-progress-module.git http-uploadprogress && \ 
     #<=1.23
