@@ -22,7 +22,7 @@ RUN apt-get update && \
       apache2 \
       apache2-utils \
       libapache2-mod-php7.4 \
-      libapache2-mod-webauth \
+#      libapache2-mod-webauth \
       libapache2-mod-xforward \
       libapache2-mod-security2 && \
     a2enmod \
