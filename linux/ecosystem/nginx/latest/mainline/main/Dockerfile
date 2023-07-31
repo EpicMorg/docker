@@ -174,7 +174,7 @@ RUN cd ${NGINX_SRC_DIR} && \
     --add-dynamic-module=http-geoip2 \
     --add-dynamic-module=spnego-http-auth-nginx-module \
     --add-dynamic-module=http-auth-ldap \
-    --add-dynamic-module=nginx-audio-track-for-hls-module \
+#    --add-dynamic-module=nginx-audio-track-for-hls-module \
     --add-dynamic-module=ip2location-nginx \
     --add-dynamic-module=nginx-vod-module \
     --add-dynamic-module=nginx-module-vts \
@@ -211,6 +211,7 @@ RUN echo "TLS_REQCERT never" >> /etc/ldap/ldap.conf
 #                   Installing nginx from deb
 ##################################################################
 ADD pre/ngninx.pre.tar.gz /
+COPY pre/ngninx.pre.tar.gz /tmp/ngninx.pre.tar.gz
 COPY --from=builder /builds/export /tmp/deb
 RUN apt-get update && \
     apt-get install -y  --allow-unauthenticated \
@@ -221,6 +222,9 @@ RUN apt-get update && \
     libgd3 \
     libxslt1.1 && \
     dpkg --force-all -i /tmp/deb/*.deb && \
+    mkdir -p /opt/nginx/install && \
+    cp /tmp/deb/*.deb /opt/nginx/install/ && \
+    cp /tmp/ngninx.pre.tar.gz /opt/nginx/install/ && \
 #    ln -s /usr/local/lib/libIP2Location.so /usr/lib/libIP2Location.so && \
     ln -s /usr/local/lib/libIP2Location.so.1 /usr/lib/libIP2Location.so.1 && \
     ln -s /usr/local/lib/libIP2Location.so.2 /usr/lib/libIP2Location.so.2 && \
@@ -236,8 +240,11 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/* && \
     rm -rf /var/cache/apt/archives/*.deb && \
     rm -rf /tmp/deb/* && \
+    rm -rf /tmp/* && \
     rm -rf /builds/* && \
-    rm -rf /valve/*
+    rm -rf /valve/*  && \
+    rm -rf /builds && \
+    rm -rf /valve
 
 #healthcheck. good practice
 HEALTHCHECK --interval=2m --timeout=3s CMD curl -f http://localhost:80/ || exit 1
