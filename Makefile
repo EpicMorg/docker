@@ -1167,7 +1167,7 @@ bundle-web:
 	@echo "======================================="
 	make ecosystem-php-images
 	make ecosystem-apache2-images
-#	make ecosystem-nginx-images
+	make ecosystem-nginx-images
 	
 bundle-p4:
 	@echo "======================================="
