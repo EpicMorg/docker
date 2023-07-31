@@ -1,4 +1,4 @@
-FROM epicmorg/php:latest
+FROM epicmorg/php:php7.4
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
