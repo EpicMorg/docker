@@ -218,7 +218,7 @@ RUN cd /tmp/cassandra-php-driver && \
 ##############################################################################
 # Cassandra PHP Drivers Install
 ##############################################################################
-#RUN pecl install cassandra && \
+RUN pecl install cassandra && \
     echo "extension = ${PHP_MODULE_PATH}/cassandra.so" > ${CAS_PHP_INI} && \
     ln -sf ${CAS_PHP_INI} ${PHP_DIR}/cgi/conf.d/cassandra.ini && \
     ln -sf ${CAS_PHP_INI} ${PHP_DIR}/cli/conf.d/cassandra.ini && \
