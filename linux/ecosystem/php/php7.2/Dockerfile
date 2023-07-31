@@ -109,8 +109,8 @@ RUN apt-get update && \
       php7.2-common \
       php7.2-dev \
       php7.2-ldap \
-      php7.2-mail \
-      php7.2-mailparse \
+#      php7.2-mail \
+#      php7.2-mailparse \
       php7.2-soap \
       php7.2-mysql \
       php7.2-curl \
