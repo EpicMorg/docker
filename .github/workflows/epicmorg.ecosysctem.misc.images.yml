@@ -165,5 +165,22 @@ jobs:
 
 ##################################################################################
 
+  build-ninjam-image:
+    name: EpicMorg EcoSystem ninjam Image
+    runs-on: ubuntu-20.04
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Log into registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Test Make
+      run:  make
+
+    - name: Build and Deploy ninjam
+      run:  cd linux/ecosystem/ninjam/latest && make build && make deploy
+
+##################################################################################
+
     - name: Cleanup
       run: make docker-clean

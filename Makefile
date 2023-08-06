@@ -225,7 +225,7 @@ ecosystem-images:
 	make ecosystem-gitlab-runner-images
 	make ecosystem-nginx-images
 	make ecosystem-vscode-server-images
-	make ecosystem-freegpt-webui-images
+	make ecosystem-ninjam-image
 
 advanced-pyhton-images:
 	make advanced-pyhton-images-main
@@ -589,15 +589,8 @@ ecosystem-nodejs-images:
 	cd `pwd`/linux/ecosystem/nodejs/node19         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/nodejs/node20         && pwd && make build && make deploy
 
-ecosystem-freegpt-webui-images: 
-	cd `pwd`/linux/ecosystem/freegpt-webui/1.0     && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/freegpt-webui/1.1     && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/freegpt-webui/1.2     && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/freegpt-webui/1.3     && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/freegpt-webui/1.3.1     && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/freegpt-webui/1.3.2     && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/freegpt-webui/1.4     && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/freegpt-webui/latest     && pwd && make build && make deploy
+ecosystem-ninjam-image: 
+	cd `pwd`/linux/ecosystem/ninjam/latest     && pwd && make build && make deploy
 
 ecosystem-vk2discord-images: 
 	cd `pwd`/linux/ecosystem/vk2discord     && pwd && make build && make deploy
