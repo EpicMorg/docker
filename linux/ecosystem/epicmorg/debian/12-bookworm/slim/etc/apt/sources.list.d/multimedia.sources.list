@@ -1,5 +1,5 @@
 ##multimedia
-#deb http://httpredir.debian.org/debian-multimedia/ bookworm main non-free
-#deb-src http://httpredir.debian.org/debian-multimedia/ bookworm main non-free
+#deb http://httpredir.debian.org/debian-multimedia/ bookworm main non-free non-free-firmware
+#deb-src http://httpredir.debian.org/debian-multimedia/ bookworm main non-free non-free-firmware
 #deb http://httpredir.debian.org/debian-multimedia/ bookworm-backports main
 #deb-src http://httpredir.debian.org/debian-multimedia/ bookworm-backports main
