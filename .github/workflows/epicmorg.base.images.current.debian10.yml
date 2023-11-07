@@ -41,22 +41,7 @@ jobs:
       
     - name: "Build and Deploy Debian 10 jdk11 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/10-buster/jdk11    && pwd && make build && make deploy
-      
-    - name: "Build and Deploy Debian 10 jdk12 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/10-buster/jdk12    && pwd && make build && make deploy
-      
-    - name: "Build and Deploy Debian 10 jdk13 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/10-buster/jdk13    && pwd && make build && make deploy
-      
-    - name: "Build and Deploy Debian 10 jdk14 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/10-buster/jdk14    && pwd && make build && make deploy
-      
-    - name: "Build and Deploy Debian 10 jdk15 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/10-buster/jdk15    && pwd && make build && make deploy
-      
-    - name: "Build and Deploy Debian 10 jdk16 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/10-buster/jdk16    && pwd && make build && make deploy
-      
+
     - name: "Build and Deploy Debian 10 jdk17 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/10-buster/jdk17    && pwd && make build && make deploy
       

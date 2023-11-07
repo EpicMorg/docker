@@ -5,21 +5,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ENV ANDROID_HOME=/usr/lib/android-sdk
 ENV ANDROID_SDK_ROOT=/usr/lib/android-sdk
 
-ENV GRADLE_VERSION=8.2
-ENV GRADLE_LINK=https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-all.zip
-ENV GRADLE_ROOT=/opt/gradle
-ENV GRADLE_PATH=${GRADLE_ROOT}/gradle-${GRADLE_VERSION}
-ENV GRADLE_BIN=$GRADLE_PATH/bin
-ARG GRADLE_TEMP=/tmp/gradle.zip
-
-ENV KTC_VERSION=1.9.0-RC
-ENV KTC_LINK=https://github.com/JetBrains/kotlin/releases/download/v${KTC_VERSION}/kotlin-compiler-${KTC_VERSION}.zip
-ARG KTC_TEMP=/tmp/kotlinc.zip
-ENV KTC_ROOT=/opt/kotlin
-ENV KTC_PATH=${KTC_ROOT}/kotlinc
-ENV KTC_BIN=$KTC_PATH/bin
-
-ENV PATH=$PATH:${GRADLE_BIN}:${KTC_BIN}:${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin:${ANDROID_SDK_ROOT}/platform-tools:$ANDROID_SDK_ROOT/tools/bin
+ENV PATH=$PATH:${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin:${ANDROID_SDK_ROOT}/platform-tools:$ANDROID_SDK_ROOT/tools/bin
 
 ##################################################################
 #                   installing java17
@@ -570,24 +556,6 @@ RUN sdkmanager --install \
 #RUN rm -rfv /usr/lib/android-sdk/licenses/*
 RUN yes | sdkmanager --licenses
 RUN ln -fs $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/screenshot2 $ANDROID_SDK_ROOT/tools/bin/screenshot2
-
-##################################################################
-#                   GRADLE
-##################################################################
-RUN mkdir -p $GRADLE_PATH
-RUN wget --no-check-certificate -nv --random-wait --retry-connrefused --continue $GRADLE_LINK -O $GRADLE_TEMP
-RUN 7zz x $GRADLE_TEMP -o$GRADLE_ROOT
-RUN chmod +x -R $GRADLE_BIN
-RUN gradle -v
-
-##################################################################
-#                   KOTLIN
-##################################################################
-RUN mkdir -p ${KTC_PATH}
-RUN wget --no-check-certificate -nv --random-wait --retry-connrefused --continue ${KTC_LINK} -O ${KTC_TEMP}
-RUN 7zz x $KTC_TEMP -o$KTC_ROOT
-RUN chmod +x -R ${KTC_BIN}
-RUN kotlin -version
 
 ##################################################################
 #                   cleaninig up
