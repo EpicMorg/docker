@@ -1146,34 +1146,35 @@ bundle-p4:
 	make ecosystem-perforce-proxy-images
  
  
-bundle-debug-base:
+bundle-debug-base6:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/06-squeeze/slim    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/06-squeeze/main    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/06-squeeze/develop    && pwd && make build && make deploy
+bundle-debug-base7:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/07-wheezy/slim    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/07-wheezy/main    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/07-wheezy/develop    && pwd && make build && make deploy
+bundle-debug-base8:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/slim    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/main    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/develop    && pwd && make build && make deploy
+bundle-debug-base9:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/slim    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/main    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/develop    && pwd && make build && make deploy
+bundle-debug-base10:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/slim    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/main    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/develop    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/slim    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/main    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/develop    && pwd && make build && make deploy
+
+
+bundle-cve:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/slim    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/main    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/develop    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/slim    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/main    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/develop    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/develop    && pwd && make build && make deploy
-
-bundle-cve:
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/develop    && pwd && make build && make deploy 
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk8     && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk11     && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk17     && pwd && make build && make deploy

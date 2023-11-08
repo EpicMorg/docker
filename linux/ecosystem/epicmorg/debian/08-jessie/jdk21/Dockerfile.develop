@@ -1,14 +1,20 @@
-FROM epicmorg/debian:bookworm
+FROM epicmorg/debian:jessie-develop
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
 ##################################################################
-#                   installing java6
+#                   installing java21
 ##################################################################
-RUN wget -qO - http://repos.azulsystems.com/RPM-GPG-KEY-azulsystems | apt-key add - && \
-    echo 'deb http://repos.azulsystems.com/debian stable main' > /etc/apt/sources.list.d/zulu.list && \
-    apt-get update -y && \
-    apt-get install -y --allow-unauthenticated zulu-6 && \
+RUN wget --no-check-certificate -O - https://packages.adoptium.net/artifactory/api/gpg/key/public | gpg --dearmor > /etc/apt/trusted.gpg.d/adoptium.gpg && \
+    echo 'deb https://packages.adoptium.net/artifactory/deb bookworm main' > /etc/apt/sources.list.d/temurin-official.list && \
+#    wget --no-check-certificate -O - https://packages.adoptium.net/artifactory/api/gpg/key/public | tee /etc/apt/keyrings/adoptium.asc && \
+#    echo 'deb [signed-by=/etc/apt/keyrings/adoptium.asc] https://packages.adoptium.net/artifactory/deb bookworm main' > /etc/apt/sources.list.d/temurin-official.list && \
+    apt-get update && \
+    apt-get autoremove -y && \
+    apt-get install -y --allow-unauthenticated -t bookworm temurin-21-jdk temurin-21-jre  && \
+    mkdir /usr/lib/jvm/temurin-21-jdk-amd64/jre && \
+    ln -s /usr/lib/jvm/temurin-21-jdk-amd64/bin/ /usr/lib/jvm/temurin-21-jdk-amd64/jre/bin && \
+    ln -s /usr/lib/jvm/temurin-21-jdk-amd64/lib/ /usr/lib/jvm/temurin-21-jdk-amd64/jre/lib && \
     java -version
 
 ##################################################################
@@ -45,25 +51,25 @@ ENV MAVEN_HOME=${MAVEN_ROOT}
 ENV M2_HOME=${MAVEN_ROOT}
 
 RUN wget --no-check-certificate -nv --random-wait --retry-connrefused --continue ${MAVEN_LINK} -O ${MAVEN_TEMP}
-RUN 7zz x ${MAVEN_TEMP} -o${MAVEN_ROOT}
+RUN 7z x ${MAVEN_TEMP} -o${MAVEN_ROOT}
 RUN chmod +x -R ${MAVEN_BIN}
 RUN mvn -v
 
 ##################################################################
 #                   GRADLE
 ##################################################################
-RUN wget --no-check-certificate -nv --random-wait --retry-connrefused --continue ${GRADLE_LINK} -O ${GRADLE_TEMP}
-RUN 7zz x ${GRADLE_TEMP} -o${GRADLE_ROOT}
-RUN chmod +x -R ${GRADLE_BIN}
-RUN gradle -v
+#RUN wget --no-check-certificate -nv --random-wait --retry-connrefused --continue ${GRADLE_LINK} -O ${GRADLE_TEMP}
+#RUN 7z x ${GRADLE_TEMP} -o${GRADLE_ROOT}
+#RUN chmod +x -R ${GRADLE_BIN}
+#RUN gradle -v
 
 ##################################################################
 #                   KOTLIN
 ##################################################################
-RUN wget --no-check-certificate -nv --random-wait --retry-connrefused --continue ${KTC_LINK} -O ${KTC_TEMP}
-RUN 7zz x $KTC_TEMP -o${KTC_ROOT}
-RUN chmod +x -R ${KTC_BIN}
-RUN kotlin -version
+#RUN wget --no-check-certificate -nv --random-wait --retry-connrefused --continue ${KTC_LINK} -O ${KTC_TEMP}
+#RUN 7z x $KTC_TEMP -o${KTC_ROOT}
+#RUN chmod +x -R ${KTC_BIN}
+#RUN kotlin -version
 
 ##################################################################
 #                  cleanup

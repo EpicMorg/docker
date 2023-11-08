@@ -11,7 +11,7 @@ ENV P4_DOWNLOAD_URL=https://filehost.perforce.com/perforce/${P4_VERSION}/bin.lin
 ##################################################################
 #                   7z official binary
 ##################################################################
-ENV SZ_VERSION=7z2200
+ENV SZ_VERSION=7z2301
 ENV SZ_DOWNLOAD_URL=https://www.7-zip.org/a/${SZ_VERSION}-linux-x64.tar.xz
 
 ##################################################################
@@ -141,8 +141,9 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
 ##################################################################
 #                   git-lfs official binary
 ##################################################################
-#RUN curl -s https://packagecloud.io/github/git-lfs/gpgkey | sudo gpg --no-default-keyring --keyring gnupg-ring:/etc/apt/trusted.gpg.d/git-lfs.gpg --import && \
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 6B05F25D762E3157 && \
+#RUN    wget --no-check-certificate -O - https://packagecloud.io/github/git-lfs/gpgkey | gpg --dearmor > /etc/apt/keyrings/github_git-lfs-archive-keyring.gpg && \ && \
+RUN wget --no-check-certificate -O - https://packagecloud.io/github/git-lfs/gpgkey | gpg --dearmor > /etc/apt/trusted.gpg.d/github_git-lfs-archive-keyring.gpg && \
+    chmod go+r /etc/apt/trusted.gpg.d/github_git-lfs-archive-keyring.gpg && \
     rm -rfv /etc/apt/sources.list.d/github_git-lfs.list
 COPY etc/apt/sources.list.d/github_git-lfs.list /etc/apt/sources.list.d/github_git-lfs.list
 RUN apt-get update &&  \

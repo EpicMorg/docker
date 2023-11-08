@@ -5,8 +5,14 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 #                   perforce client binary
 ##################################################################
-ENV P4_VERSION=r22.1
-ENV P4_DOWNLOAD_URL=http://filehost.perforce.com/perforce/${P4_VERSION}/bin.linux26x86_64/p4
+ARG P4_VERSION=r22.1
+ARG P4_DOWNLOAD_URL=http://filehost.perforce.com/perforce/${P4_VERSION}/bin.linux26x86_64/p4
+
+##################################################################
+#                   7z official binary
+##################################################################
+ARG SZ_VERSION=7z2301
+ARG SZ_DOWNLOAD_URL=https://www.7-zip.org/a/${SZ_VERSION}-linux-x64.tar.xz
 
 ##################################################################
 #                   update lists
@@ -126,8 +132,9 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
 ##################################################################
 #                   git-lfs official binary
 ##################################################################
-#RUN curl -s https://packagecloud.io/github/git-lfs/gpgkey | sudo gpg --no-default-keyring --keyring gnupg-ring:/etc/apt/trusted.gpg.d/git-lfs.gpg --import && \
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 6B05F25D762E3157 && \
+#RUN    wget --no-check-certificate -O - https://packagecloud.io/github/git-lfs/gpgkey | gpg --dearmor > /etc/apt/keyrings/github_git-lfs-archive-keyring.gpg && \ && \
+RUN wget --no-check-certificate -O - https://packagecloud.io/github/git-lfs/gpgkey | gpg --dearmor > /etc/apt/trusted.gpg.d/github_git-lfs-archive-keyring.gpg && \
+    chmod go+r /etc/apt/trusted.gpg.d/github_git-lfs-archive-keyring.gpg && \
     rm -rfv /etc/apt/sources.list.d/github_git-lfs.list
 COPY etc/apt/sources.list.d/github_git-lfs.list /etc/apt/sources.list.d/github_git-lfs.list
 RUN apt-get update &&  \
@@ -141,7 +148,7 @@ RUN apt-get update &&  \
 ##################################################################
 #                   gh official binary
 ##################################################################
-RUN wget -c https://cli.github.com/packages/githubcli-archive-keyring.gpg -O /etc/apt/trusted.gpg.d/githubcli-archive-keyring.gpg && \
+RUN wget --no-check-certificate -c https://cli.github.com/packages/githubcli-archive-keyring.gpg -O /etc/apt/trusted.gpg.d/githubcli-archive-keyring.gpg && \
     chmod go+r /etc/apt/trusted.gpg.d/githubcli-archive-keyring.gpg && \
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/trusted.gpg.d/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list && \
     apt-get update &&  \
