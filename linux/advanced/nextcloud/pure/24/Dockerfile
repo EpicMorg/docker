@@ -18,7 +18,7 @@ LABEL donate.crypto.XMR="884PqZ1gDjWW7fKxtbaeRoBeSh9EGZbkqUyLriWmuKbwLZrAJdYUs4w
 ##################################################################
 #                  adding normal sources list
 ##################################################################
-RUN rm /etc/apt/sources.list
+RUN rm -rfv /etc/apt/sources.list
 COPY sources.list /etc/apt/sources.list
 
 ##################################################################

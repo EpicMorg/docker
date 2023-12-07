@@ -195,6 +195,7 @@ advanced-nextcloud-images:
 	cd `pwd`/linux/advanced/nextcloud/pure/24		  && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/nextcloud/pure/25		  && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/nextcloud/pure/26		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/pure/27		  && pwd && make build && make deploy
 
 advanced-nextcloud-patched-images:
 	cd `pwd`/linux/advanced/nextcloud/patched/14		  && pwd && make build && make deploy
@@ -210,6 +211,7 @@ advanced-nextcloud-patched-images:
 	cd `pwd`/linux/advanced/nextcloud/patched/24		  && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/nextcloud/patched/25		  && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/nextcloud/patched/26		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/patched/27		  && pwd && make build && make deploy
 
 ecosystem-images:
 	make bundle-base-images
@@ -1183,5 +1185,5 @@ bundle-cve:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk17     && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.6.1          && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.5.3         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/atlassian/confluence/7.19.16          && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.19.16          && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/confluence/latest          && pwd && make build && make deploy
