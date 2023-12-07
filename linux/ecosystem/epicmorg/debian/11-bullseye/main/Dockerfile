@@ -11,7 +11,7 @@ ARG P4_DOWNLOAD_URL=https://filehost.perforce.com/perforce/${P4_VERSION}/bin.lin
 ##################################################################
 #                   7z official binary
 ##################################################################
-ARG SZ_VERSION=7z2200
+ARG SZ_VERSION=7z2301
 ARG SZ_DOWNLOAD_URL=https://www.7-zip.org/a/${SZ_VERSION}-linux-x64.tar.xz
 
 ##################################################################

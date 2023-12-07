@@ -4,19 +4,9 @@ services:
     image: "epicmorg/debian:stretch-jdk8"
     build:
       context: .
-      dockerfile: ./Dockerfile.adopted
+      dockerfile: ./Dockerfile
   app-develop:
     image: "epicmorg/debian:stretch-develop-jdk8"
     build:
       context: .
-      dockerfile: ./Dockerfile.adopted.develop
-  app-adopted:
-    image: "epicmorg/debian:stretch-jdk8-adopted"
-    build:
-      context: .
-      dockerfile: ./Dockerfile.adopted
-  app-adopted-develop:
-    image: "epicmorg/debian:stretch-jdk8-adopted-develop"
-    build:
-      context: .
-      dockerfile: ./Dockerfile.adopted
+      dockerfile: ./Dockerfile.develop

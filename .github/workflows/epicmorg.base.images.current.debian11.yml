@@ -41,22 +41,7 @@ jobs:
       
     - name: "Build and Deploy Debian 11 jdk11 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/11-bullseye/jdk11    && pwd && make build && make deploy
-      
-    - name: "Build and Deploy Debian 11 jdk12 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/11-bullseye/jdk12    && pwd && make build && make deploy
-      
-    - name: "Build and Deploy Debian 11 jdk13 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/11-bullseye/jdk13    && pwd && make build && make deploy
-      
-    - name: "Build and Deploy Debian 11 jdk14 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/11-bullseye/jdk14    && pwd && make build && make deploy
-      
-    - name: "Build and Deploy Debian 11 jdk15 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/11-bullseye/jdk15    && pwd && make build && make deploy
-      
-    - name: "Build and Deploy Debian 11 jdk16 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/11-bullseye/jdk16    && pwd && make build && make deploy
-      
+
     - name: "Build and Deploy Debian 11 jdk17 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/11-bullseye/jdk17    && pwd && make build && make deploy
       
@@ -68,6 +53,9 @@ jobs:
 
     - name: "Build and Deploy Debian 11 jdk20 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/11-bullseye/jdk20    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 11 jdk21 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/11-bullseye/jdk21    && pwd && make build && make deploy
 
 ##################################################################################
 
