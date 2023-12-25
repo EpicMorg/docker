@@ -153,12 +153,15 @@ RUN wget -qO - ${NGINX_DOWNLOAD_URL} | tar -zxv --strip-components=1 -C ${NGINX_
     git clone https://github.com/openresty/echo-nginx-module.git http-echo && \
     git clone https://github.com/aperezdc/ngx-fancyindex.git http-fancyindex && \
     git clone https://github.com/slact/nchan.git nchan && \
-    #<=1.25
-#    git clone https://github.com/kaprog/nginx-upload-progress-module.git http-uploadprogress && \ 
-    #<=1.23<=1.24, 1.25 broken
-#   git clone https://github.com/msva/nginx-upload-progress-module.git http-uploadprogress && \ 
-    #<=1.23
+
+#    #<=1.25
+#    git clone https://github.com/kaprog/nginx-upload-progress-module.git http-uploadprogress && \
+#    #<=1.23<=1.24, 1.25 broken
+#   git clone https://github.com/msva/nginx-upload-progress-module.git http-uploadprogress && \
+#    #<=1.23
 #   git clone https://github.com/masterzen/nginx-upload-progress-module.git http-uploadprogress && \
+
+    git clone https://github.com/kaprog/nginx-upload-progress-module http-uploadprogress && \
     git clone https://github.com/yaoweibin/ngx_http_substitutions_filter_module http-subs-filter && \
     git clone https://github.com/grahamedgecombe/nginx-ct.git ssl-ct && \
     git clone https://github.com/stnoonan/spnego-http-auth-nginx-module.git spnego-http-auth-nginx-module && \
@@ -217,6 +220,7 @@ RUN cd ${NGINX_SRC_DIR} && \
     --with-http_realip_module \
     --with-http_auth_request_module \
     --with-http_v2_module \
+    --with-http_v3_module \
     --with-http_dav_module \
     --with-http_slice_module \
     --with-http_addition_module \
@@ -243,16 +247,16 @@ RUN cd ${NGINX_SRC_DIR} && \
     --add-dynamic-module=http-echo \
     --add-dynamic-module=http-fancyindex \
     --add-dynamic-module=nchan \
-#    --add-dynamic-module=http-uploadprogress \
+#    --add-dynamic-module=http-uploadprogress \ #not stable
     --add-dynamic-module=http-subs-filter \
     --add-dynamic-module=ssl-ct \
     --add-dynamic-module=http-geoip2 \
     --add-dynamic-module=spnego-http-auth-nginx-module \
     --add-dynamic-module=http-auth-ldap \
-#    --add-dynamic-module=nginx-audio-track-for-hls-module \
+#    --add-dynamic-module=nginx-audio-track-for-hls-module \ #not stable
     --add-dynamic-module=ip2location-nginx \
-#    --add-dynamic-module=nginx-vod-module \
-#    --add-dynamic-module=nginx-module-vts \
+    --add-dynamic-module=nginx-vod-module \
+#    --add-dynamic-module=nginx-module-vts \ #not stable
     --add-dynamic-module=mod-zip \
     --add-dynamic-module=nginx-http-user-agent \
     --add-dynamic-module=nginx-unzip-module \
@@ -268,6 +272,8 @@ RUN cd ${NGINX_SRC_DIR} && \
     apt autoclean -y && \
     rm -rfv /var/lib/apt/lists/* && \
     rm -rfv /var/cache/apt/archives/*.deb
+
+RUN ls -las ${NGINX_SRC_DIR}
 
 ##################################################################
 ##################################################################
