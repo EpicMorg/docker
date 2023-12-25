@@ -1,9 +1,16 @@
 version: '3.9'
 services:
   app:
-    image: "epicmorg/nginx:${NGINX_VERSION}"
+    image: "epicmorg/nginx:${NGINX_TAG}"
     build:
       context: .
       args:
+        NGINX_TAG: latest
         NGINX_VERSION: ${NGINX_VERSION}
         NGINX_DOWNLOAD_URL: ${NGINX_DOWNLOAD_URL}
+        OPENSSL_VERSION: ${OPENSSL_VERSION}
+        OPENSSL_DOWNLOAD_URL: ${OPENSSL_DOWNLOAD_URL}
+        PCRE_VERSION: ${PCRE_VERSION}
+        PCRE_DOWNLOAD_URL: ${PCRE_DOWNLOAD_URL}
+        ZLIB_VERSION: ${ZLIB_VERSION}
+        ZLIB_DOWNLOAD_URL: ${ZLIB_DOWNLOAD_URL}

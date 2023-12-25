@@ -1,14 +1,14 @@
 ##################################################################
-#                   Set Global ARG to build process
-##################################################################
-ARG NGINX_VERSION
-
-##################################################################
 #                   Start build process
 ##################################################################
 FROM epicmorg/debian:bookworm-develop AS builder
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
+
+#RUN apt-get update && \
+#    apt-get install -y  --allow-unauthenticated \
+#    libedit-dev \
+#    libreadline-dev
 
 ##################################################################
 #                   ARGuments
@@ -19,18 +19,76 @@ ARG SRC_DIR=${BUILDS_DIR}/src
 ARG EXPORT_DIR=${BUILDS_DIR}/export
 ARG PRE_DIR=${BUILDS_DIR}/pre
 ARG NGINX_SRC_DIR=${SRC_DIR}/nginx
+ARG NGINX_TAG
 ARG NGINX_VERSION
 ARG NGINX_DOWNLOAD_URL
+ARG OPENSSL_VERSION
+ARG OPENSSL_DOWNLOAD_URL
+ARG OPENSSL_SRC_DIR=${SRC_DIR}/openssl
+ARG PCRE_VERSION
+ARG PCRE_DOWNLOAD_URL
+ARG PCRE_SRC_DIR=${SRC_DIR}/pcre
+ARG ZLIB_VERSION
+ARG ZLIB_DOWNLOAD_URL
+ARG ZLIB_SRC_DIR=${SRC_DIR}/zlib
 ARG LUAJIT_INC=/usr/local/include/luajit-2.1
 ARG LUAJIT_LIB=/usr/local/lib
 
 ##################################################################
 #                   Files and folders
 ##################################################################
-RUN mkdir -p ${PRE_DIR}  ${NGINX_SRC_DIR} /usr/lib/nginx
+RUN mkdir -p ${PRE_DIR}  ${NGINX_SRC_DIR} /usr/lib/nginx ${OPENSSL_SRC_DIR}  ${PCRE_SRC_DIR}-temp ${ZLIB_SRC_DIR}
 ADD pre/luajit2-description-pak ${PRE_DIR}
 ADD pre/nginx-description-pak ${PRE_DIR}
 ADD pre/ip2location-description-pak ${PRE_DIR}
+
+##################################################################
+#                   Files and folders
+##################################################################
+#RUN cd ${SRC_DIR} && \
+#    openssl version && \
+#    wget --no-check-certificate -nv --random-wait --retry-connrefused --continue ${OPENSSL_DOWNLOAD_URL} -P ${SRC_DIR}  && \
+#    tar --verbose -xzf ${SRC_DIR}/openssl-${OPENSSL_VERSION}.tar.gz --strip-components=1 -C ${OPENSSL_SRC_DIR} && \
+#    cd ${OPENSSL_SRC_DIR} && \
+#    ./configure \
+#      --no-shared \
+#      --enable-weak-ssl-ciphers \
+#      --enable-ktls && \
+#    make && \
+#    make install && \
+#    openssl version && \
+#    rm -rfv ${SRC_DIR}/openssl-${OPENSSL_VERSION}.tar.gz
+
+RUN cd ${SRC_DIR} && \
+    wget --no-check-certificate -nv --random-wait --retry-connrefused --continue ${PCRE_DOWNLOAD_URL} -P ${SRC_DIR}  && \
+    tar --verbose -xzf ${SRC_DIR}/pcre2-${PCRE_VERSION}.tar.gz --strip-components=1 -C ${PCRE_SRC_DIR}-temp && \
+    cp -rfv  ${PCRE_SRC_DIR}-temp ${PCRE_SRC_DIR} && \
+    rm -rf ${PCRE_SRC_DIR}-temp && \
+    cd ${PCRE_SRC_DIR} && \
+    ./configure \
+      --enable-shared \
+      --enable-static \
+      --enable-pcre2-16 \
+      --enable-pcre2-32  \
+      --enable-debug \
+      --enable-jit  \
+      --enable-newline-is-anycrlf \
+      --enable-pcre2grep-libz  \
+      --enable-pcre2grep-libbz2 \
+      --enable-pcre2test-libedit  \
+#      --enable-pcre2test-libreadline \
+      --enable-unicode-properties \
+      --enable-unicode \
+#      --enable-valgrind \
+      --enable-fuzz-support && \
+    make && \
+    make install && \
+    rm -rfv ${SRC_DIR}/pcre2-${PCRE_VERSION}.tar.gz
+
+RUN cd ${SRC_DIR} && \
+    wget --no-check-certificate -nv --random-wait --retry-connrefused --continue ${ZLIB_DOWNLOAD_URL} -P ${SRC_DIR}  && \
+    tar --verbose -xzf ${SRC_DIR}/zlib-${ZLIB_VERSION}.tar.gz --strip-components=1 -C ${ZLIB_SRC_DIR} && \
+    rm -rfv ${SRC_DIR}/zlib-${ZLIB_VERSION}.tar.gz
 
 ##################################################################
 #                   IP2Location support for prod nginx module
@@ -53,13 +111,13 @@ RUN cd ${SRC_DIR} && \
     make check && \
     ls -las && \
     fakeroot checkinstall -D --pakdir=${EXPORT_DIR} --maintainer="EpicMorg, developer@epicm.org" --pkgname=ip2-custom  --conflicts=ip2 --install=yes -y  && \
-#    ln -s /usr/local/lib/libIP2Location.so /usr/lib/libIP2Location.so && \
-    ln -s /usr/local/lib/libIP2Location.so.1 /usr/lib/libIP2Location.so.1 && \
-    ln -s /usr/local/lib/libIP2Location.so.2 /usr/lib/libIP2Location.so.2 && \
-    ln -s /usr/local/lib/libIP2Location.so.3 /usr/lib/libIP2Location.so.3 && \
-    ln -s /usr/local/lib/libIP2Location.so.4 /usr/lib/libIP2Location.so.4 && \
-    ln -s /usr/local/lib/libIP2Location.so.5 /usr/lib/libIP2Location.so.5 && \
-    ln -s /lib/x86_64-linux-gnu/libcrypto.so.1.1 /lib/x86_64-linux-gnu/libcrypto.so.1 && \
+#    ln -sfv /usr/local/lib/libIP2Location.so /usr/lib/libIP2Location.so && \
+    ln -sfv /usr/local/lib/libIP2Location.so.1 /usr/lib/libIP2Location.so.1 && \
+    ln -sfv /usr/local/lib/libIP2Location.so.2 /usr/lib/libIP2Location.so.2 && \
+    ln -sfv /usr/local/lib/libIP2Location.so.3 /usr/lib/libIP2Location.so.3 && \
+    ln -sfv /usr/local/lib/libIP2Location.so.4 /usr/lib/libIP2Location.so.4 && \
+    ln -sfv /usr/local/lib/libIP2Location.so.5 /usr/lib/libIP2Location.so.5 && \
+    ln -sfv /lib/x86_64-linux-gnu/libcrypto.so.1.1 /lib/x86_64-linux-gnu/libcrypto.so.1 && \
     dpkg --force-all -i ${EXPORT_DIR}/*.deb
 
 ##################################################################
@@ -72,6 +130,17 @@ RUN cd ${SRC_DIR} && \
     make && \
     make install  && \
     fakeroot checkinstall -D --pakdir=${EXPORT_DIR} --maintainer="EpicMorg, developer@epicm.org" --pkgname=luajit2-custom  --conflicts=luajit2 --install=no -y
+
+#RUN cd ${SRC_DIR} && \
+#    git clone https://gitlab.gnome.org/GNOME/libxml2.git libxml2-src && \
+#    cd ${SRC_DIR}/libxml2-src && \
+#    ./autogen.sh --prefix=/usr && \
+#    make && \
+#    make install&& \
+#    git clone https://gitlab.gnome.org/GNOME/libxslt.git libxslt-src && \
+#    ./autogen.sh --prefix=/usr && \
+#    make && \
+#    make install
 
 ##################################################################
 #                   nginx preparing
@@ -130,8 +199,14 @@ RUN cd ${NGINX_SRC_DIR} && \
     --http-proxy-temp-path=/var/lib/nginx/proxy \
     --http-scgi-temp-path=/var/lib/nginx/scgi \
     --http-uwsgi-temp-path=/var/lib/nginx/uwsgi \
-    --with-cc-opt='-I/usr/local/include/luajit-2.1 -g -O2 -lz -fstack-protector-strong -Wformat -Wno-error=date-time -Wno-error=implicit-fallthrough= -Wno-error=cast-function-type -Wno-error=format-security -Wno-error=implicit-function-declaration -Wno-error=deprecated-declarations -Wno-error=unused-result  -fPIC -Wdate-time -D_FORTIFY_SOURCE=2' \
-    --with-ld-opt='-Wl,-z,relro -Wl,-z,now -lz -fPIC -L/usr/local/lib' \
+    --with-cc-opt='-I/usr/local/include/luajit-2.1 -I/builds/src/openssl/include  -g -O2 -lz -fstack-protector-strong -Wformat -Wno-error=date-time -Wno-error=implicit-fallthrough= -Wno-error=cast-function-type -Wno-error=format-security -Wno-error=implicit-function-declaration -Wno-error=deprecated-declarations -Wno-error=unused-result  -fPIC -Wdate-time -D_FORTIFY_SOURCE=2' \
+    --with-ld-opt='-Wl,-z,relro -Wl,-z,now -lz -fPIC -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -Wl,--as-needed -pie' \
+#    --with-openssl \
+    --with-openssl-opt='no-shared enable-weak-ssl-ciphers enable-ktls' \
+    --with-pcre \
+#    --with-pcre=/builds/src/pcre \
+    --with-pcre-opt='--enable-shared --enable-static --enable-pcre2-16 --enable-pcre2-32 --enable-debug --enable-jit --enable-newline-is-anycrlf --enable-pcre2grep-libz --enable-pcre2grep-libbz2 --enable-pcre2test-libedit --enable-unicode-properties --enable-unicode --enable-fuzz-support' \
+    --with-zlib=/builds/src/zlib \
     --with-file-aio \
     --with-compat \
     --with-debug \
@@ -155,7 +230,7 @@ RUN cd ${NGINX_SRC_DIR} && \
     --with-http_random_index_module \
     --with-http_secure_link_module \
     --with-http_sub_module \
-    --with-http_xslt_module=dynamic \
+    --with-http_xslt_module \
     --with-mail=dynamic \
     --with-mail_ssl_module \
     --with-stream=dynamic \
@@ -210,47 +285,49 @@ RUN echo "TLS_REQCERT never" >> /etc/ldap/ldap.conf
 ##################################################################
 #                   Installing nginx from deb
 ##################################################################
-ADD pre/ngninx.pre.tar.gz /
-COPY pre/ngninx.pre.tar.gz /tmp/ngninx.pre.tar.gz
+COPY ./pre/nginx-pre /tmp/nginx-pre
 COPY --from=builder /builds/export /tmp/deb
-RUN apt-get update && \
+
+RUN cp -rfv /tmp/nginx-pre/* / && \
+    apt-get update && \
     apt-get install -y  --allow-unauthenticated \
     geoip-database \
     geoip-bin \
     libgeoip1 \
+    libxml2 \
+    libxml2-utils \
     libmaxminddb0 \
     libgd3 \
     libxslt1.1 && \
     dpkg --force-all -i /tmp/deb/*.deb && \
-    mkdir -p /opt/nginx/install && \
-    cp /tmp/deb/*.deb /opt/nginx/install/ && \
-    cp /tmp/ngninx.pre.tar.gz /opt/nginx/install/ && \
-    ln -s /usr/local/lib/libIP2Location.so /usr/lib/libIP2Location.so && \
-    ln -s /usr/local/lib/libIP2Location.so.1 /usr/lib/libIP2Location.so.1 && \
-    ln -s /usr/local/lib/libIP2Location.so.2 /usr/lib/libIP2Location.so.2 && \
-    ln -s /usr/local/lib/libIP2Location.so.3 /usr/lib/libIP2Location.so.3 && \
-    ln -s /usr/local/lib/libIP2Location.so.4 /usr/lib/libIP2Location.so.4 && \
-    ln -s /usr/local/lib/libIP2Location.so.5 /usr/lib/libIP2Location.so.5 && \
-    ln -s /lib/x86_64-linux-gnu/libcrypto.so.1.1 /lib/x86_64-linux-gnu/libcrypto.so.1 && \
-    ln -sf /dev/stdout /var/log/nginx/access.log && \
-    ln -sf /dev/stderr /var/log/nginx/error.log && \
-    ln -sf /etc/ssl/dhparam.pem /etc/nginx/dhparam.pem && \
+    ln -sfv /usr/local/lib/libIP2Location.so /usr/lib/libIP2Location.so && \
+    ln -sfv /usr/local/lib/libIP2Location.so.1 /usr/lib/libIP2Location.so.1 && \
+    ln -sfv /usr/local/lib/libIP2Location.so.2 /usr/lib/libIP2Location.so.2 && \
+    ln -sfv /usr/local/lib/libIP2Location.so.3 /usr/lib/libIP2Location.so.3 && \
+    ln -sfv /usr/local/lib/libIP2Location.so.4 /usr/lib/libIP2Location.so.4 && \
+    ln -sfv /usr/local/lib/libIP2Location.so.5 /usr/lib/libIP2Location.so.5 && \
+    ln -sfv /lib/x86_64-linux-gnu/libcrypto.so.1.1 /lib/x86_64-linux-gnu/libcrypto.so.1 && \
+    ln -sfv /dev/stdout /var/log/nginx/access.log && \
+    ln -sfv /dev/stderr /var/log/nginx/error.log && \
+    ln -sfv /etc/ssl/dhparam.pem /etc/nginx/dhparam.pem && \
     apt clean -y && \
     apt autoclean -y && \
-    rm -rf /var/lib/apt/lists/* && \
-    rm -rf /var/cache/apt/archives/*.deb && \
-    rm -rf /tmp/* && \
-    rm -rf /builds/* && \
-    rm -rf /valve/*  && \
+    rm -rfv /var/lib/apt/lists/* && \
+    rm -rfv /var/cache/apt/archives/*.deb && \
+    rm -rfv /tmp/* && \
+    rm -rfv /builds/* && \
+    rm -rfv /valve/*  && \
     rm -rfv /builds && \
     rm -rfv /valve
+
+RUN nginx -V
 
 #healthcheck. good practice
 HEALTHCHECK --interval=2m --timeout=3s CMD curl -f http://localhost:80/ || exit 1
 
 # Add image configuration and scripts
-COPY docker-entrypoint.sh /usr/bin/docker-entrypoint.sh
-RUN chmod 755 /usr/bin/docker-entrypoint.sh
+COPY ./docker-entrypoint.sh /usr/bin/docker-entrypoint.sh
+RUN chmod +x /usr/bin/docker-entrypoint.sh
 
 #Final config
 VOLUME ["/var/cache/nginx"]

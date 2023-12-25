@@ -108,7 +108,11 @@ RUN apt-get update && \
     automake \
     libtool \
     gdb \
-    strace
+    strace \
+    libbsd-dev \
+    libedit-dev \
+    libmd-dev
+
 
 ##################################################################
 #                   Rust compillers
