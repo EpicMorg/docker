@@ -3,6 +3,7 @@
 * `sep-oct-nov-dec`
   * `nextcloud` upgrade
   * `nginx` fixed and migrated to `openssl3` + `debion12` base and build stages.
+  * new, fully `static`, binary in `qbittorrent` images.
 * `aug`
   * added `ninjam` server
   * EOL of `freegpt` by closing project by maintaner - [Em1tSan/freegpt-webui-ru](https://github.com/Em1tSan/freegpt-webui-ru).

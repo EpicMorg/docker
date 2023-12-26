@@ -1,0 +1,11 @@
+version: '3.9'
+services:
+  qbt-libtorrent2:
+    image: "epicmorg/qbittorrent:4.6.2"
+    build:
+      context: .
+  qbt-libtorrent1:
+    image: "epicmorg/qbittorrent:4.6.2-libtorrent1.2.19"
+    build:
+      context: .
+      dockerfile: Dockerfile.lt1

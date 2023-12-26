@@ -1,4 +1,4 @@
-FROM epicmorg/debian:bullseye
+FROM epicmorg/debian:bookworm
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -9,25 +9,21 @@ ENV QBT_DIR=/opt/qbittorrent
 ENV QBT_PORT_WEBUI=8282
 ENV QBT_PORT_TRACKER=9000
 ENV QBT_PORT_NAT=1337
+ENV QBT_VERSION=4.6.2
+ENV QBT_LIBTORRENT_VERSION=2.0.9
+ENV QBT_URL=https://github.com/userdocs/qbittorrent-nox-static/releases/download/release-${QBT_VERSION}_v${QBT_LIBTORRENT_VERSION}/x86_64-qbittorrent-nox
 
 ##################################################################
 #                   Files and folders
 ##################################################################
 RUN mkdir -p ${QBT_DIR}
 
-##################################################################
-#                   qBitTorrent sources list
-##################################################################
-#RUN apt-key adv --recv-keys --keyserver keyserver.ubuntu.com D35164147CA69FC4
-#COPY qbittorrent-stable.list /etc/apt/sources.list.d/qbittorrent-stable.list
-#RUN apt autoremove -y && apt purge policykit-1 -y && apt update && apt dist-upgrade -y
-
 ############################# ####################################
 #                   qbittorrent install
 ##################################################################
-RUN apt-get update && \
-    apt install -y --allow-unauthenticated --allow-downgrades \
-    qbittorrent-nox
+RUN wget --no-check-certificate -nv --random-wait --retry-connrefused --continue ${QBT_URL} -O /usr/bin/qbittorrent-nox && \
+    chmod +x /usr/bin/qbittorrent-nox && \
+    qbittorrent-nox --version
 
 ##################################################################
 #                   other   customisations

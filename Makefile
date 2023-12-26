@@ -573,7 +573,7 @@ ecosystem-vk2discord-images:
 	cd `pwd`/linux/ecosystem/vk2discord     && pwd && make build && make deploy
 
 ecosystem-qbittorrent-images: 
-	cd `pwd`/linux/ecosystem/qbittorrent    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/qbittorrent/4.6.2    && pwd && make build && make deploy
 
 ecosystem-retracker-images: 
 	cd `pwd`/linux/ecosystem/retracker    && pwd && make build && make deploy

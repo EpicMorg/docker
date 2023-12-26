@@ -72,8 +72,8 @@ jobs:
     - name: Test Make
       run:  make
 
-    - name: Build and Deploy qBittorrent
-      run:  cd linux/ecosystem/qbittorrent && make build && make deploy
+    - name: Build and Deploy qBittorrent 4.6.2
+      run:  cd linux/ecosystem/qbittorrent/4.6.2 && make build && make deploy
 
 ##################################################################################
 
