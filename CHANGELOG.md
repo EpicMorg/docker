@@ -1,4 +1,8 @@
 # Changelog
+## 2024
+* `jan`
+  * new versions of images
+  * CVE-2023-22527 - RCE (Remote Code Execution) Vulnerability In Confluence Data Center and Confluence Server
 ## 2023
 * `sep-oct-nov-dec`
   * `nextcloud` upgrade

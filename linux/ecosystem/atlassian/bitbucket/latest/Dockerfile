@@ -1,11 +1,11 @@
-FROM epicmorg/debian:bullseye-jdk11
+FROM epicmorg/debian:bullseye-jdk17
 LABEL maintainer="Atlassian Jira Server Team; EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
 ##################################################################
 #                   ARGuments
 ##################################################################
-ARG BITBUCKET_VERSION=8.12.0
+ARG BITBUCKET_VERSION=8.17.0
 ARG DOWNLOAD_URL=https://product-downloads.atlassian.com/software/stash/downloads/atlassian-bitbucket-${BITBUCKET_VERSION}.tar.gz
 
 ##################################################################
