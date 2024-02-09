@@ -75,6 +75,9 @@ jobs:
     - name: Build and Deploy qBittorrent 4.6.2
       run:  cd linux/ecosystem/qbittorrent/4.6.2 && make build && make deploy
 
+    - name: Build and Deploy qBittorrent 4.6.3
+      run:  cd linux/ecosystem/qbittorrent/4.6.3 && make build && make deploy
+
 ##################################################################################
 
   build-opentracker-image:

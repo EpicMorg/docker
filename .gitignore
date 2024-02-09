@@ -2,3 +2,4 @@
 Makefile.temp 
 # debug ansible file
 output.log
+output.*.log

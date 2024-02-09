@@ -1,0 +1,21 @@
+- name: Clear log file before write new stdout to it at this session
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: echo -n > output.log
+      shell: echo -n > output.log
+
+- name: Lets Go!
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: Create directory for ansible custom facts
+      debug:
+        msg: "[ Python: {{ ansible_facts['python_version'] }}, OS: {{ ansible_facts['distribution'] }} {{ ansible_facts['distribution_version'] }} ({{ansible_architecture }}), Ansible: {{ ansible_version.full }}]"
+
+- name: Generate Bitbucket images
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  roles:
+    - atlassian.bitbucket

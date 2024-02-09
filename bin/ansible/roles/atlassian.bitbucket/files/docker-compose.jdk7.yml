@@ -1,0 +1,16 @@
+version: '3'
+services:
+  app:
+    image: "epicmorg/bitbucket:${RELEASE}"
+    build:
+      context: .
+      args:
+        RELEASE: ${RELEASE}
+        DOWNLOAD_URL: ${DOWNLOAD_URL}
+  app-jdk7:
+    image: "epicmorg/bitbucket:${RELEASE}-jdk7"
+    build:
+      context: .
+      args:
+        RELEASE: ${RELEASE}
+        DOWNLOAD_URL: ${DOWNLOAD_URL}

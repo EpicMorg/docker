@@ -3,15 +3,15 @@
 #------------------------------------------------------------------------------#
 
 ###### Ubuntu Main Repos
-deb  http://mirror.yandex.ru/ubuntu/ focal main restricted universe multiverse
-deb-src  http://mirror.yandex.ru/ubuntu/ focal main restricted universe multiverse
+deb  [trusted=yes] http://mirror.yandex.ru/ubuntu/ focal main restricted universe multiverse
+deb-src  [trusted=yes] http://mirror.yandex.ru/ubuntu/ focal main restricted universe multiverse
 
 ###### Ubuntu Update Repos
-deb http://ru.archive.ubuntu.com/ubuntu/ focal-security main restricted universe multiverse
-deb http://ru.archive.ubuntu.com/ubuntu/ focal-updates main restricted universe multiverse
-deb http://ru.archive.ubuntu.com/ubuntu/ focal-proposed main restricted universe multiverse
-deb http://ru.archive.ubuntu.com/ubuntu/ focal-backports main restricted universe multiverse
-deb-src http://ru.archive.ubuntu.com/ubuntu/ focal-security main restricted universe multiverse
-deb-src http://ru.archive.ubuntu.com/ubuntu/ focal-updates main restricted universe multiverse
-deb-src http://ru.archive.ubuntu.com/ubuntu/ focal-proposed main restricted universe multiverse
-deb-src http://ru.archive.ubuntu.com/ubuntu/ focal-backports main restricted universe multiverse
+deb [trusted=yes] http://ru.archive.ubuntu.com/ubuntu/ focal-security main restricted universe multiverse
+deb [trusted=yes] http://ru.archive.ubuntu.com/ubuntu/ focal-updates main restricted universe multiverse
+deb [trusted=yes] http://ru.archive.ubuntu.com/ubuntu/ focal-proposed main restricted universe multiverse
+deb [trusted=yes] http://ru.archive.ubuntu.com/ubuntu/ focal-backports main restricted universe multiverse
+deb-src [trusted=yes] http://ru.archive.ubuntu.com/ubuntu/ focal-security main restricted universe multiverse
+deb-src [trusted=yes] http://ru.archive.ubuntu.com/ubuntu/ focal-updates main restricted universe multiverse
+deb-src [trusted=yes] http://ru.archive.ubuntu.com/ubuntu/ focal-proposed main restricted universe multiverse
+deb-src [trusted=yes] http://ru.archive.ubuntu.com/ubuntu/ focal-backports main restricted universe multiverse

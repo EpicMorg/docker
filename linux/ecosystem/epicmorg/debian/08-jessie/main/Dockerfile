@@ -5,13 +5,13 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 #                   perforce client binary
 ##################################################################
-ARG P4_VERSION=r22.1
+ARG P4_VERSION=r23.2
 ARG P4_DOWNLOAD_URL=http://filehost.perforce.com/perforce/${P4_VERSION}/bin.linux26x86_64/p4
 
 ##################################################################
 #                   7z official binary
 ##################################################################
-ARG SZ_VERSION=7z2301
+ARG SZ_VERSION=7z2400
 ARG SZ_DOWNLOAD_URL=https://www.7-zip.org/a/${SZ_VERSION}-linux-x64.tar.xz
 
 ##################################################################

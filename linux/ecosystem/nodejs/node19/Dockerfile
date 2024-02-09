@@ -13,7 +13,8 @@ RUN curl -sL https://deb.nodesource.com/setup_19.x | bash - && \
     echo "deb https://nightly.yarnpkg.com/debian/ nightly main" > /etc/apt/sources.list.d/yarn.list && \
     apt-get clean && apt-get autoclean && \
     apt-get update && \
-    apt-get install -y -o 'Acquire::Retries=3' nodejs yarn
+    apt-get install -y nodejs yarn && \
+    npm install -g pnpm
 
 #   curl -L https://www.npmjs.com/install.sh | sh
 #   npm install -g npm
@@ -22,6 +23,7 @@ RUN echo "=============================================" && \
     echo node $(node --version) && \
     echo npm $(npm --version) && \
     echo yarn $(yarn --version) && \
+    echo pnpm $(pnpm --version) && \
     echo "============================================="
 
 ##################################################################
