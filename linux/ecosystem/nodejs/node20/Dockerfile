@@ -1,4 +1,4 @@
-FROM epicmorg/debian:bullseye
+FROM epicmorg/debian:bookworm
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -8,16 +8,19 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN groupadd node && \
     useradd --gid node --shell /bin/bash --create-home node
 
-RUN curl -sL https://deb.nodesource.com/setup_20.x | bash - && \
-    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - && \
-    echo "deb https://nightly.yarnpkg.com/debian/ nightly main" > /etc/apt/sources.list.d/yarn.list && \
+ENV NODE_MAJOR=20
+
+RUN curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg && \
+    echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list && \
+    curl -fsSL https://dl.yarnpkg.com/debian/pubkey.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/yarnpkg.gpg && \
+    echo "deb [signed-by=/etc/apt/keyrings/yarnpkg.gpg] https://nightly.yarnpkg.com/debian/ nightly main" > /etc/apt/sources.list.d/yarn.list && \
     apt-get clean && apt-get autoclean && \
     apt-get update && \
     apt-get install -y nodejs yarn && \
-    npm install -g pnpm
+	npm install -g pnpm
 
-#   curl -L https://www.npmjs.com/install.sh | sh
-#   npm install -g npm
+#RUN  curl -L https://www.npmjs.com/install.sh | bash && \
+#     npm install -g npm
 
 RUN echo "=============================================" && \
     echo node $(node --version) && \
