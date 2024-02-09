@@ -596,6 +596,19 @@ ecosystem-vk2discord-images:
 
 ecosystem-qbittorrent-images: 
 	cd `pwd`/linux/ecosystem/qbittorrent/4.4.0    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/qbittorrent/4.4.1    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/qbittorrent/4.4.2    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/qbittorrent/4.4.3.1  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/qbittorrent/4.4.4    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/qbittorrent/4.4.5    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/qbittorrent/4.5.0    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/qbittorrent/4.5.1    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/qbittorrent/4.5.2    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/qbittorrent/4.5.3    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/qbittorrent/4.5.4    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/qbittorrent/4.5.5    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/qbittorrent/4.6.0    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/qbittorrent/4.6.1    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/qbittorrent/4.6.2    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/qbittorrent/4.6.3    && pwd && make build && make deploy
 

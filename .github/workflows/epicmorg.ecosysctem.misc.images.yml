@@ -72,6 +72,48 @@ jobs:
     - name: Test Make
       run:  make
 
+    - name: Build and Deploy qBittorrent 4.4.0
+      run:  cd linux/ecosystem/qbittorrent/4.4.0 && make build && make deploy
+
+    - name: Build and Deploy qBittorrent 4.4.1
+      run:  cd linux/ecosystem/qbittorrent/4.4.1 && make build && make deploy
+
+    - name: Build and Deploy qBittorrent 4.4.2
+      run:  cd linux/ecosystem/qbittorrent/4.4.2 && make build && make deploy
+
+    - name: Build and Deploy qBittorrent 4.4.3
+      run:  cd linux/ecosystem/qbittorrent/4.4.3 && make build && make deploy
+
+    - name: Build and Deploy qBittorrent 4.4.4
+      run:  cd linux/ecosystem/qbittorrent/4.4.4 && make build && make deploy
+
+    - name: Build and Deploy qBittorrent 4.4.5
+      run:  cd linux/ecosystem/qbittorrent/4.4.5 && make build && make deploy
+
+    - name: Build and Deploy qBittorrent 4.5.0
+      run:  cd linux/ecosystem/qbittorrent/4.5.0 && make build && make deploy
+
+    - name: Build and Deploy qBittorrent 4.5.1
+      run:  cd linux/ecosystem/qbittorrent/4.5.1 && make build && make deploy
+
+    - name: Build and Deploy qBittorrent 4.5.2
+      run:  cd linux/ecosystem/qbittorrent/4.5.2 && make build && make deploy
+
+    - name: Build and Deploy qBittorrent 4.5.3
+      run:  cd linux/ecosystem/qbittorrent/4.5.3 && make build && make deploy
+
+    - name: Build and Deploy qBittorrent 4.5.4
+      run:  cd linux/ecosystem/qbittorrent/4.5.4 && make build && make deploy
+
+    - name: Build and Deploy qBittorrent 4.5.5
+      run:  cd linux/ecosystem/qbittorrent/4.5.5 && make build && make deploy
+
+    - name: Build and Deploy qBittorrent 4.6.0
+      run:  cd linux/ecosystem/qbittorrent/4.6.0 && make build && make deploy
+
+    - name: Build and Deploy qBittorrent 4.6.1
+      run:  cd linux/ecosystem/qbittorrent/4.6.1 && make build && make deploy
+
     - name: Build and Deploy qBittorrent 4.6.2
       run:  cd linux/ecosystem/qbittorrent/4.6.2 && make build && make deploy
 

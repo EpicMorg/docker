@@ -11,6 +11,7 @@
   * updated `LazyGIT` to `0.40.2`
   * updated `p4` to `23.2` in base images
   * updated `perforce` iamges - `p4` and `p4p` to `r23.1` and `r23.2`
+  * updated `qbittorrent` iamges
 * `jan`
   * new versions of images
   * CVE-2023-22527 - RCE (Remote Code Execution) Vulnerability In Confluence Data Center and Confluence Server

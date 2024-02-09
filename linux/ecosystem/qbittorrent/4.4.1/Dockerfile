@@ -5,14 +5,19 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 #                   ARGuments
 ##################################################################
+
+#configured by dockerfile / .ENV
+ARG QBT_RELEASE
+ARG LT_RELEASE
+ENV QBT_VERSION=${QBT_RELEASE}
+ENV QBT_LIBTORRENT_VERSION=${LT_RELEASE}
+ENV QBT_URL=https://github.com/userdocs/qbittorrent-nox-static/releases/download/release-${QBT_VERSION}_v${QBT_LIBTORRENT_VERSION}/x86_64-qbittorrent-nox
+
 ENV QBT_DIR=/opt/qbittorrent
 ENV QBT_PORT_WEBUI=8282
 ENV QBT_PORT_TRACKER=9000
 ENV QBT_PORT_NAT=1337
-ENV QBT_VERSION=4.6.3
-ENV QBT_LIBTORRENT_VERSION=1.2.19
 ENV QBT_PROTOCOL=http
-ENV QBT_URL=https://github.com/userdocs/qbittorrent-nox-static/releases/download/release-${QBT_VERSION}_v${QBT_LIBTORRENT_VERSION}/x86_64-qbittorrent-nox
 
 ##################################################################
 #                   Files and folders
