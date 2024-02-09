@@ -8,9 +8,9 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN groupadd node && \
     useradd --gid node --shell /bin/bash --create-home node
 
-RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
-    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - && \
-    echo "deb https://nightly.yarnpkg.com/debian/ nightly main" > /etc/apt/sources.list.d/yarn.list && \
+RUN curl -fsSL https://deb.nodesource.com/setup_10.x | bash - && \
+    curl -fsSL https://dl.yarnpkg.com/debian/pubkey.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/yarnpkg.gpg && \
+    echo "deb [signed-by=/etc/apt/keyrings/yarnpkg.gpg] https://nightly.yarnpkg.com/debian/ nightly main" > /etc/apt/sources.list.d/yarn.list && \
     apt-get update && \
     apt-cache policy nodejs && \
     apt-get install -y nodejs=10.24.1-deb-1nodesource1 yarn
