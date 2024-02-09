@@ -5,8 +5,8 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 #                   perforce client binary
 ##################################################################
-ENV P4_VERSION=r22.1
-ENV P4_DOWNLOAD_URL=http://filehost.perforce.com/perforce/${P4_VERSION}/bin.linux26x86_64/p4
+ARG P4_VERSION=r23.2
+ARG P4_DOWNLOAD_URL=http://filehost.perforce.com/perforce/${P4_VERSION}/bin.linux26x86_64/p4
 
 ##################################################################
 #                   update lists
@@ -138,7 +138,7 @@ RUN curl --insecure -o /usr/bin/p4 ${P4_DOWNLOAD_URL} && \
 ##################################################################
 #                    dumb init
 ##################################################################
-ENV DUMB_INIT_VERSION=1.2.5
+ARG DUMB_INIT_VERSION=1.2.5
 RUN wget -q --no-check-certificate -c https://github.com/Yelp/dumb-init/releases/download/v${DUMB_INIT_VERSION}/dumb-init_${DUMB_INIT_VERSION}_x86_64 --random-wait -O /usr/bin/dumb-init && \
     chmod +x /usr/bin/dumb-init && \
     dumb-init --version
@@ -146,7 +146,7 @@ RUN wget -q --no-check-certificate -c https://github.com/Yelp/dumb-init/releases
 ##################################################################
 #           grab gosu for easy step-down from root
 ##################################################################
-ENV GOSU_VER 1.14
+ARG GOSU_VER=1.17
 RUN wget -q --no-check-certificate -c https://github.com/tianon/gosu/releases/download/${GOSU_VER}/gosu-amd64 --random-wait -O /usr/local/bin/gosu && \
     chmod +x /usr/local/bin/gosu && \
     gosu --version

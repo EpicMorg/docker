@@ -1,4 +1,4 @@
-FROM python:3.8-bullseye
+FROM python:3.8-bookworm
 
 ARG DEBIAN_FRONTEND=noninteractive
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
@@ -64,20 +64,20 @@ RUN update-ca-certificates
 ##################################################################
 #                   perforce client binary
 ##################################################################
-ENV P4_VERSION=r22.1
-ENV P4_DOWNLOAD_URL=http://filehost.perforce.com/perforce/${P4_VERSION}/bin.linux26x86_64/p4
+ARG P4_VERSION=r23.2
+ARG P4_DOWNLOAD_URL=http://filehost.perforce.com/perforce/${P4_VERSION}/bin.linux26x86_64/p4
 
 ##################################################################
 #                   7z official binary
 ##################################################################
-ENV SZ_VERSION=7z2200
-ENV SZ_DOWNLOAD_URL=https://www.7-zip.org/a/${SZ_VERSION}-linux-x64.tar.xz
+ARG SZ_VERSION=7z2400
+ARG SZ_DOWNLOAD_URL=https://www.7-zip.org/a/${SZ_VERSION}-linux-x64.tar.xz
 
 ##################################################################
 #                   LazyGit official binary
 ##################################################################
-ENV LZGIT_VERSION=0.34
-ENV LZGIT_DOWNLOAD_URL=https://github.com/jesseduffield/lazygit/releases/download/v${LZGIT_VERSION}/lazygit_${LZGIT_VERSION}_Linux_x86_64.tar.gz
+ARG LZGIT_VERSION=0.40.2
+ARG LZGIT_DOWNLOAD_URL=https://github.com/jesseduffield/lazygit/releases/download/v${LZGIT_VERSION}/lazygit_${LZGIT_VERSION}_Linux_x86_64.tar.gz
 
 ##################################################################
 #                   update lists
@@ -91,24 +91,29 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections && \
     apt-get install -y --allow-unauthenticated \
     bzip2 \
+    acl \
+    aptitude \
+    bzip2 \
+    cifs-utils \
+    clzip \
     cmatrix \
     cmatrix-xfont \
     cron \
     curl \
-    clzip \
+    cvs \
     dos2unix \
     ffmpeg \
     fontconfig \
     git \
-    git-extras \
-    git-flow \
+    git-crypt \
     git-cvs \
     git-doc \
     git-email \
-    git-mediawiki \
-    git-crypt \
-    git-lfs \
+    git-extras \
+    git-flow \
     git-ftp \
+    git-lfs \
+    git-mediawiki \
     gnupg \
     gnupg2 \
     graphicsmagick \
@@ -121,56 +126,60 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     iputils-ping \
     jq \
     kmod \
-    libxml2-dev \
-    libxml2-utils \
     lbzip2 \
     libsvn-java \
+    libxml2-dev \
+    libxml2-utils \
+    libzip4 \
     locales \
+    logrotate \
     lsb-release \
     lsof \
+    lvm2 \
     lynx \
-    lzma \
     lzip \
+    lzma \
     lzop \
     mc \
     mercurial \
     nano \
+    neofetch \
+    nfs-common \
     nload \
     nmap \
     openssl \
-    perl \
-    procps \
-    pbzip2 \
-    plzip \
     p7zip-full \
     p7zip-rar \
-    rsync \
+    parted \
+    pbzip2 \
+    perl \
+    pev \
+    plzip \
+    portmap \
+    procps \
+    python3-all \
+    python3-pip \
     rar \
+    rclone \
+    rename \
+    rsync \
     screenfetch \
     smbclient \
+    ssl-cert \
     subversion \
+    subversion-tools \
+    sudo \
+    sysstat \
     telnet \
+    tini \
     tmux \
     tree \
+    unrar \
     util-linux \
     uuid-runtime \
-    unrar \
-    xz-utils \
     wget \
-    zip \
-    tini \
-    libzip4 \
-    acl \
-    aptitude  \
-    sudo  \
-    cvs \
-    python3-pip \
-    python3-all \
-    python-all \
-    rclone \
-    logrotate \
-    subversion-tools \
-    pev
+    xz-utils \
+    zip
 
 ##################################################################
 #                   installing fs-tools

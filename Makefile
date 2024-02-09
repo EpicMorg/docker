@@ -1,4 +1,4 @@
-VERSION             =  "2023.06.08"
+VERSION             =  "2024.02.06"
 AUTHOR              =  "EpicMorg"
 MODIFIED            =  "STAM"
 DOCKER_SCAN_SUGGEST = false
@@ -24,6 +24,18 @@ help:
 	@echo "make advanced-images              - build only advanced images."
 	@echo "make ecosystem-images             - build ecosystem images."
 	@echo "make images                       - build all images."
+
+ansible.gen.jira:
+	cd `pwd`/bin/ansible			&& ansible-playbook ./generate.jira.yml
+
+ansible.gen.confluence:
+	cd `pwd`/bin/ansible			&& ansible-playbook ./generate.confluence.yml
+
+ansible.gen.bitbucket:
+	cd `pwd`/bin/ansible			&& ansible-playbook ./generate.bitbucket.yml
+
+ansible.gen.testrail:
+	cd `pwd`/bin/ansible			&& ansible-playbook ./generate.testrail.yml
 
 git:
 	git add .
@@ -67,6 +79,11 @@ advanced-images:
 
 advanced-mattermost-images:
 	cd `pwd`/linux/advanced/mattermost			&& pwd && make build && make deploy
+
+advanced-nextcloud-all-images:
+	make advanced-nextcloud-images
+	make advanced-nextcloud-patched-images
+	make advanced-nextcloud-latest-images
 
 advanced-nextcloud-latest-images:
 	cd `pwd`/linux/advanced/nextcloud/pure/latest	  && pwd && make build && make deploy
@@ -196,6 +213,7 @@ advanced-nextcloud-images:
 	cd `pwd`/linux/advanced/nextcloud/pure/25		  && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/nextcloud/pure/26		  && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/nextcloud/pure/27		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/pure/28		  && pwd && make build && make deploy
 
 advanced-nextcloud-patched-images:
 	cd `pwd`/linux/advanced/nextcloud/patched/14		  && pwd && make build && make deploy
@@ -212,6 +230,7 @@ advanced-nextcloud-patched-images:
 	cd `pwd`/linux/advanced/nextcloud/patched/25		  && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/nextcloud/patched/26		  && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/nextcloud/patched/27		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/patched/28		  && pwd && make build && make deploy
 
 ecosystem-images:
 	make bundle-base-images
@@ -242,6 +261,7 @@ advanced-pyhton-images-main:
 	cd `pwd`/linux/advanced/python/main/3.10 && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/python/main/3.11 && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/python/main/3.12 && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/python/main/3.13 && pwd && make build && make deploy
 
 advanced-pyhton-images-develop:
 	cd `pwd`/linux/advanced/python/develop/2.7 && pwd && make build && make deploy
@@ -252,6 +272,7 @@ advanced-pyhton-images-develop:
 	cd `pwd`/linux/advanced/python/develop/3.10 && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/python/develop/3.11 && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/python/develop/3.12 && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/python/develop/3.13 && pwd && make build && make deploy
 
 ecosystem-debian-images:
 	make ecosystem-debian-squeeze-images
@@ -281,7 +302,8 @@ ecosystem-debian-jessie-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/jdk8    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/jdk11    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/jdk17    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/jdk18    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/jdk20    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/jdk21    && pwd && make build && make deploy
 
 ecosystem-debian-stretch-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/slim    && pwd && make build && make deploy
@@ -292,7 +314,6 @@ ecosystem-debian-stretch-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/jdk8    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/jdk11    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/jdk17    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/jdk18    && pwd && make build && make deploy
 
 ecosystem-debian-buster-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/slim    && pwd && make build && make deploy
@@ -319,6 +340,7 @@ ecosystem-debian-bullseye-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk18    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk19    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk20    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk21    && pwd && make build && make deploy
 
 ecosystem-debian-bookworm-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/slim    && pwd && make build && make deploy
@@ -329,9 +351,8 @@ ecosystem-debian-bookworm-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk8    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk11    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk17    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk18    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk19    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk20    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk21    && pwd && make build && make deploy
 
 ecosystem-php-images:
 	cd `pwd`/linux/ecosystem/php/php7.0             && pwd && make build && make deploy
@@ -565,6 +586,7 @@ ecosystem-nodejs-images:
 	cd `pwd`/linux/ecosystem/nodejs/node18         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/nodejs/node19         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/nodejs/node20         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/nodejs/node21         && pwd && make build && make deploy
 
 ecosystem-ninjam-image: 
 	cd `pwd`/linux/ecosystem/ninjam/latest     && pwd && make build && make deploy
@@ -573,7 +595,9 @@ ecosystem-vk2discord-images:
 	cd `pwd`/linux/ecosystem/vk2discord     && pwd && make build && make deploy
 
 ecosystem-qbittorrent-images: 
+	cd `pwd`/linux/ecosystem/qbittorrent/4.4.0    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/qbittorrent/4.6.2    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/qbittorrent/4.6.3    && pwd && make build && make deploy
 
 ecosystem-retracker-images: 
 	cd `pwd`/linux/ecosystem/retracker    && pwd && make build && make deploy
@@ -627,6 +651,7 @@ ecosystem-teamcity-agent-images:
 	cd `pwd`/linux/ecosystem/teamcity/agent/node18         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/teamcity/agent/node19         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/teamcity/agent/node20         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/node21         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/teamcity/agent/php7.2         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/teamcity/agent/php7.3         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/teamcity/agent/php7.4         && pwd && make build && make deploy
@@ -651,6 +676,7 @@ ecosystem-gitlab-runner-images:
 	cd `pwd`/linux/ecosystem/gitlab/runner/node18         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/gitlab/runner/node19         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/gitlab/runner/node20         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/node21         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/gitlab/runner/php7.2         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/gitlab/runner/php7.3         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/gitlab/runner/php7.4         && pwd && make build && make deploy
@@ -687,6 +713,8 @@ ecosystem-perforce-base-images:
 	cd `pwd`/linuxecosystem/perforce/base/r21.1    && pwd && make build && make deploy
 	cd `pwd`/linuxecosystem/perforce/base/r21.2    && pwd && make build && make deploy
 	cd `pwd`/linuxecosystem/perforce/base/r22.1    && pwd && make build && make deploy
+	cd `pwd`/linuxecosystem/perforce/base/r23.1    && pwd && make build && make deploy
+	cd `pwd`/linuxecosystem/perforce/base/r23.2    && pwd && make build && make deploy
 
 ecosystem-perforce-proxy-images:
 	cd `pwd`/linuxecosystem/perforce/p4p/r16.2    && pwd && make build && make deploy
@@ -701,6 +729,171 @@ ecosystem-perforce-proxy-images:
 	cd `pwd`/linuxecosystem/perforce/p4p/r21.1    && pwd && make build && make deploy
 	cd `pwd`/linuxecosystem/perforce/p4p/r21.2    && pwd && make build && make deploy
 	cd `pwd`/linuxecosystem/perforce/p4p/r22.1    && pwd && make build && make deploy
+	cd `pwd`/linuxecosystem/perforce/p4p/r23.1    && pwd && make build && make deploy
+	cd `pwd`/linuxecosystem/perforce/p4p/r23.2    && pwd && make build && make deploy
+
+
+ecosystem-bitbucket-1-images:
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/1/1.0.3                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/1/1.1.2                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/1/1.2.1                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/1/1.2.4                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/1/1.3.1                && pwd && make build && make deploy
+
+
+ecosystem-bitbucket-2-images:
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/2/2.0.3                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/2/2.1.2                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/2/2.2.0                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/2/2.3.1                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/2/2.4.2                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/2/2.5.4                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/2/2.6.5                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/2/2.7.6                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/2/2.8.4                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/2/2.8.5                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/2/2.9.1                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/2/2.9.2                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/2/2.9.3                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/2/2.9.4                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/2/2.9.5                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/2/2.10.0                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/2/2.10.1                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/2/2.10.2                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/2/2.10.3                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/2/2.10.4                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/2/2.10.5                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/2/2.11.3                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/2/2.11.4                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/2/2.11.5                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/2/2.11.6                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/2/2.11.7                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/2/2.11.8                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/2/2.11.9                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/2/2.12.0                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/2/2.12.1                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/2/2.12.2                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/2/2.12.3                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/2/2.12.4                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/2/2.12.5                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/2/2.12.6                && pwd && make build && make deploy
+
+ecosystem-bitbucket-3-images:
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/3/3.0.1                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/3/3.0.4                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/3/3.0.5                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/3/3.0.6                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/3/3.0.7                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/3/3.0.8                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/3/3.1.0                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/3/3.1.1                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/3/3.1.3                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/3/3.1.4                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/3/3.1.5                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/3/3.1.7                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/3/3.2.0                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/3/3.2.2                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/3/3.2.4                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/3/3.2.5                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/3/3.2.7                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/3/3.3.0                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/3/3.3.1                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/3/3.3.2                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/3/3.3.3                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/3/3.3.5                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/3/3.4.0                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/3/3.4.1                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/3/3.4.3                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/3/3.4.5                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/3/3.5.0                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/3/3.5.1                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/3/3.6.0                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/3/3.6.1                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/3/3.7.0                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/3/3.7.1                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/3/3.7.2                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/3/3.7.3                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/3/3.7.4                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/3/3.8.0                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/3/3.8.1                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/3/3.9.1                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/3/3.9.2                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/3/3.10.0                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/3/3.10.2                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/3/3.10.3                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/3/3.10.4                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/3/3.11.0                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/3/3.11.1                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/3/3.11.2                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/3/3.11.3                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/3/3.11.4                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/3/3.11.6                && pwd && make build && make deploy
+
+ecosystem-bitbucket-4-images:
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.0.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.0.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.0.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.0.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.0.6                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.0.7                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.0.8                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.1.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.1.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.1.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.1.6                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.2.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.2.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.2.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.2.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.3.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.3.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.3.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.3.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.4.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.4.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.4.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.4.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.5.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.5.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.5.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.6.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.6.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.6.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.6.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.6.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.7.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.7.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.8.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.8.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.8.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.8.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.8.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.8.5                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.8.6                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.9.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.9.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.10.0                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.10.1                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.10.2                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.11.1                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.11.2                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.12.0                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.12.1                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.13.0                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.13.1                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.14.0                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.14.1                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.14.2                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.14.3                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.14.4                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.14.5                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.14.6                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.14.7                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.14.8                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.14.9                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.14.10                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.14.11                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.14.12                && pwd && make build && make deploy
 
 ecosystem-jira-4-images:
 	cd `pwd`/linux/ecosystem/atlassian/jira/4/4.1.1                && pwd && make build && make deploy
@@ -869,19 +1062,6 @@ ecosystem-jira-7-images:
 	cd `pwd`/linux/ecosystem/atlassian/jira/7/7.6.1                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/7/7.6.2                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/7/7.6.3                && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/atlassian/jira/7/7.6.4                && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/atlassian/jira/7/7.6.6                && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/atlassian/jira/7/7.6.7                && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/atlassian/jira/7/7.6.8                && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/atlassian/jira/7/7.6.9                && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/atlassian/jira/7/7.6.10                && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/atlassian/jira/7/7.6.11                && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/atlassian/jira/7/7.6.12                && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/atlassian/jira/7/7.6.13                && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/atlassian/jira/7/7.6.14                && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/atlassian/jira/7/7.6.15                && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/atlassian/jira/7/7.6.16                && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/atlassian/jira/7/7.6.17                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/7/7.7.0                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/7/7.7.1                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/7/7.7.2                && pwd && make build && make deploy
@@ -901,6 +1081,21 @@ ecosystem-jira-7-images:
 	cd `pwd`/linux/ecosystem/atlassian/jira/7/7.12.0                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/7/7.12.1                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/7/7.12.3                && pwd && make build && make deploy
+
+ecosystem-jira-7-lts-images:
+	cd `pwd`/linux/ecosystem/atlassian/jira/7/7.6.4                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/7/7.6.6                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/7/7.6.7                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/7/7.6.8                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/7/7.6.9                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/7/7.6.10                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/7/7.6.11                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/7/7.6.12                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/7/7.6.13                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/7/7.6.14                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/7/7.6.15                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/7/7.6.16                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/7/7.6.17                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/7/7.13.0                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/7/7.13.1                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/7/7.13.2                && pwd && make build && make deploy
@@ -980,6 +1175,29 @@ ecosystem-jira-8-images:
 	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.12.1                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.12.2                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.12.3                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.14.0                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.14.1                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.15.0                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.15.1                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.16.0                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.16.1                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.16.2                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.17.0                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.17.1                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.18.1                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.18.2                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.19.0                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.19.1                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.21.0                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.21.1                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.22.0                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.22.1                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.22.2                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.22.3                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.22.4                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.22.6                && pwd && make build && make deploy
+
+ecosystem-jira-8-lts-images:
 	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.13.0                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.13.1                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.13.2                && pwd && make build && make deploy
@@ -1007,19 +1225,6 @@ ecosystem-jira-8-images:
 	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.13.25                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.13.26                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.13.27                && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.14.0                && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.14.1                && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.15.0                && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.15.1                && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.16.0                && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.16.1                && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.16.2                && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.17.0                && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.17.1                && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.18.1                && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.18.2                && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.19.0                && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.19.1                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.20.0                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.20.1                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.20.2                && pwd && make build && make deploy
@@ -1044,14 +1249,13 @@ ecosystem-jira-8-images:
 	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.20.22                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.20.23                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.20.24                && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.21.0                && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.21.1                && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.22.0                && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.22.1                && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.22.2                && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.22.3                && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.22.4                && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.22.6                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.20.25                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.20.26                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.20.27                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.20.28                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.20.29                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.20.30                && pwd && make build && make deploy
+
 
 ecosystem-jira-9-images:
 	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.0.0                && pwd && make build && make deploy
@@ -1062,16 +1266,6 @@ ecosystem-jira-9-images:
 	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.3.0                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.3.1                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.3.2                && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.3.3                && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.4.0                && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.4.1                && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.4.2                && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.4.3                && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.4.4                && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.4.5                && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.4.6                && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.4.7                && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.4.8                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.5.0                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.5.1                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.6.0                && pwd && make build && make deploy
@@ -1082,6 +1276,34 @@ ecosystem-jira-9-images:
 	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.9.0                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.9.1                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.10.0                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.10.1                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.10.2                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.11.0                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.11.1                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.11.2                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.11.3                && pwd && make build && make deploy
+
+ecosystem-jira-9-lts-images:
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.3.3                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.4.0                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.4.1                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.4.2                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.4.3                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.4.4                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.4.5                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.4.6                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.4.7                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.4.8                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.4.9                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.4.10                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.4.11                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.4.12                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.4.13                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.4.14                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.4.15                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.12.0                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.12.1                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.12.2                && pwd && make build && make deploy
 
 bundle-base-images:
 	@echo "======================================="

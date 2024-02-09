@@ -1,2 +1,7 @@
 # Defaults
-target_directory: "/opt/tmp/jira/"
+target_directory_jira_4: "/opt/tmp/jira/4"
+target_directory_jira_5: "/opt/tmp/jira/5"
+target_directory_jira_6: "/opt/tmp/jira/6"
+target_directory_jira_7: "/opt/tmp/jira/7"
+target_directory_jira_8: "/opt/tmp/jira/8"
+target_directory_jira_9: "/opt/tmp/jira/9"

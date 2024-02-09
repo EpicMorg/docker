@@ -1,28 +1,28 @@
 #main
-deb http://httpredir.debian.org/debian/ bullseye main contrib non-free
-deb-src http://httpredir.debian.org/debian/ bullseye main contrib non-free
+deb [trusted=yes]  http://httpredir.debian.org/debian/ bullseye main contrib non-free
+deb-src [trusted=yes]  http://httpredir.debian.org/debian/ bullseye main contrib non-free
 
-deb http://httpredir.debian.org/debian/ bullseye-updates main contrib non-free
-deb-src http://httpredir.debian.org/debian/ bullseye-updates main contrib non-free
+deb [trusted=yes]  http://httpredir.debian.org/debian/ bullseye-updates main contrib non-free
+deb-src [trusted=yes]  http://httpredir.debian.org/debian/ bullseye-updates main contrib non-free
 
-deb http://httpredir.debian.org/debian/ bullseye-backports main contrib non-free
-deb-src http://httpredir.debian.org/debian/ bullseye-backports main contrib non-free
+deb [trusted=yes]  http://httpredir.debian.org/debian/ bullseye-backports main contrib non-free
+deb-src [trusted=yes]  http://httpredir.debian.org/debian/ bullseye-backports main contrib non-free
 
-deb http://httpredir.debian.org/debian/ bullseye-backports-sloppy main contrib non-free
-deb-src http://httpredir.debian.org/debian/ bullseye-backports-sloppy main contrib non-free
+deb [trusted=yes]  http://httpredir.debian.org/debian/ bullseye-backports-sloppy main contrib non-free
+deb-src [trusted=yes]  http://httpredir.debian.org/debian/ bullseye-backports-sloppy main contrib non-free
 
-deb http://httpredir.debian.org/debian/ bullseye-proposed-updates main contrib non-free
-deb-src http://httpredir.debian.org/debian/ bullseye-proposed-updates main contrib non-free
+deb [trusted=yes]  http://httpredir.debian.org/debian/ bullseye-proposed-updates main contrib non-free
+deb-src [trusted=yes]  http://httpredir.debian.org/debian/ bullseye-proposed-updates main contrib non-free
 
 #security
-deb http://httpredir.debian.org/debian-security/ bullseye-security main contrib non-free
-deb-src http://httpredir.debian.org/debian-security/ bullseye-security main contrib non-free
+deb [trusted=yes]  http://httpredir.debian.org/debian-security/ bullseye-security main contrib non-free
+deb-src [trusted=yes]  http://httpredir.debian.org/debian-security/ bullseye-security main contrib non-free
 
-deb http://httpredir.debian.org/debian-security/ bullseye-security/updates main contrib non-free
-deb-src http://httpredir.debian.org/debian-security/ bullseye-security/updates main contrib non-free
+deb [trusted=yes]  http://httpredir.debian.org/debian-security/ bullseye-security/updates main contrib non-free
+deb-src [trusted=yes]  http://httpredir.debian.org/debian-security/ bullseye-security/updates main contrib non-free
 
 ##multimedia
-#deb http://httpredir.debian.org/debian-multimedia/ bullseye main non-free
-#deb-src http://httpredir.debian.org/debian-multimedia/ bullseye main non-free
-#deb http://httpredir.debian.org/debian-multimedia/ bullseye-backports main
-#deb-src http://httpredir.debian.org/debian-multimedia/ bullseye-backports main
+#deb [trusted=yes]  http://httpredir.debian.org/debian-multimedia/ bullseye main non-free
+#deb-src [trusted=yes]  http://httpredir.debian.org/debian-multimedia/ bullseye main non-free
+#deb [trusted=yes]  http://httpredir.debian.org/debian-multimedia/ bullseye-backports main
+#deb-src [trusted=yes]  http://httpredir.debian.org/debian-multimedia/ bullseye-backports main

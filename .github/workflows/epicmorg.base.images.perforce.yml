@@ -57,6 +57,12 @@ jobs:
     - name: "Build and Deploy Perfocre r22.1 Image:"
       run:  cd linux/ecosystem/perforce/base/r22.1    && pwd && make build && make deploy
 
+    - name: "Build and Deploy Perfocre r23.1 Image:"
+      run:  cd linux/ecosystem/perforce/base/r23.1    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Perfocre r23.2 Image:"
+      run:  cd linux/ecosystem/perforce/base/r23.2    && pwd && make build && make deploy
+
 ##################################################################################
 
   build-p4p-images:
@@ -107,6 +113,12 @@ jobs:
 
     - name: "Build and Deploy Perfocre Proxy r22.1 Image:"
       run:  cd linux/ecosystem/perforce/p4p/r22.1    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Perfocre Proxy r23.1 Image:"
+      run:  cd linux/ecosystem/perforce/p4p/r23.1    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Perfocre Proxy r23.2 Image:"
+      run:  cd linux/ecosystem/perforce/p4p/r23.2    && pwd && make build && make deploy
 
 ##################################################################################
 

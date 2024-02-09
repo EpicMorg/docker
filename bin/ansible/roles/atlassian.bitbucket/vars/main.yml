@@ -1,0 +1,9 @@
+# Defaults
+target_directory_bitbucket_1: "/opt/tmp/bitbucket/1"
+target_directory_bitbucket_2: "/opt/tmp/bitbucket/2"
+target_directory_bitbucket_3: "/opt/tmp/bitbucket/3"
+target_directory_bitbucket_4: "/opt/tmp/bitbucket/4"
+target_directory_bitbucket_5: "/opt/tmp/bitbucket/5"
+target_directory_bitbucket_6: "/opt/tmp/bitbucket/6"
+target_directory_bitbucket_7: "/opt/tmp/bitbucket/7"
+target_directory_bitbucket_8: "/opt/tmp/bitbucket/8"

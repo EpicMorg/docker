@@ -31,8 +31,8 @@ ENV BuildDocker true
 ##################################################################
 #                   7z official binary
 ##################################################################
-ENV SZ_VERSION=7z2107
-ENV SZ_DOWNLOAD_URL=https://www.7-zip.org/a/${SZ_VERSION}-linux-x64.tar.xz
+ARG SZ_VERSION=7z2400
+ARG SZ_DOWNLOAD_URL=https://www.7-zip.org/a/${SZ_VERSION}-linux-x64.tar.xz
 
 ##################################################################
 #                   installing utils
@@ -118,7 +118,6 @@ RUN wget -nv --random-wait -c -O /tmp/7z.tar.xz ${SZ_DOWNLOAD_URL} && \
     mv -fv /tmp/7z/7zz /usr/bin/ && \
     7zz | head -4 && \
     7z | head -4
-
 
 ##################################################################
 #                   Install GitHub CLI binary

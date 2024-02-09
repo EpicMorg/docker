@@ -5,7 +5,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 #                   perforce client binary
 ##################################################################
-#ARG P4_VERSION=r22.1
+#ARG P4_VERSION=r23.2
 #ARG P4_DOWNLOAD_URL=http://filehost.perforce.com/perforce/${P4_VERSION}/bin.linux26x86_64/p4
 
 ##################################################################

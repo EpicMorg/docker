@@ -5,20 +5,20 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 #                   perforce client binary
 ##################################################################
-ENV P4_VERSION=r22.1
-ENV P4_DOWNLOAD_URL=https://filehost.perforce.com/perforce/${P4_VERSION}/bin.linux26x86_64/p4
+ARG P4_VERSION=r23.2
+ARG P4_DOWNLOAD_URL=https://filehost.perforce.com/perforce/${P4_VERSION}/bin.linux26x86_64/p4
 
 ##################################################################
 #                   7z official binary
 ##################################################################
-ENV SZ_VERSION=7z2301
-ENV SZ_DOWNLOAD_URL=https://www.7-zip.org/a/${SZ_VERSION}-linux-x64.tar.xz
+ARG SZ_VERSION=7z2400
+ARG SZ_DOWNLOAD_URL=https://www.7-zip.org/a/${SZ_VERSION}-linux-x64.tar.xz
 
 ##################################################################
 #                   LazyGit official binary
 ##################################################################
-ENV LZGIT_VERSION=0.34
-ENV LZGIT_DOWNLOAD_URL=https://github.com/jesseduffield/lazygit/releases/download/v${LZGIT_VERSION}/lazygit_${LZGIT_VERSION}_Linux_x86_64.tar.gz
+ARG LZGIT_VERSION=0.40.2
+ARG LZGIT_DOWNLOAD_URL=https://github.com/jesseduffield/lazygit/releases/download/v${LZGIT_VERSION}/lazygit_${LZGIT_VERSION}_Linux_x86_64.tar.gz
 
 ##################################################################
 #                   update lists
@@ -210,7 +210,7 @@ RUN wget --no-check-certificate -nv --random-wait --retry-connrefused --continue
 ##################################################################
 #                    dumb init
 ##################################################################
-ENV DUMB_INIT_VERSION=1.2.5
+ARG DUMB_INIT_VERSION=1.2.5
 RUN wget -q --no-check-certificate -c https://github.com/Yelp/dumb-init/releases/download/v${DUMB_INIT_VERSION}/dumb-init_${DUMB_INIT_VERSION}_x86_64 --random-wait -O /usr/bin/dumb-init && \
     chmod +x /usr/bin/dumb-init && \
     dumb-init --version
@@ -218,7 +218,7 @@ RUN wget -q --no-check-certificate -c https://github.com/Yelp/dumb-init/releases
 ##################################################################
 #           grab gosu for easy step-down from root
 ##################################################################
-ENV GOSU_VER 1.14
+ARG GOSU_VER=1.17
 RUN wget -q --no-check-certificate -c https://github.com/tianon/gosu/releases/download/${GOSU_VER}/gosu-amd64 --random-wait -O /usr/local/bin/gosu && \
     chmod +x /usr/local/bin/gosu && \
     gosu --version

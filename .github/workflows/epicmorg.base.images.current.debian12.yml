@@ -44,12 +44,6 @@ jobs:
       
     - name: "Build and Deploy Debian 12 jdk17 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/jdk17    && pwd && make build && make deploy
-      
-    - name: "Build and Deploy Debian 12 jdk18 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/jdk18    && pwd && make build && make deploy
-
-    - name: "Build and Deploy Debian 12 jdk19 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/jdk19    && pwd && make build && make deploy
 
     - name: "Build and Deploy Debian 12 jdk20 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/jdk20    && pwd && make build && make deploy

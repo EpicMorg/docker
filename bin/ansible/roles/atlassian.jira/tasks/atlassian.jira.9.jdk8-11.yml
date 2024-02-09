@@ -9,43 +9,50 @@
 
 - name: Create directories for Jira versions
   file:
-    path: "{{ target_directory }}/{{ item }}"
+    path: "{{ target_directory_jira_9 }}/{{ item }}"
     state: directory
     mode: '0755'
+    force: true
   with_items: "{{ jira_versions }}"
 
 - name: Copy template with link to each version directory
   template:
     src: "template.env.j2"
-    dest: "{{ target_directory }}/{{ item }}/.env"
+    dest: "{{ target_directory_jira_9 }}/{{ item }}/.env"
+    force: true
   with_items: "{{ jira_versions }}"
 
 - name: Copy docker-compose.yml from 'files' directory to each version directory
   copy:
     src: "docker-compose.jdk8-11.yml"
-    dest: "{{ target_directory }}/{{ item }}/docker-compose.yml"
+    dest: "{{ target_directory_jira_9 }}/{{ item }}/docker-compose.yml"
+    force: true
   with_items: "{{ jira_versions }}"
 
 - name: Copy Dockerfile from 'files' directory to each version directory
   copy:
     src: "Dockerfile.jdk8"
-    dest: "{{ target_directory }}/{{ item }}/Dockerfile"
+    dest: "{{ target_directory_jira_9 }}/{{ item }}/Dockerfile"
+    force: true
   with_items: "{{ jira_versions }}"
 
 - name: Copy Dockerfile.jdk11 from 'files' directory to each version directory
   copy:
     src: "Dockerfile.jdk11"
-    dest: "{{ target_directory }}/{{ item }}/Dockerfile.jdk11"
+    dest: "{{ target_directory_jira_9 }}/{{ item }}/Dockerfile.jdk11"
+    force: true
   with_items: "{{ jira_versions }}"
 
 - name: Copy entrypoint.sh from 'files' directory to each version directory
   copy:
     src: "entrypoint.sh"
-    dest: "{{ target_directory }}/{{ item }}/entrypoint.sh"
+    dest: "{{ target_directory_jira_9 }}/{{ item }}/entrypoint.sh"
+    force: true
   with_items: "{{ jira_versions }}"
 
 - name: Copy Makefile from 'files' directory to each version directory
   copy:
     src: "Makefile"
-    dest: "{{ target_directory }}/{{ item }}/Makefile"
+    dest: "{{ target_directory_jira_9 }}/{{ item }}/Makefile"
+    force: true
   with_items: "{{ jira_versions }}"

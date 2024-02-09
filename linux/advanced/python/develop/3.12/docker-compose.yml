@@ -1,6 +1,6 @@
-version: '3.9'
+version: '3'
 services:
   app:
-    image: "epicmorg/python:3.11-develop"
+    image: "epicmorg/python:3.12-develop"
     build:
       context: .

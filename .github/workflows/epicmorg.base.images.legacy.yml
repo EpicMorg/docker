@@ -87,31 +87,16 @@ jobs:
       
     - name: "Build and Deploy Debian 8 jdk11 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/08-jessie/jdk11    && pwd && make build && make deploy
-      
-    - name: "Build and Deploy Debian 8 jdk12 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/08-jessie/jdk12    && pwd && make build && make deploy
-      
-    - name: "Build and Deploy Debian 8 jdk13 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/08-jessie/jdk13    && pwd && make build && make deploy
-      
-    - name: "Build and Deploy Debian 8 jdk14 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/08-jessie/jdk14    && pwd && make build && make deploy
-      
-    - name: "Build and Deploy Debian 8 jdk15 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/08-jessie/jdk15    && pwd && make build && make deploy
-      
-    - name: "Build and Deploy Debian 8 jdk16 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/08-jessie/jdk16    && pwd && make build && make deploy
-      
+
     - name: "Build and Deploy Debian 8 jdk17 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/08-jessie/jdk17    && pwd && make build && make deploy
       
-    - name: "Build and Deploy Debian 8 jdk18 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/08-jessie/jdk18    && pwd && make build && make deploy
+    - name: "Build and Deploy Debian 8 jdk20 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/08-jessie/jdk20    && pwd && make build && make deploy
 
-#    - name: "Build and Deploy Debian 8 jdk19 Image:"
-#    run:  cd linux/ecosystem/epicmorg/debian/08-jessie/jdk19    && pwd && make build && make deploy
-     
+    - name: "Build and Deploy Debian 8 jdk21 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/08-jessie/jdk21    && pwd && make build && make deploy
+   
 ##################################################################################
 
   build-09-images:
@@ -146,30 +131,9 @@ jobs:
       
     - name: "Build and Deploy Debian 9 jdk11 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/09-stretch/jdk11    && pwd && make build && make deploy
-      
-    - name: "Build and Deploy Debian 9 jdk12 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/09-stretch/jdk12    && pwd && make build && make deploy
-      
-    - name: "Build and Deploy Debian 9 jdk13 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/09-stretch/jdk13    && pwd && make build && make deploy
-      
-    - name: "Build and Deploy Debian 9 jdk14 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/09-stretch/jdk14    && pwd && make build && make deploy
-      
-    - name: "Build and Deploy Debian 9 jdk15 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/09-stretch/jdk15    && pwd && make build && make deploy
-      
-    - name: "Build and Deploy Debian 9 jdk16 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/09-stretch/jdk16    && pwd && make build && make deploy
-      
+           
     - name: "Build and Deploy Debian 9 jdk17 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/09-stretch/jdk17    && pwd && make build && make deploy
-      
-    - name: "Build and Deploy Debian 9 jdk18 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/09-stretch/jdk18    && pwd && make build && make deploy
-
-    - name: "Build and Deploy Debian 9 jdk19 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/09-stretch/jdk19    && pwd && make build && make deploy
 
 ##################################################################################
 

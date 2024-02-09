@@ -1,7 +1,11 @@
-version: '3.9'
+version: '3'
 services:
-  qbt-libtorrent2:
+  qbt:
     image: "epicmorg/qbittorrent:4.6.2"
+    build:
+      context: .
+  qbt-libtorrent2:
+    image: "epicmorg/qbittorrent:4.6.2-libtorrent2.0.9"
     build:
       context: .
   qbt-libtorrent1:

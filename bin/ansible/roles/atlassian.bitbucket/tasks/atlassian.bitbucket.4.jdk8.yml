@@ -1,0 +1,51 @@
+- name: Read versions from file
+  slurp:
+     src: "roles/common/files/versions/bitbucket/4.jdk8.txt"
+  register: version_output
+
+- name: Set version variable
+  set_fact:
+    bitbucket_versions: "{{ version_output['content'] | b64decode | trim | split('\n') }}"
+
+- name: Create directories for Bitbucket versions
+  file:
+    path: "{{ target_directory_bitbucket_4 }}/{{ item }}"
+    state: directory
+    mode: '0755'
+    force: true
+  with_items: "{{ bitbucket_versions }}"
+
+- name: Copy template with link to each version directory
+  template:
+    src: "template.bitbucket.4.env.j2"
+    dest: "{{ target_directory_bitbucket_4 }}/{{ item }}/.env"
+    force: true
+  with_items: "{{ bitbucket_versions }}"
+
+- name: Copy docker-compose.yml from 'files' directory to each version directory
+  copy:
+    src: "docker-compose.jdk8.yml"
+    dest: "{{ target_directory_bitbucket_4 }}/{{ item }}/docker-compose.yml"
+    force: true
+  with_items: "{{ bitbucket_versions }}"
+
+- name: Copy Dockerfile from 'files' directory to each version directory
+  copy:
+    src: "Dockerfile.legacy.jdk8"
+    dest: "{{ target_directory_bitbucket_4 }}/{{ item }}/Dockerfile"
+    force: true
+  with_items: "{{ bitbucket_versions }}"
+
+- name: Copy entrypoint.sh from 'files' directory to each version directory
+  copy:
+    src: "entrypoint.sh"
+    dest: "{{ target_directory_bitbucket_4 }}/{{ item }}/entrypoint.sh"
+    force: true
+  with_items: "{{ bitbucket_versions }}"
+
+- name: Copy Makefile from 'files' directory to each version directory
+  copy:
+    src: "Makefile"
+    dest: "{{ target_directory_bitbucket_4 }}/{{ item }}/Makefile"
+    force: true
+  with_items: "{{ bitbucket_versions }}"

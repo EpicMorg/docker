@@ -1,0 +1,11 @@
+#- name: "Generate images for Stash (Bitbucket) 1 (jdk7)"
+#  import_tasks: atlassian.bitbucket.1.jdk7.yml
+
+#- name: "Generate images for  Stash (Bitbucket) 2 (jdk7)"
+#  import_tasks: atlassian.bitbucket.2.jdk7.yml
+
+#- name: "Generate images for  Stash (Bitbucket) 3 (jdk8)"
+#  import_tasks: atlassian.bitbucket.3.jdk8.yml
+
+- name: "Generate images for  Bitbucket 4 (jdk8)"
+  import_tasks: atlassian.bitbucket.4.jdk8.yml
