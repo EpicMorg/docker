@@ -209,41 +209,50 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
 ##################################################################
 #                   git fresh binary
 ##################################################################
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A1715D88E1DF1F24 && \
+RUN gpg --keyserver keyserver.ubuntu.com --recv-keys A1715D88E1DF1F24 && \
+    gpg --export --output /etc/apt/keyrings/launchpad-git.gpg A1715D88E1DF1F24 && \
     rm -rfv /etc/apt/sources.list.d/launchpad_git-mainline.list && \
     rm -rfv /etc/apt/sources.list.d/launchpad_git-stable.list
 COPY etc/apt/sources.list.d/launchpad_git-mainline.list /etc/apt/sources.list.d/launchpad_git-mainline.list
 COPY etc/apt/sources.list.d/launchpad_git-stable.list /etc/apt/sources.list.d/launchpad_git-stable.list
 RUN apt-get update &&  \
     apt-get install -y --allow-unauthenticated \
-    git && \
-    git --version
+    git
+
+RUN echo "=============================================" && \
+    echo git $(git --version) && \
+    echo "============================================="
 
 ##################################################################
 #                   git-lfs official binary
 ##################################################################
-#RUN curl -s https://packagecloud.io/github/git-lfs/gpgkey | sudo gpg --no-default-keyring --keyring gnupg-ring:/etc/apt/trusted.gpg.d/git-lfs.gpg --import && \
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 6B05F25D762E3157 && \
+RUN curl -fsSL https://packagecloud.io/github/git-lfs/gpgkey | gpg --dearmor > /etc/apt/keyrings/github_git-lfs-archive-keyring.gpg && \
     rm -rfv /etc/apt/sources.list.d/github_git-lfs.list
 COPY etc/apt/sources.list.d/github_git-lfs.list /etc/apt/sources.list.d/github_git-lfs.list
 RUN apt-get update &&  \
     apt-get install -y --allow-unauthenticated \
     git \
     git-lfs && \
-    git --version && \
-    git-lfs install --skip-repo && \
-    git-lfs --version
+    git-lfs install --skip-repo
+
+RUN echo "=============================================" && \
+    echo git $(git --version) && \
+    echo git-lfs $(git-lfs --version) && \
+    echo "============================================="
 
 ##################################################################
 #                   gh official binary
 ##################################################################
-RUN wget -c https://cli.github.com/packages/githubcli-archive-keyring.gpg -O /etc/apt/trusted.gpg.d/githubcli-archive-keyring.gpg && \
-    chmod go+r /etc/apt/trusted.gpg.d/githubcli-archive-keyring.gpg && \
-    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/trusted.gpg.d/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list && \
+RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/githubcli-archive-keyring.gpg && \
+    chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg && \
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list && \
     apt-get update &&  \
     apt-get install -y --allow-unauthenticated \
-    gh && \
-    gh --version
+    gh
+
+RUN echo "=============================================" && \
+    echo gh $(gh --version) && \
+    echo "============================================="
 
 ##################################################################
 #                   Install p4client
@@ -258,9 +267,12 @@ RUN wget --no-check-certificate -nv --random-wait --retry-connrefused --continue
     mkdir -p /tmp/7z && \
     tar -xf /tmp/7z.tar.xz -C /tmp/7z && \
     chmod +x /tmp/7z/7zz && \
-    mv -fv /tmp/7z/7zz /usr/bin/ && \
-    7zz | head -4 && \
-    7z | head -4
+    mv -fv /tmp/7z/7zz /usr/bin/
+
+RUN echo "=============================================" && \
+    echo 7zz $(7zz | head -4) && \
+    echo 7z $(7z | head -4) && \
+    echo "============================================="
 
 ##################################################################
 #                   Install LazyGit official binary
@@ -269,14 +281,46 @@ RUN wget --no-check-certificate -nv --random-wait --retry-connrefused --continue
     mkdir -p /tmp/lazygit && \
     tar -zxvf /tmp/lazygit.tar.xz -C /tmp/lazygit && \
     chmod +x /tmp/lazygit/lazygit && \
-    mv -fv /tmp/lazygit/lazygit /usr/bin/ && \
-    echo "lazygit version:" && \
-    lazygit --version
+    mv -fv /tmp/lazygit/lazygit /usr/bin/
+
+RUN echo "=============================================" && \
+    echo lazygit $(lazygit --version) && \
+    echo "============================================="
+
+##################################################################
+#                    dumb init
+##################################################################
+RUN wget -q --no-check-certificate -c ${DUMB_INIT_DOWNLOAD_URL} --random-wait -O /usr/bin/dumb-init && \
+    chmod +x /usr/bin/dumb-init
+
+RUN echo "=============================================" && \
+    echo dumb-init $(dumb-init --version) && \
+    echo "============================================="
+
+##################################################################
+#                    gosu for easy step-down from root
+##################################################################
+RUN wget -q --no-check-certificate -c ${GOSU_DOWNLOAD_URL} --random-wait -O /usr/local/bin/gosu && \
+    chmod +x /usr/local/bin/gosu
+
+RUN echo "=============================================" && \
+    echo gosu $(gosu --version) && \
+    echo "============================================="
+
+##################################################################
+#                   Version
+##################################################################
+RUN echo "=============================================" && \
+    echo python3 $(python3 --version) && \
+    echo pip3 $(pip3 --version) && \
+    echo python $(python --version) && \
+    echo pip $(pip --version) && \
+    echo "============================================="
 
 ##################################################################
 #                   Generate ssl key
 ##################################################################
-#RUN openssl dhparam -out /etc/ssl/dhparam.pem 4096
+RUN openssl dhparam -out /etc/ssl/dhparam.pem 4096
 
 ##################################################################
 #                  update locales

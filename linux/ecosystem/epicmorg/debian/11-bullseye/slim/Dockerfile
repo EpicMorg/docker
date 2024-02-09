@@ -20,6 +20,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 #                   prepare system
 ##################################################################
 RUN for i in $(seq 1 8); do mkdir -p "/usr/share/man/man${i}"; done
+RUN mkdir -p /etc/apt/keyrings
 
 ##################################################################
 #                   sources list
@@ -27,7 +28,7 @@ RUN for i in $(seq 1 8); do mkdir -p "/usr/share/man/man${i}"; done
 RUN rm -rfv /etc/apt/sources.list
 RUN rm -rfv /etc/locale.gen
 
-COPY etc/apt/trusted.gpg.d/deb-multimedia-keyring.gpg /etc/apt/trusted.gpg.d/deb-multimedia-keyring.gpg
+COPY etc/apt/keyrings/deb-multimedia-keyring.gpg /etc/apt/keyrings/deb-multimedia-keyring.gpg
 COPY etc/apt/apt.conf.d/99-no-check-valid-until /etc/apt/apt.conf.d/99-no-check-valid-until
 COPY etc/apt/apt.conf.d/98-allow-unauthenticated /etc/apt/apt.conf.d/98-allow-unauthenticated
 COPY etc/apt/apt.conf.d/97-allow-cert-exp /etc/apt/apt.conf.d/97-allow-cert-exp
@@ -35,7 +36,6 @@ COPY etc/apt/apt.conf.d/96-apt-retries /etc/apt/apt.conf.d/96-apt-retries
 COPY etc/apt/sources.list /etc/apt/sources.list
 COPY etc/locale.gen /etc/locale.gen
 
-RUN mkdir -p /etc/apt/keyrings
 RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get dist-upgrade -y
