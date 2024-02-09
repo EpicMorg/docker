@@ -96,7 +96,10 @@ jobs:
 
     - name: "Build and Deploy Debian 8 jdk21 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/08-jessie/jdk21    && pwd && make build && make deploy
-   
+    
+    - name: Cleanup
+      run: make docker-clean
+
 ##################################################################################
 
   build-09-images:

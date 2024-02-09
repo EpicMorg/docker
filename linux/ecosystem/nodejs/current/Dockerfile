@@ -1,4 +1,4 @@
-FROM epicmorg/debian:bullseye
+FROM epicmorg/debian:bookworm
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -9,18 +9,21 @@ RUN groupadd node && \
     useradd --gid node --shell /bin/bash --create-home node
 
 RUN curl -fsSL https://deb.nodesource.com/setup_current.x | bash - && \
-    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - && \
-    echo "deb https://nightly.yarnpkg.com/debian/ nightly main" > /etc/apt/sources.list.d/yarn.list && \
+    curl -fsSL https://dl.yarnpkg.com/debian/pubkey.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/yarnpkg.gpg && \
+    echo "deb [signed-by=/etc/apt/keyrings/yarnpkg.gpg] https://nightly.yarnpkg.com/debian/ nightly main" > /etc/apt/sources.list.d/yarn.list && \
+    apt-get clean && apt-get autoclean && \
     apt-get update && \
-    apt-get install -y -o 'Acquire::Retries=3' nodejs yarn
+    apt-get install -y nodejs yarn && \
+	npm install -g pnpm
 
-#   curl -L https://www.npmjs.com/install.sh | sh
-#   npm install -g npm
+#RUN  curl -L https://www.npmjs.com/install.sh | bash && \
+#     npm install -g npm
 
 RUN echo "=============================================" && \
     echo node $(node --version) && \
     echo npm $(npm --version) && \
     echo yarn $(yarn --version) && \
+    echo pnpm $(pnpm --version) && \
     echo "============================================="
 
 ##################################################################

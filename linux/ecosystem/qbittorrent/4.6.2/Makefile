@@ -7,6 +7,7 @@ app:
 
 build:
 	make qbt-libtorrent2
+	make qbt
 	make qbt-libtorrent1
 
 deploy:
@@ -18,6 +19,10 @@ clean:
 	docker network prune -f
 	docker volume prune -f
 	docker system prune -af
+
+qbt:
+	docker-compose build --compress --parallel --progress plain qbt
+	docker-compose push qbt
 
 qbt-libtorrent2:
 	docker-compose build --compress --parallel --progress plain qbt-libtorrent2

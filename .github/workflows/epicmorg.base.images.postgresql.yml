@@ -38,6 +38,9 @@ jobs:
 
     - name: "Build and Deploy PostgreSQL 9.2 Image:"
       run:  cd linux/ecosystem/postgres/9.2    && pwd && make build && make deploy
+    
+    - name: Cleanup
+      run: make docker-clean
 
     - name: "Build and Deploy PostgreSQL 9.3 Image:"
       run:  cd linux/ecosystem/postgres/9.3    && pwd && make build && make deploy
@@ -53,6 +56,9 @@ jobs:
 
     - name: "Build and Deploy PostgreSQL 10 Image:"
       run:  cd linux/ecosystem/postgres/10    && pwd && make build && make deploy
+    
+    - name: Cleanup
+      run: make docker-clean
 
     - name: "Build and Deploy PostgreSQL 11 Image:"
       run:  cd linux/ecosystem/postgres/11    && pwd && make build && make deploy

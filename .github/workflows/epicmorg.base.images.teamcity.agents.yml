@@ -47,6 +47,9 @@ jobs:
 
     - name: "Build and Deploy TeamCity Agent Android SDK Image:"
       run:  cd linux/ecosystem/teamcity/agent/android-sdk    && pwd && make build && make deploy
+    
+    - name: Cleanup
+      run: make docker-clean
 
     - name: "Build and Deploy TeamCity Agent Atlassian SDK Image:"
       run:  cd linux/ecosystem/teamcity/agent/atlassian-sdk    && pwd && make build && make deploy
@@ -62,6 +65,9 @@ jobs:
 
     - name: "Build and Deploy TeamCity Agent node14 Image:"
       run:  cd linux/ecosystem/teamcity/agent/node14    && pwd && make build && make deploy
+    
+    - name: Cleanup
+      run: make docker-clean
 
     - name: "Build and Deploy TeamCity Agent node15 Image:"
       run:  cd linux/ecosystem/teamcity/agent/node15    && pwd && make build && make deploy
@@ -74,6 +80,9 @@ jobs:
 
     - name: "Build and Deploy TeamCity Agent node18 Image:"
       run:  cd linux/ecosystem/teamcity/agent/node18    && pwd && make build && make deploy
+    
+    - name: Cleanup
+      run: make docker-clean
 
     - name: "Build and Deploy TeamCity Agent node19 Image:"
       run:  cd linux/ecosystem/teamcity/agent/node19    && pwd && make build && make deploy
@@ -86,6 +95,9 @@ jobs:
 
     - name: "Build and Deploy TeamCity Agent php7.3 Image:"
       run:  cd linux/ecosystem/teamcity/agent/php7.3    && pwd && make build && make deploy
+    
+    - name: Cleanup
+      run: make docker-clean
 
     - name: "Build and Deploy TeamCity Agent php7.4 Image:"
       run:  cd linux/ecosystem/teamcity/agent/php7.4    && pwd && make build && make deploy

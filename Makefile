@@ -572,21 +572,22 @@ ecosystem-electron-release-server-images:
 ecosystem-nodejs-images: 
 	cd `pwd`/linux/ecosystem/nodejs/current        && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/nodejs/lts            && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/nodejs/node4          && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/nodejs/node6          && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/nodejs/node8          && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/nodejs/node10         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/nodejs/node11         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/nodejs/node12         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/nodejs/node13         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/nodejs/node14         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/nodejs/node15         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/nodejs/node16         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/nodejs/node17         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/nodejs/node18         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/nodejs/node19         && pwd && make build && make deploy
+
 	cd `pwd`/linux/ecosystem/nodejs/node20         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/nodejs/node21         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/nodejs/outdated/node4          && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/nodejs/outdated/node6          && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/nodejs/outdated/node8          && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/nodejs/outdated/node10         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/nodejs/outdated/node11         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/nodejs/outdated/node12         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/nodejs/outdated/node13         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/nodejs/outdated/node14         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/nodejs/outdated/node15         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/nodejs/outdated/node16         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/nodejs/outdated/node17         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/nodejs/outdated/node18         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/nodejs/outdated/node19         && pwd && make build && make deploy
 
 ecosystem-ninjam-image: 
 	cd `pwd`/linux/ecosystem/ninjam/latest     && pwd && make build && make deploy
@@ -596,6 +597,19 @@ ecosystem-vk2discord-images:
 
 ecosystem-qbittorrent-images: 
 	cd `pwd`/linux/ecosystem/qbittorrent/4.4.0    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/qbittorrent/4.4.1    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/qbittorrent/4.4.2    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/qbittorrent/4.4.3.1  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/qbittorrent/4.4.4    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/qbittorrent/4.4.5    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/qbittorrent/4.5.0    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/qbittorrent/4.5.1    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/qbittorrent/4.5.2    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/qbittorrent/4.5.3    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/qbittorrent/4.5.4    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/qbittorrent/4.5.5    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/qbittorrent/4.6.0    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/qbittorrent/4.6.1    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/qbittorrent/4.6.2    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/qbittorrent/4.6.3    && pwd && make build && make deploy
 

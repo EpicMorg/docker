@@ -1,5 +1,5 @@
 ##multimedia
-#deb http://httpredir.debian.org/debian-multimedia/ buster main non-free
-#deb-src http://httpredir.debian.org/debian-multimedia/ buster main non-free
-#deb http://httpredir.debian.org/debian-multimedia/ buster-backports main
-#deb-src http://httpredir.debian.org/debian-multimedia/ buster-backports main
+#deb [signed-by=/etc/apt/trusted.gpg.d/deb-multimedia-keyring.gpg] http://httpredir.debian.org/debian-multimedia/ buster main non-free
+#deb-src [signed-by=/etc/apt/trusted.gpg.d/deb-multimedia-keyring.gpg] http://httpredir.debian.org/debian-multimedia/ buster main non-free
+#deb [signed-by=/etc/apt/trusted.gpg.d/deb-multimedia-keyring.gpg] http://httpredir.debian.org/debian-multimedia/ buster-backports main
+#deb-src [signed-by=/etc/apt/trusted.gpg.d/deb-multimedia-keyring.gpg] http://httpredir.debian.org/debian-multimedia/ buster-backports main
