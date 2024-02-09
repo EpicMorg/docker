@@ -53,6 +53,9 @@ jobs:
 
     - name: "Build and Deploy Gitlab Runner Atlassian SDK Image:"
       run:  cd linux/ecosystem/gitlab/runner/atlassian-sdk    && pwd && make build && make deploy
+    
+    - name: Cleanup
+      run: make docker-clean
 
     - name: "Build and Deploy Gitlab Runner dotNet SDK Image:"
       run:  cd linux/ecosystem/gitlab/runner/dotnet-sdk    && pwd && make build && make deploy
@@ -68,6 +71,9 @@ jobs:
 
     - name: "Build and Deploy Gitlab Runner node15 Image:"
       run:  cd linux/ecosystem/gitlab/runner/node15    && pwd && make build && make deploy
+    
+    - name: Cleanup
+      run: make docker-clean
 
     - name: "Build and Deploy Gitlab Runner node16 Image:"
       run:  cd linux/ecosystem/gitlab/runner/node16    && pwd && make build && make deploy
@@ -83,6 +89,9 @@ jobs:
 
     - name: "Build and Deploy Gitlab Runner node20 Image:"
       run:  cd linux/ecosystem/gitlab/runner/node20    && pwd && make build && make deploy
+    
+    - name: Cleanup
+      run: make docker-clean
 
     - name: "Build and Deploy Gitlab Runner php7.2 Image:"
       run:  cd linux/ecosystem/gitlab/runner/php7.2    && pwd && make build && make deploy
@@ -92,6 +101,9 @@ jobs:
 
     - name: "Build and Deploy Gitlab Runner php7.4 Image:"
       run:  cd linux/ecosystem/gitlab/runner/php7.4    && pwd && make build && make deploy
+    
+    - name: Cleanup
+      run: make docker-clean
 
     - name: "Build and Deploy Gitlab Runner php8.0 Image:"
       run:  cd linux/ecosystem/gitlab/runner/php8.0    && pwd && make build && make deploy

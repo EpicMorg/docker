@@ -35,6 +35,9 @@ jobs:
 
     - name: "Build and Deploy NodeJS 8 Image:"
       run:  cd linux/ecosystem/nodejs/outdated/node8    && pwd && make build && make deploy
+    
+    - name: Cleanup
+      run: make docker-clean
 
     - name: "Build and Deploy NodeJS 10 Image:"
       run:  cd linux/ecosystem/nodejs/outdated/node10    && pwd && make build && make deploy
@@ -53,6 +56,9 @@ jobs:
 
     - name: "Build and Deploy NodeJS 15 Image:"
       run:  cd linux/ecosystem/nodejs/outdated/node15    && pwd && make build && make deploy
+    
+    - name: Cleanup
+      run: make docker-clean
 
     - name: "Build and Deploy NodeJS 16 Image:"
       run:  cd linux/ecosystem/nodejs/outdated/node16    && pwd && make build && make deploy

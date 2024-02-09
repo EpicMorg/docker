@@ -26,18 +26,27 @@ jobs:
 
     - name: "Build and Deploy Python 3.6 Main Image:"
       run:  cd linux/advanced/python/main/3.6    && pwd && make build && make deploy
+    
+    - name: Cleanup
+      run: make docker-clean
 
     - name: "Build and Deploy Python 3.7 Main Image:"
       run:  cd linux/advanced/python/main/3.7    && pwd && make build && make deploy
 
     - name: "Build and Deploy Python 3.8 Main Image:"
       run:  cd linux/advanced/python/main/3.8    && pwd && make build && make deploy
+    
+    - name: Cleanup
+      run: make docker-clean
 
     - name: "Build and Deploy Python 3.9 Main Image:"
       run:  cd linux/advanced/python/main/3.9    && pwd && make build && make deploy
 
     - name: "Build and Deploy Python 3.10 Main Image:"
       run:  cd linux/advanced/python/main/3.10    && pwd && make build && make deploy
+    
+    - name: Cleanup
+      run: make docker-clean
 
     - name: "Build and Deploy Python 3.11 Main Image:"
       run:  cd linux/advanced/python/main/3.11    && pwd && make build && make deploy
@@ -47,6 +56,9 @@ jobs:
 
     - name: "Build and Deploy Python 3.13 Main Image:"
       run:  cd linux/advanced/python/main/3.13    && pwd && make build && make deploy
+    
+    - name: Cleanup
+      run: make docker-clean
 
 ##################################################################################
 
@@ -68,24 +80,38 @@ jobs:
 
     - name: "Build and Deploy Python 3.6 Develop Image:"
       run:  cd linux/advanced/python/develop/3.6    && pwd && make build && make deploy
+    
+    - name: Cleanup
+      run: make docker-clean
+
 
     - name: "Build and Deploy Python 3.7 Develop Image:"
       run:  cd linux/advanced/python/develop/3.7    && pwd && make build && make deploy
 
     - name: "Build and Deploy Python 3.8 Develop Image:"
       run:  cd linux/advanced/python/develop/3.8    && pwd && make build && make deploy
+    
+    - name: Cleanup
+      run: make docker-clean
 
     - name: "Build and Deploy Python 3.9 Develop Image:"
       run:  cd linux/advanced/python/develop/3.9    && pwd && make build && make deploy
 
     - name: "Build and Deploy Python 3.10 Develop Image:"
       run:  cd linux/advanced/python/develop/3.10    && pwd && make build && make deploy
+    
+    - name: Cleanup
+      run: make docker-clean
+
 
     - name: "Build and Deploy Python 3.11 Develop Image:"
       run:  cd linux/advanced/python/develop/3.11    && pwd && make build && make deploy
 
     - name: "Build and Deploy Python 3.12 Develop Image:"
       run:  cd linux/advanced/python/develop/3.12    && pwd && make build && make deploy
+    
+    - name: Cleanup
+      run: make docker-clean
 
     - name: "Build and Deploy Python 3.13 Develop Image:"
       run:  cd linux/advanced/python/develop/3.13    && pwd && make build && make deploy
