@@ -247,6 +247,8 @@ ecosystem-images:
 	make ecosystem-nginx-images
 	make ecosystem-vscode-server-images
 	make ecosystem-ninjam-image
+	make bundle-jira
+	make bundle-atlassian-latest
 
 advanced-pyhton-images:
 	make advanced-pyhton-images-main
@@ -1338,6 +1340,20 @@ bundle-gitlab:
 	@echo "======================================="
 	make ecosystem-gitlab-runner-images
 
+bundle-bitbucket:
+	@echo "======================================="
+	@echo "===== Building  All Bitbucket  images  ====="
+	@echo "======================================="
+	make ecosystem-bitbucket-1-images
+	make ecosystem-bitbucket-2-images
+	make ecosystem-bitbucket-3-images
+	make ecosystem-bitbucket-4-images
+	make ecosystem-bitbucket-5-images
+	make ecosystem-bitbucket-6-images
+	make ecosystem-bitbucket-7-images
+	make ecosystem-bitbucket-8-images
+	make ecosystem-bitbucket-9-images
+
 bundle-jira:
 	@echo "======================================="
 	@echo "===== Building  All Jira  images  ====="
@@ -1349,7 +1365,7 @@ bundle-jira:
 	make ecosystem-jira-8-images
 	make ecosystem-jira-9-images
 
-bundle-atlassian-altest:
+bundle-atlassian-latest:
 	@echo "=============================================="
 	@echo "===== Building  Atlassian Latest images  ====="
 	@echo "=============================================="

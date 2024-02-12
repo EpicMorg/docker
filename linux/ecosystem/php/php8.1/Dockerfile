@@ -20,7 +20,7 @@ RUN apt-get update && \
     apt-get install -y  --allow-unauthenticated \
       libmemcached-dev \
       libgmp-dev \
-      php-pear \
+#      php-pear \
       php8.1 \
       php8.1-common \
       php8.1-dev \
@@ -60,11 +60,16 @@ RUN apt-get update && \
       sendmail && \
     ln -sf /etc/ssl/dhparam.pem /etc/php/dhparam.pem && \
     update-alternatives --set php /usr/bin/php8.1 && \
+#    pear upgrade && \
     pear update-channels && \
-    pear upgrade && \
-    pecl channel-update pecl.php.net && \
-    php -m && \
-    php -v
+    pecl channel-update pecl.php.noninteractive
+
+RUN echo "=============================================" && \
+    echo php -m $(php -m) && \
+    echo php -v $(php -v) && \
+    echo pear version $(pear version) && \
+    echo pear list $(pear list) && \
+    echo "============================================="
 
 ##################################################################
 #                   Enabling extensions
@@ -212,4 +217,3 @@ RUN apt clean -y && \
     rm -rfv /var/lib/apt/lists/* && \
     rm -rfv /var/cache/apt/archives/*.deb && \
     rm -rfv /tmp/*
-

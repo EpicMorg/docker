@@ -38,7 +38,7 @@ RUN sh -c 'echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /
 RUN apt-get update && \
     apt-get install -y  --allow-unauthenticated \
       libmemcached-dev \
-      php-pear \
+#      php-pear \
       php7.0 \
       php7.0-common \
       php7.0-dev \
@@ -47,11 +47,16 @@ RUN apt-get update && \
       php7.0-xml \
       php7.0-cgi && \
     update-alternatives --set php /usr/bin/php7.0 && \
-    pear upgrade && \
+#    pear upgrade && \
     pear update-channels && \
-    pecl channel-update pecl.php.net && \
-    php -m && \
-    php -v
+    pecl channel-update pecl.php.noninteractive
+
+RUN echo "=============================================" && \
+    echo php -m $(php -m) && \
+    echo php -v $(php -v) && \
+    echo pear version $(pear version) && \
+    echo pear list $(pear list) && \
+    echo "============================================="
 
 ##################################################################
 #                   preparing p4src
@@ -104,7 +109,7 @@ RUN apt-get update && \
     apt-get install -y  --allow-unauthenticated \
       libmemcached-dev \
       libgmp-dev \
-      php-pear \
+#      php-pear \
       php7.0 \
       php7.0-common \
       php7.0-dev \
@@ -147,11 +152,16 @@ RUN apt-get update && \
       sendmail && \
     ln -sf /etc/ssl/dhparam.pem /etc/php/dhparam.pem && \
     update-alternatives --set php /usr/bin/php7.0 && \
+#    pear upgrade && \
     pear update-channels && \
-    pear upgrade && \
-    pecl channel-update pecl.php.net && \
-    php -m && \
-    php -v
+    pecl channel-update pecl.php.noninteractive
+
+RUN echo "=============================================" && \
+    echo php -m $(php -m) && \
+    echo php -v $(php -v) && \
+    echo pear version $(pear version) && \
+    echo pear list $(pear list) && \
+    echo "============================================="
 
 ##################################################################
 #                   Enabling extensions

@@ -1,4 +1,4 @@
-﻿namespace Epicmorg.DockerGenerator
+namespace Epicmorg.DockerGenerator
 {
     using System;
     using System.IO;
