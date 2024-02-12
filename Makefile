@@ -69,7 +69,7 @@ advanced-images:
 	@echo "======================================="
 	@echo "===== Building third-party images ====="
 	@echo "======================================="
-#	make advanced-redash-images
+	make advanced-redash-images
 	make advanced-mattermost-images
 	make advanced-nextcloud-latest-images
 	make advanced-teamcity-server-images

@@ -21,6 +21,7 @@ LABEL donate.crypto.XMR="884PqZ1gDjWW7fKxtbaeRoBeSh9EGZbkqUyLriWmuKbwLZrAJdYUs4w
 #                   prepare system
 ##################################################################
 RUN for i in $(seq 1 8); do mkdir -p "/usr/share/man/man${i}"; done
+RUN mkdir -p /etc/apt/keyrings
 
 ##################################################################
 #                   sources list
@@ -28,8 +29,10 @@ RUN for i in $(seq 1 8); do mkdir -p "/usr/share/man/man${i}"; done
 RUN rm -rfv /etc/apt/sources.list
 RUN rm -rfv /etc/locale.gen
 
-COPY etc/apt/trusted.gpg.d/deb-multimedia-keyring.gpg /etc/apt/trusted.gpg.d/deb-multimedia-keyring.gpg
 COPY etc/apt/apt.conf.d/99-no-check-valid-until /etc/apt/apt.conf.d/99-no-check-valid-until
+COPY etc/apt/apt.conf.d/98-allow-unauthenticated /etc/apt/apt.conf.d/98-allow-unauthenticated
+COPY etc/apt/apt.conf.d/97-allow-cert-exp /etc/apt/apt.conf.d/97-allow-cert-exp
+COPY etc/apt/apt.conf.d/96-apt-retries /etc/apt/apt.conf.d/96-apt-retries
 COPY etc/apt/sources.list /etc/apt/sources.list
 COPY etc/locale.gen /etc/locale.gen
 
@@ -62,22 +65,20 @@ RUN apt-key list  | grep "expired: " | sed -ne 's|pub .*/\([^ ]*\) .*|\1|gp' | x
 RUN update-ca-certificates
 
 ##################################################################
-#                   perforce client binary
+#                   ARGuments
 ##################################################################
-ARG P4_VERSION=r23.2
-ARG P4_DOWNLOAD_URL=http://filehost.perforce.com/perforce/${P4_VERSION}/bin.linux26x86_64/p4
 
-##################################################################
-#                   7z official binary
-##################################################################
-ARG SZ_VERSION=7z2400
-ARG SZ_DOWNLOAD_URL=https://www.7-zip.org/a/${SZ_VERSION}-linux-x64.tar.xz
-
-##################################################################
-#                   LazyGit official binary
-##################################################################
-ARG LZGIT_VERSION=0.40.2
-ARG LZGIT_DOWNLOAD_URL=https://github.com/jesseduffield/lazygit/releases/download/v${LZGIT_VERSION}/lazygit_${LZGIT_VERSION}_Linux_x86_64.tar.gz
+#configured by dockerfile / .ENV
+ARG P4_VERSION
+ARG P4_DOWNLOAD_URL
+ARG SZ_VERSION
+ARG SZ_DOWNLOAD_URL
+ARG LZGIT_VERSION
+ARG LZGIT_DOWNLOAD_URL
+ARG DUMB_INIT_VERSION
+ARG DUMB_INIT_DOWNLOAD_URL
+ARG GOSU_VER
+ARG GOSU_DOWNLOAD_URL
 
 ##################################################################
 #                   update lists
