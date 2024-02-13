@@ -1,6 +1,7 @@
 # Changelog
 ## 2024
 * `feb`
+  * added `astralinux` `1.7` `se` base images - `slim`, `main` and `develop`.
   * updated images: fixes of sources.list, java install logic, updated `python 3.12` iamges
   * added `bitbucket`, `nodejs21`,`nextcloud 28`, `python 3.13` images
   * added `pnpm` to `nodejs 12-21` images

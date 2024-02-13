@@ -285,6 +285,11 @@ ecosystem-debian-images:
 	make ecosystem-debian-bullseye-images
 	make ecosystem-debian-bookworm-images
 
+ecosystem-astra-17se-images:
+	cd `pwd`/linux/ecosystem/epicmorg/astra/1.7-alse/slim    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/astra/1.7-alse/main    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/astra/1.7-alse/develop    && pwd && make build && make deploy
+
 ecosystem-debian-squeeze-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/06-squeeze/slim    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/06-squeeze/main    && pwd && make build && make deploy
@@ -1325,7 +1330,8 @@ bundle-base-images:
 	@echo "======================================="
 	@echo "===== Building  EpicMorg   images ====="
 	@echo "======================================="
-	make advanced-pyhton-images
+	make ecosystem-astra-17se-images
+#	make advanced-pyhton-images
 	make ecosystem-debian-images
 
 bundle-teamcity:
