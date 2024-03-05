@@ -25,7 +25,7 @@ ENV DOTNET_CLI_TELEMETRY_OPTOUT=true
 # Disable first time experience
 ENV DOTNET_SKIP_FIRST_TIME_EXPERIENCE=true
 # Configure Kestrel web server to bind to port 80 when present
-ENV ASPNETCORE_URLS=\
+#ENV ASPNETCORE_URLS=/
 # Enable detection of running in a container
 ENV DOTNET_RUNNING_IN_CONTAINER=true
 # Enable correct mode for dotnet watch (only mode supported in a container)
@@ -60,7 +60,7 @@ RUN powershell -Command \
 ##################################################################
 #                   install vcredist packages
 ##################################################################
-RUN cinst -y --ignore-checksums --allow-empty-checksums --ignoredetectedreboot --ignore-package-exit-codes \
+RUN choco install -y --ignore-checksums --allow-empty-checksums --ignoredetectedreboot --ignore-package-exit-codes \
     visualfsharptools \
     vcredist2005 \
     vcredist2008 \
@@ -76,7 +76,7 @@ RUN cinst -y --ignore-checksums --allow-empty-checksums --ignoredetectedreboot -
 ##################################################################
 #                   install dotnet packages
 ##################################################################
-RUN cinst -y --ignore-checksums --allow-empty-checksums --ignoredetectedreboot --ignore-package-exit-codes \
+RUN choco install -y --ignore-checksums --allow-empty-checksums --ignoredetectedreboot --ignore-package-exit-codes \
     dotnetfx \
     netfx-4.8-devpack \
     dotnet \
@@ -87,23 +87,21 @@ RUN cinst -y --ignore-checksums --allow-empty-checksums --ignoredetectedreboot -
 
 # Apply patch to provide support for container limits
 RUN curl -fSLo patch.msu https://download.microsoft.com/download/1/d/1/1d162522-821a-41c6-ba7d-74ff37b0e6c6/Windows10.0-KB9008395-x64-NDP48.msu && \
-    mkdir patch&& \
-    && expand patch.msu patch -F:* && \
-    && del /F /Q patch.msu && \
-    && dism /Online /Quiet /Add-Package /PackagePath:C:\EpicMorg\patch\windows10.0-kb9008395-x64-ndp48.cab && \
-    && rmdir /S /Q patch && \ 
+    mkdir patch && \
+    expand patch.msu patch -F:* && \
+    del /F /Q patch.msu && \
+    dism /Online /Add-Package /PackagePath:C:\EpicMorg\patch\windows10.0-kb9008395-x64-ndp48.cab && \
+    rmdir /S /Q patch
+    # && \ 
 # Ngen top of assembly graph to optimize a set of frequently used assemblies
-    && %windir%\Microsoft.NET\Framework64\v4.0.30319\ngen install "Microsoft.PowerShell.Utility.Activities, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35"  && \ 
-    && %windir%\Microsoft.NET\Framework64\v4.0.30319\ngen update  && \ 
-    && %windir%\Microsoft.NET\Framework\v4.0.30319\ngen update
-
+#    %windir%\Microsoft.NET\Framework64\v4.0.30319\ngen install /verbose "Microsoft.PowerShell.Utility.Activities, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35"  && \ 
 # To optimize 32-bit assemblies, uncomment the next line
-# && %windir%\Microsoft.NET\Framework\v4.0.30319\ngen install "Microsoft.PowerShell.Utility.Activities, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35"  && \ 
+#     %windir%\Microsoft.NET\Framework\v4.0.30319\ngen /verbose install "Microsoft.PowerShell.Utility.Activities, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35"  && \ 
 
 ##################################################################
 #                   install base packages
 ##################################################################
-RUN cinst -y --ignore-checksums --allow-empty-checksums --ignoredetectedreboot --ignore-package-exit-codes \
+RUN choco install -y --ignore-checksums --allow-empty-checksums --ignoredetectedreboot --ignore-package-exit-codes \
     psexec \
     curl \
     far \
@@ -120,14 +118,13 @@ RUN cinst -y --ignore-checksums --allow-empty-checksums --ignoredetectedreboot -
     steamcmd \
     sudo \
     tartool \
-    unrar \
     unzip \
     wget
 
 ##################################################################
 #                   install archive packages
 ##################################################################
-RUN cinst -y --ignore-checksums --allow-empty-checksums --ignoredetectedreboot --ignore-package-exit-codes \
+RUN choco install -y --ignore-checksums --allow-empty-checksums --ignoredetectedreboot --ignore-package-exit-codes \
     7zip \
     7zip-zstd \
     7zip.commandline \
