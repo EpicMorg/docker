@@ -97,7 +97,7 @@ RUN apt-get update \
     postgresql-$PG_MAJOR-pglogical \
     postgresql-$PG_MAJOR-pgl-ddl-deploy \
     postgresql-$PG_MAJOR-pgfincore \
-    postgresql-$PG_MAJOR-pgfaceting \
+#    postgresql-$PG_MAJOR-pgfaceting \
     postgresql-$PG_MAJOR-pgextwlist \
     postgresql-$PG_MAJOR-pgauditlogtofile \
     postgresql-$PG_MAJOR-pgaudit \
