@@ -1,5 +1,7 @@
 # Changelog
 ## 2024
+* `mar-apr`
+  * impoverd `postgres 10-16` images.
 * `feb`
   * added `astralinux` `1.7` `se` base images - `slim`, `main` and `develop`.
   * updated images: fixes of sources.list, java install logic, updated `python 3.12` iamges

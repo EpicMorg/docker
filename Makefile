@@ -1,4 +1,4 @@
-VERSION             =  "2024.02.06"
+VERSION             =  "2024.04.21"
 AUTHOR              =  "EpicMorg"
 MODIFIED            =  "STAM"
 DOCKER_SCAN_SUGGEST = false
@@ -652,7 +652,7 @@ ecosystem-postgres-images:
 	cd `pwd`/linux/ecosystem/postgres/13           && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/postgres/14           && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/postgres/15           && pwd && make build && make deploy
-#	cd `pwd`/linux/ecosystem/postgres/16           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/postgres/16           && pwd && make build && make deploy
 
 ecosystem-teamcity-agent-images:
 	cd `pwd`/linux/ecosystem/teamcity/agent/latest/jdk11         && pwd && make build && make deploy
