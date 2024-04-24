@@ -619,6 +619,8 @@ ecosystem-qbittorrent-images:
 	cd `pwd`/linux/ecosystem/qbittorrent/4.6.1    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/qbittorrent/4.6.2    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/qbittorrent/4.6.3    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/qbittorrent/4.6.4    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/qbittorrent/testing  && pwd && make build && make deploy
 
 ecosystem-retracker-images: 
 	cd `pwd`/linux/ecosystem/retracker    && pwd && make build && make deploy
