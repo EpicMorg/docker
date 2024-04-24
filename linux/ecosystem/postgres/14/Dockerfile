@@ -119,7 +119,7 @@ RUN apt-get update \
     postgresql-$PG_MAJOR-omnidb \
     postgresql-$PG_MAJOR-numeral \
     postgresql-$PG_MAJOR-mysql-fdw \
-    postgresql-$PG_MAJOR-mobilitydb \
+#    postgresql-$PG_MAJOR-mobilitydb \
     postgresql-$PG_MAJOR-mimeo \
     postgresql-$PG_MAJOR-londiste-sql \
     postgresql-$PG_MAJOR-jsquery \
