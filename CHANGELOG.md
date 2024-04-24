@@ -2,6 +2,8 @@
 ## 2024
 * `mar-apr`
   * impoverd `postgres 10-16` images.
+  * added `timescaledb` supprot to `postgres 11-16` images.
+  * `postgres` images migrated from `bullseye` to `bookworm` image.
 * `feb`
   * added `astralinux` `1.7` `se` base images - `slim`, `main` and `develop`.
   * updated images: fixes of sources.list, java install logic, updated `python 3.12` iamges

@@ -1,4 +1,4 @@
-FROM epicmorg/debian:bullseye
+FROM epicmorg/debian:bookworm
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -6,7 +6,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 # add our user and group first to make sure their IDs get assigned consistently, regardless of whatever dependencies get added
 ####################################################################################################################################
 
-RUN groupadd -r postgres && useradd -r -g postgres postgres
+RUN groupadd -r postgres && useradd -m -r -g postgres -s /bin/bash postgres
 
 ####################################################################################################################################
 # make the "en_US.UTF-8" locale so postgres will be utf-8 enabled by default
@@ -16,24 +16,43 @@ RUN apt-get update && apt-get install -y locales && rm -rf /var/lib/apt/lists/* 
         && localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
 ENV LANG en_US.utf8
 
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8
-
 ####################################################################################################################################
 # http://apt.postgresql.org/pub/repos/apt/pool/9.2/p/postgresql-9.2/
 ####################################################################################################################################
 ENV PG_MAJOR 9.2
 
-RUN echo 'deb http://apt.postgresql.org/pub/repos/apt/ bullseye-pgdg main' $PG_MAJOR > /etc/apt/sources.list.d/pgdg.list && \
-    echo 'deb http://apt.postgresql.org/pub/repos/apt/ bullseye-pgdg-snapshot main' $PG_MAJOR >> /etc/apt/sources.list.d/pgdg.list && \
-    echo 'deb http://apt.postgresql.org/pub/repos/apt/ bullseye-pgdg-testing main' $PG_MAJOR >> /etc/apt/sources.list.d/pgdg.list
+RUN install -d /usr/share/postgresql-common/pgdg && \
+    curl -o /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc --fail https://www.postgresql.org/media/keys/ACCC4CF8.asc && \
+    echo 'deb [signed-by=/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc] http://apt.postgresql.org/pub/repos/apt/ bookworm-pgdg main' $PG_MAJOR > /etc/apt/sources.list.d/pgdg.list && \
+    echo 'deb [signed-by=/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc] http://apt.postgresql.org/pub/repos/apt/ bookworm-pgdg-snapshot main' $PG_MAJOR >> /etc/apt/sources.list.d/pgdg.list && \
+    echo 'deb [signed-by=/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc] http://apt.postgresql.org/pub/repos/apt/ bookworm-pgdg-testing main' $PG_MAJOR >> /etc/apt/sources.list.d/pgdg.listt
 
 RUN apt-get update \
-        && apt-get install -y postgresql-common \
-        && sed -ri 's/#(create_main_cluster) .*$/\1 = false/' /etc/postgresql-common/createcluster.conf \
-        && apt-get install -y \
-                postgresql-$PG_MAJOR \
-                postgresql-contrib-$PG_MAJOR \
-        && rm -rf /var/lib/apt/lists/*
+    && apt-get install -y postgresql-common \
+    && sed -ri 's/#(create_main_cluster) .*$/\1 = false/' /etc/postgresql-common/createcluster.conf \
+    && apt-get install -y \
+    postgresql-$PG_MAJOR \
+    postgresql-server-dev-$PG_MAJOR \
+    postgresql-contrib-$PG_MAJOR \
+    postgresql-client-8.2 \
+    postgresql-client-8.3 \
+    postgresql-client-8.4 \
+    postgresql-client-9.0 \
+    postgresql-client-9.1 \
+    postgresql-client-9.2 \
+    postgresql-client-9.3 \
+    postgresql-client-9.4 \
+    postgresql-client-9.5 \
+    postgresql-client-9.6 \
+    postgresql-client-10 \
+    postgresql-client-11 \
+    postgresql-client-12 \
+    postgresql-client-13 \
+    postgresql-client-14 \
+    postgresql-client-15 \
+    postgresql-client-16 \
+    && rm -rf /var/lib/apt/lists/* \
+    && rm -rf /tmp/*
 
 RUN mkdir /docker-entrypoint-initdb.d
 RUN mkdir -p /var/run/postgresql && chown -R postgres /var/run/postgresql
