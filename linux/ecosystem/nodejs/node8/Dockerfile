@@ -23,8 +23,7 @@ RUN curl --user-agent "Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 F
          --header 'Cache-Control: no-cache, no-store' \
          --header 'Pragma: no-cache'  | tar xzv --strip-components=1 --directory /usr/local/
 
-#RUN npm install -g pnpm yarn
-RUN npm install -g yarn
+RUN npm install -g pnpm@3 yarn
 
 ##################################################################
 #                   Version after install
@@ -33,7 +32,7 @@ RUN echo "=============================================" && \
     echo node $(node --version) && \
     echo npm $(npm --version) && \
     echo yarn $(yarn --version) && \
-#    echo pnpm $(pnpm --version) && \
+    echo pnpm $(pnpm --version) && \
     echo "============================================="
 
 ##################################################################

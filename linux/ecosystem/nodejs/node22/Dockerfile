@@ -3,13 +3,13 @@ LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-ARG K_NODE_MAJOR_VERSION=9
-ARG K_NODE_VERSION=${K_NODE_MAJOR_VERSION}.11.2
+ARG K_NODE_MAJOR_VERSION=22
+ARG K_NODE_VERSION=${K_NODE_MAJOR_VERSION}.3.0
 ARG K_NODE_URL=https://nodejs.org/dist/v${K_NODE_VERSION}/node-v${K_NODE_VERSION}-linux-x64.tar.gz
 ARG K_NODE_HEADERS_URL=https://nodejs.org/dist/v${K_NODE_VERSION}/node-v${K_NODE_VERSION}-headers.tar.gz
 
 ##################################################################
-#                   Node.js 9.x
+#                   Node.js 22.x
 ##################################################################
 RUN groupadd -g 1337 node && \
     useradd  -u 1337 --gid node --shell /bin/bash --create-home node
@@ -23,8 +23,7 @@ RUN curl --user-agent "Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 F
          --header 'Cache-Control: no-cache, no-store' \
          --header 'Pragma: no-cache'  | tar xzv --strip-components=1 --directory /usr/local/
 
-#RUN npm install -g pnpm yarn
-RUN npm install -g yarn
+RUN npm install -g pnpm yarn
 
 ##################################################################
 #                   Version after install
@@ -33,7 +32,7 @@ RUN echo "=============================================" && \
     echo node $(node --version) && \
     echo npm $(npm --version) && \
     echo yarn $(yarn --version) && \
-#    echo pnpm $(pnpm --version) && \
+    echo pnpm $(pnpm --version) && \
     echo "============================================="
 
 ##################################################################
