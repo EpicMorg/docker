@@ -45,8 +45,11 @@ jobs:
     - name: "Build and Deploy Gitlab Runner amxX 1.10 SDK Image:"
       run:  cd linux/ecosystem/gitlab/runner/amxx-sdk/1.10    && pwd && make build && make deploy
 
-    - name: "Build and Deploy Gitlab Runner Android SDK Image (jdk11):"
-      run:  cd linux/ecosystem/gitlab/runner/android-sdk/jdk11    && pwd && make build && make deploy
+    - name: "Build and Deploy Gitlab Runner Android SDK Image (jdk8):"
+      run:  cd linux/ecosystem/gitlab/runner/android-sdk/jdk8    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Gitlab Runner Android SDK Image (jdk8):"
+      run:  cd linux/ecosystem/gitlab/runner/android-sdk/jdk8    && pwd && make build && make deploy
 
     - name: "Build and Deploy Gitlab Runner Android SDK Image (jdk17):"
       run:  cd linux/ecosystem/gitlab/runner/android-sdk/jdk17    && pwd && make build && make deploy
@@ -60,11 +63,38 @@ jobs:
     - name: "Build and Deploy Gitlab Runner dotNet SDK Image:"
       run:  cd linux/ecosystem/gitlab/runner/dotnet-sdk    && pwd && make build && make deploy
 
+    - name: "Build and Deploy Gitlab Runner node0.12 Image:"
+      run:  cd linux/ecosystem/gitlab/runner/node0.12    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Gitlab Runner node4 Image:"
+      run:  cd linux/ecosystem/gitlab/runner/node4    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Gitlab Runner node5 Image:"
+      run:  cd linux/ecosystem/gitlab/runner/node5    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Gitlab Runner node6 Image:"
+      run:  cd linux/ecosystem/gitlab/runner/node6    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Gitlab Runner node7 Image:"
+      run:  cd linux/ecosystem/gitlab/runner/node7    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Gitlab Runner node8 Image:"
+      run:  cd linux/ecosystem/gitlab/runner/node8    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Gitlab Runner node9 Image:"
+      run:  cd linux/ecosystem/gitlab/runner/node9    && pwd && make build && make deploy
+
     - name: "Build and Deploy Gitlab Runner node10 Image:"
       run:  cd linux/ecosystem/gitlab/runner/node10    && pwd && make build && make deploy
 
+    - name: "Build and Deploy Gitlab Runner node11 Image:"
+      run:  cd linux/ecosystem/gitlab/runner/node11    && pwd && make build && make deploy
+
     - name: "Build and Deploy Gitlab Runner node12 Image:"
       run:  cd linux/ecosystem/gitlab/runner/node12    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Gitlab Runner node13 Image:"
+      run:  cd linux/ecosystem/gitlab/runner/node13    && pwd && make build && make deploy
 
     - name: "Build and Deploy Gitlab Runner node14 Image:"
       run:  cd linux/ecosystem/gitlab/runner/node14    && pwd && make build && make deploy
@@ -89,6 +119,12 @@ jobs:
 
     - name: "Build and Deploy Gitlab Runner node20 Image:"
       run:  cd linux/ecosystem/gitlab/runner/node20    && pwd && make build && make deploy
+    
+    - name: "Build and Deploy Gitlab Runner node21 Image:"
+      run:  cd linux/ecosystem/gitlab/runner/node21    && pwd && make build && make deploy
+    
+    - name: "Build and Deploy Gitlab Runner node22 Image:"
+      run:  cd linux/ecosystem/gitlab/runner/node22    && pwd && make build && make deploy
     
     - name: Cleanup
       run: make docker-clean

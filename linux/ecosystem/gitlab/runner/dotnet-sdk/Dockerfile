@@ -2,8 +2,6 @@ FROM epicmorg/gitlab-runner:latest
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
-COPY sources.list.d/sources.11.list /etc/apt/sources.list.d/sources.11.list
-
 ##################################################################
 #                    teamcity dotnet+powershell setup
 ##################################################################
@@ -25,7 +23,7 @@ ENV CLR_OPENSSL_VERSION_OVERRIDE=45
 ENV POWERSHELL_DISTRIBUTION_CHANNEL=PSDocker-DotnetSDK-Debian-10
 #Install packages
 RUN curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add - && \
-    echo 'deb [arch=amd64,arm64,armhf] https://packages.microsoft.com/debian/11/prod bullseye main' > /etc/apt/sources.list.d/microsoft.dotnet.list  && \
+    echo 'deb [arch=amd64,arm64,armhf] https://packages.microsoft.com/debian/12/prod bookworm main' > /etc/apt/sources.list.d/microsoft.dotnet.list  && \
     apt-get update && \
     apt-get install -y --no-install-recommends --allow-unauthenticated \
       libc6 \
