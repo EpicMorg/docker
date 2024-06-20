@@ -1,6 +1,8 @@
 # Changelog
 ## 2024
-* `mar-apr`
+* `jun`
+  * impoverd `nodejs 0-22` base images.
+* `mar-apr-may`
   * impoverd `postgres 10-16` images.
   * added `timescaledb` supprot to `postgres 11-16` images.
   * `postgres` images migrated from `bullseye` to `bookworm` image.
