@@ -3,13 +3,13 @@ LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-ARG K_NODE_MAJOR_VERSION=13
-ARG K_NODE_VERSION=${K_NODE_MAJOR_VERSION}.14.0
+ARG K_NODE_MAJOR_VERSION=9
+ARG K_NODE_VERSION=${K_NODE_MAJOR_VERSION}.11.2
 ARG K_NODE_URL=https://nodejs.org/dist/v${K_NODE_VERSION}/node-v${K_NODE_VERSION}-linux-x64.tar.gz
 ARG K_NODE_HEADERS_URL=https://nodejs.org/dist/v${K_NODE_VERSION}/node-v${K_NODE_VERSION}-headers.tar.gz
 
 ##################################################################
-#                   Node.js 13.x
+#                   Node.js 9.x
 ##################################################################
 RUN groupadd -g 1337 node && \
     useradd  -u 1337 --gid node --shell /bin/bash --create-home node
