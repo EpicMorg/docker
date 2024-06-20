@@ -29,24 +29,52 @@ jobs:
       
     - name: "Build and Deploy Debian 10 develop Image:"
       run:  cd linux/ecosystem/epicmorg/debian/10-buster/develop    && pwd && make build && make deploy
-      
+
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
+
     - name: "Build and Deploy Debian 10 jdk6 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/10-buster/jdk6    && pwd && make build && make deploy
       
     - name: "Build and Deploy Debian 10 jdk7 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/10-buster/jdk7    && pwd && make build && make deploy
-      
+
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
+
     - name: "Build and Deploy Debian 10 jdk8 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/10-buster/jdk8    && pwd && make build && make deploy
       
     - name: "Build and Deploy Debian 10 jdk11 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/10-buster/jdk11    && pwd && make build && make deploy
 
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
+
     - name: "Build and Deploy Debian 10 jdk17 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/10-buster/jdk17    && pwd && make build && make deploy
       
     - name: "Build and Deploy Debian 10 jdk18 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/10-buster/jdk18    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
 
     - name: "Build and Deploy Debian 10 jdk19 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/10-buster/jdk19    && pwd && make build && make deploy
@@ -58,3 +86,5 @@ jobs:
 
     - name: Cleanup
       run: make docker-clean
+
+##################################################################################

@@ -29,21 +29,49 @@ jobs:
       
     - name: "Build and Deploy Debian 12 develop Image:"
       run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/develop    && pwd && make build && make deploy
-      
+
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
+
     - name: "Build and Deploy Debian 12 jdk6 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/jdk6    && pwd && make build && make deploy
       
     - name: "Build and Deploy Debian 12 jdk7 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/jdk7    && pwd && make build && make deploy
-      
+
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
+
     - name: "Build and Deploy Debian 12 jdk8 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/jdk8    && pwd && make build && make deploy
       
     - name: "Build and Deploy Debian 12 jdk11 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/jdk11    && pwd && make build && make deploy
-      
+
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
+
     - name: "Build and Deploy Debian 12 jdk17 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/jdk17    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
 
     - name: "Build and Deploy Debian 12 jdk20 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/jdk20    && pwd && make build && make deploy

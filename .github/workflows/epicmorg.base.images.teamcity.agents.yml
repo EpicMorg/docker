@@ -21,8 +21,17 @@ jobs:
     - name: Test Make
       run:  make
 
-    - name: "Build and Deploy TeamCity Agent Main Image:"
-      run:  cd linux/ecosystem/teamcity/agent/latest    && pwd && make build && make deploy
+    - name: "Build and Deploy TeamCity Agent Main Image (jdk8):"
+      run:  cd linux/ecosystem/teamcity/agent/latest/jdk8    && pwd && make build && make deploy
+
+    - name: "Build and Deploy TeamCity Agent Main Image (jdk11):"
+      run:  cd linux/ecosystem/teamcity/agent/latest/jdk11    && pwd && make build && make deploy
+
+    - name: "Build and Deploy TeamCity Agent Main Image (jdk17):"
+      run:  cd linux/ecosystem/teamcity/agent/latest/jdk17    && pwd && make build && make deploy
+
+    - name: "Build and Deploy TeamCity Agent Main Image (jdk21):"
+      run:  cd linux/ecosystem/teamcity/agent/latest/jdk21    && pwd && make build && make deploy
 
 ##################################################################################
 

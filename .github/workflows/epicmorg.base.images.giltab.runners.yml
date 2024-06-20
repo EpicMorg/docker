@@ -45,20 +45,53 @@ jobs:
     - name: "Build and Deploy Gitlab Runner amxX 1.10 SDK Image:"
       run:  cd linux/ecosystem/gitlab/runner/amxx-sdk/1.10    && pwd && make build && make deploy
 
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
+
     - name: "Build and Deploy Gitlab Runner Android SDK Image (jdk8):"
       run:  cd linux/ecosystem/gitlab/runner/android-sdk/jdk8    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
 
     - name: "Build and Deploy Gitlab Runner Android SDK Image (jdk11):"
       run:  cd linux/ecosystem/gitlab/runner/android-sdk/jdk11   && pwd && make build && make deploy
 
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
+
     - name: "Build and Deploy Gitlab Runner Android SDK Image (jdk17):"
       run:  cd linux/ecosystem/gitlab/runner/android-sdk/jdk17    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
 
     - name: "Build and Deploy Gitlab Runner Atlassian SDK Image:"
       run:  cd linux/ecosystem/gitlab/runner/atlassian-sdk    && pwd && make build && make deploy
     
+
+##################################################################################
+
     - name: Cleanup
       run: make docker-clean
+
+##################################################################################
 
     - name: "Build and Deploy Gitlab Runner dotNet SDK Image:"
       run:  cd linux/ecosystem/gitlab/runner/dotnet-sdk    && pwd && make build && make deploy
@@ -69,6 +102,13 @@ jobs:
     - name: "Build and Deploy Gitlab Runner node4 Image:"
       run:  cd linux/ecosystem/gitlab/runner/node4    && pwd && make build && make deploy
 
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
+
     - name: "Build and Deploy Gitlab Runner node5 Image:"
       run:  cd linux/ecosystem/gitlab/runner/node5    && pwd && make build && make deploy
 
@@ -77,6 +117,13 @@ jobs:
 
     - name: "Build and Deploy Gitlab Runner node7 Image:"
       run:  cd linux/ecosystem/gitlab/runner/node7    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
 
     - name: "Build and Deploy Gitlab Runner node8 Image:"
       run:  cd linux/ecosystem/gitlab/runner/node8    && pwd && make build && make deploy
@@ -87,6 +134,13 @@ jobs:
     - name: "Build and Deploy Gitlab Runner node10 Image:"
       run:  cd linux/ecosystem/gitlab/runner/node10    && pwd && make build && make deploy
 
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
+
     - name: "Build and Deploy Gitlab Runner node11 Image:"
       run:  cd linux/ecosystem/gitlab/runner/node11    && pwd && make build && make deploy
 
@@ -96,14 +150,26 @@ jobs:
     - name: "Build and Deploy Gitlab Runner node13 Image:"
       run:  cd linux/ecosystem/gitlab/runner/node13    && pwd && make build && make deploy
 
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
+
     - name: "Build and Deploy Gitlab Runner node14 Image:"
       run:  cd linux/ecosystem/gitlab/runner/node14    && pwd && make build && make deploy
 
     - name: "Build and Deploy Gitlab Runner node15 Image:"
       run:  cd linux/ecosystem/gitlab/runner/node15    && pwd && make build && make deploy
     
+
+##################################################################################
+
     - name: Cleanup
       run: make docker-clean
+
+##################################################################################
 
     - name: "Build and Deploy Gitlab Runner node16 Image:"
       run:  cd linux/ecosystem/gitlab/runner/node16    && pwd && make build && make deploy
@@ -113,6 +179,13 @@ jobs:
 
     - name: "Build and Deploy Gitlab Runner node18 Image:"
       run:  cd linux/ecosystem/gitlab/runner/node18    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
 
     - name: "Build and Deploy Gitlab Runner node19 Image:"
       run:  cd linux/ecosystem/gitlab/runner/node19    && pwd && make build && make deploy
@@ -125,9 +198,13 @@ jobs:
     
     - name: "Build and Deploy Gitlab Runner node22 Image:"
       run:  cd linux/ecosystem/gitlab/runner/node22    && pwd && make build && make deploy
-    
+
+##################################################################################
+
     - name: Cleanup
       run: make docker-clean
+
+##################################################################################
 
     - name: "Build and Deploy Gitlab Runner php7.2 Image:"
       run:  cd linux/ecosystem/gitlab/runner/php7.2    && pwd && make build && make deploy
@@ -138,8 +215,13 @@ jobs:
     - name: "Build and Deploy Gitlab Runner php7.4 Image:"
       run:  cd linux/ecosystem/gitlab/runner/php7.4    && pwd && make build && make deploy
     
+
+##################################################################################
+
     - name: Cleanup
       run: make docker-clean
+
+##################################################################################
 
     - name: "Build and Deploy Gitlab Runner php8.0 Image:"
       run:  cd linux/ecosystem/gitlab/runner/php8.0    && pwd && make build && make deploy

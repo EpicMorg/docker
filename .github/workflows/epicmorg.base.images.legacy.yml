@@ -79,6 +79,13 @@ jobs:
     - name: "Build and Deploy Debian 8 jdk6 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/08-jessie/jdk6    && pwd && make build && make deploy
       
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
+
     - name: "Build and Deploy Debian 8 jdk7 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/08-jessie/jdk7    && pwd && make build && make deploy
       
@@ -91,6 +98,13 @@ jobs:
     - name: "Build and Deploy Debian 8 jdk17 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/08-jessie/jdk17    && pwd && make build && make deploy
       
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
+
     - name: "Build and Deploy Debian 8 jdk20 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/08-jessie/jdk20    && pwd && make build && make deploy
 
@@ -123,6 +137,13 @@ jobs:
     - name: "Build and Deploy Debian 9 develop Image:"
       run:  cd linux/ecosystem/epicmorg/debian/09-stretch/develop    && pwd && make build && make deploy
       
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
+
     - name: "Build and Deploy Debian 9 jdk6 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/09-stretch/jdk6    && pwd && make build && make deploy
       
@@ -132,6 +153,13 @@ jobs:
     - name: "Build and Deploy Debian 9 jdk8 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/09-stretch/jdk8    && pwd && make build && make deploy
       
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
+
     - name: "Build and Deploy Debian 9 jdk11 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/09-stretch/jdk11    && pwd && make build && make deploy
            
