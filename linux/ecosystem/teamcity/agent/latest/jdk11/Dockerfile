@@ -1,4 +1,4 @@
-FROM epicmorg/debian:bullseye-develop-jdk11
+FROM epicmorg/debian:bookworm-develop-jdk11
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 

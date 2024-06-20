@@ -8,7 +8,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN php -m && \
     php -v
 
-ENV GITLAB_RUNNER_HOME=/opt/gitlab-runner
+ENV GITLAB_RUNNER_HOME=/home/gitlab-runner
 ENV GITLAB_RUNNER_CONF=/etc/gitlab-runner
 ENV GIT_SSH_VARIANT=ssh
 RUN mkdir -p ${GITLAB_RUNNER_HOME} ${GITLAB_RUNNER_CONF} ${GITLAB_RUNNER_CONF}/certs && \
@@ -20,8 +20,8 @@ RUN mkdir -p ${GITLAB_RUNNER_HOME} ${GITLAB_RUNNER_CONF} ${GITLAB_RUNNER_CONF}/c
 
 #Install packages
 RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - && \
-    echo 'deb  https://download.docker.com/linux/debian bullseye test' > /etc/apt/sources.list.d/docker.list  && \
-    echo 'deb  https://download.docker.com/linux/debian bullseye nightly' >> /etc/apt/sources.list.d/docker.list  && \
+    echo 'deb  https://download.docker.com/linux/debian bookworm test' > /etc/apt/sources.list.d/docker.list  && \
+    echo 'deb  https://download.docker.com/linux/debian bookworm nightly' >> /etc/apt/sources.list.d/docker.list  && \
     apt-cache policy docker-ce && \
     apt-get update && \
     apt-get install -y --no-install-recommends --allow-unauthenticated \
@@ -70,13 +70,13 @@ RUN apt clean -y && \
 
 #Final config
 STOPSIGNAL SIGQUIT
-VOLUME ["${GITLAB_RUNNER_CONF}", "${GITLAB_RUNNER_HOME}", "/var/lib/docker"]
-WORKDIR ${GITLAB_RUNNER_HOME}
+VOLUME ["${GITLAB_RUNNER_CONF}", "/home/gitlab-runner", "/var/lib/docker"]
+WORKDIR /home/gitlab-runner
 
 # Add image configuration and scripts
 COPY docker-entrypoint.sh /usr/bin/docker-entrypoint.sh
 RUN chmod 755 /usr/bin/docker-entrypoint.sh
 
 ENTRYPOINT ["/usr/bin/dumb-init", "docker-entrypoint.sh"]
-CMD ["run", "--user=gitlab-runner", "--working-directory=${GITLAB_RUNNER_HOME}"]
+CMD ["run", "--user=gitlab-runner", "--working-directory=/home/gitlab-runner"]
 

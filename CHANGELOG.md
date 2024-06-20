@@ -1,9 +1,17 @@
 # Changelog
 ## 2024
 * `jun`
-  * impoverd `nodejs 0-22` base images.
-  * added `pnpm` to `nodejs 4-22` images
+  * impoverd `nodejs 0-22` base images. 
+    * deprecated installation via package manager.
+    * installation from archive.
+  	* added `pnpm` to `nodejs 4-22` images
   * updated `nextcloud` to `29` version.
+  * reworked `gitlab` images.
+  * reworked `teamcity-agent` images.
+  * impoverd `php` base images, added `nodejs` lts support via special tag.
+  * reworked all imajes contaned any `jdk`.
+    * deprecated installation via package manager.
+    * installation from archive.
 * `mar-apr-may`
   * impoverd `postgres 10-16` images.
   * added `timescaledb` supprot to `postgres 11-16` images.

@@ -664,10 +664,12 @@ ecosystem-postgres-images:
 	cd `pwd`/linux/ecosystem/postgres/16           && pwd && make build && make deploy
 
 ecosystem-teamcity-agent-images:
+	cd `pwd`/linux/ecosystem/teamcity/agent/latest/jdk8         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/teamcity/agent/latest/jdk11         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/teamcity/agent/latest/jdk17         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/teamcity/agent/amxx-sdk/1.9   && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/teamcity/agent/amxx-sdk/1.10  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/android-sdk/jdk8    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/teamcity/agent/android-sdk/jdk11    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/teamcity/agent/android-sdk/jdk17    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/teamcity/agent/atlassian-sdk  && pwd && make build && make deploy
@@ -697,6 +699,8 @@ ecosystem-teamcity-agent-images:
 	cd `pwd`/linux/ecosystem/teamcity/agent/php7.4         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/teamcity/agent/php8.0         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/teamcity/agent/php8.1         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/php8.2         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/php8.3         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/teamcity/agent/steam-sdk      && pwd && make build && make deploy
 
 ecosystem-gitlab-runner-images:
@@ -732,6 +736,8 @@ ecosystem-gitlab-runner-images:
 	cd `pwd`/linux/ecosystem/gitlab/runner/php7.3         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/gitlab/runner/php7.4         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/gitlab/runner/php8.1         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/php8.2         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/php8.3         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/gitlab/runner/steam-sdk      && pwd && make build && make deploy
 
 ecosystem-nginx-images:

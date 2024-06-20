@@ -4,3 +4,8 @@ services:
     image: "epicmorg/php:php7.1"
     build:
       context: .
+  app-nodejs:
+    image: "epicmorg/php:php7.1-nodejs"
+    build:
+      context: .
+      dockerfile: ./Dockerfile.nodejs
