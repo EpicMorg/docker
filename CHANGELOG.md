@@ -2,6 +2,8 @@
 ## 2024
 * `jun`
   * impoverd `nodejs 0-22` base images.
+  * added `pnpm` to `nodejs 4-22` images
+  * updated `nextcloud` to `29` version.
 * `mar-apr-may`
   * impoverd `postgres 10-16` images.
   * added `timescaledb` supprot to `postgres 11-16` images.
