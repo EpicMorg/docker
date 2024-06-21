@@ -68,8 +68,7 @@ RUN wget -qO - http://repos.azulsystems.com/RPM-GPG-KEY-azulsystems | apt-key ad
 ##################################################################
 #                  cleanup
 ##################################################################
-RUN apt-get purge policykit-1 -y && \
-    apt-get clean -y && \
+RUN apt-get clean -y && \
     apt-get autoclean -y && \
     rm -rfv /var/lib/apt/lists/* && \
     rm -rfv /tmp/* && \

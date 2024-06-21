@@ -55,6 +55,9 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     ca-certificates \
     locales \
     software-properties-common \
+    curl \
+    wget \
+    locate \
     sudo
 
 RUN update-ca-certificates --fresh
@@ -67,9 +70,14 @@ RUN locale-gen
 ##################################################################
 #                  cleanup
 ##################################################################
-RUN apt-get purge policykit-1 -y && \
+RUN echo "clean up" && \
     apt-get clean -y && \
     apt-get autoclean -y && \
     rm -rfv /var/lib/apt/lists/* && \
     rm -rfv /tmp/* && \
     rm -rfv /var/cache/apt/archives/*.deb
+
+##################################################################
+#                  update file db
+##################################################################
+RUN updatedb
