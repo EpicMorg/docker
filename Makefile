@@ -1,4 +1,4 @@
-VERSION             =  "2024.04.21"
+VERSION             =  "2024.06.21"
 AUTHOR              =  "EpicMorg"
 MODIFIED            =  "STAM"
 DOCKER_SCAN_SUGGEST = false

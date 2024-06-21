@@ -119,7 +119,7 @@ RUN printf "\n--------------------------------\n$(cargo --version)\n------------
 ##################################################################
 #                   Flutter SDK
 ##################################################################
-RUN git clone https://github.com/flutter/flutter.git -b stable /flutter
+RUN git clone -c http.sslverify=false https://github.com/flutter/flutter.git -b stable /flutter
 RUN flutter precache
 RUN flutter config --no-analytics
 RUN dart --disable-analytics
