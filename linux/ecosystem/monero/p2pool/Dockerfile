@@ -44,7 +44,7 @@ CMD ["--host p2pool", "--stratum 0.0.0.0:3333", "--p2p 0.0.0.0:37889", "--addpee
 ##################################################################
 #                  cleanup
 ##################################################################
-RUN apt-get purge policykit-1 -y && \
+RUN echo "clean up" && \
     apt-get clean -y && \
     apt-get autoclean -y && \
     rm -rfv /var/lib/apt/lists/* && \

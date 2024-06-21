@@ -1,4 +1,4 @@
-version: '3'
+#version: '3'
 
 services:
   monerod:
@@ -27,7 +27,7 @@ services:
         - monerod
     environment:
         MONEROD_TOR_SERVICE_HOSTS: 18089:monerod:18089
-        MONEROD_TOR_SERVICE_VERSION: '3'
+        MONEROD_TOR_SERVICE_#version: '3'
     volumes:
         - tor-keys:/var/lib/tor/hidden_service/
 

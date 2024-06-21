@@ -1,0 +1,6 @@
+#version: '3'
+services:
+  app:
+    image: "epicmorg/teamcity-agent:node5"
+    build:
+      context: .

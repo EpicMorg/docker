@@ -2,17 +2,21 @@ FROM epicmorg/php:php7.3
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
+ARG K_JDK_MAJOR_VERSION=jdk-17.0.11
+ARG K_JDK_VERSION=17.0.11
+ARG K_JDK_BUILD_VERSION=9
+ARG K_JDK_URL=https://github.com/adoptium/temurin17-binaries/releases/download/${K_JDK_MAJOR_VERSION}+${K_JDK_BUILD_VERSION}/OpenJDK17U-jdk_x64_linux_hotspot_${K_JDK_VERSION}_${K_JDK_BUILD_VERSION}.tar.gz
+
+ENV JAVA_HOME=/opt/${K_JDK_MAJOR_VERSION}+${K_JDK_BUILD_VERSION}
+ENV PATH=$PATH:${JAVA_HOME}/bin
+
 ##################################################################
-#                   installing java11
+#                   installing java17
 ##################################################################
-RUN wget -qO - https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public | apt-key add - && \
-    echo 'deb https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/ buster main' > /etc/apt/sources.list.d/adoptopenjdk-official.list && \
-    apt-get update && \
-    apt-get autoremove -y && \
-    apt-get install -y --allow-unauthenticated adoptopenjdk-11-hotspot && \
-    mkdir /usr/lib/jvm/adoptopenjdk-11-hotspot-amd64/jre && \
-    ln -s /usr/lib/jvm/adoptopenjdk-11-hotspot-amd64/bin/ /usr/lib/jvm/adoptopenjdk-11-hotspot-amd64/jre/bin && \
-    ln -s /usr/lib/jvm/adoptopenjdk-11-hotspot-amd64/lib/ /usr/lib/jvm/adoptopenjdk-11-hotspot-amd64/jre/lib
+RUN curl --user-agent "Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/81.0" --location ${K_JDK_URL}?$(date +%s) \
+         --header 'Cache-Control: no-cache, no-store' \
+         --header 'Pragma: no-cache'  | tar xzv  --directory /opt && \
+    java -version
 
 ##################################################################
 #                   teamcity minimal agent

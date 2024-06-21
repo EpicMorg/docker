@@ -35,6 +35,7 @@ COPY etc/apt/apt.conf.d/97-allow-cert-exp /etc/apt/apt.conf.d/97-allow-cert-exp
 COPY etc/apt/apt.conf.d/96-apt-retries /etc/apt/apt.conf.d/96-apt-retries
 COPY etc/apt/sources.list /etc/apt/sources.list
 COPY etc/locale.gen /etc/locale.gen
+COPY usr/local/share/ca-certificates /usr/local/share/ca-certificates
 
 RUN apt-get update && \
     apt-get upgrade -y && \
@@ -53,16 +54,18 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     aptitude \
     bash \
     binutils \
-    console-cyrillic \
     ca-certificates \
     locales \
     software-properties-common \
+    curl \
+    wget \
+    locate \
     sudo
 
 RUN apt-key adv --keyserver keyserver.ubuntu.com --refresh-keys
 RUN apt-key list  | grep "expired: " | sed -ne 's|pub .*/\([^ ]*\) .*|\1|gp' | xargs -n1  apt-key adv --keyserver keyserver.ubuntu.com --recv-keys
 
-RUN update-ca-certificates
+RUN update-ca-certificates --fresh
 
 ##################################################################
 #                  update locales
@@ -72,9 +75,14 @@ RUN locale-gen
 ##################################################################
 #                  cleanup
 ##################################################################
-RUN apt-get purge policykit-1 -y && \
+RUN echo "clean up" && \
     apt-get clean -y && \
     apt-get autoclean -y && \
     rm -rfv /var/lib/apt/lists/* && \
     rm -rfv /tmp/* && \
     rm -rfv /var/cache/apt/archives/*.deb
+
+##################################################################
+#                  update file db
+##################################################################
+RUN updatedb

@@ -125,7 +125,7 @@ RUN openssl dhparam -out /etc/ssl/dhparam.pem 512
 ##################################################################
 #                  cleanup
 ##################################################################
-RUN apt-get purge policykit-1 -y && \
+RUN echo "clean up" && \
     apt-get clean -y && \
     apt-get autoclean -y && \
     rm -rfv /var/lib/apt/lists/* && \
