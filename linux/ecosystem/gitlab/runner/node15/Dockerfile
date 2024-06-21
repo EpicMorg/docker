@@ -1,36 +1,47 @@
 FROM epicmorg/gitlab-runner:latest
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
+
 ARG DEBIAN_FRONTEND=noninteractive
+
+ARG K_NODE_MAJOR_VERSION=15
+ARG K_NODE_VERSION=${K_NODE_MAJOR_VERSION}.14.0
+ARG K_NODE_URL=https://nodejs.org/dist/v${K_NODE_VERSION}/node-v${K_NODE_VERSION}-linux-x64.tar.gz
+ARG K_NODE_HEADERS_URL=https://nodejs.org/dist/v${K_NODE_VERSION}/node-v${K_NODE_VERSION}-headers.tar.gz
 
 ##################################################################
 #                   Node.js 15.x
 ##################################################################
-RUN groupadd node && \
-    useradd --gid node --shell /bin/bash --create-home node
+RUN groupadd -g 1337 node && \
+    useradd  -u 1337 --gid node --shell /bin/bash --create-home node
 
-RUN curl -sL https://deb.nodesource.com/setup_15.x | bash - && \
-    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - && \
-    echo "deb https://nightly.yarnpkg.com/debian/ nightly main" > /etc/apt/sources.list.d/yarn.list && \
-    apt-get update && \
-    apt-get install -y nodejs yarn && \
-    npm install -g pnpm
+RUN curl --user-agent "Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/81.0" --location ${K_NODE_URL}?$(date +%s) \
+         --header 'Cache-Control: no-cache, no-store' \
+         --header 'Pragma: no-cache'  | tar xzv --strip-components=1 --directory /usr/local/ && \
+         rm -rfv /usr/local/CHANGELOG.md /usr/local/LICENSE /usr/local/README.md
 
-#   curl -L https://www.npmjs.com/install.sh | sh
-#   npm install -g npm
+RUN curl --user-agent "Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/81.0" --location ${K_NODE_HEADERS_URL}?$(date +%s) \
+         --header 'Cache-Control: no-cache, no-store' \
+         --header 'Pragma: no-cache'  | tar xzv --strip-components=1 --directory /usr/local/
 
+#RUN npm install -g pnpm yarn
+RUN npm install -g yarn
+
+##################################################################
+#                   Version after install
+##################################################################
 RUN echo "=============================================" && \
     echo node $(node --version) && \
     echo npm $(npm --version) && \
     echo yarn $(yarn --version) && \
-    echo pnpm $(pnpm --version) && \
+#    echo pnpm $(pnpm --version) && \
     echo "============================================="
 
 ##################################################################
-#                   cleaninig up
+#                  cleanup
 ##################################################################
-RUN apt clean -y && \
-    apt-get clean all && \
-    apt autoclean -y && \
-    rm -rfv /var/lib/apt/lists/* && \
-    rm -rfv /var/cache/apt/archives/*.deb && \
-    rm -rfv /tmp/*
+RUN apt-get purge policykit-1 -y && \
+apt-get clean -y && \
+apt-get autoclean -y && \
+rm -rfv /var/lib/apt/lists/* && \
+rm -rfv /var/cache/apt/archives/*.deb && \
+rm -rfv /tmp/*

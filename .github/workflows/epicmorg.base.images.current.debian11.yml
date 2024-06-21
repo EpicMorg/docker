@@ -29,18 +29,39 @@ jobs:
       
     - name: "Build and Deploy Debian 11 develop Image:"
       run:  cd linux/ecosystem/epicmorg/debian/11-bullseye/develop    && pwd && make build && make deploy
-      
+
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
+
     - name: "Build and Deploy Debian 11 jdk6 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/11-bullseye/jdk6    && pwd && make build && make deploy
       
     - name: "Build and Deploy Debian 11 jdk7 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/11-bullseye/jdk7    && pwd && make build && make deploy
-      
+
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
+
     - name: "Build and Deploy Debian 11 jdk8 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/11-bullseye/jdk8    && pwd && make build && make deploy
       
     - name: "Build and Deploy Debian 11 jdk11 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/11-bullseye/jdk11    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
 
     - name: "Build and Deploy Debian 11 jdk17 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/11-bullseye/jdk17    && pwd && make build && make deploy
@@ -48,11 +69,25 @@ jobs:
     - name: "Build and Deploy Debian 11 jdk18 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/11-bullseye/jdk18    && pwd && make build && make deploy
 
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
+
     - name: "Build and Deploy Debian 11 jdk19 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/11-bullseye/jdk19    && pwd && make build && make deploy
 
     - name: "Build and Deploy Debian 11 jdk20 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/11-bullseye/jdk20    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
 
     - name: "Build and Deploy Debian 11 jdk21 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/11-bullseye/jdk21    && pwd && make build && make deploy

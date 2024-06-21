@@ -6,7 +6,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 # add our user and group first to make sure their IDs get assigned consistently, regardless of whatever dependencies get added
 ####################################################################################################################################
 
-RUN groupadd -r postgres && useradd -r -g postgres postgres
+RUN groupadd -r postgres && useradd -m -r -g postgres -s /bin/bash postgres
 
 ####################################################################################################################################
 # make the "en_US.UTF-8" locale so postgres will be utf-8 enabled by default
@@ -15,8 +15,6 @@ RUN groupadd -r postgres && useradd -r -g postgres postgres
 RUN apt-get update && apt-get install -y locales && rm -rf /var/lib/apt/lists/* \
     && localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
 ENV LANG en_US.utf8
-
-#RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8
 
 ####################################################################################################################################
 # http://apt.postgresql.org/pub/repos/apt/pool/11/p/postgresql-11/
@@ -60,7 +58,7 @@ RUN apt-get update \
     postgresql-$PG_MAJOR-set-user \
     postgresql-$PG_MAJOR-semver \
     postgresql-$PG_MAJOR-rum \
-    postgresql-$PG_MAJOR-roaringbitmap \
+#   postgresql-$PG_MAJOR-roaringbitmap \
     postgresql-$PG_MAJOR-repmgr \
     postgresql-$PG_MAJOR-repack \
     postgresql-$PG_MAJOR-rdkit \
@@ -90,8 +88,8 @@ RUN apt-get update \
     postgresql-$PG_MAJOR-pgq3 \
     postgresql-$PG_MAJOR-pgq-node \
     postgresql-$PG_MAJOR-pgpool2 \
-    postgresql-$PG_MAJOR-pgpcre \
-    postgresql-$PG_MAJOR-pgmp \
+#    postgresql-$PG_MAJOR-pgpcre \
+#    postgresql-$PG_MAJOR-pgmp \
     postgresql-$PG_MAJOR-pgmemcache \
     postgresql-$PG_MAJOR-pglogical-ticker \
     postgresql-$PG_MAJOR-pglogical \
@@ -112,7 +110,7 @@ RUN apt-get update \
     postgresql-$PG_MAJOR-pg-catcheck \
     postgresql-$PG_MAJOR-periods \
     postgresql-$PG_MAJOR-partman \
-    postgresql-$PG_MAJOR-orafce \
+#    postgresql-$PG_MAJOR-orafce \
     postgresql-$PG_MAJOR-oracle-fdw \
     postgresql-$PG_MAJOR-omnidb \
     postgresql-$PG_MAJOR-numeral \
@@ -124,14 +122,14 @@ RUN apt-get update \
     postgresql-$PG_MAJOR-ip4r \
     postgresql-$PG_MAJOR-icu-ext \
     postgresql-$PG_MAJOR-hypopg \
-    postgresql-$PG_MAJOR-http \
+#    postgresql-$PG_MAJOR-http \
     postgresql-$PG_MAJOR-hll \
 #    postgresql-$PG_MAJOR-h3 \
     postgresql-$PG_MAJOR-first-last-agg \
     postgresql-$PG_MAJOR-extra-window-functions \
     postgresql-$PG_MAJOR-dirtyread \
     postgresql-$PG_MAJOR-decoderbufs \
-    postgresql-$PG_MAJOR-debversion \
+#    postgresql-$PG_MAJOR-debversion \
     postgresql-$PG_MAJOR-cron \
 #    postgresql-$PG_MAJOR-credcheck \
     postgresql-$PG_MAJOR-bgw-replstatus \

@@ -1,7 +1,22 @@
 # Changelog
 ## 2024
-* `mar-apr`
+* `jun`
+  * impoverd `nodejs 0-22` base images. 
+    * deprecated installation via package manager.
+    * installation from archive.
+  	* added `pnpm` to `nodejs 4-22` images
+  * updated `nextcloud` to `29` version.
+  * reworked `gitlab` images.
+  * reworked `teamcity-agent` images.
+  * impoverd `php` base images, added `nodejs` lts support via special tag.
+  * reworked all imajes contaned any `jdk`.
+    * deprecated installation via package manager.
+    * installation from archive.
+* `mar-apr-may`
   * impoverd `postgres 10-16` images.
+  * added `timescaledb` supprot to `postgres 11-16` images.
+  * `postgres` images migrated from `bullseye` to `bookworm` image.
+  * updated `qbittorrent` iamges. added `testing` (rolling) release image.
 * `feb`
   * added `astralinux` `1.7` `se` base images - `slim`, `main` and `develop`.
   * updated images: fixes of sources.list, java install logic, updated `python 3.12` iamges

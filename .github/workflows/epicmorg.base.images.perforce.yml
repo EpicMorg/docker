@@ -30,6 +30,13 @@ jobs:
     - name: "Build and Deploy Perfocre r17.2 Image:"
       run:  cd linux/ecosystem/perforce/base/r17.2    && pwd && make build && make deploy
 
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
+
     - name: "Build and Deploy Perfocre r18.1 Image:"
       run:  cd linux/ecosystem/perforce/base/r18.1    && pwd && make build && make deploy
 
@@ -38,7 +45,14 @@ jobs:
 
     - name: "Build and Deploy Perfocre r19.1 Image:"
       run:  cd linux/ecosystem/perforce/base/r19.1    && pwd && make build && make deploy
-      
+
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
+
     - name: "Build and Deploy Perfocre r19.2 Image:"
       run:  cd linux/ecosystem/perforce/base/r19.2    && pwd && make build && make deploy
 
@@ -48,6 +62,13 @@ jobs:
     - name: "Build and Deploy Perfocre r20.2 Image:"
       run:  cd linux/ecosystem/perforce/base/r20.2    && pwd && make build && make deploy
 
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
+
     - name: "Build and Deploy Perfocre r21.1 Image:"
       run:  cd linux/ecosystem/perforce/base/r21.1    && pwd && make build && make deploy
       
@@ -56,6 +77,13 @@ jobs:
 
     - name: "Build and Deploy Perfocre r22.1 Image:"
       run:  cd linux/ecosystem/perforce/base/r22.1    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
 
     - name: "Build and Deploy Perfocre r23.1 Image:"
       run:  cd linux/ecosystem/perforce/base/r23.1    && pwd && make build && make deploy
@@ -87,6 +115,13 @@ jobs:
     - name: "Build and Deploy Perfocre Proxy r17.2 Image:"
       run:  cd linux/ecosystem/perforce/p4p/r17.2    && pwd && make build && make deploy
 
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
+
     - name: "Build and Deploy Perfocre Proxy r18.1 Image:"
       run:  cd linux/ecosystem/perforce/p4p/r18.1    && pwd && make build && make deploy
 
@@ -99,6 +134,13 @@ jobs:
     - name: "Build and Deploy Perfocre Proxy r19.2 Image:"
       run:  cd linux/ecosystem/perforce/p4p/r19.2    && pwd && make build && make deploy
 
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
+
     - name: "Build and Deploy Perfocre Proxy r20.1 Image:"
       run:  cd linux/ecosystem/perforce/p4p/r20.1    && pwd && make build && make deploy
 
@@ -110,6 +152,13 @@ jobs:
       
     - name: "Build and Deploy Perfocre Proxy r21.2 Image:"
       run:  cd linux/ecosystem/perforce/p4p/r21.2    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
 
     - name: "Build and Deploy Perfocre Proxy r22.1 Image:"
       run:  cd linux/ecosystem/perforce/p4p/r22.1    && pwd && make build && make deploy
