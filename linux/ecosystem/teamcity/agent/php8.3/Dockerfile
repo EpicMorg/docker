@@ -13,9 +13,8 @@ ENV PATH=$PATH:${JAVA_HOME}/bin
 ##################################################################
 #                   installing java17
 ##################################################################
-RUN curl --user-agent "Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/81.0" --location ${K_JDK_URL}?$(date +%s) \
-         --header 'Cache-Control: no-cache, no-store' \
-         --header 'Pragma: no-cache'  | tar xzv  --directory /opt && \
+ADD ${K_JDK_URL} /tmp
+RUN tar -xvzf /tmp/OpenJDK${K_JDK_MAJOR_VERSION}U-jdk_x64_linux_hotspot_${K_JDK_VERSION}${K_JDK_BUILD_VERSION}.tar.gz  --directory /opt && \
     java -version
 
 ##################################################################

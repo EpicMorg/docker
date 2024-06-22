@@ -84,18 +84,18 @@ ENV MAVEN_LINK=https://dlcdn.apache.org/maven/maven-3/${MAVEN_VERSION}/binaries/
 ENV MAVEN_ROOT=/opt/maven
 ENV MAVEN_PATH=${MAVEN_ROOT}/apache-maven-${MAVEN_VERSION}
 ENV MAVEN_BIN=${MAVEN_PATH}/bin
-ARG MAVEN_TEMP=/tmp/MAVEN.zip
+ARG MAVEN_TEMP=/tmp/apache-maven-${MAVEN_VERSION}-bin.zip
 
 ENV GRADLE_VERSION=8.6
 ENV GRADLE_LINK=https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-all.zip
 ENV GRADLE_ROOT=/opt/gradle
 ENV GRADLE_PATH=${GRADLE_ROOT}/gradle-${GRADLE_VERSION}
 ENV GRADLE_BIN=${GRADLE_PATH}/bin
-ARG GRADLE_TEMP=/tmp/gradle.zip
+ARG GRADLE_TEMP=/tmp/gradle-${GRADLE_VERSION}-all.zip
 
 ENV KTC_VERSION=1.9.22
 ENV KTC_LINK=https://github.com/JetBrains/kotlin/releases/download/v${KTC_VERSION}/kotlin-compiler-${KTC_VERSION}.zip
-ARG KTC_TEMP=/tmp/kotlinc.zip
+ARG KTC_TEMP=/tmp/kotlin-compiler-${KTC_VERSION}.zip
 ENV KTC_ROOT=/opt/kotlin
 ENV KTC_PATH=${KTC_ROOT}/kotlinc
 ENV KTC_BIN=${KTC_PATH}/bin
@@ -109,7 +109,7 @@ ENV PATH=${PATH}:${MAVEN_BIN}:${GRADLE_BIN}:${KTC_BIN}
 ENV MAVEN_HOME=${MAVEN_ROOT}
 ENV M2_HOME=${MAVEN_ROOT}
 
-RUN curl --insecure --progress-bar -L -o ${MAVEN_TEMP} --retry 10 --retry-delay 0 ${MAVEN_LINK}
+ADD ${MAVEN_LINK} /tmp
 RUN 7zz x ${MAVEN_TEMP} -o${MAVEN_ROOT}
 RUN chmod +x -R ${MAVEN_BIN}
 RUN mvn -v
@@ -117,7 +117,7 @@ RUN mvn -v
 ##################################################################
 #                   GRADLE
 ##################################################################
-RUN curl --insecure --progress-bar -L -o ${GRADLE_TEMP} --retry 10 --retry-delay 0 ${GRADLE_LINK}
+ADD ${GRADLE_LINK} /tmp
 RUN 7zz x ${GRADLE_TEMP} -o${GRADLE_ROOT}
 RUN chmod +x -R ${GRADLE_BIN}
 RUN gradle -v
@@ -125,7 +125,7 @@ RUN gradle -v
 ##################################################################
 #                   KOTLIN
 ##################################################################
-RUN curl --insecure --progress-bar -L -o ${KTC_TEMP} --retry 10 --retry-delay 0 ${KTC_LINK}
+ADD ${KTC_LINK} /tmp
 RUN 7zz x $KTC_TEMP -o${KTC_ROOT}
 RUN chmod +x -R ${KTC_BIN}
 RUN kotlin -version

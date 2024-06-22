@@ -168,7 +168,7 @@ RUN curl --insecure -o /usr/bin/p4 ${P4_DOWNLOAD_URL} && \
 ##################################################################
 #                   Generate ssl key
 ##################################################################
-RUN openssl dhparam -out /etc/ssl/dhparam.pem 512
+RUN openssl dhparam -out /etc/ssl/dhparam.pem 4096
 
 ##################################################################
 #                  cleanup

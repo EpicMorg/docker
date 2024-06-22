@@ -96,7 +96,8 @@ RUN apt-get update && \
     libtool \
     gdb \
     strace
-
+   
+RUN aptitude remove '~njava' -y
 ##################################################################
 #                   other   customisations
 ##################################################################

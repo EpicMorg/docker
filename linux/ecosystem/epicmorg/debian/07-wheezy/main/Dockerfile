@@ -157,7 +157,7 @@ RUN wget -q --no-check-certificate -c https://github.com/tianon/gosu/releases/do
 ##################################################################
 #                   Generate ssl key
 ##################################################################
-RUN openssl dhparam -out /etc/ssl/dhparam.pem 512
+RUN openssl dhparam -out /etc/ssl/dhparam.pem 4096
 
 ##################################################################
 #                  cleanup

@@ -7,16 +7,20 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 
 #configured by dockerfile / .ENV
-ARG P4_VERSION
-ARG P4_DOWNLOAD_URL
-ARG SZ_VERSION
-ARG SZ_DOWNLOAD_URL
-ARG LZGIT_VERSION
-ARG LZGIT_DOWNLOAD_URL
-ARG DUMB_INIT_VERSION
-ARG DUMB_INIT_DOWNLOAD_URL
-ARG GOSU_VER
-ARG GOSU_DOWNLOAD_URL
+ARG P4_VERSION=r23.2
+ARG P4_DOWNLOAD_URL=https://filehost.perforce.com/perforce/${P4_VERSION}/bin.linux26x86_64/p4
+
+ARG SZ_VERSION=7z2400
+ARG SZ_DOWNLOAD_URL=https://www.7-zip.org/a/${SZ_VERSION}-linux-x64.tar.xz
+
+ARG LZGIT_VERSION=0.40.2
+ARG LZGIT_DOWNLOAD_URL=https://github.com/jesseduffield/lazygit/releases/download/v${LZGIT_VERSION}/lazygit_${LZGIT_VERSION}_Linux_x86_64.tar.gz
+
+ARG DUMB_INIT_VERSION=1.2.5
+ARG DUMB_INIT_DOWNLOAD_URL=https://github.com/Yelp/dumb-init/releases/download/v${DUMB_INIT_VERSION}/dumb-init_${DUMB_INIT_VERSION}_x86_64
+
+ARG GOSU_VER=1.17
+ARG GOSU_DOWNLOAD_URL=https://github.com/tianon/gosu/releases/download/${GOSU_VER}/gosu-amd64
 
 ##################################################################
 #                   update lists

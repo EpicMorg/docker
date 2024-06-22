@@ -87,6 +87,8 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     subversion-tools \
     zip
 
+RUN aptitude remove '~njava' -y
+
 # Global disable ssl verify due very old dists
 RUN git config --global http.sslVerify false
 
@@ -123,7 +125,7 @@ RUN git config --global http.sslVerify false
 ##################################################################
 #                   Generate ssl key
 ##################################################################
-RUN openssl dhparam -out /etc/ssl/dhparam.pem 512
+RUN openssl dhparam -out /etc/ssl/dhparam.pem 4096
 
 ##################################################################
 #                  cleanup
