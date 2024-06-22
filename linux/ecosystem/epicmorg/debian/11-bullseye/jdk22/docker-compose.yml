@@ -1,0 +1,11 @@
+#version: '3'
+services:
+  app:
+    image: "epicmorg/debian:bullseye-jdk22"
+    build:
+      context: .
+  app-develop:
+    image: "epicmorg/debian:bullseye-develop-jdk22"
+    build:
+      context: .
+      dockerfile: ./Dockerfile.develop

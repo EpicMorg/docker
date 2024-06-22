@@ -63,8 +63,24 @@ jobs:
 
 ##################################################################################
 
+    - name: "Build and Deploy Debian 12 jdk16 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/jdk16    && pwd && make build && make deploy
+
     - name: "Build and Deploy Debian 12 jdk17 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/jdk17    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
+
+    - name: "Build and Deploy Debian 12 jdk18 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/jdk18    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 12 jdk19 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/jdk19    && pwd && make build && make deploy
 
 ##################################################################################
 
@@ -78,6 +94,9 @@ jobs:
 
     - name: "Build and Deploy Debian 12 jdk21 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/jdk21    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 12 jdk22 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/jdk22    && pwd && make build && make deploy
 
 ##################################################################################
 

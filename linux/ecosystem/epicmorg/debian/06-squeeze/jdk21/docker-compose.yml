@@ -1,0 +1,11 @@
+#version: '3'
+services:
+  app:
+    image: "epicmorg/debian:squeeze-jdk21"
+    build:
+      context: .
+  app-develop:
+    image: "epicmorg/debian:squeeze-develop-jdk21"
+    build:
+      context: .
+      dockerfile: ./Dockerfile.develop
