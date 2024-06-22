@@ -1,0 +1,11 @@
+#version: '3'
+services:
+  app:
+    image: "epicmorg/debian:wheezy-jdk18"
+    build:
+      context: .
+  app-develop:
+    image: "epicmorg/debian:wheezy-develop-jdk18"
+    build:
+      context: .
+      dockerfile: ./Dockerfile.develop

@@ -2,12 +2,13 @@ FROM epicmorg/debian:bookworm
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
-ARG K_JDK_MAJOR_VERSION=jdk-20.0.2
+ARG K_JDK_MAJOR_VERSION=20
+ARG K_JDK_FULL_VERSION=jdk-20.0.2
 ARG K_JDK_VERSION=20.0.2
 ARG K_JDK_BUILD_VERSION=9
-ARG K_JDK_URL=https://github.com/adoptium/temurin20-binaries/releases/download/${K_JDK_MAJOR_VERSION}+${K_JDK_BUILD_VERSION}/OpenJDK20U-jdk_x64_linux_hotspot_${K_JDK_VERSION}_${K_JDK_BUILD_VERSION}.tar.gz
+ARG K_JDK_URL=https://github.com/adoptium/temurin${K_JDK_MAJOR_VERSION}-binaries/releases/download/${K_JDK_FULL_VERSION}+${K_JDK_BUILD_VERSION}/OpenJDK${K_JDK_MAJOR_VERSION}U-jdk_x64_linux_hotspot_${K_JDK_VERSION}_${K_JDK_BUILD_VERSION}.tar.gz
 
-ENV JAVA_HOME=/opt/${K_JDK_MAJOR_VERSION}+${K_JDK_BUILD_VERSION}
+ENV JAVA_HOME=/opt/${K_JDK_FULL_VERSION}+${K_JDK_BUILD_VERSION}
 ENV PATH=$PATH:${JAVA_HOME}/bin
 
 ##################################################################

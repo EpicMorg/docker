@@ -63,6 +63,9 @@ jobs:
 
 ##################################################################################
 
+    - name: "Build and Deploy Debian 10 jdk16 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/10-buster/jdk16    && pwd && make build && make deploy
+      
     - name: "Build and Deploy Debian 10 jdk17 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/10-buster/jdk17    && pwd && make build && make deploy
       
@@ -88,3 +91,17 @@ jobs:
       run: make docker-clean
 
 ##################################################################################
+
+    - name: "Build and Deploy Debian 10 jdk21 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/10-buster/jdk21    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 10 jdk22 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/10-buster/jdk22    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
+

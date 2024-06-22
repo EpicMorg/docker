@@ -95,6 +95,9 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     zip \
     pev
 
+# Global disable ssl verify due very old dists
+RUN git config --global http.sslVerify false
+
 ##################################################################
 #                   installing fs-tools
 ##################################################################

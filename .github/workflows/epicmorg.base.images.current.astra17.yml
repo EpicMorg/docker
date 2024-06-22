@@ -34,3 +34,103 @@ jobs:
 
     - name: Cleanup
       run: make docker-clean
+
+##################################################################################
+
+    - name: "Build and Deploy Astra 1.7 SE jdk6 Image:"
+      run:  cd linux/ecosystem/epicmorg/astra/1.7-alse/jdk6    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Astra 1.7 SE jdk7 Image:"
+      run:  cd linux/ecosystem/epicmorg/astra/1.7-alse/jdk7    && pwd && make build && make deploy
+  
+    - name: "Build and Deploy Astra 1.7 SE jdk8 Image:"
+      run:  cd linux/ecosystem/epicmorg/astra/1.7-alse/jdk8    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Astra 1.7 SE jdk11 Image:"
+      run:  cd linux/ecosystem/epicmorg/astra/1.7-alse/jdk11    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Astra 1.7 SE jdk16 Image:"
+      run:  cd linux/ecosystem/epicmorg/astra/1.7-alse/jdk16    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
+
+
+    - name: "Build and Deploy Astra 1.7 SE jdk17 Image:"
+      run:  cd linux/ecosystem/epicmorg/astra/1.7-alse/jdk17    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Astra 1.7 SE jdk18 Image:"
+      run:  cd linux/ecosystem/epicmorg/astra/1.7-alse/jdk18    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Astra 1.7 SE jdk19 Image:"
+      run:  cd linux/ecosystem/epicmorg/astra/1.7-alse/jdk19    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Astra 1.7 SE jdk20 Image:"
+      run:  cd linux/ecosystem/epicmorg/astra/1.7-alse/jdk20    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
+
+    - name: "Build and Deploy Astra 1.7 SE jdk21 Image:"
+      run:  cd linux/ecosystem/epicmorg/astra/1.7-alse/jdk21    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Astra 1.7 SE jdk22 Image:"
+      run:  cd /linux/ecosystem/epicmorg/astra/1.7-alse/jdk22    && pwd && make build && make deploy
+
+
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
+
+
+    - name: "Build and Deploy Astra 1.7 SE python3.10 Image:"
+      run:  cd linux/ecosystem/epicmorg/astra/1.7-alse/python3.10    && pwd && make build && make deploy
+
+  
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
+
+    - name: "Build and Deploy Astra 1.7 SE python3.11 Image:"
+      run:  cd linux/ecosystem/epicmorg/astra/1.7-alse/python3.11    && pwd && make build && make deploy
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
+
+    - name: "Build and Deploy Astra 1.7 SE python3.12 Image:"
+      run:  cd linux/ecosystem/epicmorg/astra/1.7-alse/python3.12    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
+
+    - name: "Build and Deploy Astra 1.7 SE python3.13 Image:"
+      run:  cd linux/ecosystem/epicmorg/astra/1.7-alse/python3.13    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
+ 

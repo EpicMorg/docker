@@ -6,12 +6,15 @@
     * installation from archive.
   	* added `pnpm` to `nodejs 4-22` images
   * updated `nextcloud` to `29` version.
+  * added `astra-linux` base images with `jdk6-22`, `python3.10-13`
   * reworked `gitlab` images.
   * reworked `teamcity-agent` images.
   * impoverd `php` base images, added `nodejs` lts support via special tag.
   * reworked all imajes contaned any `jdk`.
     * deprecated installation via package manager.
     * installation from archive.
+	* added ALL `jdk` versions.
+	* added support for ALL base images.
 * `mar-apr-may`
   * impoverd `postgres 10-16` images.
   * added `timescaledb` supprot to `postgres 11-16` images.
