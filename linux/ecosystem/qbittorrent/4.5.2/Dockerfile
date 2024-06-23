@@ -6,7 +6,6 @@ ARG DEBIAN_FRONTEND=noninteractive
 #                   ARGuments
 ##################################################################
 
-#configured by dockerfile / .ENV
 ARG QBT_RELEASE
 ARG LT_RELEASE
 ENV QBT_VERSION=${QBT_RELEASE}

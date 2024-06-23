@@ -4,7 +4,7 @@ FROM epicmorg/apache2:php7.1
 # Testrail Install
 ##############################################################################
 
-#configured by dockerfile / .ENV
+
 ARG TESTRAIL_VERSION
 ARG DOWNLOAD_URL
 

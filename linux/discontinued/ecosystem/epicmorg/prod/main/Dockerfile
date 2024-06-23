@@ -26,14 +26,28 @@ ARG P4_DOWNLOAD_URL=https://www.perforce.com/downloads/perforce/${P4_VERSION}/bi
 ##################################################################
 #                   7z official binary
 ##################################################################
-ARG SZ_VERSION=7z2400
+ARG SZ_VERSION=7z2407
 ARG SZ_DOWNLOAD_URL=https://www.7-zip.org/a/${SZ_VERSION}-linux-x64.tar.xz
+ARG SZ_TEMP=/tmp/${SZ_VERSION}-linux-x64.tar.xz
 
 ##################################################################
 #                   LazyGit official binary
 ##################################################################
-ARG LZGIT_VERSION=0.42.0
-ARG LZGIT_DOWNLOAD_URL=https://github.com/jesseduffield/lazygit/releases/download/v${LZGIT_VERSION}/lazygit_${LZGIT_VERSION}_Linux_x86_64.tar.gz
+ARG LAZYGIT_VERSION=0.42.0
+ARG LAZYGIT_DOWNLOAD_URL=https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz
+ARG LAZYGIT_TEMP=/tmp/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz
+
+ARG LAZYCLI_VERSION=0.1.15
+ARG LAZYCLI_DOWNLOAD_URL=https://github.com/jesseduffield/lazycli/releases/download/v${LAZYCLI_VERSION}/lazycli-linux-x64.tar.gz
+ARG LAZYCLI_TEMP=/tmp/lazycli-linux-x64.tar.gz
+
+ARG LAZYNPM_VERSION=0.1.4
+ARG LAZYNPM_DOWNLOAD_URL=https://github.com/jesseduffield/lazynpm/releases/download/v${LAZYNPM_VERSION}/lazynpm_${LAZYNPM_VERSION}_Linux_x86_64.tar.gz
+ARG LAZYNPM_TEMP=/tmp/lazynpm_${LAZYNPM_VERSION}_Linux_x86_64.tar.gz
+
+ARG LAZYDOCKER_VERSION=0.23.3
+ARG LAZYDOCKER_DOWNLOAD_URL=https://github.com/jesseduffield/lazydocker/releases/download/v${LAZYDOCKER_VERSION}/lazydocker_${LAZYDOCKER_VERSION}_Linux_x86_64.tar.gz
+ARG LAZYDOCKER_TEMP=/tmp/lazydocker_${LAZYDOCKER_VERSION}_Linux_x86_64.tar.gz
 
 ##################################################################
 #                   installing utils
@@ -167,7 +181,7 @@ RUN wget -nv --random-wait -c -O /tmp/7z.tar.xz ${SZ_DOWNLOAD_URL} && \
 ##################################################################
 #                   Install LazyGit official binary
 ##################################################################
-RUN wget -nv --random-wait -c -O /tmp/lazygit.tar.xz ${LZGIT_DOWNLOAD_URL} && \
+RUN wget -nv --random-wait -c -O /tmp/lazygit.tar.xz ${LAZYGIT_DOWNLOAD_URL} && \
     mkdir -p /tmp/lazygit && \
     tar -zxvf /tmp/lazygit.tar.xz -C /tmp/lazygit && \
     chmod +x /tmp/lazygit/lazygit && \

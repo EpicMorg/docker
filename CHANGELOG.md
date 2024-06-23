@@ -15,6 +15,11 @@
     * installation from archive.
 	* added ALL `jdk` versions.
 	* added support for ALL base images.
+  * reworked downloading of some zips. kind of `jdk`, `maven`, etc.
+  * `jdk6` and `jdk7` was replaced from `deb` to `zip` installation.
+  * updated `7zz`, `lazygit`, `kotlin-compiller`, `maven`, `gradle` versions.
+  * added suport of `kotlin native prebuild` libs.
+  * added suport of `lazycli`, `lazynpm`, `lazydocker`. Thanks to [@jesseduffield](https://github.com/jesseduffield).
 * `mar-apr-may`
   * impoverd `postgres 10-16` images.
   * added `timescaledb` supprot to `postgres 11-16` images.
@@ -28,7 +33,7 @@
   * fixed `java` images,
   * added `maven`, `gradle`, `kotlin` to compatible `java 8+` images.
   * updated `GOSU` to `1.17`
-  * updated `7z` to `7z2400`
+  * updated `7z` to `7z2407`
   * updated `LazyGIT` to `0.40.2`
   * updated `p4` to `23.2` in base images
   * updated `perforce` iamges - `p4` and `p4p` to `r23.1` and `r23.2`

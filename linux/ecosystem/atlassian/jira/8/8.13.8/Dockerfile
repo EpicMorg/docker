@@ -6,7 +6,6 @@ ARG DEBIAN_FRONTEND=noninteractive
 #                   ARGuments
 ##################################################################
 
-#configured by dockerfile / .ENV
 ARG RELEASE
 ARG DOWNLOAD_URL
 
