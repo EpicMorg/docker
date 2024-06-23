@@ -1,6 +1,26 @@
 FROM epicmorg/astralinux:1.7-main
-
+LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
+
+##################################################################
+#                   ARGuments
+##################################################################
+ENV BuildDocker true
+ENV GOPATH=/usr/local/go
+ENV CARGOPATH=/root/.cargo
+ENV FLUTTERPATH=/usr/local/flutter
+ENV PATH="${FLUTTERPATH}/bin:${CARGOPATH}/bin:${GOPATH}/bin:${PATH}"
+ARG BUILDS_DIR=/builds
+ARG SRC_DIR=${BUILDS_DIR}/src
+ARG EXPORT_DIR=${BUILDS_DIR}/export
+ARG NINJA_ARCH=linux
+ARG NINJA_VERSION=latest
+ARG NINJA_RELEASE_URL=https://api.github.com/repos/ninja-build/ninja/releases/${NINJA_VERSION}
+
+##################################################################
+#                   Files and folders
+##################################################################
+RUN mkdir -p ${SRC_DIR} ${EXPORT_DIR} ${PRE_DIR}
 
 ##################################################################
 #                   update lists
@@ -93,6 +113,30 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     yasm  \
     zlib1g  \
     zlib1g-dev
+
+##################################################################
+#                   Rust compillers
+##################################################################
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile complete --default-toolchain stable --verbose
+RUN printf "\n--------------------------------\n$(cargo --version)\n--------------------------------\n\n"
+
+##################################################################
+#                   Flutter SDK
+##################################################################
+RUN git clone https://github.com/flutter/flutter.git -b stable /usr/local/flutter
+RUN flutter precache
+RUN flutter config --no-analytics
+RUN dart --disable-analytics
+RUN printf "\n--------------------------------\n$(flutter --version)\n--------------------------------\n\n"
+
+##################################################################
+#                   GO compillers
+##################################################################
+RUN printf "\n--------------------------------\n$(go version)\n--------------------------------\n\n"
+
+##################################################################
+#                   other   customisations
+##################################################################
 
 ##################################################################
 #                  cleanup
