@@ -7,14 +7,14 @@ ARG K_JDK_VERSION=17.0.11
 ARG K_JDK_BUILD_VERSION=9
 ARG K_JDK_URL=https://github.com/adoptium/temurin17-binaries/releases/download/${K_JDK_MAJOR_VERSION}+${K_JDK_BUILD_VERSION}/OpenJDK17U-jdk_x64_linux_hotspot_${K_JDK_VERSION}_${K_JDK_BUILD_VERSION}.tar.gz
 
-ENV JAVA_HOME=/opt/${K_JDK_MAJOR_VERSION}+${K_JDK_BUILD_VERSION}
+ENV JAVA_HOME=/usr/local/${K_JDK_MAJOR_VERSION}+${K_JDK_BUILD_VERSION}
 ENV PATH=$PATH:${JAVA_HOME}/bin
 
 ##################################################################
 #                   installing java17
 ##################################################################
 ADD ${K_JDK_URL} /tmp
-RUN tar -xvzf /tmp/OpenJDK${K_JDK_MAJOR_VERSION}U-jdk_x64_linux_hotspot_${K_JDK_VERSION}${K_JDK_BUILD_VERSION}.tar.gz  --directory /opt && \
+RUN tar -xvzf ${K_JDK_TEMP} --directory /usr/local && \
     java -version
 
 ##################################################################

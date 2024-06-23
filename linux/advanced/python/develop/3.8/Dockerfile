@@ -7,7 +7,7 @@ LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 #                   ARGuments
 ##################################################################
 ENV BuildDocker true
-ENV GOPATH=/go
+ENV GOPATH=/usr/local/go
 ENV PATH="${GOPATH}/bin:${PATH}"
 ARG BUILDS_DIR=/builds
 ARG SRC_DIR=${BUILDS_DIR}/src

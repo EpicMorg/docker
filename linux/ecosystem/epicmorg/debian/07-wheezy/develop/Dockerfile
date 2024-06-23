@@ -6,9 +6,9 @@ ARG DEBIAN_FRONTEND=noninteractive
 #                   ARGuments
 ##################################################################
 ENV BuildDocker true
-ENV GOPATH=/go
+ENV GOPATH=/usr/local/go
 ENV CARGOPATH=/root/.cargo
-ENV FLUTTERPATH=/flutter
+ENV FLUTTERPATH=/usr/local/flutter
 ENV PATH="${FLUTTERPATH}/bin:${CARGOPATH}/bin:${GOPATH}/bin:${PATH}"
 ARG BUILDS_DIR=/builds
 ARG SRC_DIR=${BUILDS_DIR}/src
@@ -23,7 +23,7 @@ ARG NINJA_RELEASE_URL=https://api.github.com/repos/ninja-build/ninja/releases/${
 RUN mkdir -p ${SRC_DIR} ${EXPORT_DIR} ${PRE_DIR}
 
 ##################################################################
-#                   sid sources list
+#                  update lists
 ##################################################################
 RUN apt-get update && \
     apt-get dist-upgrade -y
@@ -109,7 +109,6 @@ RUN apt-get update && \
 ##################################################################
 #                   other   customisations
 ##################################################################
-
 
 ##################################################################
 #                  cleanup

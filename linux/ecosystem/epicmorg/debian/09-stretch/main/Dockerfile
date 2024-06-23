@@ -3,22 +3,37 @@ LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
 ##################################################################
-#                   perforce client binary
+#                   ARGuments
 ##################################################################
-ARG P4_VERSION=r23.2
+
+ARG P4_VERSION=r16.2
 ARG P4_DOWNLOAD_URL=https://filehost.perforce.com/perforce/${P4_VERSION}/bin.linux26x86_64/p4
 
-##################################################################
-#                   7z official binary
-##################################################################
-ARG SZ_VERSION=7z2400
+ARG SZ_VERSION=7z2407
 ARG SZ_DOWNLOAD_URL=https://www.7-zip.org/a/${SZ_VERSION}-linux-x64.tar.xz
+ARG SZ_TEMP=/tmp/${SZ_VERSION}-linux-x64.tar.xz
 
-##################################################################
-#                   LazyGit official binary
-##################################################################
-ARG LZGIT_VERSION=0.40.2
-ARG LZGIT_DOWNLOAD_URL=https://github.com/jesseduffield/lazygit/releases/download/v${LZGIT_VERSION}/lazygit_${LZGIT_VERSION}_Linux_x86_64.tar.gz
+ARG LAZYGIT_VERSION=0.42.0
+ARG LAZYGIT_DOWNLOAD_URL=https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz
+ARG LAZYGIT_TEMP=/tmp/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz
+
+ARG LAZYCLI_VERSION=0.1.15
+ARG LAZYCLI_DOWNLOAD_URL=https://github.com/jesseduffield/lazycli/releases/download/v${LAZYCLI_VERSION}/lazycli-linux-x64.tar.gz
+ARG LAZYCLI_TEMP=/tmp/lazycli-linux-x64.tar.gz
+
+ARG LAZYNPM_VERSION=0.1.4
+ARG LAZYNPM_DOWNLOAD_URL=https://github.com/jesseduffield/lazynpm/releases/download/v${LAZYNPM_VERSION}/lazynpm_${LAZYNPM_VERSION}_Linux_x86_64.tar.gz
+ARG LAZYNPM_TEMP=/tmp/lazynpm_${LAZYNPM_VERSION}_Linux_x86_64.tar.gz
+
+ARG LAZYDOCKER_VERSION=0.23.3
+ARG LAZYDOCKER_DOWNLOAD_URL=https://github.com/jesseduffield/lazydocker/releases/download/v${LAZYDOCKER_VERSION}/lazydocker_${LAZYDOCKER_VERSION}_Linux_x86_64.tar.gz
+ARG LAZYDOCKER_TEMP=/tmp/lazydocker_${LAZYDOCKER_VERSION}_Linux_x86_64.tar.gz
+
+ARG DUMB_INIT_VERSION=1.2.5
+ARG DUMB_INIT_DOWNLOAD_URL=https://github.com/Yelp/dumb-init/releases/download/v${DUMB_INIT_VERSION}/dumb-init_${DUMB_INIT_VERSION}_x86_64
+
+ARG GOSU_VER=1.17
+ARG GOSU_DOWNLOAD_URL=https://github.com/tianon/gosu/releases/download/${GOSU_VER}/gosu-amd64
 
 ##################################################################
 #                   update lists
@@ -171,28 +186,29 @@ RUN wget -c https://cli.github.com/packages/githubcli-archive-keyring.gpg -O /et
 ##################################################################
 #                   Install p4client
 ##################################################################
-RUN curl --insecure -o /usr/bin/p4 ${P4_DOWNLOAD_URL} && \
-    chmod +x /usr/bin/p4
+ADD ${P4_DOWNLOAD_URL} /usr/local/bin
+RUN chmod +x /usr/local/bin/p4
 
 ##################################################################
 #                   Install 7z official binary
 ##################################################################
-RUN wget --no-check-certificate -nv --random-wait --retry-connrefused --continue -O /tmp/7z.tar.xz ${SZ_DOWNLOAD_URL} && \
-    mkdir -p /tmp/7z && \
-    tar -xf /tmp/7z.tar.xz -C /tmp/7z && \
-    chmod +x /tmp/7z/7zz && \
-    mv -fv /tmp/7z/7zz /usr/bin/ && \
+ADD ${SZ_DOWNLOAD_URL} /tmp
+RUN mkdir -p /usr/local/7z-${SZ_VERSION} && \
+    tar -xf ${SZ_TEMP} --directory /usr/local/7z-${SZ_VERSION} && \
+    chmod +x -R /usr/local/7z-${SZ_VERSION}&& \
+    ln -sfv /usr/local/7z-${SZ_VERSION}/7zz /usr/local/bin/7zz  && \
+    ln -sfv /usr/local/7z-${SZ_VERSION}/7zzs /usr/local/bin/7zzs && \
     7zz | head -4 && \
     7z | head -4
 
 ##################################################################
 #                   Install LazyGit official binary
 ##################################################################
-RUN wget --no-check-certificate -nv --random-wait --retry-connrefused --continue -O /tmp/lazygit.tar.xz ${LZGIT_DOWNLOAD_URL} && \
-    mkdir -p /tmp/lazygit && \
-    tar -zxvf /tmp/lazygit.tar.xz -C /tmp/lazygit && \
-    chmod +x /tmp/lazygit/lazygit && \
-    mv -fv /tmp/lazygit/lazygit /usr/bin/ && \
+ADD ${LAZYGIT_DOWNLOAD_URL} /tmp
+RUN mkdir -p /usr/local/lazygit-${LAZYGIT_VERSION} && \
+    tar -xzf ${LAZYGIT_TEMP} --directory /usr/local/lazygit-${LAZYGIT_VERSION} && \
+    chmod +x -R /usr/local/lazygit-${LAZYGIT_VERSION} && \
+    ln -sfv /usr/local/lazygit-${LAZYGIT_VERSION}/lazygit /usr/local/bin/lazygit && \
     echo "lazygit version:" && \
     lazygit --version
 
