@@ -11,6 +11,9 @@ build:
 	make qbt-libtorrent1
 
 deploy:
+	python3 kaniko-build.py --deploy --kaniko-image gcr.io/kaniko-project/executor:v1.23.0-debug
+
+deploy-compose:
 	docker-compose push
 
 clean:

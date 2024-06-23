@@ -1,9 +1,7 @@
-VERSION             =  "2024.06.21"
+VERSION             =  "2024.06.24"
 AUTHOR              =  "EpicMorg"
 MODIFIED            =  "STAM"
 DOCKER_SCAN_SUGGEST = false
-
-all: app
 
 app:
 	@make -s version
@@ -36,6 +34,19 @@ ansible.gen.bitbucket:
 
 ansible.gen.testrail:
 	cd `pwd`/bin/ansible			&& ansible-playbook ./generate.testrail.yml
+
+pip:
+	rm -rf /usr/lib/python3.9/EXTERNALLY-MANAGED && \
+	rm -rf /usr/lib/python3.11/EXTERNALLY-MANAGED && \
+	rm -rf /usr/lib/python3.12/EXTERNALLY-MANAGED && \
+	rm -rf /usr/lib/python3.13/EXTERNALLY-MANAGED && \
+	cd bin/kaniko && \
+	pip install -r requirements.txt
+
+kaniko.update:
+	make pip
+	cd bin/kaniko && \
+	python3 _deploy.py
 
 git:
 	git add .
