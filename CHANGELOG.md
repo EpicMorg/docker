@@ -1,6 +1,10 @@
 # Changelog
 ## 2024
 * `jun`
+  * added support of `kaniko` build system:
+	* defaut build scripts now builds with `kaniko` via `make build` and `make deploy`.
+	* classic build via `docker-compose` was saved as `make build-compose` and `make deploy-compose`.
+	* added new argument - `dry` or `dry-run`. kind of old `make build`. it only build image locally and cleanup.
   * impoverd `nodejs 0-22` base images. 
     * deprecated installation via package manager.
     * installation from archive.
