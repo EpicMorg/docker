@@ -10,7 +10,7 @@ import logging
 import sys
 
 # Script version
-SCRIPT_VERSION = "1.0.0.1"
+SCRIPT_VERSION = "1.0.1.0"
 
 # ASCII art for EpicMorg
 ASCII_ART = r"""
@@ -107,6 +107,7 @@ def build_with_kaniko(service_name, build_context, dockerfile, image_name, build
         for line in process.stderr:
             logging.error(line.strip())
         logging.error(f"Error building {service_name}")
+        raise Exception(f"Failed to build {service_name}")
 
 def show_help():
     print(ASCII_ART)
@@ -166,29 +167,30 @@ def main():
             logging.error(f"Error: Image name {image_name} is used {count} times.")
             return
     
-    with ThreadPoolExecutor() as executor:
-        futures = []
-        for service_name, service_data in services.items():
-            build_data = service_data.get('build', {})
-            build_context = build_data.get('context', '.')
-            dockerfile = build_data.get('dockerfile', 'Dockerfile')
-            image_name = service_data.get('image')
-            build_args = build_data.get('args', {})
+    try:
+        with ThreadPoolExecutor() as executor:
+            futures = []
+            for service_name, service_data in services.items():
+                build_data = service_data.get('build', {})
+                build_context = build_data.get('context', '.')
+                dockerfile = build_data.get('dockerfile', 'Dockerfile')
+                image_name = service_data.get('image')
+                build_args = build_data.get('args', {})
+                
+                # Substitute environment variables with their values if they exist
+                build_args = {key: os.getenv(key, value) for key, value in build_args.items()}
+                
+                if not image_name:
+                    logging.warning(f"No image specified for service {service_name}")
+                    continue
+                
+                futures.append(executor.submit(build_with_kaniko, service_name, build_context, dockerfile, image_name, build_args, kaniko_image, deploy, dry))
             
-            # Substitute environment variables with their values if they exist
-            build_args = {key: os.getenv(key, value) for key, value in build_args.items()}
-            
-            if not image_name:
-                logging.warning(f"No image specified for service {service_name}")
-                continue
-            
-            futures.append(executor.submit(build_with_kaniko, service_name, build_context, dockerfile, image_name, build_args, kaniko_image, deploy, dry))
-        
-        for future in as_completed(futures):
-            try:
+            for future in as_completed(futures):
                 future.result()
-            except Exception as exc:
-                logging.error(f"Generated an exception: {exc}")
+    except Exception as exc:
+        logging.error(f"Build failed: {exc}")
+        sys.exit(1)
 
 if __name__ == '__main__':
     main()

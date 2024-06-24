@@ -406,6 +406,7 @@ ecosystem-debian-bullseye-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk7    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk8    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk11    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk16    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk17    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk18    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk19    && pwd && make build && make deploy
@@ -420,7 +421,10 @@ ecosystem-debian-bookworm-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk7    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk8    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk11    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk16    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk17    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk18    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk19    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk20    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk21    && pwd && make build && make deploy
 
