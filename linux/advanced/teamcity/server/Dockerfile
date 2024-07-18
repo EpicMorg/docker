@@ -41,7 +41,7 @@ ARG P4_DOWNLOAD_URL=http://www.perforce.com/downloads/perforce/${P4_VERSION}/bin
 ##################################################################
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections && \
     apt-get update &&  \
-    apt-get install -y --allow-unauthenticated \
+    apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
     apt-transport-https \
     apt-utils \
     bash \

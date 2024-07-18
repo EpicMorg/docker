@@ -22,14 +22,14 @@ RUN rm -rfv /etc/apt/sources.list.d/*
 ##################################################################
 RUN rm -rfv /etc/apt/sources.list
 COPY sources.list.d/sources.sid.list /etc/apt/sources.list
-RUN  apt update
+RUN  apt-get update
 
 ##################################################################
 #                   installing utils
 ##################################################################
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections && \
     apt-get update &&  \
-    apt-get install -y --allow-unauthenticated \
+    apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
     libpcre3-dev \
     librtmp1 \
     libtheora0 \
@@ -45,7 +45,7 @@ RUN rm -rfv /etc/apt/sources.list
 COPY sources.list.d/sources.stretch.list /etc/apt/sources.list
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections && \
     apt-get update &&  \
-    apt-get install -y --allow-unauthenticated \
+    apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
     libvpx4
 
 ##################################################################
@@ -55,7 +55,7 @@ RUN rm -rfv /etc/apt/sources.list
 COPY sources.list.d/sources.buster.list /etc/apt/sources.list
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections && \
     apt-get update &&  \
-    apt-get install -y --allow-unauthenticated \
+    apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
     libvpx5
 
 ##################################################################
@@ -65,7 +65,7 @@ RUN rm -rfv /etc/apt/sources.list
 COPY sources.list.d/sources.sid.list /etc/apt/sources.list
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections && \
     apt-get update &&  \
-    apt-get install -y --allow-unauthenticated \
+    apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
     libvpx6
 
 ##################################################################

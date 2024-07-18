@@ -91,8 +91,8 @@ RUN chmod +x -R ${KNPL_BIN}
 ##################################################################
 #                   Android SDK
 ##################################################################
-RUN apt update && \
-    apt install -y --allow-unauthenticated \
+RUN apt-get update && \
+    apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
       maven \
       android-sdk \
       sdkmanager \

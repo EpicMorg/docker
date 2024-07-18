@@ -1,3 +1,5 @@
+PIP_BREAK_SYSTEM_PACKAGES=1
+
 all: app
 
 app:

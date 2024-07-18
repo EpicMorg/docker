@@ -44,7 +44,7 @@ RUN apt-get update && \
 #                   installing utils
 ##################################################################
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections && \
-    apt-get install -y --allow-unauthenticated \
+    apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
     apt-transport-https \
     apt-utils \
     gnupg \
@@ -108,7 +108,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
 #                   installing utils
 ##################################################################
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections && \
-    apt-get install -y --allow-unauthenticated \
+    apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
     acl \
     aptitude \
     bzip2 \
@@ -203,7 +203,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
 #                   installing fs-tools
 ##################################################################
 #RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections && \
-#    apt-get install -y --allow-unauthenticated \
+#    apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
 #    btrfs-progs \
 #    exfat-utils \
 #    e2fsprogs \
@@ -234,7 +234,7 @@ RUN gpg --keyserver keyserver.ubuntu.com --recv-keys A1715D88E1DF1F24 && \
 COPY etc/apt/sources.list.d/launchpad_git-mainline.list /etc/apt/sources.list.d/launchpad_git-mainline.list
 COPY etc/apt/sources.list.d/launchpad_git-stable.list /etc/apt/sources.list.d/launchpad_git-stable.list
 RUN apt-get update &&  \
-    apt-get install -y --allow-unauthenticated \
+    apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
     git
 
 RUN echo "=============================================" && \
@@ -248,7 +248,7 @@ RUN curl -fsSL https://packagecloud.io/github/git-lfs/gpgkey | gpg --dearmor > /
     rm -rfv /etc/apt/sources.list.d/github_git-lfs.list
 COPY etc/apt/sources.list.d/github_git-lfs.list /etc/apt/sources.list.d/github_git-lfs.list
 RUN apt-get update &&  \
-    apt-get install -y --allow-unauthenticated \
+    apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
     git \
     git-lfs && \
     git-lfs install --skip-repo
@@ -265,7 +265,7 @@ RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | s
     chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg && \
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list && \
     apt-get update &&  \
-    apt-get install -y --allow-unauthenticated \
+    apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
     gh
 
 RUN echo "=============================================" && \

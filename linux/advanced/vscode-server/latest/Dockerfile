@@ -42,7 +42,7 @@ ARG SZ_TEMP=/tmp/${SZ_VERSION}-linux-x64.tar.xz
 #    lbzip2 \
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections && \
     apt-get update &&  \
-    apt-get install -y --allow-unauthenticated \
+    apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
     apt-transport-https \
     apt-utils \
     aptitude \
@@ -125,8 +125,8 @@ RUN wget -nv --random-wait -c -O /tmp/7z.tar.xz ${SZ_DOWNLOAD_URL} && \
 ##################################################################
 RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg && \
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null && \
-    sudo apt update && \
-    sudo apt install -y --allow-unauthenticated gh && \
+    sudo apt-get update && \
+    sudo apt-get install -y --allow-unauthenticated gh && \
     gh --version
 
 ##################################################################

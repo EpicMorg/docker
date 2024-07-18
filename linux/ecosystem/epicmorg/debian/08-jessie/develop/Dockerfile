@@ -32,7 +32,7 @@ RUN apt-get update && \
 #                   installing
 ##################################################################
 RUN apt-get update && \
-    apt-get install -y --allow-unauthenticated \
+    apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
     build-essential \
     autoconf-archive \
     gnu-standards \

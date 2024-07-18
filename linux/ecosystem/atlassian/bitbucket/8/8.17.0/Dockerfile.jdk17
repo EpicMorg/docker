@@ -28,8 +28,8 @@ EXPOSE 7999
 ##################################################################
 #                   Installing
 ##################################################################
-RUN apt update && \
-    apt install -y --allow-downgrades git/bullseye-backports
+RUN apt-get update && \
+    apt-get install -y --allow-downgrades git/bullseye-backports
 
 RUN mkdir -p                                    ${BITBUCKET_INSTALL_DIR} \
     && curl -L                                  ${DOWNLOAD_URL} | tar -xz --strip-components=1 -C "${BITBUCKET_INSTALL_DIR}" \

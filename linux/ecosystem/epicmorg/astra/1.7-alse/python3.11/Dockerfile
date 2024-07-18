@@ -24,7 +24,7 @@ RUN echo "=============================================" && \
 ##################################################################
 #                   Install prerequierments to Python compile
 ##################################################################
-RUN apt install -y --allow-unauthenticated \
+RUN apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
     automake \
     build-essential \
     gcc \
@@ -81,7 +81,7 @@ RUN update-alternatives --install /usr/bin/python python /usr/local/bin/python3.
     update-alternatives --remove pip3 /usr/local/bin/pip3.11 && \
     rm -rfv /usr/local/bin/pip3 /usr/bin/pip3 && \
     sudo ln -sfv /usr/local/bin/pip3.11 /usr/local/bin/pip && \
-    apt install -y python3-pip
+    apt-get install -y python3-pip
 
 ##################################################################
 #                   Version after install
