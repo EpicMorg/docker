@@ -21,15 +21,15 @@ RUN mkdir -p ${SRC_DIR} ${EXPORT_DIR} ${PRE_DIR}
 ##################################################################
 #                   sid sources list
 ##################################################################
-RUN apt update && \
+RUN apt-get update && \
     apt-get autoremove -y && \
-    apt dist-upgrade -y
+    apt-get dist-upgrade -y
 
 ##################################################################
 #                   deps
 ##################################################################
 RUN apt-get update && \
-    apt install -y --allow-unauthenticated --allow-downgrades \
+    apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests --allow-downgrades \
     build-essential \
     autoconf-archive \
     gnu-standards \

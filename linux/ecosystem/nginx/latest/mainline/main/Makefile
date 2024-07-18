@@ -1,3 +1,5 @@
+PIP_BREAK_SYSTEM_PACKAGES=1
+
 all: app
 
 app:
@@ -9,7 +11,8 @@ build:
 	docker-compose build --compress --progress plain
 
 deploy:
-	python3 kaniko-build.py --deploy --kaniko-image gcr.io/kaniko-project/executor:v1.23.0-debug
+	make pip
+	python3 kaniko-build.py --deploy --kaniko-image gcr.io/kaniko-project/executor:v1.23.2-debug
 
 deploy-compose:
 	docker-compose push

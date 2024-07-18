@@ -43,7 +43,7 @@ RUN apt-get update && \
 #                   installing utils
 ##################################################################
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections && \
-    apt-get install -y --allow-unauthenticated \
+    apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
     apt-transport-https \
     apt-utils \
     gnupg \
@@ -66,6 +66,13 @@ RUN update-ca-certificates --fresh
 #                  update locales
 ##################################################################
 RUN locale-gen
+
+##################################################################
+#                  Create Base directory for various soft
+##################################################################
+ENV EMG_LOCAL_BASE_DIR=/usr/local/epicmorg
+RUN mkdir -p ${EMG_LOCAL_BASE_DIR}
+COPY usr/local/epicmorg ${EMG_LOCAL_BASE_DIR}
 
 ##################################################################
 #                  cleanup

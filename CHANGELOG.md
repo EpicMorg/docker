@@ -1,5 +1,52 @@
 # Changelog
 ## 2024
+* `july`
+  * updated support of `kaniko` to `v1.23.2-debug` version.
+  * fixed build scripts for CI.
+  * `BREAKING CHANGE:` reworked `slim`, `main` and `develop` images of `bookworm`:
+	* added new default path for sub-folders with custom tools such as `gosu`, `dumb-init` and etc.
+	* pattern: `/usr/local/epicmorg/<program-name>/<version>/<..some data and files..>`
+	* Some child images could install to this folder custom compilled products. Example: `nginx`, `php`, etc.
+	* All directories that contains binaryes (`<bin\sbin>`) will be added to `$PATH`.
+		* example:
+			```
+			/usr/local/epicmorg/
+			|-- 7z
+			|   `-- 7z2407
+			|       |-- History.txt
+			|       |-- License.txt
+			|       |-- MANUAL
+			|       |-- bin
+			|       `-- readme.txt
+			|-- dumb-init
+			|   `-- 1.2.5
+			|       `-- bin
+			|-- gosu
+			|   `-- 1.17
+			|       `-- bin
+			|-- lazycli
+			|   `-- 0.1.15
+			|       `-- bin
+			|-- lazydocker
+			|   `-- 0.23.3
+			|       |-- LICENSE
+			|       |-- README.md
+			|       `-- bin
+			|-- lazygit
+			|   `-- 0.42.0
+			|       |-- LICENSE
+			|       |-- README.md
+			|       `-- bin
+			|-- lazynpm
+			|   `-- 0.1.4
+			|       |-- LICENSE
+			|       |-- README.md
+			|       `-- bin
+			`-- p4
+				`-- r23.2
+					`-- bin
+			```
+
 * `jun`
   * added support of `kaniko` build system:
 	* defaut build scripts now builds with `kaniko` via `make build` and `make deploy`.

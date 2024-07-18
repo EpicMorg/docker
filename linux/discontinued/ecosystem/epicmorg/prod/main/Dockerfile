@@ -11,7 +11,7 @@ COPY trusted.gpg.d/githubcli-archive-keyring.gpg /etc/apt/trusted.gpg.d/githubcl
 RUN rm /etc/apt/sources.list
 COPY sources.list.d/sources.list /etc/apt/sources.list
 
-RUN apt update && apt dist-upgrade -y
+RUN apt-get update && apt-get dist-upgrade -y
 
 COPY etc/locale.gen /etc/locale.gen
 
@@ -54,7 +54,7 @@ ARG LAZYDOCKER_TEMP=/tmp/lazydocker_${LAZYDOCKER_VERSION}_Linux_x86_64.tar.gz
 ##################################################################
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections && \
     apt-get update &&  \
-    apt-get install -y --allow-unauthenticated \
+    apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
     apt-transport-https \
     apt-utils \
     aptitude \
@@ -146,7 +146,7 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 6B05F25D762E3157 &&
     rm -rfv /etc/apt/sources.list.d/github_git-lfs.list
 COPY sources.list.d/github_git-lfs.list /etc/apt/sources.list.d/github_git-lfs.list
 RUN apt-get update &&  \
-    apt-get install -y --allow-unauthenticated \
+    apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
     git \
     git-lfs && \
     git --version && \
@@ -157,7 +157,7 @@ RUN apt-get update &&  \
 ##################################################################
 COPY sources.list.d/github-cli.list /etc/apt/sources.list.d/github-cli.list
 RUN apt-get update &&  \
-    apt-get install -y --allow-unauthenticated \
+    apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
     gh && \
     gh --version
 

@@ -13,11 +13,11 @@ COPY sources.list.d/github_git-lfs.list /etc/apt/sources.list.d/github_git-lfs.l
 ##################################################################
 RUN  rm -rfv /etc/apt/sources.list
 COPY sources.list.d/sources.list /etc/apt/sources.list
-RUN  apt update && \
+RUN  apt-get update && \
      apt autoremove -y && \
      apt-get install -y libc6 libxml2-utils && \
-     apt upgrade -y && \
-     apt dist-upgrade -y && \
+     apt-get upgrade -y && \
+     apt-get dist-upgrade -y && \
      apt autoremove -y
 
 ##################################################################

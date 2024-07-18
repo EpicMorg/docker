@@ -31,7 +31,7 @@ RUN pip --version
 #                   installing
 ##################################################################
 RUN apt-get update && \
-    apt install -y --allow-unauthenticated --allow-downgrades \
+    apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests --allow-downgrades \
     at \
     autoconf \
     autoconf-archive \

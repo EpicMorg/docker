@@ -24,9 +24,9 @@ COPY sources.list /etc/apt/sources.list
 ##################################################################
 #                  adding some utils
 ##################################################################
-RUN apt update -y && \
-    apt dist-upgrade -y && \
-    apt install -y --allow-unauthenticated \
+RUN apt-get update -y && \
+    apt-get dist-upgrade -y && \
+    apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
         apt-transport-https \
         curl \
         ca-certificates \
@@ -53,8 +53,8 @@ RUN curl -sSLo /tmp/debsuryorg-archive-keyring.deb https://packages.sury.org/deb
     wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg && \
     sh -c 'echo "deb [signed-by=/usr/share/keyrings/deb.sury.org-php.gpg] https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list'
 
-RUN apt update -y &&  \
-    apt install -y --allow-unauthenticated \
+RUN apt-get update -y &&  \
+    apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
         libsmbclient-dev \
         libmagickwand-dev \
         libmagickcore-dev \

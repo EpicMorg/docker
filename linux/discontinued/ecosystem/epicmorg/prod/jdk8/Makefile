@@ -1,3 +1,5 @@
+PIP_BREAK_SYSTEM_PACKAGES=1
+
 all: app
 
 app:
@@ -16,20 +18,26 @@ test:
 	make dry-run
 
 dry-run:
-	python3 kaniko-build.py --kaniko-image gcr.io/kaniko-project/executor:v1.23.0-debug --dry-run
+	python3 kaniko-build.py --kaniko-image gcr.io/kaniko-project/executor:v1.23.2-debug --dry-run
 
 pip:
+	rm -rf /usr/lib/python3.6/EXTERNALLY-MANAGED
+	rm -rf /usr/lib/python3.7/EXTERNALLY-MANAGED
+	rm -rf /usr/lib/python3.8/EXTERNALLY-MANAGED
+	rm -rf /usr/lib/python3.9/EXTERNALLY-MANAGED
 	rm -rf /usr/lib/python3.9/EXTERNALLY-MANAGED
 	rm -rf /usr/lib/python3.11/EXTERNALLY-MANAGED
 	rm -rf /usr/lib/python3.12/EXTERNALLY-MANAGED
 	rm -rf /usr/lib/python3.13/EXTERNALLY-MANAGED
-	pip install -r requirements.txt
+	pip3 install -r requirements.txt --break-system-packages
+	pip install -r requirements.txt --break-system-packages
 
 build-compose:
 	docker-compose build --compress --parallel
 
 deploy:
-	python3 kaniko-build.py --deploy --kaniko-image gcr.io/kaniko-project/executor:v1.23.0-debug
+	make pip
+	python3 kaniko-build.py --deploy --kaniko-image gcr.io/kaniko-project/executor:v1.23.2-debug
 
 deploy-compose:
 	docker-compose push

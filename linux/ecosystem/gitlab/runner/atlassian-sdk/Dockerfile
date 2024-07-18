@@ -17,8 +17,8 @@ ARG DEBIAN_FRONTEND=noninteractive
 ###############################
 RUN curl -fsSL https://packages.atlassian.com/api/gpg/key/public | apt-key add - && \
     echo 'deb [trusted=yes] https://packages.atlassian.com/atlassian-sdk-deb stable contrib' > /etc/apt/sources.list.d/atlassian-sdk.list  && \
-    apt update  --allow-insecure-repositories && \
-    apt install -y --no-install-recommends  --allow-unauthenticated  \
+    apt-get update  --allow-insecure-repositories && \
+    apt-get install -y --no-install-recommends  --allow-unauthenticated  \
       atlassian-plugin-sdk
 
 ##################################################################

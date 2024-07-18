@@ -13,23 +13,29 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 #                   ARGuments
 ##################################################################
-ENV BuildDocker true
+ARG NGINX_TAG=latest
+ARG NGINX_VERSION=1.25.3
+ARG NGINX_DOWNLOAD_URL=http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz
+
+ARG OPENSSL_VERSION=3.2.0
+ARG OPENSSL_DOWNLOAD_URL=https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz
+
+# PCRE source tarball
+ARG PCRE_VERSION=10.42
+ARG PCRE_DOWNLOAD_URL=https://github.com/PCRE2Project/pcre2/releases/download/pcre2-${PCRE_VERSION}/pcre2-${PCRE_VERSION}.tar.gz
+
+# zlib source tarball
+ARG ZLIB_VERSION=1.3
+ARG ZLIB_DOWNLOAD_URL=https://zlib.net/fossils/zlib-${ZLIB_VERSION}.tar.gz
+
+
 ARG BUILDS_DIR=/builds
 ARG SRC_DIR=${BUILDS_DIR}/src
 ARG EXPORT_DIR=${BUILDS_DIR}/export
 ARG PRE_DIR=${BUILDS_DIR}/pre
 ARG NGINX_SRC_DIR=${SRC_DIR}/nginx
-ARG NGINX_TAG
-ARG NGINX_VERSION
-ARG NGINX_DOWNLOAD_URL
-ARG OPENSSL_VERSION
-ARG OPENSSL_DOWNLOAD_URL
 ARG OPENSSL_SRC_DIR=${SRC_DIR}/openssl
-ARG PCRE_VERSION
-ARG PCRE_DOWNLOAD_URL
 ARG PCRE_SRC_DIR=${SRC_DIR}/pcre
-ARG ZLIB_VERSION
-ARG ZLIB_DOWNLOAD_URL
 ARG ZLIB_SRC_DIR=${SRC_DIR}/zlib
 ARG LUAJIT_INC=/usr/local/include/luajit-2.1
 ARG LUAJIT_LIB=/usr/local/lib
@@ -38,9 +44,9 @@ ARG LUAJIT_LIB=/usr/local/lib
 #                   Files and folders
 ##################################################################
 RUN mkdir -p ${PRE_DIR}  ${NGINX_SRC_DIR} /usr/lib/nginx ${OPENSSL_SRC_DIR}  ${PCRE_SRC_DIR}-temp ${ZLIB_SRC_DIR}
-ADD pre/luajit2-description-pak ${PRE_DIR}
-ADD pre/nginx-description-pak ${PRE_DIR}
-ADD pre/ip2location-description-pak ${PRE_DIR}
+#ADD pre/luajit2-description-pak ${PRE_DIR}
+#ADD pre/nginx-description-pak ${PRE_DIR}
+#ADD pre/ip2location-description-pak ${PRE_DIR}
 
 ##################################################################
 #                   Files and folders
@@ -153,14 +159,7 @@ RUN wget -qO - ${NGINX_DOWNLOAD_URL} | tar -zxv --strip-components=1 -C ${NGINX_
     git clone https://github.com/openresty/echo-nginx-module.git http-echo && \
     git clone https://github.com/aperezdc/ngx-fancyindex.git http-fancyindex && \
     git clone https://github.com/slact/nchan.git nchan && \
-
-#    #<=1.25
-#    git clone https://github.com/kaprog/nginx-upload-progress-module.git http-uploadprogress && \
-#    #<=1.23<=1.24, 1.25 broken
-#   git clone https://github.com/msva/nginx-upload-progress-module.git http-uploadprogress && \
-#    #<=1.23
-#   git clone https://github.com/masterzen/nginx-upload-progress-module.git http-uploadprogress && \
-
+    git clone https://github.com/masterzen/nginx-upload-progress-module.git http-uploadprogress && \
     git clone https://github.com/kaprog/nginx-upload-progress-module http-uploadprogress && \
     git clone https://github.com/yaoweibin/ngx_http_substitutions_filter_module http-subs-filter && \
     git clone https://github.com/grahamedgecombe/nginx-ct.git ssl-ct && \

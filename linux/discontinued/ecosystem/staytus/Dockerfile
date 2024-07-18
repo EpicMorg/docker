@@ -9,8 +9,8 @@ COPY --from=epicmorg/prod /etc/apt/sources.list /etc/apt/sources.list
 COPY --from=epicmorg/prod /etc/apt/trusted.gpg.d/deb-multimedia-keyring.gpg /etc/apt/trusted.gpg.d/deb-multimedia-keyring.gpg
 COPY entrypoint.sh /entrypoint.sh
 
-RUN apt update && \
-    apt dist-upgrade -y && \
+RUN apt-get update && \
+    apt-get dist-upgrade -y && \
     # node as the JS engine for uglifier
     apt-get install -y nodejs git && \
     gem install bundler && \

@@ -27,9 +27,9 @@ RUN ln -sf /dev/stdout /var/log/nginx/access.log && \
 #After install fixes
 RUN localedef en_US.UTF-8 -i en_US -f UTF-8
 RUN update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
-RUN apt update
-RUN apt upgrade -y
-RUN apt dist-upgrade -y
+RUN apt-get update
+RUN apt-get upgrade -y
+RUN apt-get dist-upgrade -y
 RUN apt-get clean autoclean
 RUN apt-get autoremove -y
 RUN rm -rf /var/lib/apt/lists/*

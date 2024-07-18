@@ -38,7 +38,7 @@ COPY sources.list /etc/apt/sources.list
 ##################################################################
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections && \
     apt-get update &&  \
-    apt-get install -y --allow-unauthenticated \
+    apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
     apt-transport-https \
     apt-utils \
     bash \
@@ -94,7 +94,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
 ##################################################################
 RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
 RUN sh -c 'echo "deb https://packages.sury.org/php/ buster main" > /etc/apt/sources.list.d/php.list'
-RUN apt update -y &&  apt install -y --allow-unauthenticated smbclient libsmbclient libsmbclient-dev
+RUN apt-get update -y &&  apt-get install -y --allow-unauthenticated smbclient libsmbclient libsmbclient-dev
 RUN pecl install smbclient
 RUN docker-php-ext-enable smbclient
 

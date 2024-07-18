@@ -5,22 +5,26 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 #                   ARGuments
 ##################################################################
-ENV BuildDocker true
-ENV GOPATH=/usr/local/go
-ENV CARGOPATH=/root/.cargo
-ENV FLUTTERPATH=/usr/local/flutter
-ENV PATH="${FLUTTERPATH}/bin:${CARGOPATH}/bin:${GOPATH}/bin:${PATH}"
-ARG BUILDS_DIR=/builds
-ARG SRC_DIR=${BUILDS_DIR}/src
-ARG EXPORT_DIR=${BUILDS_DIR}/export
-ARG NINJA_ARCH=linux
-ARG NINJA_VERSION=latest
-ARG NINJA_RELEASE_URL=https://api.github.com/repos/ninja-build/ninja/releases/${NINJA_VERSION}
+RUN echo "Default folder for installation of customized soft is: ${EMG_LOCAL_BASE_DIR}"
 
-##################################################################
-#                   Files and folders
-##################################################################
-RUN mkdir -p ${SRC_DIR} ${EXPORT_DIR} ${PRE_DIR}
+ARG FLUTTER_VERSION=3.22.3
+ARG FLUTTER_CHANNEL=stable
+ARG FLUTTER_DIR=${EMG_LOCAL_BASE_DIR}/flutter/${FLUTTER_VERSION}
+ARG FLUTTER_BIN_DIR=${FLUTTER_DIR}/bin
+ARG FLUTTER_DOWNLOAD_URL=https://storage.googleapis.com/flutter_infra_release/releases/${FLUTTER_CHANNEL}/linux/flutter_linux_${FLUTTER_VERSION}-${FLUTTER_CHANNEL}.tar.xz
+ARG FLUTTER_TEMP=/tmp/flutter_linux_${FLUTTER_VERSION}-${FLUTTER_CHANNEL}.tar.xz
+
+ARG NINJA_VERSION=1.12.1
+ARG NINJA_DIR=${EMG_LOCAL_BASE_DIR}/ninja/${NINJA_VERSION}
+ARG NINJA_BIN_DIR=${NINJA_DIR}/bin
+ARG NINJA_DOWNLOAD_URL=https://github.com/ninja-build/ninja/releases/download/v${NINJA_VERSION}/ninja-linux.zip
+ARG NINJA_TEMP=/tmp/ninja-linux.zip
+
+ARG GO_VERSION=1.22.5
+ARG GO_DIR=${EMG_LOCAL_BASE_DIR}/go/${GO_VERSION}
+ARG GO_BIN_DIR=${GO_DIR}/bin
+ARG GO_DOWNLOAD_URL=https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz
+ARG GO_TEMP=/tmp/go${GO_VERSION}.linux-amd64.tar.gz
 
 ##################################################################
 #                   bookworm sources list
@@ -32,13 +36,12 @@ RUN apt-get update && \
 #                   installing
 ##################################################################
 RUN apt-get update && \
-    apt install -y --allow-unauthenticated --allow-downgrades \
+    apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests --allow-downgrades \
     build-essential \
     autoconf-archive \
     gnu-standards \
     cmake \
     libunwind-dev \
-    golang \
     at \
     autopkgtest \
     gcc-multilib \
@@ -93,15 +96,12 @@ RUN apt-get update && \
     libcrypto++-dev \
     libbz2-dev \
     libvpx-dev \
-#    libvpx6 \ #not avalible yet
     tcl \
     g++ \
     gcc \
     libc6-dev \
     make \
-    pkg-config \
-    golang \
-    golang-go \
+    pkg-config \ 
     python3-all-dev \
     g++-multilib \
     autoconf \
@@ -113,36 +113,77 @@ RUN apt-get update && \
     libedit-dev \
     libmd-dev
 
-
 ##################################################################
 #                   Rust compillers
 ##################################################################
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile complete --default-toolchain stable --verbose
-RUN printf "\n--------------------------------\n$(cargo --version)\n--------------------------------\n\n"
+ENV CARGO_HOME=${EMG_LOCAL_BASE_DIR}/.cargo
+ENV RUSTUP_HOME=${EMG_LOCAL_BASE_DIR}/.rustup
+ARG CARGO_BIN=${CARGO_HOME}/bin
+
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path --profile complete --default-toolchain stable --verbose
+
+ENV PATH="$CARGO_HOME/bin:${PATH}"
+
+RUN echo "=============================================" && \
+    echo cargo $(cargo --version) && \
+    echo rustc $(rustc --version) && \
+    echo rustup $(rustup --version) && \
+    echo "============================================="
 
 ##################################################################
 #                   Flutter SDK
 ##################################################################
-RUN git clone https://github.com/flutter/flutter.git -b stable /usr/local/flutter
+RUN mkdir -p ${FLUTTER_DIR}
+ADD ${FLUTTER_DOWNLOAD_URL} /tmp
+
+RUN tar -xf ${FLUTTER_TEMP} --directory ${FLUTTER_DIR} --strip-components=1 && \
+    chmod +x ${FLUTTER_BIN_DIR}/dart && \
+    chmod +x ${FLUTTER_BIN_DIR}/flutter && \
+    chmod +x ${FLUTTER_BIN_DIR}/internal/shared.sh && \
+    chmod +x ${FLUTTER_BIN_DIR}/internal/update_dart_sdk.sh
+
+ENV PATH="${FLUTTER_BIN_DIR}:${PATH}"
+
 RUN flutter precache
 RUN flutter config --no-analytics
 RUN dart --disable-analytics
-RUN printf "\n--------------------------------\n$(flutter --version)\n--------------------------------\n\n"
+
+RUN echo "=============================================" && \
+    echo dart $(dart --version) && \
+    echo flutter $(flutter --version) && \
+    echo "============================================="
 
 ##################################################################
 #                   GO compillers
 ##################################################################
-RUN printf "\n--------------------------------\n$(go version)\n--------------------------------\n\n"
+RUN mkdir -p ${GO_DIR}
+ADD ${GO_DOWNLOAD_URL} /tmp
+
+RUN tar -xzf ${GO_TEMP} --directory ${GO_DIR} --strip-components=1 && \
+    chmod +x ${GO_BIN_DIR}/go && \
+    chmod +x ${GO_BIN_DIR}/gofmt
+
+ENV GOPATH=${GO_DIR}
+ENV PATH="${GO_BIN_DIR}:${PATH}"
+
+RUN echo "=============================================" && \
+    echo go $(go version) && \
+    echo "============================================="
 
 ##################################################################
 #                   Get NINJA binary
 ##################################################################
-RUN curl -s ${NINJA_RELEASE_URL} | jq -r ".assets[] | select(.name | test(\"${NINJA_ARCH}\")) | .browser_download_url" > /tmp/ninja-url.txt && \
-    cat /tmp/ninja-url.txt && \
-    cd /tmp && \
-    wget -q -c --input-file=/tmp/ninja-url.txt && \
-    unzip -o /tmp/ninja-linux.zip -d /bin && \
-    printf "\n--------------------------------\nninja version: $(ninja --version)\n--------------------------------\n\n"
+RUN mkdir -p ${NINJA_BIN_DIR}
+ADD ${NINJA_DOWNLOAD_URL} /tmp
+
+RUN unzip ${NINJA_TEMP} -d ${NINJA_BIN_DIR} && \
+    chmod +x ${NINJA_BIN_DIR}/ninja
+
+ENV PATH="${NINJA_BIN_DIR}:${PATH}"
+
+RUN echo "=============================================" && \
+    echo nninja $(ninja --version) && \
+    echo "============================================="
 
 ##################################################################
 #                   other   customisations
