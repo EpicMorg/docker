@@ -44,7 +44,6 @@ ARG GOSU_VERSION=1.17
 ARG GOSU_BIN_DIR=${EMG_LOCAL_BASE_DIR}/gosu/${GOSU_VERSION}/bin
 ARG GOSU_DOWNLOAD_URL=https://github.com/tianon/gosu/releases/download/${GOSU_VERSION}/gosu-amd64
 
-
 ##################################################################
 #                   update lists
 ##################################################################
@@ -140,27 +139,26 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
 ##################################################################
 #                   installing fs-tools
 ##################################################################
-#RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections && \
-#    apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
-#    btrfs-progs \
-##    exfat-utils \ #not avalible now
-#    e2fsprogs \
-#    f2fs-tools \
-#    dosfstools \
-#    hfsutils \
-#    hfsprogs \
-#    jfsutils \
-#    mdadm \
-#    util-linux \
-#    cryptsetup \
-#    lvm2 \
-#    nilfs-tools \
-#    ntfs-3g \
-#    reiser4progs \
-#    reiserfsprogs \
-#    udftools \
-#    xfsprogs
-##    xfsdump
+RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections && \
+    apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
+    btrfs-progs \
+    e2fsprogs \
+    f2fs-tools \
+    dosfstools \
+    hfsutils \
+    hfsprogs \
+    jfsutils \
+    mdadm \
+    util-linux \
+    cryptsetup \
+    lvm2 \
+    nilfs-tools \
+    ntfs-3g \
+    reiser4progs \
+    reiserfsprogs \
+    udftools \
+    xfsprogs \
+    xfsdump
 
 ##################################################################
 #                   git fresh binary

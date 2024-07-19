@@ -38,7 +38,6 @@ RUN apt-get update && \
     gnu-standards \
     cmake \
     libunwind-dev \
-    golang \
     at \
     autopkgtest \
     gcc-multilib \
@@ -100,8 +99,6 @@ RUN apt-get update && \
     libc6-dev \
     make \
     pkg-config \
-    golang \
-    golang-go \
     python-dev \
     python3-all-dev \
     g++-multilib \
@@ -113,7 +110,6 @@ RUN apt-get update && \
     libbsd-dev \
     libedit-dev \
     libmd-dev
-
 
 ##################################################################
 #                   Rust compillers
