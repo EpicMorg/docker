@@ -48,4 +48,3 @@ RUN chmod +x /entrypoint.sh
 
 CMD ["/entrypoint.sh", "-fg"]
 ENTRYPOINT ["/usr/bin/tini", "--"]
-#COPY . /tmp
