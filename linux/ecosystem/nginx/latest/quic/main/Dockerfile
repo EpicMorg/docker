@@ -266,6 +266,8 @@ HEALTHCHECK --interval=2m --timeout=3s CMD curl -f http://localhost:80/ || exit 
 COPY docker-entrypoint.sh /usr/bin/docker-entrypoint.sh
 RUN chmod 755 /usr/bin/docker-entrypoint.sh
 
+RUN updatedb
+
 #Final config
 VOLUME ["/var/cache/nginx"]
 EXPOSE 80 443

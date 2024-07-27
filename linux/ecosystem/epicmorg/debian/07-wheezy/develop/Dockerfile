@@ -119,3 +119,5 @@ RUN echo "clean up" && \
     rm -rfv /var/lib/apt/lists/* && \
     rm -rfv /tmp/* && \
     rm -rfv /var/cache/apt/archives/*.deb
+
+RUN updatedb

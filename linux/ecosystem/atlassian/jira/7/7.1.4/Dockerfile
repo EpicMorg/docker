@@ -43,9 +43,10 @@ RUN mkdir -p                             ${JIRA_INSTALL_DIR} \
     rm -rfv /tmp/*
 
 
+RUN updatedb
+
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
 CMD ["/entrypoint.sh", "-fg"]
 ENTRYPOINT ["/usr/bin/tini", "--"]
-#COPY . /tmp

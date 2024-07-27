@@ -32,9 +32,9 @@ ARG GO_TEMP=/tmp/go${GO_VERSION}.linux-amd64.tar.gz
 ENV PCRE_VERSION=10.44
 ENV PCRE_DIR=${EMG_LOCAL_BASE_DIR}/pcre2/${PCRE_VERSION}
 ENV PCRE_BIN_DIR=${PCRE_DIR}/bin
-ENV PCRE_LIB_DIR ${PCRE_DIR}/lib
-ENV PCRE_INC_DIR ${PCRE_DIR}/include
-ENV PCRE_SRC_DIR ${PCRE_DIR}/src
+ENV PCRE_LIB_DIR=${PCRE_DIR}/lib
+ENV PCRE_INC_DIR=${PCRE_DIR}/include
+ENV PCRE_SRC_DIR=/usr/src/pcre2/${PCRE_VERSION}
 ARG PCRE_DOWNLOAD_URL=https://github.com/PCRE2Project/pcre2/releases/download/pcre2-${PCRE_VERSION}/pcre2-${PCRE_VERSION}.tar.gz
 ARG PCRE_TEMP=/tmp/pcre2-${PCRE_VERSION}.tar.gz
 ARG PCRE_TEMP_SRC=/tmp/pcre2-${PCRE_VERSION}
@@ -43,9 +43,9 @@ ARG PCRE_TEMP_SRC=/tmp/pcre2-${PCRE_VERSION}
 ENV LUAJIT2OR_VERSION=2.1
 ENV LUAJIT2OR_DIR=${EMG_LOCAL_BASE_DIR}/luajit2/${LUAJIT2OR_VERSION}
 ENV LUAJIT2OR_BIN_DIR=${PCRE_DIR}/bin
-ENV LUAJIT2OR_LIB_DIR ${LUAJIT2OR_DIR}/lib
-ENV LUAJIT2OR_INC_DIR ${LUAJIT2OR_DIR}/include
-ENV LUAJIT2OR_SRC_DIR ${LUAJIT2OR_DIR}/src
+ENV LUAJIT2OR_LIB_DIR=${LUAJIT2OR_DIR}/lib
+ENV LUAJIT2OR_INC_DIR=${LUAJIT2OR_DIR}/include
+ENV LUAJIT2OR_SRC_DIR=${LUAJIT2OR_DIR}/src
 ARG LUAJIT2OR_DOWNLOAD_URL=https://github.com/openresty/luajit2.git
 ARG LUAJIT2OR_TEMP_SRC=/tmp/luajit2
 
@@ -310,6 +310,7 @@ RUN apt-get update && \
     libcrypto++-dev \
     libbz2-dev \
     libvpx-dev \
+    libsasl2-dev \
     tcl \
     g++ \
     gcc \
@@ -457,6 +458,7 @@ ADD ${PCRE_DOWNLOAD_URL} /tmp
 
 RUN tar -xzf ${PCRE_TEMP} --directory /tmp && \
     cp -rfv ${PCRE_TEMP_SRC}/* ${PCRE_SRC_DIR} && \
+    ln -sf ${PCRE_SRC_DIR} ${PCRE_DIR}/src && \
     cd ${PCRE_TEMP_SRC} && \
     ./configure --prefix=${PCRE_DIR} \
         --disable-silent-rules \
@@ -945,12 +947,6 @@ RUN mkdir -p ${BORINGSSL_DIR} ${BORINGSSL_SRC_DIR} && \
 #                   Set default workdir
 ##################################################################
 WORKDIR ${EMG_LOCAL_BASE_DIR}
-   
-##################################################################
-#                   Copy all local to usr
-##################################################################
-RUN cp -rfv /usr/local/include/* /usr/include && \
-cp -rfv /usr/local/lib/*     /usr/lib
 
 ##################################################################
 #                   other   customisations
@@ -966,4 +962,8 @@ RUN echo "clean up" && \
     rm -rfv /tmp/* && \
     rm -rfv /var/cache/apt/archives/*.deb
 
-#TODO: add links to /usr/src folder
+RUN updatedb
+
+#TODO:
+#    replace dest folder of sources to /usr/src/program/version folder and link it to <emg>/program/version/src
+#      v PCRE2
