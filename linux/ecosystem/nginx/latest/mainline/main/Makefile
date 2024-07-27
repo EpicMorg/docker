@@ -8,7 +8,8 @@ app:
 	make clean
 
 build:
-	docker-compose build --compress --progress plain
+	make pip
+	python3 kaniko-build.py --version
 
 deploy:
 	make pip
