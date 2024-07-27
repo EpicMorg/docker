@@ -29,8 +29,8 @@ pip:
 	rm -rf /usr/lib/python3.11/EXTERNALLY-MANAGED
 	rm -rf /usr/lib/python3.12/EXTERNALLY-MANAGED
 	rm -rf /usr/lib/python3.13/EXTERNALLY-MANAGED
-	pip3 install -r requirements.txt --break-system-packages
-	pip install -r requirements.txt --break-system-packages
+	pip3 install -r requirements.txt
+	pip install -r requirements.txt
 
 build-compose:
 	docker-compose build --compress --parallel
