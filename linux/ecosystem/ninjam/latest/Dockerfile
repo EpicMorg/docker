@@ -48,6 +48,8 @@ VOLUME ${NINJAM_LOG} ${NINJAM_ARCHIVE}
 # Add image configuration and scripts
 COPY docker-entrypoint.sh /usr/bin/docker-entrypoint.sh
 RUN chmod 755 /usr/bin/docker-entrypoint.sh
+
+RUN updatedb
 RUN chmod 755 ${NINJAM_BIN}/ninjamsrv
 
 #Final config

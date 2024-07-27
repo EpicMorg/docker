@@ -124,6 +124,8 @@ HEALTHCHECK --interval=2m --timeout=3s CMD curl -f http://localhost:80/ || exit 
 # Add image configuration and scripts
 COPY docker-entrypoint.sh /usr/bin/docker-entrypoint.sh
 RUN chmod 755 /usr/bin/docker-entrypoint.sh
+
+RUN updatedb
 RUN chown -Rf www-data:www-data /var/www
 
 #Final config

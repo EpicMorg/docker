@@ -77,6 +77,8 @@ WORKDIR /home/gitlab-runner
 COPY docker-entrypoint.sh /usr/bin/docker-entrypoint.sh
 RUN chmod 755 /usr/bin/docker-entrypoint.sh
 
+RUN updatedb
+
 ENTRYPOINT ["/usr/bin/dumb-init", "docker-entrypoint.sh"]
 CMD ["run", "--user=gitlab-runner", "--working-directory=/home/gitlab-runner"]
 

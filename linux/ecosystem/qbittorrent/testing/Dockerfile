@@ -53,6 +53,8 @@ HEALTHCHECK --interval=2m --timeout=3s CMD curl --insecure -f ${QBT_PROTOCOL}://
 COPY docker-entrypoint.sh /usr/bin/docker-entrypoint.sh
 RUN chmod 755 /usr/bin/docker-entrypoint.sh
 
+RUN updatedb
+
 #Final config
 EXPOSE ${QBT_PORT_WEBUI} ${QBT_PORT_WEBUI}/udp ${QBT_PORT_NAT} ${QBT_PORT_NAT}/udp ${QBT_PORT_TRACKER} ${QBT_PORT_TRACKER}/udp
 

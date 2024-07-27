@@ -75,7 +75,7 @@ RUN locale-gen
 ##################################################################
 #                  Create Base directory for various soft
 ##################################################################
-ENV EMG_LOCAL_BASE_DIR=/usr/local/epicmorg
+ENV EMG_LOCAL_BASE_DIR=/usr/local/share/epicmorg
 RUN mkdir -p ${EMG_LOCAL_BASE_DIR}
 COPY usr/local/epicmorg ${EMG_LOCAL_BASE_DIR}
 
@@ -88,6 +88,8 @@ RUN echo "clean up" && \
     rm -rfv /var/lib/apt/lists/* && \
     rm -rfv /tmp/* && \
     rm -rfv /var/cache/apt/archives/*.deb
+
+RUN updatedb
 
 ##################################################################
 #                  update file db

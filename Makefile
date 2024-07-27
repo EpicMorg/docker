@@ -330,9 +330,9 @@ ecosystem-debian-squeeze-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/06-squeeze/jdk17    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/06-squeeze/jdk18    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/06-squeeze/jdk19    && pwd && make build && make deploy
-#	cd `pwd`/linux/ecosystem/epicmorg/debian/06-squeeze/jdk20    && pwd && make build && make deploy
-#	cd `pwd`/linux/ecosystem/epicmorg/debian/06-squeeze/jdk21    && pwd && make build && make deploy
-#	cd `pwd`/linux/ecosystem/epicmorg/debian/06-squeeze/jdk22    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/06-squeeze/jdk20    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/06-squeeze/jdk21    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/06-squeeze/jdk22    && pwd && make build && make deploy
 
 ecosystem-debian-wheezy-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/07-wheezy/slim    && pwd && make build && make deploy
@@ -346,9 +346,9 @@ ecosystem-debian-wheezy-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/07-wheezy/jdk17    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/07-wheezy/jdk18    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/07-wheezy/jdk19    && pwd && make build && make deploy
-#	cd `pwd`/linux/ecosystem/epicmorg/debian/07-wheezy/jdk20    && pwd && make build && make deploy
-#	cd `pwd`/linux/ecosystem/epicmorg/debian/07-wheezy/jdk21    && pwd && make build && make deploy
-#	cd `pwd`/linux/ecosystem/epicmorg/debian/07-wheezy/jdk22    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/07-wheezy/jdk20    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/07-wheezy/jdk21    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/07-wheezy/jdk22    && pwd && make build && make deploy
 
 ecosystem-debian-jessie-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/slim    && pwd && make build && make deploy
@@ -412,6 +412,7 @@ ecosystem-debian-bullseye-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk19    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk20    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk21    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk22    && pwd && make build && make deploy
 
 ecosystem-debian-bookworm-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/slim    && pwd && make build && make deploy
@@ -427,6 +428,7 @@ ecosystem-debian-bookworm-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk19    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk20    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk21    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk22    && pwd && make build && make deploy
 
 ecosystem-php-images:
 	cd `pwd`/linux/ecosystem/php/php7.0             && pwd && make build && make deploy

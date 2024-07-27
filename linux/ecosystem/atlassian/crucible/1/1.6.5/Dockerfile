@@ -41,8 +41,7 @@ RUN mkdir -p                 ${FISHEYE_HOME} \
     && rm -rfv /var/lib/apt/lists/* \
     && rm -rfv /var/cache/apt/archives/*.deb
 
-COPY entrypoint.sh              /entrypoint.sh 
-COPY . /tmp
+COPY entrypoint.sh /entrypoint.sh 
 
 CMD ["/entrypoint.sh", "run"]
 ENTRYPOINT ["/usr/bin/tini", "--"]

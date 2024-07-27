@@ -42,7 +42,10 @@ RUN mkdir -p                             ${CONFLUENCE_INSTALL_DIR} \
     rm -rfv /var/lib/apt/lists/* && \
     rm -rfv /var/cache/apt/archives/*.deb
 
+RUN updatedb
+
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
 CMD ["/entrypoint.sh", "-fg"]
 ENTRYPOINT ["/usr/bin/tini", "--"]
-COPY entrypoint.sh              /entrypoint.sh
-COPY . /tmp

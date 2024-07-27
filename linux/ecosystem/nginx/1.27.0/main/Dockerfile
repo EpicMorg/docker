@@ -117,17 +117,6 @@ ADD ${NGINX_DOWNLOAD_URL} /tmp
 
 WORKDIR ${NGINX_TEMP_SRC}
 
-ARG LD_LIBRARY_PATH="/usr/local/lib:/usr/lib:${PCRE_LIB_DIR}:${LUAJIT2OR_LIB_DIR}:${ZLIB_LIB_DIR}:${ZSTD_LIB_DIR}:${IP2LOC_LIB_DIR}:${LIBATOMICOPS_LIB_DIR}:${LIBGD_LIB_DIR}:${LIBXML2_LIB_DIR}:${LIBXSLT_LIB_DIR}:${MM_GEOIP_LIB_DIR}:${GPERFTOOLS_LIB_DIR}:${OPENSSL_33_LIB_DIR}:$LD_LIBRARY_PATH"
-ARG LD_RUN_PATH="/usr/local/lib:/usr/lib:${PCRE_LIB_DIR}:${LUAJIT2OR_LIB_DIR}:${ZLIB_LIB_DIR}:${ZSTD_LIB_DIR}:${IP2LOC_LIB_DIR}:${LIBATOMICOPS_LIB_DIR}:${LIBGD_LIB_DIR}:${LIBXML2_LIB_DIR}:${LIBXSLT_LIB_DIR}:${MM_GEOIP_LIB_DIR}:${GPERFTOOLS_LIB_DIR}:${OPENSSL_33_LIB_DIR}:$LD_RUN_PATH"
-ARG C_INCLUDE_PATH="/usr/local/include:/usr/include:${PCRE_INC_DIR}:${LUAJIT2OR_INC_DIR}:${ZLIB_INC_DIR}:${ZSTD_INC_DIR}:${IP2LOC_INC_DIR}:${LIBATOMICOPS_INC_DIR}:${LIBGD_INC_DIR}:${LIBXML2_INC_DIR}:${LIBXSLT_INC_DIR}:${MM_GEOIP_INC_DIR}:${GPERFTOOLS_INC_DIR}:${OPENSSL_33_INC_DIR}:$CPLUS_INCLUDE_PATH"
-ARG CPLUS_INCLUDE_PATH="/usr/local/include:/usr/include:${PCRE_INC_DIR}:${LUAJIT2OR_INC_DIR}:${ZLIB_INC_DIR}:${ZSTD_INC_DIR}:${IP2LOC_INC_DIR}:${LIBATOMICOPS_INC_DIR}:${LIBGD_INC_DIR}:${LIBXML2_INC_DIR}:${LIBXSLT_INC_DIR}:${MM_GEOIP_INC_DIR}:${GPERFTOOLS_INC_DIR}:${OPENSSL_33_INC_DIR}:$CPLUS_INCLUDE_PATH"
-
-ARG XSLT_LIBDIR="-L${LIBXSLT_LIB_DIR}"
-ARG XSLT_LIBS="-lxslt -L${LIBXML2_LIB_DIR} -lxml2  "
-ARG XSLT_PRIVATE_LIBS="-lm"
-ARG XSLT_INCLUDEDIR="-I${LIBXSLT_INC_DIR}"
-ARG MODULE_VERSION="xslt-1.1.42"
-
 RUN tar -xf ${NGINX_TEMP} --directory /tmp && \ 
 #
     git clone  --depth 1 --branch ${NJS_VERSION} ${NJS_DOWNLOAD_URL} modules/nginx-njs && \
@@ -162,6 +151,8 @@ RUN tar -xf ${NGINX_TEMP} --directory /tmp && \
     git clone https://github.com/yaoweibin/nginx_upstream_check_module modules/nginx-upstream-check-module
 
 RUN cp -rf ${NGINX_TEMP_SRC}/* ${NGINX_SRC_DIR} && \
+    NGINX_INCLUDE_PATHS=$(find /usr/local/include -type d | sed 's/^/-I/' | tr '\n' ' ') && \
+    NGINX_LIB_PATHS=$(find /usr/local/lib -type d | sed 's/^/-L/' | tr '\n' ' ') && \
     ./configure \
       --user=www-data \
       --group=www-data \
@@ -179,10 +170,8 @@ RUN cp -rf ${NGINX_TEMP_SRC}/* ${NGINX_SRC_DIR} && \
       --http-proxy-temp-path=${NGINX_CACHE_DIR}/proxy \
       --http-scgi-temp-path=${NGINX_CACHE_DIR}/scgi \
       --http-uwsgi-temp-path=${NGINX_CACHE_DIR}/uwsgi \
-#      --with-cc-opt='-static -I/usr/local/include/luajit-2.1 -I${PCRE_INC_DIR} -I${LUAJIT2OR_INC_DIR} -I${ZLIB_INC_DIR} -I${ZSTD_INC_DIR} -I${IP2LOC_INC_DIR} -I${LIBATOMICOPS_INC_DIR} -I${LIBGD_INC_DIR} -I${LIBXML2_INC_DIR} -I${LIBXSLT_INC_DIR} -I${MM_GEOIP_INC_DIR} -I${GPERFTOOLS_INC_DIR} -I${OPENSSL_33_INC_DIR}' \
-#      --with-ld-opt='-static                                 -L${PCRE_LIB_DIR} -L${LUAJIT2OR_LIB_DIR} -L${ZLIB_LIB_DIR} -L${ZSTD_LIB_DIR} -L${IP2LOC_LIB_DIR} -L${LIBATOMICOPS_LIB_DIR} -L${LIBGD_LIB_DIR} -L${LIBXML2_LIB_DIR} -I${LIBXSLT_LIB_DIR} -L${MM_GEOIP_LIB_DIR} -L${GPERFTOOLS_LIB_DIR} -L${OPENSSL_33_LIB_DIR}' \  
-      --with-cc-opt='-static' \
-      --with-ld-opt='-static' \  
+      --with-cc-opt='-static -g -O2 -lz -fPIC -Wdate-time -D_FORTIFY_SOURCE=2 -fstack-protector-strong  -Wno-error=unused-but-set-variable -Wformat -Wno-error=date-time -Wno-error=implicit-fallthrough -Wno-error=cast-function-type -Wno-error=format-security -Wno-error=implicit-function-declaration -Wno-error=deprecated-declarations -Wno-error=unused-result -Wdate-time ${NGINX_INCLUDE_PATHS}' \
+      --with-ld-opt='-static -Wl,-z,relro -Wl,-z,now -lz -fPIC ${NGINX_LIB_PATHS}' \  
       --with-pcre=${PCRE_SRC_DIR} \
       --with-pcre-jit \
       --with-zlib=${ZLIB_SRC_DIR} \
@@ -232,14 +221,12 @@ RUN cp -rf ${NGINX_TEMP_SRC}/* ${NGINX_SRC_DIR} && \
       --add-module=modules/http-subs-filter \
       --add-module=modules/mod-zip \
       --add-module=modules/http-geoip2 \
-#      --add-module=modules/spnego-http-auth-nginx-module \
-#      --add-module=modules/http-auth-ldap \
-#      --add-module=modules/nginx-vod-module \
-#      --add-module=modules/ngx-webp \
-#      --add-module=modules/set-misc-nginx-module \
-#      --add-module=modules/rtmp \
-#      --add-module=modules/http-upstream-fair \
-#      --add-module=modules/nginx-upstream-check-module 
+      --add-module=modules/nginx-vod-module \
+      --add-module=modules/ngx-webp \
+      --add-module=modules/set-misc-nginx-module \
+      --add-module=modules/rtmp \
+      --add-module=modules/http-upstream-fair \
+      --add-module=modules/nginx-upstream-check-module \
 ## xslt fuck 
 ##      --with-http_xslt_module \
 ## xslt fuck 
@@ -266,8 +253,12 @@ RUN cp -rf ${NGINX_TEMP_SRC}/* ${NGINX_SRC_DIR} && \
 ##    --add-module=modules/nginx-module-vts \
 ## some compile fuck
 ##     --add-module=modules/nginx-unzip-module \
+## some compile fuck
+##      --add-module=modules/spnego-http-auth-nginx-module \
 ## ssl outdated compile fuck
 ##--add-module=modules/ssl-ct \
+##  undefined reference to `sasl_getprop'
+##     --add-module=modules/http-auth-ldap \
       && \
     make -j$(nproc) && make install
 
@@ -283,6 +274,8 @@ RUN echo "clean up" && \
     rm -rfv /var/lib/apt/lists/* && \
     rm -rfv /tmp/* && \
     rm -rfv /var/cache/apt/archives/*.deb
+
+RUN updatedb
 
 ##################################################################
 ##################################################################
@@ -328,6 +321,8 @@ RUN mkdir -p \
     ln -sfv ${NGINX_MODULES_PERL_DIR} ${NGINX_DIR}/modules-perl && \
     ln -sfv ${NGINX_CACHE_DIR} ${NGINX_DIR}/cache && \
     ln -sfv ${NGINX_LOGS_DIR} ${NGINX_DIR}/logs && \
+    ln -sfv /dev/stdout /var/log/nginx/access.log && \
+    ln -sfv /dev/stderr /var/log/nginx/error.log && \
     ln -sfv /var/lock/nginx ${NGINX_DIR}/lock && \
     ln -sfv /var/run/nginx ${NGINX_DIR}/run
 
@@ -349,7 +344,7 @@ VOLUME ["${NGINX_CACHE_DIR}"]
 ##################################################################
 #                   Setup nginx workdir 
 ##################################################################
-WORKDIR ${NGINX_CONF_DIR}
+WORKDIR ${NGINX_DIR}
 
 ##################################################################
 #                  cleanup
@@ -361,6 +356,8 @@ RUN echo "clean up" && \
     rm -rfv /tmp/* && \
     rm -rfv /var/cache/apt/archives/*.deb
 
+RUN updatedb
+
 ##################################################################
 #                   Run nginx in foreground
 ##################################################################
@@ -368,4 +365,7 @@ RUN nginx -V
 
 CMD ["nginx", "-g", "daemon off;"]
 
-
+#TODO:
+#    fix and redeploy develop (blocker!)
+#    add link to /usr/src/nginx/<version> -> <nginx-dir>/src folder to final layer
+#    xz files in /usr/src/nginx/<version> folder  to optimize size
