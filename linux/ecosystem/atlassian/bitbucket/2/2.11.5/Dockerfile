@@ -43,4 +43,3 @@ RUN mkdir -p                                 ${BITBUCKET_INSTALL_DIR} &&  \
 CMD ["/entrypoint.sh", "-fg"]
 ENTRYPOINT ["/usr/bin/tini", "--"]
 COPY entrypoint.sh             /entrypoint.sh
-#COPY . /tmp
