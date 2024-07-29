@@ -92,8 +92,6 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
 ##################################################################
 #                  installing php repo + smbclient
 ##################################################################
-RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
-RUN sh -c 'echo "deb https://packages.sury.org/php/ buster main" > /etc/apt/sources.list.d/php.list'
 RUN apt-get update -y &&  apt-get install -y --allow-unauthenticated smbclient libsmbclient libsmbclient-dev
 RUN pecl install smbclient
 RUN docker-php-ext-enable smbclient
