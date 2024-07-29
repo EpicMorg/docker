@@ -5,6 +5,8 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 #                   ARGuments
 ##################################################################
+# /etc/ld.so.conf.d/
+ARG LD_CONF_DIR=/etc/ld.so.conf.d/
 
 # flutter source tarball
 ENV FLUTTER_VERSION=3.22.3
@@ -411,7 +413,7 @@ RUN echo "=============================================" && \
     echo "============================================="
 
 ##################################################################
-#                   ZLib static library
+#                   ZLIB library
 ##################################################################
 RUN mkdir -p ${ZLIB_DIR} ${ZLIB_SRC_DIR}
 ADD ${ZLIB_DOWNLOAD_URL} /tmp
@@ -426,11 +428,14 @@ RUN tar -xzf ${ZLIB_TEMP} --directory /tmp && \
       && \
     make -j$(nproc) && \
     make -j$(nproc) install && \
-    cp -rfv ${ZLIB_INC_DIR}/* /usr/local/include && \
-    cp -rfv ${ZLIB_LIB_DIR}/* /usr/local/lib
+    ln -sfv ${ZLIB_INC_DIR}/* /usr/local/include && \
+    ln -sfv ${ZLIB_LIB_DIR}/* /usr/local/lib && \
+    echo "# ZLIB support" >> ${LD_CONF_DIR}/ZLIB.conf && \
+    echo ${ZLIB_LIB_DIR} >> ${LD_CONF_DIR}/ZLIB.conf && \
+    ldconfig
 
 ##################################################################
-#                   ZSTD static library
+#                   ZSTD library
 ##################################################################
 RUN mkdir -p ${ZSTD_DIR} ${ZSTD_SRC_DIR}
 ADD ${ZSTD_DOWNLOAD_URL} /tmp
@@ -444,8 +449,11 @@ RUN tar -xzf ${ZSTD_TEMP} --directory /tmp && \
     cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=${ZSTD_DIR} -DZSTD_BUILD_STATIC=ON -DZSTD_BUILD_SHARED=OFF .. && \
     make -j$(nproc) && \
     make -j$(nproc) install && \
-    cp -rfv ${ZSTD_INC_DIR}/* /usr/local/include && \
-    cp -rfv ${ZSTD_LIB_DIR}/* /usr/local/lib
+    ln -sfv ${ZSTD_INC_DIR}/* /usr/local/include && \
+    ln -sfv ${ZSTD_LIB_DIR}/* /usr/local/lib && \
+    echo "# ZSTD support" >> ${LD_CONF_DIR}/ZSTD.conf && \
+    echo ${ZSTD_LIB_DIR} >> ${LD_CONF_DIR}/ZSTD.conf && \
+    ldconfig
 
 ENV PATH="${ZSTD_BIN_DIR}:${PATH}"
 
@@ -484,8 +492,11 @@ RUN tar -xzf ${PCRE_TEMP} --directory /tmp && \
         && \
     make -j$(nproc) && \
     make -j$(nproc) install && \
-    cp -rfv ${PCRE_INC_DIR}/* /usr/local/include && \
-    cp -rfv ${PCRE_LIB_DIR}/* /usr/local/lib
+    ln -sfv ${PCRE_INC_DIR}/* /usr/local/include && \
+    ln -sfv ${PCRE_LIB_DIR}/* /usr/local/lib && \
+    echo "# PRCE2 support" >> ${LD_CONF_DIR}/PRCE2.conf && \
+    echo ${PCRE_LIB_DIR} >> ${LD_CONF_DIR}/PRCE2.conf && \
+    ldconfig
 
 ENV PATH="${PCRE_BIN_DIR}:${PATH}"
 
@@ -503,8 +514,11 @@ RUN mkdir -p ${LUAJIT2OR_DIR} ${LUAJIT2OR_SRC_DIR} && \
     cd ${LUAJIT2OR_TEMP_SRC} && \
     make -j$(nproc) XCFLAGS='-DLUAJIT_ENABLE_GC64' BUILDMODE=static && \
     make -j$(nproc) install PREFIX=${LUAJIT2OR_DIR} && \
-    cp -rfv ${LUAJIT2OR_INC_DIR}/* /usr/local/include && \
-    cp -rfv ${LUAJIT2OR_LIB_DIR}/* /usr/local/lib
+    ln -sfv ${LUAJIT2OR_INC_DIR}/* /usr/local/include && \
+    ln -sfv ${LUAJIT2OR_LIB_DIR}/* /usr/local/lib && \
+    echo "# LuaJIT2 support" >> ${LD_CONF_DIR}/LuaJIT2.conf && \
+    echo ${LUAJIT2OR_LIB_DIR} >> ${LD_CONF_DIR}/LuaJIT2.conf && \
+    ldconfig
 
 ENV PATH="${LUAJIT2OR_BIN_DIR}:${PATH}"
 
@@ -513,7 +527,7 @@ RUN echo "=============================================" && \
     echo "============================================="
 
 ##################################################################
-#                   IP2Location static library
+#                   IP2Location
 ##################################################################
 RUN mkdir -p ${IP2LOC_DIR} ${IP2LOC_SRC_DIR}
 ADD ${IP2LOC_DOWNLOAD_URL} /tmp
@@ -535,8 +549,11 @@ RUN tar -xzf ${IP2LOC_TEMP} --directory /tmp && \
       && \
     make -j$(nproc) && \
     make -j$(nproc) install && \
-    cp -rfv ${IP2LOC_INC_DIR}/* /usr/local/include && \
-    cp -rfv ${IP2LOC_LIB_DIR}/* /usr/local/lib
+    ln -sfv ${IP2LOC_INC_DIR}/* /usr/local/include && \
+    ln -sfv ${IP2LOC_LIB_DIR}/* /usr/local/lib && \
+    echo "# IP2Location support" >> ${LD_CONF_DIR}/IP2Location.conf && \
+    echo ${IP2LOC_LIB_DIR} >> ${LD_CONF_DIR}/IP2Location.conf && \
+    ldconfig
 
 ENV PATH="${IP2LOC_BIN_DIR}:${PATH}"
 
@@ -561,9 +578,12 @@ RUN tar -xzf ${LIBATOMICOPS_TEMP} --directory /tmp && \
       && \
     make -j$(nproc) && \
     make -j$(nproc) install && \
-    ls -sfv ${LIBATOMICOPS_SRC_DIR} ${LIBATOMICOPS_SRC_DIR}/src && \
-    cp -rfv ${LIBATOMICOPS_INC_DIR}/* /usr/local/include && \
-    cp -rfv ${LIBATOMICOPS_LIB_DIR}/* /usr/local/lib
+    ln -sfv ${LIBATOMICOPS_SRC_DIR} ${LIBATOMICOPS_SRC_DIR}/src && \
+    ln -sfv ${LIBATOMICOPS_INC_DIR}/* /usr/local/include && \
+    ln -sfv ${LIBATOMICOPS_LIB_DIR}/* /usr/local/lib && \
+    echo "# libatomic_ops support" >> ${LD_CONF_DIR}/libatomic_ops.conf && \
+    echo ${LIBATOMICOPS_LIB_DIR} >> ${LD_CONF_DIR}/libatomic_ops.conf && \
+    ldconfig
 
 ##################################################################
 #                   libimagequant
@@ -608,7 +628,7 @@ RUN tar -xzf ${LIBGD_TEMP} --directory /tmp && \
       --prefix=${LIBGD_DIR} \
       --disable-silent-rules \
       --enable-static \
-      --disable-shared \
+      --enable-shared \
       --with-aix-soname=both \
       --with-libiconv-prefix \
       --with-zlib=${ZSTD_SRC_DIR} \
@@ -628,8 +648,11 @@ RUN tar -xzf ${LIBGD_TEMP} --directory /tmp && \
       && \
     make -j$(nproc) && \
     make -j$(nproc) install && \
-    cp -rfv ${LIBGD_INC_DIR}/* /usr/local/include && \
-    cp -rfv ${LIBGD_LIB_DIR}/* /usr/local/lib
+    ln -sfv ${LIBGD_INC_DIR}/* /usr/local/include && \
+    ln -sfv ${LIBGD_LIB_DIR}/* /usr/local/lib && \
+    echo "# libgd support" >> ${LD_CONF_DIR}/libgd.conf && \
+    echo ${LIBGD_LIB_DIR} >> ${LD_CONF_DIR}/libgd.conf && \
+    ldconfig
 
 ENV PATH="${LIBGD_BIN_DIR}:${PATH}" 
 
@@ -688,8 +711,11 @@ RUN tar -xzf ${LIBXML2_TEMP} --directory /tmp && \
       && \
     make -j$(nproc) && \
     make -j$(nproc) install && \
-    cp -rfv ${LIBXML2_INC_DIR}/* /usr/local/include && \
-    cp -rfv ${LIBXML2_LIB_DIR}/* /usr/local/lib
+    ln -sfv ${LIBXML2_INC_DIR}/* /usr/local/include && \
+    ln -sfv ${LIBXML2_LIB_DIR}/* /usr/local/lib && \
+    echo "# libxslt support" >> ${LD_CONF_DIR}/libxml2.conf && \
+    echo ${LIBXML2_LIB_DIR} >> ${LD_CONF_DIR}/libxml2.conf && \
+    ldconfig
 
 ENV PATH="${LIBXML2_BIN_DIR}:${PATH}" 
 
@@ -719,8 +745,11 @@ RUN tar -xzf ${LIBXSLT_TEMP} --directory /tmp && \
       && \
     make -j$(nproc) && \
     make -j$(nproc) install && \
-    cp -rfv ${LIBXSLT_INC_DIR}/* /usr/local/include && \
-    cp -rfv ${LIBXSLT_LIB_DIR}/* /usr/local/lib
+    ln -sfv ${LIBXSLT_INC_DIR}/* /usr/local/include && \
+    ln -sfv ${LIBXSLT_LIB_DIR}/* /usr/local/lib && \
+    echo "# libxslt support" >> ${LD_CONF_DIR}/libxslt.conf && \
+    echo ${LIBXSLT_LIB_DIR} >> ${LD_CONF_DIR}/libxslt.conf && \
+    ldconfig
 
 ENV PATH="${LIBXSLT_BIN_DIR}:${PATH}" 
 
@@ -748,8 +777,11 @@ RUN tar -xzf ${MM_GEOIP_TEMP} --directory /tmp && \
       && \
     make -j$(nproc) && \
     make -j$(nproc) install && \
-    cp -rfv ${MM_GEOIP_INC_DIR}/* /usr/local/include && \
-    cp -rfv ${MM_GEOIP_LIB_DIR}/* /usr/local/lib
+    ln -sfv ${MM_GEOIP_INC_DIR}/* /usr/local/include && \
+    ln -sfv ${MM_GEOIP_LIB_DIR}/* /usr/local/lib && \
+    echo "# GeoIP support" >> ${LD_CONF_DIR}/GeoIP.conf && \
+    echo ${MM_GEOIP_LIB_DIR} >> ${LD_CONF_DIR}/GeoIP.conf && \
+    ldconfig
 
 ENV PATH="${MM_GEOIP_BIN_DIR}:${PATH}" 
 
@@ -775,8 +807,11 @@ RUN tar -xzf ${GPERFTOOLS_TEMP} --directory /tmp && \
       && \
     make -j$(nproc) && \
     make -j$(nproc) install && \
-    cp -rfv ${GPERFTOOLS_INC_DIR}/* /usr/local/include && \
-    cp -rfv ${GPERFTOOLS_LIB_DIR}/* /usr/local/lib
+    ln -sfv ${GPERFTOOLS_INC_DIR}/* /usr/local/include && \
+    ln -sfv ${GPERFTOOLS_LIB_DIR}/* /usr/local/lib && \
+    echo "# Google perftools support" >> ${LD_CONF_DIR}/Googleperftools.conf && \
+    echo ${GPERFTOOLS_LIB_DIR} >> ${LD_CONF_DIR}/Googleperftools.conf && \
+    ldconfig
 
 ENV PATH="${GPERFTOOLS_BIN_DIR}:${PATH}" 
 
@@ -925,8 +960,11 @@ RUN tar -xzf ${OPENSSL_33_TEMP} --directory /tmp && \
       && \
     make -j$(nproc) && \
     make -j$(nproc) install && \
-    cp -rfv ${OPENSSL_33_INC_DIR}/* /usr/local/include && \
-    cp -rfv ${OPENSSL_33_LIB_DIR}/* /usr/local/lib
+    ln -sfv ${OPENSSL_33_INC_DIR}/* /usr/local/include && \
+    ln -sfv ${OPENSSL_33_LIB_DIR}/* /usr/local/lib && \
+    echo "# OpenSSL support" >> ${LD_CONF_DIR}/OpenSSL.conf && \
+    echo ${OPENSSL_33_LIB_DIR} >> ${LD_CONF_DIR}/OpenSSL.conf && \
+    ldconfig
 
 ##################################################################
 #                   LibreSSL
@@ -936,7 +974,7 @@ ADD ${LIBRESSL_DOWNLOAD_URL} /tmp
 
 RUN tar -xzf ${LIBRESSL_TEMP} --directory /tmp && \
     cp -rfv ${LIBRESSL_TEMP_SRC}/* ${LIBRESSL_SRC_DIR} && \
-    ln -sf ${LIBRESSL_SRC_DIR} ${LIBRESSL_DIR}/src && \
+    ln -sfv ${LIBRESSL_SRC_DIR} ${LIBRESSL_DIR}/src && \
     cd ${LIBRESSL_TEMP_SRC} && \
     ./config \
       --enable-static \
@@ -946,8 +984,11 @@ RUN tar -xzf ${LIBRESSL_TEMP} --directory /tmp && \
       && \
     make -j$(nproc) && \
     make -j$(nproc) install && \
-    cp -rfv ${LIBRESSL_INC_DIR}/* /usr/local/include && \
-    cp -rfv ${LIBRESSL_LIB_DIR}/* /usr/local/lib
+    ln -sfv ${LIBRESSL_INC_DIR}/* /usr/local/include && \
+    ln -sfv ${LIBRESSL_LIB_DIR}/* /usr/local/lib && \
+    echo "# LibreSSL support" >> ${LD_CONF_DIR}/LibreSSL.conf && \
+    echo ${LIBRESSL_LIB_DIR} >> ${LD_CONF_DIR}/LibreSSL.conf && \
+    ldconfig
 
 ##################################################################
 #                   BoringSSL
@@ -962,13 +1003,11 @@ RUN mkdir -p ${BORINGSSL_DIR} ${BORINGSSL_SRC_DIR} && \
     cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_POSITION_INDEPENDENT_CODE=TRUE -DBUILD_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX=${BORINGSSL_DIR} .. && \
     make -j$(if [ $(nproc) -gt 8 ]; then echo $(( $(nproc) / 2 )); else echo $(nproc); fi) && \
     make -j$(nproc) install && \
-    cp -rfv ${BORINGSSL_INC_DIR}/* /usr/local/include && \
-    cp -rfv ${BORINGSSL_LIB_DIR}/* /usr/local/lib
-
-##################################################################
-#                   Set default workdir
-##################################################################
-WORKDIR ${EMG_LOCAL_BASE_DIR}
+    ln -sfv ${BORINGSSL_INC_DIR}/* /usr/local/include && \
+    ln -sfv ${BORINGSSL_LIB_DIR}/* /usr/local/lib && \
+    echo "# BoringSSL support" >> ${LD_CONF_DIR}/BoringSSL.conf && \
+    echo ${BORINGSSL_LIB_DIR} >> ${LD_CONF_DIR}/BoringSSL.conf && \
+    ldconfig
 
 ##################################################################
 #                   other   customisations
@@ -985,7 +1024,3 @@ RUN echo "clean up" && \
     rm -rfv /var/cache/apt/archives/*.deb
 
 RUN updatedb
-
-#TODO
-# 1/ Echo '/usr/local/gperftools/lib'>/etc/ld. so. conf. d/my_app_lib.conf
-# 2/  ln-s/usr/local/gperftool/lib/*/usr/local/lib.
