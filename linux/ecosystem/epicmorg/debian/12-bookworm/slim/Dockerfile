@@ -80,6 +80,11 @@ RUN mkdir -p ${EMG_LOCAL_BASE_DIR}
 COPY usr/local/epicmorg ${EMG_LOCAL_BASE_DIR}
 
 ##################################################################
+#                   Set default workdir
+##################################################################
+WORKDIR ${EMG_LOCAL_BASE_DIR}
+
+##################################################################
 #                  cleanup
 ##################################################################
 RUN echo "clean up" && \
@@ -88,8 +93,6 @@ RUN echo "clean up" && \
     rm -rfv /var/lib/apt/lists/* && \
     rm -rfv /tmp/* && \
     rm -rfv /var/cache/apt/archives/*.deb
-
-RUN updatedb
 
 ##################################################################
 #                  update file db
