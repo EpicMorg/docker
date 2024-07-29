@@ -151,8 +151,20 @@ RUN tar -xf ${NGINX_TEMP} --directory /tmp && \
     git clone https://github.com/yaoweibin/nginx_upstream_check_module modules/nginx-upstream-check-module
 
 RUN cp -rf ${NGINX_TEMP_SRC}/* ${NGINX_SRC_DIR} && \
-    NGINX_INCLUDE_PATHS=$(find /usr/local/include -type d | sed 's/^/-I/' | tr '\n' ' ') && \
-    NGINX_LIB_PATHS=$(find /usr/local/lib -type d | sed 's/^/-L/' | tr '\n' ' ') && \
+     cp -rfv /usr/local/share/epicmorg/libxml2/2.13.2/include/libxml2/libxml/* /usr/include && \
+     cp -rfv /usr/local/share/epicmorg/libxslt/1.1.42/include/libexslt/* /usr/include && \
+     cp -rfv /usr/local/share/epicmorg/libxslt/1.1.42/include/libxslt/* /usr/include && \
+     cp -rfv /usr/local/share/epicmorg/luajit2/2.1/include/luajit-2.1/* /usr/include && \
+     cp -rfv /usr/local/share/epicmorg/gperftools/2.15/include/google/* /usr/include && \
+     cp -rfv /usr/local/share/epicmorg/gperftools/2.15/include/gperftools/* /usr/include && \
+     cp -rfv /usr/local/share/epicmorg/libgd/2.3.3/include/* /usr/include && \
+     cp -rfv /usr/local/share/epicmorg/libxml2/2.13.2/lib/* /usr/lib && \
+     cp -rfv /usr/local/share/epicmorg/libxslt/1.1.42/lib/* /usr/lib && \
+     cp -rfv /usr/local/share/epicmorg/luajit2/2.1/lib/* /usr/lib && \
+     cp -rfv /usr/local/share/epicmorg/libgd/2.3.3/lib/* /usr/lib && \
+     cp -rfv /usr/local/share/epicmorg/gperftools/2.15/lib/* /usr/lib && \
+     cp -rfv /usr/local/share/epicmorg/geoip/1.6.12/lib/* /usr/lib && \
+     ldconfig && \
     ./configure \
       --user=www-data \
       --group=www-data \
@@ -170,8 +182,27 @@ RUN cp -rf ${NGINX_TEMP_SRC}/* ${NGINX_SRC_DIR} && \
       --http-proxy-temp-path=${NGINX_CACHE_DIR}/proxy \
       --http-scgi-temp-path=${NGINX_CACHE_DIR}/scgi \
       --http-uwsgi-temp-path=${NGINX_CACHE_DIR}/uwsgi \
-      --with-cc-opt='-static -g -O2 -lz -fPIC -Wdate-time -D_FORTIFY_SOURCE=2 -fstack-protector-strong  -Wno-error=unused-but-set-variable -Wformat -Wno-error=date-time -Wno-error=implicit-fallthrough -Wno-error=cast-function-type -Wno-error=format-security -Wno-error=implicit-function-declaration -Wno-error=deprecated-declarations -Wno-error=unused-result -Wdate-time ${NGINX_INCLUDE_PATHS}' \
-      --with-ld-opt='-static -Wl,-z,relro -Wl,-z,now -lz -fPIC ${NGINX_LIB_PATHS}' \  
+      --with-cc-opt="-I/usr/local/share/epicmorg/ip2location/8.7.0/include \
+                     -I/usr/local/share/epicmorg/libxml2/2.13.2/include/libxml2/libxml \
+                     -I/usr/local/share/epicmorg/libxslt/1.1.42/include/libexslt \
+                     -I/usr/local/share/epicmorg/libxslt/1.1.42/include/libxslt \
+                     -I/usr/local/share/epicmorg/luajit2/2.1/include/luajit-2.1 \
+                     -I/usr/local/share/epicmorg/libgd/2.3.3/include \
+                     -I/usr/local/share/epicmorg/gperftools/2.15/include/google \
+                     -I/usr/local/share/epicmorg/gperftools/2.15/include/gperftools \
+                     -I/usr/local/share/epicmorg/geoip/1.6.12/include \
+                     -static -g -O2 -lz -fPIC -Wdate-time -D_FORTIFY_SOURCE=2 -fstack-protector-strong \
+                     -Wno-error=unused-but-set-variable -Wformat -Wno-error=date-time -Wno-error=implicit-fallthrough \
+                     -Wno-error=cast-function-type -Wno-error=format-security -Wno-error=implicit-function-declaration \
+                     -Wno-error=deprecated-declarations -Wno-error=unused-result" \
+      --with-ld-opt="-L/usr/local/share/epicmorg/ip2location/8.7.0/lib \
+                     -L/usr/local/share/epicmorg/libxml2/2.13.2/lib \
+                     -L/usr/local/share/epicmorg/libxslt/1.1.42/lib \
+                     -L/usr/local/share/epicmorg/luajit2/2.1/lib \
+                     -L/usr/local/share/epicmorg/libgd/2.3.3/lib \
+                     -L/usr/local/share/epicmorg/gperftools/2.15/lib \
+                     -L/usr/local/share/epicmorg/geoip/1.6.12/lib \
+                     -static -Wl,-z,relro -Wl,-z,now -lz -fPIC" \  
       --with-pcre=${PCRE_SRC_DIR} \
       --with-pcre-jit \
       --with-zlib=${ZLIB_SRC_DIR} \
@@ -240,7 +271,7 @@ RUN cp -rf ${NGINX_TEMP_SRC}/* ${NGINX_SRC_DIR} && \
 ## gd fuck 
 ##       --with-http_image_filter_module \
 ## perftools fuck 
-##      --with-google_perftools_module \
+      --with-google_perftools_module \
 ## perl problem fuck
 ##      --with-http_perl_module \
 ##

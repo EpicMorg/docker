@@ -1,16 +1,29 @@
 # Changelog
 ## 2024
 * `july`
+  * Start migration from `Odrey's` repos due to author's rot.
+  	* [@oerdnj](https://github.com/oerdnj) go to hell, [xenophobe](https://github.com/oerdnj/deb.sury.org/issues/2155)! :fu:
+	```
+	You say that "I do understand the difference between a government and its people." and contradict yourself ("you are part of the problem") by equating people and the government.
+
+	You are a coward and a xenophobe, who by your actions do NOTHING affect the resolution of the conflict, but only incite hatred and xenophobia.
+
+	The IT community outside of government should not play geopolitics. If you have your own views, do it in your own backyard.
+
+	It is YOU who are part of the problem.
+	
+	Disrespect for you.
+	```
   * updated support of `kaniko` to `v1.23.2-debug` version.
   * fixed build scripts for CI.
   * `BREAKING CHANGE:` reworked `slim`, `main` and `develop` images of `bookworm`:
 	* added new default path for sub-folders with custom tools such as `gosu`, `dumb-init` and etc.
-	* pattern: `/usr/local/epicmorg/<program-name>/<version>/<..some data and files..>`
+	* pattern: `/usr/local/share/epicmorg/<program-name>/<version>/<..some data and files..>`
 	* Some child images could install to this folder custom compilled products. Example: `nginx`, `php`, etc.
 	* All directories that contains binaryes (`<bin\sbin>`) will be added to `$PATH`.
 		* example:
 			```
-			/usr/local/epicmorg/
+			/usr/local/share/epicmorg/
 			|-- 7z
 			|   `-- 7z2407
 			|       |-- History.txt

@@ -45,7 +45,7 @@ ENV LUAJIT2OR_DIR=${EMG_LOCAL_BASE_DIR}/luajit2/${LUAJIT2OR_VERSION}
 ENV LUAJIT2OR_BIN_DIR=${PCRE_DIR}/bin
 ENV LUAJIT2OR_LIB_DIR=${LUAJIT2OR_DIR}/lib
 ENV LUAJIT2OR_INC_DIR=${LUAJIT2OR_DIR}/include
-ENV LUAJIT2OR_SRC_DIR=${LUAJIT2OR_DIR}/src
+ENV LUAJIT2OR_SRC_DIR=/usr/src/luajit2/${LUAJIT2OR_VERSION}
 ARG LUAJIT2OR_DOWNLOAD_URL=https://github.com/openresty/luajit2.git
 ARG LUAJIT2OR_TEMP_SRC=/tmp/luajit2
 
@@ -54,7 +54,7 @@ ENV ZLIB_VERSION=1.3.1
 ENV ZLIB_DIR=${EMG_LOCAL_BASE_DIR}/zlib/${ZLIB_VERSION}
 ENV ZLIB_INC_DIR=${ZLIB_DIR}/include
 ENV ZLIB_LIB_DIR=${ZLIB_DIR}/lib
-ENV ZLIB_SRC_DIR=${ZLIB_DIR}/src
+ENV ZLIB_SRC_DIR=/usr/src/zlib/${ZLIB_VERSION}
 ARG ZLIB_DOWNLOAD_URL=https://zlib.net/fossils/zlib-${ZLIB_VERSION}.tar.gz
 ARG ZLIB_TEMP=/tmp/zlib-${ZLIB_VERSION}.tar.gz
 ARG ZLIB_TEMP_SRC=/tmp/zlib-${ZLIB_VERSION}
@@ -65,7 +65,7 @@ ENV ZSTD_DIR=${EMG_LOCAL_BASE_DIR}/zstd/${ZLIB_VERSION}
 ENV ZSTD_BIN_DIR=${ZSTD_DIR}/bin
 ENV ZSTD_INC_DIR=${ZSTD_DIR}/include
 ENV ZSTD_LIB_DIR=${ZSTD_DIR}/lib
-ENV ZSTD_SRC_DIR=${ZSTD_DIR}/src
+ENV ZSTD_SRC_DIR=/usr/src/zstd/${ZSTD_VERSION}
 ARG ZSTD_DOWNLOAD_URL=https://github.com/facebook/zstd/releases/download/v${ZSTD_VERSION}/zstd-${ZSTD_VERSION}.tar.gz
 ARG ZSTD_TEMP=/tmp/zstd-${ZSTD_VERSION}.tar.gz
 ARG ZSTD_TEMP_SRC=/tmp/zstd-${ZSTD_VERSION}
@@ -76,20 +76,17 @@ ENV IP2LOC_DIR=${EMG_LOCAL_BASE_DIR}/ip2location/${IP2LOC_VERSION}
 ENV IP2LOC_BIN_DIR=${IP2LOC_DIR}/bin
 ENV IP2LOC_INC_DIR=${IP2LOC_DIR}/include
 ENV IP2LOC_LIB_DIR=${IP2LOC_DIR}/lib
-ENV IP2LOC_SRC_DIR=${IP2LOC_DIR}/src
+ENV IP2LOC_SRC_DIR=/usr/src/ip2location/${IP2LOC_VERSION}
 ARG IP2LOC_DOWNLOAD_URL=https://github.com/chrislim2888/IP2Location-C-Library/archive/refs/heads/master.tar.gz
-#ARG IP2LOC_DOWNLOAD_URL=https://github.com/chrislim2888/IP2Location-C-Library/archive/refs/tags/${IP2LOC_VERSION}.tar.gz
 ARG IP2LOC_TEMP=/tmp/master.tar.gz
-#ARG IP2LOC_TEMP=/tmp/${IP2LOC_VERSION}.tar.gz
 ARG IP2LOC_TEMP_SRC=/tmp/IP2Location-C-Library-master
-#ARG IP2LOC_TEMP_SRC=/tmp/IP2Location-C-Library-${IP2LOC_VERSION}
 
 # libatomic_ops source tarball
 ENV LIBATOMICOPS_VERSION=7.8.2
 ENV LIBATOMICOPS_DIR=${EMG_LOCAL_BASE_DIR}/libatomic_ops/${LIBATOMICOPS_VERSION}
 ENV LIBATOMICOPS_INC_DIR=${LIBATOMICOPS_DIR}/include
 ENV LIBATOMICOPS_LIB_DIR=${LIBATOMICOPS_DIR}/lib
-ENV LIBATOMICOPS_SRC_DIR=${LIBATOMICOPS_DIR}/src
+ENV LIBATOMICOPS_SRC_DIR=/usr/src/libatomic_ops/${LIBATOMICOPS_VERSION}
 ARG LIBATOMICOPS_DOWNLOAD_URL=https://github.com/ivmai/libatomic_ops/releases/download/v${LIBATOMICOPS_VERSION}/libatomic_ops-${LIBATOMICOPS_VERSION}.tar.gz
 ARG LIBATOMICOPS_TEMP=/tmp/libatomic_ops-${LIBATOMICOPS_VERSION}.tar.gz
 ARG LIBATOMICOPS_TEMP_SRC=/tmp/libatomic_ops-${LIBATOMICOPS_VERSION}
@@ -98,14 +95,14 @@ ARG LIBATOMICOPS_TEMP_SRC=/tmp/libatomic_ops-${LIBATOMICOPS_VERSION}
 ENV LIBIMAGEQUANT_VERSION=4.3.1
 ARG LIBIMAGEQUANT_DOWNLOAD_URL=https://github.com/ImageOptim/libimagequant
 ENV LIBIMAGEQUANT_DIR=${EMG_LOCAL_BASE_DIR}/libimagequant
-ENV LIBIMAGEQUANT_SRC_DIR=${LIBIMAGEQUANT_DIR}/src
+ENV LIBIMAGEQUANT_SRC_DIR=/usr/src/libimagequant/${LIBIMAGEQUANT_VERSION}
 ARG LIBIMAGEQUANT_TEMP_SRC=/tmp/libimagequant
 
 # libraqm source
 ENV LIBRAQM_VERSION=0.10.1
 ARG LIBRAQM_DOWNLOAD_URL=https://github.com/HOST-Oman/libraqm
 ENV LIBRAQM_DIR=${EMG_LOCAL_BASE_DIR}/libraqm
-ENV LIBRAQM_SRC_DIR=${LIBRAQM_DIR}/src
+ENV LIBRAQM_SRC_DIR=/usr/src/libraqm/${LIBRAQM_VERSION}
 ARG LIBRAQM_TEMP_SRC=/tmp/libraqm
 
 # libgd source tarball
@@ -114,7 +111,7 @@ ENV LIBGD_DIR=${EMG_LOCAL_BASE_DIR}/libgd/${LIBGD_VERSION}
 ENV LIBGD_BIN_DIR=${LIBGD_DIR}/bin
 ENV LIBGD_INC_DIR=${LIBGD_DIR}/include
 ENV LIBGD_LIB_DIR=${LIBGD_DIR}/lib
-ENV LIBGD_SRC_DIR=${LIBGD_DIR}/src
+ENV LIBGD_SRC_DIR=/usr/src/libgd/${LIBGD_VERSION}
 ARG LIBGD_DOWNLOAD_URL=https://github.com/libgd/libgd/releases/download/gd-${LIBGD_VERSION}/libgd-${LIBGD_VERSION}.tar.gz
 ARG LIBGD_TEMP=/tmp/libgd-${LIBGD_VERSION}.tar.gz
 ARG LIBGD_TEMP_SRC=/tmp/libgd-${LIBGD_VERSION}
@@ -125,7 +122,7 @@ ENV LIBXML2_DIR=${EMG_LOCAL_BASE_DIR}/libxml2/${LIBXML2_VERSION}
 ENV LIBXML2_BIN_DIR=${LIBXML2_DIR}/bin
 ENV LIBXML2_INC_DIR=${LIBXML2_DIR}/include
 ENV LIBXML2_LIB_DIR=${LIBXML2_DIR}/lib
-ENV LIBXML2_SRC_DIR=${LIBXML2_DIR}/src
+ENV LIBXML2_SRC_DIR=/usr/src/libxml2/${LIBXML2_VERSION}
 ARG LIBXML2_DOWNLOAD_URL=https://gitlab.gnome.org/GNOME/libxml2/-/archive/v${LIBXML2_VERSION}/libxml2-v${LIBXML2_VERSION}.tar.gz
 ARG LIBXML2_TEMP=/tmp/libxml2-v${LIBXML2_VERSION}.tar.gz
 ARG LIBXML2_TEMP_SRC=/tmp/libxml2-v${LIBXML2_VERSION}
@@ -136,7 +133,7 @@ ENV LIBXSLT_DIR=${EMG_LOCAL_BASE_DIR}/libxslt/${LIBXSLT_VERSION}
 ENV LIBXSLT_BIN_DIR=${LIBXSLT_DIR}/bin
 ENV LIBXSLT_INC_DIR=${LIBXSLT_DIR}/include
 ENV LIBXSLT_LIB_DIR=${LIBXSLT_DIR}/lib
-ENV LIBXSLT_SRC_DIR=${LIBXSLT_DIR}/src
+ENV LIBXSLT_SRC_DIR=/usr/src/libxslt/${LIBXSLT_VERSION}
 ARG LIBXSLT_DOWNLOAD_URL=https://gitlab.gnome.org/GNOME/libxslt/-/archive/v${LIBXSLT_VERSION}/libxslt-v${LIBXSLT_VERSION}.tar.gz
 ARG LIBXSLT_TEMP=/tmp/libxslt-v${LIBXSLT_VERSION}.tar.gz
 ARG LIBXSLT_TEMP_SRC=/tmp/libxslt-v${LIBXSLT_VERSION}
@@ -147,7 +144,7 @@ ENV MM_GEOIP_DIR=${EMG_LOCAL_BASE_DIR}/geoip/${MM_GEOIP_VERSION}
 ENV MM_GEOIP_BIN_DIR=${MM_GEOIP_DIR}/bin
 ENV MM_GEOIP_INC_DIR=${MM_GEOIP_DIR}/include
 ENV MM_GEOIP_LIB_DIR=${MM_GEOIP_DIR}/lib
-ENV MM_GEOIP_SRC_DIR=${MM_GEOIP_DIR}/src
+ENV MM_GEOIP_SRC_DIR=/usr/src/geoip/${MM_GEOIP_VERSION}
 ARG MM_GEOIP_DOWNLOAD_URL=https://github.com/maxmind/geoip-api-c/releases/download/v${MM_GEOIP_VERSION}/GeoIP-${MM_GEOIP_VERSION}.tar.gz
 ARG MM_GEOIP_TEMP=/tmp/GeoIP-${MM_GEOIP_VERSION}.tar.gz
 ARG MM_GEOIP_TEMP_SRC=/tmp/GeoIP-${MM_GEOIP_VERSION}
@@ -158,7 +155,7 @@ ENV GPERFTOOLS_DIR=${EMG_LOCAL_BASE_DIR}/gperftools/${GPERFTOOLS_VERSION}
 ENV GPERFTOOLS_BIN_DIR=${GPERFTOOLS_DIR}/bin
 ENV GPERFTOOLS_INC_DIR=${GPERFTOOLS_DIR}/include
 ENV GPERFTOOLS_LIB_DIR=${GPERFTOOLS_DIR}/lib
-ENV GPERFTOOLS_SRC_DIR=${GPERFTOOLS_DIR}/src
+ENV GPERFTOOLS_SRC_DIR=/usr/src/gperftools/${GPERFTOOLS_VERSION}
 ARG GPERFTOOLS_DOWNLOAD_URL=https://github.com/gperftools/gperftools/releases/download/gperftools-${GPERFTOOLS_VERSION}/gperftools-${GPERFTOOLS_VERSION}.tar.gz
 ARG GPERFTOOLS_TEMP=/tmp/gperftools-${GPERFTOOLS_VERSION}.tar.gz
 ARG GPERFTOOLS_TEMP_SRC=/tmp/gperftools-${GPERFTOOLS_VERSION}
@@ -169,7 +166,7 @@ ENV OPENSSL_111_DIR=${EMG_LOCAL_BASE_DIR}/openssl/${OPENSSL_111_VERSION}
 ENV OPENSSL_111_BIN_DIR=${OPENSSL_111_DIR}/bin
 ENV OPENSSL_111_INC_DIR=${OPENSSL_111_DIR}/include
 ENV OPENSSL_111_LIB_DIR=${OPENSSL_111_DIR}/lib
-ENV OPENSSL_111_SRC_DIR=${OPENSSL_111_DIR}/src
+ENV OPENSSL_111_SRC_DIR=/usr/src/openssl/${OPENSSL_111_VERSION}
 ARG OPENSSL_111_DOWNLOAD_URL=https://www.openssl.org/source/old/${OPENSSL_111_VERSION}/openssl-${OPENSSL_111_VERSION}w.tar.gz
 ARG OPENSSL_111_TEMP=/tmp/openssl-${OPENSSL_111_VERSION}w.tar.gz
 ARG OPENSSL_111_TEMP_SRC=/tmp/openssl-${OPENSSL_111_VERSION}w
@@ -180,7 +177,7 @@ ENV OPENSSL_30_DIR=${EMG_LOCAL_BASE_DIR}/openssl/${OPENSSL_30_VERSION}
 ENV OPENSSL_30_BIN_DIR=${OPENSSL_30_DIR}/bin
 ENV OPENSSL_30_INC_DIR=${OPENSSL_30_DIR}/include
 ENV OPENSSL_30_LIB_DIR=${OPENSSL_30_DIR}/lib64
-ENV OPENSSL_30_SRC_DIR=${OPENSSL_30_DIR}/src
+ENV OPENSSL_30_SRC_DIR=/usr/src/openssl/${OPENSSL_30_VERSION}
 ARG OPENSSL_30_DOWNLOAD_URL=https://www.openssl.org/source/openssl-${OPENSSL_30_VERSION}.tar.gz
 ARG OPENSSL_30_TEMP=/tmp/openssl-${OPENSSL_30_VERSION}.tar.gz
 ARG OPENSSL_30_TEMP_SRC=/tmp/openssl-${OPENSSL_30_VERSION}
@@ -191,7 +188,7 @@ ENV OPENSSL_31_DIR=${EMG_LOCAL_BASE_DIR}/openssl/${OPENSSL_31_VERSION}
 ENV OPENSSL_31_BIN_DIR=${OPENSSL_31_DIR}/bin
 ENV OPENSSL_31_INC_DIR=${OPENSSL_31_DIR}/include
 ENV OPENSSL_31_LIB_DIR=${OPENSSL_31_DIR}/lib64
-ENV OPENSSL_31_SRC_DIR=${OPENSSL_31_DIR}/src
+ENV OPENSSL_31_SRC_DIR=/usr/src/openssl/${OPENSSL_31_VERSION}
 ARG OPENSSL_31_DOWNLOAD_URL=https://www.openssl.org/source/openssl-${OPENSSL_31_VERSION}.tar.gz
 ARG OPENSSL_31_TEMP=/tmp/openssl-${OPENSSL_31_VERSION}.tar.gz
 ARG OPENSSL_31_TEMP_SRC=/tmp/openssl-${OPENSSL_31_VERSION}
@@ -202,7 +199,7 @@ ENV OPENSSL_32_DIR=${EMG_LOCAL_BASE_DIR}/openssl/${OPENSSL_32_VERSION}
 ENV OPENSSL_32_BIN_DIR=${OPENSSL_32_DIR}/bin
 ENV OPENSSL_32_INC_DIR=${OPENSSL_32_DIR}/include
 ENV OPENSSL_32_LIB_DIR=${OPENSSL_32_DIR}/lib64
-ENV OPENSSL_32_SRC_DIR=${OPENSSL_32_DIR}/src
+ENV OPENSSL_32_SRC_DIR=/usr/src/openssl/${OPENSSL_32_VERSION}
 ARG OPENSSL_32_DOWNLOAD_URL=https://www.openssl.org/source/openssl-${OPENSSL_32_VERSION}.tar.gz
 ARG OPENSSL_32_TEMP=/tmp/openssl-${OPENSSL_32_VERSION}.tar.gz
 ARG OPENSSL_32_TEMP_SRC=/tmp/openssl-${OPENSSL_32_VERSION}
@@ -213,7 +210,7 @@ ENV OPENSSL_33_DIR=${EMG_LOCAL_BASE_DIR}/openssl/${OPENSSL_33_VERSION}
 ENV OPENSSL_33_BIN_DIR=${OPENSSL_33_DIR}/bin
 ENV OPENSSL_33_INC_DIR=${OPENSSL_33_DIR}/include
 ENV OPENSSL_33_LIB_DIR=${OPENSSL_33_DIR}/lib64
-ENV OPENSSL_33_SRC_DIR=${OPENSSL_33_DIR}/src
+ENV OPENSSL_33_SRC_DIR=/usr/src/openssl/${OPENSSL_33_VERSION}
 ARG OPENSSL_33_DOWNLOAD_URL=https://www.openssl.org/source/openssl-${OPENSSL_33_VERSION}.tar.gz
 ARG OPENSSL_33_TEMP=/tmp/openssl-${OPENSSL_33_VERSION}.tar.gz
 ARG OPENSSL_33_TEMP_SRC=/tmp/openssl-${OPENSSL_33_VERSION}
@@ -223,7 +220,7 @@ ENV LIBRESSL_VERSION=3.9.2
 ENV LIBRESSL_DIR=${EMG_LOCAL_BASE_DIR}/libressl/${LIBRESSL_VERSION}
 ENV LIBRESSL_INC_DIR=${LIBRESSL_DIR}/include
 ENV LIBRESSL_LIB_DIR=${LIBRESSL_DIR}/lib
-ENV LIBRESSL_SRC_DIR=${LIBRESSL_DIR}/src
+ENV LIBRESSL_SRC_DIR=/usr/src/libressl/${LIBRESSL_VERSION}
 ARG LIBRESSL_DOWNLOAD_URL=https://ftp.openbsd.org/pub/OpenBSD/LibreSSL/libressl-${LIBRESSL_VERSION}.tar.gz
 ARG LIBRESSL_TEMP=/tmp/libressl-${LIBRESSL_VERSION}.tar.gz
 ARG LIBRESSL_TEMP_SRC=/tmp/libressl-${LIBRESSL_VERSION}
@@ -233,7 +230,7 @@ ENV BORINGSSL_VERSION=master
 ENV BORINGSSL_DIR=${EMG_LOCAL_BASE_DIR}/boringssl/${BORINGSSL_VERSION}
 ENV BORINGSSL_INC_DIR=${BORINGSSL_DIR}/include
 ENV BORINGSSL_LIB_DIR=${BORINGSSL_DIR}/lib
-ENV BORINGSSL_SRC_DIR=${BORINGSSL_DIR}/src
+ENV BORINGSSL_SRC_DIR=/usr/src/boringssl/${BORINGSSL_VERSION}
 ARG BORINGSSL_DOWNLOAD_URL=https://boringssl.googlesource.com/boringssl
 ARG BORINGSSL_TEMP_SRC=/tmp/boringssl
 
@@ -421,6 +418,7 @@ ADD ${ZLIB_DOWNLOAD_URL} /tmp
 
 RUN tar -xzf ${ZLIB_TEMP} --directory /tmp && \
     cp -rfv ${ZLIB_TEMP_SRC}/* ${ZLIB_SRC_DIR} && \
+    ln -sf ${ZLIB_SRC_DIR}  ${ZLIB_DIR}/src && \
     cd ${ZLIB_TEMP_SRC} && \
     ./configure \
       --static \
@@ -439,6 +437,7 @@ ADD ${ZSTD_DOWNLOAD_URL} /tmp
 
 RUN tar -xzf ${ZSTD_TEMP} --directory /tmp && \
     cp -rfv ${ZSTD_TEMP_SRC}/* ${ZSTD_SRC_DIR} && \
+    ln -sf ${ZSTD_SRC_DIR}  ${ZSTD_DIR}/src && \
     cd ${ZSTD_TEMP_SRC} && \
     mkdir -p ${ZSTD_TEMP_SRC}/build/cmake/builddir && \
     cd ${ZSTD_TEMP_SRC}/build/cmake/builddir && \
@@ -500,6 +499,7 @@ RUN echo "=============================================" && \
 RUN mkdir -p ${LUAJIT2OR_DIR} ${LUAJIT2OR_SRC_DIR} && \
     git clone ${LUAJIT2OR_DOWNLOAD_URL} ${LUAJIT2OR_TEMP_SRC} && \
     cp -rfv ${LUAJIT2OR_TEMP_SRC}/* ${LUAJIT2OR_SRC_DIR} && \
+    ln -sf ${LUAJIT2OR_SRC_DIR} ${LUAJIT2OR_DIR}/src && \
     cd ${LUAJIT2OR_TEMP_SRC} && \
     make -j$(nproc) XCFLAGS='-DLUAJIT_ENABLE_GC64' BUILDMODE=static && \
     make -j$(nproc) install PREFIX=${LUAJIT2OR_DIR} && \
@@ -520,6 +520,7 @@ ADD ${IP2LOC_DOWNLOAD_URL} /tmp
 
 RUN tar -xzf ${IP2LOC_TEMP} --directory /tmp && \
     cp -rfv ${IP2LOC_TEMP_SRC}/* ${IP2LOC_SRC_DIR} && \
+    ln -sf ${IP2LOC_SRC_DIR} ${IP2LOC_DIR}/src && \
     cd ${IP2LOC_TEMP_SRC} && \
     autoreconf -i -v --force && \
     aclocal && \
@@ -547,6 +548,7 @@ ADD ${LIBATOMICOPS_DOWNLOAD_URL} /tmp
 
 RUN tar -xzf ${LIBATOMICOPS_TEMP} --directory /tmp && \
     cp -rfv ${LIBATOMICOPS_TEMP_SRC}/* ${LIBATOMICOPS_SRC_DIR} && \
+    ln -sf ${LIBATOMICOPS_SRC_DIR} ${LIBATOMICOPS_DIR}/src && \
     cd ${LIBATOMICOPS_TEMP_SRC} && \
     ./autogen.sh && \
     ./configure \
@@ -570,6 +572,7 @@ RUN mkdir -p ${LIBIMAGEQUANT_DIR} ${LIBIMAGEQUANT_SRC_DIR}
 
 RUN git clone ${LIBIMAGEQUANT_DOWNLOAD_URL} ${LIBIMAGEQUANT_TEMP_SRC} && \
     cp -rfv ${LIBIMAGEQUANT_TEMP_SRC}/* ${LIBIMAGEQUANT_SRC_DIR} && \
+    ln -sf ${LIBIMAGEQUANT_SRC_DIR} ${LIBIMAGEQUANT_DIR}/src && \
     cd ${LIBIMAGEQUANT_TEMP_SRC} && \
       cargo build --release && \
     cd ${LIBIMAGEQUANT_TEMP_SRC}/imagequant-sys && \
@@ -584,6 +587,7 @@ RUN mkdir -p ${LIBRAQM_DIR} ${LIBRAQM_SRC_DIR}
 
 RUN git clone ${LIBRAQM_DOWNLOAD_URL} ${LIBRAQM_TEMP_SRC} && \
     cp -rfv ${LIBRAQM_TEMP_SRC}/* ${LIBRAQM_SRC_DIR} && \
+    ln -sf ${LIBRAQM_SRC_DIR} ${LIBRAQM_DIR}/src && \
     cd ${LIBRAQM_TEMP_SRC} && \
     meson build && \
     ninja -C build && \
@@ -597,6 +601,7 @@ ADD ${LIBGD_DOWNLOAD_URL} /tmp
 
 RUN tar -xzf ${LIBGD_TEMP} --directory /tmp && \
     cp -rfv ${LIBGD_TEMP_SRC}/* ${LIBGD_SRC_DIR} && \
+    ln -sf ${LIBGD_SRC_DIR} ${LIBGD_DIR}/src && \
     cd ${LIBGD_TEMP_SRC} && \
     ./bootstrap.sh && \
     ./configure \
@@ -636,6 +641,7 @@ ADD ${LIBXML2_DOWNLOAD_URL} /tmp
 
 RUN tar -xzf ${LIBXML2_TEMP} --directory /tmp && \
     cp -rfv ${LIBXML2_TEMP_SRC}/* ${LIBXML2_SRC_DIR} && \
+    ln -sf ${LIBXML2_SRC_DIR} ${LIBXML2_DIR}/src && \
     cd ${LIBXML2_TEMP_SRC} && \
     ./autogen.sh && \
     ./configure \
@@ -695,6 +701,7 @@ ADD ${LIBXSLT_DOWNLOAD_URL} /tmp
 
 RUN tar -xzf ${LIBXSLT_TEMP} --directory /tmp && \
     cp -rfv ${LIBXSLT_TEMP_SRC}/* ${LIBXSLT_SRC_DIR} && \
+    ln -sf ${LIBXSLT_SRC_DIR} ${LIBXSLT_DIR}/src && \
     cd ${LIBXSLT_TEMP_SRC} && \
     ./autogen.sh && \
     ./configure \
@@ -725,6 +732,7 @@ ADD ${MM_GEOIP_DOWNLOAD_URL} /tmp
 
 RUN tar -xzf ${MM_GEOIP_TEMP} --directory /tmp && \
     cp -rfv ${MM_GEOIP_TEMP_SRC}/* ${MM_GEOIP_SRC_DIR} && \
+    ln -sf ${MM_GEOIP_SRC_DIR} ${MM_GEOIP_DIR}/src && \
     cd ${MM_GEOIP_TEMP_SRC} && \
     ./bootstrap && \
     aclocal && \
@@ -753,6 +761,7 @@ ADD ${GPERFTOOLS_DOWNLOAD_URL} /tmp
 
 RUN tar -xzf ${GPERFTOOLS_TEMP} --directory /tmp && \
     cp -rfv ${GPERFTOOLS_TEMP_SRC}/* ${GPERFTOOLS_SRC_DIR} && \
+    ln -sf ${GPERFTOOLS_SRC_DIR} ${GPERFTOOLS_DIR}/src && \
     cd ${GPERFTOOLS_TEMP_SRC} && \
     ./configure \
       --prefix=${GPERFTOOLS_DIR} \
@@ -779,6 +788,7 @@ ADD ${OPENSSL_111_DOWNLOAD_URL} /tmp
 
 RUN tar -xzf ${OPENSSL_111_TEMP} --directory /tmp && \
     cp -rfv ${OPENSSL_111_TEMP_SRC}/* ${OPENSSL_111_SRC_DIR} && \
+    ln -sf ${OPENSSL_111_SRC_DIR} ${OPENSSL_111_DIR}/src && \
     cd ${OPENSSL_111_TEMP_SRC} && \
     ./config \
       no-shared \
@@ -804,6 +814,7 @@ ADD ${OPENSSL_30_DOWNLOAD_URL} /tmp
 
 RUN tar -xzf ${OPENSSL_30_TEMP} --directory /tmp && \
     cp -rfv ${OPENSSL_30_TEMP_SRC}/* ${OPENSSL_30_SRC_DIR} && \
+    ln -sf ${OPENSSL_30_SRC_DIR} ${OPENSSL_30_DIR}/src && \
     cd ${OPENSSL_30_TEMP_SRC} && \
     ./config \
       no-shared \
@@ -832,6 +843,7 @@ ADD ${OPENSSL_31_DOWNLOAD_URL} /tmp
 
 RUN tar -xzf ${OPENSSL_31_TEMP} --directory /tmp && \
     cp -rfv ${OPENSSL_31_TEMP_SRC}/* ${OPENSSL_31_SRC_DIR} && \
+    ln -sf ${OPENSSL_31_SRC_DIR} ${OPENSSL_31_DIR}/src && \
     cd ${OPENSSL_31_TEMP_SRC} && \
     ./config \
       no-shared \
@@ -860,6 +872,7 @@ ADD ${OPENSSL_32_DOWNLOAD_URL} /tmp
 
 RUN tar -xzf ${OPENSSL_32_TEMP} --directory /tmp && \
     cp -rfv ${OPENSSL_32_TEMP_SRC}/* ${OPENSSL_32_SRC_DIR} && \
+    ln -sf ${OPENSSL_32_SRC_DIR} ${OPENSSL_32_DIR}/src && \
     cd ${OPENSSL_32_TEMP_SRC} && \
     ./config \
       no-shared \
@@ -890,6 +903,7 @@ ADD ${OPENSSL_33_DOWNLOAD_URL} /tmp
 
 RUN tar -xzf ${OPENSSL_33_TEMP} --directory /tmp && \
     cp -rfv ${OPENSSL_33_TEMP_SRC}/* ${OPENSSL_33_SRC_DIR} && \
+    ln -sf ${OPENSSL_33_SRC_DIR} ${OPENSSL_33_DIR}/src && \
     cd ${OPENSSL_33_TEMP_SRC} && \
     ./config \
       no-shared \
@@ -910,7 +924,9 @@ RUN tar -xzf ${OPENSSL_33_TEMP} --directory /tmp && \
       --prefix=${OPENSSL_33_DIR} \
       && \
     make -j$(nproc) && \
-    make -j$(nproc) install
+    make -j$(nproc) install && \
+    cp -rfv ${OPENSSL_33_INC_DIR}/* /usr/local/include && \
+    cp -rfv ${OPENSSL_33_LIB_DIR}/* /usr/local/lib
 
 ##################################################################
 #                   LibreSSL
@@ -920,6 +936,7 @@ ADD ${LIBRESSL_DOWNLOAD_URL} /tmp
 
 RUN tar -xzf ${LIBRESSL_TEMP} --directory /tmp && \
     cp -rfv ${LIBRESSL_TEMP_SRC}/* ${LIBRESSL_SRC_DIR} && \
+    ln -sf ${LIBRESSL_SRC_DIR} ${LIBRESSL_DIR}/src && \
     cd ${LIBRESSL_TEMP_SRC} && \
     ./config \
       --enable-static \
@@ -928,7 +945,9 @@ RUN tar -xzf ${LIBRESSL_TEMP} --directory /tmp && \
       --prefix=${LIBRESSL_DIR} \
       && \
     make -j$(nproc) && \
-    make -j$(nproc) install
+    make -j$(nproc) install && \
+    cp -rfv ${LIBRESSL_INC_DIR}/* /usr/local/include && \
+    cp -rfv ${LIBRESSL_LIB_DIR}/* /usr/local/lib
 
 ##################################################################
 #                   BoringSSL
@@ -936,12 +955,15 @@ RUN tar -xzf ${LIBRESSL_TEMP} --directory /tmp && \
 RUN mkdir -p ${BORINGSSL_DIR} ${BORINGSSL_SRC_DIR} && \
     git clone -b ${BORINGSSL_VERSION} ${BORINGSSL_DOWNLOAD_URL} ${BORINGSSL_TEMP_SRC} && \
     cp -rfv ${BORINGSSL_TEMP_SRC}/* ${BORINGSSL_SRC_DIR} && \
+    ln -sf ${BORINGSSL_SRC_DIR} ${BORINGSSL_DIR}/src && \
     cd ${BORINGSSL_TEMP_SRC} && \
     mkdir ${BORINGSSL_TEMP_SRC}/build && \
     cd ${BORINGSSL_TEMP_SRC}/build && \
     cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_POSITION_INDEPENDENT_CODE=TRUE -DBUILD_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX=${BORINGSSL_DIR} .. && \
     make -j$(if [ $(nproc) -gt 8 ]; then echo $(( $(nproc) / 2 )); else echo $(nproc); fi) && \
-    make -j$(nproc) install
+    make -j$(nproc) install && \
+    cp -rfv ${BORINGSSL_INC_DIR}/* /usr/local/include && \
+    cp -rfv ${BORINGSSL_LIB_DIR}/* /usr/local/lib
 
 ##################################################################
 #                   Set default workdir
@@ -964,6 +986,6 @@ RUN echo "clean up" && \
 
 RUN updatedb
 
-#TODO:
-#    replace dest folder of sources to /usr/src/program/version folder and link it to <emg>/program/version/src
-#      v PCRE2
+#TODO
+# 1/ Echo '/usr/local/gperftools/lib'>/etc/ld. so. conf. d/my_app_lib.conf
+# 2/  ln-s/usr/local/gperftool/lib/*/usr/local/lib.
