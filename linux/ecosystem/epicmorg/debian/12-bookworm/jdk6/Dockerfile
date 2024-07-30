@@ -8,6 +8,7 @@ ARG K_JDK_URL=http://cdn.azul.com/zulu/bin/zulu${K_JDK_VERSION}-jdk${K_JDK_BUILD
 ARG K_JDK_TEMP=/tmp/zulu${K_JDK_VERSION}-jdk${K_JDK_BUILD_VERSION}-linux_x64.tar.gz
 
 ENV JAVA_HOME=/usr/local/zulu${K_JDK_VERSION}-jdk${K_JDK_BUILD_VERSION}-linux_x64
+ENV JRE_HOME=${JAVA_HOME}
 ENV PATH=$PATH:${JAVA_HOME}/bin
 
 ##################################################################
@@ -15,6 +16,7 @@ ENV PATH=$PATH:${JAVA_HOME}/bin
 ##################################################################
 ADD ${K_JDK_URL} /tmp
 RUN tar -xvzf /tmp/zulu${K_JDK_VERSION}-jdk${K_JDK_BUILD_VERSION}-linux_x64.tar.gz  --directory /usr/local && \
+    ln -sfv ${JAVA_HOME} /usr/jre && \
     java -version
 
 ##################################################################

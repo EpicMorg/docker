@@ -271,7 +271,7 @@ RUN cp -rf ${NGINX_TEMP_SRC}/* ${NGINX_SRC_DIR} && \
 ## gd fuck 
 ##       --with-http_image_filter_module \
 ## perftools fuck 
-      --with-google_perftools_module \
+##      --with-google_perftools_module \
 ## perl problem fuck
 ##      --with-http_perl_module \
 ##
@@ -291,7 +291,8 @@ RUN cp -rf ${NGINX_TEMP_SRC}/* ${NGINX_SRC_DIR} && \
 ##  undefined reference to `sasl_getprop'
 ##     --add-module=modules/http-auth-ldap \
       && \
-    make -j$(nproc) && make install
+    make -j$(nproc) && \
+    make -j$(nproc) install
 
 RUN rm -rfv ${NGINX_CONF_DIR}/nginx.conf && \
     mkdir -p ${NGINX_MODULES_DIR} ${NGINX_MODULES_PERL_DIR}
@@ -397,6 +398,5 @@ RUN nginx -V
 CMD ["nginx", "-g", "daemon off;"]
 
 #TODO:
-#    fix and redeploy develop (blocker!)
+#    fix and redeploy develop (blocker!) -- DONE
 #    add link to /usr/src/nginx/<version> -> <nginx-dir>/src folder to final layer
-#    xz files in /usr/src/nginx/<version> folder  to optimize size
