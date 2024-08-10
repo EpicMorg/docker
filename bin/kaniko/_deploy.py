@@ -27,7 +27,7 @@ def main():
     ignore_directory = os.path.join(root_directory, 'win32')
     
     # List of files to copy
-    files_to_copy = ['kaniko-build.py', 'requirements.txt']
+    files_to_copy = ['requirements.txt']
     
     # Check if the source files exist in the script directory
     for file_name in files_to_copy:

@@ -9,11 +9,11 @@ app:
 
 build:
 	make pip
-	python3 kaniko-build.py --version
+	kaniko-wrapper --version
 
 deploy:
 	make pip
-	python3 kaniko-build.py --deploy --kaniko-image gcr.io/kaniko-project/executor:v1.23.2-debug
+	kaniko-wrapper --deploy --kaniko-image gcr.io/kaniko-project/executor:v1.23.2-debug
 
 deploy-compose:
 	docker-compose push
