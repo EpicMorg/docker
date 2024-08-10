@@ -826,7 +826,6 @@ RUN tar -xzf ${OPENSSL_111_TEMP} --directory /tmp && \
     ln -sf ${OPENSSL_111_SRC_DIR} ${OPENSSL_111_DIR}/src && \
     cd ${OPENSSL_111_TEMP_SRC} && \
     ./config \
-      no-shared \
       zlib \
       --with-zlib-include=${ZLIB_DIR}/include \
       --with-zlib-lib=${ZLIB_DIR}/lib \
@@ -852,7 +851,6 @@ RUN tar -xzf ${OPENSSL_30_TEMP} --directory /tmp && \
     ln -sf ${OPENSSL_30_SRC_DIR} ${OPENSSL_30_DIR}/src && \
     cd ${OPENSSL_30_TEMP_SRC} && \
     ./config \
-      no-shared \
       zlib \
       --with-zlib-include=${ZLIB_DIR}/include \
       --with-zlib-lib=${ZLIB_DIR}/lib \
@@ -881,7 +879,6 @@ RUN tar -xzf ${OPENSSL_31_TEMP} --directory /tmp && \
     ln -sf ${OPENSSL_31_SRC_DIR} ${OPENSSL_31_DIR}/src && \
     cd ${OPENSSL_31_TEMP_SRC} && \
     ./config \
-      no-shared \
       zlib \
       --with-zlib-include=${ZLIB_DIR}/include \
       --with-zlib-lib=${ZLIB_DIR}/lib \
@@ -910,7 +907,6 @@ RUN tar -xzf ${OPENSSL_32_TEMP} --directory /tmp && \
     ln -sf ${OPENSSL_32_SRC_DIR} ${OPENSSL_32_DIR}/src && \
     cd ${OPENSSL_32_TEMP_SRC} && \
     ./config \
-      no-shared \
       zlib \
       --with-zlib-include=${ZLIB_DIR}/include \
       --with-zlib-lib=${ZLIB_DIR}/lib \
@@ -941,7 +937,6 @@ RUN tar -xzf ${OPENSSL_33_TEMP} --directory /tmp && \
     ln -sf ${OPENSSL_33_SRC_DIR} ${OPENSSL_33_DIR}/src && \
     cd ${OPENSSL_33_TEMP_SRC} && \
     ./config \
-      no-shared \
       zlib \
       --with-zlib-include=${ZLIB_DIR}/include \
       --with-zlib-lib=${ZLIB_DIR}/lib \
@@ -984,10 +979,10 @@ RUN tar -xzf ${LIBRESSL_TEMP} --directory /tmp && \
       && \
     make -j$(nproc) && \
     make -j$(nproc) install && \
-    ln -sfv ${LIBRESSL_INC_DIR}/* /usr/local/include && \
-    ln -sfv ${LIBRESSL_LIB_DIR}/* /usr/local/lib && \
-    echo "# LibreSSL support" >> ${LD_CONF_DIR}/LibreSSL.conf && \
-    echo ${LIBRESSL_LIB_DIR} >> ${LD_CONF_DIR}/LibreSSL.conf && \
+#    ln -sfv ${LIBRESSL_INC_DIR}/* /usr/local/include && \
+#    ln -sfv ${LIBRESSL_LIB_DIR}/* /usr/local/lib && \
+#    echo "# LibreSSL support" >> ${LD_CONF_DIR}/LibreSSL.conf && \
+#    echo ${LIBRESSL_LIB_DIR} >> ${LD_CONF_DIR}/LibreSSL.conf && \
     ldconfig
 
 ##################################################################
@@ -1000,13 +995,13 @@ RUN mkdir -p ${BORINGSSL_DIR} ${BORINGSSL_SRC_DIR} && \
     cd ${BORINGSSL_TEMP_SRC} && \
     mkdir ${BORINGSSL_TEMP_SRC}/build && \
     cd ${BORINGSSL_TEMP_SRC}/build && \
-    cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_POSITION_INDEPENDENT_CODE=TRUE -DBUILD_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX=${BORINGSSL_DIR} .. && \
+    cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_POSITION_INDEPENDENT_CODE=TRUE -DBUILD_SHARED_LIBS=1 -DCMAKE_INSTALL_PREFIX=${BORINGSSL_DIR} .. && \
     make -j$(if [ $(nproc) -gt 8 ]; then echo $(( $(nproc) / 2 )); else echo $(nproc); fi) && \
     make -j$(nproc) install && \
-    ln -sfv ${BORINGSSL_INC_DIR}/* /usr/local/include && \
-    ln -sfv ${BORINGSSL_LIB_DIR}/* /usr/local/lib && \
-    echo "# BoringSSL support" >> ${LD_CONF_DIR}/BoringSSL.conf && \
-    echo ${BORINGSSL_LIB_DIR} >> ${LD_CONF_DIR}/BoringSSL.conf && \
+#    ln -sfv ${BORINGSSL_INC_DIR}/* /usr/local/include && \
+#    ln -sfv ${BORINGSSL_LIB_DIR}/* /usr/local/lib && \
+#    echo "# BoringSSL support" >> ${LD_CONF_DIR}/BoringSSL.conf && \
+#    echo ${BORINGSSL_LIB_DIR} >> ${LD_CONF_DIR}/BoringSSL.conf && \
     ldconfig
 
 ##################################################################

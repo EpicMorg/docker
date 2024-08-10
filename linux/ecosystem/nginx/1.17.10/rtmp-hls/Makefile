@@ -9,7 +9,7 @@ app:
 
 build:
 	make pip
-	python3 kaniko-build.py --version
+	kaniko-wrapper --version
 
 dry:
 	make dry-run
@@ -18,7 +18,7 @@ test:
 	make dry-run
 
 dry-run:
-	python3 kaniko-build.py --kaniko-image gcr.io/kaniko-project/executor:v1.23.2-debug --dry-run
+	kaniko-wrapper --kaniko-image gcr.io/kaniko-project/executor:v1.23.2-debug --dry-run
 
 pip:
 	rm -rf /usr/lib/python3.6/EXTERNALLY-MANAGED
@@ -37,7 +37,7 @@ build-compose:
 
 deploy:
 	make pip
-	python3 kaniko-build.py --deploy --kaniko-image gcr.io/kaniko-project/executor:v1.23.2-debug
+	kaniko-wrapper --deploy --kaniko-image gcr.io/kaniko-project/executor:v1.23.2-debug
 
 deploy-compose:
 	docker-compose push

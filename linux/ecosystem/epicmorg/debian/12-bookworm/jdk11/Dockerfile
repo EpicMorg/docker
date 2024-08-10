@@ -10,6 +10,7 @@ ARG K_JDK_URL=https://github.com/adoptium/temurin${K_JDK_MAJOR_VERSION}-binaries
 ARG K_JDK_TEMP=/tmp/OpenJDK${K_JDK_MAJOR_VERSION}U-jdk_x64_linux_hotspot_${K_JDK_VERSION}_${K_JDK_BUILD_VERSION}.tar.gz
 
 ENV JAVA_HOME=/usr/local/${K_JDK_FULL_VERSION}+${K_JDK_BUILD_VERSION}
+ENV JRE_HOME=${JAVA_HOME}
 ENV PATH=$PATH:${JAVA_HOME}/bin
 
 ##################################################################
@@ -17,6 +18,7 @@ ENV PATH=$PATH:${JAVA_HOME}/bin
 ##################################################################
 ADD ${K_JDK_URL} /tmp
 RUN tar -xvzf ${K_JDK_TEMP} --directory /usr/local && \
+    ln -sfv ${JAVA_HOME} /usr/jre && \
     java -version
 
 ##################################################################

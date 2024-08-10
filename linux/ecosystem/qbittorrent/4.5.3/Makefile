@@ -14,7 +14,7 @@ build:
 
 deploy:
 	make pip
-	python3 kaniko-build.py --deploy --kaniko-image gcr.io/kaniko-project/executor:v1.23.2-debug
+	kaniko-wrapper --deploy --kaniko-image gcr.io/kaniko-project/executor:v1.23.2-debug
 
 deploy-compose:
 	docker-compose push
