@@ -62,3 +62,5 @@ RUN apt-get update -y && \
         wget
 
 RUN echo "zabbix ALL=(ALL) NOPASSWD: /usr/bin/nmap" > /etc/sudoers.d/zabbix
+
+USER zabbix

@@ -11,7 +11,7 @@ jobs:
 
   build-pure-images:
     name: EpicMorg Advanced Nextcloud Stock Images
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
 
     steps:
     - uses: actions/checkout@v4
@@ -20,6 +20,9 @@ jobs:
 
     - name: Test Make
       run:  make
+
+    - name: Install requirements.txt
+      run:  make pip
 
     - name: "Build and Deploy Advanced Nextcloud 14 Stock Images:"
       run:  cd linux/advanced/nextcloud/pure/14 && pwd && make build && make deploy
@@ -85,7 +88,7 @@ jobs:
 
   build-patched-images:
     name: Advanced Nextcloud Patched Images
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
 
     steps:
     - uses: actions/checkout@v4
@@ -94,6 +97,9 @@ jobs:
 
     - name: Test Make
       run:  make
+
+    - name: Install requirements.txt
+      run:  make pip
 
     - name: "Build and Deploy Advanced Nextcloud 14 Patched Images:"
       run:  cd linux/advanced/nextcloud/patched/14 && pwd && make build && make deploy

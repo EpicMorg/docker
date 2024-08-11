@@ -13,7 +13,6 @@ build:
 	make qbt-libtorrent1
 
 deploy:
-	make pip
 	kaniko-wrapper --deploy --kaniko-image gcr.io/kaniko-project/executor:v1.23.2-debug
 
 deploy-compose:

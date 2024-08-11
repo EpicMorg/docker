@@ -20,7 +20,7 @@ jobs:
 
   build-forked-fixed-independed-images:
     name: Forked and fixed independed images
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
 
     steps:
     - uses: actions/checkout@v2
@@ -78,7 +78,7 @@ jobs:
 
   build-base-prod-iamges:
     name: EpicMorg Base Production images
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
 
     steps:
     - uses: actions/checkout@v2
@@ -120,7 +120,7 @@ jobs:
 
   build-base-edge-iamges:
     name: EpicMorg Base Edge images
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     needs: build-base-prod-iamges
 
     steps:
@@ -164,7 +164,7 @@ jobs:
 
   build-base-develop-iamges:
     name: EpicMorg Base Develop images
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     needs: build-base-edge-iamges
 
     steps:
@@ -208,7 +208,7 @@ jobs:
 
   build-emg-main-iamges:
     name: EpicMorg Main images
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     needs: build-base-develop-iamges
 
     steps:
@@ -267,7 +267,7 @@ jobs:
 
   build-tr-iamges:
     name: Testrail image
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     needs: build-emg-main-iamges
 
     steps:
@@ -291,7 +291,7 @@ jobs:
 
   build-emg-additional-web-iamges:
     name: EpicMorg Secondary images
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     needs: build-emg-main-iamges
 
     steps:
@@ -378,7 +378,7 @@ jobs:
 
   build-atl-bb-iamges:
     name: Atlassian Bitbucket latest images
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     needs: build-base-prod-iamges
 
     steps:
@@ -407,7 +407,7 @@ jobs:
 
   build-atl-docs-iamges:
     name: Atlassian Confluence latest images
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     needs: build-base-prod-iamges
 
     steps:
@@ -436,7 +436,7 @@ jobs:
 
   build-atl-jira-iamges:
     name: Atlassian Jira latest images
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     needs: build-base-prod-iamges
 
     steps:
@@ -465,7 +465,7 @@ jobs:
 
   build-atl-fycru-iamges:
     name: Atlassian Fisheye + Crucible images
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     needs: build-base-prod-iamges
 
     steps:
@@ -489,7 +489,7 @@ jobs:
 
   build-qbt-iamges:
     name: qBitTorrent images
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     needs: build-base-edge-iamges
 
     steps:
@@ -523,7 +523,7 @@ jobs:
 
   build-pgsql-iamges:
     name: PostgresSQL Backport images
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     needs: build-base-edge-iamges
 
     steps:
@@ -612,7 +612,7 @@ jobs:
 ##################################################################################
   build-nextcloud-backports:
     name: NextCloud Backport images
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
 
     steps:
     - uses: actions/checkout@v2
@@ -673,7 +673,7 @@ jobs:
 
   build-atl-bb6-iamges:
     name: Atlassian Bitbucket 6 Backport images
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     needs: build-base-prod-iamges
 
     steps:
@@ -1427,7 +1427,7 @@ jobs:
 
   build-atl-bb7-iamges:
     name: Atlassian Bitbucket 7 Backport images
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     needs: build-base-prod-iamges
 
     steps:
@@ -1586,7 +1586,7 @@ jobs:
 
   build-atl-docs5-iamges:
     name: Atlassian Confluence 5 Backport images
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     needs: build-base-prod-iamges
 
     steps:
@@ -1625,7 +1625,7 @@ jobs:
 
   build-atl-docs6-iamges:
     name: Atlassian Confluence 6 Backport images
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     needs: build-base-prod-iamges
 
     steps:
@@ -2195,7 +2195,7 @@ jobs:
 
   build-atl-docs7-iamges:
     name: Atlassian Confluence 7 Backport images
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     needs: build-base-prod-iamges
 
     steps:
@@ -2404,7 +2404,7 @@ jobs:
 
   build-atl-jira5-iamges:
     name: Atlassian Jira 5 Backport images
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     needs: build-base-prod-iamges
 
     steps:
@@ -2428,7 +2428,7 @@ jobs:
 
   build-atl-jira6-iamges:
     name: Atlassian Jira 6 Backport images
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     needs: build-base-prod-iamges
 
     steps:
@@ -2462,7 +2462,7 @@ jobs:
 
   build-atl-jira7-iamges:
     name: Atlassian Jira 7 Backport images
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     needs: build-base-prod-iamges
 
     steps:
@@ -3063,7 +3063,7 @@ jobs:
 
   build-atl-jira8-iamges:
     name: Atlassian Jira 8 Backport images
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     needs: build-base-prod-iamges
 
     steps:
