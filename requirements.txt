@@ -1,0 +1,7 @@
+netaddr
+ansible
+ansible-lint
+ansible-lint-junit
+PyYAML
+python-dotenv
+kaniko-wrapper

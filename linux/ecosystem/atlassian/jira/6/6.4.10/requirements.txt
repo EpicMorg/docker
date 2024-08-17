@@ -1,3 +1,0 @@
-PyYAML
-python-dotenv
-kaniko-wrapper

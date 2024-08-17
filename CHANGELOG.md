@@ -1,5 +1,13 @@
 # Changelog
 ## 2024
+* `aug`
+	* fixed `Makefile`+ gha
+	* added support of `zabbix` version `7.0` + gha
+	* dropped `Astra CE\SE` due potencial license issues. Sorry.
+	* dropped `kaniko` local script instead of `pip` verion.
+	* added `Support Document for Docker Image Concepts in Project` document.
+	* backported new `CVE-fixed` versions of `atlassian` images.
+	* `WIP`: reworking by new concept of base images and creating new `nginx 1.27.0` with static build.
 * `july`
   * Start migration from `Odrey's` repos due to author's rot.
   	* [@oerdnj](https://github.com/oerdnj) go to hell, [xenophobe](https://github.com/oerdnj/deb.sury.org/issues/2155)! :fu:

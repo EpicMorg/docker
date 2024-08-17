@@ -13,7 +13,7 @@ jobs:
 
   build-freegpt-webui-image:
     name: EpicMorg EcoSystem freegpt-webui Image
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
 
     steps:
     - uses: actions/checkout@v4
@@ -22,6 +22,9 @@ jobs:
 
     - name: Test Make
       run:  make
+
+    - name: Install requirements.txt
+      run:  make pip
 
     - name: Build and Deploy freegpt-webui 1.0
       run:  cd linux/ecosystem/freegpt-webui/1.0 && make build && make deploy

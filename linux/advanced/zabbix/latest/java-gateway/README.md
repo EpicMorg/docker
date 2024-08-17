@@ -14,7 +14,7 @@ Zabbix Java Gateway performs native support for monitoring JMX applications. Jav
 
 # Zabbix Java Gateway images
 
-These are the only official Zabbix Java Gateway Docker images. They are based on Alpine Linux v3.12, Ubuntu 20.04 (focal), 22.04 (jammy), CentOS Stream 8 and Oracle Linux 8 images. The available versions of Zabbix Java Gateway are:
+These are the only official Zabbix Java Gateway Docker images. They are based on Alpine Linux v3.12, Ubuntu 20.04 (focal), 22.04 (noble), CentOS Stream 8 and Oracle Linux 8 images. The available versions of Zabbix Java Gateway are:
 
     Zabbix Java Gateway 4.0 (tags: alpine-4.0-latest, ubuntu-4.0-latest, centos-4.0-latest)
     Zabbix Java Gateway 4.0.* (tags: alpine-4.0.*, ubuntu-4.0.*, centos-4.0.*)

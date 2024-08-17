@@ -11,7 +11,7 @@ jobs:
 
   build-latest-images:
     name: EpicMorg Advanced Zabbix Latest Images
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
 
     steps:
     - uses: actions/checkout@v4
@@ -20,6 +20,9 @@ jobs:
 
     - name: Test Make
       run:  make
+
+    - name: Install requirements.txt
+      run:  make pip
 
     - name: "Build and Deploy Advanced Zabbix Agent Images:"
       run:  cd linux/advanced/zabbix/latest/agent && pwd && make build && make deploy
@@ -55,7 +58,7 @@ jobs:
 
   build-30-images:
     name: Build EpicMorg Advanced Zabbix 3.0 Images
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
 
     steps:
     - uses: actions/checkout@v4
@@ -64,6 +67,9 @@ jobs:
 
     - name: Test Make
       run:  make
+
+    - name: Install requirements.txt
+      run:  make pip
 
     - name: "Build and Deploy Advanced Zabbix Agent Images:"
       run:  cd linux/advanced/zabbix/3.0/agent && pwd && make build && make deploy
@@ -96,7 +102,7 @@ jobs:
 
   build-40-images:
     name: Build EpicMorg Advanced Zabbix 4.0 Images
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
 
     steps:
     - uses: actions/checkout@v4
@@ -105,6 +111,9 @@ jobs:
 
     - name: Test Make
       run:  make
+
+    - name: Install requirements.txt
+      run:  make pip
 
     - name: "Build and Deploy Advanced Zabbix Agent Images:"
       run:  cd linux/advanced/zabbix/4.0/agent && pwd && make build && make deploy
@@ -137,7 +146,7 @@ jobs:
 
   build-50-images:
     name: Build EpicMorg Advanced Zabbix 5.0 Images
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
 
     steps:
     - uses: actions/checkout@v4
@@ -146,6 +155,9 @@ jobs:
 
     - name: Test Make
       run:  make
+
+    - name: Install requirements.txt
+      run:  make pip
 
     - name: "Build and Deploy Advanced Zabbix Agent Images:"
       run:  cd linux/advanced/zabbix/5.0/agent && pwd && make build && make deploy
@@ -181,7 +193,7 @@ jobs:
 
   build-52-images:
     name: Build EpicMorg Advanced Zabbix 5.2 Images
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
 
     steps:
     - uses: actions/checkout@v4
@@ -190,6 +202,9 @@ jobs:
 
     - name: Test Make
       run:  make
+
+    - name: Install requirements.txt
+      run:  make pip
 
     - name: "Build and Deploy Advanced Zabbix Agent Images:"
       run:  cd linux/advanced/zabbix/5.2/agent && pwd && make build && make deploy
@@ -225,7 +240,7 @@ jobs:
 
   build-54-images:
     name: Build EpicMorg Advanced Zabbix 5.4 Images
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
 
     steps:
     - uses: actions/checkout@v4
@@ -234,6 +249,9 @@ jobs:
 
     - name: Test Make
       run:  make
+
+    - name: Install requirements.txt
+      run:  make pip
 
     - name: "Build and Deploy Advanced Zabbix Agent Images:"
       run:  cd linux/advanced/zabbix/5.4/agent && pwd && make build && make deploy
@@ -269,7 +287,7 @@ jobs:
 
   build-60-images:
     name: Build EpicMorg Advanced Zabbix 6.0 Images
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
 
     steps:
     - uses: actions/checkout@v4
@@ -278,6 +296,9 @@ jobs:
 
     - name: Test Make
       run:  make
+
+    - name: Install requirements.txt
+      run:  make pip
 
     - name: "Build and Deploy Advanced Zabbix Agent Images:"
       run:  cd linux/advanced/zabbix/6.0/agent && pwd && make build && make deploy
@@ -313,7 +334,7 @@ jobs:
 
   build-62-images:
     name: Build EpicMorg Advanced Zabbix 6.2 Images
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
 
     steps:
     - uses: actions/checkout@v4
@@ -322,6 +343,9 @@ jobs:
 
     - name: Test Make
       run:  make
+
+    - name: Install requirements.txt
+      run:  make pip
 
     - name: "Build and Deploy Advanced Zabbix Agent Images:"
       run:  cd linux/advanced/zabbix/6.2/agent && pwd && make build && make deploy
@@ -356,8 +380,8 @@ jobs:
 ##################################################################################
 
   build-64-images:
-    name: Build EpicMorg Advanced Zabbix 6.2 Images
-    runs-on: ubuntu-22.04
+    name: Build EpicMorg Advanced Zabbix 6.4 Images
+    runs-on: ubuntu-24.04
 
     steps:
     - uses: actions/checkout@v4
@@ -366,6 +390,9 @@ jobs:
 
     - name: Test Make
       run:  make
+
+    - name: Install requirements.txt
+      run:  make pip
 
     - name: "Build and Deploy Advanced Zabbix Agent Images:"
       run:  cd linux/advanced/zabbix/6.4/agent && pwd && make build && make deploy
@@ -399,9 +426,9 @@ jobs:
 
 ##################################################################################
 
-  build-trunk-images:
-    name: Build EpicMorg Advanced Zabbix 6.2 Images
-    runs-on: ubuntu-22.04
+  build-70-images:
+    name: Build EpicMorg Advanced Zabbix 7.0 Images
+    runs-on: ubuntu-24.04
 
     steps:
     - uses: actions/checkout@v4
@@ -410,6 +437,56 @@ jobs:
 
     - name: Test Make
       run:  make
+
+    - name: Install requirements.txt
+      run:  make pip
+
+    - name: "Build and Deploy Advanced Zabbix Agent Images:"
+      run:  cd linux/advanced/zabbix/7.0/agent && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Agent2 Images:"
+      run:  cd linux/advanced/zabbix/7.0/agent2 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Java Gateway  Images:"
+      run:  cd linux/advanced/zabbix/7.0/java-gateway && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Proxy Mysql Images:"
+      run:  cd linux/advanced/zabbix/7.0/proxy-mysql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Proxy Sqlite3 Images:"
+      run:  cd linux/advanced/zabbix/7.0/proxy-sqlite3 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Server Mysql Images:"
+      run:  cd linux/advanced/zabbix/7.0/server-mysql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Server Pgsql Images:"
+      run:  cd linux/advanced/zabbix/7.0/server-pgsql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Snmptraps Images:"
+      run:  cd linux/advanced/zabbix/7.0/snmptraps && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Web Mysql Images:"
+      run:  cd linux/advanced/zabbix/7.0/web-mysql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Web Pgsql Images:"
+      run:  cd linux/advanced/zabbix/7.0/web-pgsql && pwd && make build && make deploy
+
+##################################################################################
+
+  build-trunk-images:
+    name: Build EpicMorg Advanced Zabbix trunk Images
+    runs-on: ubuntu-24.04
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Log into registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Test Make
+      run:  make
+
+    - name: Install requirements.txt
+      run:  make pip
 
     - name: "Build and Deploy Advanced Zabbix Agent Images:"
       run:  cd linux/advanced/zabbix/trunk/agent && pwd && make build && make deploy

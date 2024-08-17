@@ -347,7 +347,9 @@ RUN mkdir -p \
       ${NGINX_LOCK_DIR} \
       ${NGINX_LOGS_DIR} \
       ${NGINX_PID_DIR} \
+      /var/www \
     &&  \
+    mv ${NGINX_HTML_DIR} /var/www/ &\
     ln -sfv /etc/ssl/dhparam.pem ${NGINX_CONF_DIR}/dhparam.pem && \
     ln -sfv ${NGINX_MODULES_DIR} ${NGINX_DIR}/modules && \
     ln -sfv ${NGINX_MODULES_PERL_DIR} ${NGINX_DIR}/modules-perl && \
@@ -356,7 +358,9 @@ RUN mkdir -p \
     ln -sfv /dev/stdout /var/log/nginx/access.log && \
     ln -sfv /dev/stderr /var/log/nginx/error.log && \
     ln -sfv /var/lock/nginx ${NGINX_DIR}/lock && \
-    ln -sfv /var/run/nginx ${NGINX_DIR}/run
+    ln -sfv /var/run/nginx ${NGINX_DIR}/run && \
+    ln -sfv /var/www/html ${NGINX_HTML_DIR} && \
+    ln -sfv ${NGINX_DIR} /usr/share/nginx
 
 ##################################################################
 #                   Add nginx to $PATH

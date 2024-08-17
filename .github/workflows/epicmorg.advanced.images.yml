@@ -11,7 +11,7 @@ jobs:
 
   build-images:
     name: Build EpicMorg Advanced Images
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
 
     steps:
     - uses: actions/checkout@v4
@@ -20,6 +20,9 @@ jobs:
 
     - name: Test Make
       run:  make
+
+    - name: Install requirements.txt
+      run:  make pip
 
 ##################################################################################
 

@@ -9,68 +9,9 @@ on:
 
 jobs:
 
-  build-php-images:
-    name: Build EpicMorg PHP Images
-    runs-on: ubuntu-22.04
-
-    steps:
-    - uses: actions/checkout@v4
-    - name: Log into registry
-      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
-
-    - name: Test Make
-      run:  make
-
-#    - name: "Build and Deploy PHP Latest Image:"
-#      run:  cd linux/ecosystem/php/latest    && pwd && make build && make deploy
-
-    - name: "Build and Deploy PHP 7.0 Image:"
-      run:  cd linux/ecosystem/php/php7.0    && pwd && make build && make deploy
-
-    - name: "Build and Deploy PHP 7.1 Image:"
-      run:  cd linux/ecosystem/php/php7.1    && pwd && make build && make deploy
-
-    - name: "Build and Deploy PHP 7.2 Image:"
-      run:  cd linux/ecosystem/php/php7.2    && pwd && make build && make deploy
-
-    - name: "Build and Deploy PHP 7.3 Image:"
-      run:  cd linux/ecosystem/php/php7.3    && pwd && make build && make deploy
-
-##################################################################################
-
-    - name: Cleanup
-      run: make docker-clean
-
-##################################################################################
-
-    - name: "Build and Deploy PHP 7.4 Image:"
-      run:  cd linux/ecosystem/php/php7.4    && pwd && make build && make deploy
-
-    - name: "Build and Deploy PHP 8.0 Image:"
-      run:  cd linux/ecosystem/php/php8.0    && pwd && make build && make deploy
-
-    - name: "Build and Deploy PHP 8.1 Image:"
-      run:  cd linux/ecosystem/php/php8.1    && pwd && make build && make deploy
-
-##################################################################################
-
-    - name: Cleanup
-      run: make docker-clean
-
-##################################################################################
-
-    - name: "Build and Deploy PHP 8.2 Image:"
-      run:  cd linux/ecosystem/php/php8.2    && pwd && make build && make deploy
-
-    - name: "Build and Deploy PHP 8.3 Image:"
-      run:  cd linux/ecosystem/php/php8.3    && pwd && make build && make deploy
-
-##################################################################################
-
   build-apache2-images:
     name: Build EpicMorg Apache 2 Images
-    runs-on: ubuntu-22.04
-    needs: build-php-images
+    runs-on: ubuntu-24.04
 
     steps:
     - uses: actions/checkout@v4
@@ -79,6 +20,9 @@ jobs:
 
     - name: Test Make
       run:  make
+
+    - name: Install requirements.txt
+      run:  make pip
 
 #    - name: "Build and Deploy Apache 2 Latest Image:"
 #      run:  cd linux/ecosystem/apache2/latest    && pwd && make build && make deploy
@@ -128,8 +72,7 @@ jobs:
 
   build-nginx-images:
     name: Build EpicMorg NginX Images
-    runs-on: ubuntu-22.04
-    needs: build-php-images
+    runs-on: ubuntu-24.04
 
     steps:
     - uses: actions/checkout@v4
@@ -138,6 +81,9 @@ jobs:
 
     - name: Test Make
       run:  make
+
+    - name: Install requirements.txt
+      run:  make pip
 
     - name: "Build and Deploy NginX Image:"
       run:  cd linux/ecosystem/nginx/latest/mainline/main    && pwd && make build && make deploy

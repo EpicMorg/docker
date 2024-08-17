@@ -8,6 +8,13 @@ ARG DEBIAN_FRONTEND=noninteractive
 # /etc/ld.so.conf.d/
 ARG LD_CONF_DIR=/etc/ld.so.conf.d/
 
+# cmake compiller
+ENV CMAKE_VERSION=3.30.2
+ENV CMAKE_DIR=${EMG_LOCAL_BASE_DIR}/cmake/${CMAKE_VERSION}
+ARG CMAKE_BIN_DIR=${CMAKE_DIR}/bin
+ARG CMAKE_DOWNLOAD_URL=https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}-linux-x86_64.tar.gz
+ARG CMAKE_TEMP=/tmp/cmake-${CMAKE_VERSION}-linux-x86_64.tar.gz
+
 # flutter source tarball
 ENV FLUTTER_VERSION=3.22.3
 ENV FLUTTER_CHANNEL=stable
@@ -357,6 +364,25 @@ RUN echo "=============================================" && \
     echo "============================================="
 
 ##################################################################
+#                   CMake
+##################################################################
+RUN mkdir -p ${CMAKE_DIR}
+ADD ${CMAKE_DOWNLOAD_URL} /tmp
+
+RUN tar -xf ${CMAKE_TEMP} --directory ${CMAKE_DIR} --strip-components=1 && \
+    chmod +x ${CMAKE_BIN_DIR}/ccmake && \
+    chmod +x ${CMAKE_BIN_DIR}/cmake && \
+    chmod +x ${CMAKE_BIN_DIR}/cmake-gui && \
+    chmod +x ${CMAKE_BIN_DIR}/cpack && \
+    chmod +x ${CMAKE_BIN_DIR}/ctest
+
+ENV PATH="${CMAKE_BIN_DIR}:${PATH}"
+
+RUN echo "=============================================" && \
+    echo $(cmake --version) && \
+    echo "============================================="
+
+##################################################################
 #                   Flutter SDK
 ##################################################################
 RUN mkdir -p ${FLUTTER_DIR}
@@ -423,13 +449,11 @@ RUN tar -xzf ${ZLIB_TEMP} --directory /tmp && \
     ln -sf ${ZLIB_SRC_DIR}  ${ZLIB_DIR}/src && \
     cd ${ZLIB_TEMP_SRC} && \
     ./configure \
-      --static \
+#      --static \
       --prefix=${ZLIB_DIR} \
       && \
     make -j$(nproc) && \
     make -j$(nproc) install && \
-    ln -sfv ${ZLIB_INC_DIR}/* /usr/local/include && \
-    ln -sfv ${ZLIB_LIB_DIR}/* /usr/local/lib && \
     echo "# ZLIB support" >> ${LD_CONF_DIR}/ZLIB.conf && \
     echo ${ZLIB_LIB_DIR} >> ${LD_CONF_DIR}/ZLIB.conf && \
     ldconfig
@@ -446,11 +470,9 @@ RUN tar -xzf ${ZSTD_TEMP} --directory /tmp && \
     cd ${ZSTD_TEMP_SRC} && \
     mkdir -p ${ZSTD_TEMP_SRC}/build/cmake/builddir && \
     cd ${ZSTD_TEMP_SRC}/build/cmake/builddir && \
-    cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=${ZSTD_DIR} -DZSTD_BUILD_STATIC=ON -DZSTD_BUILD_SHARED=OFF .. && \
+    cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=${ZSTD_DIR} -DZSTD_BUILD_STATIC=ON -DZSTD_BUILD_SHARED=ON .. && \
     make -j$(nproc) && \
     make -j$(nproc) install && \
-    ln -sfv ${ZSTD_INC_DIR}/* /usr/local/include && \
-    ln -sfv ${ZSTD_LIB_DIR}/* /usr/local/lib && \
     echo "# ZSTD support" >> ${LD_CONF_DIR}/ZSTD.conf && \
     echo ${ZSTD_LIB_DIR} >> ${LD_CONF_DIR}/ZSTD.conf && \
     ldconfig
@@ -492,8 +514,6 @@ RUN tar -xzf ${PCRE_TEMP} --directory /tmp && \
         && \
     make -j$(nproc) && \
     make -j$(nproc) install && \
-    ln -sfv ${PCRE_INC_DIR}/* /usr/local/include && \
-    ln -sfv ${PCRE_LIB_DIR}/* /usr/local/lib && \
     echo "# PRCE2 support" >> ${LD_CONF_DIR}/PRCE2.conf && \
     echo ${PCRE_LIB_DIR} >> ${LD_CONF_DIR}/PRCE2.conf && \
     ldconfig
@@ -512,10 +532,9 @@ RUN mkdir -p ${LUAJIT2OR_DIR} ${LUAJIT2OR_SRC_DIR} && \
     cp -rfv ${LUAJIT2OR_TEMP_SRC}/* ${LUAJIT2OR_SRC_DIR} && \
     ln -sf ${LUAJIT2OR_SRC_DIR} ${LUAJIT2OR_DIR}/src && \
     cd ${LUAJIT2OR_TEMP_SRC} && \
-    make -j$(nproc) XCFLAGS='-DLUAJIT_ENABLE_GC64' BUILDMODE=static && \
+#    make -j$(nproc) XCFLAGS='-DLUAJIT_ENABLE_GC64' BUILDMODE=static && \
+    make -j$(nproc) XCFLAGS='-DLUAJIT_ENABLE_GC64' BUILDMODE=mixed && \
     make -j$(nproc) install PREFIX=${LUAJIT2OR_DIR} && \
-    ln -sfv ${LUAJIT2OR_INC_DIR}/* /usr/local/include && \
-    ln -sfv ${LUAJIT2OR_LIB_DIR}/* /usr/local/lib && \
     echo "# LuaJIT2 support" >> ${LD_CONF_DIR}/LuaJIT2.conf && \
     echo ${LUAJIT2OR_LIB_DIR} >> ${LD_CONF_DIR}/LuaJIT2.conf && \
     ldconfig
@@ -549,8 +568,6 @@ RUN tar -xzf ${IP2LOC_TEMP} --directory /tmp && \
       && \
     make -j$(nproc) && \
     make -j$(nproc) install && \
-    ln -sfv ${IP2LOC_INC_DIR}/* /usr/local/include && \
-    ln -sfv ${IP2LOC_LIB_DIR}/* /usr/local/lib && \
     echo "# IP2Location support" >> ${LD_CONF_DIR}/IP2Location.conf && \
     echo ${IP2LOC_LIB_DIR} >> ${LD_CONF_DIR}/IP2Location.conf && \
     ldconfig
@@ -579,8 +596,6 @@ RUN tar -xzf ${LIBATOMICOPS_TEMP} --directory /tmp && \
     make -j$(nproc) && \
     make -j$(nproc) install && \
     ln -sfv ${LIBATOMICOPS_SRC_DIR} ${LIBATOMICOPS_SRC_DIR}/src && \
-    ln -sfv ${LIBATOMICOPS_INC_DIR}/* /usr/local/include && \
-    ln -sfv ${LIBATOMICOPS_LIB_DIR}/* /usr/local/lib && \
     echo "# libatomic_ops support" >> ${LD_CONF_DIR}/libatomic_ops.conf && \
     echo ${LIBATOMICOPS_LIB_DIR} >> ${LD_CONF_DIR}/libatomic_ops.conf && \
     ldconfig
@@ -648,8 +663,6 @@ RUN tar -xzf ${LIBGD_TEMP} --directory /tmp && \
       && \
     make -j$(nproc) && \
     make -j$(nproc) install && \
-    ln -sfv ${LIBGD_INC_DIR}/* /usr/local/include && \
-    ln -sfv ${LIBGD_LIB_DIR}/* /usr/local/lib && \
     echo "# libgd support" >> ${LD_CONF_DIR}/libgd.conf && \
     echo ${LIBGD_LIB_DIR} >> ${LD_CONF_DIR}/libgd.conf && \
     ldconfig
@@ -711,8 +724,6 @@ RUN tar -xzf ${LIBXML2_TEMP} --directory /tmp && \
       && \
     make -j$(nproc) && \
     make -j$(nproc) install && \
-    ln -sfv ${LIBXML2_INC_DIR}/* /usr/local/include && \
-    ln -sfv ${LIBXML2_LIB_DIR}/* /usr/local/lib && \
     echo "# libxslt support" >> ${LD_CONF_DIR}/libxml2.conf && \
     echo ${LIBXML2_LIB_DIR} >> ${LD_CONF_DIR}/libxml2.conf && \
     ldconfig
@@ -745,8 +756,6 @@ RUN tar -xzf ${LIBXSLT_TEMP} --directory /tmp && \
       && \
     make -j$(nproc) && \
     make -j$(nproc) install && \
-    ln -sfv ${LIBXSLT_INC_DIR}/* /usr/local/include && \
-    ln -sfv ${LIBXSLT_LIB_DIR}/* /usr/local/lib && \
     echo "# libxslt support" >> ${LD_CONF_DIR}/libxslt.conf && \
     echo ${LIBXSLT_LIB_DIR} >> ${LD_CONF_DIR}/libxslt.conf && \
     ldconfig
@@ -777,8 +786,6 @@ RUN tar -xzf ${MM_GEOIP_TEMP} --directory /tmp && \
       && \
     make -j$(nproc) && \
     make -j$(nproc) install && \
-    ln -sfv ${MM_GEOIP_INC_DIR}/* /usr/local/include && \
-    ln -sfv ${MM_GEOIP_LIB_DIR}/* /usr/local/lib && \
     echo "# GeoIP support" >> ${LD_CONF_DIR}/GeoIP.conf && \
     echo ${MM_GEOIP_LIB_DIR} >> ${LD_CONF_DIR}/GeoIP.conf && \
     ldconfig
@@ -807,8 +814,6 @@ RUN tar -xzf ${GPERFTOOLS_TEMP} --directory /tmp && \
       && \
     make -j$(nproc) && \
     make -j$(nproc) install && \
-    ln -sfv ${GPERFTOOLS_INC_DIR}/* /usr/local/include && \
-    ln -sfv ${GPERFTOOLS_LIB_DIR}/* /usr/local/lib && \
     echo "# Google perftools support" >> ${LD_CONF_DIR}/Googleperftools.conf && \
     echo ${GPERFTOOLS_LIB_DIR} >> ${LD_CONF_DIR}/Googleperftools.conf && \
     ldconfig
@@ -955,8 +960,6 @@ RUN tar -xzf ${OPENSSL_33_TEMP} --directory /tmp && \
       && \
     make -j$(nproc) && \
     make -j$(nproc) install && \
-    ln -sfv ${OPENSSL_33_INC_DIR}/* /usr/local/include && \
-    ln -sfv ${OPENSSL_33_LIB_DIR}/* /usr/local/lib && \
     echo "# OpenSSL support" >> ${LD_CONF_DIR}/OpenSSL.conf && \
     echo ${OPENSSL_33_LIB_DIR} >> ${LD_CONF_DIR}/OpenSSL.conf && \
     ldconfig
@@ -979,8 +982,6 @@ RUN tar -xzf ${LIBRESSL_TEMP} --directory /tmp && \
       && \
     make -j$(nproc) && \
     make -j$(nproc) install && \
-#    ln -sfv ${LIBRESSL_INC_DIR}/* /usr/local/include && \
-#    ln -sfv ${LIBRESSL_LIB_DIR}/* /usr/local/lib && \
 #    echo "# LibreSSL support" >> ${LD_CONF_DIR}/LibreSSL.conf && \
 #    echo ${LIBRESSL_LIB_DIR} >> ${LD_CONF_DIR}/LibreSSL.conf && \
     ldconfig
@@ -994,12 +995,12 @@ RUN mkdir -p ${BORINGSSL_DIR} ${BORINGSSL_SRC_DIR} && \
     ln -sf ${BORINGSSL_SRC_DIR} ${BORINGSSL_DIR}/src && \
     cd ${BORINGSSL_TEMP_SRC} && \
     mkdir ${BORINGSSL_TEMP_SRC}/build && \
-    cd ${BORINGSSL_TEMP_SRC}/build && \
-    cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_POSITION_INDEPENDENT_CODE=TRUE -DBUILD_SHARED_LIBS=1 -DCMAKE_INSTALL_PREFIX=${BORINGSSL_DIR} .. && \
-    make -j$(if [ $(nproc) -gt 8 ]; then echo $(( $(nproc) / 2 )); else echo $(nproc); fi) && \
-    make -j$(nproc) install && \
-#    ln -sfv ${BORINGSSL_INC_DIR}/* /usr/local/include && \
-#    ln -sfv ${BORINGSSL_LIB_DIR}/* /usr/local/lib && \
+    cmake -GNinja -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_POSITION_INDEPENDENT_CODE=TRUE -DBUILD_SHARED_LIBS=1 -DCMAKE_INSTALL_PREFIX=${BORINGSSL_DIR} && \
+    ninja -C build && \
+#    cd ${BORINGSSL_TEMP_SRC}/build && \
+#    cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_POSITION_INDEPENDENT_CODE=TRUE -DBUILD_SHARED_LIBS=1 -DCMAKE_INSTALL_PREFIX=${BORINGSSL_DIR} .. && \
+#    make -j$(if [ $(nproc) -gt 8 ]; then echo $(( $(nproc) / 2 )); else echo $(nproc); fi) && \
+#    make -j$(nproc) install && \
 #    echo "# BoringSSL support" >> ${LD_CONF_DIR}/BoringSSL.conf && \
 #    echo ${BORINGSSL_LIB_DIR} >> ${LD_CONF_DIR}/BoringSSL.conf && \
     ldconfig

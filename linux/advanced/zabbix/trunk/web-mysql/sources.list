@@ -3,15 +3,15 @@
 #------------------------------------------------------------------------------#
 
 ###### Ubuntu Main Repos
-deb  http://mirror.yandex.ru/ubuntu/ jammy main restricted universe multiverse
-deb-src  http://mirror.yandex.ru/ubuntu/ jammy main restricted universe multiverse
+deb  http://mirror.yandex.ru/ubuntu/ noble main restricted universe multiverse
+deb-src  http://mirror.yandex.ru/ubuntu/ noble main restricted universe multiverse
 
 ###### Ubuntu Update Repos
-deb http://ru.archive.ubuntu.com/ubuntu/ jammy-security main restricted universe multiverse
-deb http://ru.archive.ubuntu.com/ubuntu/ jammy-updates main restricted universe multiverse
-deb http://ru.archive.ubuntu.com/ubuntu/ jammy-proposed main restricted universe multiverse
-deb http://ru.archive.ubuntu.com/ubuntu/ jammy-backports main restricted universe multiverse
-deb-src http://ru.archive.ubuntu.com/ubuntu/ jammy-security main restricted universe multiverse
-deb-src http://ru.archive.ubuntu.com/ubuntu/ jammy-updates main restricted universe multiverse
-deb-src http://ru.archive.ubuntu.com/ubuntu/ jammy-proposed main restricted universe multiverse
-deb-src http://ru.archive.ubuntu.com/ubuntu/ jammy-backports main restricted universe multiverse
+deb http://ru.archive.ubuntu.com/ubuntu/ noble-security main restricted universe multiverse
+deb http://ru.archive.ubuntu.com/ubuntu/ noble-updates main restricted universe multiverse
+deb http://ru.archive.ubuntu.com/ubuntu/ noble-proposed main restricted universe multiverse
+deb http://ru.archive.ubuntu.com/ubuntu/ noble-backports main restricted universe multiverse
+deb-src http://ru.archive.ubuntu.com/ubuntu/ noble-security main restricted universe multiverse
+deb-src http://ru.archive.ubuntu.com/ubuntu/ noble-updates main restricted universe multiverse
+deb-src http://ru.archive.ubuntu.com/ubuntu/ noble-proposed main restricted universe multiverse
+deb-src http://ru.archive.ubuntu.com/ubuntu/ noble-backports main restricted universe multiverse

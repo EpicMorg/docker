@@ -11,7 +11,7 @@ jobs:
 
   build-tca-main-images:
     name: Build EpicMorg TeamCity Agent Main Images
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
 
     steps:
     - uses: actions/checkout@v4
@@ -20,6 +20,9 @@ jobs:
 
     - name: Test Make
       run:  make
+
+    - name: Install requirements.txt
+      run:  make pip
 
     - name: "Build and Deploy TeamCity Agent Main Image (jdk8):"
       run:  cd linux/ecosystem/teamcity/agent/latest/jdk8    && pwd && make build && make deploy
@@ -37,7 +40,7 @@ jobs:
 
   build-tca-other-images:
     name: Build EpicMorg TeamCity Agent Oter Images
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs: build-tca-main-images
 
     steps:
@@ -47,6 +50,9 @@ jobs:
 
     - name: Test Make
       run:  make
+
+    - name: Install requirements.txt
+      run:  make pip
 
     - name: "Build and Deploy TeamCity Agent amxX 1.9 SDK Image:"
       run:  cd linux/ecosystem/teamcity/agent/amxx-sdk/1.9    && pwd && make build && make deploy
