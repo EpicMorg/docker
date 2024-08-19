@@ -1,4 +1,4 @@
-FROM epicmorg/debian:bookworm
+FROM epicmorg/debian:bullseye
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -23,14 +23,6 @@ RUN mkdir -p ${DOTNET_ROOT} && \
 #                   Setup $PATH
 ##################################################################
 ENV PATH=$PATH:${DOTNET_ROOT}:${DOTNET_TOOLS_DIR}
-
-##################################################################
-#                   Setup certs
-##################################################################
-RUN dotnet dev-certs https -ep /usr/local/share/ca-certificates/aspnet/https.crt --format PEM && \
-    update-ca-certificates --fresh && \
-    dotnet dev-certs https --trust
-    
 
 ##################################################################
 #                   Version after install

@@ -2,10 +2,18 @@
 
 `timestamp: 2024/08/12`
 
-| Debian | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | sid |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| **codename** | squeeze | wheezy | jessie | stretch | buster | **bullseye** | **bookworm** | trixie | sid |
-| **status** | deprecated | deprecated | deprecated | deprecated | deprecated | **LTS** | **Current** | testing | unstable |
+| Debian | **codename** | **status** |
+|:-------------|:-------------|:-------------|
+| [![GHA](https://img.shields.io/github/actions/workflow/status/EpicMorg/docker/epicmorg.base.images.debian.sid.yml?label=SID&logo=Debian%20sid%20Images&style=flat-square)](https://github.com/EpicMorg/docker/actions/workflows/epicmorg.base.images.debian.sid.yml) | `sid` | `unstable` | 
+| [![GHA](https://img.shields.io/github/actions/workflow/status/EpicMorg/docker/epicmorg.base.images.debian.13.yml?label=13&logo=Debian%2013%20Images&style=flat-square)](https://github.com/EpicMorg/docker/actions/workflows/epicmorg.base.images.debian.13.yml) | `trixie` | `testing` |
+| [![GHA](https://img.shields.io/github/actions/workflow/status/EpicMorg/docker/epicmorg.base.images.debian.12.yml?label=12&logo=Debian%2012%20Images&style=flat-square)](https://github.com/EpicMorg/docker/actions/workflows/epicmorg.base.images.debian.12.yml) | **`bookworm`** | **`Stable`**  |
+| [![GHA](https://img.shields.io/github/actions/workflow/status/EpicMorg/docker/epicmorg.base.images.debian.11.yml?label=11&logo=Debian%2011%20Images&style=flat-square)](https://github.com/EpicMorg/docker/actions/workflows/epicmorg.base.images.debian.11.yml) | **`bullseye`**  | **`LTS`** \ `oldstable`|
+| [![GHA](https://img.shields.io/github/actions/workflow/status/EpicMorg/docker/epicmorg.base.images.debian.10.yml?label=10&logo=Debian%20Legacy%20Images&style=flat-square)](https://github.com/EpicMorg/docker/actions/workflows/epicmorg.base.images.debian.10.yml) | `buster` | `deprecated`, `oldoldstable `|
+| [![GHA](https://img.shields.io/github/actions/workflow/status/EpicMorg/docker/epicmorg.base.images.debian.9.yml?label=9&logo=Debian%20Legacy%20Images&style=flat-square)](https://github.com/EpicMorg/docker/actions/workflows/epicmorg.base.images.debian.9.yml) | `stretch` | `deprecated` |
+| [![GHA](https://img.shields.io/github/actions/workflow/status/EpicMorg/docker/epicmorg.base.images.debian.8.yml?label=8&logo=Debian%20Legacy%20Images&style=flat-square)](https://github.com/EpicMorg/docker/actions/workflows/epicmorg.base.images.debian.8.yml) | `jessie` | `deprecated` |
+| [![GHA](https://img.shields.io/github/actions/workflow/status/EpicMorg/docker/epicmorg.base.images.debian.7.yml?label=7&logo=Debian%20Legacy%20Images&style=flat-square)](https://github.com/EpicMorg/docker/actions/workflows/epicmorg.base.images.debian.7.yml) | `wheezy` | `deprecated` |
+| [![GHA](https://img.shields.io/github/actions/workflow/status/EpicMorg/docker/epicmorg.base.images.debian.6.yml?label=6&logo=Debian%20Legacy%20Images&style=flat-square)](https://github.com/EpicMorg/docker/actions/workflows/epicmorg.base.images.debian.6.yml) | `squeeze` | `deprecated` |
+
 
 ## Введение
 

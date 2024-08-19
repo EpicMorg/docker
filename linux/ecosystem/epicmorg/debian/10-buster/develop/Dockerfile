@@ -5,22 +5,37 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 #                   ARGuments
 ##################################################################
-ENV BuildDocker true
-ENV GOPATH=/usr/local/go
-ENV CARGOPATH=/root/.cargo
-ENV FLUTTERPATH=/usr/local/flutter
-ENV PATH="${FLUTTERPATH}/bin:${CARGOPATH}/bin:${GOPATH}/bin:${PATH}"
-ARG BUILDS_DIR=/builds
-ARG SRC_DIR=${BUILDS_DIR}/src
-ARG EXPORT_DIR=${BUILDS_DIR}/export
-ARG NINJA_ARCH=linux
-ARG NINJA_VERSION=latest
-ARG NINJA_RELEASE_URL=https://api.github.com/repos/ninja-build/ninja/releases/${NINJA_VERSION}
+# /etc/ld.so.conf.d/
+ARG LD_CONF_DIR=/etc/ld.so.conf.d/
 
-##################################################################
-#                   Files and folders
-##################################################################
-RUN mkdir -p ${SRC_DIR} ${EXPORT_DIR} ${PRE_DIR}
+# cmake compiller
+ENV CMAKE_VERSION=3.30.2
+ENV CMAKE_DIR=${EMG_LOCAL_BASE_DIR}/cmake/${CMAKE_VERSION}
+ARG CMAKE_BIN_DIR=${CMAKE_DIR}/bin
+ARG CMAKE_DOWNLOAD_URL=https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}-linux-x86_64.tar.gz
+ARG CMAKE_TEMP=/tmp/cmake-${CMAKE_VERSION}-linux-x86_64.tar.gz
+
+# flutter source tarball
+ENV FLUTTER_VERSION=3.22.3
+ENV FLUTTER_CHANNEL=stable
+ENV FLUTTER_DIR=${EMG_LOCAL_BASE_DIR}/flutter/${FLUTTER_VERSION}
+ARG FLUTTER_BIN_DIR=${FLUTTER_DIR}/bin
+ARG FLUTTER_DOWNLOAD_URL=https://storage.googleapis.com/flutter_infra_release/releases/${FLUTTER_CHANNEL}/linux/flutter_linux_${FLUTTER_VERSION}-${FLUTTER_CHANNEL}.tar.xz
+ARG FLUTTER_TEMP=/tmp/flutter_linux_${FLUTTER_VERSION}-${FLUTTER_CHANNEL}.tar.xz
+
+# ninja source tarball
+ENV NINJA_VERSION=1.12.1
+ENV NINJA_DIR=${EMG_LOCAL_BASE_DIR}/ninja/${NINJA_VERSION}
+ARG NINJA_BIN_DIR=${NINJA_DIR}/bin
+ARG NINJA_DOWNLOAD_URL=https://github.com/ninja-build/ninja/releases/download/v${NINJA_VERSION}/ninja-linux.zip
+ARG NINJA_TEMP=/tmp/ninja-linux.zip
+
+# GO source tarball
+ENV GO_VERSION=1.22.5
+ENV GO_DIR=${EMG_LOCAL_BASE_DIR}/go/${GO_VERSION}
+ARG GO_BIN_DIR=${GO_DIR}/bin
+ARG GO_DOWNLOAD_URL=https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz
+ARG GO_TEMP=/tmp/go${GO_VERSION}.linux-amd64.tar.gz
 
 ##################################################################
 #                  update lists
@@ -85,6 +100,7 @@ RUN apt-get update && \
     libldap2-dev \
     libavformat-dev \
     libavfilter-dev \
+    libavif-dev \
     libswscale-dev \
     libavcodec-dev \
     libz-dev \
@@ -93,7 +109,6 @@ RUN apt-get update && \
     libcrypto++-dev \
     libbz2-dev \
     libvpx-dev \
-#   libvpx6 \ #not avalible
     tcl \
     g++ \
     gcc \
@@ -114,32 +129,94 @@ RUN apt-get update && \
 ##################################################################
 #                   Rust compillers
 ##################################################################
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile complete --default-toolchain stable --verbose
-RUN printf "\n--------------------------------\n$(cargo --version)\n--------------------------------\n\n"
+ENV CARGO_HOME=${EMG_LOCAL_BASE_DIR}/cargo
+ENV RUSTUP_HOME=${EMG_LOCAL_BASE_DIR}/rustup
+ARG CARGO_BIN=${CARGO_HOME}/bin
+
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path --profile complete --default-toolchain stable --verbose
+
+ENV PATH="$CARGO_HOME/bin:${PATH}"
+
+RUN echo "=============================================" && \
+    echo cargo $(cargo --version) && \
+    echo rustc $(rustc --version) && \
+    echo rustup $(rustup --version) && \
+    echo "============================================="
+
+##################################################################
+#                   CMake
+##################################################################
+RUN mkdir -p ${CMAKE_DIR}
+ADD ${CMAKE_DOWNLOAD_URL} /tmp
+
+RUN tar -xf ${CMAKE_TEMP} --directory ${CMAKE_DIR} --strip-components=1 && \
+    chmod +x ${CMAKE_BIN_DIR}/ccmake && \
+    chmod +x ${CMAKE_BIN_DIR}/cmake && \
+    chmod +x ${CMAKE_BIN_DIR}/cmake-gui && \
+    chmod +x ${CMAKE_BIN_DIR}/cpack && \
+    chmod +x ${CMAKE_BIN_DIR}/ctest
+
+ENV PATH="${CMAKE_BIN_DIR}:${PATH}"
+
+RUN echo "=============================================" && \
+    echo $(cmake --version) && \
+    echo "============================================="
 
 ##################################################################
 #                   Flutter SDK
 ##################################################################
-RUN git clone https://github.com/flutter/flutter.git -b stable /usr/local/flutter
-RUN flutter precache
-RUN flutter config --no-analytics
-RUN dart --disable-analytics
-RUN printf "\n--------------------------------\n$(flutter --version)\n--------------------------------\n\n"
+RUN mkdir -p ${FLUTTER_DIR}
+ADD ${FLUTTER_DOWNLOAD_URL} /tmp
+
+RUN tar -xf ${FLUTTER_TEMP} --directory ${FLUTTER_DIR} --strip-components=1 && \
+    chmod +x ${FLUTTER_BIN_DIR}/dart && \
+    chmod +x ${FLUTTER_BIN_DIR}/flutter && \
+    chmod +x ${FLUTTER_BIN_DIR}/internal/shared.sh && \
+    chmod +x ${FLUTTER_BIN_DIR}/internal/update_dart_sdk.sh
+
+ENV PATH="${FLUTTER_BIN_DIR}:${PATH}"
+
+RUN git config --global --add safe.directory ${FLUTTER_DIR} && \
+    flutter precache && \
+    flutter config --no-analytics && \
+    dart --disable-analytics
+
+RUN echo "=============================================" && \
+    echo dart $(dart --version) && \
+    echo flutter $(flutter --version) && \
+    echo "============================================="
 
 ##################################################################
 #                   GO compillers
 ##################################################################
-RUN printf "\n--------------------------------\n$(go version)\n--------------------------------\n\n"
+RUN mkdir -p ${GO_DIR}
+ADD ${GO_DOWNLOAD_URL} /tmp
+
+RUN tar -xzf ${GO_TEMP} --directory ${GO_DIR} --strip-components=1 && \
+    chmod +x ${GO_BIN_DIR}/go && \
+    chmod +x ${GO_BIN_DIR}/gofmt
+
+ENV GOPATH=${GO_DIR}
+ENV PATH="${GO_BIN_DIR}:${PATH}"
+
+RUN echo "=============================================" && \
+    echo go $(go version) && \
+    echo "============================================="
 
 ##################################################################
 #                   Get NINJA binary
 ##################################################################
-RUN curl -s ${NINJA_RELEASE_URL} | jq -r ".assets[] | select(.name | test(\"${NINJA_ARCH}\")) | .browser_download_url" > /tmp/ninja-url.txt && \
-    cat /tmp/ninja-url.txt && \
-    cd /tmp && \
-    wget -q -c --input-file=/tmp/ninja-url.txt && \
-    unzip -o /tmp/ninja-linux.zip -d /bin && \
-    printf "\n--------------------------------\nninja version: $(ninja --version)\n--------------------------------\n\n"
+RUN mkdir -p ${NINJA_BIN_DIR}
+ADD ${NINJA_DOWNLOAD_URL} /tmp
+
+RUN 7zz x ${NINJA_TEMP} -o${NINJA_BIN_DIR} -y  && \
+    chmod +x ${NINJA_BIN_DIR}/ninja
+
+ENV PATH="${NINJA_BIN_DIR}:${PATH}"
+
+RUN echo "=============================================" && \
+    echo ninja $(ninja --version) && \
+    echo "============================================="
 
 ##################################################################
 #                   other   customisations

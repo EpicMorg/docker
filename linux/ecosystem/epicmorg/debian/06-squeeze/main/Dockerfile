@@ -54,7 +54,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
 #                   installing utils
 ##################################################################
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections && \
-    apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
+    apt-get install -y --allow-unauthenticated --no-install-recommends \
     acl \
     bzip2 \
     cmatrix \
@@ -132,7 +132,7 @@ RUN git config --global http.sslVerify false
 #                   installing fs-tools
 ##################################################################
 #RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections && \
-#    apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
+#    apt-get install -y --allow-unauthenticated --no-install-recommends \
 #    btrfs-tools \
 #    exfat-utils \
 #    e2fsprogs \

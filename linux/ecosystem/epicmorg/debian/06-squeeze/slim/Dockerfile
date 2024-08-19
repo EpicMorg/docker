@@ -45,7 +45,7 @@ RUN apt-get update && \
 #                   installing utils
 ##################################################################
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections && \
-    apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
+    apt-get install -y --allow-unauthenticated --no-install-recommends \
     apt-transport-https \
     apt-utils \
     gnupg \

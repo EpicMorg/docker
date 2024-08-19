@@ -335,6 +335,7 @@ RUN apt-get update && \
     libldap2-dev \
     libavformat-dev \
     libavfilter-dev \
+    libavif-dev \
     libswscale-dev \
     libavcodec-dev \
     libz-dev \

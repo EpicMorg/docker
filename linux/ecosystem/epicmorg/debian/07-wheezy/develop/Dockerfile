@@ -3,26 +3,6 @@ LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
 ##################################################################
-#                   ARGuments
-##################################################################
-ENV BuildDocker true
-ENV GOPATH=/usr/local/go
-ENV CARGOPATH=/root/.cargo
-ENV FLUTTERPATH=/usr/local/flutter
-ENV PATH="${FLUTTERPATH}/bin:${CARGOPATH}/bin:${GOPATH}/bin:${PATH}"
-ARG BUILDS_DIR=/builds
-ARG SRC_DIR=${BUILDS_DIR}/src
-ARG EXPORT_DIR=${BUILDS_DIR}/export
-ARG NINJA_ARCH=linux
-ARG NINJA_VERSION=latest
-ARG NINJA_RELEASE_URL=https://api.github.com/repos/ninja-build/ninja/releases/${NINJA_VERSION}
-
-##################################################################
-#                   Files and folders
-##################################################################
-RUN mkdir -p ${SRC_DIR} ${EXPORT_DIR} ${PRE_DIR}
-
-##################################################################
 #                  update lists
 ##################################################################
 RUN apt-get update && \

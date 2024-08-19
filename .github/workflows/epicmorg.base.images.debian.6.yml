@@ -42,10 +42,10 @@ jobs:
 ##################################################################################
       
     - name: "Build and Deploy Debian 6 jdk6 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/jdk6    && pwd && make build && make deploy
+      run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/jdk/jdk6    && pwd && make build && make deploy
       
     - name: "Build and Deploy Debian 6 jdk7 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/jdk7    && pwd && make build && make deploy
+      run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/jdk/jdk7    && pwd && make build && make deploy
 
 ##################################################################################
 
@@ -55,10 +55,10 @@ jobs:
 ##################################################################################
       
     - name: "Build and Deploy Debian 6 jdk8 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/jdk8    && pwd && make build && make deploy
+      run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/jdk/jdk8    && pwd && make build && make deploy
       
     - name: "Build and Deploy Debian 6 jdk11 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/jdk11    && pwd && make build && make deploy
+      run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/jdk/jdk11    && pwd && make build && make deploy
 
 ##################################################################################
 
@@ -68,10 +68,10 @@ jobs:
 ##################################################################################
       
     - name: "Build and Deploy Debian 6 jdk16 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/jdk16    && pwd && make build && make deploy
+      run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/jdk/jdk16    && pwd && make build && make deploy
             
     - name: "Build and Deploy Debian 6 jdk17 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/jdk17    && pwd && make build && make deploy
+      run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/jdk/jdk17    && pwd && make build && make deploy
       
 ##################################################################################
 
@@ -81,10 +81,10 @@ jobs:
 ##################################################################################
 
     - name: "Build and Deploy Debian 6 jdk18 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/jdk18    && pwd && make build && make deploy
+      run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/jdk/jdk18    && pwd && make build && make deploy
                   
     - name: "Build and Deploy Debian 6 jdk19 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/jdk19    && pwd && make build && make deploy
+      run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/jdk/jdk19    && pwd && make build && make deploy
       
 ##################################################################################
 
@@ -93,14 +93,14 @@ jobs:
 
 ##################################################################################
 
-#    - name: "Build and Deploy Debian 6 jdk20 Image:"
-#      run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/jdk20    && pwd && make build && make deploy
-#
-#    - name: "Build and Deploy Debian 6 jdk21 Image:"
-#      run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/jdk21    && pwd && make build && make deploy
-#    
-#    - name: "Build and Deploy Debian 6 jdk22 Image:"
-#      run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/jdk22    && pwd && make build && make deploy
+    - name: "Build and Deploy Debian 6 jdk20 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/jdk/jdk20    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 6 jdk21 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/jdk/jdk21    && pwd && make build && make deploy
+    
+    - name: "Build and Deploy Debian 6 jdk22 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/jdk/jdk22    && pwd && make build && make deploy
     
 ##################################################################################
 
@@ -108,3 +108,94 @@ jobs:
       run: make docker-clean
 
 ##################################################################################
+
+    - name: "Build and Deploy Debian 6 NodeJS LTS Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/nodejs/lts    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 6 NodeJS Current Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/nodejs/current    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: "Build and Deploy Debian 6 NodeJS 0.12 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/nodejs/node0.12    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 6 NodeJS 4 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/nodejs/node4    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 6 NodeJS 5 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/nodejs/node5    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 6 NodeJS 6 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/nodejs/node6    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 6 NodeJS 7 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/nodejs/node7    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 6 NodeJS 8 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/nodejs/node8    && pwd && make build && make deploy
+    
+    - name: "Build and Deploy Debian 6 NodeJS 9 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/nodejs/node8    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
+
+    - name: "Build and Deploy Debian 6 NodeJS 10 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/nodejs/node10    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 6 NodeJS 11 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/nodejs/node11    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 6 NodeJS 12 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/nodejs/node12    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 6 NodeJS 13 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/nodejs/node13    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 6 NodeJS 14 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/nodejs/node14    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 6 NodeJS 15 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/nodejs/node15    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
+
+    - name: "Build and Deploy Debian 6 NodeJS 16 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/nodejs/node16    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 6 NodeJS 17 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/nodejs/node17    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 6 NodeJS 18 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/nodejs/node18    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 6 NodeJS 19 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/nodejs/node19    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 6 NodeJS 20 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/nodejs/node20    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 6 NodeJS 21 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/nodejs/node21    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 6 NodeJS 22 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/nodejs/node22    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
+
+

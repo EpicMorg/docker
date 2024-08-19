@@ -1,0 +1,11 @@
+#version: '3'
+services:
+  app:
+    image: "epicmorg/debian:buster-nodejs0.12"
+    build:
+      context: .
+  app-develop:
+    image: "epicmorg/debian:buster-develop-nodejs0.12"
+    build:
+      context: .
+      dockerfile: ./Dockerfile.develop
