@@ -1,0 +1,111 @@
+name: EpicMorg Debian 10 Images
+
+on:
+#  push:
+#    branches:
+#      - 'master'
+  schedule:
+    - cron:  '0 0 * * 1,3,5'
+
+jobs:
+
+  build-10-images:
+    name: Build EpicMorg Debian 10 Images
+    runs-on: ubuntu-24.04
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Log into registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Test Make
+      run:  make
+
+    - name: Install requirements.txt
+      run:  make pip
+
+##################################################################################
+
+    - name: "Build and Deploy Debian 10 slim Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/10-buster/slim    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 10 main Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/10-buster/main    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 10 develop Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/10-buster/develop    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
+
+    - name: "Build and Deploy Debian 10 jdk6 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/10-buster/jdk6    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 10 jdk7 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/10-buster/jdk7    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
+
+    - name: "Build and Deploy Debian 10 jdk8 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/10-buster/jdk8    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 10 jdk11 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/10-buster/jdk11    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
+
+    - name: "Build and Deploy Debian 10 jdk16 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/10-buster/jdk16    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 10 jdk17 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/10-buster/jdk17    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 10 jdk18 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/10-buster/jdk18    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
+
+    - name: "Build and Deploy Debian 10 jdk19 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/10-buster/jdk19    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 10 jdk20 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/10-buster/jdk20    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
+
+    - name: "Build and Deploy Debian 10 jdk21 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/10-buster/jdk21    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 10 jdk22 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/10-buster/jdk22    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################

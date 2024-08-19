@@ -1,0 +1,11 @@
+#version: '3'
+services:
+  app:
+    image: "epicmorg/debian:bookworm-dotnet6"
+    build:
+      context: .
+  app-develop:
+    image: "epicmorg/debian:bookworm-develop-dotnet6"
+    build:
+      context: .
+      dockerfile: ./Dockerfile.develop

@@ -276,7 +276,20 @@ RUN apt-get update && \
     uuid-dev \
     nvidia-cg-toolkit \
     nvidia-cg-dev \
+    libavutil-dev \
     libavcodec-dev \
+    libxvidcore-dev \
+    libtwolame-dev \
+    libmp3lame-dev \
+    libopus-dev \
+    libavcodec-extra \
+    libtheora-dev \
+    libvorbis-dev \
+    libflac-dev \
+    libx264-dev \
+    libx265-dev \
+    libaom-dev \
+    libdav1d-dev \
     libaio-dev \ 
     libsdl2-dev \
     libsdl-image1.2-dev \
@@ -295,7 +308,7 @@ RUN apt-get update && \
     libssl-dev \
     libxslt-dev \
     libgd-dev \
-    libpcre3-dev \
+    libpcre2-dev \
     libgeoip-dev \
     libxml++*-dev \
     libkrb5-dev \

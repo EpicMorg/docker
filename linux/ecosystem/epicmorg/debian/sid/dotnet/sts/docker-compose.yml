@@ -1,0 +1,11 @@
+#version: '3'
+services:
+  app:
+    image: "epicmorg/debian:sid-dotnet-sts"
+    build:
+      context: .
+  app-develop:
+    image: "epicmorg/debian:sid-develop-dotnet-sts"
+    build:
+      context: .
+      dockerfile: ./Dockerfile.develop

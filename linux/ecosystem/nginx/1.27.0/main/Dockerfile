@@ -202,6 +202,9 @@ RUN cp -rf ${NGINX_TEMP_SRC}/* ${NGINX_SRC_DIR} && \
                      -I/usr/local/share/epicmorg/luajit2/2.1/include/luajit-2.1 \
                      -I/usr/local/share/epicmorg/gperftools/2.15/include/google \
                      -I/usr/local/share/epicmorg/gperftools/2.15/include/gperftools \
+                     -I/usr/include/x86_64-linux-gnu/libavcodec \
+                     -I/usr/include/x86_64-linux-gnu \
+                     -I/usr/include \
                      -static -g -O2 -lz -fPIC -Wdate-time -D_FORTIFY_SOURCE=2 -fstack-protector-strong \
                      -Wno-error=unused-but-set-variable -Wformat -Wno-error=date-time -Wno-error=implicit-fallthrough \
                      -Wno-error=cast-function-type -Wno-error=format-security -Wno-error=implicit-function-declaration \
@@ -213,6 +216,8 @@ RUN cp -rf ${NGINX_TEMP_SRC}/* ${NGINX_SRC_DIR} && \
                      -L/usr/local/share/epicmorg/libgd/2.3.3/lib \
                      -L/usr/local/share/epicmorg/gperftools/2.15/lib \
                      -L/usr/local/share/epicmorg/geoip/1.6.12/lib \
+                     -L/usr/lib/x86_64-linux-gnu \
+                     -L/usr/lib \
                      -static -Wl,-z,relro -Wl,-z,now -lz -fPIC" \  
       --with-pcre=${PCRE_SRC_DIR} \
       --with-pcre-jit \

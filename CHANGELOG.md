@@ -1,6 +1,8 @@
 # Changelog
 ## 2024
 * `aug`
+	* added `dotnet` base images support.
+	* added `13-trixie` and `sid` - `Debian` base images support.
 	* fixed `Makefile`+ gha
 	* added support of `zabbix` version `7.0` + gha
 	* dropped `Astra CE\SE` due potencial license issues. Sorry.

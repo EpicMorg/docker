@@ -1,0 +1,22 @@
+#main
+deb [trusted=yes]  http://httpredir.debian.org/debian/ trixie main contrib non-free non-free-firmware
+deb-src [trusted=yes]  http://httpredir.debian.org/debian/ trixie main contrib non-free non-free-firmware
+
+deb [trusted=yes]  http://httpredir.debian.org/debian/ trixie-updates main contrib non-free non-free-firmware
+deb-src [trusted=yes]  http://httpredir.debian.org/debian/ trixie-updates main contrib non-free non-free-firmware
+
+deb [trusted=yes]  http://httpredir.debian.org/debian/ trixie-backports main contrib non-free non-free-firmware
+deb-src [trusted=yes]  http://httpredir.debian.org/debian/ trixie-backports main contrib non-free non-free-firmware
+
+#deb [trusted=yes]  http://httpredir.debian.org/debian/ trixie-backports-sloppy main contrib non-free non-free-firmware
+#deb-src [trusted=yes]  http://httpredir.debian.org/debian/ trixie-backports-sloppy main contrib non-free non-free-firmware
+
+deb [trusted=yes]  http://httpredir.debian.org/debian/ trixie-proposed-updates main contrib non-free non-free-firmware
+deb-src [trusted=yes]  http://httpredir.debian.org/debian/ trixie-proposed-updates main contrib non-free non-free-firmware
+
+#security
+deb [trusted=yes]  http://security.debian.org/debian-security/ trixie-security main contrib non-free non-free-firmware
+deb-src [trusted=yes]  http://security.debian.org/debian-security/ trixie-security main contrib non-free non-free-firmware
+
+deb [trusted=yes]  http://httpredir.debian.org/debian-security/ trixie-security main contrib non-free non-free-firmware
+deb-src [trusted=yes]  http://httpredir.debian.org/debian-security/ trixie-security main contrib non-free non-free-firmware
