@@ -26,6 +26,7 @@ RUN mkdir -p /etc/apt/keyrings
 #                   sources list
 ##################################################################
 RUN rm -rfv /etc/apt/sources.list
+RUN rm -rfv /etc/apt/sources.list.d/debian.sources 
 RUN rm -rfv /etc/locale.gen
 
 COPY etc/apt/keyrings/deb-multimedia-keyring.gpg /etc/apt/keyrings/deb-multimedia-keyring.gpg

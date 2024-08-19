@@ -24,9 +24,9 @@ ENV NGINX_LOGS_DIR=/var/log/nginx
 ENV NGINX_LOCK_DIR=/var/lock/nginx
 ENV NGINX_LOCK=${NGINX_LOCK_DIR}/nginx.lock
 ENV NGINX_HTML_DIR=${NGINX_DIR}/html
-ENV NGINX_PID_DIR=/var/run/nginx
+ENV NGINX_PID_DIR=/run/nginx
 ENV NGINX_PID=${NGINX_PID_DIR}/nginx.pid
-ENV NGINX_SRC_DIR=${NGINX_DIR}/src
+ENV NGINX_SRC_DIR=/usr/local/src/nginx/${NGINX_VERSION}
 ARG NGINX_DOWNLOAD_URL=http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz
 ARG NGINX_TEMP=/tmp/nginx-${NGINX_VERSION}.tar.gz
 ARG NGINX_TEMP_SRC=/tmp/nginx-${NGINX_VERSION}
@@ -151,19 +151,26 @@ RUN tar -xf ${NGINX_TEMP} --directory /tmp && \
     git clone https://github.com/yaoweibin/nginx_upstream_check_module modules/nginx-upstream-check-module
 
 RUN cp -rf ${NGINX_TEMP_SRC}/* ${NGINX_SRC_DIR} && \
-     cp -rfv /usr/local/share/epicmorg/libxml2/2.13.2/include/libxml2/libxml/* /usr/include && \
-     cp -rfv /usr/local/share/epicmorg/libxslt/1.1.42/include/libexslt/* /usr/include && \
-     cp -rfv /usr/local/share/epicmorg/libxslt/1.1.42/include/libxslt/* /usr/include && \
-     cp -rfv /usr/local/share/epicmorg/luajit2/2.1/include/luajit-2.1/* /usr/include && \
-     cp -rfv /usr/local/share/epicmorg/gperftools/2.15/include/google/* /usr/include && \
-     cp -rfv /usr/local/share/epicmorg/gperftools/2.15/include/gperftools/* /usr/include && \
+     cp -rfv /usr/local/share/epicmorg/libxml2/2.13.2/include/* /usr/include && \
+     cp -rfv /usr/local/share/epicmorg/libxslt/1.1.42/include/* /usr/include && \
+     cp -rfv /usr/local/share/epicmorg/luajit2/2.1/include/* /usr/include && \
+     cp -rfv /usr/local/share/epicmorg/gperftools/2.15/include/* /usr/include && \
+     cp -rfv /usr/local/share/epicmorg/libatomic_ops/7.8.2/include/* /usr/include && \
      cp -rfv /usr/local/share/epicmorg/libgd/2.3.3/include/* /usr/include && \
      cp -rfv /usr/local/share/epicmorg/libxml2/2.13.2/lib/* /usr/lib && \
      cp -rfv /usr/local/share/epicmorg/libxslt/1.1.42/lib/* /usr/lib && \
      cp -rfv /usr/local/share/epicmorg/luajit2/2.1/lib/* /usr/lib && \
      cp -rfv /usr/local/share/epicmorg/libgd/2.3.3/lib/* /usr/lib && \
+     cp -rfv /usr/local/share/epicmorg/libatomic_ops/7.8.2/lib/* /usr/lib && \
      cp -rfv /usr/local/share/epicmorg/gperftools/2.15/lib/* /usr/lib && \
      cp -rfv /usr/local/share/epicmorg/geoip/1.6.12/lib/* /usr/lib && \
+     cp -rfv /usr/local/share/epicmorg/libxml2/2.13.2/lib/* /usr/lib/x86_64-linux-gnu && \
+     cp -rfv /usr/local/share/epicmorg/libxslt/1.1.42/lib/* /usr/lib/x86_64-linux-gnu && \
+     cp -rfv /usr/local/share/epicmorg/luajit2/2.1/lib/* /usr/lib/x86_64-linux-gnu && \
+     cp -rfv /usr/local/share/epicmorg/libgd/2.3.3/lib/* /usr/lib/x86_64-linux-gnu && \
+     cp -rfv /usr/local/share/epicmorg/libatomic_ops/7.8.2/lib/* /usr/lib/x86_64-linux-gnu && \
+     cp -rfv /usr/local/share/epicmorg/gperftools/2.15/lib/* /usr/lib/x86_64-linux-gnu && \
+     cp -rfv /usr/local/share/epicmorg/geoip/1.6.12/lib/* /usr/lib/x86_64-linux-gnu && \
      ldconfig && \
     ./configure \
       --user=www-data \
@@ -183,14 +190,21 @@ RUN cp -rf ${NGINX_TEMP_SRC}/* ${NGINX_SRC_DIR} && \
       --http-scgi-temp-path=${NGINX_CACHE_DIR}/scgi \
       --http-uwsgi-temp-path=${NGINX_CACHE_DIR}/uwsgi \
       --with-cc-opt="-I/usr/local/share/epicmorg/ip2location/8.7.0/include \
+                     -I/usr/local/share/epicmorg/libxml2/2.13.2/include \
+                     -I/usr/local/share/epicmorg/libxslt/1.1.42/include \
+                     -I/usr/local/share/epicmorg/luajit2/2.1/include \
+                     -I/usr/local/share/epicmorg/libgd/2.3.3/include \
+                     -I/usr/local/share/epicmorg/gperftools/2.15/include\
+                     -I/usr/local/share/epicmorg/geoip/1.6.12/include \
                      -I/usr/local/share/epicmorg/libxml2/2.13.2/include/libxml2/libxml \
                      -I/usr/local/share/epicmorg/libxslt/1.1.42/include/libexslt \
                      -I/usr/local/share/epicmorg/libxslt/1.1.42/include/libxslt \
                      -I/usr/local/share/epicmorg/luajit2/2.1/include/luajit-2.1 \
-                     -I/usr/local/share/epicmorg/libgd/2.3.3/include \
                      -I/usr/local/share/epicmorg/gperftools/2.15/include/google \
                      -I/usr/local/share/epicmorg/gperftools/2.15/include/gperftools \
-                     -I/usr/local/share/epicmorg/geoip/1.6.12/include \
+                     -I/usr/include/x86_64-linux-gnu/libavcodec \
+                     -I/usr/include/x86_64-linux-gnu \
+                     -I/usr/include \
                      -static -g -O2 -lz -fPIC -Wdate-time -D_FORTIFY_SOURCE=2 -fstack-protector-strong \
                      -Wno-error=unused-but-set-variable -Wformat -Wno-error=date-time -Wno-error=implicit-fallthrough \
                      -Wno-error=cast-function-type -Wno-error=format-security -Wno-error=implicit-function-declaration \
@@ -202,6 +216,8 @@ RUN cp -rf ${NGINX_TEMP_SRC}/* ${NGINX_SRC_DIR} && \
                      -L/usr/local/share/epicmorg/libgd/2.3.3/lib \
                      -L/usr/local/share/epicmorg/gperftools/2.15/lib \
                      -L/usr/local/share/epicmorg/geoip/1.6.12/lib \
+                     -L/usr/lib/x86_64-linux-gnu \
+                     -L/usr/lib \
                      -static -Wl,-z,relro -Wl,-z,now -lz -fPIC" \  
       --with-pcre=${PCRE_SRC_DIR} \
       --with-pcre-jit \
@@ -330,26 +346,28 @@ ENV NGINX_LOGS_DIR=/var/log/nginx
 ENV NGINX_LOCK_DIR=/var/lock/nginx
 ENV NGINX_LOCK=${NGINX_LOCK_DIR}/nginx.lock
 ENV NGINX_HTML_DIR=${NGINX_DIR}/html
-ENV NGINX_PID_DIR=/var/run/nginx
+ENV NGINX_PID_DIR=/run/nginx
 ENV NGINX_PID=${NGINX_PID_DIR}/nginx.pid
-ENV NGINX_SRC_DIR=${NGINX_DIR}/src
+ENV NGINX_SRC_DIR=/usr/local/src/nginx/${NGINX_VERSION}
 
 ##################################################################
 #        Copy compilled nginx from dev stage and prepare
 ##################################################################
-COPY --from=build ${NGINX_CONF_DIR} ${NGINX_CONF_DIR}
-COPY --from=build ${NGINX_DIR} ${NGINX_DIR}
-COPY etc /etc
-
 RUN mkdir -p \
       ${NGINX_CONF_DIR}/sites-enabled \
       ${NGINX_CONF_DIR}/modules-enabled \
       ${NGINX_LOCK_DIR} \
       ${NGINX_LOGS_DIR} \
       ${NGINX_PID_DIR} \
-      /var/www \
-    &&  \
-    mv ${NGINX_HTML_DIR} /var/www/ &\
+      ${NGINX_SRC_DIR} \
+      /var/www
+
+COPY --from=build ${NGINX_SRC_DIR} ${NGINX_SRC_DIR}
+COPY --from=build ${NGINX_CONF_DIR} ${NGINX_CONF_DIR}
+COPY --from=build ${NGINX_DIR} ${NGINX_DIR}
+COPY etc /etc
+
+RUN mv ${NGINX_HTML_DIR} /var/www/ &\
     ln -sfv /etc/ssl/dhparam.pem ${NGINX_CONF_DIR}/dhparam.pem && \
     ln -sfv ${NGINX_MODULES_DIR} ${NGINX_DIR}/modules && \
     ln -sfv ${NGINX_MODULES_PERL_DIR} ${NGINX_DIR}/modules-perl && \
@@ -359,7 +377,9 @@ RUN mkdir -p \
     ln -sfv /dev/stderr /var/log/nginx/error.log && \
     ln -sfv /var/lock/nginx ${NGINX_DIR}/lock && \
     ln -sfv /var/run/nginx ${NGINX_DIR}/run && \
+    ln -sfv /etc/nginx ${NGINX_DIR}/etc && \
     ln -sfv /var/www/html ${NGINX_HTML_DIR} && \
+    ln -sfv ${NGINX_SRC_DIR} ${NGINX_DIR}/src && \
     ln -sfv ${NGINX_DIR} /usr/share/nginx
 
 ##################################################################
@@ -400,7 +420,3 @@ RUN updatedb
 RUN nginx -V
 
 CMD ["nginx", "-g", "daemon off;"]
-
-#TODO:
-#    fix and redeploy develop (blocker!) -- DONE
-#    add link to /usr/src/nginx/<version> -> <nginx-dir>/src folder to final layer

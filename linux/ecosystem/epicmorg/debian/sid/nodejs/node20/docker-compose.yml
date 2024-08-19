@@ -1,0 +1,11 @@
+#version: '3'
+services:
+  app:
+    image: "epicmorg/debian:sid-nodejs20"
+    build:
+      context: .
+  app-develop:
+    image: "epicmorg/debian:sidop-nodejs20"
+    build:
+      context: .
+      dockerfile: ./Dockerfile.develop

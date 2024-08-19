@@ -1,0 +1,11 @@
+#version: '3'
+services:
+  app:
+    image: "epicmorg/debian:sid-jdk22"
+    build:
+      context: .
+  app-develop:
+    image: "epicmorg/debian:sid-develop-jdk22"
+    build:
+      context: .
+      dockerfile: ./Dockerfile.develop

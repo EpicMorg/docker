@@ -295,7 +295,7 @@ ecosystem-images:
 	make ecosystem-apache2-images
 	make ecosystem-testrail-images
 	make ecosystem-torrserver-images
-	make ecosystem-nodejs-images
+	make ecosystem--images
 	make ecosystem-qbittorrent-images
 	make ecosystem-vk2discord-images
 	make ecosystem-postgres-images
@@ -341,31 +341,16 @@ ecosystem-debian-images:
 	make ecosystem-debian-buster-images
 	make ecosystem-debian-bullseye-images
 	make ecosystem-debian-bookworm-images
-
-ecosystem-astra-17se-images:
-	cd `pwd`/linux/ecosystem/epicmorg/astra/1.7-alse/slim    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/astra/1.7-alse/main    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/astra/1.7-alse/develop    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/astra/1.7-alse/jdk6    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/astra/1.7-alse/jdk7    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/astra/1.7-alse/jdk8    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/astra/1.7-alse/jdk11    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/astra/1.7-alse/jdk16    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/astra/1.7-alse/jdk17    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/astra/1.7-alse/jdk18    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/astra/1.7-alse/jdk19    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/astra/1.7-alse/jdk20    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/astra/1.7-alse/jdk21    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/astra/1.7-alse/jdk22    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/astra/1.7-alse/python3.10    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/astra/1.7-alse/python3.11    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/astra/1.7-alse/python3.12    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/astra/1.7-alse/python3.13    && pwd && make build && make deploy
+	make ecosystem-debian-trixie-images
+	make ecosystem-debian-sid-images
 
 ecosystem-debian-squeeze-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/06-squeeze/slim    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/06-squeeze/main    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/06-squeeze/develop    && pwd && make build && make deploy
+	make ecosystem-debian-squeeze-jdk-images
+
+ecosystem-debian-squeeze-jdk-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/06-squeeze/jdk6    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/06-squeeze/jdk7    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/06-squeeze/jdk8    && pwd && make build && make deploy
@@ -382,6 +367,9 @@ ecosystem-debian-wheezy-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/07-wheezy/slim    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/07-wheezy/main    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/07-wheezy/develop    && pwd && make build && make deploy
+	make ecosystem-debian-wheezy-jdk-images
+
+ecosystem-debian-wheezy-jdk-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/07-wheezy/jdk6    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/07-wheezy/jdk7    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/07-wheezy/jdk8    && pwd && make build && make deploy
@@ -398,6 +386,9 @@ ecosystem-debian-jessie-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/slim    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/main    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/develop    && pwd && make build && make deploy
+	make ecosystem-debian-jessie-jdk-images
+
+ecosystem-debian-jessie-jdk-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/jdk6    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/jdk7    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/jdk8    && pwd && make build && make deploy
@@ -414,6 +405,9 @@ ecosystem-debian-stretch-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/slim    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/main    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/develop    && pwd && make build && make deploy
+	make ecosystem-debian-stretch-jdk-images
+
+ecosystem-debian-stretch-jdk-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/jdk6    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/jdk7    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/jdk8    && pwd && make build && make deploy
@@ -430,6 +424,9 @@ ecosystem-debian-buster-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/slim    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/main    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/develop    && pwd && make build && make deploy
+	make ecosystem-debian-buster-jdk-images
+
+ecosystem-debian-buster-jdk-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/jdk6    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/jdk7    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/jdk8    && pwd && make build && make deploy
@@ -446,6 +443,9 @@ ecosystem-debian-bullseye-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/slim    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/main    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/develop    && pwd && make build && make deploy
+	make ecosystem-debian-bullseye-jdk-images
+
+ecosystem-debian-bullseye-jdk-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk6    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk7    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk8    && pwd && make build && make deploy
@@ -458,36 +458,176 @@ ecosystem-debian-bullseye-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk21    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk22    && pwd && make build && make deploy
 
+####################################################################################################################
+
 ecosystem-debian-bookworm-images:
+	make ecosystem-debian-bookworm-base-images
+	make ecosystem-debian-bookworm-dotnet-images
+	make ecosystem-debian-bookworm-jdk-images
+	make ecosystem-debian-bookworm-nodejs-images
+
+ecosystem-debian-bookworm-base-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/slim    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/main    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/develop    && pwd && make build && make deploy
-	make ecosystem-debian-bookworm-jdk-images
+
+ecosystem-debian-bookworm-dotnet-images:
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/dotnet/lts    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/dotnet/sts    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/dotnet/dotnet5    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/dotnet/dotnet6    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/dotnet/dotnet7    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/dotnet/dotnet8    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/dotnet/dotnet9    && pwd && make build && make deploy
 
 ecosystem-debian-bookworm-jdk-images:
-	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk6    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk7    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk8    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk11    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk16    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk17    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk18    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk19    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk20    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk21    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk22    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk/jdk6    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk/jdk7    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk/jdk8    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk/jdk11    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk/jdk16    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk/jdk17    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk/jdk18    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk/jdk19    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk/jdk20    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk/jdk21    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk/jdk22    && pwd && make build && make deploy
 
-ecosystem-php-images:
-	echo "disabled temprorary"
-#	cd `pwd`/linux/ecosystem/php/php7.0             && pwd && make build && make deploy
-#	cd `pwd`/linux/ecosystem/php/php7.1             && pwd && make build && make deploy
-#	cd `pwd`/linux/ecosystem/php/php7.2             && pwd && make build && make deploy
-#	cd `pwd`/linux/ecosystem/php/php7.3             && pwd && make build && make deploy
-#	cd `pwd`/linux/ecosystem/php/php7.4             && pwd && make build && make deploy
-#	cd `pwd`/linux/ecosystem/php/php8.0             && pwd && make build && make deploy
-#	cd `pwd`/linux/ecosystem/php/php8.1             && pwd && make build && make deploy
-#	cd `pwd`/linux/ecosystem/php/php8.2             && pwd && make build && make deploy
-#	cd `pwd`/linux/ecosystem/php/php8.3             && pwd && make build && make deploy
+ecosystem-debian-bookworm-nodejs-images: 
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/current        && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/lts            && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node0.12       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node4          && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node5          && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node6          && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node7          && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node8          && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node9          && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node10         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node11         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node12         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node13         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node14         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node15         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node16         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node17         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node18         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node19         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node20         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node21         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node22         && pwd && make build && make deploy
+
+####################################################################################################################
+
+ecosystem-debian-trixie-images:
+	make ecosystem-debian-trixie-base-images
+	make ecosystem-debian-trixie-jdk-images
+	make ecosystem-debian-trixie-nodejs-images
+
+ecosystem-debian-trixie-base-images:
+	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/slim    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/main    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/develop    && pwd && make build && make deploy
+
+ecosystem-debian-trixie-jdk-images:
+	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/jdk/jdk6    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/jdk/jdk7    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/jdk/jdk8    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/jdk/jdk11    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/jdk/jdk16    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/jdk/jdk17    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/jdk/jdk18    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/jdk/jdk19    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/jdk/jdk20    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/jdk/jdk21    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/jdk/jdk22    && pwd && make build && make deploy
+
+ecosystem-debian-trixie-nodejs-images: 
+	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/nodejs/current        && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/nodejs/lts            && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/nodejs/node0.12       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/nodejs/node4          && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/nodejs/node5          && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/nodejs/node6          && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/nodejs/node7          && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/nodejs/node8          && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/nodejs/node9          && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/nodejs/node10         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/nodejs/node11         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/nodejs/node12         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/nodejs/node13         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/nodejs/node14         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/nodejs/node15         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/nodejs/node16         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/nodejs/node17         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/nodejs/node18         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/nodejs/node19         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/nodejs/node20         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/nodejs/node21         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/nodejs/node22         && pwd && make build && make deploy
+
+####################################################################################################################
+
+ecosystem-debian-sid-images:
+	make ecosystem-debian-sid-base-images
+	make ecosystem-debian-sid-jdk-images
+	make ecosystem-debian-sid-nodejs-images
+
+ecosystem-debian-sid-base-images:
+	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/slim    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/main    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/develop    && pwd && make build && make deploy
+
+ecosystem-debian-sid-jdk-images:
+	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/jdk/jdk6    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/jdk/jdk7    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/jdk/jdk8    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/jdk/jdk11    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/jdk/jdk16    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/jdk/jdk17    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/jdk/jdk18    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/jdk/jdk19    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/jdk/jdk20    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/jdk/jdk21    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/jdk/jdk22    && pwd && make build && make deploy
+
+ecosystem-debian-sid-nodejs-images: 
+	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/nodejs/current        && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/nodejs/lts            && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/nodejs/node0.12       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/nodejs/node4          && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/nodejs/node5          && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/nodejs/node6          && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/nodejs/node7          && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/nodejs/node8          && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/nodejs/node9          && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/nodejs/node10         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/nodejs/node11         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/nodejs/node12         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/nodejs/node13         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/nodejs/node14         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/nodejs/node15         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/nodejs/node16         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/nodejs/node17         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/nodejs/node18         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/nodejs/node19         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/nodejs/node20         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/nodejs/node21         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/nodejs/node22         && pwd && make build && make deploy
+
+####################################################################################################################
+
+#ecosystem-php-images:
+#	echo "disabled temprorary"
+#	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/php/php7.0             && pwd && make build && make deploy
+#	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/php/php7.1             && pwd && make build && make deploy
+#	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/php/php7.2             && pwd && make build && make deploy
+#	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/php/php7.3             && pwd && make build && make deploy
+#	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/php/php7.4             && pwd && make build && make deploy
+#	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/php/php8.0             && pwd && make build && make deploy
+#	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/php/php8.1             && pwd && make build && make deploy
+#	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/php/php8.2             && pwd && make build && make deploy
+#	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/php/php8.3             && pwd && make build && make deploy
 
 ecosystem-apache2-images:
 	cd `pwd`/linux/ecosystem/apache2/php7.0         && pwd && make build && make deploy
@@ -692,31 +832,6 @@ ecosystem-torrserver-images:
 
 ecosystem-electron-release-server-images:
 	cd `pwd`/linux/ecosystem/electron-release-server  && pwd && make build && make deploy
-
-ecosystem-nodejs-images: 
-	cd `pwd`/linux/ecosystem/nodejs/current        && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/nodejs/lts            && pwd && make build && make deploy
-
-	cd `pwd`/linux/ecosystem/nodejs/node0.12       && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/nodejs/node4          && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/nodejs/node5          && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/nodejs/node6          && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/nodejs/node7          && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/nodejs/node8          && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/nodejs/node9          && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/nodejs/node10         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/nodejs/node11         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/nodejs/node12         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/nodejs/node13         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/nodejs/node14         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/nodejs/node15         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/nodejs/node16         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/nodejs/node17         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/nodejs/node18         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/nodejs/node19         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/nodejs/node20         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/nodejs/node21         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/nodejs/node22         && pwd && make build && make deploy
 
 ecosystem-ninjam-image: 
 	cd `pwd`/linux/ecosystem/ninjam/latest     && pwd && make build && make deploy
@@ -1556,43 +1671,3 @@ bundle-p4:
 	make ecosystem-perforce-base-images
 	make ecosystem-perforce-proxy-images
  
- 
-bundle-debug-base6:
-	cd `pwd`/linux/ecosystem/epicmorg/debian/06-squeeze/slim    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/debian/06-squeeze/main    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/debian/06-squeeze/develop    && pwd && make build && make deploy
-bundle-debug-base7:
-	cd `pwd`/linux/ecosystem/epicmorg/debian/07-wheezy/slim    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/debian/07-wheezy/main    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/debian/07-wheezy/develop    && pwd && make build && make deploy
-bundle-debug-base8:
-	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/slim    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/main    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/develop    && pwd && make build && make deploy
-bundle-debug-base9:
-	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/slim    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/main    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/develop    && pwd && make build && make deploy
-bundle-debug-base10:
-	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/slim    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/main    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/develop    && pwd && make build && make deploy
-
-
-bundle-cve:
-	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/slim    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/main    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/develop    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/slim    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/main    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/develop    && pwd && make build && make deploy 
-	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk8     && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk11     && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk17     && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk8     && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk11     && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk17     && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.6.1          && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.5.3         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.19.16          && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/atlassian/confluence/latest          && pwd && make build && make deploy

@@ -1,6 +1,11 @@
 #version: '3'
 services:
   app:
-    image: "epicmorg/nodejs:lts"
+    image: "epicmorg/debian:bookworm-nodejs-lts"
     build:
       context: .
+  app-develop:
+    image: "epicmorg/debian:bookworm-develop-nodejs-lts"
+    build:
+      context: .
+      dockerfile: ./Dockerfile.develop
