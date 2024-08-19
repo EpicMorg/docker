@@ -14,14 +14,12 @@ ARG K_NODE_HEADERS_URL=https://nodejs.org/dist/v${K_NODE_VERSION}/node-v${K_NODE
 RUN groupadd -g 1337 node && \
     useradd  -u 1337 --gid node --shell /bin/bash --create-home node
 
-RUN curl --user-agent "Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/81.0" --location ${K_NODE_URL}?$(date +%s) \
-         --header 'Cache-Control: no-cache, no-store' \
-         --header 'Pragma: no-cache'  | tar xzv --strip-components=1 --directory /usr/local/ && \
-         rm -rfv /usr/local/CHANGELOG.md /usr/local/LICENSE /usr/local/README.md
+ADD ${K_NODE_URL} /tmp
+ADD ${K_NODE_HEADERS_URL} /tmp
 
-RUN curl --user-agent "Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/81.0" --location ${K_NODE_HEADERS_URL}?$(date +%s) \
-         --header 'Cache-Control: no-cache, no-store' \
-         --header 'Pragma: no-cache'  | tar xzv --strip-components=1 --directory /usr/local/
+RUN tar -xvzf /tmp/node-v${K_NODE_VERSION}-linux-x64.tar.gz --strip-components=1 --directory /usr/local && \
+    tar -xvzf /tmp/node-v${K_NODE_VERSION}-headers.tar.gz --strip-components=1 --directory /usr/local && \
+    rm -rfv /usr/local/CHANGELOG.md /usr/local/LICENSE /usr/local/README.md
 
 #RUN npm install -g pnpm yarn
 RUN npm install -g yarn

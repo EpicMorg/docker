@@ -1,6 +1,8 @@
 # Changelog
 ## 2024
 * `aug`
+	* updated `nodejs` and `jdk` images to latest versions.
+	* added extended `nodejs` and `jdk` base images support.
 	* added `dotnet` base images support.
 	* added `13-trixie` and `sid` - `Debian` base images support.
 	* fixed `Makefile`+ gha

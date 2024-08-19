@@ -60,6 +60,8 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     curl \
     wget \
     locate \
+    unzip \
+    zip \
     sudo
 
 RUN apt-key adv --keyserver keyserver.ubuntu.com --refresh-keys

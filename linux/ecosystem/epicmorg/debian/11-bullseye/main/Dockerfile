@@ -131,7 +131,6 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     cvs \
     python3-pip \
     python3-all \
-    python-all \
     rclone \
     logrotate \
     subversion-tools \

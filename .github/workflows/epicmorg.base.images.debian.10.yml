@@ -43,10 +43,10 @@ jobs:
 ##################################################################################
 
     - name: "Build and Deploy Debian 10 jdk6 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/10-buster/jdk6    && pwd && make build && make deploy
+      run:  cd linux/ecosystem/epicmorg/debian/10-buster/jdk/jdk6    && pwd && make build && make deploy
 
     - name: "Build and Deploy Debian 10 jdk7 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/10-buster/jdk7    && pwd && make build && make deploy
+      run:  cd linux/ecosystem/epicmorg/debian/10-buster/jdk/jdk7    && pwd && make build && make deploy
 
 ##################################################################################
 
@@ -56,10 +56,10 @@ jobs:
 ##################################################################################
 
     - name: "Build and Deploy Debian 10 jdk8 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/10-buster/jdk8    && pwd && make build && make deploy
+      run:  cd linux/ecosystem/epicmorg/debian/10-buster/jdk/jdk8    && pwd && make build && make deploy
 
     - name: "Build and Deploy Debian 10 jdk11 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/10-buster/jdk11    && pwd && make build && make deploy
+      run:  cd linux/ecosystem/epicmorg/debian/10-buster/jdk/jdk11    && pwd && make build && make deploy
 
 ##################################################################################
 
@@ -69,13 +69,13 @@ jobs:
 ##################################################################################
 
     - name: "Build and Deploy Debian 10 jdk16 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/10-buster/jdk16    && pwd && make build && make deploy
+      run:  cd linux/ecosystem/epicmorg/debian/10-buster/jdk/jdk16    && pwd && make build && make deploy
 
     - name: "Build and Deploy Debian 10 jdk17 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/10-buster/jdk17    && pwd && make build && make deploy
+      run:  cd linux/ecosystem/epicmorg/debian/10-buster/jdk/jdk17    && pwd && make build && make deploy
 
     - name: "Build and Deploy Debian 10 jdk18 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/10-buster/jdk18    && pwd && make build && make deploy
+      run:  cd linux/ecosystem/epicmorg/debian/10-buster/jdk/jdk18    && pwd && make build && make deploy
 
 ##################################################################################
 
@@ -85,10 +85,10 @@ jobs:
 ##################################################################################
 
     - name: "Build and Deploy Debian 10 jdk19 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/10-buster/jdk19    && pwd && make build && make deploy
+      run:  cd linux/ecosystem/epicmorg/debian/10-buster/jdk/jdk19    && pwd && make build && make deploy
 
     - name: "Build and Deploy Debian 10 jdk20 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/10-buster/jdk20    && pwd && make build && make deploy
+      run:  cd linux/ecosystem/epicmorg/debian/10-buster/jdk/jdk20    && pwd && make build && make deploy
 
 ##################################################################################
 
@@ -98,10 +98,10 @@ jobs:
 ##################################################################################
 
     - name: "Build and Deploy Debian 10 jdk21 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/10-buster/jdk21    && pwd && make build && make deploy
+      run:  cd linux/ecosystem/epicmorg/debian/10-buster/jdk/jdk21    && pwd && make build && make deploy
 
     - name: "Build and Deploy Debian 10 jdk22 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/10-buster/jdk22    && pwd && make build && make deploy
+      run:  cd linux/ecosystem/epicmorg/debian/10-buster/jdk/jdk22    && pwd && make build && make deploy
 
 ##################################################################################
 
@@ -109,3 +109,93 @@ jobs:
       run: make docker-clean
 
 ##################################################################################
+
+    - name: "Build and Deploy Debian 10 NodeJS LTS Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/10-buster/nodejs/lts    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 10 NodeJS Current Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/10-buster/nodejs/current    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: "Build and Deploy Debian 10 NodeJS 0.12 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/10-buster/nodejs/node0.12    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 10 NodeJS 4 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/10-buster/nodejs/node4    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 10 NodeJS 5 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/10-buster/nodejs/node5    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 10 NodeJS 6 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/10-buster/nodejs/node6    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 10 NodeJS 7 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/10-buster/nodejs/node7    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 10 NodeJS 8 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/10-buster/nodejs/node8    && pwd && make build && make deploy
+    
+    - name: "Build and Deploy Debian 10 NodeJS 9 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/10-buster/nodejs/node8    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
+
+    - name: "Build and Deploy Debian 10 NodeJS 10 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/10-buster/nodejs/node10    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 10 NodeJS 11 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/10-buster/nodejs/node11    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 10 NodeJS 12 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/10-buster/nodejs/node12    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 10 NodeJS 13 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/10-buster/nodejs/node13    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 10 NodeJS 14 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/10-buster/nodejs/node14    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 10 NodeJS 15 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/10-buster/nodejs/node15    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
+
+    - name: "Build and Deploy Debian 10 NodeJS 16 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/10-buster/nodejs/node16    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 10 NodeJS 17 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/10-buster/nodejs/node17    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 10 NodeJS 18 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/10-buster/nodejs/node18    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 10 NodeJS 19 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/10-buster/nodejs/node19    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 10 NodeJS 20 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/10-buster/nodejs/node20    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 10 NodeJS 21 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/10-buster/nodejs/node21    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 10 NodeJS 22 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/10-buster/nodejs/node22    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
+

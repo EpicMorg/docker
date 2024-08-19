@@ -41,10 +41,10 @@ jobs:
 ##################################################################################
       
     - name: "Build and Deploy Debian 7 jdk6 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/07-wheezy/jdk6    && pwd && make build && make deploy
+      run:  cd linux/ecosystem/epicmorg/debian/07-wheezy/jdk/jdk6    && pwd && make build && make deploy
       
     - name: "Build and Deploy Debian 7 jdk7 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/07-wheezy/jdk7    && pwd && make build && make deploy
+      run:  cd linux/ecosystem/epicmorg/debian/07-wheezy/jdk/jdk7    && pwd && make build && make deploy
 
 ##################################################################################
 
@@ -54,10 +54,10 @@ jobs:
 ##################################################################################
       
     - name: "Build and Deploy Debian 7 jdk8 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/07-wheezy/jdk8    && pwd && make build && make deploy
+      run:  cd linux/ecosystem/epicmorg/debian/07-wheezy/jdk/jdk8    && pwd && make build && make deploy
       
     - name: "Build and Deploy Debian 7 jdk11 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/07-wheezy/jdk11    && pwd && make build && make deploy
+      run:  cd linux/ecosystem/epicmorg/debian/07-wheezy/jdk/jdk11    && pwd && make build && make deploy
 
 ##################################################################################
 
@@ -67,10 +67,10 @@ jobs:
 ##################################################################################
       
     - name: "Build and Deploy Debian 7 jdk16 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/07-wheezy/jdk16    && pwd && make build && make deploy
+      run:  cd linux/ecosystem/epicmorg/debian/07-wheezy/jdk/jdk16    && pwd && make build && make deploy
             
     - name: "Build and Deploy Debian 7 jdk17 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/07-wheezy/jdk17    && pwd && make build && make deploy
+      run:  cd linux/ecosystem/epicmorg/debian/07-wheezy/jdk/jdk17    && pwd && make build && make deploy
       
 ##################################################################################
 
@@ -80,10 +80,10 @@ jobs:
 ##################################################################################
 
     - name: "Build and Deploy Debian 7 jdk18 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/07-wheezy/jdk18    && pwd && make build && make deploy
+      run:  cd linux/ecosystem/epicmorg/debian/07-wheezy/jdk/jdk18    && pwd && make build && make deploy
                   
     - name: "Build and Deploy Debian 7 jdk19 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/07-wheezy/jdk19    && pwd && make build && make deploy
+      run:  cd linux/ecosystem/epicmorg/debian/07-wheezy/jdk/jdk19    && pwd && make build && make deploy
       
 ##################################################################################
 
@@ -92,14 +92,14 @@ jobs:
 
 ##################################################################################
 
-#    - name: "Build and Deploy Debian 7 jdk20 Image:"
-#      run:  cd linux/ecosystem/epicmorg/debian/07-wheezy/jdk20    && pwd && make build && make deploy
-#
-#    - name: "Build and Deploy Debian 7 jdk21 Image:"
-#      run:  cd linux/ecosystem/epicmorg/debian/07-wheezy/jdk21    && pwd && make build && make deploy
-#    
-#    - name: "Build and Deploy Debian 7 jdk22 Image:"
-#      run:  cd linux/ecosystem/epicmorg/debian/07-wheezy/jdk22    && pwd && make build && make deploy
+    - name: "Build and Deploy Debian 7 jdk20 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/07-wheezy/jdk/jdk20    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 7 jdk21 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/07-wheezy/jdk/jdk21    && pwd && make build && make deploy
+    
+    - name: "Build and Deploy Debian 7 jdk22 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/07-wheezy/jdk/jdk22    && pwd && make build && make deploy
     
 ##################################################################################
 
@@ -107,3 +107,99 @@ jobs:
       run: make docker-clean
 
 ##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
+
+    - name: "Build and Deploy Debian 7 NodeJS LTS Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/07-wheezy/nodejs/lts    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 7 NodeJS Current Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/07-wheezy/nodejs/current    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: "Build and Deploy Debian 7 NodeJS 0.12 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/07-wheezy/nodejs/node0.12    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 7 NodeJS 4 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/07-wheezy/nodejs/node4    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 7 NodeJS 5 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/07-wheezy/nodejs/node5    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 7 NodeJS 6 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/07-wheezy/nodejs/node6    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 7 NodeJS 7 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/07-wheezy/nodejs/node7    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 7 NodeJS 8 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/07-wheezy/nodejs/node8    && pwd && make build && make deploy
+    
+    - name: "Build and Deploy Debian 7 NodeJS 9 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/07-wheezy/nodejs/node8    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
+
+    - name: "Build and Deploy Debian 7 NodeJS 10 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/07-wheezy/nodejs/node10    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 7 NodeJS 11 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/07-wheezy/nodejs/node11    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 7 NodeJS 12 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/07-wheezy/nodejs/node12    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 7 NodeJS 13 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/07-wheezy/nodejs/node13    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 7 NodeJS 14 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/07-wheezy/nodejs/node14    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 7 NodeJS 15 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/07-wheezy/nodejs/node15    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
+
+    - name: "Build and Deploy Debian 7 NodeJS 16 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/07-wheezy/nodejs/node16    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 7 NodeJS 17 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/07-wheezy/nodejs/node17    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 7 NodeJS 18 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/07-wheezy/nodejs/node18    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 7 NodeJS 19 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/07-wheezy/nodejs/node19    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 7 NodeJS 20 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/07-wheezy/nodejs/node20    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 7 NodeJS 21 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/07-wheezy/nodejs/node21    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 7 NodeJS 22 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/07-wheezy/nodejs/node22    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
+
+

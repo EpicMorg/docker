@@ -1,11 +1,11 @@
 #version: '3'
 services:
   app:
-    image: "epicmorg/debian:bookworm-nodejs11"
+    image: "epicmorg/debian:bullseye-nodejs11"
     build:
       context: .
   app-develop:
-    image: "epicmorg/debian:bookworm-develop-nodejs11"
+    image: "epicmorg/debian:bullseye-develop-nodejs11"
     build:
       context: .
       dockerfile: ./Dockerfile.develop

@@ -1,4 +1,4 @@
-FROM epicmorg/debian:bookworm-develop
+FROM epicmorg/debian:bullseye-develop
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -23,7 +23,6 @@ RUN mkdir -p ${DOTNET_ROOT} && \
 #                   Setup $PATH
 ##################################################################
 ENV PATH=$PATH:${DOTNET_ROOT}:${DOTNET_TOOLS_DIR}
-
 ##################################################################
 #                   Setup certs
 ##################################################################

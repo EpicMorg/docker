@@ -1,11 +1,11 @@
 #version: '3'
 services:
   app:
-    image: "epicmorg/debian:bookworm-dotnet-lts"
+    image: "epicmorg/debian:bullseye-dotnet-lts"
     build:
       context: .
   app-develop:
-    image: "epicmorg/debian:bookworm-develop-dotnet-lts"
+    image: "epicmorg/debian:bullseye-develop-dotnet-lts"
     build:
       context: .
       dockerfile: ./Dockerfile.develop
