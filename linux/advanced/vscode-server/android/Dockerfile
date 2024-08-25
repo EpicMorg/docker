@@ -17,14 +17,23 @@ ENV ANDROID_SDK_ROOT=/usr/lib/android-sdk
 ##################################################################
 #                   installing java11
 ##################################################################
-RUN wget -qO - https://packages.adoptium.net/artifactory/api/gpg/key/public  | apt-key add - && \
-    echo 'deb https://packages.adoptium.net/artifactory/deb focal main' > /etc/apt/sources.list.d/temurin-official.list && \
-    apt-get update && \
-    apt-get autoremove -y && \
-    apt-get install -y --allow-unauthenticated temurin-11-jdk && \
-    mkdir /usr/lib/jvm/temurin-11-jdk-amd64/jre && \
-    ln -s /usr/lib/jvm/temurin-11-jdk-amd64/bin/ /usr/lib/jvm/temurin-11-jdk-amd64/jre/bin && \
-    ln -s /usr/lib/jvm/temurin-11-jdk-amd64/lib/ /usr/lib/jvm/temurin-11-jdk-amd64/jre/lib && \
+ARG K_JDK_MAJOR_VERSION=11
+ARG K_JDK_FULL_VERSION=jdk-11.0.24
+ARG K_JDK_VERSION=11.0.24
+ARG K_JDK_BUILD_VERSION=8
+ARG K_JDK_URL=https://github.com/adoptium/temurin${K_JDK_MAJOR_VERSION}-binaries/releases/download/${K_JDK_FULL_VERSION}+${K_JDK_BUILD_VERSION}/OpenJDK${K_JDK_MAJOR_VERSION}U-jdk_x64_linux_hotspot_${K_JDK_VERSION}_${K_JDK_BUILD_VERSION}.tar.gz
+ARG K_JDK_TEMP=/tmp/OpenJDK${K_JDK_MAJOR_VERSION}U-jdk_x64_linux_hotspot_${K_JDK_VERSION}_${K_JDK_BUILD_VERSION}.tar.gz
+
+ENV JAVA_HOME=/usr/local/${K_JDK_FULL_VERSION}+${K_JDK_BUILD_VERSION}
+ENV JRE_HOME=${JAVA_HOME}
+ENV PATH=$PATH:${JAVA_HOME}/bin
+
+##################################################################
+#                   installing java11
+##################################################################
+ADD ${K_JDK_URL} /tmp
+RUN tar -xvzf ${K_JDK_TEMP} --directory /usr/local && \
+    ln -sfv ${JAVA_HOME} /usr/jre && \
     java -version
 
 ##################################################################
@@ -32,14 +41,14 @@ RUN wget -qO - https://packages.adoptium.net/artifactory/api/gpg/key/public  | a
 ##################################################################
 ENV MAVEN_VERSION=3.9.8
 ENV MAVEN_LINK=https://dlcdn.apache.org/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.zip
-ENV MAVEN_ROOT=/usr/local/maven
+ENV MAVEN_ROOT=${EMG_LOCAL_BASE_DIR}/maven/${MAVEN_VERSION}
 ENV MAVEN_PATH=${MAVEN_ROOT}/apache-maven-${MAVEN_VERSION}
 ENV MAVEN_BIN=${MAVEN_PATH}/bin
 ARG MAVEN_TEMP=/tmp/apache-maven-${MAVEN_VERSION}-bin.zip
 
 ENV GRADLE_VERSION=8.8
 ENV GRADLE_LINK=https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-all.zip
-ENV GRADLE_ROOT=/usr/local/gradle
+ENV GRADLE_ROOT=${EMG_LOCAL_BASE_DIR}/gradle/${GRADLE_VERSION}
 ENV GRADLE_PATH=${GRADLE_ROOT}/gradle-${GRADLE_VERSION}
 ENV GRADLE_BIN=${GRADLE_PATH}/bin
 ARG GRADLE_TEMP=/tmp/gradle-${GRADLE_VERSION}-all.zip
@@ -47,14 +56,14 @@ ARG GRADLE_TEMP=/tmp/gradle-${GRADLE_VERSION}-all.zip
 ENV KTC_VERSION=2.0.0
 ENV KTC_LINK=https://github.com/JetBrains/kotlin/releases/download/v${KTC_VERSION}/kotlin-compiler-${KTC_VERSION}.zip
 ARG KTC_TEMP=/tmp/kotlin-compiler-${KTC_VERSION}.zip
-ENV KTC_ROOT=/usr/local/kotlin
+ENV KTC_ROOT=${EMG_LOCAL_BASE_DIR}/kotlin/${KTC_VERSION}
 ENV KTC_PATH=${KTC_ROOT}/kotlinc
 ENV KTC_BIN=${KTC_PATH}/bin
 
 ENV KNPL_VERSION=${KTC_VERSION}
 ENV KNPL_LINK=https://github.com/JetBrains/kotlin/releases/download/v${KNPL_VERSION}/kotlin-native-prebuilt-linux-x86_64-${KNPL_VERSION}.tar.gz
 ARG KNPL_TEMP=/tmp/kotlin-native-prebuilt-linux-x86_64-${KNPL_VERSION}.tar.gz
-ENV KNPL_ROOT=/usr/local/kotlin
+ENV KNPL_ROOT=${EMG_LOCAL_BASE_DIR}/kotlin/${KNPL_VERSION}
 ENV KNPL_PATH=${KNPL_ROOT}/kotlin-native-prebuilt-linux-x86_64-${KNPL_VERSION}
 ENV KNPL_BIN=${KNPL_PATH}/bin
 
@@ -106,21 +115,22 @@ RUN apt-get update && \
       android-sdk-platform-tools \
       adb fastboot f2fs-tools e2fsprogs libsqlite3-0 sqlite3
 
-# Activate android sdk
+##################################################################
+#                   Activate Android SDK
+##################################################################
 RUN echo "24333f8a63b6825ea9c5514f83c2829b004d1fee" > /usr/lib/android-sdk/licenses/android-sdk-license
 
 ##################################################################
-#                   cleaninig up
+#                  cleanup
 ##################################################################
-RUN apt purge policykit-1 -y && \
-    apt clean -y && \
-    apt autoclean -y && \
+RUN echo "clean up" && \
+    apt-get clean -y && \
+    apt-get autoclean -y && \
     rm -rfv /var/lib/apt/lists/* && \
-    rm -rfv /tmp/mc.patch && \
-    rm -rfv /var/cache/apt/archives/*.deb && \
-    rm -rfv /tmp/7z && \
-    rm -rfv /tmp/deb/* && \
-    rm -rfv /tmp/composer-setup.php && \
-    rm -rfv /tmp/amxx_base_latest.tar.gz && \
-    rm -rfv /tmp/atlassian-plugin-sdk.deb && \
-    rm -rfv /tmp/addons
+    rm -rfv /tmp/* && \
+    rm -rfv /var/cache/apt/archives/*.deb
+
+##################################################################
+#                  update file db
+##################################################################
+RUN updatedb

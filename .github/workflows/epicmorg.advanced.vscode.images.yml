@@ -38,20 +38,28 @@ jobs:
     - name: "Build and Deploy Advanced Vscode Server Android Images:"
       run:  cd linux/advanced/vscode-server/android && pwd && make build && make deploy
     
+##################################################################################
+
     - name: Cleanup
       run: make docker-clean
+
+##################################################################################
+
+    - name: "Build and Deploy Advanced Vscode Server NodeJS Images:"
+      run:  cd linux/advanced/vscode-server/nodejs && pwd && make build && make deploy
 
     - name: "Build and Deploy Advanced Vscode Server CPP Images:"
       run:  cd linux/advanced/vscode-server/cpp && pwd && make build && make deploy
 
-    - name: "Build and Deploy Advanced Vscode Server DevOps Images:"
-      run:  cd linux/advanced/vscode-server/devops && pwd && make build && make deploy
-
     - name: "Build and Deploy Advanced Vscode Server Docker Images:"
       run:  cd linux/advanced/vscode-server/docker && pwd && make build && make deploy
     
+##################################################################################
+
     - name: Cleanup
       run: make docker-clean
+
+##################################################################################
 
     - name: "Build and Deploy Advanced Vscode Server dotnet Images:"
       run:  cd linux/advanced/vscode-server/dotnet && pwd && make build && make deploy
@@ -67,3 +75,4 @@ jobs:
     - name: Cleanup
       run: make docker-clean
 
+##################################################################################

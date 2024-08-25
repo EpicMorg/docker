@@ -29,17 +29,13 @@ RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E03280
     mono-xsp4
 
 ##################################################################
-#                   cleaninig up
+#                  cleanup
 ##################################################################
-RUN apt purge policykit-1 -y && \
-    apt clean -y && \
-    apt autoclean -y && \
+RUN echo "clean up" && \
+    apt-get clean -y && \
+    apt-get autoclean -y && \
     rm -rfv /var/lib/apt/lists/* && \
-    rm -rfv /tmp/mc.patch && \
-    rm -rfv /var/cache/apt/archives/*.deb && \
-    rm -rfv /tmp/7z && \
-    rm -rfv /tmp/deb/* && \
-    rm -rfv /tmp/composer-setup.php && \
-    rm -rfv /tmp/amxx_base_latest.tar.gz && \
-    rm -rfv /tmp/atlassian-plugin-sdk.deb && \
-    rm -rfv /tmp/addons
+    rm -rfv /tmp/* && \
+    rm -rfv /var/cache/apt/archives/*.deb
+
+RUN updatedb

@@ -3,7 +3,7 @@ LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
 ##################################################################
-#                    teamcity dotnet+powershell setup
+#                    teamcity dotnet setup
 ##################################################################
 # Opt out of the telemetry feature
 ENV DOTNET_CLI_TELEMETRY_OPTOUT=true

@@ -1,0 +1,5 @@
+# mainline
+deb [signed-by=/etc/apt/keyrings/launchpad-git.gpg] https://ppa.launchpadcontent.net/git-core/candidate/ubuntu focal main
+deb-src [signed-by=/etc/apt/keyrings/launchpad-git.gpg] https://ppa.launchpadcontent.net/git-core/candidate/ubuntu focal main
+
+

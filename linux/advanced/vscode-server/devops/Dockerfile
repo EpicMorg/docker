@@ -10,9 +10,231 @@ ARG DEBIAN_FRONTEND=noninteractive
 #                   ARGuments
 ##################################################################
 ENV BuildDocker true
-ARG NINJA_ARCH=linux
-ARG NINJA_VERSION=latest
-ARG NINJA_RELEASE_URL=https://api.github.com/repos/ninja-build/ninja/releases/${NINJA_VERSION}
+
+ENV ANDROID_HOME=/usr/lib/android-sdk
+ENV ANDROID_SDK_ROOT=/usr/lib/android-sdk
+
+ARG K_NODE_MAJOR_VERSION=22
+ARG K_NODE_VERSION=${K_NODE_MAJOR_VERSION}.6.0
+ARG K_NODE_URL=https://nodejs.org/dist/v${K_NODE_VERSION}/node-v${K_NODE_VERSION}-linux-x64.tar.gz
+ARG K_NODE_HEADERS_URL=https://nodejs.org/dist/v${K_NODE_VERSION}/node-v${K_NODE_VERSION}-headers.tar.gz
+
+##################################################################
+#                    dotnet setup
+##################################################################
+ENV DOTNET_CHANNEL=LTS
+ENV DOTNET_ROOT=${EMG_LOCAL_BASE_DIR}/dotnet/${DOTNET_CHANNEL}
+ARG DOTNET_TOOLS_DIR=${DOTNET_ROOT}/tools
+ARG DOTNET_INSTALL_DIR=${DOTNET_ROOT}
+ARG DOTNET_INSTALL_SCRIPT_URL=https://dotnet.microsoft.com/download/dotnet/scripts/v1/dotnet-install.sh
+
+# Opt out of the telemetry feature
+ENV DOTNET_CLI_TELEMETRY_OPTOUT=true
+# Disable first time experience
+ENV DOTNET_SKIP_FIRST_TIME_EXPERIENCE=true
+# Configure Kestrel web server to bind to port 80 when present
+ENV ASPNETCORE_URLS=\
+# Enable detection of running in a container
+ENV DOTNET_RUNNING_IN_CONTAINER=true
+# Enable correct mode for dotnet watch (only mode supported in a container)
+ENV DOTNET_USE_POLLING_FILE_WATCHER=true
+# Skip extraction of XML docs - generally not useful within an image/container - helps perfomance
+ENV NUGET_XMLDOC_MODE=skip
+# unofficial support of openssl1.1 instead of 1.0 [https://stackoverflow.com/questions/51901359]
+ENV CLR_OPENSSL_VERSION_OVERRIDE=45
+# PowerShell telemetry for docker image usage
+ENV POWERSHELL_DISTRIBUTION_CHANNEL=PSDocker-DotnetSDK-Ubuntu-20.04
+
+RUN mkdir -p /usr/share/dotnet/host/fxr
+
+##################################################################
+#                   java11
+##################################################################
+ARG K_JDK_MAJOR_VERSION=11
+ARG K_JDK_FULL_VERSION=jdk-11.0.24
+ARG K_JDK_VERSION=11.0.24
+ARG K_JDK_BUILD_VERSION=8
+ARG K_JDK_URL=https://github.com/adoptium/temurin${K_JDK_MAJOR_VERSION}-binaries/releases/download/${K_JDK_FULL_VERSION}+${K_JDK_BUILD_VERSION}/OpenJDK${K_JDK_MAJOR_VERSION}U-jdk_x64_linux_hotspot_${K_JDK_VERSION}_${K_JDK_BUILD_VERSION}.tar.gz
+ARG K_JDK_TEMP=/tmp/OpenJDK${K_JDK_MAJOR_VERSION}U-jdk_x64_linux_hotspot_${K_JDK_VERSION}_${K_JDK_BUILD_VERSION}.tar.gz
+
+ENV JAVA_HOME=/usr/local/${K_JDK_FULL_VERSION}+${K_JDK_BUILD_VERSION}
+ENV JRE_HOME=${JAVA_HOME}
+ENV PATH=$PATH:${JAVA_HOME}/bin
+
+# steam runtime sdk
+ENV STEAM_RUNTIME_SDK_DIR=${EMG_LOCAL_BASE_DIR}/valve/steam/runtime-sdk/latest
+ARG STEAM_RUNTIME_SDK_BIN_DIR=${STEAM_RUNTIME_SDK_DIR}/bin
+ARG STEAM_RUNTIME_SDK_URL=http://media.steampowered.com/client/runtime/steam-runtime-sdk_latest.tar.xz
+ARG STEAM_RUNTIME_SDK_TEMP=/tmp/steam-runtime-sdk_latest.tar.xz
+
+# cmake compiller
+ENV CMAKE_VERSION=3.30.2
+ENV CMAKE_DIR=${EMG_LOCAL_BASE_DIR}/cmake/${CMAKE_VERSION}
+ARG CMAKE_BIN_DIR=${CMAKE_DIR}/bin
+ARG CMAKE_DOWNLOAD_URL=https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}-linux-x86_64.tar.gz
+ARG CMAKE_TEMP=/tmp/cmake-${CMAKE_VERSION}-linux-x86_64.tar.gz
+
+# flutter source tarball
+ENV FLUTTER_VERSION=3.22.3
+ENV FLUTTER_CHANNEL=stable
+ENV FLUTTER_DIR=${EMG_LOCAL_BASE_DIR}/flutter/${FLUTTER_VERSION}
+ARG FLUTTER_BIN_DIR=${FLUTTER_DIR}/bin
+ARG FLUTTER_DOWNLOAD_URL=https://storage.googleapis.com/flutter_infra_release/releases/${FLUTTER_CHANNEL}/linux/flutter_linux_${FLUTTER_VERSION}-${FLUTTER_CHANNEL}.tar.xz
+ARG FLUTTER_TEMP=/tmp/flutter_linux_${FLUTTER_VERSION}-${FLUTTER_CHANNEL}.tar.xz
+
+# ninja source tarball
+ENV NINJA_VERSION=1.12.1
+ENV NINJA_DIR=${EMG_LOCAL_BASE_DIR}/ninja/${NINJA_VERSION}
+ARG NINJA_BIN_DIR=${NINJA_DIR}/bin
+ARG NINJA_DOWNLOAD_URL=https://github.com/ninja-build/ninja/releases/download/v${NINJA_VERSION}/ninja-linux.zip
+ARG NINJA_TEMP=/tmp/ninja-linux.zip
+
+# GO source tarball
+ENV GO_VERSION=1.22.5
+ENV GO_DIR=${EMG_LOCAL_BASE_DIR}/go/${GO_VERSION}
+ARG GO_BIN_DIR=${GO_DIR}/bin
+ARG GO_DOWNLOAD_URL=https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz
+ARG GO_TEMP=/tmp/go${GO_VERSION}.linux-amd64.tar.gz
+
+
+##################################################################
+#                    AMXXModX setup
+##################################################################
+#
+# Reserved for future
+#    export AMXX_CSTRIKE_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.10/amxmodx-latest-cstrike-linux` && \
+#    export AMXX_DOD_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.10/amxmodx-latest-dod-linux` && \
+#    export AMXX_ESF_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.10/amxmodx-latest-esf-linux` && \
+#    export AMXX_NS_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.10/amxmodx-latest-ns-linux` && \
+#    export AMXX_TFC_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.10/amxmodx-latest-tfc-linux` && \
+#    export AMXX_TS_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.10/amxmodx-latest-base-linux` && \
+#
+# Install packages
+ENV AMXX_VERSION=1.10
+ENV AMXX_INSTALL_PATH=/opt/amxmodx/$AMXX_VERSION
+ENV AMXX_BIN_PATH=$AMXX_INSTALL_PATH/scripting
+ENV AMXX_INC_PATH=$AMXX_BIN_PATH/include
+ENV PATH=$PATH:$AMXX_BIN_PATH
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$AMXX_BIN_PATH
+
+COPY inc.tar /tmp
+
+RUN export AMXX_BASE_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.10/amxmodx-latest-base-linux` && \
+    mkdir -p $AMXX_INSTALL_PATH && \
+    curl -SL https://www.amxmodx.org/amxxdrop/{$AMXX_VERSION}/{$AMXX_BASE_LATEST_VERSION} -o /tmp/amxx_base_latest.tar.gz && \
+    cd /tmp && tar -zxf /tmp/amxx_base_latest.tar.gz && cd / && \
+    mv -f /tmp/addons/amxmodx/* $AMXX_INSTALL_PATH && \
+    chmod +x $AMXX_BIN_PATH/amxxpc && \
+    tar -C $AMXX_INC_PATH -xvf /tmp/inc.tar && \
+    chmod -R 700 $AMXX_INC_PATH && \
+    chmod +x $AMXX_BIN_PATH/compile.sh
+
+##################################################################
+#                   Rust compillers
+##################################################################
+ENV CARGO_HOME=${EMG_LOCAL_BASE_DIR}/cargo
+ENV RUSTUP_HOME=${EMG_LOCAL_BASE_DIR}/rustup
+ARG CARGO_BIN=${CARGO_HOME}/bin
+
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path --profile complete --default-toolchain stable --verbose
+
+ENV PATH="$CARGO_HOME/bin:${PATH}"
+
+RUN echo "=============================================" && \
+    echo cargo $(cargo --version) && \
+    echo rustc $(rustc --version) && \
+    echo rustup $(rustup --version) && \
+    echo "============================================="
+
+##################################################################
+#                   CMake
+##################################################################
+RUN mkdir -p ${CMAKE_DIR}
+ADD ${CMAKE_DOWNLOAD_URL} /tmp
+
+RUN tar -xf ${CMAKE_TEMP} --directory ${CMAKE_DIR} --strip-components=1 && \
+    chmod +x ${CMAKE_BIN_DIR}/ccmake && \
+    chmod +x ${CMAKE_BIN_DIR}/cmake && \
+    chmod +x ${CMAKE_BIN_DIR}/cmake-gui && \
+    chmod +x ${CMAKE_BIN_DIR}/cpack && \
+    chmod +x ${CMAKE_BIN_DIR}/ctest
+
+ENV PATH="${CMAKE_BIN_DIR}:${PATH}"
+
+RUN echo "=============================================" && \
+    echo $(cmake --version) && \
+    echo "============================================="
+
+##################################################################
+#                   steam runtime and ssdk
+##################################################################
+RUN mkdir -p ${STEAM_RUNTIME_SDK_DIR}
+ADD ${STEAM_RUNTIME_SDK_URL} /tmp
+
+RUN tar -xf ${STEAM_RUNTIME_SDK_TEMP} --directory ${STEAM_RUNTIME_SDK_DIR} --strip-components=1 && \
+    tree ${STEAM_RUNTIME_SDK_DIR} && \
+    chmod +x ${STEAM_RUNTIME_SDK_BIN_DIR} -R && \
+    chmod +x ${STEAM_RUNTIME_SDK_DIR}/setup.sh && \
+    chmod +x ${STEAM_RUNTIME_SDK_DIR}/shell.sh && \
+    chmod +x ${STEAM_RUNTIME_SDK_DIR}/shell-amd64.sh && \
+    chmod +x ${STEAM_RUNTIME_SDK_DIR}/shell-i386.sh
+#    printf '%s\n' 3 1 Y Y Y | ./setup.sh
+
+##################################################################
+#                   Flutter SDK
+##################################################################
+RUN mkdir -p ${FLUTTER_DIR}
+ADD ${FLUTTER_DOWNLOAD_URL} /tmp
+
+RUN tar -xf ${FLUTTER_TEMP} --directory ${FLUTTER_DIR} --strip-components=1 && \
+    chmod +x ${FLUTTER_BIN_DIR}/dart && \
+    chmod +x ${FLUTTER_BIN_DIR}/flutter && \
+    chmod +x ${FLUTTER_BIN_DIR}/internal/shared.sh && \
+    chmod +x ${FLUTTER_BIN_DIR}/internal/update_dart_sdk.sh
+
+ENV PATH="${FLUTTER_BIN_DIR}:${PATH}"
+
+RUN git config --global --add safe.directory ${FLUTTER_DIR} && \
+    flutter precache && \
+    flutter config --no-analytics && \
+    dart --disable-analytics
+
+RUN echo "=============================================" && \
+    echo dart $(dart --version) && \
+    echo flutter $(flutter --version) && \
+    echo "============================================="
+
+##################################################################
+#                   GO compillers
+##################################################################
+RUN mkdir -p ${GO_DIR}
+ADD ${GO_DOWNLOAD_URL} /tmp
+
+RUN tar -xzf ${GO_TEMP} --directory ${GO_DIR} --strip-components=1 && \
+    chmod +x ${GO_BIN_DIR}/go && \
+    chmod +x ${GO_BIN_DIR}/gofmt
+
+ENV GOPATH=${GO_DIR}
+ENV PATH="${GO_BIN_DIR}:${PATH}"
+
+RUN echo "=============================================" && \
+    echo go $(go version) && \
+    echo "============================================="
+
+##################################################################
+#                   Get NINJA binary
+##################################################################
+RUN mkdir -p ${NINJA_BIN_DIR}
+ADD ${NINJA_DOWNLOAD_URL} /tmp
+
+RUN 7zz x ${NINJA_TEMP} -o${NINJA_BIN_DIR} -y  && \
+    chmod +x ${NINJA_BIN_DIR}/ninja
+
+ENV PATH="${NINJA_BIN_DIR}:${PATH}"
+
+RUN echo "=============================================" && \
+    echo ninja $(ninja --version) && \
+    echo "============================================="
 
 ##################################################################
 #                   deps
@@ -76,52 +298,30 @@ RUN apt-get update && \
     libcrypto++-dev \
     libbz2-dev \
     libvpx-dev \
-#    libvpx6 \
     libc6 \
     libgssapi-krb5-2 \
-#    liblttng-ust0 \
-#    libssl1.1 \
     libstdc++6 \
     zlib1g \
     tcl
-
-##################################################################
-#                   Get NINJA binary
-##################################################################
-RUN curl -s ${NINJA_RELEASE_URL} | jq -r ".assets[] | select(.name | test(\"${NINJA_ARCH}\")) | .browser_download_url" > /tmp/ninja-url.txt && \
-    cat /tmp/ninja-url.txt && \
-    cd /tmp && \
-    wget -q -c --input-file=/tmp/ninja-url.txt && \
-    unzip -o /tmp/ninja-linux.zip -d /bin && \
-    printf "\n--------------------------------\nninja version: $(ninja --version)\n--------------------------------\n\n"
-
-##################################################################
-#                   steam runtime and ssdk
-##################################################################
-RUN cd / && \
-    sudo mkdir valve && \
-    cd valve && \
-    sudo wget http://media.steampowered.com/client/runtime/steam-runtime-sdk_latest.tar.xz && \
-    sudo tar xvf steam-runtime-sdk_latest.tar.xz && \
-    sudo mv steam-runtime-sdk_2013-09-05 steam-runtime && \
-    sudo chown root:root * -R && \
-    cd steam-runtime && \
-    printf '%s\n' 3 1 Y Y Y | ./setup.sh
 
 ##################################################################
 #                    docker setup
 ##################################################################
 
 #Install packages
-RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - && \
-    echo 'deb  https://download.docker.com/linux/ubuntu focal test' > /etc/apt/sources.list.d/docker.list  && \
-    apt-cache policy docker-ce && \
+RUN install -m 0755 -d /etc/apt/keyrings && \
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc && \
+    chmod a+r /etc/apt/keyrings/docker.asc && \
+    echo "deb [signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu noble nightly" > /etc/apt/sources.list.d/docker.list  && \
+    echo "deb [signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu noble stable" >> /etc/apt/sources.list.d/docker.list  && \
+    echo "deb [signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu noble test" >> /etc/apt/sources.list.d/docker.list  && \
     apt-get update && \
     apt-get install -y --no-install-recommends --allow-unauthenticated \
-      docker-ce \
-      docker-ce-cli \
-      containerd.io systemd && \
-    systemctl disable docker
+        docker-ce \
+        docker-ce-cli \
+        containerd.io \
+        docker-buildx-plugin \
+        docker-compose-plugin
 
 # A better fix for TW-52939 Dockerfile build fails because of aufs
 VOLUME /var/lib/docker
@@ -141,85 +341,126 @@ RUN chmod +x /usr/local/bin/docker-compose-update && \
 RUN docker-compose-update
 
 #Install packages
-RUN export  DOCKER_COMPOSE_VERSION=`curl --silent https://api.github.com/repos/docker/compose/releases/latest | jq .name -r` && \
+RUN export DOCKER_COMPOSE_VERSION=`curl --silent https://api.github.com/repos/docker/compose/releases/latest | jq .name -r` && \
     echo "Latest compose is: ${DOCKER_COMPOSE_VERSION}" && \
     curl -SL https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-Linux-x86_64 -o /usr/local/bin/docker-compose && \
     chmod +x /usr/local/bin/docker-compose && \
     docker-compose -v
 
+
 ##################################################################
-#                    dotnet+powershell setup
+#                   installing java11
 ##################################################################
-# Opt out of the telemetry feature
-ENV DOTNET_CLI_TELEMETRY_OPTOUT=true
-# Disable first time experience
-ENV DOTNET_SKIP_FIRST_TIME_EXPERIENCE=true
-# Configure Kestrel web server to bind to port 80 when present
-ENV ASPNETCORE_URLS=\
-# Enable detection of running in a container
-ENV DOTNET_RUNNING_IN_CONTAINER=true
-# Enable correct mode for dotnet watch (only mode supported in a container)
-ENV DOTNET_USE_POLLING_FILE_WATCHER=true
-# Skip extraction of XML docs - generally not useful within an image/container - helps perfomance
-ENV NUGET_XMLDOC_MODE=skip
-# unofficial support of openssl1.1 instead of 1.0 [https://stackoverflow.com/questions/51901359]
-ENV CLR_OPENSSL_VERSION_OVERRIDE=45
-# PowerShell telemetry for docker image usage
-ENV POWERSHELL_DISTRIBUTION_CHANNEL=PSDocker-DotnetSDK-Ubuntu-20.04
+ADD ${K_JDK_URL} /tmp
+RUN tar -xvzf ${K_JDK_TEMP} --directory /usr/local && \
+    ln -sfv ${JAVA_HOME} /usr/jre && \
+    java -version
 
-#Install packages
-RUN curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add - && \
-    echo 'deb [arch=amd64,arm64,armhf] https://packages.microsoft.com/ubuntu/20.04/prod focal main' > /etc/apt/sources.list.d/microsoft.dotnet.list  && \
-    apt-get update && \
-    apt-get install -y --no-install-recommends --allow-unauthenticated \
-#      dotnet-sdk-2.1 \
-#      dotnet-runtime-deps-2.1 \
-#      dotnet-runtime-2.1 \
-#      dotnet-hostfxr-2.1 \
-#      dotnet-sdk-3.1 \
-#      dotnet-targeting-pack-3.1 \
-#      dotnet-runtime-deps-3.1 \
-#      dotnet-runtime-3.1 \
-#      dotnet-hostfxr-3.1 \
-#      dotnet-apphost-pack-3.1 \
-#      dotnet-sdk-5.0 \
-#      dotnet-targeting-pack-5.0 \
-#      dotnet-runtime-deps-5.0 \
-#      dotnet-runtime-5.0 \
-#      dotnet-hostfxr-5.0 \
-#      dotnet-apphost-pack-5.0 \
-#      dotnet-sdk-6.0 \
-#      dotnet-targeting-pack-6.0 \
-#      dotnet-runtime-deps-6.0 \
-#      dotnet-runtime-6.0 \
-#      dotnet-hostfxr-6.0 \
-#      dotnet-apphost-pack-6.0 \
-      dotnet-sdk-7.0 \
-      dotnet-targeting-pack-7.0 \
-      dotnet-runtime-deps-7.0 \
-      dotnet-runtime-7.0 \
-      dotnet-hostfxr-7.0 \
-      dotnet-apphost-pack-7.0 \
-#      dotnet-host \
-      procdump \
-      procmon \
-      powershell-preview \
-      powershell
+##################################################################
+#                   Additional settings
+##################################################################
+ENV MAVEN_VERSION=3.9.8
+ENV MAVEN_LINK=https://dlcdn.apache.org/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.zip
+ENV MAVEN_ROOT=${EMG_LOCAL_BASE_DIR}/maven/${MAVEN_VERSION}
+ENV MAVEN_PATH=${MAVEN_ROOT}/apache-maven-${MAVEN_VERSION}
+ENV MAVEN_BIN=${MAVEN_PATH}/bin
+ARG MAVEN_TEMP=/tmp/apache-maven-${MAVEN_VERSION}-bin.zip
 
-RUN mkdir -p /usr/share/dotnet/host/fxr
+ENV GRADLE_VERSION=8.8
+ENV GRADLE_LINK=https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-all.zip
+ENV GRADLE_ROOT=${EMG_LOCAL_BASE_DIR}/gradle/${GRADLE_VERSION}
+ENV GRADLE_PATH=${GRADLE_ROOT}/gradle-${GRADLE_VERSION}
+ENV GRADLE_BIN=${GRADLE_PATH}/bin
+ARG GRADLE_TEMP=/tmp/gradle-${GRADLE_VERSION}-all.zip
 
-# Trigger .NET CLI first run experience by running arbitrary cmd to populate local package cache
-RUN dotnet --info && \
-    pwsh-preview -v && \
-    pwsh -v
+ENV KTC_VERSION=2.0.0
+ENV KTC_LINK=https://github.com/JetBrains/kotlin/releases/download/v${KTC_VERSION}/kotlin-compiler-${KTC_VERSION}.zip
+ARG KTC_TEMP=/tmp/kotlin-compiler-${KTC_VERSION}.zip
+ENV KTC_ROOT=${EMG_LOCAL_BASE_DIR}/kotlin/${KTC_VERSION}
+ENV KTC_PATH=${KTC_ROOT}/kotlinc
+ENV KTC_BIN=${KTC_PATH}/bin
 
-# install dotnet tools
-#RUN dotnet tool list -g && \
-#    dotnet tool install -g dotnet-script && \
-#    curl -s https://raw.githubusercontent.com/filipw/dotnet-script/master/install/install.sh | bash && \
-#    dotnet tool list -g && \
-#    dotnet-script --version
+ENV KNPL_VERSION=${KTC_VERSION}
+ENV KNPL_LINK=https://github.com/JetBrains/kotlin/releases/download/v${KNPL_VERSION}/kotlin-native-prebuilt-linux-x86_64-${KNPL_VERSION}.tar.gz
+ARG KNPL_TEMP=/tmp/kotlin-native-prebuilt-linux-x86_64-${KNPL_VERSION}.tar.gz
+ENV KNPL_ROOT=${EMG_LOCAL_BASE_DIR}/kotlin/${KNPL_VERSION}
+ENV KNPL_PATH=${KNPL_ROOT}/kotlin-native-prebuilt-linux-x86_64-${KNPL_VERSION}
+ENV KNPL_BIN=${KNPL_PATH}/bin
 
+RUN mkdir -p ${MAVEN_PATH} ${KTC_PATH} ${KNPL_PATH} ${GRADLE_PATH}
+ENV PATH=${PATH}:${MAVEN_BIN}:${GRADLE_BIN}:${KTC_BIN}:${KNPL_BIN}
+
+##################################################################
+#                   Maven
+##################################################################
+ENV MAVEN_HOME=${MAVEN_ROOT}
+ENV M2_HOME=${MAVEN_ROOT}
+
+ADD ${MAVEN_LINK} /tmp
+RUN 7zz x ${MAVEN_TEMP} -o${MAVEN_ROOT}
+RUN chmod +x -R ${MAVEN_BIN}
+RUN mvn -v
+
+##################################################################
+#                   GRADLE
+##################################################################
+ADD ${GRADLE_LINK} /tmp
+RUN 7zz x ${GRADLE_TEMP} -o${GRADLE_ROOT}
+RUN chmod +x -R ${GRADLE_BIN}
+RUN gradle -v
+
+##################################################################
+#                   kotlin-compiler
+##################################################################
+ADD ${KTC_LINK} /tmp
+RUN 7zz x ${KTC_TEMP} -o${KTC_ROOT}
+RUN chmod +x -R ${KTC_BIN}
+RUN kotlin -version
+
+##################################################################
+#                   kotlin-native-prebuilt-linux
+##################################################################
+ADD ${KNPL_LINK} /tmp
+RUN tar -xvzf ${KNPL_TEMP} --directory ${KTC_ROOT}
+RUN chmod +x -R ${KNPL_BIN}
+
+##################################################################
+#                   Android SDK
+##################################################################
+RUN apt-get update && \
+    apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
+      android-sdk \
+      android-sdk-build-tools \
+      android-sdk-platform-tools-common \
+      android-sdk-platform-tools \
+      adb fastboot f2fs-tools e2fsprogs libsqlite3-0 sqlite3
+
+##################################################################
+#                   Activate Android SDK
+##################################################################
+RUN echo "24333f8a63b6825ea9c5514f83c2829b004d1fee" > /usr/lib/android-sdk/licenses/android-sdk-license
+
+##################################################################
+#                   installing dotnet
+##################################################################
+ADD ${DOTNET_INSTALL_SCRIPT_URL} /tmp
+RUN mkdir -p ${DOTNET_ROOT} && \ 
+    chmod +x /tmp/dotnet-install.sh && \
+    /tmp/dotnet-install.sh --verbose --no-path --install-dir ${DOTNET_ROOT} --channel ${DOTNET_CHANNEL} --version latest
+
+##################################################################
+#                   Setup $PATH
+##################################################################
+ENV PATH=$PATH:${DOTNET_ROOT}:${DOTNET_TOOLS_DIR}
+
+##################################################################
+#                   Version after install
+##################################################################
+RUN echo "=============================================" && \
+    echo $(dotnet --info) && \
+    echo $(dotnet --list-sdks) && \
+    echo $(dotnet --list-runtimes) && \
+    echo "============================================="
 
 ##################################################################
 #                    Mono
@@ -238,107 +479,43 @@ RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E03280
     ca-certificates-mono \
     mono-xsp4
 
+##################################################################
+#                   Node.js 22.x
+##################################################################
+RUN groupadd -g 1337 node && \
+    useradd  -u 1337 --gid node --shell /bin/bash --create-home node
+
+ADD ${K_NODE_URL} /tmp
+ADD ${K_NODE_HEADERS_URL} /tmp
+
+RUN tar -xvzf /tmp/node-v${K_NODE_VERSION}-linux-x64.tar.gz --strip-components=1 --directory /usr/local && \
+    tar -xvzf /tmp/node-v${K_NODE_VERSION}-headers.tar.gz --strip-components=1 --directory /usr/local && \
+    rm -rfv /usr/local/CHANGELOG.md /usr/local/LICENSE /usr/local/README.md
+
+RUN npm install -g pnpm yarn
 
 ##################################################################
-#                    teamcity AMXXModX setup
+#                   Version after install
 ##################################################################
-#
-# Reserved for future
-#    export AMXX_CSTRIKE_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.10/amxmodx-latest-cstrike-linux` && \
-#    export AMXX_DOD_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.10/amxmodx-latest-dod-linux` && \
-#    export AMXX_ESF_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.10/amxmodx-latest-esf-linux` && \
-#    export AMXX_NS_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.10/amxmodx-latest-ns-linux` && \
-#    export AMXX_TFC_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.10/amxmodx-latest-tfc-linux` && \
-#    export AMXX_TS_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.10/amxmodx-latest-base-linux` && \
-
-# Install packages
-ENV AMXX_VERSION=1.10
-ENV AMXX_INSTALL_PATH=/opt/amxmodx/$AMXX_VERSION
-ENV AMXX_BIN_PATH=$AMXX_INSTALL_PATH/scripting
-ENV AMXX_INC_PATH=$AMXX_BIN_PATH/include
-ENV PATH=$PATH:$AMXX_BIN_PATH
-ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$AMXX_BIN_PATH
-
-COPY inc.tar /tmp
-
-RUN export AMXX_BASE_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.10/amxmodx-latest-base-linux` && \
-    mkdir -p $AMXX_INSTALL_PATH && \
-    curl -SL https://www.amxmodx.org/amxxdrop/{$AMXX_VERSION}/{$AMXX_BASE_LATEST_VERSION} -o /tmp/amxx_base_latest.tar.gz && \
-    cd /tmp && tar -zxf /tmp/amxx_base_latest.tar.gz && cd / && \
-    mv -f /tmp/addons/amxmodx/* $AMXX_INSTALL_PATH && \
-    chmod +x $AMXX_BIN_PATH/amxxpc && \
-    chmod +x $AMXX_BIN_PATH/compile.sh && \
-    tar -C $AMXX_INC_PATH -xvf /tmp/inc.tar && \
-    chmod -R 700 $AMXX_INC_PATH && \
-    amxxpc --help 2>&1 | head -n 1
+RUN echo "=============================================" && \
+    echo node $(node --version) && \
+    echo npm $(npm --version) && \
+    echo yarn $(yarn --version) && \
+    echo pnpm $(pnpm --version) && \
+    echo "============================================="
 
 ##################################################################
-#                   Android SDK
+#                   other   customisations
 ##################################################################
-ENV ANDROID_HOME=/usr/lib/android-sdk
-ENV ANDROID_SDK_ROOT=/usr/lib/android-sdk
-
-RUN apt-get update && \
-    apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
-      android-sdk \
-      android-sdk-build-tools \
-      android-sdk-platform-tools-common \
-      android-sdk-platform-tools \
-      adb fastboot f2fs-tools e2fsprogs libsqlite3-0 sqlite3
-
-# Activate android sdk
-RUN echo "24333f8a63b6825ea9c5514f83c2829b004d1fee" > /usr/lib/android-sdk/licenses/android-sdk-license
 
 ##################################################################
-#                   SDKMAN
+#                  cleanup
 ##################################################################
-#USER root
-#RUN export SDKMAN_DIR="/usr/local/sdkman" && curl -s "https://get.sdkman.io?rcupdate=false" | bash
-#RUN export SDKMAN_DIR="/config/.sdkman" && curl -A "Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/81.0" -s "https://get.sdkman.io" | bash
-COPY ./sdkman.sh /tmp/sdkman.sh
-RUN export SDKMAN_DIR="/config/.sdkman" && chmod +x /tmp/sdkman.sh
-RUN /tmp/sdkman.sh
-
-##################################################################
-#                   Upgrade SDK-man
-##################################################################
-RUN /bin/bash -c "source /config/.sdkman/bin/sdkman-init.sh; sdk selfupdate force;"
-
-##################################################################
-#                   Gradle
-##################################################################
-RUN /bin/bash -c "source /config/.sdkman/bin/sdkman-init.sh; sdk install gradle;"
-
-##################################################################
-#                   Kotlin
-##################################################################
-RUN /bin/bash -c "source /config/.sdkman/bin/sdkman-init.sh; sdk install kotlin;"
-
-##################################################################
-#                   installing java11
-##################################################################
-RUN wget -qO - https://packages.adoptium.net/artifactory/api/gpg/key/public  | apt-key add - && \
-    echo 'deb https://packages.adoptium.net/artifactory/deb focal main' > /etc/apt/sources.list.d/temurin-official.list && \
-    apt-get update && \
-    apt-get autoremove -y && \
-    apt-get install -y --allow-unauthenticated temurin-11-jdk && \
-    mkdir /usr/lib/jvm/temurin-11-jdk-amd64/jre && \
-    ln -s /usr/lib/jvm/temurin-11-jdk-amd64/bin/ /usr/lib/jvm/temurin-11-jdk-amd64/jre/bin && \
-    ln -s /usr/lib/jvm/temurin-11-jdk-amd64/lib/ /usr/lib/jvm/temurin-11-jdk-amd64/jre/lib && \
-    java -version
-
-##################################################################
-#                   cleaninig up
-##################################################################
-RUN apt purge policykit-1 -y && \
-    apt clean -y && \
-    apt autoclean -y && \
+RUN echo "clean up" && \
+    apt-get clean -y && \
+    apt-get autoclean -y && \
     rm -rfv /var/lib/apt/lists/* && \
-    rm -rfv /tmp/mc.patch && \
-    rm -rfv /var/cache/apt/archives/*.deb && \
-    rm -rfv /tmp/7z && \
-    rm -rfv /tmp/deb/* && \
-    rm -rfv /tmp/composer-setup.php && \
-    rm -rfv /tmp/amxx_base_latest.tar.gz && \
-    rm -rfv /tmp/atlassian-plugin-sdk.deb && \
-    rm -rfv /tmp/addons
+    rm -rfv /tmp/* && \
+    rm -rfv /var/cache/apt/archives/*.deb
+
+RUN updatedb

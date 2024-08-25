@@ -12,8 +12,14 @@ ARG DEBIAN_FRONTEND=noninteractive
 ENV BuildDocker true
 
 ##################################################################
-#                    dotnet+powershell setup
+#                    dotnet setup
 ##################################################################
+ENV DOTNET_CHANNEL=LTS
+ENV DOTNET_ROOT=${EMG_LOCAL_BASE_DIR}/dotnet/${DOTNET_CHANNEL}
+ARG DOTNET_TOOLS_DIR=${DOTNET_ROOT}/tools
+ARG DOTNET_INSTALL_DIR=${DOTNET_ROOT}
+ARG DOTNET_INSTALL_SCRIPT_URL=https://dotnet.microsoft.com/download/dotnet/scripts/v1/dotnet-install.sh
+
 # Opt out of the telemetry feature
 ENV DOTNET_CLI_TELEMETRY_OPTOUT=true
 # Disable first time experience
@@ -31,67 +37,39 @@ ENV CLR_OPENSSL_VERSION_OVERRIDE=45
 # PowerShell telemetry for docker image usage
 ENV POWERSHELL_DISTRIBUTION_CHANNEL=PSDocker-DotnetSDK-Ubuntu-20.04
 
-#Install packages
-RUN curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add - && \
-    echo 'deb [arch=amd64,arm64,armhf] https://packages.microsoft.com/ubuntu/20.04/prod focal main' > /etc/apt/sources.list.d/microsoft.dotnet.list  && \
-    apt-get update && \
-    apt-get install -y --no-install-recommends --allow-unauthenticated \
-#      dotnet-sdk-2.1 \
-#      dotnet-runtime-deps-2.1 \
-#      dotnet-runtime-2.1 \
-#      dotnet-hostfxr-2.1 \
-#      dotnet-sdk-3.1 \
-#      dotnet-targeting-pack-3.1 \
-#      dotnet-runtime-deps-3.1 \
-#      dotnet-runtime-3.1 \
-#      dotnet-hostfxr-3.1 \
-#      dotnet-apphost-pack-3.1 \
-#      dotnet-sdk-5.0 \
-#      dotnet-targeting-pack-5.0 \
-#      dotnet-runtime-deps-5.0 \
-#      dotnet-runtime-5.0 \
-#      dotnet-hostfxr-5.0 \
-#      dotnet-apphost-pack-5.0 \
-#      dotnet-sdk-6.0 \
-#      dotnet-targeting-pack-6.0 \
-#      dotnet-runtime-deps-6.0 \
-#      dotnet-runtime-6.0 \
-#      dotnet-hostfxr-6.0 \
-#      dotnet-apphost-pack-6.0 \
-      dotnet-sdk-7.0 \
-      dotnet-targeting-pack-7.0 \
-      dotnet-runtime-deps-7.0 \
-      dotnet-runtime-7.0 \
-      dotnet-hostfxr-7.0 \
-      dotnet-apphost-pack-7.0 \
-#      dotnet-host \
-      procdump \
-      procmon \
-      powershell-preview \
-      powershell
-
 
 RUN mkdir -p /usr/share/dotnet/host/fxr
 
-# Trigger .NET CLI first run experience by running arbitrary cmd to populate local package cache
-RUN dotnet --info && \
-    pwsh-preview -v && \
-    pwsh -v
-
-# install dotnet tools
-#RUN dotnet tool list -g && \
-#    dotnet tool install -g dotnet-script && \
-#    curl -s https://raw.githubusercontent.com/filipw/dotnet-script/master/install/install.sh | bash && \
-#    dotnet tool list -g && \
-#    dotnet-script --version
+##################################################################
+#                   installing dotnet
+##################################################################
+ADD ${DOTNET_INSTALL_SCRIPT_URL} /tmp
+RUN mkdir -p ${DOTNET_ROOT} && \ 
+    chmod +x /tmp/dotnet-install.sh && \
+    /tmp/dotnet-install.sh --verbose --no-path --install-dir ${DOTNET_ROOT} --channel ${DOTNET_CHANNEL} --version latest
 
 ##################################################################
-#                   cleaninig up
+#                   Setup $PATH
 ##################################################################
-RUN apt purge policykit-1 -y && \
-    apt clean -y && \
-    apt autoclean -y && \
+ENV PATH=$PATH:${DOTNET_ROOT}:${DOTNET_TOOLS_DIR}
+
+##################################################################
+#                   Version after install
+##################################################################
+RUN echo "=============================================" && \
+    echo $(dotnet --info) && \
+    echo $(dotnet --list-sdks) && \
+    echo $(dotnet --list-runtimes) && \
+    echo "============================================="
+
+##################################################################
+#                  cleanup
+##################################################################
+RUN echo "clean up" && \
+    apt-get clean -y && \
+    apt-get autoclean -y && \
     rm -rfv /var/lib/apt/lists/* && \
-    rm -rfv /tmp/mc.patch && \
-    rm -rfv /var/cache/apt/archives/*.deb && \
-    rm -rfv /tmp/*
+    rm -rfv /tmp/* && \
+    rm -rfv /var/cache/apt/archives/*.deb
+
+RUN updatedb

@@ -25,14 +25,14 @@ RUN tar -xvzf ${K_JDK_TEMP} --directory /usr/local && \
 ##################################################################
 ENV MAVEN_VERSION=3.9.8
 ENV MAVEN_LINK=https://dlcdn.apache.org/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.zip
-ENV MAVEN_ROOT=/usr/local/maven
+ENV MAVEN_ROOT=${EMG_LOCAL_BASE_DIR}/maven/${MAVEN_VERSION}
 ENV MAVEN_PATH=${MAVEN_ROOT}/apache-maven-${MAVEN_VERSION}
 ENV MAVEN_BIN=${MAVEN_PATH}/bin
 ARG MAVEN_TEMP=/tmp/apache-maven-${MAVEN_VERSION}-bin.zip
 
 ENV GRADLE_VERSION=8.8
 ENV GRADLE_LINK=https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-all.zip
-ENV GRADLE_ROOT=/usr/local/gradle
+ENV GRADLE_ROOT=${EMG_LOCAL_BASE_DIR}/gradle/${GRADLE_VERSION}
 ENV GRADLE_PATH=${GRADLE_ROOT}/gradle-${GRADLE_VERSION}
 ENV GRADLE_BIN=${GRADLE_PATH}/bin
 ARG GRADLE_TEMP=/tmp/gradle-${GRADLE_VERSION}-all.zip
@@ -40,14 +40,14 @@ ARG GRADLE_TEMP=/tmp/gradle-${GRADLE_VERSION}-all.zip
 ENV KTC_VERSION=2.0.0
 ENV KTC_LINK=https://github.com/JetBrains/kotlin/releases/download/v${KTC_VERSION}/kotlin-compiler-${KTC_VERSION}.zip
 ARG KTC_TEMP=/tmp/kotlin-compiler-${KTC_VERSION}.zip
-ENV KTC_ROOT=/usr/local/kotlin
+ENV KTC_ROOT=${EMG_LOCAL_BASE_DIR}/kotlin/${KTC_VERSION}
 ENV KTC_PATH=${KTC_ROOT}/kotlinc
 ENV KTC_BIN=${KTC_PATH}/bin
 
 ENV KNPL_VERSION=${KTC_VERSION}
 ENV KNPL_LINK=https://github.com/JetBrains/kotlin/releases/download/v${KNPL_VERSION}/kotlin-native-prebuilt-linux-x86_64-${KNPL_VERSION}.tar.gz
 ARG KNPL_TEMP=/tmp/kotlin-native-prebuilt-linux-x86_64-${KNPL_VERSION}.tar.gz
-ENV KNPL_ROOT=/usr/local/kotlin
+ENV KNPL_ROOT=${EMG_LOCAL_BASE_DIR}/kotlin/${KNPL_VERSION}
 ENV KNPL_PATH=${KNPL_ROOT}/kotlin-native-prebuilt-linux-x86_64-${KNPL_VERSION}
 ENV KNPL_BIN=${KNPL_PATH}/bin
 

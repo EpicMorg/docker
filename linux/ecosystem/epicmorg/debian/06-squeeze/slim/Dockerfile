@@ -48,17 +48,22 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     apt-get install -y --allow-unauthenticated --no-install-recommends \
     apt-transport-https \
     apt-utils \
-    gnupg \
-    gnupg2 \
     aptitude \
     bash \
     binutils \
     ca-certificates \
-    locales \
     curl \
-    wget \
+    gnupg \
+    gnupg2 \
+    locales \
     locate \
-    sudo
+    rar \
+    sudo \
+    unrar \
+    unrar-free \
+    unzip \
+    wget \
+    zip
 
 RUN apt-key list  | grep "expired: " | sed -ne 's|pub .*/\([^ ]*\) .*|\1|gp' | xargs -n1  apt-key adv --keyserver keyserver.ubuntu.com --recv-keys
 RUN apt-key adv --keyserver keyserver.ubuntu.com --refresh-keys
@@ -87,8 +92,6 @@ RUN echo "clean up" && \
     rm -rfv /var/lib/apt/lists/* && \
     rm -rfv /tmp/* && \
     rm -rfv /var/cache/apt/archives/*.deb
-
-RUN updatedb
 
 ##################################################################
 #                  update file db
