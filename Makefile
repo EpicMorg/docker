@@ -87,6 +87,7 @@ advanced-images:
 	make advanced-teamcity-server-images
 	make advanced-nextcloud-all-images
 	make advanced-zabbix-images
+	make advanced-vscode-server-images
 
 advanced-mattermost-images:
 	cd `pwd`/linux/advanced/mattermost			&& pwd && make build && make deploy
@@ -320,7 +321,7 @@ ecosystem-images:
 	make ecosystem-teamcity-agent-images
 	make ecosystem-gitlab-runner-images
 	make ecosystem-nginx-images
-	make ecosystem-vscode-server-images
+	make advanced-vscode-server-images
 	make ecosystem-ninjam-image
 	make bundle-jira
 	make bundle-atlassian-latest
@@ -1133,16 +1134,18 @@ ecosystem-nginx-images:
 	cd `pwd`/linux/ecosystem/nginx/latest/mainline/php       && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/nginx/latest/mainline/rtmp-hls  && pwd && make build && make deploy
 
-ecosystem-vscode-server-images:
+advanced-vscode-server-images:
 	cd `pwd`/linux/advanced/vscode-server/latest         && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/vscode-server/amxx/1.9       && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/vscode-server/amxx/1.10      && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/vscode-server/android        && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/vscode-server/cpp            && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/vscode-server/nodejs         && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/vscode-server/docker         && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/vscode-server/dotnet         && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/vscode-server/dotnet-full    && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/vscode-server/mono           && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/vscode-server/devops         && pwd && make build && make deploy
 
 ecosystem-perforce-base-images:
 	cd `pwd`/linuxecosystem/perforce/base/r16.2    && pwd && make build && make deploy
