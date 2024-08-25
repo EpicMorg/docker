@@ -48,21 +48,24 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
     apt-transport-https \
     apt-utils \
-    gnupg \
-    gnupg1 \
-    gnupg2 \
     aptitude \
     bash \
     binutils \
     ca-certificates \
-    locales \
-    software-properties-common \
     curl \
-    wget \
+    gnupg \
+    gnupg1 \
+    gnupg2 \
+    locales \
     locate \
+    rar \
+    software-properties-common \
+    sudo \
+    unrar \
+    unrar-free \
     unzip \
-    zip \
-    sudo
+    wget \
+    zip
 
 RUN apt-key adv --keyserver keyserver.ubuntu.com --refresh-keys
 RUN apt-key list  | grep "expired: " | sed -ne 's|pub .*/\([^ ]*\) .*|\1|gp' | xargs -n1  apt-key adv --keyserver keyserver.ubuntu.com --recv-keys

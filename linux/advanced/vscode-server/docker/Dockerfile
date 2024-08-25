@@ -11,21 +11,24 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 ENV BuildDocker true
 
-
 ##################################################################
 #                    docker setup
 ##################################################################
 
 #Install packages
-RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - && \
-    echo 'deb  https://download.docker.com/linux/ubuntu focal test' > /etc/apt/sources.list.d/docker.list  && \
-    apt-cache policy docker-ce && \
+RUN install -m 0755 -d /etc/apt/keyrings && \
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc && \
+    chmod a+r /etc/apt/keyrings/docker.asc && \
+    echo "deb [signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu noble nightly" > /etc/apt/sources.list.d/docker.list  && \
+    echo "deb [signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu noble stable" >> /etc/apt/sources.list.d/docker.list  && \
+    echo "deb [signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu noble test" >> /etc/apt/sources.list.d/docker.list  && \
     apt-get update && \
     apt-get install -y --no-install-recommends --allow-unauthenticated \
-      docker-ce \
-      docker-ce-cli \
-      containerd.io systemd && \
-    systemctl disable docker
+        docker-ce \
+        docker-ce-cli \
+        containerd.io \
+        docker-buildx-plugin \
+        docker-compose-plugin
 
 # A better fix for TW-52939 Dockerfile build fails because of aufs
 VOLUME /var/lib/docker
@@ -45,24 +48,20 @@ RUN chmod +x /usr/local/bin/docker-compose-update && \
 RUN docker-compose-update
 
 #Install packages
-RUN export  DOCKER_COMPOSE_VERSION=`curl --silent https://api.github.com/repos/docker/compose/releases/latest | jq .name -r` && \
+RUN export DOCKER_COMPOSE_VERSION=`curl --silent https://api.github.com/repos/docker/compose/releases/latest | jq .name -r` && \
     echo "Latest compose is: ${DOCKER_COMPOSE_VERSION}" && \
     curl -SL https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-Linux-x86_64 -o /usr/local/bin/docker-compose && \
     chmod +x /usr/local/bin/docker-compose && \
     docker-compose -v
 
 ##################################################################
-#                   cleaninig up
+#                  cleanup
 ##################################################################
-RUN apt purge policykit-1 -y && \
-    apt clean -y && \
-    apt autoclean -y && \
+RUN echo "clean up" && \
+    apt-get clean -y && \
+    apt-get autoclean -y && \
     rm -rfv /var/lib/apt/lists/* && \
-    rm -rfv /tmp/mc.patch && \
-    rm -rfv /var/cache/apt/archives/*.deb && \
-    rm -rfv /tmp/7z && \
-    rm -rfv /tmp/deb/* && \
-    rm -rfv /tmp/composer-setup.php && \
-    rm -rfv /tmp/amxx_base_latest.tar.gz && \
-    rm -rfv /tmp/atlassian-plugin-sdk.deb && \
-    rm -rfv /tmp/addons
+    rm -rfv /tmp/* && \
+    rm -rfv /var/cache/apt/archives/*.deb
+
+RUN updatedb

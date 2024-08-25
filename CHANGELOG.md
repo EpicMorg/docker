@@ -1,6 +1,10 @@
 # Changelog
 ## 2024
 * `aug`
+	* `sentry` and `redash` was set to `experimental` status bacause `ci` is not stable yet.
+	* reworked `teamcity:server` image.
+	* reworked `vscode` image.
+	* updated `monerod` and `p2pool` images to latest versions.
 	* updated `nodejs` and `jdk` images to latest versions.
 	* added extended `nodejs` and `jdk` base images support.
 	* added `dotnet` base images support.

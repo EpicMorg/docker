@@ -22,6 +22,12 @@ ARG DEBIAN_FRONTEND=noninteractive
 # /etc/ld.so.conf.d/
 ARG LD_CONF_DIR=/etc/ld.so.conf.d/
 
+# steam runtime sdk
+ENV STEAM_RUNTIME_SDK_DIR=${EMG_LOCAL_BASE_DIR}/valve/steam/runtime-sdk/latest
+ARG STEAM_RUNTIME_SDK_BIN_DIR=${STEAM_RUNTIME_SDK_DIR}/bin
+ARG STEAM_RUNTIME_SDK_URL=http://media.steampowered.com/client/runtime/steam-runtime-sdk_latest.tar.xz
+ARG STEAM_RUNTIME_SDK_TEMP=/tmp/steam-runtime-sdk_latest.tar.xz
+
 # cmake compiller
 ENV CMAKE_VERSION=3.30.2
 ENV CMAKE_DIR=${EMG_LOCAL_BASE_DIR}/cmake/${CMAKE_VERSION}
@@ -416,6 +422,20 @@ ENV PATH="${CMAKE_BIN_DIR}:${PATH}"
 RUN echo "=============================================" && \
     echo $(cmake --version) && \
     echo "============================================="
+
+##################################################################
+#                   steam runtime and ssdk
+##################################################################
+RUN mkdir -p ${STEAM_RUNTIME_SDK_DIR}
+ADD ${STEAM_RUNTIME_SDK_URL} /tmp
+
+RUN tar -xf ${STEAM_RUNTIME_SDK_TEMP} --directory ${STEAM_RUNTIME_SDK_DIR} --strip-components=1 && \
+    chmod +x ${STEAM_RUNTIME_SDK_BIN_DIR} -R && \
+    chmod +x ${STEAM_RUNTIME_SDK_DIR}/setup.sh && \
+    chmod +x ${STEAM_RUNTIME_SDK_DIR}/shell.sh && \
+    chmod +x ${STEAM_RUNTIME_SDK_DIR}/shell-amd64.sh && \
+    chmod +x ${STEAM_RUNTIME_SDK_DIR}/shell-i386.sh
+#    printf '%s\n' 3 1 Y Y Y | ./setup.sh
 
 ##################################################################
 #                   Flutter SDK

@@ -1,0 +1,6 @@
+#version: '3'
+services:
+  app:
+    image: "epicmorg/vscode-server:nodejs"
+    build:
+      context: .
