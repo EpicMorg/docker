@@ -61,7 +61,8 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     locales \
     locate \
     rar \
-    software-properties-common \
+#    unable to locate package software-properties-common
+#    software-properties-common \
     sudo \
     unrar \
     unrar-free \
