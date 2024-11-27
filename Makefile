@@ -1,8 +1,12 @@
-VERSION                       =  "2024.08.25"
+VERSION                       =  "2024.11.27"
 AUTHOR                        =  "EpicMorg"
 MODIFIED                      =  "STAM"
 DOCKER_SCAN_SUGGEST           = false
 PIP_BREAK_SYSTEM_PACKAGES     = 1
+
+VENV_DIR = venv
+PYTHON = $(VENV_DIR)/bin/python
+PIP = $(VENV_DIR)/bin/pip
 
 app:
 	@make -s version
@@ -92,14 +96,20 @@ advanced-images:
 advanced-mattermost-images:
 	cd `pwd`/linux/advanced/mattermost			&& pwd && make build && make deploy
 
+
 advanced-nextcloud-all-images:
-	make advanced-nextcloud-latest-images
+	make advanced-nextcloud-all-latest-images
+	make advanced-nextcloud-images
 	make advanced-nextcloud-patched-images
 
-advanced-nextcloud-latest-images:
+advanced-nextcloud-all-latest-images:
+	make advanced-nextcloud-pure-latest-images
+	make advanced-nextcloud-patched-latest-images
+
+advanced-nextcloud-pure-latest-images:
 	cd `pwd`/linux/advanced/nextcloud/pure/latest	  && pwd && make build && make deploy
 
-advanced-nextcloud-patched-images:
+advanced-nextcloud-patched-latest-images:
 	cd `pwd`/linux/advanced/nextcloud/patched/latest	  && pwd && make build && make deploy
 
 advanced-teamcity-server-images:
