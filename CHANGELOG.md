@@ -1,5 +1,9 @@
 # Changelog
 ## 2024
+* `sep`, `oct`, `nov`
+    *  fixed some bugs in `Makefile`
+    *  fixed `Dockerfile` bugs
+    *  added `Nextcloud` version `30` in `tag`.
 * `aug`
 	* `sentry` and `redash` was set to `experimental` status bacause `ci` is not stable yet.
 	* reworked `teamcity:server` image.
