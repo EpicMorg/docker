@@ -1,8 +1,12 @@
-VERSION                       =  "2024.08.25"
+VERSION                       =  "2024.11.27"
 AUTHOR                        =  "EpicMorg"
 MODIFIED                      =  "STAM"
 DOCKER_SCAN_SUGGEST           = false
 PIP_BREAK_SYSTEM_PACKAGES     = 1
+
+VENV_DIR = venv
+PYTHON = $(VENV_DIR)/bin/python
+PIP = $(VENV_DIR)/bin/pip
 
 app:
 	@make -s version
@@ -87,18 +91,25 @@ advanced-images:
 	make advanced-teamcity-server-images
 	make advanced-nextcloud-all-images
 	make advanced-zabbix-images
+	make advanced-vscode-server-images
 
 advanced-mattermost-images:
 	cd `pwd`/linux/advanced/mattermost			&& pwd && make build && make deploy
 
+
 advanced-nextcloud-all-images:
-	make advanced-nextcloud-latest-images
+	make advanced-nextcloud-all-latest-images
+	make advanced-nextcloud-images
 	make advanced-nextcloud-patched-images
 
-advanced-nextcloud-latest-images:
+advanced-nextcloud-all-latest-images:
+	make advanced-nextcloud-pure-latest-images
+	make advanced-nextcloud-patched-latest-images
+
+advanced-nextcloud-pure-latest-images:
 	cd `pwd`/linux/advanced/nextcloud/pure/latest	  && pwd && make build && make deploy
 
-advanced-nextcloud-patched-images:
+advanced-nextcloud-patched-latest-images:
 	cd `pwd`/linux/advanced/nextcloud/patched/latest	  && pwd && make build && make deploy
 
 advanced-teamcity-server-images:
@@ -286,6 +297,7 @@ advanced-nextcloud-images:
 	cd `pwd`/linux/advanced/nextcloud/pure/27		  && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/nextcloud/pure/28		  && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/nextcloud/pure/29		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/pure/30		  && pwd && make build && make deploy
 
 advanced-nextcloud-patched-images:
 	cd `pwd`/linux/advanced/nextcloud/patched/14		  && pwd && make build && make deploy
@@ -304,6 +316,7 @@ advanced-nextcloud-patched-images:
 	cd `pwd`/linux/advanced/nextcloud/patched/27		  && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/nextcloud/patched/28		  && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/nextcloud/patched/29		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/patched/30		  && pwd && make build && make deploy
 
 ####################################################################################################################
 
@@ -320,7 +333,7 @@ ecosystem-images:
 	make ecosystem-teamcity-agent-images
 	make ecosystem-gitlab-runner-images
 	make ecosystem-nginx-images
-	make ecosystem-vscode-server-images
+	make advanced-vscode-server-images
 	make ecosystem-ninjam-image
 	make bundle-jira
 	make bundle-atlassian-latest
@@ -1133,16 +1146,18 @@ ecosystem-nginx-images:
 	cd `pwd`/linux/ecosystem/nginx/latest/mainline/php       && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/nginx/latest/mainline/rtmp-hls  && pwd && make build && make deploy
 
-ecosystem-vscode-server-images:
+advanced-vscode-server-images:
 	cd `pwd`/linux/advanced/vscode-server/latest         && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/vscode-server/amxx/1.9       && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/vscode-server/amxx/1.10      && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/vscode-server/android        && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/vscode-server/cpp            && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/vscode-server/nodejs         && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/vscode-server/docker         && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/vscode-server/dotnet         && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/vscode-server/dotnet-full    && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/vscode-server/mono           && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/vscode-server/devops         && pwd && make build && make deploy
 
 ecosystem-perforce-base-images:
 	cd `pwd`/linuxecosystem/perforce/base/r16.2    && pwd && make build && make deploy

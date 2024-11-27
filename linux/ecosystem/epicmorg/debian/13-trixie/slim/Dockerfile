@@ -54,6 +54,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     binutils \
     ca-certificates \
     curl \
+    dirmngr \
     gnupg \
     gnupg1 \
     gnupg2 \
