@@ -154,8 +154,9 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     lvm2 \
     nilfs-tools \
     ntfs-3g \
-    reiser4progs \
-    reiserfsprogs \
+# Package reiser4progs is not available, but is referred to by another package.
+#    reiser4progs \
+#    reiserfsprogs \
     udftools \
     xfsprogs \
     xfsdump
