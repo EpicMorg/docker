@@ -1025,21 +1025,21 @@ RUN tar -xzf ${LIBRESSL_TEMP} --directory /tmp && \
 ##################################################################
 #                   BoringSSL
 ##################################################################
-RUN mkdir -p ${BORINGSSL_DIR} ${BORINGSSL_SRC_DIR} && \
-    git clone -b ${BORINGSSL_VERSION} ${BORINGSSL_DOWNLOAD_URL} ${BORINGSSL_TEMP_SRC} && \
-    cp -rfv ${BORINGSSL_TEMP_SRC}/* ${BORINGSSL_SRC_DIR} && \
-    ln -sf ${BORINGSSL_SRC_DIR} ${BORINGSSL_DIR}/src && \
-    cd ${BORINGSSL_TEMP_SRC} && \
-    mkdir ${BORINGSSL_TEMP_SRC}/build && \
-#    cmake -GNinja -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_POSITION_INDEPENDENT_CODE=TRUE -DBUILD_SHARED_LIBS=1 -DCMAKE_INSTALL_PREFIX=${BORINGSSL_DIR} && \
-#    ninja -C build && \
-    cd ${BORINGSSL_TEMP_SRC}/build && \
-    cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_POSITION_INDEPENDENT_CODE=TRUE -DBUILD_SHARED_LIBS=1 -DCMAKE_INSTALL_PREFIX=${BORINGSSL_DIR} .. && \
-    make -j$(if [ $(nproc) -gt 8 ]; then echo $(( $(nproc) / 2 )); else echo $(nproc); fi) && \
-    make -j$(nproc) install && \
-#    echo "# BoringSSL support" >> ${LD_CONF_DIR}/BoringSSL.conf && \
-#    echo ${BORINGSSL_LIB_DIR} >> ${LD_CONF_DIR}/BoringSSL.conf && \
-    ldconfig
+#  RUN mkdir -p ${BORINGSSL_DIR} ${BORINGSSL_SRC_DIR} && \
+#      git clone -b ${BORINGSSL_VERSION} ${BORINGSSL_DOWNLOAD_URL} ${BORINGSSL_TEMP_SRC} && \
+#      cp -rfv ${BORINGSSL_TEMP_SRC}/* ${BORINGSSL_SRC_DIR} && \
+#      ln -sf ${BORINGSSL_SRC_DIR} ${BORINGSSL_DIR}/src && \
+#      cd ${BORINGSSL_TEMP_SRC} && \
+#      mkdir ${BORINGSSL_TEMP_SRC}/build && \
+#  #    cmake -GNinja -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_POSITION_INDEPENDENT_CODE=TRUE -DBUILD_SHARED_LIBS=1 -DCMAKE_INSTALL_PREFIX=${BORINGSSL_DIR} && \
+#  #    ninja -C build && \
+#      cd ${BORINGSSL_TEMP_SRC}/build && \
+#      cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_POSITION_INDEPENDENT_CODE=TRUE -DBUILD_SHARED_LIBS=1 -DCMAKE_INSTALL_PREFIX=${BORINGSSL_DIR} .. && \
+#      make -j$(if [ $(nproc) -gt 8 ]; then echo $(( $(nproc) / 2 )); else echo $(nproc); fi) && \
+#      make -j$(nproc) install && \
+#  #    echo "# BoringSSL support" >> ${LD_CONF_DIR}/BoringSSL.conf && \
+#  #    echo ${BORINGSSL_LIB_DIR} >> ${LD_CONF_DIR}/BoringSSL.conf && \
+#      ldconfig
 
 ##################################################################
 #                   other   customisations

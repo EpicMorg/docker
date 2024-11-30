@@ -5,7 +5,7 @@ services:
     build:
       context: .
   app-develop:
-    image: "epicmorg/debian:trixieevelop-nodejs16"
+    image: "epicmorg/debian:trixie-develop-nodejs16"
     build:
       context: .
       dockerfile: ./Dockerfile.develop

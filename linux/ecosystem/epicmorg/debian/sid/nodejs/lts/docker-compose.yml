@@ -5,7 +5,7 @@ services:
     build:
       context: .
   app-develop:
-    image: "epicmorg/debian:sidevelop-nodejs-lts"
+    image: "epicmorg/debian:sid-develop-nodejs-lts"
     build:
       context: .
       dockerfile: ./Dockerfile.develop
