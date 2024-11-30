@@ -1,4 +1,4 @@
-FROM epicmorg/debian:sidop
+FROM epicmorg/debian:sid-develop
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 
 ARG DEBIAN_FRONTEND=noninteractive
