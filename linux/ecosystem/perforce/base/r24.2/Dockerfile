@@ -29,11 +29,11 @@ ENV P4_BIN=/usr/bin/p4
 ENV P4BROKER_BIN=/usr/bin/p4broker
 ENV P4D_BIN=/usr/bin/p4d
 ENV P4DCTL_BIN=/usr/bin/p4dctl
-ENV P4MIGRATE_BIN=/usr/bin/p4migrate
+#ENV P4MIGRATE_BIN=/usr/bin/p4migrate
 ENV P4MONPE_BIN=/usr/bin/p4mon-prometheus-exporter
 ENV P4P_BIN=/usr/bin/p4p
-ENV PERFMERGE_BIN=/usr/bin/perfmerge
-ENV PERFSPLIT_BIN=/usr/bin/perfsplit
+#ENV PERFMERGE_BIN=/usr/bin/perfmerge
+#ENV PERFSPLIT_BIN=/usr/bin/perfsplit
 
 ##################################################################
 #                   Install perforce binaries
@@ -43,7 +43,7 @@ RUN rm -rfv \
         ${P4BROKER_BIN} \
         ${P4D_BIN} \
         ${P4DCTL_BIN} \
-        ${P4MIGRATE_BIN} \
+#        ${P4MIGRATE_BIN} \
         ${P4MONPE_BIN} \
         ${P4P_BIN} \
         ${PERFMERGE_BIN} \
@@ -54,22 +54,22 @@ RUN wget --no-check-certificate -nv --random-wait --retry-connrefused --continue
         ${P4BROKER_DOWNLOAD_URL} \
         ${P4D_DOWNLOAD_URL} \
         ${P4DCTL_DOWNLOAD_URL} \
-        ${P4MIGRATE_DOWNLOAD_URL} \
+#        ${P4MIGRATE_DOWNLOAD_URL} \
         ${P4MONPE_DOWNLOAD_URL} \
-        ${P4P_DOWNLOAD_URL} \
-        ${PERFMERGE_DOWNLOAD_URL} \
-        ${PERFSPLIT_DOWNLOAD_URL}
+        ${P4P_DOWNLOAD_URL}
+#        ${PERFMERGE_DOWNLOAD_URL} \
+#        ${PERFSPLIT_DOWNLOAD_URL}
 
 RUN chmod +x \
         ${P4_BIN} \
         ${P4BROKER_BIN} \
         ${P4D_BIN} \
         ${P4DCTL_BIN} \
-        ${P4MIGRATE_BIN} \
+#        ${P4MIGRATE_BIN} \
         ${P4MONPE_BIN} \
-        ${P4P_BIN} \
-        ${PERFMERGE_BIN} \
-        ${PERFSPLIT_BIN}
+        ${P4P_BIN}
+#        ${PERFMERGE_BIN} \
+#        ${PERFSPLIT_BIN}
 
 # RUN echo "##################################################################" && \
 #         ${P4_BIN} -V &&  \
