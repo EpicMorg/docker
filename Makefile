@@ -1180,6 +1180,7 @@ ecosystem-perforce-base-images:
 	cd `pwd`/linuxecosystem/perforce/base/r22.1    && pwd && make build && make deploy
 	cd `pwd`/linuxecosystem/perforce/base/r23.1    && pwd && make build && make deploy
 	cd `pwd`/linuxecosystem/perforce/base/r23.2    && pwd && make build && make deploy
+	cd `pwd`/linuxecosystem/perforce/base/r24.2    && pwd && make build && make deploy
 
 ecosystem-perforce-proxy-images:
 	cd `pwd`/linuxecosystem/perforce/p4p/r16.2    && pwd && make build && make deploy
@@ -1196,6 +1197,7 @@ ecosystem-perforce-proxy-images:
 	cd `pwd`/linuxecosystem/perforce/p4p/r22.1    && pwd && make build && make deploy
 	cd `pwd`/linuxecosystem/perforce/p4p/r23.1    && pwd && make build && make deploy
 	cd `pwd`/linuxecosystem/perforce/p4p/r23.2    && pwd && make build && make deploy
+	cd `pwd`/linuxecosystem/perforce/p4p/r24.2    && pwd && make build && make deploy
 
 
 ecosystem-bitbucket-1-images:
