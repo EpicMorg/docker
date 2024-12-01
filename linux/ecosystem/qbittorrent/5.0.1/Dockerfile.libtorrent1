@@ -34,12 +34,12 @@ RUN wget --no-check-certificate -nv --random-wait --retry-connrefused --continue
 ##################################################################
 #                   cleaninig up
 ##################################################################
-RUN apt clean -y && \
-    apt autoclean -y && \
-    rm -rf /var/lib/apt/lists/* && \
-    rm -rf /var/cache/apt/archives/*.deb && \
-    rm -rf /builds/* && \
-    rm -rf /valve/*
+RUN echo "clean up" && \
+    apt-get clean -y && \
+    apt-get autoclean -y && \
+    rm -rfv /var/lib/apt/lists/* && \
+    rm -rfv /tmp/* && \
+    rm -rfv /var/cache/apt/archives/*.deb
 
 VOLUME ${QBT_DIR}
 
