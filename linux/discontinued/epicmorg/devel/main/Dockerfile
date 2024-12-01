@@ -107,8 +107,7 @@ RUN curl -s ${NINJA_RELEASE_URL} | jq -r ".assets[] | select(.name | test(\"${NI
 ##################################################################
 #                   cleaninig up
 ##################################################################
-RUN apt purge policykit-1 -y && \
-    apt clean -y && \
+RUN apt clean -y && \
     apt autoclean -y && \
     rm -rfv /var/lib/apt/lists/* && \
     rm -rfv /var/cache/apt/archives/*.deb  && \

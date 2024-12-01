@@ -8,9 +8,19 @@ app:
 	make clean
 
 build:
-	make qbt-libtorrent2
-	make qbt
-	make qbt-libtorrent1
+	kaniko-wrapper --version
+
+dry:
+	make dry-run
+
+test:
+	make dry-run
+
+dry-run:
+	kaniko-wrapper --kaniko-image gcr.io/kaniko-project/executor:v1.23.2-debug --dry-run
+
+build-compose:
+	docker-compose build --compress --parallel --progress plain
 
 deploy:
 	kaniko-wrapper --deploy --kaniko-image gcr.io/kaniko-project/executor:v1.23.2-debug
@@ -24,15 +34,3 @@ clean:
 	docker network prune -f
 	docker volume prune -f
 	docker system prune -af
-
-qbt:
-	docker-compose build --compress --parallel --progress plain qbt
-	docker-compose push qbt
-
-qbt-libtorrent2:
-	docker-compose build --compress --parallel --progress plain qbt-libtorrent2
-	docker-compose push qbt-libtorrent2
-
-qbt-libtorrent1:
-	docker-compose build --compress --parallel --progress plain qbt-libtorrent1
-	docker-compose push qbt-libtorrent1

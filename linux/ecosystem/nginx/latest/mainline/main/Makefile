@@ -10,6 +10,18 @@ app:
 build:
 	kaniko-wrapper --version
 
+dry:
+	make dry-run
+
+test:
+	make dry-run
+
+dry-run:
+	kaniko-wrapper --kaniko-image gcr.io/kaniko-project/executor:v1.23.2-debug --dry-run
+
+build-compose:
+	docker-compose build --compress --parallel --progress plain
+
 deploy:
 	kaniko-wrapper --deploy --kaniko-image gcr.io/kaniko-project/executor:v1.23.2-debug
 

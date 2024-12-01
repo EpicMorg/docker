@@ -46,8 +46,7 @@ RUN export AMXX_BASE_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.
 ##################################################################
 #                   cleaninig up
 ##################################################################
-RUN apt purge policykit-1 -y && \
-    apt clean -y && \
+RUN apt clean -y && \
     apt autoclean -y && \
     rm -rfv /var/lib/apt/lists/* && \
     rm -rfv /tmp/mc.patch && \

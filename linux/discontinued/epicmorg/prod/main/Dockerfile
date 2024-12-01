@@ -197,8 +197,7 @@ RUN openssl dhparam -out /etc/ssl/dhparam.pem 4096
 ##################################################################
 #                   cleaninig up
 ##################################################################
-RUN apt purge policykit-1 -y && \
-    apt clean -y && \
+RUN apt clean -y && \
     apt autoclean -y && \
     rm -rfv /var/lib/apt/lists/* && \
     rm -rfv /tmp/* && \
