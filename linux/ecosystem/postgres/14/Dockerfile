@@ -28,7 +28,7 @@ RUN install -d /usr/share/postgresql-common/pgdg && \
     curl -o /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc --fail https://www.postgresql.org/media/keys/ACCC4CF8.asc && \
     echo 'deb [signed-by=/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc] http://apt.postgresql.org/pub/repos/apt/ bookworm-pgdg main' $PG_MAJOR > /etc/apt/sources.list.d/pgdg.list && \
     echo 'deb [signed-by=/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc] http://apt.postgresql.org/pub/repos/apt/ bookworm-pgdg-snapshot main' $PG_MAJOR >> /etc/apt/sources.list.d/pgdg.list && \
-    echo 'deb [signed-by=/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc] http://apt.postgresql.org/pub/repos/apt/ bookworm-pgdg-testing main' $PG_MAJOR >> /etc/apt/sources.list.d/pgdg.listt && \
+    echo 'deb [signed-by=/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc] http://apt.postgresql.org/pub/repos/apt/ bookworm-pgdg-testing main' $PG_MAJOR >> /etc/apt/sources.list.d/pgdg.list && \
     curl -fsSL https://packagecloud.io/timescale/timescaledb/gpgkey | gpg --dearmor > /usr/share/timescaledb-common/gpg/apt.timescaledb.gpg && \
     echo 'deb [signed-by=/usr/share/timescaledb-common/gpg/apt.timescaledb.gpg] https://packagecloud.io/timescale/timescaledb/debian/ bookworm main' | sudo tee /etc/apt/sources.list.d/timescaledb.list 
 
@@ -157,6 +157,7 @@ RUN apt-get update \
     postgresql-client-14 \
     postgresql-client-15 \
     postgresql-client-16 \
+    postgresql-client-17 \
     timescaledb-2-postgresql-$PG_MAJOR \
     && rm -rf /var/lib/apt/lists/*
 

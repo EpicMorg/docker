@@ -153,6 +153,7 @@ RUN apt-get update \
     postgresql-client-14 \
     postgresql-client-15 \
     postgresql-client-16 \
+    postgresql-client-17 \
     && rm -rf /var/lib/apt/lists/*
 
 RUN cd /tmp \

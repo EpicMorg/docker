@@ -157,6 +157,7 @@ RUN apt-get update \
     postgresql-client-14 \
     postgresql-client-15 \
     postgresql-client-16 \
+    postgresql-client-17 \
     timescaledb-2-postgresql-$PG_MAJOR \
     && rm -rf /var/lib/apt/lists/*
 
