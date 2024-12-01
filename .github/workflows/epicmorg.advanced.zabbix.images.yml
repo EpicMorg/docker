@@ -1,9 +1,6 @@
 name: EpicMorg Advanced Zabbix Images
 
 on:
-#  push:
-#    branches:
-#      - 'master'
   workflow_dispatch:
   schedule:
     - cron: '0 03 * * 2,4,6'

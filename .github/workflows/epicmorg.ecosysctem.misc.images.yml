@@ -1,9 +1,7 @@
 name:  EpicMorg EcoSystem Misc Images
 
 on:
-#  push:
-#    branches:
-#      - 'develop'
+  workflow_dispatch:
   schedule:
     - cron:  '0 0 * * 2,4,6'
 
