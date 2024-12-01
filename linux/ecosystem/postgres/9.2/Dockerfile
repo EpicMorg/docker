@@ -25,7 +25,7 @@ RUN install -d /usr/share/postgresql-common/pgdg && \
     curl -o /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc --fail https://www.postgresql.org/media/keys/ACCC4CF8.asc && \
     echo 'deb [signed-by=/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc] http://apt.postgresql.org/pub/repos/apt/ bookworm-pgdg main' $PG_MAJOR > /etc/apt/sources.list.d/pgdg.list && \
     echo 'deb [signed-by=/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc] http://apt.postgresql.org/pub/repos/apt/ bookworm-pgdg-snapshot main' $PG_MAJOR >> /etc/apt/sources.list.d/pgdg.list && \
-    echo 'deb [signed-by=/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc] http://apt.postgresql.org/pub/repos/apt/ bookworm-pgdg-testing main' $PG_MAJOR >> /etc/apt/sources.list.d/pgdg.listt
+    echo 'deb [signed-by=/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc] http://apt.postgresql.org/pub/repos/apt/ bookworm-pgdg-testing main' $PG_MAJOR >> /etc/apt/sources.list.d/pgdg.list
 
 RUN apt-get update \
     && apt-get install -y postgresql-common \
@@ -51,6 +51,7 @@ RUN apt-get update \
     postgresql-client-14 \
     postgresql-client-15 \
     postgresql-client-16 \
+    postgresql-client-17 \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /tmp/*
 
