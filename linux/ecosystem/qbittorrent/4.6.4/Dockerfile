@@ -5,11 +5,8 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 #                   ARGuments
 ##################################################################
-
-ARG QBT_RELEASE
-ARG LT_RELEASE
-ENV QBT_VERSION=${QBT_RELEASE}
-ENV QBT_LIBTORRENT_VERSION=${LT_RELEASE}
+ENV QBT_VERSION=4.6.4
+ENV QBT_LIBTORRENT_VERSION=2.0.10
 ENV QBT_URL=https://github.com/userdocs/qbittorrent-nox-static/releases/download/release-${QBT_VERSION}_v${QBT_LIBTORRENT_VERSION}/x86_64-qbittorrent-nox
 
 ENV QBT_DIR=/opt/qbittorrent

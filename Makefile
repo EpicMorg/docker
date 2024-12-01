@@ -1028,6 +1028,12 @@ ecosystem-qbittorrent-images:
 	cd `pwd`/linux/ecosystem/qbittorrent/4.6.2    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/qbittorrent/4.6.3    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/qbittorrent/4.6.4    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/qbittorrent/4.6.5    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/qbittorrent/4.6.6    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/qbittorrent/4.6.7    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/qbittorrent/5.0.0    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/qbittorrent/5.0.1    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/qbittorrent/5.0.2    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/qbittorrent/testing  && pwd && make build && make deploy
 
 ecosystem-retracker-images: 
