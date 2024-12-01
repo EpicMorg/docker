@@ -1,9 +1,6 @@
 name:  EpicMorg EcoSystem FreeGPT Images
 
 on:
-#  push:
-#    branches:
-#      - 'develop'
   schedule:
     - cron:  '0 0 * * 2,4,6'
 

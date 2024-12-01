@@ -1,9 +1,7 @@
 name: EpicMorg EcoSystem PostgreSQL Images
 
 on:
-#  push:
-#    branches:
-#      - 'master'
+  workflow_dispatch:
   schedule:
     - cron:  '5 5 * * 1,3,5'
 

@@ -1,9 +1,6 @@
 name: EpicMorg Debian 11 Images
 
 on:
-#  push:
-#    branches:
-#      - 'master'
   workflow_dispatch:
   schedule:
     - cron:  '0 0 * * 1,3,5'

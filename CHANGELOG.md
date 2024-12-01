@@ -1,5 +1,7 @@
 # Changelog
 ## 2024
+* `dec`
+	* migrated `qbittorrent` images to new baseline
 * `sep`, `oct`, `nov`
     *  fixed some bugs in `Makefile`
     *  fixed `Dockerfile` bugs

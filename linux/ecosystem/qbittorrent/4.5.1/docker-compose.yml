@@ -1,24 +1,15 @@
 #version: '3'
 services:
   qbt:
-    image: "epicmorg/qbittorrent:${QBT_RELEASE}"
+    image: "epicmorg/qbittorrent:4.5.1"
     build:
       context: .
-      args:
-        QBT_RELEASE: ${QBT_RELEASE}
-        LT_RELEASE: ${LT2_RELEASE}
   qbt-libtorrent2:
-    image: "epicmorg/qbittorrent:${QBT_RELEASE}-libtorrent${LT2_RELEASE}"
+    image: "epicmorg/qbittorrent:4.5.1-libtorrent2.0.8"
     build:
       context: .
-      args:
-        QBT_RELEASE: ${QBT_RELEASE}
-        LT_RELEASE: ${LT2_RELEASE}
   qbt-libtorrent1:
-    image: "epicmorg/qbittorrent:${QBT_RELEASE}-libtorrent${LT1_RELEASE}"
+    image: "epicmorg/qbittorrent:4.5.1-libtorrent1.2.18"
     build:
       context: .
-      args:
-        QBT_RELEASE: ${QBT_RELEASE}
-        LT_RELEASE: ${LT1_RELEASE}
-
+      dockerfile: ./Dockerfile.libtorrent1

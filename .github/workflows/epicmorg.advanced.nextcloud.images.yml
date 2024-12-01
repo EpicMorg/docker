@@ -1,9 +1,6 @@
 name:  EpicMorg Advanced Nextcloud Images
 
 on:
-#  push:
-#    branches:
-#      - 'master'
   workflow_dispatch:
   schedule:
     - cron: '0 02 * * 2,4,6'

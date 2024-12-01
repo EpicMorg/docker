@@ -5,11 +5,8 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 #                   ARGuments
 ##################################################################
-
-ARG QBT_RELEASE
-ARG LT_RELEASE
-ENV QBT_VERSION=${QBT_RELEASE}
-ENV QBT_LIBTORRENT_VERSION=${LT_RELEASE}
+ENV QBT_VERSION=4.6.4
+ENV QBT_LIBTORRENT_VERSION=2.0.10
 ENV QBT_URL=https://github.com/userdocs/qbittorrent-nox-static/releases/download/release-${QBT_VERSION}_v${QBT_LIBTORRENT_VERSION}/x86_64-qbittorrent-nox
 
 ENV QBT_DIR=/opt/qbittorrent
@@ -37,12 +34,12 @@ RUN wget --no-check-certificate -nv --random-wait --retry-connrefused --continue
 ##################################################################
 #                   cleaninig up
 ##################################################################
-RUN apt clean -y && \
-    apt autoclean -y && \
-    rm -rf /var/lib/apt/lists/* && \
-    rm -rf /var/cache/apt/archives/*.deb && \
-    rm -rf /builds/* && \
-    rm -rf /valve/*
+RUN echo "clean up" && \
+    apt-get clean -y && \
+    apt-get autoclean -y && \
+    rm -rfv /var/lib/apt/lists/* && \
+    rm -rfv /tmp/* && \
+    rm -rfv /var/cache/apt/archives/*.deb
 
 VOLUME ${QBT_DIR}
 

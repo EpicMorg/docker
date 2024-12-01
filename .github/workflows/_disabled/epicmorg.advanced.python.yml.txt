@@ -1,9 +1,7 @@
 name: EpicMorg Advanced Debian Python Images
 
 on:
-#  push:
-#    branches:
-#      - 'master'
+  workflow_dispatch:
   schedule:
     - cron:  '1 1 * * 1,3,5'
 
