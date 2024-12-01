@@ -119,7 +119,7 @@ RUN apt-get update \
     postgresql-$PG_MAJOR-omnidb \
     postgresql-$PG_MAJOR-numeral \
     postgresql-$PG_MAJOR-mysql-fdw \
-    #    postgresql-$PG_MAJOR-mobilitydb \
+#    postgresql-$PG_MAJOR-mobilitydb \
     postgresql-$PG_MAJOR-mimeo \
     postgresql-$PG_MAJOR-londiste-sql \
     postgresql-$PG_MAJOR-jsquery \
@@ -157,6 +157,7 @@ RUN apt-get update \
     postgresql-client-14 \
     postgresql-client-15 \
     postgresql-client-16 \
+    postgresql-client-17 \
     timescaledb-2-postgresql-$PG_MAJOR \
     && rm -rf /var/lib/apt/lists/*
 
@@ -167,6 +168,7 @@ RUN cd /tmp \
     && PATH="/usr/lib/postgresql/$PG_MAJOR/bin:$PATH" make USE_PGXS=1 \
     && PATH="/usr/lib/postgresql/$PG_MAJOR/bin:$PATH" make install USE_PGXS=1 \
     && rm -rf /tmp/*
+
 
 RUN mkdir /docker-entrypoint-initdb.d
 RUN mkdir -p /var/run/postgresql && chown -R postgres /var/run/postgresql
