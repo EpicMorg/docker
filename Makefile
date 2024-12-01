@@ -1069,6 +1069,7 @@ ecosystem-postgres-images:
 	cd `pwd`/linux/ecosystem/postgres/14           && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/postgres/15           && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/postgres/16           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/postgres/17           && pwd && make build && make deploy
 
 ecosystem-teamcity-agent-images:
 	cd `pwd`/linux/ecosystem/teamcity/agent/latest/jdk8         && pwd && make build && make deploy
