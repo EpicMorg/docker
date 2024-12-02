@@ -63,9 +63,9 @@ RUN apt-get update \
     postgresql-$PG_MAJOR-semver \
     postgresql-$PG_MAJOR-rum \
     postgresql-$PG_MAJOR-roaringbitmap \
-    postgresql-$PG_MAJOR-repmgr \
+#    postgresql-$PG_MAJOR-repmgr \
     postgresql-$PG_MAJOR-repack \
-    postgresql-$PG_MAJOR-rdkit \
+#    postgresql-$PG_MAJOR-rdkit \
     postgresql-$PG_MAJOR-rational \
     postgresql-$PG_MAJOR-q3c \
     postgresql-$PG_MAJOR-prioritize \
