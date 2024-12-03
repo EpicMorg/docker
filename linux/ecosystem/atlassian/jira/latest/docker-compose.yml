@@ -4,22 +4,13 @@ services:
     image: "epicmorg/jira:latest"
     build:
       context: .
-      args:
-        RELEASE: ${RELEASE}
-        DOWNLOAD_URL: ${DOWNLOAD_URL}
   app-jdk11:
     image: "epicmorg/jira:latest-jdk11"
     build:
       context: .
       dockerfile: Dockerfile.jdk11
-      args:
-        RELEASE: ${RELEASE}
-        DOWNLOAD_URL: ${DOWNLOAD_URL}
   app-jdk17:
     image: "epicmorg/jira:latest-jdk17"
     build:
       context: .
       dockerfile: Dockerfile.jdk11
-      args:
-        RELEASE: ${RELEASE}
-        DOWNLOAD_URL: ${DOWNLOAD_URL}

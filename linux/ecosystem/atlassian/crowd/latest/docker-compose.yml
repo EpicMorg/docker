@@ -4,17 +4,11 @@ services:
     image: "epicmorg/crowd:latest"
     build:
       context: .
-      args:
-        RELEASE: ${RELEASE}
-        DOWNLOAD_URL: ${DOWNLOAD_URL}
   app-jdk11:
     image: "epicmorg/crowd:latest-jdk11"
     build:
       context: .
       dockerfile: Dockerfile.jdk11
-      args:
-        RELEASE: ${RELEASE}
-        DOWNLOAD_URL: ${DOWNLOAD_URL}
 #  app-jdk17:
 #    image: "epicmorg/crowd:latest-jdk17"
 #    build:

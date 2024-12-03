@@ -1,17 +1,15 @@
-#version: '3'
+#version: '3.9'
 services:
   app:
-    image: "epicmorg/jira:${RELEASE}"
+    image: "epicmorg/jira:6.3.11"
     build:
       context: .
-      args:
-        RELEASE: ${RELEASE}
-        DOWNLOAD_URL: ${DOWNLOAD_URL}
+  app-jdk7:
+    image: "epicmorg/jira:6.3.11-jdk7"
+    build:
+      context: .
   app-jdk8:
-    image: "epicmorg/jira:${RELEASE}-jdk8"
+    image: "epicmorg/jira:6.3.11-jdk8"
     build:
       context: .
       dockerfile: Dockerfile.jdk8
-      args:
-        RELEASE: ${RELEASE}
-        DOWNLOAD_URL: ${DOWNLOAD_URL}

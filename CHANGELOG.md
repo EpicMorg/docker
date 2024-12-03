@@ -2,10 +2,15 @@
 ## 2024
 * `dec`
 	* migrated `qbittorrent` images to new baseline
+	* fixed `perforce` iamges and migrated to new baseline
+	* updated `Atlassian Images`:
+		* Migrated to new baseline all `Jira` iamges
+		* Updated to new versions of `Jira`
 * `sep`, `oct`, `nov`
-    *  fixed some bugs in `Makefile`
-    *  fixed `Dockerfile` bugs
-    *  added `Nextcloud` version `30` in `tag`.
+	* fixed some bugs in `Makefile`
+	* fixed `Dockerfile` bugs
+	* added `Nextcloud` version `30` in `tag`.
+		
 * `aug`
 	* `sentry` and `redash` was set to `experimental` status bacause `ci` is not stable yet.
 	* reworked `teamcity:server` image.
@@ -24,7 +29,7 @@
 	* `WIP`: reworking by new concept of base images and creating new `nginx 1.27.0` with static build.
 * `july`
   * Start migration from `Odrey's` repos due to author's rot.
-  	* [@oerdnj](https://github.com/oerdnj) go to hell, [xenophobe](https://github.com/oerdnj/deb.sury.org/issues/2155)! :fu:
+	* [@oerdnj](https://github.com/oerdnj) go to hell, [xenophobe](https://github.com/oerdnj/deb.sury.org/issues/2155)! :fu:
 	```
 	You say that "I do understand the difference between a government and its people." and contradict yourself ("you are part of the problem") by equating people and the government.
 

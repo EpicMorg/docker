@@ -116,8 +116,11 @@ jobs:
     - name: "Build and Deploy PostgreSQL 16 Image:"
       run:  cd linux/ecosystem/postgres/16    && pwd && make build && make deploy
 
-    - name: "Build and Deploy PostgreSQL 17 Image:"
-      run:  cd linux/ecosystem/postgres/17    && pwd && make build && make deploy
+#    - name: "Build and Deploy PostgreSQL 17 Image:"
+#      run:  cd linux/ecosystem/postgres/17    && pwd && make build && make deploy
+
+#    - name: "Build and Deploy PostgreSQL 18 Image:"
+#      run:  cd linux/ecosystem/postgres/18    && pwd && make build && make deploy
 
 ##################################################################################
 

@@ -1,7 +1,11 @@
-#version: '3'
+#version: '3.9'
 services:
   app:
     image: "epicmorg/jira:9.17.1"
+    build:
+      context: .
+  app-jdk8:
+    image: "epicmorg/jira:9.17.1-jdk8"
     build:
       context: .
   app-jdk11:
@@ -14,4 +18,3 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.jdk17
-

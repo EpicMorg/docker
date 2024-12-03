@@ -15,30 +15,30 @@
     force: true
   with_items: "{{ jira_versions }}"
 
-- name: Copy template with link to each version directory
+- name: Copy .env with link from template to each version directory
   template:
-    src: "template.env.j2"
+    src: "env/template.env.j2"
     dest: "{{ target_directory_jira_8 }}/{{ item }}/.env"
     force: true
   with_items: "{{ jira_versions }}"
 
-- name: Copy docker-compose.yml from 'files' directory to each version directory
-  copy:
-    src: "docker-compose.yml"
+- name: Copy docker-compose.yml from template to each version directory
+  template:
+    src: "docker-compose/template.docker-compose.jdk8-11.yml.j2"
     dest: "{{ target_directory_jira_8 }}/{{ item }}/docker-compose.yml"
     force: true
   with_items: "{{ jira_versions }}"
 
-- name: Copy Dockerfile from 'files' directory to each version directory
-  copy:
-    src: "Dockerfile.jdk8"
+- name: Copy Dockerfile from template to each version directory
+  template:
+    src: "dockerfile/template.Dockerfile.jdk8.j2"
     dest: "{{ target_directory_jira_8 }}/{{ item }}/Dockerfile"
     force: true
   with_items: "{{ jira_versions }}"
 
 - name: Copy Dockerfile.jdk11 from 'files' directory to each version directory
-  copy:
-    src: "Dockerfile.jdk11"
+  template:
+    src: "dockerfile/template.Dockerfile.jdk11.j2"
     dest: "{{ target_directory_jira_8 }}/{{ item }}/Dockerfile.jdk11"
     force: true
   with_items: "{{ jira_versions }}"
@@ -47,6 +47,7 @@
   copy:
     src: "entrypoint.sh"
     dest: "{{ target_directory_jira_8 }}/{{ item }}/entrypoint.sh"
+    mode: "0777"
     force: true
   with_items: "{{ jira_versions }}"
 
