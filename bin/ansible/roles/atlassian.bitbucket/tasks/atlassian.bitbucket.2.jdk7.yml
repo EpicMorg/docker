@@ -15,21 +15,21 @@
     force: true
   with_items: "{{ bitbucket_versions }}"
 
-- name: Copy template with link to each version directory
+- name: Copy .env with link from template to each version directory
   template:
     src: "template.stash.2.env.j2"
     dest: "{{ target_directory_bitbucket_2 }}/{{ item }}/.env"
     force: true
   with_items: "{{ bitbucket_versions }}"
 
-- name: Copy docker-compose.yml from 'files' directory to each version directory
+- name: Copy docker-compose.yml from template to each version directory
   copy:
     src: "docker-compose.jdk7.yml"
     dest: "{{ target_directory_bitbucket_2 }}/{{ item }}/docker-compose.yml"
     force: true
   with_items: "{{ bitbucket_versions }}"
 
-- name: Copy Dockerfile from 'files' directory to each version directory
+- name: Copy Dockerfile from template to each version directory
   copy:
     src: "Dockerfile.legacy.jdk7"
     dest: "{{ target_directory_bitbucket_2 }}/{{ item }}/Dockerfile"
@@ -40,6 +40,7 @@
   copy:
     src: "entrypoint.stash.sh"
     dest: "{{ target_directory_bitbucket_2 }}/{{ item }}/entrypoint.sh"
+    mode: "0777"
     force: true
   with_items: "{{ bitbucket_versions }}"
 

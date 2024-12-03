@@ -5,8 +5,8 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 #                   ARGuments
 ##################################################################
-ARG CONFLUENCE_VERSION=8.7.2
-ARG DOWNLOAD_URL=https://www.atlassian.com/software/confluence/downloads/binary/atlassian-confluence-${CONFLUENCE_VERSION}.tar.gz
+ARG RELEASE=8.7.2
+ARG DOWNLOAD_URL=https://www.atlassian.com/software/confluence/downloads/binary/atlassian-confluence-${RELEASE}.tar.gz
 
 ##################################################################
 #                   Setup

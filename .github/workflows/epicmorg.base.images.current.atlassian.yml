@@ -34,8 +34,8 @@ jobs:
 #    - name: "Build and Deploy Atlassian Fisheye Image:"
 #      run:  cd linux/ecosystem/atlassian/fisheye/latest    && pwd && make build && make deploy
 
-    - name: "Build and Deploy Atlassian Fisheye + Crucible Image:"
-      run:  cd linux/ecosystem/atlassian/fisheye-crucible/latest    && pwd && make build && make deploy
+#    - name: "Build and Deploy Atlassian Fisheye + Crucible Image:"
+#      run:  cd linux/ecosystem/atlassian/fisheye-crucible/latest    && pwd && make build && make deploy
 
     - name: "Build and Deploy Atlassian Jira Image:"
       run:  cd linux/ecosystem/atlassian/jira/latest    && pwd && make build && make deploy

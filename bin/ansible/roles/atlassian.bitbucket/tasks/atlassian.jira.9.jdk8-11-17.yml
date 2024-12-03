@@ -15,21 +15,21 @@
     force: true
   with_items: "{{ jira_versions }}"
 
-- name: Copy template with link to each version directory
+- name: Copy .env with link from template to each version directory
   template:
     src: "template.env.j2"
     dest: "{{ target_directory_jira_9 }}/{{ item }}/.env"
     force: true
   with_items: "{{ jira_versions }}"
 
-- name: Copy docker-compose.yml from 'files' directory to each version directory
+- name: Copy docker-compose.yml from template to each version directory
   copy:
     src: "docker-compose.jdk8-11-17.yml"
     dest: "{{ target_directory_jira_9 }}/{{ item }}/docker-compose.yml"
     force: true
   with_items: "{{ jira_versions }}"
 
-- name: Copy Dockerfile from 'files' directory to each version directory
+- name: Copy Dockerfile from template to each version directory
   copy:
     src: "Dockerfile.jdk8"
     dest: "{{ target_directory_jira_9 }}/{{ item }}/Dockerfile"

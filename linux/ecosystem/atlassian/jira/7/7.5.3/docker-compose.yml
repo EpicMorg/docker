@@ -1,9 +1,10 @@
-#version: '3'
+#version: '3.9'
 services:
   app:
-    image: "epicmorg/jira:${RELEASE}"
+    image: "epicmorg/jira:7.5.3"
     build:
       context: .
-      args:
-        RELEASE: ${RELEASE}
-        DOWNLOAD_URL: ${DOWNLOAD_URL}
+  app-jdk8:
+    image: "epicmorg/jira:7.5.3-jdk8"
+    build:
+      context: .

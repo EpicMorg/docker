@@ -17,10 +17,10 @@ RUN apt-get update && apt-get install -y locales && rm -rf /var/lib/apt/lists/* 
 ENV LANG en_US.utf8
 
 ####################################################################################################################################
-# http://apt.postgresql.org/pub/repos/apt/pool/17/p/postgresql-17/
+# http://apt.postgresql.org/pub/repos/apt/pool/16/p/postgresql-16/
 # https://docs.timescale.com/self-hosted/latest/upgrades/upgrade-pg/
 ####################################################################################################################################
-ENV PG_MAJOR 17
+ENV PG_MAJOR 16
 ENV PG_STATS 2.1
 
 RUN install -d /usr/share/postgresql-common/pgdg && \

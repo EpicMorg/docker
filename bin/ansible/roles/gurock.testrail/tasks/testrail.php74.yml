@@ -21,7 +21,7 @@
   with_items: "{{ testrail_versions }}"
 #  no_log: true
 
-- name: Copy template with link to each version directory
+- name: Copy .env with link from template to each version directory
   template:
     src: "template.env.php72.j2"
     dest: "{{ target_directory }}/{{ item }}/main/.env"

@@ -1,4 +1,4 @@
-VERSION                       =  "2024.11.27"
+VERSION                       =  "2024.12.03"
 AUTHOR                        =  "EpicMorg"
 MODIFIED                      =  "STAM"
 DOCKER_SCAN_SUGGEST           = false
@@ -1069,7 +1069,8 @@ ecosystem-postgres-images:
 	cd `pwd`/linux/ecosystem/postgres/14           && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/postgres/15           && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/postgres/16           && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/postgres/17           && pwd && make build && make deploy
+#	cd `pwd`/linux/ecosystem/postgres/17           && pwd && make build && make deploy
+#	cd `pwd`/linux/ecosystem/postgres/18           && pwd && make build && make deploy
 
 ecosystem-teamcity-agent-images:
 	cd `pwd`/linux/ecosystem/teamcity/agent/latest/jdk8         && pwd && make build && make deploy
@@ -1734,6 +1735,7 @@ ecosystem-jira-9-images:
 	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.3.0                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.3.1                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.3.2                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.3.3                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.5.0                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.5.1                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.6.0                && pwd && make build && make deploy
@@ -1752,7 +1754,6 @@ ecosystem-jira-9-images:
 	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.11.3                && pwd && make build && make deploy
 
 ecosystem-jira-9-lts-images:
-	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.3.3                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.4.0                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.4.1                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.4.2                && pwd && make build && make deploy
@@ -1769,15 +1770,49 @@ ecosystem-jira-9-lts-images:
 	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.4.13                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.4.14                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.4.15                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.4.16                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.4.17                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.4.18                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.4.19                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.4.20                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.4.21                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.4.22                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.4.23                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.4.24                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.4.25                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.4.26                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.4.27                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.4.28                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.4.29                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.12.0                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.12.1                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.12.2                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.12.3                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.12.4                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.12.5                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.12.6                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.12.7                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.12.8                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.12.9                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.12.10               && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.12.11               && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.12.12               && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.12.13               && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.12.14               && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.12.15               && pwd && make build && make deploy
+
+ecosystem-jira-10-images:
+	cd `pwd`/linux/ecosystem/atlassian/jira/10/10.0.0             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/10/10.0.1             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/10/10.1.1             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/10/10.1.2             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/10/10.2.0             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/10/10.2.1             && pwd && make build && make deploy
 
 bundle-base-images:
 	@echo "======================================="
 	@echo "===== Building  EpicMorg   images ====="
 	@echo "======================================="
-	make ecosystem-astra-17se-images
 #	make advanced-pyhton-images
 	make ecosystem-debian-images
 
@@ -1817,6 +1852,7 @@ bundle-jira:
 	make ecosystem-jira-7-images
 	make ecosystem-jira-8-images
 	make ecosystem-jira-9-images
+	make ecosystem-jira-10images
 
 bundle-atlassian-latest:
 	@echo "=============================================="

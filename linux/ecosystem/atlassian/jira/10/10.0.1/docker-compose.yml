@@ -1,0 +1,10 @@
+#version: '3.9'
+services:
+  app:
+    image: "epicmorg/jira:10.0.1"
+    build:
+      context: .
+  app-jdk17:
+    image: "epicmorg/jira:10.0.1-jdk17"
+    build:
+      context: .

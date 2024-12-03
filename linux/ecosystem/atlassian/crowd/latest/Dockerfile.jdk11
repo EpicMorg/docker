@@ -6,8 +6,8 @@ ARG DEBIAN_FRONTEND=noninteractive
 #                   ARGuments
 ##################################################################
 
-ARG RELEASE
-ARG DOWNLOAD_URL
+ARG RELEASE=5.1.1
+ARG DOWNLOAD_URL=https://product-downloads.atlassian.com/software/crowd/downloads/atlassian-crowd-${RELEASE}.tar.gz
 
 ##################################################################
 #                   Setup

@@ -1,0 +1,10 @@
+#version: '3.9'
+services:
+  app:
+    image: "epicmorg/jira:{{ item }}"
+    build:
+      context: .
+  app-jdk8:
+    image: "epicmorg/jira:{{ item }}-jdk8"
+    build:
+      context: .
