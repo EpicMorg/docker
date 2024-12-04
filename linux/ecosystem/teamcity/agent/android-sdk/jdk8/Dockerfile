@@ -108,7 +108,6 @@ RUN sdkmanager --install \
       "build-tools;34.0.0-rc3" \
       "build-tools;34.0.0-rc4"
 
-
 RUN sdkmanager --install \
       "cmake;3.10.2.4988404" \
       "cmake;3.18.1" \
@@ -553,3 +552,5 @@ RUN apt clean -y && \
     rm -rfv /var/lib/apt/lists/* && \
     rm -rfv /var/cache/apt/archives/*.deb && \
     rm -rfv /tmp/*
+
+RUN updatedb

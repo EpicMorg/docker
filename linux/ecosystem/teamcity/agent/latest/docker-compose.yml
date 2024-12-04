@@ -1,0 +1,26 @@
+#version: '3'
+services:
+  app-jdk8:
+    image: "epicmorg/teamcity-agent:latest-jdk8"
+    build:
+      context: .
+  app-jdk11:
+    image: "epicmorg/teamcity-agent:latest-jdk11"
+    build:
+      context: .
+      dockerfile: Dockerfile.jdk11
+  app-jdk17:
+    image: "epicmorg/teamcity-agent:latest-jdk17"
+    build:
+      context: .
+      dockerfile: Dockerfile.jdk17
+  app-jdk21:
+    image: "epicmorg/teamcity-agent:latest-jdk21"
+    build:
+      context: .
+      dockerfile: Dockerfile.jdk21
+  app:
+    image: "epicmorg/teamcity-agent:latest"
+    build:
+      context: .
+      dockerfile: Dockerfile.jdk21

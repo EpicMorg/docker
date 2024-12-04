@@ -36,7 +36,6 @@ RUN export AMXX_BASE_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.
     chmod -R 700 $AMXX_INC_PATH && \
     amxxpc --help 2>&1 | head -n 1
 
-
 ##################################################################
 #                   cleaninig up
 ##################################################################
@@ -46,3 +45,5 @@ RUN apt clean -y && \
     rm -rfv /var/lib/apt/lists/* && \
     rm -rfv /var/cache/apt/archives/*.deb && \
     rm -rfv /tmp/*
+
+RUN updatedb

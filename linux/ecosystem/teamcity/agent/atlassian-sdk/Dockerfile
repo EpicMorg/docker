@@ -15,9 +15,9 @@ ARG DEBIAN_FRONTEND=noninteractive
 #
 # https://community.developer.atlassian.com/t/the-repository-https-packages-atlassian-com-atlassian-sdk-deb-stable-release-is-not-signed/36901
 ###############################
-RUN curl -fsSL https://packages.atlassian.com/api/gpg/key/public | apt-key add - && \
-    echo 'deb [trusted=yes] https://packages.atlassian.com/atlassian-sdk-deb stable contrib' > /etc/apt/sources.list.d/atlassian-sdk.list  && \
-    apt-get update  --allow-insecure-repositories && \
+COPY etc/apt/keyrings/atlassian.asc /etc/apt/keyrings/
+COPY etc/apt/sources.list.d/atlassian-sdk.list /etc/apt/sources.list.d/
+RUN apt-get update  --allow-insecure-repositories && \
     apt-get install -y --no-install-recommends  --allow-unauthenticated  \
       atlassian-plugin-sdk
 
@@ -30,3 +30,5 @@ RUN apt clean -y && \
     rm -rfv /var/lib/apt/lists/* && \
     rm -rfv /var/cache/apt/archives/*.deb && \
     rm -rfv /tmp/*
+
+RUN updatedb
