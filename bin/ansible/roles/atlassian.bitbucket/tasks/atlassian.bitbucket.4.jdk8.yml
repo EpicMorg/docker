@@ -17,21 +17,21 @@
 
 - name: Copy .env with link from template to each version directory
   template:
-    src: "template.bitbucket.4.env.j2"
+    src: "env/template.bitbucket.4-9.env.j2"
     dest: "{{ target_directory_bitbucket_4 }}/{{ item }}/.env"
     force: true
   with_items: "{{ bitbucket_versions }}"
 
 - name: Copy docker-compose.yml from template to each version directory
-  copy:
-    src: "docker-compose.jdk8.yml"
+  template:
+    src: "docker-compose/template.docker-compose.jdk8.yml.j2"
     dest: "{{ target_directory_bitbucket_4 }}/{{ item }}/docker-compose.yml"
     force: true
   with_items: "{{ bitbucket_versions }}"
 
 - name: Copy Dockerfile from template to each version directory
-  copy:
-    src: "Dockerfile.legacy.jdk8"
+  template:
+    src: "dockerfile/template.Dockerfile.jdk8.j2"
     dest: "{{ target_directory_bitbucket_4 }}/{{ item }}/Dockerfile"
     force: true
   with_items: "{{ bitbucket_versions }}"

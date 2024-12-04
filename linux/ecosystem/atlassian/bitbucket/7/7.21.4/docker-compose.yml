@@ -4,8 +4,12 @@ services:
     image: "epicmorg/bitbucket:7.21.4"
     build:
       context: .
+  app-jdk8:
+    image: "epicmorg/bitbucket:7.21.4-jdk8"
+    build:
+      context: .
   app-jdk11:
     image: "epicmorg/bitbucket:7.21.4-jdk11"
     build:
       context: .
-      dockerfile: ./Dockerfile.jdk11
+      dockerfile: Dockerfile.jdk11

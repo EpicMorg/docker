@@ -1,32 +1,34 @@
 # Changelog
 ## 2024
 * `dec`
-	* migrated `qbittorrent` images to new baseline
-	* fixed `perforce` iamges and migrated to new baseline
-	* updated `Atlassian Images`:
-		* Migrated to new baseline all `Jira` iamges
-		* Updated to new versions of `Jira`
+  * fixed `perforce` images
+  * new baseline:
+  * `qbittorrent`, `perforce`, `Atlassian Jira`, `Atlassian Bitbucket`
+  * updated `Atlassian Images`:
+	* fixed old and added new versions of `Jira`
+	* fixed old and added new versions of `Bitbucket`
+
 * `sep`, `oct`, `nov`
-	* fixed some bugs in `Makefile`
-	* fixed `Dockerfile` bugs
-	* added `Nextcloud` version `30` in `tag`.
+  * fixed some bugs in `Makefile`
+  * fixed `Dockerfile` bugs
+  * added `Nextcloud` version `30` in `tag`.
 		
 * `aug`
-	* `sentry` and `redash` was set to `experimental` status bacause `ci` is not stable yet.
-	* reworked `teamcity:server` image.
-	* reworked `vscode` image.
-	* updated `monerod` and `p2pool` images to latest versions.
-	* updated `nodejs` and `jdk` images to latest versions.
-	* added extended `nodejs` and `jdk` base images support.
-	* added `dotnet` base images support.
-	* added `13-trixie` and `sid` - `Debian` base images support.
-	* fixed `Makefile`+ gha
-	* added support of `zabbix` version `7.0` + gha
-	* dropped `Astra CE\SE` due potencial license issues. Sorry.
-	* dropped `kaniko` local script instead of `pip` verion.
-	* added `Support Document for Docker Image Concepts in Project` document.
-	* backported new `CVE-fixed` versions of `atlassian` images.
-	* `WIP`: reworking by new concept of base images and creating new `nginx 1.27.0` with static build.
+  * `sentry` and `redash` was set to `experimental` status bacause `ci` is not stable yet.
+  * reworked `teamcity:server` image.
+  * reworked `vscode` image.
+  * updated `monerod` and `p2pool` images to latest versions.
+  * updated `nodejs` and `jdk` images to latest versions.
+  * added extended `nodejs` and `jdk` base images support.
+  * added `dotnet` base images support.
+  * added `13-trixie` and `sid` - `Debian` base images support.
+  * fixed `Makefile`+ gha
+  * added support of `zabbix` version `7.0` + gha
+  * dropped `Astra CE\SE` due potencial license issues. Sorry.
+  * dropped `kaniko` local script instead of `pip` verion.
+  * added `Support Document for Docker Image Concepts in Project` document.
+  * backported new `CVE-fixed` versions of `atlassian` images.
+  * `WIP`: reworking by new concept of base images and creating new `nginx 1.27.0` with static build.
 * `july`
   * Start migration from `Odrey's` repos due to author's rot.
 	* [@oerdnj](https://github.com/oerdnj) go to hell, [xenophobe](https://github.com/oerdnj/deb.sury.org/issues/2155)! :fu:

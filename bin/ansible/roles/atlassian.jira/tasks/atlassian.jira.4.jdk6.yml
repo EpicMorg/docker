@@ -42,7 +42,7 @@
 #     copy:
 #       src: "entrypoint.sh"
 #       dest: "{{ target_directory_jira_4 }}/{{ item }}/entrypoint.sh"
-    mode: "0777"
+#    mode: "0777"
 #       force: true
 #     with_items: "{{ jira_versions }}"
 #   

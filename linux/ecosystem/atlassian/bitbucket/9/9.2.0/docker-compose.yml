@@ -1,0 +1,10 @@
+#version: '3'
+services:
+  app:
+    image: "epicmorg/bitbucket:9.2.0"
+    build:
+      context: .
+  app-jdk17:
+    image: "epicmorg/bitbucket:9.2.0-jdk17"
+    build:
+      context: .

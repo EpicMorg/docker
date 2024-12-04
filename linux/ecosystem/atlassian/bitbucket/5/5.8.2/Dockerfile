@@ -1,0 +1,45 @@
+FROM epicmorg/debian:bookworm-jdk8
+LABEL maintainer="Atlassian Bitbucket Team; EpicMorg DevTeam, developer@epicm.org"
+ARG DEBIAN_FRONTEND=noninteractive
+
+##################################################################
+#                   ARGuments
+##################################################################
+
+ARG RELEASE=5.8.2
+ARG DOWNLOAD_URL=https://www.atlassian.com/software/stash/downloads/binary/atlassian-bitbucket-${RELEASE}.tar.gz
+
+##################################################################
+#                   Setup
+##################################################################
+ENV RUN_USER            daemon
+ENV RUN_GROUP           daemon
+
+# https://confluence.atlassian.com/display/BitbucketServer/Bitbucket+Server+home+directory
+ENV BITBUCKET_HOME          /var/atlassian/application-data/bitbucket
+ENV BITBUCKET_INSTALL_DIR   /opt/atlassian/bitbucket
+
+VOLUME ["${BITBUCKET_HOME}"]
+WORKDIR $BITBUCKET_HOME
+
+# Expose HTTP and SSH ports
+EXPOSE 7990
+EXPOSE 7999
+
+##################################################################
+#                   Installing
+##################################################################
+ADD ${DOWNLOAD_URL} /tmp
+RUN mkdir -p                                 ${BITBUCKET_INSTALL_DIR} &&  \
+    tar -xvzf /tmp/atlassian-bitbucket-${RELEASE}.tar.gz --strip-components=1 --directory "${BITBUCKET_INSTALL_DIR}" && \
+    chown -R ${RUN_USER}:${RUN_GROUP}        ${BITBUCKET_INSTALL_DIR} && \
+    update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8 && \
+    apt-get clean -y && \
+    apt-get autoclean -y && \
+    rm -rfv /var/lib/apt/lists/* && \
+    rm -rfv /var/cache/apt/archives/*.deb && \
+    rm -rfv /tmp/*
+
+CMD ["/entrypoint.sh", "-fg"]
+ENTRYPOINT ["/usr/bin/tini", "--"]
+COPY entrypoint.sh             /entrypoint.sh
