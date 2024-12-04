@@ -1201,14 +1201,12 @@ ecosystem-perforce-proxy-images:
 	cd `pwd`/linuxecosystem/perforce/p4p/r23.2    && pwd && make build && make deploy
 	cd `pwd`/linuxecosystem/perforce/p4p/r24.2    && pwd && make build && make deploy
 
-
 ecosystem-bitbucket-1-images:
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/1/1.0.3                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/1/1.1.2                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/1/1.2.1                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/1/1.2.4                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/1/1.3.1                && pwd && make build && make deploy
-
 
 ecosystem-bitbucket-2-images:
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/2/2.0.3                 && pwd && make build && make deploy
@@ -1363,6 +1361,492 @@ ecosystem-bitbucket-4-images:
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.14.10                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.14.11                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.14.12                && pwd && make build && make deploy
+
+ecosystem-bitbucket-5-images:
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.0.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.0.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.0.5                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.0.6                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.0.7                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.0.8                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.0.9                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.0.10                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.1.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.1.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.1.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.1.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.1.5                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.1.6                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.1.7                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.1.8                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.1.9                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.2.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.2.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.2.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.2.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.2.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.2.5                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.2.6                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.2.7                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.2.8                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.3.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.3.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.3.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.3.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.3.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.3.5                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.3.6                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.3.7                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.4.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.4.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.4.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.4.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.4.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.4.6                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.4.7                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.4.8                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.4.9                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.5.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.5.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.5.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.5.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.5.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.5.5                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.5.6                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.5.7                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.5.8                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.5.9                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.6.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.6.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.6.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.6.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.6.5                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.6.6                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.7.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.7.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.7.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.7.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.7.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.8.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.8.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.8.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.8.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.8.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.9.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.9.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.9.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.10.0                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.10.1                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.10.2                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.10.3                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.10.4                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.11.1                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.11.2                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.11.3                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.11.4                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.12.0                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.12.1                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.12.2                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.12.3                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.12.4                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.13.0                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.13.1                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.13.3                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.13.4                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.13.5                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.13.6                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.14.0                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.14.1                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.14.2                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.14.3                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.14.4                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.15.0                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.15.1                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.15.2                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.15.3                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.16.0                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.16.1                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.16.2                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.16.3                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.16.4                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.16.5                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.16.6                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.16.7                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.16.8                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.16.9                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.16.10                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.16.11                && pwd && make build && make deploy
+
+ecosystem-bitbucket-6-images:
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.0.0                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.0.1                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.0.2                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.0.3                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.0.4                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.0.5                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.0.6                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.0.7                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.0.9                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.0.10                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.0.11                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.1.0                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.1.1                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.1.2                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.1.3                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.1.4                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.1.5                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.1.6                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.1.7                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.1.8                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.1.9                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.2.0                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.2.1                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.2.2                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.2.3                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.2.4                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.2.5                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.2.6                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.2.7                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.3.0                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.3.1                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.3.2                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.3.3                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.3.4                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.3.5                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.3.6                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.4.0                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.4.1                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.4.2                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.4.3                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.4.4                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.5.1                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.5.2                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.5.3                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.6.0                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.6.1                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.6.2                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.6.3                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.6.4                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.7.0                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.7.1                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.7.2                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.7.3                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.7.4                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.7.5                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.8.0                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.8.1                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.8.2                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.8.3                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.8.4                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.9.0                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.9.1                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.9.2                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.9.3                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.10.0                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.10.1                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.10.2                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.10.3                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.10.4                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.10.5                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.10.7                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.10.8                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.10.9                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.10.10                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.10.11                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.10.12                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.10.13                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.10.14                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.10.15                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.10.16                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.10.17                  && pwd && make build && make deploy
+
+ecosystem-bitbucket-7-images:
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.0.0                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.0.1                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.0.2                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.0.3                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.0.4                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.0.5                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.1.0                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.1.1                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.1.2                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.1.3                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.1.4                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.2.0                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.2.1                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.2.2                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.2.3                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.2.4                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.2.5                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.2.6                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.3.0                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.3.1                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.3.2                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.4.0                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.4.1                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.4.2                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.5.0                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.5.1                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.5.2                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.6.0                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.6.1                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.6.2                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.6.3                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.6.4                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.6.5                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.6.6                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.6.7                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.6.8                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.6.9                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.6.10                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.6.11                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.6.12                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.6.13                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.6.14                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.6.15                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.6.16                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.6.17                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.6.19                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.6.20                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.6.21                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.6.22                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.6.23                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.7.0                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.7.1                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.8.0                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.8.1                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.9.0                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.9.1                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.10.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.10.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.11.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.11.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.12.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.12.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.13.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.13.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.14.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.14.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.14.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.15.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.15.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.15.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.15.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.16.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.16.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.16.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.16.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.17.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.17.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.17.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.17.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.17.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.17.5                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.17.6                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.17.7                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.17.8                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.17.9                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.17.10                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.17.11                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.17.12                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.17.13                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.17.14                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.17.15                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.17.16                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.17.17                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.17.18                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.17.19                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.17.20                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.17.21                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.18.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.18.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.18.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.18.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.18.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.19.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.19.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.19.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.19.5                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.20.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.20.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.20.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.20.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.21.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.21.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.21.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.21.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.21.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.21.5                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.21.6                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.21.7                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.21.8                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.21.9                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.21.10                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.21.11                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.21.12                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.21.13                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.21.14                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.21.15                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.21.16                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.21.17                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.21.18                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.21.19                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.21.20                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.21.21                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.21.22                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.21.23                 && pwd && make build && make deploy
+
+ecosystem-bitbucket-8-images:
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.0.0                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.0.1                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.0.2                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.0.3                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.0.4                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.0.5                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.1.0                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.1.1                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.1.2                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.1.3                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.1.4                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.1.5                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.2.0                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.2.1                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.2.2                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.2.3                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.2.4                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.3.0                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.3.1                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.3.2                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.3.3                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.3.4                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.4.0                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.4.1                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.4.2                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.4.3                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.4.4                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.5.0                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.5.1                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.5.2                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.5.3                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.5.4                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.6.0                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.6.1                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.6.2                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.6.3                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.6.4                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.7.0                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.7.1                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.7.2                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.7.3                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.7.4                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.7.5                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.8.0                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.8.1                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.8.2                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.8.3                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.8.4                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.8.5                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.8.6                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.8.7                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.9.0                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.9.1                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.9.2                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.9.3                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.9.4                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.9.5                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.9.6                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.9.7                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.9.8                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.9.9                   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.9.10                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.9.11                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.9.12                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.9.13                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.9.14                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.9.15                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.9.16                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.9.17                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.9.18                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.9.19                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.9.20                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.9.21                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.9.22                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.10.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.10.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.10.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.10.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.10.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.10.5                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.10.6                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.11.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.11.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.11.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.11.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.11.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.11.5                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.11.6                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.12.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.12.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.12.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.12.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.12.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.12.5                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.12.6                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.13.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.13.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.13.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.13.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.13.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.13.5                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.13.6                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.14.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.14.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.14.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.14.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.14.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.14.5                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.14.6                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.15.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.15.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.15.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.15.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.15.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.15.5                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.16.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.16.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.16.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.16.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.16.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.17.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.17.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.17.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.18.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.18.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.19.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.19.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.19.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.19.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.19.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.19.5                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.19.6                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.19.7                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.19.8                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.19.9                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.19.10                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.19.11                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.19.12                 && pwd && make build && make deploy
+
+ecosystem-bitbucket-9-images:
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/9/9.0.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/9/9.0.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/9/9.1.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/9/9.1.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/9/9.2.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/9/9.2.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/9/9.3.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/9/9.3.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/9/9.3.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/9/9.4.0                  && pwd && make build && make deploy
 
 ecosystem-jira-4-images:
 	cd `pwd`/linux/ecosystem/atlassian/jira/4/4.1.1                && pwd && make build && make deploy
@@ -1852,7 +2336,7 @@ bundle-jira:
 	make ecosystem-jira-7-images
 	make ecosystem-jira-8-images
 	make ecosystem-jira-9-images
-	make ecosystem-jira-10images
+	make ecosystem-jira-10-images
 
 bundle-atlassian-latest:
 	@echo "=============================================="
@@ -1866,11 +2350,11 @@ bundle-atlassian-latest:
 	cd `pwd`/linux/ecosystem/atlassian/fisheye-crucible/latest    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/latest                && pwd && make build && make deploy
 
-
 bundle-atlassian:
 	@echo "======================================="
 	@echo "===== Building  Atlassian  images ====="
 	@echo "======================================="
+	make bundle-bitbucket
 	make bundle-jira
 
 bundle-web:

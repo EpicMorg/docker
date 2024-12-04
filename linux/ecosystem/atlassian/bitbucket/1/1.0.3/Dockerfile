@@ -6,8 +6,8 @@ ARG DEBIAN_FRONTEND=noninteractive
 #                   ARGuments
 ##################################################################
 
-ARG RELEASE
-ARG DOWNLOAD_URL
+ARG RELEASE=1.0.3
+ARG DOWNLOAD_URL=https://www.atlassian.com/software/stash/downloads/binary/atlassian-stash-${RELEASE}.tar.gz
 
 ##################################################################
 #                   Setup
@@ -30,15 +30,16 @@ EXPOSE 7999
 ##################################################################
 #                   Installing
 ##################################################################
+ADD ${DOWNLOAD_URL} /tmp
 RUN mkdir -p                                 ${BITBUCKET_INSTALL_DIR} &&  \
-    curl --user-agent "Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/81.0" -L ${DOWNLOAD_URL} | tar -xz --strip-components=1 -C "${BITBUCKET_INSTALL_DIR}"  &&  \
+    tar -xvzf /tmp/atlassian-stash-${RELEASE}.tar.gz --strip-components=1 --directory "${BITBUCKET_INSTALL_DIR}" && \
     chown -R ${RUN_USER}:${RUN_GROUP}        ${BITBUCKET_INSTALL_DIR} && \
-#   sed -i -e 's/^# umask/umask/'            ${BITBUCKET_INSTALL_DIR}/bin/_start-webapp.sh && \
     update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8 && \
-    apt clean -y && \
-    apt autoclean -y && \
+    apt-get clean -y && \
+    apt-get autoclean -y && \
     rm -rfv /var/lib/apt/lists/* && \
-    rm -rfv /var/cache/apt/archives/*.deb
+    rm -rfv /var/cache/apt/archives/*.deb && \
+    rm -rfv /tmp/*
 
 CMD ["/entrypoint.sh", "-fg"]
 ENTRYPOINT ["/usr/bin/tini", "--"]

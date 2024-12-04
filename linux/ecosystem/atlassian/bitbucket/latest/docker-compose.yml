@@ -10,7 +10,11 @@ services:
       context: .
       dockerfile: ./Dockerfile.jdk11
   app-jdk17:
-    image: "epicmorg/bitbucket:latest-jdk7"
+    image: "epicmorg/bitbucket:latest-jdk17"
     build:
       context: .
-      dockerfile: ./Dockerfile.jdk17
+  app-jdk21:
+    image: "epicmorg/bitbucket:latest-jdk21"
+    build:
+      context: .
+      dockerfile: ./Dockerfile.jdk21
