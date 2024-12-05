@@ -40,6 +40,8 @@ RUN mkdir -p                                 ${BITBUCKET_INSTALL_DIR} &&  \
     rm -rfv /var/cache/apt/archives/*.deb && \
     rm -rfv /tmp/*
 
+RUN updatedb
+
 CMD ["/entrypoint.sh", "-fg"]
 ENTRYPOINT ["/usr/bin/tini", "--"]
 COPY entrypoint.sh             /entrypoint.sh

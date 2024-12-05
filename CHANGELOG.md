@@ -3,7 +3,7 @@
 * `dec`
   * fixed `perforce` images
   * new baseline:
-  * `qbittorrent`, `perforce`, `Atlassian Jira`, `Atlassian Bitbucket`
+  * `qbittorrent`, `perforce`, `Atlassian Jira`, `Atlassian Bitbucket`, `TeamCity Agents`
   * updated `Atlassian Images`:
 	* fixed old and added new versions of `Jira`
 	* fixed old and added new versions of `Bitbucket`

@@ -1,0 +1,85 @@
+FROM epicmorg/debian:bookworm-develop-jdk21
+LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
+ARG DEBIAN_FRONTEND=noninteractive
+
+##################################################################
+#                   teamcity minimal agent
+##################################################################
+LABEL dockerImage.teamcity.version="latest" \
+      dockerImage.teamcity.buildNumber="latest"
+
+VOLUME /data/teamcity_agent/conf
+
+ENV CONFIG_FILE=/data/teamcity_agent/conf/buildAgent.properties
+ENV GIT_SSH_VARIANT=ssh
+
+COPY run-agent.sh /run-agent.sh
+RUN chmod +x /run-agent.sh && \
+    sync
+
+COPY run-services.sh /run-services.sh
+RUN chmod +x /run-services.sh && \
+    sync
+
+ARG TC_AGENT_URL=https://teamcity.jetbrains.com/update/buildAgent.zip
+ADD ${TC_AGENT_URL} /tmp
+RUN unzip -q /tmp/buildAgent.zip -d /opt/buildagent && \
+    mv /opt/buildagent/conf /opt/buildagent/conf_dist && \
+    rm -rfv /tmp/buildAgent.zip
+
+RUN useradd -m buildagent && \
+    chmod +x /opt/buildagent/bin/*.sh && \
+    chmod +x /run-agent.sh /run-services.sh && sync
+
+##################################################################
+#                    teamcity docker setup
+##################################################################
+
+#Install packages
+RUN install -m 0755 -d /etc/apt/keyrings && \
+    curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc && \
+    chmod a+r /etc/apt/keyrings/docker.asc && \
+    echo  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null  && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends --allow-unauthenticated \
+      docker-ce \
+      docker-ce-cli \
+      containerd.io \
+      docker-buildx-plugin \
+      docker-compose-plugin \
+      systemd && \
+    systemctl disable docker && \
+    usermod -aG docker buildagent
+
+# A better fix for TW-52939 Dockerfile build fails because of aufs
+VOLUME /var/lib/docker
+
+COPY run-docker.sh /services/run-docker.sh
+RUN chmod +x /services/run-docker.sh && \
+    sync
+
+##################################################################
+#                    teamcity docker compose setup
+##################################################################
+
+#Install packages
+RUN export  DOCKER_COMPOSE_VERSION=`curl --silent https://api.github.com/repos/docker/compose/releases/latest | jq .name -r` && \
+    echo "Latest compose is: ${DOCKER_COMPOSE_VERSION}" && \
+    curl -SL https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-Linux-x86_64 -o /usr/local/bin/docker-compose && \
+    chmod +x /usr/local/bin/docker-compose
+
+##################################################################
+#                   cleaninig up
+##################################################################
+RUN apt clean -y && \
+    apt-get clean all && \
+    apt autoclean -y && \
+    rm -rfv /var/lib/apt/lists/* && \
+    rm -rfv /var/cache/apt/archives/*.deb && \
+    rm -rfv /tmp/*
+
+CMD ["/run-services.sh"]
+
+EXPOSE 9090
+
+RUN updatedb

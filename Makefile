@@ -1073,9 +1073,7 @@ ecosystem-postgres-images:
 #	cd `pwd`/linux/ecosystem/postgres/18           && pwd && make build && make deploy
 
 ecosystem-teamcity-agent-images:
-	cd `pwd`/linux/ecosystem/teamcity/agent/latest/jdk8         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/teamcity/agent/latest/jdk11         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/teamcity/agent/latest/jdk17         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/latest         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/teamcity/agent/amxx-sdk/1.9   && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/teamcity/agent/amxx-sdk/1.10  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/teamcity/agent/android-sdk/jdk8    && pwd && make build && make deploy
@@ -1103,14 +1101,14 @@ ecosystem-teamcity-agent-images:
 	cd `pwd`/linux/ecosystem/teamcity/agent/node20         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/teamcity/agent/node21         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/teamcity/agent/node22         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/teamcity/agent/php7.2         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/teamcity/agent/php7.3         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/teamcity/agent/php7.4         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/teamcity/agent/php8.0         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/teamcity/agent/php8.1         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/teamcity/agent/php8.2         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/teamcity/agent/php8.3         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/teamcity/agent/steam-sdk      && pwd && make build && make deploy
+#	cd `pwd`/linux/ecosystem/teamcity/agent/php7.2         && pwd && make build && make deploy
+#	cd `pwd`/linux/ecosystem/teamcity/agent/php7.3         && pwd && make build && make deploy
+#	cd `pwd`/linux/ecosystem/teamcity/agent/php7.4         && pwd && make build && make deploy
+#	cd `pwd`/linux/ecosystem/teamcity/agent/php8.0         && pwd && make build && make deploy
+#	cd `pwd`/linux/ecosystem/teamcity/agent/php8.1         && pwd && make build && make deploy
+#	cd `pwd`/linux/ecosystem/teamcity/agent/php8.2         && pwd && make build && make deploy
+#	cd `pwd`/linux/ecosystem/teamcity/agent/php8.3         && pwd && make build && make deploy
+#	cd `pwd`/linux/ecosystem/teamcity/agent/steam-sdk      && pwd && make build && make deploy
 
 ecosystem-gitlab-runner-images:
 	cd `pwd`/linux/ecosystem/gitlab/runner/latest         && pwd && make build && make deploy
