@@ -66,42 +66,42 @@ jobs:
     - name: "Build and Deploy Apache 2 + PHP 8.3 Image:"
       run:  cd linux/ecosystem/apache2/php8.3    && pwd && make build && make deploy
 
-##################################################################################
-
-  build-nginx-images:
-    name: Build EpicMorg NginX Images
-    runs-on: ubuntu-24.04
-
-    steps:
-    - uses: actions/checkout@v4
-    - name: Log into registry
-      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
-
-    - name: Test Make
-      run:  make
-
-    - name: Install requirements.txt
-      run:  make pip
-
-    - name: "Build and Deploy NginX Image:"
-      run:  cd linux/ecosystem/nginx/latest/mainline/main    && pwd && make build && make deploy
-
-    - name: "Build and Deploy NginX + PHP7.4 Image:"
-      run:  cd linux/ecosystem/nginx/latest/mainline/php     && pwd && make build && make deploy
-
-    - name: "Build and Deploy NginX + RTMP-HLS Image:"
-      run:  cd linux/ecosystem/nginx/latest/mainline/rtmp-hls    && pwd && make build && make deploy
-
-#    - name: "Build and Deploy NginX (quic, http3) Image:"
-#      run:  cd linux/ecosystem/nginx/latest/quic/main    && pwd && make build && make deploy
-
-#    - name: "Build and Deploy NginX  (quic, http3) + PHP7.4 Image:"
-#      run:  cd linux/ecosystem/nginx/latest/quic/php     && pwd && make build && make deploy
-
-#    - name: "Build and Deploy NginX  (quic, http3) + RTMP-HLS Image:"
-#      run:  cd linux/ecosystem/nginx/latest/quic/rtmp-hls    && pwd && make build && make deploy
-
-##################################################################################
+# ##################################################################################
+# 
+#   build-nginx-images:
+#     name: Build EpicMorg NginX Images
+#     runs-on: ubuntu-24.04
+# 
+#     steps:
+#     - uses: actions/checkout@v4
+#     - name: Log into registry
+#       run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+# 
+#     - name: Test Make
+#       run:  make
+# 
+#     - name: Install requirements.txt
+#       run:  make pip
+# 
+#     - name: "Build and Deploy NginX Image:"
+#       run:  cd linux/ecosystem/nginx/latest/mainline/main    && pwd && make build && make deploy
+# 
+#     - name: "Build and Deploy NginX + PHP7.4 Image:"
+#       run:  cd linux/ecosystem/nginx/latest/mainline/php     && pwd && make build && make deploy
+# 
+#     - name: "Build and Deploy NginX + RTMP-HLS Image:"
+#       run:  cd linux/ecosystem/nginx/latest/mainline/rtmp-hls    && pwd && make build && make deploy
+# 
+# #    - name: "Build and Deploy NginX (quic, http3) Image:"
+# #      run:  cd linux/ecosystem/nginx/latest/quic/main    && pwd && make build && make deploy
+# 
+# #    - name: "Build and Deploy NginX  (quic, http3) + PHP7.4 Image:"
+# #      run:  cd linux/ecosystem/nginx/latest/quic/php     && pwd && make build && make deploy
+# 
+# #    - name: "Build and Deploy NginX  (quic, http3) + RTMP-HLS Image:"
+# #      run:  cd linux/ecosystem/nginx/latest/quic/rtmp-hls    && pwd && make build && make deploy
+# 
+# ##################################################################################
 
     - name: Cleanup
       run: make docker-clean
