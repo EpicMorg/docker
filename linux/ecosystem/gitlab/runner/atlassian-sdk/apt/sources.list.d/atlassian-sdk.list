@@ -1,0 +1,1 @@
+deb [trusted=yes signed-by=/etc/apt/keyrings/atlassian.asc] https://packages.atlassian.com/atlassian-sdk-deb stable contrib

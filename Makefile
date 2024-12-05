@@ -1139,13 +1139,12 @@ ecosystem-gitlab-runner-images:
 	cd `pwd`/linux/ecosystem/gitlab/runner/node20         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/gitlab/runner/node21         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/gitlab/runner/node22         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/gitlab/runner/php7.2         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/gitlab/runner/php7.3         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/gitlab/runner/php7.4         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/gitlab/runner/php8.1         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/gitlab/runner/php8.2         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/gitlab/runner/php8.3         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/gitlab/runner/steam-sdk      && pwd && make build && make deploy
+#	cd `pwd`/linux/ecosystem/gitlab/runner/php7.2         && pwd && make build && make deploy
+#	cd `pwd`/linux/ecosystem/gitlab/runner/php7.3         && pwd && make build && make deploy
+#	cd `pwd`/linux/ecosystem/gitlab/runner/php7.4         && pwd && make build && make deploy
+#	cd `pwd`/linux/ecosystem/gitlab/runner/php8.1         && pwd && make build && make deploy
+#	cd `pwd`/linux/ecosystem/gitlab/runner/php8.2         && pwd && make build && make deploy
+#	cd `pwd`/linux/ecosystem/gitlab/runner/php8.3         && pwd && make build && make deploy
 
 ecosystem-nginx-images:
 	cd `pwd`/linux/ecosystem/nginx/latest/mainline/main      && pwd && make build && make deploy

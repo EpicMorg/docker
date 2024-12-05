@@ -2,16 +2,15 @@ FROM epicmorg/gitlab-runner:latest
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
-ARG K_JDK_MAJOR_VERSION=jdk8u412
-ARG K_JDK_VERSION=8u412
-ARG K_JDK_BUILD_VERSION=b08
-ARG K_JDK_URL=https://github.com/adoptium/temurin8-binaries/releases/download/${K_JDK_MAJOR_VERSION}-${K_JDK_BUILD_VERSION}/OpenJDK8U-jdk_x64_linux_hotspot_${K_JDK_VERSION}${K_JDK_BUILD_VERSION}.tar.gz
+ARG K_JDK_MAJOR_VERSION=8
+ARG K_JDK_FULL_VERSION=jdk8u422
+ARG K_JDK_VERSION=8u422
+ARG K_JDK_BUILD_VERSION=b05
+ARG K_JDK_URL=https://github.com/adoptium/temurin${K_JDK_MAJOR_VERSION}-binaries/releases/download/${K_JDK_FULL_VERSION}-${K_JDK_BUILD_VERSION}/OpenJDK${K_JDK_MAJOR_VERSION}U-jdk_x64_linux_hotspot_${K_JDK_VERSION}${K_JDK_BUILD_VERSION}.tar.gz
+ARG K_JDK_TEMP=/tmp/OpenJDK${K_JDK_MAJOR_VERSION}U-jdk_x64_linux_hotspot_${K_JDK_VERSION}${K_JDK_BUILD_VERSION}.tar.gz
 
-ENV ANDROID_HOME=/usr/lib/android-sdk
-ENV ANDROID_SDK_ROOT=/usr/lib/android-sdk
-ENV JAVA_HOME=/usr/local/${K_JDK_MAJOR_VERSION}-${K_JDK_BUILD_VERSION}
-
-ENV PATH=$PATH:${JAVA_HOME}/bin:${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin:${ANDROID_SDK_ROOT}/platform-tools:$ANDROID_SDK_ROOT/tools/bin
+ENV JAVA_HOME=/usr/local/${K_JDK_FULL_VERSION}-${K_JDK_BUILD_VERSION}
+ENV PATH=$PATH:${JAVA_HOME}/bin
 
 ##################################################################
 #                   installing java8
@@ -634,3 +633,5 @@ RUN apt clean -y && \
     rm -rfv /var/lib/apt/lists/* && \
     rm -rfv /var/cache/apt/archives/*.deb && \
     rm -rfv /tmp/*
+
+RUN updatedb

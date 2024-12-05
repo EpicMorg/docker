@@ -10,15 +10,30 @@ ARG SMB_PHP_INI=${PHP_DIR}/mods-available/smbclient.ini
 ARG CAS_PHP_INI=${PHP_DIR}/mods-available/cassandra.ini
 
 ##################################################################
+#                   gh official binary
+##################################################################
+RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/githubcli-archive-keyring.gpg && \
+    chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg && \
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list && \
+    apt-get update &&  \
+    apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
+    gh
+
+RUN echo "=============================================" && \
+    echo gh $(gh --version) && \
+    echo "============================================="
+
+##################################################################
 #                   Installing Apache2
 ##################################################################
 #installing apache2 repo
-RUN wget -O /etc/apt/trusted.gpg.d/apache2.gpg https://packages.sury.org/apache2/apt.gpg
-RUN sh -c 'echo "deb https://packages.sury.org/apache2/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/apache2.list'
+RUN wget -O /etc/apt/trusted.gpg.d/apache2.gpg https://vault.center/mirror/apt/packages.sury.org/apache2/apt.gpg
+RUN sh -c 'echo "deb https://vault.center/mirror/apt/packages.sury.org/apache2/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/apache2.list'
 
 #Install base packages
 RUN apt-get update && \
     apt-get install -y  --allow-unauthenticated \
+      locate \
       apache2 \
       apache2-utils \
       libapache2-mod-php7.4 \

@@ -39,7 +39,7 @@ RUN useradd -m buildagent && \
 RUN install -m 0755 -d /etc/apt/keyrings && \
     curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc && \
     chmod a+r /etc/apt/keyrings/docker.asc && \
-    echo  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null  && \
+    echo  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian bookworm stable nightly" | tee /etc/apt/sources.list.d/docker.list > /dev/null  && \
     apt-get update && \
     apt-get install -y --no-install-recommends --allow-unauthenticated \
       docker-ce \
@@ -49,7 +49,8 @@ RUN install -m 0755 -d /etc/apt/keyrings && \
       docker-compose-plugin \
       systemd && \
     systemctl disable docker && \
-    usermod -aG docker buildagent
+    usermod -aG docker buildagent && \
+    docker --version
 
 # A better fix for TW-52939 Dockerfile build fails because of aufs
 VOLUME /var/lib/docker
