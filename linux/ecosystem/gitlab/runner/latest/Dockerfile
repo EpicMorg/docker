@@ -13,15 +13,18 @@ RUN mkdir -p ${GITLAB_RUNNER_HOME} ${GITLAB_RUNNER_CONF} ${GITLAB_RUNNER_CONF}/c
 ##################################################################
 
 #Install packages
-RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - && \
-    echo 'deb  https://download.docker.com/linux/debian bookworm test' > /etc/apt/sources.list.d/docker.list  && \
-    echo 'deb  https://download.docker.com/linux/debian bookworm nightly' >> /etc/apt/sources.list.d/docker.list  && \
-    apt-cache policy docker-ce && \
+RUN install -m 0755 -d /etc/apt/keyrings && \
+    curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc && \
+    chmod a+r /etc/apt/keyrings/docker.asc && \
+    echo  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian bookworm stable nightly" | tee /etc/apt/sources.list.d/docker.list > /dev/null  && \
     apt-get update && \
     apt-get install -y --no-install-recommends --allow-unauthenticated \
       docker-ce \
       docker-ce-cli \
-      containerd.io systemd && \
+      containerd.io \
+      docker-buildx-plugin \
+      docker-compose-plugin \
+      systemd && \
     systemctl disable docker && \
     docker --version
 
@@ -43,11 +46,8 @@ RUN export  DOCKER_COMPOSE_VERSION=`curl --silent https://api.github.com/repos/d
 ##################################################################
 #                    gitlab runner setup
 ##################################################################
-COPY install-gitlab-runner.sh /tmp/install-gitlab-runner.sh
-RUN cd /tmp && \
-    chmod +x /tmp/install-gitlab-runner.sh && \
-    bash /tmp/install-gitlab-runner.sh && \
-#    useradd --comment 'GitLab Runner' --create-home gitlab-runner --shell /bin/bash && \
+ADD https://gitlab-runner-downloads.s3.amazonaws.com/latest/deb/gitlab-runner_amd64.deb /tmp
+RUN dpkg -i /tmp/gitlab-runner_amd64.deb && \
     usermod -aG docker gitlab-runner && \
     cat /etc/passwd && \
     gitlab-runner --version

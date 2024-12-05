@@ -49,23 +49,55 @@ jobs:
     - name: "Build and Deploy TeamCity Agent amxX 1.10 SDK Image:"
       run:  cd linux/ecosystem/teamcity/agent/amxx-sdk/1.10    && pwd && make build && make deploy
 
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
+
     - name: "Build and Deploy TeamCity Agent Android SDK (jdk8) Image:"
       run:  cd linux/ecosystem/teamcity/agent/android-sdk/jdk8    && pwd && make build && make deploy
     
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
+
     - name: "Build and Deploy TeamCity Agent Android SDK (jdk11) Image:"
       run:  cd linux/ecosystem/teamcity/agent/android-sdk/jdk1    && pwd && make build && make deploy
     
-    - name: "Build and Deploy TeamCity Agent Android SDK (jdk17) Image:"
-      run:  cd linux/ecosystem/teamcity/agent/android-sdk/jdk7    && pwd && make build && make deploy
-    
+##################################################################################
+
     - name: Cleanup
       run: make docker-clean
+
+##################################################################################
+
+    - name: "Build and Deploy TeamCity Agent Android SDK (jdk17) Image:"
+      run:  cd linux/ecosystem/teamcity/agent/android-sdk/jdk7    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
 
     - name: "Build and Deploy TeamCity Agent Atlassian SDK Image:"
       run:  cd linux/ecosystem/teamcity/agent/atlassian-sdk    && pwd && make build && make deploy
 
     - name: "Build and Deploy TeamCity Agent dotNet SDK Image:"
       run:  cd linux/ecosystem/teamcity/agent/dotnet-sdk    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
 
     - name: "Build and Deploy TeamCity Agent node0.12 Image:"
       run:  cd linux/ecosystem/teamcity/agent/node0.12    && pwd && make build && make deploy
@@ -79,6 +111,13 @@ jobs:
     - name: "Build and Deploy TeamCity Agent node6 Image:"
       run:  cd linux/ecosystem/teamcity/agent/node6    && pwd && make build && make deploy
 
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
+
     - name: "Build and Deploy TeamCity Agent node7 Image:"
       run:  cd linux/ecosystem/teamcity/agent/node7    && pwd && make build && make deploy
 
@@ -91,6 +130,13 @@ jobs:
     - name: "Build and Deploy TeamCity Agent node10 Image:"
       run:  cd linux/ecosystem/teamcity/agent/node10    && pwd && make build && make deploy
 
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
+
     - name: "Build and Deploy TeamCity Agent node11 Image:"
       run:  cd linux/ecosystem/teamcity/agent/node11    && pwd && make build && make deploy
 
@@ -102,9 +148,13 @@ jobs:
 
     - name: "Build and Deploy TeamCity Agent node14 Image:"
       run:  cd linux/ecosystem/teamcity/agent/node14    && pwd && make build && make deploy
-    
+
+##################################################################################
+
     - name: Cleanup
       run: make docker-clean
+
+##################################################################################
 
     - name: "Build and Deploy TeamCity Agent node15 Image:"
       run:  cd linux/ecosystem/teamcity/agent/node15    && pwd && make build && make deploy
@@ -117,9 +167,13 @@ jobs:
 
     - name: "Build and Deploy TeamCity Agent node18 Image:"
       run:  cd linux/ecosystem/teamcity/agent/node18    && pwd && make build && make deploy
-    
+
+##################################################################################
+
     - name: Cleanup
       run: make docker-clean
+
+##################################################################################
 
     - name: "Build and Deploy TeamCity Agent node19 Image:"
       run:  cd linux/ecosystem/teamcity/agent/node19    && pwd && make build && make deploy
@@ -132,6 +186,13 @@ jobs:
 
     - name: "Build and Deploy TeamCity Agent node22 Image:"
       run:  cd linux/ecosystem/teamcity/agent/node22    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
 
 #    - name: "Build and Deploy TeamCity Agent php7.2 Image:"
 #      run:  cd linux/ecosystem/teamcity/agent/php7.2    && pwd && make build && make deploy
@@ -161,6 +222,3 @@ jobs:
 #      run:  cd linux/ecosystem/teamcity/agent/steam-sdk    && pwd && make build && make deploy
 #
 ##################################################################################
-
-    - name: Cleanup
-      run: make docker-clean
