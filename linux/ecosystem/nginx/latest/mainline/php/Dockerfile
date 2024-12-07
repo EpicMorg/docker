@@ -28,7 +28,7 @@ ARG P4API_URL=http://filehost.perforce.com/perforce/${P4API_VER}/bin.linux26x86_
 ARG P4PHP_VER=r20.1
 ARG P4PHP_URL=http://filehost.perforce.com/perforce/${P4PHP_VER}/bin.tools/p4php-php7.tgz
 
-ARG PHP_MODULE_PATH=/usr/lib/php/20190902
+ENV PHP_MODULE_PATH=/usr/lib/php/20190902
 
 ##################################################################
 #                   Files and folders
@@ -106,9 +106,9 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 #                   Installing php fpm for nginx from deb
 ##################################################################
-ARG PHP_MODULE_PATH=/usr/lib/php/20190902
-ARG PHP_VER=7.4
-ARG PHP_DIR=/etc/php/${PHP_VER}
+ENV PHP_MODULE_PATH=/usr/lib/php/20190902
+ENV PHP_VER=7.4
+ENV PHP_DIR=/etc/php/${PHP_VER}
 ARG P4_PHP_INI=${PHP_DIR}/mods-available/perfroce.ini
 ARG SMB_PHP_INI=${PHP_DIR}/mods-available/smbclient.ini
 ARG CAS_PHP_INI=${PHP_DIR}/mods-available/cassandra.ini

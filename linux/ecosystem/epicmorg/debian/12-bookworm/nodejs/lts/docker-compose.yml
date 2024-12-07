@@ -9,3 +9,48 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile.develop
+  app-nodejs-php70:
+    image: "epicmorg/php:php7.0-nodejs"
+    build:
+      context: .
+      dockerfile: ./Dockerfile.php70
+  app-nodejs-php71:
+    image: "epicmorg/php:php7.1-nodejs"
+    build:
+      context: .
+      dockerfile: ./Dockerfile.php71
+  app-nodejs-php72:
+    image: "epicmorg/php:php7.2-nodejs"
+    build:
+      context: .
+      dockerfile: ./Dockerfile.php72
+  app-nodejs-php73:
+    image: "epicmorg/php:php7.3-nodejs"
+    build:
+      context: .
+      dockerfile: ./Dockerfile.php73
+  app-nodejs-php74:
+    image: "epicmorg/php:php7.4-nodejs"
+    build:
+      context: .
+      dockerfile: ./Dockerfile.php74
+  app-nodejs-php80:
+    image: "epicmorg/php:php8.0-nodejs"
+    build:
+      context: .
+      dockerfile: ./Dockerfile.php80
+  app-nodejs-php81:
+    image: "epicmorg/php:php8.1-nodejs"
+    build:
+      context: .
+      dockerfile: ./Dockerfile.php81
+  app-nodejs-php82:
+    image: "epicmorg/php:php8.2-nodejs"
+    build:
+      context: .
+      dockerfile: ./Dockerfile.php82
+  app-nodejs-php83:
+    image: "epicmorg/php:php8.3-nodejs"
+    build:
+      context: .
+      dockerfile: ./Dockerfile.php83

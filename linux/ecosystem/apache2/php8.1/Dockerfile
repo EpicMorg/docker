@@ -2,10 +2,10 @@ FROM epicmorg/php:php8.1
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
-ARG PHP_MODULE_VER=20210902
-ARG PHP_MODULE_PATH=/usr/lib/php/${PHP_MODULE_VER}
-ARG PHP_VER=8.1
-ARG PHP_DIR=/etc/php/${PHP_VER}
+ENV PHP_MODULE_VER=20210902
+ENV PHP_MODULE_PATH=/usr/lib/php/${PHP_MODULE_VER}
+ENV PHP_VER=8.1
+ENV PHP_DIR=/etc/php/${PHP_VER}
 ARG P4_PHP_INI=${PHP_DIR}/mods-available/perfroce.ini
 ARG SMB_PHP_INI=${PHP_DIR}/mods-available/smbclient.ini
 ARG CAS_PHP_INI=${PHP_DIR}/mods-available/cassandra.ini

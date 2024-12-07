@@ -2,17 +2,11 @@ FROM epicmorg/debian:bookworm
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
-ENV PHP_VER=5.5
-ENV PHP_MODULE_PATH=/usr/local/lib/php/extensions/no-debug-non-zts-20121212
+ENV PHP_VER=5.6
+ENV PHP_MODULE_PATH=/usr/lib/php/20131226
 ENV PHP_DIR=/etc/php/${PHP_VER}
 ARG P4_PHP_INI=${PHP_DIR}/mods-available/perfroce.ini
 ARG CAS_PHP_INI=${PHP_DIR}/mods-available/cassandra.ini
-
-ENV PHP_INI_DIR=/usr/local/etc/php
-ENV PHP_FILENAME=php-5.5.38.tar.xz
-ENV PHPIZE_DEPS=autoconf  
-ENV PHP_SHA256=cb527c44b48343c8557fe2446464ff1d4695155a95601083e5d1f175df95580f
-ENV PHP_VERSION=5.5.38
 
 #Install base packages
 RUN apt-get update && \
@@ -26,25 +20,153 @@ RUN apt-get update && \
 ##################################################################
 #                   Installing  PHP5.5
 ##################################################################
-COPY --from=php:5.5 /usr/local/bin /usr/local/bin
-COPY --from=php:5.5 /usr/local/etc/php /usr/local/etc/php
-COPY --from=php:5.5 /usr/local/etc/pear.conf /usr/local/etc/pear.conf
-COPY --from=php:5.5 /usr/local/include/php /usr/local/include/php
-COPY --from=php:5.5 /usr/local/lib/php /usr/local/lib/php
-COPY --from=php:5.5 /usr/lib/x86_64-linux-gnu/libssl.so.1.0.0 /usr/lib/x86_64-linux-gnu/libssl.so.1.0.0
-COPY --from=php:5.5 /usr/lib/x86_64-linux-gnu/openssl-1.0.0 /usr/lib/x86_64-linux-gnu/openssl-1.0.0
-COPY --from=php:5.5 /usr/lib/x86_64-linux-gnu/libcrypto.so.1.0.0 /usr/lib/x86_64-linux-gnu/libcrypto.so.1.0.0
-COPY --from=php:5.5 /usr/lib/x86_64-linux-gnu/libcurl.so.4 /usr/lib/x86_64-linux-gnu/libcurl.so.4
-COPY --from=php:5.5 /usr/local/php /usr/local/php
-COPY --from=php:5.5 /usr/src/php.tar.xz /usr/src/php.tar.xz
-COPY --from=php:5.5 /usr/src/php.tar.xz.asc /usr/src/php.tar.xz.asc
+RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://vault.center/mirror/apt/packages.sury.org/php/apt.gpg
+RUN sh -c 'echo "deb https://vault.center/mirror/apt/packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list'
+
+RUN apt-get update && \
+    apt-get install -y  --allow-unauthenticated \
+      libmemcached-dev \
+      libgmp-dev \
+#      php-pear \
+      php5.6 \
+      php5.6-cli \
+      php5.6-common \
+      php5.6-dev \
+      php5.6-amqp \
+      php5.6-apcu \
+      php5.6-bcmath \
+      php5.6-bz2 \
+      php5.6-cgi \
+      php5.6-curl \
+      php5.6-dba \
+      php5.6-dio \
+      php5.6-enchant \
+      php5.6-fpm \
+      php5.6-gd \
+      php5.6-gearman \
+      php5.6-geoip \
+#      php5.6-gmagick \
+      php5.6-gmp \
+      php5.6-gnupg \
+      php5.6-grpc \
+      php5.6-http \
+      php5.6-igbinary \
+      php5.6-imagick \
+      php5.6-imap \
+      php5.6-inotify \
+      php5.6-interbase \
+      php5.6-intl \
+      php5.6-json \
+      php5.6-ldap \
+      php5.6-libvirt-php \
+      php5.6-lua \
+      php5.6-lz4 \
+      php5.6-mailparse \
+      php5.6-mbstring \
+      php5.6-mcrypt \
+      php5.6-memcache \
+      php5.6-memcached \
+      php5.6-mongo \
+      php5.6-mongodb \
+      php5.6-msgpack \
+      php5.6-mysql \
+      php5.6-mysqlnd-ms \
+      php5.6-oauth \
+      php5.6-odbc \
+      php5.6-opcache \
+      php5.6-pgsql \
+      php5.6-phpdbg \
+      php5.6-propro \
+      php5.6-protobuf \
+      php5.6-ps \
+      php5.6-pspell \
+      php5.6-radius \
+      php5.6-raphf \
+      php5.6-readline \
+      php5.6-recode \
+      php5.6-redis \
+      php5.6-rrd \
+      php5.6-smbclient \
+      php5.6-snmp \
+      php5.6-soap \
+      php5.6-solr \
+      php5.6-sqlite3 \
+      php5.6-ssh2 \
+      php5.6-stomp \
+      php5.6-sybase \
+      php5.6-tidy \
+      php5.6-uploadprogress \
+#      php5.6-xcache \
+      php5.6-xdebug \
+      php5.6-xhprof \
+      php5.6-xml \
+      php5.6-xmlrpc \
+      php5.6-xsl \
+#      php5.6-yac \
+      php5.6-yaml \
+      php5.6-zip \
+      php5.6-zmq \
+      smbclient libsmbclient \
+      sendmail && \
+    ln -sf /etc/ssl/dhparam.pem /etc/php/dhparam.pem && \
+    update-alternatives --set php /usr/bin/php5.6 && \
+#    pear clear-cache && \
+    pear update-channels && \
+#    pear upgrade && \
+    pecl channel-update pecl.php.net
+
+RUN echo "=============================================" && \
+    echo php -m $(php -m) && \
+    echo php -v $(php -v) && \
+    echo pear version $(pear version) && \
+    echo pear list $(pear list) && \
+    echo "============================================="
 
 ##################################################################
 #                   Enabling extensions
 ##################################################################
-RUN pear update-channels && \
-    pecl channel-update pecl.php.net && \
-    pear upgrade
+RUN phpenmod \
+      calendar \
+      ldap \
+      curl \
+      exif \
+      ftp \
+      fileinfo \
+      gd \
+      geoip \
+      iconv \
+      imap \
+      json \
+      mbstring \
+      mysqli \
+      mysqlnd \
+      oauth \
+      pdo_mysql \
+      pdo_sqlite \
+      phar \
+      posix \
+      readline \
+      redis \
+      simplexml \
+      sockets \
+      sqlite3 \
+      ssh2 \
+      tokenizer \
+      xml \
+      xmlreader \
+      xmlrpc \
+      xmlwriter \
+      xsl \
+      yaml && \
+    php -m && \
+    php -v
+
+##################################################################
+#                   Enabling extensions
+##################################################################
+#RUN pear update-channels && \
+#    pecl channel-update pecl.php.net && \
+#    pear upgrade
 
 ##############################################################################
 # Cassandra CPP Support Install
@@ -80,30 +202,33 @@ RUN pear update-channels && \
 ##################################################################
 RUN pecl install timezonedb && \
 #    echo "extension = ${PHP_MODULE_PATH}/timezonedb.so" >> ${PHP_DIR}/apache2/php.ini && \
-#    echo "extension = ${PHP_MODULE_PATH}/timezonedb.so" >> ${PHP_DIR}/cgi/php.ini && \
-#    echo "extension = ${PHP_MODULE_PATH}/timezonedb.so" >> ${PHP_DIR}/cli/php.ini && \
-#    echo "extension = ${PHP_MODULE_PATH}/timezonedb.so" >> ${PHP_DIR}/fpm/php.ini && \
+    echo "extension = ${PHP_MODULE_PATH}/timezonedb.so" >> ${PHP_DIR}/cgi/php.ini && \
+    echo "extension = ${PHP_MODULE_PATH}/timezonedb.so" >> ${PHP_DIR}/cli/php.ini && \
+    echo "extension = ${PHP_MODULE_PATH}/timezonedb.so" >> ${PHP_DIR}/fpm/php.ini && \
     php -m && \
     php -v
 
 ##################################################################
 #                   Installing imagic addon
 ##################################################################
-RUN  pecl install imagick && \
+#RUN  pecl install imagick && \
 ##    echo "extension = ${PHP_MODULE_PATH}/imagick.so" >> ${PHP_DIR}/apache2/php.ini && \
 #    echo "extension = ${PHP_MODULE_PATH}/imagick.so" >> ${PHP_DIR}/cgi/php.ini && \
 #    echo "extension = ${PHP_MODULE_PATH}/imagick.so" >> ${PHP_DIR}/cli/php.ini && \
 #    echo "extension = ${PHP_MODULE_PATH}/imagick.so" >> ${PHP_DIR}/fpm/php.ini && \
-    php -m && \
-    php -v
+#    php -m && \
+#    php -v
 
 ##################################################################
 #                   Installing IOnCube addon
 ##################################################################
 ADD https://downloads.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz /tmp/ioncube.tar.gz
 RUN tar -C /tmp -xvf /tmp/ioncube.tar.gz && \
-    cp /tmp/ioncube/ioncube_loader_lin_5.5.so ${PHP_MODULE_PATH} && \
-    echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_5.5.so" >> /usr/local/etc/php/conf.d/php.ini && \
+    cp /tmp/ioncube/ioncube_loader_lin_5.6.so ${PHP_MODULE_PATH} && \
+    #    echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_7.0.so" >> ${PHP_DIR}/apache2/php.ini && \
+    echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_5.6.so" >> ${PHP_DIR}/cgi/php.ini && \
+    echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_5.6.so" >> ${PHP_DIR}/cli/php.ini && \
+    echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_5.6.so" >> ${PHP_DIR}/fpm/php.ini && \
     php -m && \
     php -v
 

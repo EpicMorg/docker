@@ -794,17 +794,19 @@ ecosystem-debian-sid-nodejs-images:
 
 ####################################################################################################################
 
-#ecosystem-php-images:
+ecosystem-php-images:
 #	echo "disabled temprorary"
-#	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/php/php7.0             && pwd && make build && make deploy
-#	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/php/php7.1             && pwd && make build && make deploy
-#	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/php/php7.2             && pwd && make build && make deploy
-#	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/php/php7.3             && pwd && make build && make deploy
-#	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/php/php7.4             && pwd && make build && make deploy
-#	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/php/php8.0             && pwd && make build && make deploy
-#	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/php/php8.1             && pwd && make build && make deploy
-#	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/php/php8.2             && pwd && make build && make deploy
-#	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/php/php8.3             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/php/php5.6             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/php/php7.0             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/php/php7.1             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/php/php7.2             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/php/php7.3             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/php/php7.4             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/php/php8.0             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/php/php8.1             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/php/php8.2             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/php/php8.3             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/php/php8.4             && pwd && make build && make deploy
 
 ecosystem-apache2-images:
 	cd `pwd`/linux/ecosystem/apache2/php7.0         && pwd && make build && make deploy
@@ -2319,12 +2321,12 @@ bundle-bitbucket:
 	@echo "======================================="
 	@echo "===== Building  All Bitbucket  images  ====="
 	@echo "======================================="
-#	make ecosystem-bitbucket-1-images
-#	make ecosystem-bitbucket-2-images
-#	make ecosystem-bitbucket-3-images
-#	make ecosystem-bitbucket-4-images
-#	make ecosystem-bitbucket-5-images
-#	make ecosystem-bitbucket-6-images
+	make ecosystem-bitbucket-1-images
+	make ecosystem-bitbucket-2-images
+	make ecosystem-bitbucket-3-images
+	make ecosystem-bitbucket-4-images
+	make ecosystem-bitbucket-5-images
+	make ecosystem-bitbucket-6-images
 	make ecosystem-bitbucket-7-images
 	make ecosystem-bitbucket-8-images
 	make ecosystem-bitbucket-9-images

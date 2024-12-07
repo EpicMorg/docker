@@ -30,6 +30,8 @@ RUN mkdir -p ${BUILDS_DIR} ${SRC_DIR} ${EXPORT_DIR} ${MAKE_DIR} ${P4API_DIR} ${P
 ##################################################################
 #                   Installing  PHP7
 ##################################################################
+RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://vault.center/mirror/apt/packages.sury.org/php/apt.gpg
+RUN sh -c 'echo "deb https://vault.center/mirror/apt/packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list'
 
 #Install base packages
 RUN apt-get update && \
@@ -44,9 +46,10 @@ RUN apt-get update && \
       php7.2-xml \
       php7.2-cgi && \
     update-alternatives --set php /usr/bin/php7.2 && \
-#    pear upgrade && \
+#    pear clear-cache && \
     pear update-channels && \
-    pecl channel-update pecl.php.noninteractive
+#    pear upgrade && \
+    pecl channel-update pecl.php.net
 
 RUN echo "=============================================" && \
     echo php -m $(php -m) && \
@@ -91,17 +94,17 @@ FROM epicmorg/debian:bookworm
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
-ARG PHP_MODULE_PATH=/usr/lib/php/20170718
-ARG PHP_VER=7.2
-ARG PHP_DIR=/etc/php/${PHP_VER}
+ENV PHP_MODULE_PATH=/usr/lib/php/20170718
+ENV PHP_VER=7.2
+ENV PHP_DIR=/etc/php/${PHP_VER}
 ARG P4_PHP_INI=${PHP_DIR}/mods-available/perfroce.ini
 ARG CAS_PHP_INI=${PHP_DIR}/mods-available/cassandra.ini
 
 ##################################################################
 #                   Installing  PHP7
 ##################################################################
- && \
-    sh -c 'echo "deb [signed-by=/usr/share/keyrings/deb.sury.org-php.gpg] https://ftp.mpi-inf.mpg.de/mirrors/linux/mirror/deb.sury.org/repositories/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list'
+RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://vault.center/mirror/apt/packages.sury.org/php/apt.gpg
+RUN sh -c 'echo "deb https://vault.center/mirror/apt/packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list'
 
 RUN apt-get update && \
     apt-get install -y  --allow-unauthenticated \
@@ -109,50 +112,104 @@ RUN apt-get update && \
       libgmp-dev \
 #      php-pear \
       php7.2 \
-      php7.2-common \
-      php7.2-dev \
-      php7.2-ldap \
-#      php7.2-mail \
-#      php7.2-mailparse \
-      php7.2-soap \
-      php7.2-mysql \
-      php7.2-curl \
-      php7.2-gd \
-      php7.2-intl \
-      php7.2-zip \
-      php7.2-bcmath \
-      php7.2-fpm \
-      php7.2-imap \
-      php7.2-pspell \
-      php7.2-recode \
-      php7.2-sqlite3 \
-      php7.2-pgsql \
-      php7.2-tidy \
-      php7.2-xmlrpc \
-      php7.2-xml \
-      php7.2-mbstring \
-      php7.2-gettext \
-      php7.2-apcu \
       php7.2-cli \
       php7.2-common \
+      php7.2-dev \
+      php7.2-amqp \
+      php7.2-apcu-bc \
+      php7.2-apcu \
+      php7.2-ast \
+      php7.2-bcmath \
+      php7.2-bz2 \
       php7.2-cgi \
-      php7.2-json \
-      php7.2-readline \
+      php7.2-curl \
+      php7.2-dba \
+      php7.2-decimal \
+      php7.2-dio \
+      php7.2-ds \
       php7.2-enchant \
-      php7.2-ssh2 \
-      php7.2-oauth \
-      php7.2-gmagick \
-      php7.2-redis \
-      php7.2-smbclient \
-      php7.2-yaml \
+      php7.2-excimer \
+      php7.2-fpm \
+      php7.2-gd \
+      php7.2-gearman \
       php7.2-geoip \
+#      php7.2-gmagick \
+      php7.2-gmp \
+      php7.2-gnupg \
+      php7.2-grpc \
+      php7.2-http \
+      php7.2-igbinary \
+      php7.2-imagick \
+      php7.2-imap \
+      php7.2-inotify \
+      php7.2-interbase \
+      php7.2-intl \
+      php7.2-json \
+      php7.2-ldap \
+      php7.2-libvirt-php \
+      php7.2-lua \
+      php7.2-lz4 \
+      php7.2-mailparse \
+      php7.2-maxminddb \
+      php7.2-mbstring \
+      php7.2-mcrypt \
+      php7.2-memcache \
+      php7.2-memcached \
+      php7.2-mongodb \
+      php7.2-msgpack \
+      php7.2-mysql \
+      php7.2-oauth \
+      php7.2-odbc \
+      php7.2-opcache \
+      php7.2-pcov \
+      php7.2-pgsql \
+      php7.2-phalcon4 \
+      php7.2-phpdbg \
+      php7.2-pinba \
+      php7.2-pq \
+      php7.2-propro \
+      php7.2-protobuf \
+      php7.2-ps \
+      php7.2-pspell \
+      php7.2-radius \
+      php7.2-raphf \
+      php7.2-rdkafka \
+      php7.2-readline \
+      php7.2-recode \
+      php7.2-redis \
+      php7.2-rrd \
+      php7.2-smbclient \
+      php7.2-snmp \
+      php7.2-soap \
+      php7.2-solr \
+      php7.2-sqlite3 \
+      php7.2-ssh2 \
+      php7.2-stomp \
+      php7.2-sybase \
+      php7.2-tideways \
+      php7.2-tidy \
+      php7.2-uopz \
+      php7.2-uploadprogress \
+      php7.2-uuid \
+      php7.2-vips \
+      php7.2-xdebug \
+      php7.2-xhprof \
+      php7.2-xml \
+      php7.2-xmlrpc \
+      php7.2-xsl \
+#      php7.2-yac \
+      php7.2-yaml \
+      php7.2-zip \
+      php7.2-zmq \
+      php7.2-zstd \
       smbclient libsmbclient \
       sendmail && \
     ln -sf /etc/ssl/dhparam.pem /etc/php/dhparam.pem && \
     update-alternatives --set php /usr/bin/php7.2 && \
-#    pear upgrade && \
+#    pear clear-cache && \
     pear update-channels && \
-    pecl channel-update pecl.php.noninteractive
+#    pear upgrade && \
+    pecl channel-update pecl.php.net
 
 RUN echo "=============================================" && \
     echo php -m $(php -m) && \
@@ -248,21 +305,6 @@ RUN pecl install timezonedb && \
     php -v
 
 ##################################################################
-#                   Installing imagic addon
-##################################################################
-RUN apt-get update && \
-    apt-get install -y  --allow-unauthenticated \
-      libmagickwand-dev \
-      imagemagick && \
-    pecl install imagick && \
-#    echo "extension = ${PHP_MODULE_PATH}/imagick.so" >> ${PHP_DIR}/apache2/php.ini && \
-    echo "extension = ${PHP_MODULE_PATH}/imagick.so" >> ${PHP_DIR}/cgi/php.ini && \
-    echo "extension = ${PHP_MODULE_PATH}/imagick.so" >> ${PHP_DIR}/cli/php.ini && \
-    echo "extension = ${PHP_MODULE_PATH}/imagick.so" >> ${PHP_DIR}/fpm/php.ini && \
-    php -m && \
-    php -v
-
-##################################################################
 #                   Installing IOnCube addon
 ##################################################################
 ADD https://downloads.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz /tmp/ioncube.tar.gz
@@ -316,3 +358,4 @@ RUN apt clean -y && \
     rm -rfv /var/cache/apt/archives/*.deb && \
     rm -rfv /tmp/*
 
+RUN updatedb

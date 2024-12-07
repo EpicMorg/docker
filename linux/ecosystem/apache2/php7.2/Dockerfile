@@ -2,9 +2,9 @@ FROM epicmorg/php:php7.2
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
-ARG PHP_MODULE_PATH=/usr/lib/php/20170718
-ARG PHP_VER=7.2
-ARG PHP_DIR=/etc/php/${PHP_VER}
+ENV PHP_MODULE_PATH=/usr/lib/php/20170718
+ENV PHP_VER=7.2
+ENV PHP_DIR=/etc/php/${PHP_VER}
 ARG P4_PHP_INI=${PHP_DIR}/mods-available/perfroce.ini
 ARG CAS_PHP_INI=${PHP_DIR}/mods-available/cassandra.ini
 

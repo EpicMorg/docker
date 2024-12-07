@@ -2,10 +2,10 @@ FROM epicmorg/debian:bookworm
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
-ARG PHP_VER=8.2
-ARG PHP_MODULE_VER=20220829
-ARG PHP_MODULE_PATH=/usr/lib/php/${PHP_MODULE_VER}
-ARG PHP_DIR=/etc/php/${PHP_VER}
+ENV PHP_VER=8.2
+ENV PHP_MODULE_VER=20220829
+ENV PHP_MODULE_PATH=/usr/lib/php/${PHP_MODULE_VER}
+ENV PHP_DIR=/etc/php/${PHP_VER}
 ARG P4_PHP_INI=${PHP_DIR}/mods-available/perfroce.ini
 ARG SMB_PHP_INI=${PHP_DIR}/mods-available/smbclient.ini
 ARG CAS_PHP_INI=${PHP_DIR}/mods-available/cassandra.ini
@@ -13,6 +13,8 @@ ARG CAS_PHP_INI=${PHP_DIR}/mods-available/cassandra.ini
 ##################################################################
 #                   Installing  PHP8
 ##################################################################
+RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://vault.center/mirror/apt/packages.sury.org/php/apt.gpg
+RUN sh -c 'echo "deb https://vault.center/mirror/apt/packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list'
 
 RUN apt-get update && \
     apt-get install -y  --allow-unauthenticated \
@@ -20,47 +22,100 @@ RUN apt-get update && \
       libgmp-dev \
 #      php-pear \
       php8.2 \
-      php8.2-common \
-      php8.2-dev \
-      php8.2-ldap \
-      php8.2-mail \
-      php8.2-mailparse \
-      php8.2-soap \
-      php8.2-mysql \
-      php8.2-curl \
-      php8.2-gd \
-      php8.2-intl \
-      php8.2-zip \
-      php8.2-bcmath \
-      php8.2-fpm \
-      php8.2-imap \
-      php8.2-pspell \
-      php8.2-sqlite3 \
-      php8.2-pgsql \
-      php8.2-tidy \
-      php8.2-xmlrpc \
-      php8.2-xml \
-      php8.2-mbstring \
-      php8.2-gettext \
-      php8.2-apcu \
       php8.2-cli \
       php8.2-common \
+      php8.2-dev \
+      php8.2-amqp \
+      php8.2-apcu \
+      php8.2-ast \
+      php8.2-bcmath \
+      php8.2-bz2 \
       php8.2-cgi \
-      php8.2-readline \
+      php8.2-curl \
+      php8.2-dba \
+      php8.2-decimal \
+      php8.2-dio \
+      php8.2-ds \
       php8.2-enchant \
-      php8.2-ssh2 \
+      php8.2-excimer \
+      php8.2-fpm \
+      php8.2-gd \
+      php8.2-gearman \
+#      php8.2-gmagick \
+      php8.2-gmp \
+      php8.2-gnupg \
+      php8.2-grpc \
+      php8.2-http \
+      php8.2-igbinary \
+      php8.2-imagick \
+      php8.2-imap \
+      php8.2-inotify \
+      php8.2-interbase \
+      php8.2-intl \
+      php8.2-ldap \
+      php8.2-libvirt-php \
+      php8.2-lz4 \
+      php8.2-mailparse \
+      php8.2-maxminddb \
+      php8.2-mbstring \
+      php8.2-mcrypt \
+      php8.2-memcache \
+      php8.2-memcached \
+      php8.2-mongodb \
+      php8.2-msgpack \
+      php8.2-mysql \
       php8.2-oauth \
-      php8.2-gmagick \
+      php8.2-odbc \
+      php8.2-opcache \
+      php8.2-pcov \
+      php8.2-pgsql \
+      php8.2-phalcon5 \
+      php8.2-phpdbg \
+      php8.2-pinba \
+      php8.2-pq \
+      php8.2-propro \
+      php8.2-protobuf \
+      php8.2-ps \
+      php8.2-pspell \
+      php8.2-psr \
+      php8.2-raphf \
+      php8.2-rdkafka \
+      php8.2-readline \
       php8.2-redis \
+      php8.2-rrd \
       php8.2-smbclient \
+      php8.2-snmp \
+      php8.2-soap \
+      php8.2-solr \
+      php8.2-sqlite3 \
+      php8.2-ssh2 \
+      php8.2-stomp \
+      php8.2-swoole \
+      php8.2-sybase \
+      php8.2-tideways \
+      php8.2-tidy \
+      php8.2-uopz \
+      php8.2-uploadprogress \
+      php8.2-uuid \
+      php8.2-vips \
+      php8.2-xdebug \
+      php8.2-xhprof \
+      php8.2-xml \
+      php8.2-xmlrpc \
+      php8.2-xsl \
+#      php8.2-yac \
       php8.2-yaml \
+      php8.2-zip \
+      php8.2-zmq \
+      php8.2-zstd \
       smbclient libsmbclient \
       sendmail && \
     ln -sf /etc/ssl/dhparam.pem /etc/php/dhparam.pem && \
     update-alternatives --set php /usr/bin/php8.2 && \
-#    pear upgrade && \
+#    pear clear-cache && \
     pear update-channels && \
-    pecl channel-update pecl.php.noninteractive
+#    pear upgrade && \
+    pecl channel-update pecl.php.net
 
 RUN echo "=============================================" && \
     echo php -m $(php -m) && \
@@ -160,21 +215,6 @@ RUN pecl install timezonedb && \
     php -v
 
 ##################################################################
-#                   Installing imagic addon
-##################################################################
-RUN apt-get update && \
-    apt-get install -y  --allow-unauthenticated \
-      libmagickwand-dev \
-      imagemagick && \
-    pecl install imagick && \
-#    echo "extension = ${PHP_MODULE_PATH}/imagick.so" >> ${PHP_DIR}/apache2/php.ini && \
-    echo "extension = ${PHP_MODULE_PATH}/imagick.so" >> ${PHP_DIR}/cgi/php.ini && \
-    echo "extension = ${PHP_MODULE_PATH}/imagick.so" >> ${PHP_DIR}/cli/php.ini && \
-    echo "extension = ${PHP_MODULE_PATH}/imagick.so" >> ${PHP_DIR}/fpm/php.ini && \
-    php -m && \
-    php -v
-
-##################################################################
 #                   Installing IOnCube addon
 #################################################################
 #ADD https://downloads.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz /tmp/ioncube.tar.gz
@@ -215,3 +255,5 @@ RUN apt clean -y && \
     rm -rfv /var/lib/apt/lists/* && \
     rm -rfv /var/cache/apt/archives/*.deb && \
     rm -rfv /tmp/*
+
+RUN updatedb
