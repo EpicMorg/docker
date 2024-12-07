@@ -1,6 +1,7 @@
 # Changelog
 ## 2024
 * `dec`
+  * reworked `dhparam` regeneration in base images
   * fixed `perforce` images
   * new baseline:
   * `qbittorrent`, `perforce`, `Atlassian Jira`, `Atlassian Bitbucket`, `TeamCity Agents`

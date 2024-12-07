@@ -90,6 +90,18 @@ RUN chmod +x ${EMG_LOCAL_BASE_DIR}/welcome.sh && \
     echo '[ ! -z "$TERM" -a -x ${EMG_LOCAL_BASE_DIR}/welcome.sh -a -x ${EMG_LOCAL_BASE_DIR}/welcome.sh ] && ${EMG_LOCAL_BASE_DIR}/welcome.sh' >> /etc/bash.bashrc
 
 ##################################################################
+#                  Preparew dhparam.pem (4096 bit)
+##################################################################
+ENV SSL_DHPARAM_FILE=/etc/ssl/dhparam.pem
+COPY etc/ssl/dhparam.pem ${SSL_DHPARAM_FILE}
+RUN openssl dhparam -in ${SSL_DHPARAM_FILE} -text -noout | grep bit
+
+##################################################################
+#                   Set default workdir
+##################################################################
+WORKDIR ${EMG_LOCAL_BASE_DIR}
+
+##################################################################
 #                  cleanup
 ##################################################################
 RUN echo "clean up" && \
@@ -98,8 +110,6 @@ RUN echo "clean up" && \
     rm -rfv /var/lib/apt/lists/* && \
     rm -rfv /tmp/* && \
     rm -rfv /var/cache/apt/archives/*.deb
-
-RUN updatedb
 
 ##################################################################
 #                  update file db
