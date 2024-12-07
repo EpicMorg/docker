@@ -189,10 +189,7 @@ RUN wget -nv --random-wait -c -O /tmp/lazygit.tar.xz ${LAZYGIT_DOWNLOAD_URL} && 
     echo "lazygit version:" && \
     lazygit --version
 
-##################################################################
-#                   Generate ssl key
-##################################################################
-RUN openssl dhparam -out /etc/ssl/dhparam.pem 4096
+
 
 ##################################################################
 #                   cleaninig up
