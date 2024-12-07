@@ -113,7 +113,13 @@ advanced-nextcloud-patched-latest-images:
 	cd `pwd`/linux/advanced/nextcloud/patched/latest	  && pwd && make build && make deploy
 
 advanced-teamcity-server-images:
-	cd `pwd`/linux/advanced/teamcity/server	   && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/teamcity/server/latest	       && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/teamcity/server/2024.12        && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/teamcity/server/2024.07.3      && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/teamcity/server/2024.03.3      && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/teamcity/server/2023.05.6      && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/teamcity/server/2022.10.6      && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/teamcity/server/2022.04.7      && pwd && make build && make deploy
 
 ####################################################################################################################
 
@@ -2313,12 +2319,12 @@ bundle-bitbucket:
 	@echo "======================================="
 	@echo "===== Building  All Bitbucket  images  ====="
 	@echo "======================================="
-	make ecosystem-bitbucket-1-images
-	make ecosystem-bitbucket-2-images
-	make ecosystem-bitbucket-3-images
-	make ecosystem-bitbucket-4-images
-	make ecosystem-bitbucket-5-images
-	make ecosystem-bitbucket-6-images
+#	make ecosystem-bitbucket-1-images
+#	make ecosystem-bitbucket-2-images
+#	make ecosystem-bitbucket-3-images
+#	make ecosystem-bitbucket-4-images
+#	make ecosystem-bitbucket-5-images
+#	make ecosystem-bitbucket-6-images
 	make ecosystem-bitbucket-7-images
 	make ecosystem-bitbucket-8-images
 	make ecosystem-bitbucket-9-images
