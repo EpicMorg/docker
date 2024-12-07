@@ -1,4 +1,4 @@
-FROM jetbrains/teamcity-server
+FROM jetbrains/teamcity-server:2024.07.3
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 LABEL org.opencontainers.image.vendor="EpicMorg DevTeam, developer@epicm.org"
 LABEL org.opencontainers.image.authors="STAM, kasthack, Aleks-Z"
@@ -207,6 +207,11 @@ RUN mkdir -p ${P4_BIN_DIR}
 ADD ${P4_DOWNLOAD_URL} ${P4_BIN_DIR}
 RUN chmod +x ${P4_BIN_DIR}/p4
 ENV PATH="${P4_BIN_DIR}:${PATH}"
+
+# Update internal p4 binary to new
+RUN rm -rfv /opt/perforce/bin/p4 && \
+    ln -sfv ${P4_BIN_DIR}/p4 /opt/perforce/bin/p4  && \
+    ln -sfv ${P4_BIN_DIR}/p4 /opt/perforce/usr/bin/p4
 
 ##################################################################
 #                   Install 7z official binary

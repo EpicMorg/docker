@@ -1,0 +1,19 @@
+#------------------------------------------------------------------------------#
+#                            OFFICIAL UBUNTU REPOS                             #
+#------------------------------------------------------------------------------#
+
+###### Ubuntu Main Repos
+deb [trusted=yes] http://archive.ubuntu.com/ubuntu/ jammy main multiverse restricted universe
+deb-src [trusted=yes] http://archive.ubuntu.com/ubuntu/ jammy main multiverse restricted universe
+
+###### Ubuntu Update Repos
+deb [trusted=yes] http://archive.ubuntu.com/ubuntu/ jammy-backports main multiverse restricted universe
+deb [trusted=yes] http://archive.ubuntu.com/ubuntu/ jammy-proposed main multiverse restricted universe
+deb [trusted=yes] http://archive.ubuntu.com/ubuntu/ jammy-security main multiverse restricted universe
+deb [trusted=yes] http://archive.ubuntu.com/ubuntu/ jammy-updates main multiverse restricted universe
+
+###### Ubuntu Sorurce Repos
+deb-src [trusted=yes] http://archive.ubuntu.com/ubuntu/ jammy-backports main multiverse restricted universe
+deb-src [trusted=yes] http://archive.ubuntu.com/ubuntu/ jammy-proposed main multiverse restricted universe
+deb-src [trusted=yes] http://archive.ubuntu.com/ubuntu/ jammy-security main multiverse restricted universe
+deb-src [trusted=yes] http://archive.ubuntu.com/ubuntu/ jammy-updates main multiverse restricted universe

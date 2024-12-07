@@ -7,6 +7,10 @@
   * updated `Atlassian Images`:
 	* fixed old and added new versions of `Jira`
 	* fixed old and added new versions of `Bitbucket`
+  * updated `TeamCity Server` images
+  * Added **DONATION** and **WELCOME** messages to EpicMorg base images:
+    * To disable Welcome  message switch `EMG_WELCOME_MESSAGE`  to `false`
+    * To disable Donation message switch `EMG_DONATION_MESSAGE` to `false`
 
 * `sep`, `oct`, `nov`
   * fixed some bugs in `Makefile`

@@ -1,0 +1,6 @@
+#version: '3'
+services:
+  app:
+    image: "epicmorg/teamcity-server:2022.10.6"
+    build:
+      context: .

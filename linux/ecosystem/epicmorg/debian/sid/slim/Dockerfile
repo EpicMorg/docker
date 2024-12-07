@@ -83,8 +83,12 @@ RUN locale-gen
 #                  Create Base directory for various soft
 ##################################################################
 ENV EMG_LOCAL_BASE_DIR=/usr/local/share/epicmorg
+ENV EMG_WELCOME_MESSAGE=true
+ENV EMG_DONATION_MESSAGE=true
 RUN mkdir -p ${EMG_LOCAL_BASE_DIR}
 COPY usr/local/epicmorg ${EMG_LOCAL_BASE_DIR}
+RUN chmod +x ${EMG_LOCAL_BASE_DIR}/welcome.sh && \
+    echo '[ ! -z "$TERM" -a -x ${EMG_LOCAL_BASE_DIR}/welcome.sh -a -x ${EMG_LOCAL_BASE_DIR}/welcome.sh ] && ${EMG_LOCAL_BASE_DIR}/welcome.sh' >> /etc/bash.bashrc
 
 ##################################################################
 #                   Set default workdir
