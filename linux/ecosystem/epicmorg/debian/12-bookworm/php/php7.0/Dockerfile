@@ -30,6 +30,9 @@ RUN mkdir -p ${BUILDS_DIR} ${SRC_DIR} ${EXPORT_DIR} ${MAKE_DIR} ${P4API_DIR} ${P
 ##################################################################
 #                   Installing  PHP7
 ##################################################################
+#installing PHP repo
+RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://vault.center/mirror/apt/packages.sury.org/php/apt.gpg
+RUN sh -c 'echo "deb https://vault.center/mirror/apt/packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list'
 
 #Install base packages
 RUN apt-get update && \
@@ -44,9 +47,10 @@ RUN apt-get update && \
       php7.0-xml \
       php7.0-cgi && \
     update-alternatives --set php /usr/bin/php7.0 && \
-#    pear upgrade && \
+#    pear clear-cache && \
     pear update-channels && \
-    pecl channel-update pecl.php.noninteractive
+#    pear upgrade && \
+    pecl channel-update pecl.php.net
 
 RUN echo "=============================================" && \
     echo php -m $(php -m) && \
@@ -91,17 +95,18 @@ FROM epicmorg/debian:bookworm
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
-ARG PHP_VER=7.0
-ARG PHP_MODULE_PATH=/usr/lib/php/20151012
-ARG PHP_DIR=/etc/php/${PHP_VER}
+ENV PHP_VER=7.0
+ENV PHP_MODULE_PATH=/usr/lib/php/20151012
+ENV PHP_DIR=/etc/php/${PHP_VER}
 ARG P4_PHP_INI=${PHP_DIR}/mods-available/perfroce.ini
 ARG CAS_PHP_INI=${PHP_DIR}/mods-available/cassandra.ini
 
 ##################################################################
 #                   Installing  PHP7
 ##################################################################
- && \
-    sh -c 'echo "deb [signed-by=/usr/share/keyrings/deb.sury.org-php.gpg] https://ftp.mpi-inf.mpg.de/mirrors/linux/mirror/deb.sury.org/repositories/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list'
+#installing PHP repo
+RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://vault.center/mirror/apt/packages.sury.org/php/apt.gpg
+RUN sh -c 'echo "deb https://vault.center/mirror/apt/packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list'
 
 RUN apt-get update && \
     apt-get install -y  --allow-unauthenticated \
@@ -109,50 +114,99 @@ RUN apt-get update && \
       libgmp-dev \
 #      php-pear \
       php7.0 \
-      php7.0-common \
-      php7.0-dev \
-      php7.0-ldap \
-#      php7.0-mail \
-#      php7.0-mailparse \
-      php7.0-soap \
-      php7.0-mysql \
-      php7.0-curl \
-      php7.0-gd \
-      php7.0-intl \
-      php7.0-zip \
-      php7.0-bcmath \
-      php7.0-fpm \
-      php7.0-imap \
-      php7.0-pspell \
-      php7.0-recode \
-      php7.0-sqlite3 \
-      php7.0-pgsql \
-      php7.0-tidy \
-      php7.0-xmlrpc \
-      php7.0-xml \
-      php7.0-mbstring \
-      php7.0-gettext \
-      php7.0-apcu \
       php7.0-cli \
       php7.0-common \
+      php7.0-dev \
+      php7.0-amqp \
+      php7.0-apcu-bc \
+      php7.0-apcu \
+      php7.0-bcmath \
+      php7.0-bz2 \
       php7.0-cgi \
-      php7.0-json \
-      php7.0-readline \
+      php7.0-curl \
+      php7.0-dba \
+      php7.0-decimal \
+      php7.0-dio \
+      php7.0-ds \
       php7.0-enchant \
-      php7.0-ssh2 \
-      php7.0-oauth \
-      php7.0-gmagick \
-      php7.0-redis \
-      php7.0-smbclient \
-      php7.0-yaml \
+      php7.0-fpm \
+      php7.0-gd \
+      php7.0-gearman \
       php7.0-geoip \
+#      php7.0-gmagick \
+      php7.0-gmp \
+      php7.0-gnupg \
+      php7.0-grpc \
+      php7.0-http \
+      php7.0-igbinary \
+      php7.0-imagick \
+      php7.0-imap \
+      php7.0-inotify \
+      php7.0-interbase \
+      php7.0-intl \
+      php7.0-json \
+      php7.0-ldap \
+      php7.0-libvirt-php \
+      php7.0-lua \
+      php7.0-lz4 \
+      php7.0-mailparse \
+      php7.0-mbstring \
+      php7.0-mcrypt \
+      php7.0-memcache \
+      php7.0-memcached \
+      php7.0-mongodb \
+      php7.0-msgpack \
+      php7.0-mysql \
+      php7.0-oauth \
+      php7.0-odbc \
+      php7.0-opcache \
+      php7.0-pgsql \
+      php7.0-phpdbg \
+      php7.0-pinba \
+      php7.0-pq \
+      php7.0-propro \
+      php7.0-protobuf \
+      php7.0-ps \
+      php7.0-pspell \
+      php7.0-radius \
+      php7.0-raphf \
+      php7.0-rdkafka \
+      php7.0-readline \
+      php7.0-recode \
+      php7.0-redis \
+      php7.0-rrd \
+      php7.0-smbclient \
+      php7.0-snmp \
+      php7.0-soap \
+      php7.0-sodium \
+      php7.0-solr \
+      php7.0-sqlite3 \
+      php7.0-ssh2 \
+      php7.0-stomp \
+      php7.0-sybase \
+      php7.0-tideways \
+      php7.0-tidy \
+      php7.0-uploadprogress \
+      php7.0-uuid \
+      php7.0-vips \
+      php7.0-xdebug \
+      php7.0-xhprof \
+      php7.0-xml \
+      php7.0-xmlrpc \
+      php7.0-xsl \
+#      php7.0-yac \
+      php7.0-yaml \
+      php7.0-zip \
+      php7.0-zmq \
+      php7.0-zstd \
       smbclient libsmbclient \
       sendmail && \
     ln -sf /etc/ssl/dhparam.pem /etc/php/dhparam.pem && \
     update-alternatives --set php /usr/bin/php7.0 && \
-#    pear upgrade && \
+#    pear clear-cache && \
     pear update-channels && \
-    pecl channel-update pecl.php.noninteractive
+#    pear upgrade && \
+    pecl channel-update pecl.php.net
 
 RUN echo "=============================================" && \
     echo php -m $(php -m) && \
@@ -247,21 +301,6 @@ RUN pecl install timezonedb && \
     php -v
 
 ##################################################################
-#                   Installing imagic addon
-##################################################################
-RUN apt-get update && \
-    apt-get install -y  --allow-unauthenticated \
-      libmagickwand-dev \
-      imagemagick && \
-    pecl install imagick && \
-#    echo "extension = ${PHP_MODULE_PATH}/imagick.so" >> ${PHP_DIR}/apache2/php.ini && \
-    echo "extension = ${PHP_MODULE_PATH}/imagick.so" >> ${PHP_DIR}/cgi/php.ini && \
-    echo "extension = ${PHP_MODULE_PATH}/imagick.so" >> ${PHP_DIR}/cli/php.ini && \
-    echo "extension = ${PHP_MODULE_PATH}/imagick.so" >> ${PHP_DIR}/fpm/php.ini && \
-    php -m && \
-    php -v
-
-##################################################################
 #                   Installing IOnCube addon
 ##################################################################
 ADD https://downloads.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz /tmp/ioncube.tar.gz
@@ -314,3 +353,5 @@ RUN apt clean -y && \
     rm -rfv /var/lib/apt/lists/* && \
     rm -rfv /var/cache/apt/archives/*.deb && \
     rm -rfv /tmp/*
+
+RUN updatedb

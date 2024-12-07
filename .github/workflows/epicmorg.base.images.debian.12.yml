@@ -216,55 +216,58 @@ jobs:
     - name: "Build and Deploy Debian 12 dotNet 9 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/dotnet/dotnet9    && pwd && make build && make deploy
 
-# ##################################################################################
-# 
-# #    - name: "Build and Deploy Debian 12 PHP Latest Image:"
-# #      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/php/latest    && pwd && make build && make deploy
-# 
-#     - name: "Build and Deploy Debian 12 PHP 7.0 Image:"
-#       run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/php/php7.0    && pwd && make build && make deploy
-#     
-#     - name: "Build and Deploy Debian 12 PHP 7.1 Image:"
-#       run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/php/php7.1    && pwd && make build && make deploy
-#     
-#     - name: "Build and Deploy Debian 12 PHP 7.2 Image:"
-#       run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/php/php7.2    && pwd && make build && make deploy
-#     
-#     - name: "Build and Deploy Debian 12 PHP 7.3 Image:"
-#       run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/php/php7.3    && pwd && make build && make deploy
-# 
-# ##################################################################################
-# 
-#     - name: Cleanup
-#       run: make docker-clean
-# 
-# ##################################################################################
-# 
-#     - name: "Build and Deploy Debian 12 PHP 7.4 Image:"
-#       run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/php/php7.4    && pwd && make build && make deploy
-#     
-#     - name: "Build and Deploy Debian 12 PHP 8.0 Image:"
-#       run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/php/php8.0    && pwd && make build && make deploy
-#     
-#     - name: "Build and Deploy Debian 12 PHP 8.1 Image:"
-#       run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/php/php8.1    && pwd && make build && make deploy
-# 
-# ##################################################################################
-# 
-#     - name: Cleanup
-#       run: make docker-clean
-# 
-# ##################################################################################
-# 
-#     - name: "Build and Deploy Debian 12 PHP 8.2 Image:"
-#       run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/php/php8.2    && pwd && make build && make deploy
-#     
-#     - name: "Build and Deploy Debian 12 PHP 8.3 Image:"
-#       run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/php/php8.3    && pwd && make build && make deploy
-# 
-# ##################################################################################
-# 
-#     - name: Cleanup
-#       run: make docker-clean
-# 
-# ##################################################################################
+##################################################################################
+
+    - name: "Build and Deploy Debian 12 PHP 5.6 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/php/php5.6    && pwd && make build && make deploy
+    
+    - name: "Build and Deploy Debian 12 PHP 7.0 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/php/php7.0    && pwd && make build && make deploy
+    
+    - name: "Build and Deploy Debian 12 PHP 7.1 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/php/php7.1    && pwd && make build && make deploy
+    
+    - name: "Build and Deploy Debian 12 PHP 7.2 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/php/php7.2    && pwd && make build && make deploy
+    
+    - name: "Build and Deploy Debian 12 PHP 7.3 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/php/php7.3    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
+
+    - name: "Build and Deploy Debian 12 PHP 7.4 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/php/php7.4    && pwd && make build && make deploy
+    
+    - name: "Build and Deploy Debian 12 PHP 8.0 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/php/php8.0    && pwd && make build && make deploy
+    
+    - name: "Build and Deploy Debian 12 PHP 8.1 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/php/php8.1    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
+
+    - name: "Build and Deploy Debian 12 PHP 8.2 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/php/php8.2    && pwd && make build && make deploy
+    
+    - name: "Build and Deploy Debian 12 PHP 8.3 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/php/php8.3    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 12 PHP 8.4 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/php/php8.4    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################

@@ -2,9 +2,9 @@ FROM epicmorg/php:php7.0
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
-ARG PHP_VER=7.0
-ARG PHP_MODULE_PATH=/usr/lib/php/20151012
-ARG PHP_DIR=/etc/php/${PHP_VER}
+ENV PHP_VER=7.0
+ENV PHP_MODULE_PATH=/usr/lib/php/20151012
+ENV PHP_DIR=/etc/php/${PHP_VER}
 ARG P4_PHP_INI=${PHP_DIR}/mods-available/perfroce.ini
 ARG CAS_PHP_INI=${PHP_DIR}/mods-available/cassandra.ini
 
@@ -14,7 +14,6 @@ ARG CAS_PHP_INI=${PHP_DIR}/mods-available/cassandra.ini
 #installing apache2 repo
 RUN wget -O /etc/apt/trusted.gpg.d/apache2.gpg https://vault.center/mirror/apt/packages.sury.org/apache2/apt.gpg
 RUN sh -c 'echo "deb https://vault.center/mirror/apt/packages.sury.org/apache2/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/apache2.list'
-RUN sh -c 'echo "deb https://vault.center/mirror/apt/packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list'
 
 ##################################################################
 #                   gh official binary

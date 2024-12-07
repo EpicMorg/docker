@@ -9,6 +9,9 @@
 	* fixed old and added new versions of `Jira`
 	* fixed old and added new versions of `Bitbucket`
   * updated `TeamCity Server` images
+  * temprary backported legacy `php` images and converted to new `baseline`:
+    * full migration to static `php` images planned at `2025y`.
+  * updated `nodejs` current and lts images.
   * Added **DONATION** and **WELCOME** messages to EpicMorg base images:
     * To disable Welcome  message switch `EMG_WELCOME_MESSAGE`  to `false`
     * To disable Donation message switch `EMG_DONATION_MESSAGE` to `false`

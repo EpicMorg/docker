@@ -20,7 +20,7 @@ ARG P4API_URL=http://filehost.perforce.com/perforce/${P4API_VER}/bin.linux26x86_
 ARG P4PHP_VER=r20.1
 ARG P4PHP_URL=http://filehost.perforce.com/perforce/${P4PHP_VER}/bin.tools/p4php-php7.tgz
 
-ARG PHP_MODULE_PATH=/usr/lib/php/20190902
+ENV PHP_MODULE_PATH=/usr/lib/php/20190902
 
 ##################################################################
 #                   Files and folders
@@ -29,7 +29,10 @@ RUN mkdir -p ${BUILDS_DIR} ${SRC_DIR} ${EXPORT_DIR} ${MAKE_DIR} ${P4API_DIR} ${P
 
 ##################################################################
 #                   Installing  PHP7
-##################################################################
+###################################################################installing PHP repo
+RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://vault.center/mirror/apt/packages.sury.org/php/apt.gpg
+RUN sh -c 'echo "deb https://vault.center/mirror/apt/packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list'
+
 RUN apt-get update && \
     apt-get install -y  --allow-unauthenticated \
       libmemcached-dev \
@@ -43,9 +46,10 @@ RUN apt-get update && \
       php7.4-xml \
       php7.4-cgi && \
     update-alternatives --set php /usr/bin/php7.4 && \
-#    pear upgrade && \
+#    pear clear-cache && \
     pear update-channels && \
-    pecl channel-update pecl.php.noninteractive
+#    pear upgrade && \
+    pecl channel-update pecl.php.net
 
 RUN echo "=============================================" && \
     echo php -m $(php -m) && \
@@ -85,8 +89,8 @@ RUN cd ${MAKE_DIR} && \
 ##################################################################
 #                   compilling smbclient
 ##################################################################
-RUN pecl install smbclient && \
-    cp ${PHP_MODULE_PATH}/smbclient.so ${EXPORT_DIR}
+#RUN pecl install smbclient && \
+#   cp ${PHP_MODULE_PATH}/smbclient.so ${EXPORT_DIR}
 
 ##################################################################
 ##################################################################
@@ -96,9 +100,9 @@ FROM epicmorg/debian:bookworm
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
-ARG PHP_MODULE_PATH=/usr/lib/php/20190902
-ARG PHP_VER=7.4
-ARG PHP_DIR=/etc/php/${PHP_VER}
+ENV PHP_MODULE_PATH=/usr/lib/php/20190902
+ENV PHP_VER=7.4
+ENV PHP_DIR=/etc/php/${PHP_VER}
 ARG P4_PHP_INI=${PHP_DIR}/mods-available/perfroce.ini
 ARG SMB_PHP_INI=${PHP_DIR}/mods-available/smbclient.ini
 ARG CAS_PHP_INI=${PHP_DIR}/mods-available/cassandra.ini
@@ -106,8 +110,8 @@ ARG CAS_PHP_INI=${PHP_DIR}/mods-available/cassandra.ini
 ##################################################################
 #                   Installing  PHP7
 ##################################################################
- && \
-    sh -c 'echo "deb [signed-by=/usr/share/keyrings/deb.sury.org-php.gpg] https://ftp.mpi-inf.mpg.de/mirrors/linux/mirror/deb.sury.org/repositories/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list'
+RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://vault.center/mirror/apt/packages.sury.org/php/apt.gpg
+RUN sh -c 'echo "deb https://vault.center/mirror/apt/packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list'
 
 RUN apt-get update && \
     apt-get install -y  --allow-unauthenticated \
@@ -115,49 +119,105 @@ RUN apt-get update && \
       libgmp-dev \
 #      php-pear \
       php7.4 \
-      php7.4-common \
-      php7.4-dev \
-      php7.4-ldap \
-      php7.4-mail \
-      php7.4-mailparse \
-      php7.4-soap \
-      php7.4-mysql \
-      php7.4-curl \
-      php7.4-gd \
-      php7.4-intl \
-      php7.4-zip \
-      php7.4-bcmath \
-      php7.4-fpm \
-      php7.4-imap \
-      php7.4-pspell \
-      php7.4-sqlite3 \
-      php7.4-pgsql \
-      php7.4-tidy \
-      php7.4-xmlrpc \
-      php7.4-xml \
-      php7.4-mbstring \
-      php7.4-gettext \
-      php7.4-apcu \
       php7.4-cli \
       php7.4-common \
+      php7.4-dev \
+      php7.4-amqp \
+      php7.4-apcu-bc \
+      php7.4-apcu \
+      php7.4-ast \
+      php7.4-bcmath \
+      php7.4-bz2 \
       php7.4-cgi \
-      php7.4-json \
-      php7.4-readline \
+      php7.4-curl \
+      php7.4-dba \
+      php7.4-decimal \
+      php7.4-dio \
+      php7.4-ds \
       php7.4-enchant \
-      php7.4-ssh2 \
-      php7.4-oauth \
-      php7.4-gmagick \
-      php7.4-redis \
-      php7.4-smbclient \
-      php7.4-yaml \
+      php7.4-excimer \
+      php7.4-fpm \
+      php7.4-gd \
+      php7.4-gearman \
       php7.4-geoip \
+#      php7.4-gmagick \
+      php7.4-gmp \
+      php7.4-gnupg \
+      php7.4-grpc \
+      php7.4-http \
+      php7.4-igbinary \
+      php7.4-imagick \
+      php7.4-imap \
+      php7.4-inotify \
+      php7.4-interbase \
+      php7.4-intl \
+      php7.4-json \
+      php7.4-ldap \
+      php7.4-libvirt-php \
+      php7.4-lua \
+      php7.4-lz4 \
+      php7.4-mailparse \
+      php7.4-maxminddb \
+      php7.4-mbstring \
+      php7.4-mcrypt \
+      php7.4-memcache \
+      php7.4-memcached \
+      php7.4-mongodb \
+      php7.4-msgpack \
+      php7.4-mysql \
+      php7.4-oauth \
+      php7.4-odbc \
+      php7.4-opcache \
+      php7.4-pcov \
+      php7.4-pgsql \
+      php7.4-phalcon4 \
+      php7.4-phalcon5 \
+      php7.4-phpdbg \
+      php7.4-pinba \
+      php7.4-pq \
+      php7.4-propro \
+      php7.4-protobuf \
+      php7.4-ps \
+      php7.4-pspell \
+      php7.4-psr \
+      php7.4-radius \
+      php7.4-raphf \
+      php7.4-rdkafka \
+      php7.4-readline \
+      php7.4-redis \
+      php7.4-rrd \
+      php7.4-smbclient \
+      php7.4-snmp \
+      php7.4-soap \
+      php7.4-solr \
+      php7.4-sqlite3 \
+      php7.4-ssh2 \
+      php7.4-stomp \
+      php7.4-sybase \
+      php7.4-tideways \
+      php7.4-tidy \
+      php7.4-uopz \
+      php7.4-uploadprogress \
+      php7.4-uuid \
+      php7.4-vips \
+      php7.4-xdebug \
+      php7.4-xhprof \
+      php7.4-xml \
+      php7.4-xmlrpc \
+      php7.4-xsl \
+#      php7.4-yac \
+      php7.4-yaml \
+      php7.4-zip \
+      php7.4-zmq \
+      php7.4-zstd \
       smbclient libsmbclient \
       sendmail && \
     ln -sf /etc/ssl/dhparam.pem /etc/php/dhparam.pem && \
     update-alternatives --set php /usr/bin/php7.4 && \
-#    pear upgrade && \
+#    pear clear-cache && \
     pear update-channels && \
-    pecl channel-update pecl.php.noninteractive
+#    pear upgrade && \
+    pecl channel-update pecl.php.net
 
 RUN echo "=============================================" && \
     echo php -m $(php -m) && \
@@ -257,21 +317,6 @@ RUN pecl install timezonedb && \
     php -v
 
 ##################################################################
-#                   Installing imagic addon
-##################################################################
-RUN apt-get update && \
-    apt-get install -y  --allow-unauthenticated \
-      libmagickwand-dev \
-      imagemagick && \
-    pecl install imagick && \
-#    echo "extension = ${PHP_MODULE_PATH}/imagick.so" >> ${PHP_DIR}/apache2/php.ini && \
-    echo "extension = ${PHP_MODULE_PATH}/imagick.so" >> ${PHP_DIR}/cgi/php.ini && \
-    echo "extension = ${PHP_MODULE_PATH}/imagick.so" >> ${PHP_DIR}/cli/php.ini && \
-    echo "extension = ${PHP_MODULE_PATH}/imagick.so" >> ${PHP_DIR}/fpm/php.ini && \
-    php -m && \
-    php -v
-
-##################################################################
 #                   Installing IOnCube addon
 ##################################################################
 ADD https://downloads.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz /tmp/ioncube.tar.gz
@@ -310,13 +355,13 @@ RUN echo "extension = ${PHP_MODULE_PATH}/perforce.so" > ${P4_PHP_INI} && \
 ##################################################################
 #                   Installing smbclient addon
 ##################################################################
-COPY --from=builder /builds/export/smbclient.so ${PHP_MODULE_PATH}
-RUN echo "extension = ${PHP_MODULE_PATH}/smbclient.so" > ${SMB_PHP_INI} && \
-    ln -sf ${SMB_PHP_INI} ${PHP_DIR}/cgi/conf.d/smbclient.ini && \
-    ln -sf ${SMB_PHP_INI} ${PHP_DIR}/cli/conf.d/smbclient.ini && \
-    ln -sf ${SMB_PHP_INI} ${PHP_DIR}/fpm/conf.d/smbclient.ini && \
-    php -m && \
-    php -v
+#COPY --from=builder /builds/export/smbclient.so ${PHP_MODULE_PATH}
+#RUN echo "extension = ${PHP_MODULE_PATH}/smbclient.so" > ${SMB_PHP_INI} && \
+#    ln -sf ${SMB_PHP_INI} ${PHP_DIR}/cgi/conf.d/smbclient.ini && \
+#    ln -sf ${SMB_PHP_INI} ${PHP_DIR}/cli/conf.d/smbclient.ini && \
+#    ln -sf ${SMB_PHP_INI} ${PHP_DIR}/fpm/conf.d/smbclient.ini && \
+#    php -m && \
+#    php -v
 
 ##################################################################
 #                   Installing Composer addon
@@ -335,3 +380,4 @@ RUN apt clean -y && \
     rm -rfv /var/cache/apt/archives/*.deb && \
     rm -rfv /tmp/*
 
+RUN updatedb

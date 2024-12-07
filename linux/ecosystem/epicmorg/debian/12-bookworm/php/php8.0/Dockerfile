@@ -2,10 +2,10 @@ FROM epicmorg/debian:bookworm
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
-ARG PHP_MODULE_VER=20200930
-ARG PHP_MODULE_PATH=/usr/lib/php/${PHP_MODULE_VER}
-ARG PHP_VER=8.0
-ARG PHP_DIR=/etc/php/${PHP_VER}
+ENV PHP_MODULE_VER=20200930
+ENV PHP_MODULE_PATH=/usr/lib/php/${PHP_MODULE_VER}
+ENV PHP_VER=8.0
+ENV PHP_DIR=/etc/php/${PHP_VER}
 ARG P4_PHP_INI=${PHP_DIR}/mods-available/perfroce.ini
 ARG SMB_PHP_INI=${PHP_DIR}/mods-available/smbclient.ini
 ARG CAS_PHP_INI=${PHP_DIR}/mods-available/cassandra.ini
@@ -13,6 +13,8 @@ ARG CAS_PHP_INI=${PHP_DIR}/mods-available/cassandra.ini
 ##################################################################
 #                   Installing  PHP8
 ##################################################################
+RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://vault.center/mirror/apt/packages.sury.org/php/apt.gpg
+RUN sh -c 'echo "deb https://vault.center/mirror/apt/packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list'
 
 RUN apt-get update && \
     apt-get install -y  --allow-unauthenticated \
@@ -20,47 +22,100 @@ RUN apt-get update && \
       libgmp-dev \
 #      php-pear \
       php8.0 \
-      php8.0-common \
-      php8.0-dev \
-      php8.0-ldap \
-      php8.0-mail \
-      php8.0-mailparse \
-      php8.0-soap \
-      php8.0-mysql \
-      php8.0-curl \
-      php8.0-gd \
-      php8.0-intl \
-      php8.0-zip \
-      php8.0-bcmath \
-      php8.0-fpm \
-      php8.0-imap \
-      php8.0-pspell \
-      php8.0-sqlite3 \
-      php8.0-pgsql \
-      php8.0-tidy \
-      php8.0-xmlrpc \
-      php8.0-xml \
-      php8.0-mbstring \
-      php8.0-gettext \
-      php8.0-apcu \
       php8.0-cli \
       php8.0-common \
+      php8.0-dev \
+      php8.0-amqp \
+      php8.0-apcu \
+      php8.0-ast \
+      php8.0-bcmath \
+      php8.0-bz2 \
       php8.0-cgi \
-      php8.0-readline \
+      php8.0-curl \
+      php8.0-dba \
+      php8.0-decimal \
+      php8.0-dio \
+      php8.0-ds \
       php8.0-enchant \
-      php8.0-ssh2 \
+      php8.0-excimer \
+      php8.0-fpm \
+      php8.0-gd \
+      php8.0-gearman \
+#      php8.0-gmagick \
+      php8.0-gmp \
+      php8.0-gnupg \
+      php8.0-grpc \
+      php8.0-http \
+      php8.0-igbinary \
+      php8.0-imagick \
+      php8.0-imap \
+      php8.0-inotify \
+      php8.0-interbase \
+      php8.0-intl \
+      php8.0-ldap \
+      php8.0-libvirt-php \
+      php8.0-lz4 \
+      php8.0-mailparse \
+      php8.0-maxminddb \
+      php8.0-mbstring \
+      php8.0-mcrypt \
+      php8.0-memcache \
+      php8.0-memcached \
+      php8.0-mongodb \
+      php8.0-msgpack \
+      php8.0-mysql \
       php8.0-oauth \
-      php8.0-gmagick \
+      php8.0-odbc \
+      php8.0-opcache \
+      php8.0-pcov \
+      php8.0-pgsql \
+      php8.0-phalcon5 \
+      php8.0-phpdbg \
+      php8.0-pinba \
+      php8.0-pq \
+      php8.0-propro \
+      php8.0-protobuf \
+      php8.0-ps \
+      php8.0-pspell \
+      php8.0-psr \
+      php8.0-raphf \
+      php8.0-rdkafka \
+      php8.0-readline \
       php8.0-redis \
+      php8.0-rrd \
       php8.0-smbclient \
+      php8.0-snmp \
+      php8.0-soap \
+      php8.0-solr \
+      php8.0-sqlite3 \
+      php8.0-ssh2 \
+      php8.0-stomp \
+      php8.0-swoole \
+      php8.0-sybase \
+      php8.0-tideways \
+      php8.0-tidy \
+      php8.0-uopz \
+      php8.0-uploadprogress \
+      php8.0-uuid \
+      php8.0-vips \
+      php8.0-xdebug \
+      php8.0-xhprof \
+      php8.0-xml \
+      php8.0-xmlrpc \
+      php8.0-xsl \
+#      php8.0-yac \
       php8.0-yaml \
+      php8.0-zip \
+      php8.0-zmq \
+      php8.0-zstd \
       smbclient libsmbclient \
       sendmail && \
     ln -sf /etc/ssl/dhparam.pem /etc/php/dhparam.pem && \
     update-alternatives --set php /usr/bin/php8.0 && \
-#    pear upgrade && \
+#    pear clear-cache && \
     pear update-channels && \
-    pecl channel-update pecl.php.noninteractive
+#    pear upgrade && \
+    pecl channel-update pecl.php.net
 
 RUN echo "=============================================" && \
     echo php -m $(php -m) && \
@@ -160,21 +215,6 @@ RUN pecl install timezonedb && \
     php -v
 
 ##################################################################
-#                   Installing imagic addon
-##################################################################
-RUN apt-get update && \
-    apt-get install -y  --allow-unauthenticated \
-      libmagickwand-dev \
-      imagemagick && \
-    pecl install imagick && \
-#    echo "extension = ${PHP_MODULE_PATH}/imagick.so" >> ${PHP_DIR}/apache2/php.ini && \
-    echo "extension = ${PHP_MODULE_PATH}/imagick.so" >> ${PHP_DIR}/cgi/php.ini && \
-    echo "extension = ${PHP_MODULE_PATH}/imagick.so" >> ${PHP_DIR}/cli/php.ini && \
-    echo "extension = ${PHP_MODULE_PATH}/imagick.so" >> ${PHP_DIR}/fpm/php.ini && \
-    php -m && \
-    php -v
-
-##################################################################
 #                   Installing Bolt addon
 ##################################################################
 #ADD https://phpbolt.com/wp-content/uploads/2023/03/phpBolt-extension-1.0.4.zip /tmp/phpBolt.zip
@@ -218,3 +258,5 @@ RUN apt clean -y && \
     rm -rfv /var/lib/apt/lists/* && \
     rm -rfv /var/cache/apt/archives/*.deb && \
     rm -rfv /tmp/*
+
+RUN updatedb

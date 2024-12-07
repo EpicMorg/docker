@@ -2,9 +2,9 @@ FROM epicmorg/php:php5.5
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
-ARG PHP_VER=5.5
-ARG PHP_MODULE_PATH=/usr/local/lib/php/extensions/no-debug-non-zts-20121212
-ARG PHP_DIR=/etc/php/${PHP_VER}
+ENV PHP_VER=5.5
+ENV PHP_MODULE_PATH=/usr/local/lib/php/extensions/no-debug-non-zts-20121212
+ENV PHP_DIR=/etc/php/${PHP_VER}
 ARG P4_PHP_INI=${PHP_DIR}/mods-available/perfroce.ini
 ARG CAS_PHP_INI=${PHP_DIR}/mods-available/cassandra.ini
 
