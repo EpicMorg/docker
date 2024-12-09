@@ -171,7 +171,7 @@ RUN apt-get update && \
       php7.4-pcov \
       php7.4-pgsql \
       php7.4-phalcon4 \
-      php7.4-phalcon5 \
+#      php7.4-phalcon5 \
       php7.4-phpdbg \
       php7.4-pinba \
       php7.4-pq \
