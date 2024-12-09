@@ -124,7 +124,9 @@ RUN ln -sf ${P4_PHP_INI} ${PHP_DIR}/apache2/conf.d/perforce.ini && \
 RUN apt clean -y && \
     apt autoclean -y && \
     rm -rfv /var/lib/apt/lists/* && \
-    rm -rfv /var/cache/apt/archives/*.deb && \
+    rm -rfv /root/.cache/* && \
+    rm -rfv /var/cache/* && \
+    rm -rfv /root/tmp/* && \
     rm -rfv /tmp/*
 
 #healthcheck. good practice
