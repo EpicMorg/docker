@@ -108,8 +108,10 @@ RUN echo "clean up" && \
     apt-get clean -y && \
     apt-get autoclean -y && \
     rm -rfv /var/lib/apt/lists/* && \
-    rm -rfv /tmp/* && \
-    rm -rfv /var/cache/apt/archives/*.deb
+    rm -rfv /root/.cache/* && \
+    rm -rfv /var/cache/apt/* && \
+    rm -rfv /root/tmp/* && \
+    rm -rfv /tmp/*
 
 ##################################################################
 #                  update file db
