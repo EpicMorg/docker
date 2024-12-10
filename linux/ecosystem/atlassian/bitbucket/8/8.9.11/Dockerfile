@@ -37,7 +37,6 @@ RUN mkdir -p                                 ${BITBUCKET_INSTALL_DIR} &&  \
     apt-get clean -y && \
     apt-get autoclean -y && \
     rm -rfv /var/lib/apt/lists/* && \
-    rm -rfv /root/.cache/* && \
     rm -rfv /var/cache/apt/* && \
     rm -rfv /root/tmp/* && \
     rm -rfv /tmp/*

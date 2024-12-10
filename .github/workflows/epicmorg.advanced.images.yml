@@ -9,7 +9,7 @@ jobs:
 
   build-images:
     name: EpicMorg Advanced Images
-    runs-on: self-hosted
+    runs-on: ubuntu-24.04
 
     steps:
     - uses: actions/checkout@v4
