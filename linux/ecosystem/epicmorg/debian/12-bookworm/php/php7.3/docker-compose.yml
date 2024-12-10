@@ -1,6 +1,6 @@
 #version: '3'
 services:
   app:
-    image: "epicmorg/php:php7.3"
+    image: "epicmorg/debian:bookworm-php7.3"
     build:
       context: .

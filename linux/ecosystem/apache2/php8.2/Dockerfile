@@ -1,4 +1,4 @@
-FROM epicmorg/php:php8.2
+FROM epicmorg/debian:bookworm-php8.2
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -16,21 +16,6 @@ ARG CAS_PHP_INI=${PHP_DIR}/mods-available/cassandra.ini
 #installing apache2 repo
 RUN wget -O /etc/apt/trusted.gpg.d/apache2.gpg https://vault.center/mirror/apt/packages.sury.org/apache2/apt.gpg
 RUN sh -c 'echo "deb https://vault.center/mirror/apt/packages.sury.org/apache2/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/apache2.list'
-RUN sh -c 'echo "deb https://vault.center/mirror/apt/packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list'
-
-##################################################################
-#                   gh official binary
-##################################################################
-RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/githubcli-archive-keyring.gpg && \
-    chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg && \
-    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list && \
-    apt-get update &&  \
-    apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
-    gh
-
-RUN echo "=============================================" && \
-    echo gh $(gh --version) && \
-    echo "============================================="
 
 #Install base packages
 RUN apt-get update && \
