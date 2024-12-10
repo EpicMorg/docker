@@ -12,7 +12,6 @@ ENV PATH=$PATH:${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin:${ANDROID_SDK_ROOT}/
 ##################################################################
 RUN apt-get update && \
     apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
-      maven \
       android-sdk \
       sdkmanager \
       android-sdk-build-tools \
