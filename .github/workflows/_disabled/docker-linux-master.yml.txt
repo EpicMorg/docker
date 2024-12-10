@@ -219,9 +219,9 @@ jobs:
 ##################################################################################
 
     - name: PHP (latest)
-      run:  docker build --compress -t epicmorg/php:latest linux/php/latest
+      run:  docker build --compress -t epicmorg/debian:bookworm-latest linux/php/latest
     - name: Push PHP (latest)
-      run:  docker push epicmorg/php:latest
+      run:  docker push epicmorg/debian:bookworm-latest
 
     - name: Build Apache (latest)
       run:  docker build --compress -t epicmorg/apache2:latest linux/apache2/latest
@@ -322,19 +322,19 @@ jobs:
              docker push epicmorg/balancer:rtmp-hls
 
     - name: PHP 7.4
-      run:  docker build --compress -t epicmorg/php:php7.4 linux/php/php7.4
+      run:  docker build --compress -t epicmorg/debian:bookworm-php7.4 linux/php/php7.4
     - name: Push PHP 7.4
-      run:  docker push epicmorg/php:php7.4
+      run:  docker push epicmorg/debian:bookworm-php7.4
 
     - name: PHP 7.3
-      run:  docker build --compress -t epicmorg/php:php7.3 linux/php/php7.3
+      run:  docker build --compress -t epicmorg/debian:bookworm-php7.3 linux/php/php7.3
     - name: Push PHP 7.3
-      run:  docker push epicmorg/php:php7.3
+      run:  docker push epicmorg/debian:bookworm-php7.3
 
     - name: PHP 7.2
-      run:  docker build --compress -t epicmorg/php:php7.2 linux/php/php7.2
+      run:  docker build --compress -t epicmorg/debian:bookworm-php7.2 linux/php/php7.2
     - name: Push PHP 7.2
-      run:  docker push epicmorg/php:php7.2
+      run:  docker push epicmorg/debian:bookworm-php7.2
 
     - name: Cleanup
       run: docker system prune --all --force --volumes
