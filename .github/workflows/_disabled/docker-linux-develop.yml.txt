@@ -172,16 +172,16 @@ jobs:
       run: docker system prune --all --force --volumes
 
     - name: PHP (latest)
-      run:  docker build --compress -t epicmorg/php:latest linux/php/latest
+      run:  docker build --compress -t epicmorg/debian:bookworm-latest linux/php/latest
 
     - name: PHP 7.4
-      run:  docker build --compress -t epicmorg/php:php7.4 linux/php/php7.4
+      run:  docker build --compress -t epicmorg/debian:bookworm-php7.4 linux/php/php7.4
 
     - name: PHP 7.3
-      run:  docker build --compress -t epicmorg/php:php7.3 linux/php/php7.3
+      run:  docker build --compress -t epicmorg/debian:bookworm-php7.3 linux/php/php7.3
 
     - name: PHP 7.2
-      run:  docker build --compress -t epicmorg/php:php7.2 linux/php/php7.2
+      run:  docker build --compress -t epicmorg/debian:bookworm-php7.2 linux/php/php7.2
 
     - name: Cleanup
       run: docker system prune --all --force --volumes
