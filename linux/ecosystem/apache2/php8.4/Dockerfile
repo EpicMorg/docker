@@ -1,11 +1,13 @@
-FROM epicmorg/debian:bookworm-php7.2
+FROM epicmorg/debian:bookworm-php8.4
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
-ENV PHP_MODULE_PATH=/usr/lib/php/20170718
-ENV PHP_VER=7.2
+ENV PHP_MODULE_VER=20220830
+ENV PHP_MODULE_PATH=/usr/lib/php/${PHP_MODULE_VER}
+ENV PHP_VER=8.3
 ENV PHP_DIR=/etc/php/${PHP_VER}
 ARG P4_PHP_INI=${PHP_DIR}/mods-available/perfroce.ini
+ARG SMB_PHP_INI=${PHP_DIR}/mods-available/smbclient.ini
 ARG CAS_PHP_INI=${PHP_DIR}/mods-available/cassandra.ini
 
 ##################################################################
@@ -21,13 +23,12 @@ RUN apt-get update && \
       locate \
       apache2 \
       apache2-utils \
-      libapache2-mod-php7.2 \
+      libapache2-mod-php8.4 \
 #      libapache2-mod-webauth \
       libapache2-mod-xforward \
-      libapache2-mod-security2 \
-      libmemcached-dev && \
+      libapache2-mod-security2 && \
     a2enmod \
-      php7.2 \
+      php8.3 \
       rewrite \
       ldap \
       heartmonitor \
@@ -66,21 +67,21 @@ RUN echo "TLS_REQCERT never" >> /etc/ldap/ldap.conf
 ##############################################################################
 # Cassandra PHP Drivers Install
 ##############################################################################
-RUN ln -sf ${CAS_PHP_INI} ${PHP_DIR}/apache2/conf.d/cassandra.ini  && \
-    php -m && \
-    php -v
+#RUN ln -sf ${CAS_PHP_INI} ${PHP_DIR}/apache2/conf.d/cassandra.ini  && \
+#    php -m && \
+#    php -v
 
 ##################################################################
 #                   Installing IOnCube addon
 ##################################################################
-RUN echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_7.2.so" >> ${PHP_DIR}/apache2/php.ini && \
-    php -m && \
-    php -v
+#RUN echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_8.2.so" >> ${PHP_DIR}/apache2/php.ini && \
+#    php -m && \
+#    php -v
 
 ##################################################################
 #                   Installing Bolt addon
 ##################################################################
-RUN echo "extension = ${PHP_MODULE_PATH}/phpBolt-extension-1.0.4-php72.so" >> ${PHP_DIR}/apache2/php.ini
+#RUN echo "extension = ${PHP_MODULE_PATH}/phpBolt-extension-1.0.4-php81.so" >> ${PHP_DIR}/apache2/php.ini
 
 ##################################################################
 #                   Installing timezonedb addon
@@ -97,9 +98,9 @@ RUN echo "extension = ${PHP_MODULE_PATH}/imagick.so" >> ${PHP_DIR}/apache2/php.i
     php -v
 
 ##################################################################
-#                   Installing P4 addon
+#                   Installing smbclient addon
 ##################################################################
-RUN ln -sf ${P4_PHP_INI} ${PHP_DIR}/apache2/conf.d/perforce.ini && \
+RUN ln -sf ${SMB_PHP_INI} ${PHP_DIR}/apache2/conf.d/smbclient.ini  && \
     php -m && \
     php -v
 
