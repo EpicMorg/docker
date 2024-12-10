@@ -9,7 +9,7 @@ jobs:
 
   build-tca-main-images:
     name: Build EpicMorg TeamCity Agent Main Images
-    runs-on: self-hosted
+    runs-on: ubuntu-24.04
 
     steps:
     - uses: actions/checkout@v4
@@ -29,7 +29,7 @@ jobs:
 
   build-tca-other-images:
     name: Build EpicMorg TeamCity Agent Oter Images
-    runs-on: self-hosted
+    runs-on: ubuntu-24.04
     needs: build-tca-main-images
 
     steps:
