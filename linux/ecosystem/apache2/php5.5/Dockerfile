@@ -77,7 +77,6 @@ RUN ln -sf ${CAS_PHP_INI} ${PHP_DIR}/apache2/conf.d/cassandra.ini  && \
 RUN apt clean -y && \
     apt autoclean -y && \
     rm -rfv /var/lib/apt/lists/* && \
-    rm -rfv /root/.cache/* && \
     rm -rfv /var/cache/apt/* && \
     rm -rfv /root/tmp/* && \
     rm -rfv /tmp/*
