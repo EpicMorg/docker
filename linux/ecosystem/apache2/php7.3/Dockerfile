@@ -61,7 +61,9 @@ COPY etc/apache2/apache2.conf /etc/apache2/apache2.conf
 ##################################################################
 #                   LDAP Fix
 ##################################################################
-RUN echo "TLS_REQCERT never" >> /etc/ldap/ldap.conf
+RUN mkdir -p /etc/ldap && \
+    touch /etc/ldap/ldap.conf && \
+    echo "TLS_REQCERT never" >> /etc/ldap/ldap.conf
 
 ##############################################################################
 # Cassandra PHP Drivers Install
