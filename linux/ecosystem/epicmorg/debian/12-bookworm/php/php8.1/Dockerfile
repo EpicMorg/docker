@@ -72,7 +72,7 @@ RUN apt-get update && \
       php8.1-phalcon5 \
       php8.1-phpdbg \
       php8.1-pinba \
-      php8.1-pq \
+#      php8.1-pq \
       php8.1-propro \
       php8.1-protobuf \
       php8.1-ps \
@@ -110,7 +110,7 @@ RUN apt-get update && \
       php8.1-zstd \
       smbclient libsmbclient \
       sendmail && \
-    ln -sf /etc/ssl/dhparam.pem /etc/php/dhparam.pem && \
+    ln -sfv /etc/ssl/dhparam.pem /etc/php/dhparam.pem && \
     update-alternatives --set php /usr/bin/php8.1 && \
 #    pear clear-cache && \
     pear update-channels && \

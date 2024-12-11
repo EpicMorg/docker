@@ -161,7 +161,7 @@ RUN apt-get update && \
       php7.4-geoip \
       smbclient libsmbclient \
       sendmail && \
-    ln -sf /etc/ssl/dhparam.pem /etc/php/dhparam.pem && \
+    ln -sfv /etc/ssl/dhparam.pem /etc/php/dhparam.pem && \
     update-alternatives --set php /usr/bin/php7.4 && \
     pear upgrade && \
     pear update-channels && \

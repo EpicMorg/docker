@@ -54,7 +54,7 @@ RUN apt-get update && \
       php8.4-zip \
       smbclient libsmbclient \
       sendmail && \
-    ln -sf /etc/ssl/dhparam.pem /etc/php/dhparam.pem && \
+    ln -sfv /etc/ssl/dhparam.pem /etc/php/dhparam.pem && \
     update-alternatives --set php /usr/bin/php8.4 && \
 #    pear clear-cache && \
     pear update-channels && \

@@ -133,7 +133,7 @@ RUN updatedb
 RUN chown -Rf www-data:www-data /var/www
 
 #Final config
-VOLUME ["/var/www"]
+VOLUME ["/var/www", "/var/log/apache2", "/var/run/apache2"]
 WORKDIR /var/www/
 EXPOSE 80 443
 

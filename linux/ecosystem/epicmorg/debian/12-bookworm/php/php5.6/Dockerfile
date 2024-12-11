@@ -108,7 +108,7 @@ RUN apt-get update && \
       php5.6-zmq \
       smbclient libsmbclient \
       sendmail && \
-    ln -sf /etc/ssl/dhparam.pem /etc/php/dhparam.pem && \
+    ln -sfv /etc/ssl/dhparam.pem /etc/php/dhparam.pem && \
     update-alternatives --set php /usr/bin/php5.6 && \
 #    pear clear-cache && \
     pear update-channels && \

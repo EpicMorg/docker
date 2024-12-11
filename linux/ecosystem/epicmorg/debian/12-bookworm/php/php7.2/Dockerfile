@@ -166,7 +166,7 @@ RUN apt-get update && \
       php7.2-phalcon4 \
       php7.2-phpdbg \
       php7.2-pinba \
-      php7.2-pq \
+#      php7.2-pq \
       php7.2-propro \
       php7.2-protobuf \
       php7.2-ps \
@@ -204,7 +204,7 @@ RUN apt-get update && \
       php7.2-zstd \
       smbclient libsmbclient \
       sendmail && \
-    ln -sf /etc/ssl/dhparam.pem /etc/php/dhparam.pem && \
+    ln -sfv /etc/ssl/dhparam.pem /etc/php/dhparam.pem && \
     update-alternatives --set php /usr/bin/php7.2 && \
 #    pear clear-cache && \
     pear update-channels && \

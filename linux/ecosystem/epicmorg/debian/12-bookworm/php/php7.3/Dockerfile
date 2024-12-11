@@ -166,7 +166,7 @@ RUN apt-get update && \
       php7.3-phalcon4 \
       php7.3-phpdbg \
       php7.3-pinba \
-      php7.3-pq \
+#      php7.3-pq \
       php7.3-propro \
       php7.3-protobuf \
       php7.3-ps \
@@ -205,7 +205,7 @@ RUN apt-get update && \
       php7.3-zstd \
       smbclient libsmbclient \
       sendmail && \
-    ln -sf /etc/ssl/dhparam.pem /etc/php/dhparam.pem && \
+    ln -sfv /etc/ssl/dhparam.pem /etc/php/dhparam.pem && \
     update-alternatives --set php /usr/bin/php7.3 && \
 #    pear clear-cache && \
     pear update-channels && \

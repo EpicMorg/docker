@@ -164,7 +164,7 @@ RUN apt-get update && \
       php7.1-pgsql \
       php7.1-phpdbg \
       php7.1-pinba \
-      php7.1-pq \
+#      php7.1-pq \
       php7.1-propro \
       php7.1-protobuf \
       php7.1-ps \
@@ -203,7 +203,7 @@ RUN apt-get update && \
       php7.1-zstd \
       smbclient libsmbclient \
       sendmail && \
-    ln -sf /etc/ssl/dhparam.pem /etc/php/dhparam.pem && \
+    ln -sfv /etc/ssl/dhparam.pem /etc/php/dhparam.pem && \
     update-alternatives --set php /usr/bin/php7.1 && \
 #    pear clear-cache && \
     pear update-channels && \

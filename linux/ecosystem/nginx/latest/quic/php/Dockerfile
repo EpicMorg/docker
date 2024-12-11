@@ -190,7 +190,7 @@ RUN apt-get update && \
       xmlwriter \
       xsl \
       yaml && \
-    ln -sf /etc/ssl/dhparam.pem /etc/php/dhparam.pem && \
+    ln -sfv /etc/ssl/dhparam.pem /etc/php/dhparam.pem && \
     php -v
 
 ##################################################################
