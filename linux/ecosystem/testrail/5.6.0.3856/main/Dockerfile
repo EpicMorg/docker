@@ -29,13 +29,7 @@ ENV TR_CONFIGPATH="/var/www/testrail/config/"
 
 ENV OPENSSL_CONF=/etc/ssl/
 
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends zlib1g-dev libcurl4-gnutls-dev libldap2-dev zlib1g-dev libxml2-dev libfontconfig1 && \
-    apt-get clean && \
-    echo "ServerName localhost" >> /etc/apache2/apache2.conf && \
-    rm -rf /var/lib/apt/lists/* && \
-    rm -rf /run.sh && \
-    rm -rf /tmp/*
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
 RUN echo "[testrail] Preparing folders" && \
     mkdir -p ${TESTRAIL_RELEASE_DIR} && \
