@@ -1,9 +1,6 @@
-#version: '3'
+#version: '3.9'
 services:
   app:
     image: "epicmorg/testrail:5.7.0.3938"
     build:
       context: .
-      args:
-        RELEASE: ${TESTRAIL_VERSION}
-        DOWNLOAD_URL: ${DOWNLOAD_URL}

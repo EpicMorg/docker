@@ -1,4 +1,4 @@
-#version: '3'
+#version: '3.9'
 services:
   app:
     image: "epicmorg/testrail:auth-ad-6.2.0.1085"

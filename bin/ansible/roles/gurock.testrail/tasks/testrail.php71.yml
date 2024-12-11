@@ -37,6 +37,8 @@
   template:
     src: "php71/main/docker-entrypoint.sh.j2"
     dest: "{{ target_directory }}/{{ item }}/main/docker-entrypoint.sh"
+    mode: "0777"
+    force: true
   with_items: "{{ testrail_versions }}"
 
 - name: Copy main template Dockerfile to each version directory
@@ -61,6 +63,8 @@
   template:
     src: "php71/ad/docker-entrypoint.sh.j2"
     dest: "{{ target_directory }}/{{ item }}/ad/docker-entrypoint.sh"
+    mode: "0777"
+    force: true
   with_items: "{{ testrail_versions }}"
 
 - name: Copy AD template Dockerfile to each version directory
@@ -85,6 +89,8 @@
   template:
     src: "php71/ldap/docker-entrypoint.sh.j2"
     dest: "{{ target_directory }}/{{ item }}/ldap/docker-entrypoint.sh"
+    mode: "0777"
+    force: true
   with_items: "{{ testrail_versions }}"
 
 - name: Copy LDAP template Dockerfile to each version directory

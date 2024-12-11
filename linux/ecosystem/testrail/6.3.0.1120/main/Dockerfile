@@ -5,8 +5,8 @@ FROM epicmorg/apache2:php7.1
 ##############################################################################
 
 
-ARG TESTRAIL_VERSION
-ARG DOWNLOAD_URL
+ARG TESTRAIL_VERSION=6.3.0.1120
+ARG DOWNLOAD_URL=https://secure.testrail.com/downloads/testrail/testrail-${TESTRAIL_VERSION}-ion71.zip
 
 ENV TR_DEFAULT_TASK_EXECUTION=60
 

@@ -12,6 +12,7 @@
   * temprary backported legacy `php` images and converted to new `baseline`:
     * full migration to static `php` images planned at `2025y`.
   * updated `nodejs` current and lts images.
+  * updated `testrail` images.
   * reworked cleanup when building images
   * Added **DONATION** and **WELCOME** messages to EpicMorg base images:
     * To disable Welcome  message switch `EMG_WELCOME_MESSAGE`  to `false`
