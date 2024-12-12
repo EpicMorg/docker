@@ -882,8 +882,6 @@ ecosystem-testrail-images:
 	cd `pwd`/linux/ecosystem/testrail/7.5.3.1000/main       && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/testrail/8.0.0.1089/main       && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/testrail/8.0.1.1029/main       && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/testrail/8.0.1.1030/main       && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/testrail/8.0.1.1033/main       && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/testrail/8.0.4.7036/main       && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/testrail/8.0.6.1019/main       && pwd && make build && make deploy
 
@@ -947,8 +945,6 @@ ecosystem-testrail-images:
 	cd `pwd`/linux/ecosystem/testrail/7.5.3.1000/ad           && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/testrail/8.0.0.1089/ad           && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/testrail/8.0.1.1029/ad           && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/testrail/8.0.1.1030/ad           && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/testrail/8.0.1.1033/ad           && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/testrail/8.0.4.7036/ad           && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/testrail/8.0.6.1019/ad           && pwd && make build && make deploy
     
@@ -1012,11 +1008,8 @@ ecosystem-testrail-images:
 	cd `pwd`/linux/ecosystem/testrail/7.5.3.1000/ldap         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/testrail/8.0.0.1089/ldap         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/testrail/8.0.1.1029/ldap         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/testrail/8.0.1.1030/ldap         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/testrail/8.0.1.1033/ldap         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/testrail/8.0.4.7036/ldap         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/testrail/8.0.6.1019/ldap         && pwd && make build && make deploy
-
 
 ecosystem-torrserver-images:
 	cd `pwd`/linux/ecosystem/torrserver            && pwd && make build && make deploy

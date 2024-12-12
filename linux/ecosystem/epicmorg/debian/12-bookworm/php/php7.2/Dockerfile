@@ -163,7 +163,7 @@ RUN apt-get update && \
       php7.2-opcache \
       php7.2-pcov \
       php7.2-pgsql \
-      php7.2-phalcon4 \
+#      php7.2-phalcon4 \
       php7.2-phpdbg \
       php7.2-pinba \
 #      php7.2-pq \

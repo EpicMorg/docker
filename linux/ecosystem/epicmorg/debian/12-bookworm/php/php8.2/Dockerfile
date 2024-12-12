@@ -69,11 +69,11 @@ RUN apt-get update && \
       php8.2-opcache \
       php8.2-pcov \
       php8.2-pgsql \
-      php8.2-phalcon5 \
+#      php8.2-phalcon5 \
       php8.2-phpdbg \
       php8.2-pinba \
 #      php8.2-pq \
-      php8.2-propro \
+#      php8.2-propro \
       php8.2-protobuf \
       php8.2-ps \
       php8.2-pspell \

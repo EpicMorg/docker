@@ -73,11 +73,11 @@ RUN apt-get update && \
       php8.0-phpdbg \
       php8.0-pinba \
 #      php8.0-pq \
-      php8.0-propro \
+#      php8.0-propro \
       php8.0-protobuf \
       php8.0-ps \
       php8.0-pspell \
-      php8.0-psr \
+#      php8.0-psr \
       php8.0-raphf \
       php8.0-rdkafka \
       php8.0-readline \

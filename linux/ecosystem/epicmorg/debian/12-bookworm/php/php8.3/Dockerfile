@@ -68,14 +68,14 @@ RUN apt-get update && \
       php8.3-opcache \
       php8.3-pcov \
       php8.3-pgsql \
-      php8.3-phalcon5 \
+#      php8.3-phalcon5 \
       php8.3-phpdbg \
       php8.3-pinba \
 #      php8.3-pq \
       php8.3-protobuf \
       php8.3-ps \
       php8.3-pspell \
-      php8.3-psr \
+#      php8.3-psr \
       php8.3-raphf \
       php8.3-rdkafka \
       php8.3-readline \

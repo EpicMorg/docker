@@ -179,7 +179,7 @@ RUN apt-get update && \
       php7.4-protobuf \
       php7.4-ps \
       php7.4-pspell \
-      php7.4-psr \
+#      php7.4-psr \
       php7.4-radius \
       php7.4-raphf \
       php7.4-rdkafka \

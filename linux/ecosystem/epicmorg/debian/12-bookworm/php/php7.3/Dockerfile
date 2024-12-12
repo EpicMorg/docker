@@ -163,7 +163,7 @@ RUN apt-get update && \
       php7.3-opcache \
       php7.3-pcov \
       php7.3-pgsql \
-      php7.3-phalcon4 \
+#      php7.3-phalcon4 \
       php7.3-phpdbg \
       php7.3-pinba \
 #      php7.3-pq \
@@ -171,7 +171,7 @@ RUN apt-get update && \
       php7.3-protobuf \
       php7.3-ps \
       php7.3-pspell \
-      php7.3-psr \
+#      php7.3-psr \
       php7.3-radius \
       php7.3-raphf \
       php7.3-rdkafka \

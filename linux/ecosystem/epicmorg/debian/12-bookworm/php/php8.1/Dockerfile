@@ -69,15 +69,15 @@ RUN apt-get update && \
       php8.1-opcache \
       php8.1-pcov \
       php8.1-pgsql \
-      php8.1-phalcon5 \
+#      php8.1-phalcon5 \
       php8.1-phpdbg \
       php8.1-pinba \
 #      php8.1-pq \
-      php8.1-propro \
+#      php8.1-propro \
       php8.1-protobuf \
       php8.1-ps \
       php8.1-pspell \
-      php8.1-psr \
+#      php8.1-psr \
       php8.1-raphf \
       php8.1-rdkafka \
       php8.1-readline \
