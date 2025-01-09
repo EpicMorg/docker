@@ -51,9 +51,9 @@ RUN mkdir -p /usr/share/dotnet/host/fxr
 #                   java11
 ##################################################################
 ARG K_JDK_MAJOR_VERSION=11
-ARG K_JDK_FULL_VERSION=jdk-11.0.24
-ARG K_JDK_VERSION=11.0.24
-ARG K_JDK_BUILD_VERSION=8
+ARG K_JDK_FULL_VERSION=jdk-11.0.25
+ARG K_JDK_VERSION=11.0.25
+ARG K_JDK_BUILD_VERSION=9
 ARG K_JDK_URL=https://github.com/adoptium/temurin${K_JDK_MAJOR_VERSION}-binaries/releases/download/${K_JDK_FULL_VERSION}+${K_JDK_BUILD_VERSION}/OpenJDK${K_JDK_MAJOR_VERSION}U-jdk_x64_linux_hotspot_${K_JDK_VERSION}_${K_JDK_BUILD_VERSION}.tar.gz
 ARG K_JDK_TEMP=/tmp/OpenJDK${K_JDK_MAJOR_VERSION}U-jdk_x64_linux_hotspot_${K_JDK_VERSION}_${K_JDK_BUILD_VERSION}.tar.gz
 
@@ -68,14 +68,14 @@ ARG STEAM_RUNTIME_SDK_URL=http://media.steampowered.com/client/runtime/steam-run
 ARG STEAM_RUNTIME_SDK_TEMP=/tmp/steam-runtime-sdk_latest.tar.xz
 
 # cmake compiller
-ENV CMAKE_VERSION=3.30.2
+ENV CMAKE_VERSION=3.31.3
 ENV CMAKE_DIR=${EMG_LOCAL_BASE_DIR}/cmake/${CMAKE_VERSION}
 ARG CMAKE_BIN_DIR=${CMAKE_DIR}/bin
 ARG CMAKE_DOWNLOAD_URL=https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}-linux-x86_64.tar.gz
 ARG CMAKE_TEMP=/tmp/cmake-${CMAKE_VERSION}-linux-x86_64.tar.gz
 
 # flutter source tarball
-ENV FLUTTER_VERSION=3.22.3
+ENV FLUTTER_VERSION=3.27.1
 ENV FLUTTER_CHANNEL=stable
 ENV FLUTTER_DIR=${EMG_LOCAL_BASE_DIR}/flutter/${FLUTTER_VERSION}
 ARG FLUTTER_BIN_DIR=${FLUTTER_DIR}/bin
@@ -90,7 +90,7 @@ ARG NINJA_DOWNLOAD_URL=https://github.com/ninja-build/ninja/releases/download/v$
 ARG NINJA_TEMP=/tmp/ninja-linux.zip
 
 # GO source tarball
-ENV GO_VERSION=1.22.5
+ENV GO_VERSION=1.23.4
 ENV GO_DIR=${EMG_LOCAL_BASE_DIR}/go/${GO_VERSION}
 ARG GO_BIN_DIR=${GO_DIR}/bin
 ARG GO_DOWNLOAD_URL=https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz
@@ -359,21 +359,21 @@ RUN tar -xvzf ${K_JDK_TEMP} --directory /usr/local && \
 ##################################################################
 #                   Additional settings
 ##################################################################
-ENV MAVEN_VERSION=3.9.8
+ENV MAVEN_VERSION=3.9.9
 ENV MAVEN_LINK=https://dlcdn.apache.org/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.zip
 ENV MAVEN_ROOT=${EMG_LOCAL_BASE_DIR}/maven/${MAVEN_VERSION}
 ENV MAVEN_PATH=${MAVEN_ROOT}/apache-maven-${MAVEN_VERSION}
 ENV MAVEN_BIN=${MAVEN_PATH}/bin
 ARG MAVEN_TEMP=/tmp/apache-maven-${MAVEN_VERSION}-bin.zip
 
-ENV GRADLE_VERSION=8.8
+ENV GRADLE_VERSION=8.12
 ENV GRADLE_LINK=https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-all.zip
 ENV GRADLE_ROOT=${EMG_LOCAL_BASE_DIR}/gradle/${GRADLE_VERSION}
 ENV GRADLE_PATH=${GRADLE_ROOT}/gradle-${GRADLE_VERSION}
 ENV GRADLE_BIN=${GRADLE_PATH}/bin
 ARG GRADLE_TEMP=/tmp/gradle-${GRADLE_VERSION}-all.zip
 
-ENV KTC_VERSION=2.0.0
+ENV KTC_VERSION=2.1.0
 ENV KTC_LINK=https://github.com/JetBrains/kotlin/releases/download/v${KTC_VERSION}/kotlin-compiler-${KTC_VERSION}.zip
 ARG KTC_TEMP=/tmp/kotlin-compiler-${KTC_VERSION}.zip
 ENV KTC_ROOT=${EMG_LOCAL_BASE_DIR}/kotlin/${KTC_VERSION}

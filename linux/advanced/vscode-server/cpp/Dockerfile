@@ -18,14 +18,14 @@ ARG STEAM_RUNTIME_SDK_URL=http://media.steampowered.com/client/runtime/steam-run
 ARG STEAM_RUNTIME_SDK_TEMP=/tmp/steam-runtime-sdk_latest.tar.xz
 
 # cmake compiller
-ENV CMAKE_VERSION=3.30.2
+ENV CMAKE_VERSION=3.31.3
 ENV CMAKE_DIR=${EMG_LOCAL_BASE_DIR}/cmake/${CMAKE_VERSION}
 ARG CMAKE_BIN_DIR=${CMAKE_DIR}/bin
 ARG CMAKE_DOWNLOAD_URL=https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}-linux-x86_64.tar.gz
 ARG CMAKE_TEMP=/tmp/cmake-${CMAKE_VERSION}-linux-x86_64.tar.gz
 
 # flutter source tarball
-ENV FLUTTER_VERSION=3.22.3
+ENV FLUTTER_VERSION=3.27.1
 ENV FLUTTER_CHANNEL=stable
 ENV FLUTTER_DIR=${EMG_LOCAL_BASE_DIR}/flutter/${FLUTTER_VERSION}
 ARG FLUTTER_BIN_DIR=${FLUTTER_DIR}/bin
@@ -40,7 +40,7 @@ ARG NINJA_DOWNLOAD_URL=https://github.com/ninja-build/ninja/releases/download/v$
 ARG NINJA_TEMP=/tmp/ninja-linux.zip
 
 # GO source tarball
-ENV GO_VERSION=1.22.5
+ENV GO_VERSION=1.23.4
 ENV GO_DIR=${EMG_LOCAL_BASE_DIR}/go/${GO_VERSION}
 ARG GO_BIN_DIR=${GO_DIR}/bin
 ARG GO_DOWNLOAD_URL=https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz

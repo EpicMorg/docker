@@ -124,7 +124,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     wget \
     zip \
     tini \
-    libzip4 \
+    libzip5 \
     acl \
     aptitude  \
     sudo  \
@@ -164,8 +164,8 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
 ##################################################################
 #                   git fresh binary
 ##################################################################
-RUN gpg --keyserver keyserver.ubuntu.com --recv-keys A1715D88E1DF1F24 && \
-    gpg --export --output /etc/apt/keyrings/launchpad-git.gpg A1715D88E1DF1F24 && \
+RUN gpg --keyserver keyserver.ubuntu.com --recv-keys F911AB184317630C59970973E363C90F8F1B6217 && \
+    gpg --export --output /etc/apt/keyrings/launchpad-git.gpg F911AB184317630C59970973E363C90F8F1B6217 && \
     rm -rfv /etc/apt/sources.list.d/launchpad_git-mainline.list && \
     rm -rfv /etc/apt/sources.list.d/launchpad_git-stable.list
 COPY etc/apt/sources.list.d/launchpad_git-mainline.list /etc/apt/sources.list.d/launchpad_git-mainline.list

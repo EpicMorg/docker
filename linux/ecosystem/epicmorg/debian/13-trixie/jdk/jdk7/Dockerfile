@@ -22,7 +22,7 @@ RUN tar -xvzf ${K_JDK_TEMP} --directory /usr/local && \
 ##################################################################
 #                   Additional settings
 ##################################################################
-#ENV MAVEN_VERSION=3.9.8
+#ENV MAVEN_VERSION=3.9.9
 #ENV MAVEN_LINK=https://dlcdn.apache.org/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.zip
 #ENV MAVEN_ROOT=${EMG_LOCAL_BASE_DIR}/maven/${MAVEN_VERSION}
 #ENV MAVEN_PATH=${MAVEN_ROOT}/apache-maven-${MAVEN_VERSION}
@@ -36,7 +36,7 @@ RUN tar -xvzf ${K_JDK_TEMP} --directory /usr/local && \
 #ENV GRADLE_BIN=${GRADLE_PATH}/bin
 #ARG GRADLE_TEMP=/tmp/gradle-${GRADLE_VERSION}-all.zip
 
-#ENV KTC_VERSION=2.0.0
+#ENV KTC_VERSION=2.1.0
 #ENV KTC_LINK=https://github.com/JetBrains/kotlin/releases/download/v${KTC_VERSION}/kotlin-compiler-${KTC_VERSION}.zip
 #ARG KTC_TEMP=/tmp/kotlin-compiler-${KTC_VERSION}.zip
 #ENV KTC_ROOT=${EMG_LOCAL_BASE_DIR}/kotlin/${KTC_VERSION}

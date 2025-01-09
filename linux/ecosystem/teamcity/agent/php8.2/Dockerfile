@@ -2,9 +2,9 @@ FROM epicmorg/debian:bookworm-php8.2
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
-ARG K_JDK_MAJOR_VERSION=jdk-17.0.11
-ARG K_JDK_VERSION=17.0.11
-ARG K_JDK_BUILD_VERSION=9
+ARG K_JDK_MAJOR_VERSION=jdk-17.0.13
+ARG K_JDK_VERSION=17.0.13
+ARG K_JDK_BUILD_VERSION=11
 ARG K_JDK_URL=https://github.com/adoptium/temurin17-binaries/releases/download/${K_JDK_MAJOR_VERSION}+${K_JDK_BUILD_VERSION}/OpenJDK17U-jdk_x64_linux_hotspot_${K_JDK_VERSION}_${K_JDK_BUILD_VERSION}.tar.gz
 
 ENV JAVA_HOME=/usr/local/${K_JDK_MAJOR_VERSION}+${K_JDK_BUILD_VERSION}

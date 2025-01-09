@@ -99,6 +99,9 @@ jobs:
     - name: "Build and Deploy Debian 13 jdk22 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/13-trixie/jdk/jdk22    && pwd && make build && make deploy
 
+    - name: "Build and Deploy Debian 13 jdk23 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/13-trixie/jdk/jdk23    && pwd && make build && make deploy
+
 ##################################################################################
 
     - name: Cleanup
@@ -187,6 +190,9 @@ jobs:
 
     - name: "Build and Deploy Debian 13 NodeJS 22 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/13-trixie/nodejs/node22    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 13 NodeJS 23 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/13-trixie/nodejs/node23    && pwd && make build && make deploy
 
 ##################################################################################
 

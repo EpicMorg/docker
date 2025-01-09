@@ -15,14 +15,14 @@ ARG STEAM_RUNTIME_SDK_URL=http://media.steampowered.com/client/runtime/steam-run
 ARG STEAM_RUNTIME_SDK_TEMP=/tmp/steam-runtime-sdk_latest.tar.xz
 
 # cmake compiller
-ENV CMAKE_VERSION=3.30.2
+ENV CMAKE_VERSION=3.31.3
 ENV CMAKE_DIR=${EMG_LOCAL_BASE_DIR}/cmake/${CMAKE_VERSION}
 ARG CMAKE_BIN_DIR=${CMAKE_DIR}/bin
 ARG CMAKE_DOWNLOAD_URL=https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}-linux-x86_64.tar.gz
 ARG CMAKE_TEMP=/tmp/cmake-${CMAKE_VERSION}-linux-x86_64.tar.gz
 
 # flutter source tarball
-ENV FLUTTER_VERSION=3.22.3
+ENV FLUTTER_VERSION=3.27.1
 ENV FLUTTER_CHANNEL=stable
 ENV FLUTTER_DIR=${EMG_LOCAL_BASE_DIR}/flutter/${FLUTTER_VERSION}
 ARG FLUTTER_BIN_DIR=${FLUTTER_DIR}/bin
@@ -37,7 +37,7 @@ ARG NINJA_DOWNLOAD_URL=https://github.com/ninja-build/ninja/releases/download/v$
 ARG NINJA_TEMP=/tmp/ninja-linux.zip
 
 # GO source tarball
-ENV GO_VERSION=1.22.5
+ENV GO_VERSION=1.23.4
 ENV GO_DIR=${EMG_LOCAL_BASE_DIR}/go/${GO_VERSION}
 ARG GO_BIN_DIR=${GO_DIR}/bin
 ARG GO_DOWNLOAD_URL=https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz
@@ -132,7 +132,7 @@ ARG LIBGD_TEMP=/tmp/libgd-${LIBGD_VERSION}.tar.gz
 ARG LIBGD_TEMP_SRC=/tmp/libgd-${LIBGD_VERSION}
 
 # libxml2 source tarball
-ENV LIBXML2_VERSION=2.13.2
+ENV LIBXML2_VERSION=2.13.5
 ENV LIBXML2_DIR=${EMG_LOCAL_BASE_DIR}/libxml2/${LIBXML2_VERSION}
 ENV LIBXML2_BIN_DIR=${LIBXML2_DIR}/bin
 ENV LIBXML2_INC_DIR=${LIBXML2_DIR}/include
@@ -186,8 +186,8 @@ ARG OPENSSL_111_DOWNLOAD_URL=https://www.openssl.org/source/old/${OPENSSL_111_VE
 ARG OPENSSL_111_TEMP=/tmp/openssl-${OPENSSL_111_VERSION}w.tar.gz
 ARG OPENSSL_111_TEMP_SRC=/tmp/openssl-${OPENSSL_111_VERSION}w
 
-# OpenSSL 3.0.14
-ENV OPENSSL_30_VERSION=3.0.14
+# OpenSSL 3.0.15
+ENV OPENSSL_30_VERSION=3.0.15
 ENV OPENSSL_30_DIR=${EMG_LOCAL_BASE_DIR}/openssl/${OPENSSL_30_VERSION}
 ENV OPENSSL_30_BIN_DIR=${OPENSSL_30_DIR}/bin
 ENV OPENSSL_30_INC_DIR=${OPENSSL_30_DIR}/include
@@ -197,8 +197,8 @@ ARG OPENSSL_30_DOWNLOAD_URL=https://www.openssl.org/source/openssl-${OPENSSL_30_
 ARG OPENSSL_30_TEMP=/tmp/openssl-${OPENSSL_30_VERSION}.tar.gz
 ARG OPENSSL_30_TEMP_SRC=/tmp/openssl-${OPENSSL_30_VERSION}
 
-# OpenSSL 3.1.6
-ENV OPENSSL_31_VERSION=3.1.6
+# OpenSSL 3.1.7
+ENV OPENSSL_31_VERSION=3.1.7
 ENV OPENSSL_31_DIR=${EMG_LOCAL_BASE_DIR}/openssl/${OPENSSL_31_VERSION}
 ENV OPENSSL_31_BIN_DIR=${OPENSSL_31_DIR}/bin
 ENV OPENSSL_31_INC_DIR=${OPENSSL_31_DIR}/include
@@ -208,8 +208,8 @@ ARG OPENSSL_31_DOWNLOAD_URL=https://www.openssl.org/source/openssl-${OPENSSL_31_
 ARG OPENSSL_31_TEMP=/tmp/openssl-${OPENSSL_31_VERSION}.tar.gz
 ARG OPENSSL_31_TEMP_SRC=/tmp/openssl-${OPENSSL_31_VERSION}
 
-# OpenSSL 3.2.2
-ENV OPENSSL_32_VERSION=3.2.2
+# OpenSSL 3.2.3
+ENV OPENSSL_32_VERSION=3.2.3
 ENV OPENSSL_32_DIR=${EMG_LOCAL_BASE_DIR}/openssl/${OPENSSL_32_VERSION}
 ENV OPENSSL_32_BIN_DIR=${OPENSSL_32_DIR}/bin
 ENV OPENSSL_32_INC_DIR=${OPENSSL_32_DIR}/include
@@ -219,8 +219,8 @@ ARG OPENSSL_32_DOWNLOAD_URL=https://www.openssl.org/source/openssl-${OPENSSL_32_
 ARG OPENSSL_32_TEMP=/tmp/openssl-${OPENSSL_32_VERSION}.tar.gz
 ARG OPENSSL_32_TEMP_SRC=/tmp/openssl-${OPENSSL_32_VERSION}
 
-# OpenSSL 3.3.1
-ENV OPENSSL_33_VERSION=3.3.1
+# OpenSSL 3.3.2
+ENV OPENSSL_33_VERSION=3.3.2
 ENV OPENSSL_33_DIR=${EMG_LOCAL_BASE_DIR}/openssl/${OPENSSL_33_VERSION}
 ENV OPENSSL_33_BIN_DIR=${OPENSSL_33_DIR}/bin
 ENV OPENSSL_33_INC_DIR=${OPENSSL_33_DIR}/include
@@ -231,7 +231,7 @@ ARG OPENSSL_33_TEMP=/tmp/openssl-${OPENSSL_33_VERSION}.tar.gz
 ARG OPENSSL_33_TEMP_SRC=/tmp/openssl-${OPENSSL_33_VERSION}
 
 # LibreSSL
-ENV LIBRESSL_VERSION=3.9.2
+ENV LIBRESSL_VERSION=4.0.0
 ENV LIBRESSL_DIR=${EMG_LOCAL_BASE_DIR}/libressl/${LIBRESSL_VERSION}
 ENV LIBRESSL_INC_DIR=${LIBRESSL_DIR}/include
 ENV LIBRESSL_LIB_DIR=${LIBRESSL_DIR}/lib
@@ -482,7 +482,7 @@ RUN tar -xzf ${ZLIB_TEMP} --directory /tmp && \
     cp -rfv ${ZLIB_TEMP_SRC}/* ${ZLIB_SRC_DIR} && \
     ln -sf ${ZLIB_SRC_DIR}  ${ZLIB_DIR}/src && \
     cd ${ZLIB_TEMP_SRC} && \
-    ./configure \
+    CFLAGS=-Wno-error ./configure \
 #      --static \
       --prefix=${ZLIB_DIR} \
       && \
@@ -504,7 +504,7 @@ RUN tar -xzf ${ZSTD_TEMP} --directory /tmp && \
     cd ${ZSTD_TEMP_SRC} && \
     mkdir -p ${ZSTD_TEMP_SRC}/build/cmake/builddir && \
     cd ${ZSTD_TEMP_SRC}/build/cmake/builddir && \
-    cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=${ZSTD_DIR} -DZSTD_BUILD_STATIC=ON -DZSTD_BUILD_SHARED=ON .. && \
+    CFLAGS=-Wno-error cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=${ZSTD_DIR} -DZSTD_BUILD_STATIC=ON -DZSTD_BUILD_SHARED=ON .. && \
     make -j$(nproc) && \
     make -j$(nproc) install && \
     echo "# ZSTD support" >> ${LD_CONF_DIR}/ZSTD.conf && \
@@ -523,7 +523,7 @@ RUN tar -xzf ${PCRE_TEMP} --directory /tmp && \
     cp -rfv ${PCRE_TEMP_SRC}/* ${PCRE_SRC_DIR} && \
     ln -sf ${PCRE_SRC_DIR} ${PCRE_DIR}/src && \
     cd ${PCRE_TEMP_SRC} && \
-    ./configure --prefix=${PCRE_DIR} \
+    CFLAGS=-Wno-error ./configure --prefix=${PCRE_DIR} \
         --disable-silent-rules \
         --enable-shared \
         --enable-static \
@@ -594,7 +594,7 @@ RUN tar -xzf ${IP2LOC_TEMP} --directory /tmp && \
     automake --gnu --add-missing && \
     autoconf && \
     autoreconf -i -v --force && \
-    ./configure \
+    CFLAGS=-Wno-error ./configure \
       --prefix=${IP2LOC_DIR} \
       --disable-silent-rules \
       --enable-shared \
@@ -619,7 +619,7 @@ RUN tar -xzf ${LIBATOMICOPS_TEMP} --directory /tmp && \
     ln -sf ${LIBATOMICOPS_SRC_DIR} ${LIBATOMICOPS_DIR}/src && \
     cd ${LIBATOMICOPS_TEMP_SRC} && \
     ./autogen.sh && \
-    ./configure \
+    CFLAGS=-Wno-error ./configure \
       --prefix=${LIBATOMICOPS_DIR} \
       --disable-silent-rules \
       --enable-shared \
@@ -673,7 +673,7 @@ RUN tar -xzf ${LIBGD_TEMP} --directory /tmp && \
     ln -sf ${LIBGD_SRC_DIR} ${LIBGD_DIR}/src && \
     cd ${LIBGD_TEMP_SRC} && \
     ./bootstrap.sh && \
-    ./configure \
+    CFLAGS=-Wno-error ./configure \
       --prefix=${LIBGD_DIR} \
       --disable-silent-rules \
       --enable-static \
@@ -714,7 +714,7 @@ RUN tar -xzf ${LIBXML2_TEMP} --directory /tmp && \
     ln -sf ${LIBXML2_SRC_DIR} ${LIBXML2_DIR}/src && \
     cd ${LIBXML2_TEMP_SRC} && \
     ./autogen.sh && \
-    ./configure \
+    CFLAGS=-Wno-error ./configure \
       --prefix=${LIBXML2_DIR} \
       --disable-silent-rules \
       --enable-static \
@@ -775,7 +775,7 @@ RUN tar -xzf ${LIBXSLT_TEMP} --directory /tmp && \
     ln -sf ${LIBXSLT_SRC_DIR} ${LIBXSLT_DIR}/src && \
     cd ${LIBXSLT_TEMP_SRC} && \
     ./autogen.sh && \
-    ./configure \
+    CFLAGS=-Wno-error ./configure \
       --prefix=${LIBXSLT_DIR} \
       --disable-silent-rules \
       --enable-static \
@@ -810,7 +810,7 @@ RUN tar -xzf ${MM_GEOIP_TEMP} --directory /tmp && \
     aclocal && \
     autoconf && \
     automake --add-missing && \
-    ./configure \
+    CFLAGS=-Wno-error ./configure \
       --prefix=${MM_GEOIP_DIR} \
       --disable-silent-rules \
       --enable-shared \
@@ -836,7 +836,7 @@ RUN tar -xzf ${GPERFTOOLS_TEMP} --directory /tmp && \
     cp -rfv ${GPERFTOOLS_TEMP_SRC}/* ${GPERFTOOLS_SRC_DIR} && \
     ln -sf ${GPERFTOOLS_SRC_DIR} ${GPERFTOOLS_DIR}/src && \
     cd ${GPERFTOOLS_TEMP_SRC} && \
-    ./configure \
+    CFLAGS=-Wno-error ./configure \
       --prefix=${GPERFTOOLS_DIR} \
       --disable-silent-rules \
       --enable-shared \
@@ -864,7 +864,7 @@ RUN tar -xzf ${OPENSSL_111_TEMP} --directory /tmp && \
     cp -rfv ${OPENSSL_111_TEMP_SRC}/* ${OPENSSL_111_SRC_DIR} && \
     ln -sf ${OPENSSL_111_SRC_DIR} ${OPENSSL_111_DIR}/src && \
     cd ${OPENSSL_111_TEMP_SRC} && \
-    ./config \
+    CFLAGS=-Wno-error ./config \
       zlib \
       --with-zlib-include=${ZLIB_DIR}/include \
       --with-zlib-lib=${ZLIB_DIR}/lib \
@@ -889,7 +889,7 @@ RUN tar -xzf ${OPENSSL_30_TEMP} --directory /tmp && \
     cp -rfv ${OPENSSL_30_TEMP_SRC}/* ${OPENSSL_30_SRC_DIR} && \
     ln -sf ${OPENSSL_30_SRC_DIR} ${OPENSSL_30_DIR}/src && \
     cd ${OPENSSL_30_TEMP_SRC} && \
-    ./config \
+    CFLAGS=-Wno-error ./config \
       zlib \
       --with-zlib-include=${ZLIB_DIR}/include \
       --with-zlib-lib=${ZLIB_DIR}/lib \
@@ -908,7 +908,7 @@ RUN tar -xzf ${OPENSSL_30_TEMP} --directory /tmp && \
     make -j$(nproc) install
 
 ##################################################################
-#                   OpenSSL 3.1.6
+#                   OpenSSL 3.1.7
 ##################################################################
 RUN mkdir -p ${OPENSSL_31_DIR} ${OPENSSL_31_SRC_DIR}
 ADD ${OPENSSL_31_DOWNLOAD_URL} /tmp
@@ -917,7 +917,7 @@ RUN tar -xzf ${OPENSSL_31_TEMP} --directory /tmp && \
     cp -rfv ${OPENSSL_31_TEMP_SRC}/* ${OPENSSL_31_SRC_DIR} && \
     ln -sf ${OPENSSL_31_SRC_DIR} ${OPENSSL_31_DIR}/src && \
     cd ${OPENSSL_31_TEMP_SRC} && \
-    ./config \
+    CFLAGS=-Wno-error ./config \
       zlib \
       --with-zlib-include=${ZLIB_DIR}/include \
       --with-zlib-lib=${ZLIB_DIR}/lib \
@@ -945,7 +945,7 @@ RUN tar -xzf ${OPENSSL_32_TEMP} --directory /tmp && \
     cp -rfv ${OPENSSL_32_TEMP_SRC}/* ${OPENSSL_32_SRC_DIR} && \
     ln -sf ${OPENSSL_32_SRC_DIR} ${OPENSSL_32_DIR}/src && \
     cd ${OPENSSL_32_TEMP_SRC} && \
-    ./config \
+    CFLAGS=-Wno-error ./config \
       zlib \
       --with-zlib-include=${ZLIB_DIR}/include \
       --with-zlib-lib=${ZLIB_DIR}/lib \
@@ -975,7 +975,7 @@ RUN tar -xzf ${OPENSSL_33_TEMP} --directory /tmp && \
     cp -rfv ${OPENSSL_33_TEMP_SRC}/* ${OPENSSL_33_SRC_DIR} && \
     ln -sf ${OPENSSL_33_SRC_DIR} ${OPENSSL_33_DIR}/src && \
     cd ${OPENSSL_33_TEMP_SRC} && \
-    ./config \
+    CFLAGS=-Wno-error ./config \
       zlib \
       --with-zlib-include=${ZLIB_DIR}/include \
       --with-zlib-lib=${ZLIB_DIR}/lib \
@@ -1008,7 +1008,7 @@ RUN tar -xzf ${LIBRESSL_TEMP} --directory /tmp && \
     cp -rfv ${LIBRESSL_TEMP_SRC}/* ${LIBRESSL_SRC_DIR} && \
     ln -sfv ${LIBRESSL_SRC_DIR} ${LIBRESSL_DIR}/src && \
     cd ${LIBRESSL_TEMP_SRC} && \
-    ./config \
+    CFLAGS=-Wno-error ./config \
       --enable-static \
       --enable-shared \
       --disable-silent-rules \
@@ -1020,24 +1020,24 @@ RUN tar -xzf ${LIBRESSL_TEMP} --directory /tmp && \
 #    echo ${LIBRESSL_LIB_DIR} >> ${LD_CONF_DIR}/LibreSSL.conf && \
     ldconfig
 
-##################################################################
-#                   BoringSSL
-##################################################################
-RUN mkdir -p ${BORINGSSL_DIR} ${BORINGSSL_SRC_DIR} && \
-    git clone -b ${BORINGSSL_VERSION} ${BORINGSSL_DOWNLOAD_URL} ${BORINGSSL_TEMP_SRC} && \
-    cp -rfv ${BORINGSSL_TEMP_SRC}/* ${BORINGSSL_SRC_DIR} && \
-    ln -sf ${BORINGSSL_SRC_DIR} ${BORINGSSL_DIR}/src && \
-    cd ${BORINGSSL_TEMP_SRC} && \
-    mkdir ${BORINGSSL_TEMP_SRC}/build && \
-#    cmake -GNinja -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_POSITION_INDEPENDENT_CODE=TRUE -DBUILD_SHARED_LIBS=1 -DCMAKE_INSTALL_PREFIX=${BORINGSSL_DIR} && \
-#    ninja -C build && \
-    cd ${BORINGSSL_TEMP_SRC}/build && \
-    cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_POSITION_INDEPENDENT_CODE=TRUE -DBUILD_SHARED_LIBS=1 -DCMAKE_INSTALL_PREFIX=${BORINGSSL_DIR} .. && \
-    make -j$(if [ $(nproc) -gt 8 ]; then echo $(( $(nproc) / 2 )); else echo $(nproc); fi) && \
-    make -j$(nproc) install && \
-#    echo "# BoringSSL support" >> ${LD_CONF_DIR}/BoringSSL.conf && \
-#    echo ${BORINGSSL_LIB_DIR} >> ${LD_CONF_DIR}/BoringSSL.conf && \
-    ldconfig
+# ##################################################################
+# #                   BoringSSL
+# ##################################################################
+# RUN mkdir -p ${BORINGSSL_DIR} ${BORINGSSL_SRC_DIR} && \
+#     git clone -b ${BORINGSSL_VERSION} ${BORINGSSL_DOWNLOAD_URL} ${BORINGSSL_TEMP_SRC} && \
+#     cp -rfv ${BORINGSSL_TEMP_SRC}/* ${BORINGSSL_SRC_DIR} && \
+#     ln -sf ${BORINGSSL_SRC_DIR} ${BORINGSSL_DIR}/src && \
+#     cd ${BORINGSSL_TEMP_SRC} && \
+#     mkdir ${BORINGSSL_TEMP_SRC}/build && \
+# #    cmake -GNinja -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_POSITION_INDEPENDENT_CODE=TRUE -DBUILD_SHARED_LIBS=1 -DCMAKE_INSTALL_PREFIX=${BORINGSSL_DIR} && \
+# #    ninja -C build && \
+#     cd ${BORINGSSL_TEMP_SRC}/build && \
+#     cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_POSITION_INDEPENDENT_CODE=TRUE -DBUILD_SHARED_LIBS=1 -DCMAKE_INSTALL_PREFIX=${BORINGSSL_DIR} .. && \
+#     make -j$(if [ $(nproc) -gt 8 ]; then echo $(( $(nproc) / 2 )); else echo $(nproc); fi) && \
+#     make -j$(nproc) install && \
+# #    echo "# BoringSSL support" >> ${LD_CONF_DIR}/BoringSSL.conf && \
+# #    echo ${BORINGSSL_LIB_DIR} >> ${LD_CONF_DIR}/BoringSSL.conf && \
+#     ldconfig
 
 ##################################################################
 #                   other   customisations

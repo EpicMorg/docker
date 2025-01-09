@@ -1,0 +1,11 @@
+#version: '3'
+services:
+  app:
+    image: "epicmorg/debian:bullseye-nodejs23"
+    build:
+      context: .
+  app-develop:
+    image: "epicmorg/debian:bullseye-develop-nodejs23"
+    build:
+      context: .
+      dockerfile: ./Dockerfile.develop

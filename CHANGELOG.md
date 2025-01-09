@@ -1,4 +1,16 @@
 # Changelog
+## 2025
+* `jan`
+  * updated `atlassian` images
+  * updated some deps in images:
+    * `cmake`, 
+    * `openssl`, 
+    * `jdk`,
+    * `nodejs`
+    * etc
+  * fixed building of `debian` `12`, `13`, `sid`:
+    * temprorary deprecated `boringssl` due compile issues. 
+      * also, current maintainer do not like google's `rolling` update politics.
 ## 2024
 * `dec`
   * reworked `dhparam` regeneration in base images
