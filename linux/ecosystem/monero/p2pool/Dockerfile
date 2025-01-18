@@ -42,7 +42,7 @@ ENTRYPOINT ["p2pool"]
 CMD ["--host p2pool", "--stratum 0.0.0.0:3333", "--p2p 0.0.0.0:37889", "--addpeers 65.21.227.114:37889", "--addpeers node.sethforprivacy.com:37889"]
 
 ##################################################################
-#                  cleanup
+#                  Cleanup
 ##################################################################
 RUN echo "clean up" && \
     apt-get clean -y && \

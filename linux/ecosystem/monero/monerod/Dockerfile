@@ -49,7 +49,7 @@ ENTRYPOINT [ "/entrypoint.sh" ]
 CMD ["--rpc-restricted-bind-ip=0.0.0.0", "--rpc-restricted-bind-port=18089", "--no-igd", "--no-zmq", "--enable-dns-blocklist"]
 
 ##################################################################
-#                  cleanup
+#                  Cleanup
 ##################################################################
 RUN echo "clean up" && \
     apt-get clean -y && \

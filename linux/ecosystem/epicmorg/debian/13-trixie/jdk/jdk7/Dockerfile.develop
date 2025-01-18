@@ -79,7 +79,7 @@ RUN tar -xvzf ${K_JDK_TEMP} --directory /usr/local && \
 #RUN chmod +x -R ${KNPL_BIN}
 
 ##################################################################
-#                  cleanup
+#                  Cleanup
 ##################################################################
 RUN echo "clean up" && \
     apt-get clean -y && \

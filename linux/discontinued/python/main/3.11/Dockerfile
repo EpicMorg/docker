@@ -67,7 +67,6 @@ RUN update-ca-certificates
 ##################################################################
 #                   ARGuments
 ##################################################################
-
 ARG P4_VERSION=r23.2
 ARG P4_DOWNLOAD_URL=https://filehost.perforce.com/perforce/${P4_VERSION}/bin.linux26x86_64/p4
 

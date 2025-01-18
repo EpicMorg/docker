@@ -81,7 +81,7 @@ RUN tar -xvzf /tmp/zulu${K_JDK_VERSION}-jdk${K_JDK_BUILD_VERSION}-linux_x64.tar.
 #RUN chmod +x -R ${KNPL_BIN}
 
 ##################################################################
-#                  cleanup
+#                  Cleanup
 ##################################################################
 RUN echo "clean up" && \
     apt-get clean -y && \

@@ -12,9 +12,9 @@ ARG CAS_PHP_INI=${PHP_DIR}/mods-available/cassandra.ini
 #                   Installing Apache2
 ##################################################################
 #installing apache2 repo
-RUN wget -O /etc/apt/trusted.gpg.d/apache2.gpg https://vault.center/mirror/apt/packages.sury.org/apache2/apt.gpg
-RUN sh -c 'echo "deb [trusted=yes] https://vault.center/mirror/apt/packages.sury.org/apache2/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/apache2.list'
-RUN sh -c 'echo "deb [trusted=yes] https://vault.center/mirror/apt/packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list'
+RUN wget -O /etc/apt/trusted.gpg.d/apache2.gpg https://packages.sury.su/apache2/apt.gpg
+RUN sh -c 'echo "deb [trusted=yes] https://packages.sury.su/apache2/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/apache2.list'
+RUN sh -c 'echo "deb [trusted=yes] https://packages.sury.su/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list'
 
 #Install base packages
 RUN apt-get update && \

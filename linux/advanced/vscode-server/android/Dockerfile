@@ -121,7 +121,7 @@ RUN apt-get update && \
 RUN echo "24333f8a63b6825ea9c5514f83c2829b004d1fee" > /usr/lib/android-sdk/licenses/android-sdk-license
 
 ##################################################################
-#                  cleanup
+#                  Cleanup
 ##################################################################
 RUN echo "clean up" && \
     apt-get clean -y && \

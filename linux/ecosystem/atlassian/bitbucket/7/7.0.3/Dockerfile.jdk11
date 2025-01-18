@@ -5,7 +5,6 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 #                   ARGuments
 ##################################################################
-
 ARG RELEASE=7.0.3
 ARG DOWNLOAD_URL=https://www.atlassian.com/software/stash/downloads/binary/atlassian-bitbucket-${RELEASE}.tar.gz
 
@@ -32,17 +31,64 @@ EXPOSE 7999
 ADD ${DOWNLOAD_URL} /tmp
 RUN mkdir -p                                 ${BITBUCKET_INSTALL_DIR} &&  \
     tar -xvzf /tmp/atlassian-bitbucket-${RELEASE}.tar.gz --strip-components=1 --directory "${BITBUCKET_INSTALL_DIR}" && \
-    chown -R ${RUN_USER}:${RUN_GROUP}        ${BITBUCKET_INSTALL_DIR} && \
-    update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8 && \
+    chown -R ${RUN_USER}:${RUN_GROUP}        ${BITBUCKET_INSTALL_DIR}
+
+##################################################################
+#                   Post-Installing Setup
+##################################################################
+RUN rm -rfv /etc/apt/sources.list.d/launchpad_git-mainline.list && \
+    rm -rfv /etc/apt/sources.list.d/launchpad_git-stable.list && \
+    rm -rfv /etc/apt/sources.list.d/github_git-lfs.list && \
+    apt-get update &&  \
+    apt-get remove -y \
+      git \
+      git-extras \
+      git-flow \
+      git-cvs \
+      git-doc \
+      git-email \
+      git-mediawiki \
+      git-crypt \
+      git-lfs \
+      git-ftp && \
+    apt-get autoremove -y && \
+    apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
+      git \
+      git-extras \
+      git-flow \
+      git-cvs \
+      git-doc \
+      git-email \
+      git-mediawiki \
+      git-crypt \
+      git-lfs \
+      git-ftp
+
+##################################################################
+#                  Git Check
+##################################################################
+RUN git-lfs install --skip-repo --system --force && \
+    echo "=============================================" && \
+    echo git $(git --version) && \
+    echo git-lfs $(git-lfs --version) && \
+    echo "============================================="
+
+##################################################################
+#                  cleanup
+##################################################################
+RUN echo "clean up" && \
     apt-get clean -y && \
+    apt-get autoremove -y && \
     apt-get autoclean -y && \
     rm -rfv /var/lib/apt/lists/* && \
     rm -rfv /var/cache/apt/archives/*.deb && \
     rm -rfv /root/tmp/* && \
     rm -rfv /tmp/*
 
-RUN updatedb
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
 CMD ["/entrypoint.sh", "-fg"]
 ENTRYPOINT ["/usr/bin/tini", "--"]
-COPY entrypoint.sh             /entrypoint.sh
+
+RUN updatedb

@@ -55,7 +55,7 @@ RUN export DOCKER_COMPOSE_VERSION=`curl --silent https://api.github.com/repos/do
     docker-compose -v
 
 ##################################################################
-#                  cleanup
+#                  Cleanup
 ##################################################################
 RUN echo "clean up" && \
     apt-get clean -y && \

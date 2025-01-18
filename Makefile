@@ -2287,6 +2287,7 @@ ecosystem-jira-9-lts-images:
 	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.4.27                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.4.28                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.4.29                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.4.30                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.12.0                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.12.1                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.12.2                && pwd && make build && make deploy

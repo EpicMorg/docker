@@ -5,7 +5,6 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 #                   ARGuments
 ##################################################################
-
 ARG RELEASE=8.22.5
 ARG DOWNLOAD_URL=https://www.atlassian.com/software/jira/downloads/binary/atlassian-jira-software-${RELEASE}.tar.gz
 

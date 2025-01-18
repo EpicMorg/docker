@@ -89,7 +89,7 @@ RUN tar -xvzf ${KNPL_TEMP} --directory ${KTC_ROOT}
 RUN chmod +x -R ${KNPL_BIN}
 
 ##################################################################
-#                  cleanup
+#                  Cleanup
 ##################################################################
 RUN echo "clean up" && \
     apt-get clean -y && \

@@ -314,7 +314,7 @@ RUN rm -rfv ${NGINX_CONF_DIR}/nginx.conf && \
     mkdir -p ${NGINX_MODULES_DIR} ${NGINX_MODULES_PERL_DIR}
 
 ##################################################################
-#                  cleanup
+#                  Cleanup
 ##################################################################
 RUN echo "clean up" && \
     apt-get clean -y && \
@@ -404,7 +404,7 @@ VOLUME ["${NGINX_CACHE_DIR}"]
 WORKDIR ${NGINX_DIR}
 
 ##################################################################
-#                  cleanup
+#                  Cleanup
 ##################################################################
 RUN echo "clean up" && \
     apt-get clean -y && \

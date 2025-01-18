@@ -101,7 +101,7 @@ RUN openssl dhparam -in ${SSL_DHPARAM_FILE} -text -noout | grep bit
 WORKDIR ${EMG_LOCAL_BASE_DIR}
 
 ##################################################################
-#                  cleanup
+#                  Cleanup
 ##################################################################
 RUN echo "clean up" && \
     apt-get clean -y && \

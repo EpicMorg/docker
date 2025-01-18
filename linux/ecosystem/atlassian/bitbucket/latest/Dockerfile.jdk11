@@ -5,7 +5,6 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 #                   ARGuments
 ##################################################################
-
 ARG RELEASE=9.4.0
 ARG DOWNLOAD_URL=https://www.atlassian.com/software/stash/downloads/binary/atlassian-bitbucket-${RELEASE}.tar.gz
 
