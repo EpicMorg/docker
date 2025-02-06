@@ -1,5 +1,8 @@
 # Changelog
 ## 2025
+* `feb`
+  * added `zabbix` images with `7.2` version
+  * added `OpenSSL` version `3.4.x`
 * `jan`
   * updated `atlassian` images
   * updated some deps in images:

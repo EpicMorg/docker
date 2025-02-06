@@ -284,6 +284,18 @@ advanced-zabbix-70-images:
 	cd `pwd`/linux/advanced/zabbix/7.0/web-mysql			&& pwd && make build && make deploy
 	cd `pwd`/linux/advanced/zabbix/7.0/web-pgsql			&& pwd && make build && make deploy
 
+advanced-zabbix-72-images:
+	cd `pwd`/linux/advanced/zabbix/7.2/agent		      && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/7.2/agent2 		    && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/7.2/java-gateway   && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/7.2/proxy-mysql		&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/7.2/proxy-sqlite3	&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/7.2/server-mysql 	&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/7.2/server-pgsql 	&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/7.2/snmptraps			&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/7.2/web-mysql			&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/7.2/web-pgsql			&& pwd && make build && make deploy
+
 ####################################################################################################################
 
 advanced-nextcloud-images:
@@ -330,7 +342,7 @@ ecosystem-images:
 	make bundle-base-images
 	make ecosystem-php-images
 	make ecosystem-apache2-images
-	make ecosystem-testrail-images
+	make ecosystem-testrail-imagesmake ecosystem-testrail-images
 	make ecosystem-torrserver-images
 	make ecosystem-images
 	make ecosystem-qbittorrent-images
