@@ -39,8 +39,9 @@ RUN tar -xvzf ${PYTHON_TEMP} --strip-components=1 --directory ${PYTHON_SRC_DIR}
 ENV OPENSSL_ROOT=${OPENSSL_34_DIR}
 ENV LD_LIBRARY_PATH=${OPENSSL_ROOT}/lib64:$LD_LIBRARY_PATH
 
-RUN cd ${PYTHON_SRC_DIR} && \
-    ./configure \
+WORKDIR ${PYTHON_SRC_DIR}
+
+RUN ./configure \
     --prefix=${PYTHON_DIR} \
     --enable-optimizations \
     --enable-option-checking=fatal \
