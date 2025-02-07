@@ -2409,3 +2409,8 @@ bundle-p4:
 	make ecosystem-perforce-base-images
 	make ecosystem-perforce-proxy-images
  
+bundle-python:
+	@echo "=============================================="
+	@echo "===== Building  EpicMorg Python images  ====="
+	@echo "=============================================="
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/python/3.13  && pwd && make build && make deploy
