@@ -1,16 +1,5 @@
 FROM epicmorg/debian:bookworm-develop  as builder
 
-# /etc/ld.so.conf.d/
-ARG LD_CONF_DIR=/etc/ld.so.conf.d/
-
-# python 3.13
-ENV PYTHON_VERSION=3.13.2
-ENV PYTHON_DIR=${EMG_LOCAL_BASE_DIR}/python/${PYTHON_VERSION}
-ARG PYTHON_BIN_DIR=${PYTHON_DIR}/bin
-ARG PYTHON_SRC_DIR=${PYTHON_DIR}/src
-ARG PYTHON_DOWNLOAD_URL=https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tgz
-ARG PYTHON_TEMP=/tmp/Python-${PYTHON_VERSION}.tgz
-
 RUN apt update && apt install -y \
     build-essential \
     libssl-dev \
@@ -28,16 +17,29 @@ RUN apt update && apt install -y \
     uuid-dev \
     tk-dev
 
+# /etc/ld.so.conf.d/
+ARG LD_CONF_DIR=/etc/ld.so.conf.d/
+
+# python 3.13
+ENV PYTHON_VERSION=3.13.2
+ENV PYTHON_DIR=${EMG_LOCAL_BASE_DIR}/python/${PYTHON_VERSION}
+ARG PYTHON_BIN_DIR=${PYTHON_DIR}/bin
+ARG PYTHON_SRC_DIR=${PYTHON_DIR}/src
+ARG PYTHON_DOWNLOAD_URL=https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tgz
+ARG PYTHON_TEMP=/tmp/Python-${PYTHON_VERSION}.tgz
+
 ##################################################################
 #                   CMake
 ##################################################################
-RUN mkdir -p ${PYTHON_DIR} ${PYTHON_SRC_DIR}
+RUN mkdir -p ${PYTHON_DIR} ${PYTHON_SRC_DIR} ${PYTHON_BIN_DIR}
 ADD ${PYTHON_DOWNLOAD_URL} /tmp
 
 RUN tar -xvzf ${PYTHON_TEMP} --strip-components=1 --directory ${PYTHON_SRC_DIR}
 
 ENV OPENSSL_ROOT=${OPENSSL_34_DIR}
 ENV LD_LIBRARY_PATH=${OPENSSL_ROOT}/lib64:$LD_LIBRARY_PATH
+
+ENV PATH="${PYTHON_BIN_DIR}:${PATH}"
 
 WORKDIR ${PYTHON_SRC_DIR}
 
@@ -73,7 +75,12 @@ RUN make -j$(nproc) && \
 ##################################################################
 ##################################################################
 FROM epicmorg/debian:bookworm
- 
+
+RUN apt-get remove -y python3-pip
+
+COPY etc/apt/preferences.d /etc/apt/preferences.d
+COPY --from=builder ${PYTHON_DIR}/ ${PYTHON_DIR}/
+
 ##################################################################
 #                  Python 3.13
 ##################################################################
@@ -81,11 +88,6 @@ ENV PYTHON_VERSION=3.13.2
 ENV PYTHON_DIR=${EMG_LOCAL_BASE_DIR}/python/${PYTHON_VERSION}
 ARG PYTHON_BIN_DIR=${PYTHON_DIR}/bin
 ARG PYTHON_SRC_DIR=${PYTHON_DIR}/src
-
-RUN apt-get remove -y python3-pip
-
-COPY etc/apt/preferences.d /etc/apt/preferences.d
-COPY --from=builder ${OPENSSL_34_DIR}/ ${OPENSSL_34_DIR}/
 
 ENV PATH="${PYTHON_BIN_DIR}:${PATH}"
 
