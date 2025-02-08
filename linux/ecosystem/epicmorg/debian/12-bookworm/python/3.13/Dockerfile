@@ -87,14 +87,19 @@ RUN apt-get remove -y python3-pip
 COPY etc/apt/preferences.d /etc/apt/preferences.d
 COPY --from=builder ${OPENSSL_34_DIR}/ ${OPENSSL_34_DIR}/
 
+ENV PATH="${PYTHON_BIN_DIR}:${PATH}"
+
 RUN mv ${PYTHON_SRC_DIR} /usr/local/src/${PYTHON_VERSION} && \
     ln -sfv /usr/local/src/${PYTHON_VERSION} ${PYTHON_SRC_DIR} \
+    rm -rfv /usr/bin/pip3 && \
+    rm -rfv /usr/bin/pip && \
+    rm -rfv /usr/bin/python && \
+    rm -rfv /usr/bin/python3 && \
     update-alternatives --install /usr/bin/pip3 pip3 ${PYTHON_DIR}/bin/pip3.13 1 && \
     update-alternatives --install /usr/bin/pip pip ${PYTHON_DIR}/bin/pip3.13 1 && \
     update-alternatives --install /usr/bin/python python ${PYTHON_DIR}/bin/python3.13 1 && \
     update-alternatives --install /usr/bin/python3 python3 ${PYTHON_DIR}/bin/python3.13 1
 
-ENV PATH="${PYTHON_BIN_DIR}:${PATH}"
 RUN echo "=============================================" && \
     echo python3.13 --version && \
     echo python3 --version && \
