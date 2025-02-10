@@ -230,6 +230,17 @@ ARG OPENSSL_33_DOWNLOAD_URL=https://www.openssl.org/source/openssl-${OPENSSL_33_
 ARG OPENSSL_33_TEMP=/tmp/openssl-${OPENSSL_33_VERSION}.tar.gz
 ARG OPENSSL_33_TEMP_SRC=/tmp/openssl-${OPENSSL_33_VERSION}
 
+# OpenSSL 3.4.0
+ENV OPENSSL_34_VERSION=3.4.0
+ENV OPENSSL_34_DIR=${EMG_LOCAL_BASE_DIR}/openssl/${OPENSSL_34_VERSION}
+ENV OPENSSL_34_BIN_DIR=${OPENSSL_34_DIR}/bin
+ENV OPENSSL_34_INC_DIR=${OPENSSL_34_DIR}/include
+ENV OPENSSL_34_LIB_DIR=${OPENSSL_34_DIR}/lib64
+ENV OPENSSL_34_SRC_DIR=/usr/local/src/openssl/${OPENSSL_34_VERSION}
+ARG OPENSSL_34_DOWNLOAD_URL=https://www.openssl.org/source/openssl-${OPENSSL_34_VERSION}.tar.gz
+ARG OPENSSL_34_TEMP=/tmp/openssl-${OPENSSL_34_VERSION}.tar.gz
+ARG OPENSSL_34_TEMP_SRC=/tmp/openssl-${OPENSSL_34_VERSION}
+
 # LibreSSL
 ENV LIBRESSL_VERSION=4.0.0
 ENV LIBRESSL_DIR=${EMG_LOCAL_BASE_DIR}/libressl/${LIBRESSL_VERSION}
@@ -880,7 +891,7 @@ RUN tar -xzf ${OPENSSL_111_TEMP} --directory /tmp && \
     make -j$(nproc) install
 
 ##################################################################
-#                   OpenSSL 3.0.14
+#                   OpenSSL 3.0
 ##################################################################
 RUN mkdir -p ${OPENSSL_30_DIR} ${OPENSSL_30_SRC_DIR}
 ADD ${OPENSSL_30_DOWNLOAD_URL} /tmp
@@ -908,7 +919,7 @@ RUN tar -xzf ${OPENSSL_30_TEMP} --directory /tmp && \
     make -j$(nproc) install
 
 ##################################################################
-#                   OpenSSL 3.1.7
+#                   OpenSSL 3.1
 ##################################################################
 RUN mkdir -p ${OPENSSL_31_DIR} ${OPENSSL_31_SRC_DIR}
 ADD ${OPENSSL_31_DOWNLOAD_URL} /tmp
@@ -936,7 +947,7 @@ RUN tar -xzf ${OPENSSL_31_TEMP} --directory /tmp && \
     make -j$(nproc) install
 
 ##################################################################
-#                   OpenSSL 3.2.2
+#                   OpenSSL 3.2
 ##################################################################
 RUN mkdir -p ${OPENSSL_32_DIR} ${OPENSSL_32_SRC_DIR}
 ADD ${OPENSSL_32_DOWNLOAD_URL} /tmp
@@ -966,7 +977,7 @@ RUN tar -xzf ${OPENSSL_32_TEMP} --directory /tmp && \
     make -j$(nproc) install
 
 ##################################################################
-#                   OpenSSL 3.3.1
+#                   OpenSSL 3.3
 ##################################################################
 RUN mkdir -p ${OPENSSL_33_DIR} ${OPENSSL_33_SRC_DIR}
 ADD ${OPENSSL_33_DOWNLOAD_URL} /tmp
@@ -996,6 +1007,39 @@ RUN tar -xzf ${OPENSSL_33_TEMP} --directory /tmp && \
     make -j$(nproc) install && \
     echo "# OpenSSL support" >> ${LD_CONF_DIR}/OpenSSL.conf && \
     echo ${OPENSSL_33_LIB_DIR} >> ${LD_CONF_DIR}/OpenSSL.conf && \
+    ldconfig
+
+##################################################################
+#                   OpenSSL 3.4
+##################################################################
+RUN mkdir -p ${OPENSSL_34_DIR} ${OPENSSL_34_SRC_DIR}
+ADD ${OPENSSL_34_DOWNLOAD_URL} /tmp
+
+RUN tar -xzf ${OPENSSL_34_TEMP} --directory /tmp && \
+    cp -rfv ${OPENSSL_34_TEMP_SRC}/* ${OPENSSL_34_SRC_DIR} && \
+    ln -sf ${OPENSSL_34_SRC_DIR} ${OPENSSL_34_DIR}/src && \
+    cd ${OPENSSL_34_TEMP_SRC} && \
+    ./config \
+      zlib \
+      --with-zlib-include=${ZLIB_DIR}/include \
+      --with-zlib-lib=${ZLIB_DIR}/lib \
+      --with-zstd-include=${ZSTD_DIR}/include \
+      --with-zstd-lib=${ZSTD_DIR}/lib \
+      enable-ktls \
+      enable-ec_nistp_64_gcc_128 \
+      enable-egd \
+      enable-fips \
+      enable-ssl-trace\
+      enable-trace \
+      threads \
+      sctp \
+      --release \
+      --prefix=${OPENSSL_34_DIR} \
+      && \
+    make -j$(nproc) && \
+    make -j$(nproc) install && \
+    echo "# OpenSSL support" >> ${LD_CONF_DIR}/OpenSSL.conf && \
+    echo ${OPENSSL_34_LIB_DIR} >> ${LD_CONF_DIR}/OpenSSL.conf && \
     ldconfig
 
 ##################################################################
