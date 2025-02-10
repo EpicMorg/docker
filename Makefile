@@ -2282,7 +2282,6 @@ ecosystem-jira-9-lts-images:
 	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.4.10                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.4.11                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.4.12                && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.4.13                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.4.14                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.4.15                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.4.16                && pwd && make build && make deploy
@@ -2409,3 +2408,8 @@ bundle-p4:
 	make ecosystem-perforce-base-images
 	make ecosystem-perforce-proxy-images
  
+bundle-python:
+	@echo "=============================================="
+	@echo "===== Building  EpicMorg Python images  ====="
+	@echo "=============================================="
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/python/3.13  && pwd && make build && make deploy
