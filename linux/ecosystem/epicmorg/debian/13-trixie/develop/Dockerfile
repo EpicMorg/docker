@@ -912,7 +912,7 @@ RUN tar -xzf ${OPENSSL_111_TEMP} --directory /tmp && \
     make -j$(nproc) install
 
 ##################################################################
-#                   OpenSSL 3.0.14
+#                   OpenSSL 3.0
 ##################################################################
 RUN mkdir -p ${OPENSSL_30_DIR} ${OPENSSL_30_SRC_DIR}
 ADD ${OPENSSL_30_DOWNLOAD_URL} /tmp
@@ -940,7 +940,7 @@ RUN tar -xzf ${OPENSSL_30_TEMP} --directory /tmp && \
     make -j$(nproc) install
 
 ##################################################################
-#                   OpenSSL 3.1.7
+#                   OpenSSL 3.1
 ##################################################################
 RUN mkdir -p ${OPENSSL_31_DIR} ${OPENSSL_31_SRC_DIR}
 ADD ${OPENSSL_31_DOWNLOAD_URL} /tmp
@@ -968,7 +968,7 @@ RUN tar -xzf ${OPENSSL_31_TEMP} --directory /tmp && \
     make -j$(nproc) install
 
 ##################################################################
-#                   OpenSSL 3.2.2
+#                   OpenSSL 3.2
 ##################################################################
 RUN mkdir -p ${OPENSSL_32_DIR} ${OPENSSL_32_SRC_DIR}
 ADD ${OPENSSL_32_DOWNLOAD_URL} /tmp
@@ -998,7 +998,7 @@ RUN tar -xzf ${OPENSSL_32_TEMP} --directory /tmp && \
     make -j$(nproc) install
 
 ##################################################################
-#                   OpenSSL 3.3.2
+#                   OpenSSL 3.3
 ##################################################################
 RUN mkdir -p ${OPENSSL_33_DIR} ${OPENSSL_33_SRC_DIR}
 ADD ${OPENSSL_33_DOWNLOAD_URL} /tmp
@@ -1031,7 +1031,7 @@ RUN tar -xzf ${OPENSSL_33_TEMP} --directory /tmp && \
     ldconfig
 
 ##################################################################
-#                   OpenSSL 3.4.0
+#                   OpenSSL 3.4
 ##################################################################
 RUN mkdir -p ${OPENSSL_34_DIR} ${OPENSSL_34_SRC_DIR}
 ADD ${OPENSSL_34_DOWNLOAD_URL} /tmp
