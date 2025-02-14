@@ -3,6 +3,8 @@
 * `feb`
   * added `zabbix` images with `7.2` version
   * added `OpenSSL` version `3.4.x`
+  * updated `OpenSSL` versions.
+  * created draft `python` base images based on `debian 12`.
 * `jan`
   * updated `atlassian` images
   * updated some deps in images:

@@ -20,9 +20,9 @@ RUN apt update && apt install -y \
 # /etc/ld.so.conf.d/
 ARG LD_CONF_DIR=/etc/ld.so.conf.d/
 
-# python 3.13
-ENV PYTHON_VERSION=3.13
-ENV PYTHON_FULL_VERSION=${PYTHON_VERSION}.2
+# python 3.10
+ENV PYTHON_VERSION=3.10
+ENV PYTHON_FULL_VERSION=${PYTHON_VERSION}.16
 ENV PYTHON_DIR=${EMG_LOCAL_BASE_DIR}/python/${PYTHON_FULL_VERSION}
 ARG PYTHON_BIN_DIR=${PYTHON_DIR}/bin
 ARG PYTHON_SRC_DIR=${PYTHON_DIR}/src
@@ -95,10 +95,10 @@ ENV OPENSSL_34_LIB_DIR=${OPENSSL_34_DIR}/lib64
 ENV OPENSSL_34_SRC_DIR=/usr/local/src/openssl/${OPENSSL_34_VERSION}
 
 ##################################################################
-#                  Python 3.13
+#                  Python 3.10
 ##################################################################
-ENV PYTHON_VERSION=3.13
-ENV PYTHON_FULL_VERSION=${PYTHON_VERSION}.2
+ENV PYTHON_VERSION=3.10
+ENV PYTHON_FULL_VERSION=${PYTHON_VERSION}.16
 ENV PYTHON_DIR=${EMG_LOCAL_BASE_DIR}/python/${PYTHON_FULL_VERSION}
 ARG PYTHON_BIN_DIR=${PYTHON_DIR}/bin
 ARG PYTHON_SRC_DIR=${PYTHON_DIR}/src
