@@ -189,6 +189,17 @@ ARG GPERFTOOLS_DOWNLOAD_URL=https://github.com/gperftools/gperftools/releases/do
 ARG GPERFTOOLS_TEMP=/tmp/gperftools-${GPERFTOOLS_VERSION}.tar.gz
 ARG GPERFTOOLS_TEMP_SRC=/tmp/gperftools-${GPERFTOOLS_VERSION}
 
+# OpenSSL 1.0.2
+ENV OPENSSL_102_VERSION=1.0.2
+ENV OPENSSL_102_DIR=${EMG_LOCAL_BASE_DIR}/openssl/${OPENSSL_102_VERSION}
+ENV OPENSSL_102_BIN_DIR=${OPENSSL_102_DIR}/bin
+ENV OPENSSL_102_INC_DIR=${OPENSSL_102_DIR}/include
+ENV OPENSSL_102_LIB_DIR=${OPENSSL_102_DIR}/lib
+ENV OPENSSL_102_SRC_DIR=/usr/local/src/openssl/${OPENSSL_102_VERSION}
+ARG OPENSSL_102_DOWNLOAD_URL=https://github.com/openssl/openssl/releases/download/OpenSSL_1_0_2u/openssl-1.0.2u.tar.gz
+ARG OPENSSL_102_TEMP=/tmp/openssl-1.0.2u.tar.gz
+ARG OPENSSL_102_TEMP_SRC=/tmp/openssl-1.0.2u
+
 # OpenSSL 1.1.1
 ENV OPENSSL_111_VERSION=1.1.1
 ENV OPENSSL_111_DIR=${EMG_LOCAL_BASE_DIR}/openssl/${OPENSSL_111_VERSION}
@@ -885,6 +896,31 @@ RUN tar -xzf ${GPERFTOOLS_TEMP} --directory /tmp && \
     ldconfig
 
 ENV PATH="${GPERFTOOLS_BIN_DIR}:${PATH}" 
+
+##################################################################
+#                   OpenSSL 1.0.2u
+##################################################################
+RUN mkdir -p ${OPENSSL_102_DIR} ${OPENSSL_102_SRC_DIR}
+ADD ${OPENSSL_102_DOWNLOAD_URL} /tmp
+
+RUN tar -xzf ${OPENSSL_102_TEMP} --directory /tmp && \
+    cp -rfv ${OPENSSL_102_TEMP_SRC}/* ${OPENSSL_102_SRC_DIR} && \
+    ln -sf ${OPENSSL_102_SRC_DIR} ${OPENSSL_102_DIR}/src && \
+    cd ${OPENSSL_102_TEMP_SRC} && \
+    CFLAGS=-Wno-error ./config \
+      zlib \
+      --with-zlib-include=${ZLIB_DIR}/include \
+      --with-zlib-lib=${ZLIB_DIR}/lib \
+      enable-ec_nistp_64_gcc_128 \
+      enable-egd \
+      enable-ssl-trace \
+      threads \
+      sctp \
+      --release \
+      --prefix=${OPENSSL_102_DIR} \
+      && \
+    make -j$(nproc) && \
+    make -j$(nproc) install
 
 ##################################################################
 #                   OpenSSL 1.1.1.1
