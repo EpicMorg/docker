@@ -1,0 +1,6 @@
+#version: '3'
+services:
+  app:
+    image: "epicmorg/debian:trixie-python-3.2"
+    build:
+      context: .

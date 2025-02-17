@@ -2,9 +2,10 @@
 ## 2025
 * `feb`
   * added `zabbix` images with `7.2` version
-  * added `OpenSSL` version `3.4.x`
+  * added `OpenSSL` version `3.4.x` and `1.0.2u`.
   * updated `OpenSSL` versions.
-  * created draft `python` base images based on `debian 12`.
+  * created `python` base images.
+  * updated `nextcloud` images.
 * `jan`
   * updated `atlassian` images
   * updated some deps in images:

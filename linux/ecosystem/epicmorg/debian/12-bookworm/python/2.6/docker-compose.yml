@@ -1,0 +1,6 @@
+#version: '3'
+services:
+  app:
+    image: "epicmorg/debian:bookworm-python-2.6"
+    build:
+      context: .

@@ -299,39 +299,39 @@ advanced-zabbix-72-images:
 ####################################################################################################################
 
 advanced-nextcloud-images:
-	cd `pwd`/linux/advanced/nextcloud/pure/14		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/nextcloud/pure/15		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/nextcloud/pure/16		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/nextcloud/pure/17		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/nextcloud/pure/18		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/nextcloud/pure/19		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/nextcloud/pure/20		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/nextcloud/pure/21		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/nextcloud/pure/22		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/nextcloud/pure/23		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/nextcloud/pure/24		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/nextcloud/pure/25		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/nextcloud/pure/26		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/nextcloud/pure/27		  && pwd && make build && make deploy
+#	cd `pwd`/linux/advanced/nextcloud/pure/14		  && pwd && make build && make deploy
+#	cd `pwd`/linux/advanced/nextcloud/pure/15		  && pwd && make build && make deploy
+#	cd `pwd`/linux/advanced/nextcloud/pure/16		  && pwd && make build && make deploy
+#	cd `pwd`/linux/advanced/nextcloud/pure/17		  && pwd && make build && make deploy
+#	cd `pwd`/linux/advanced/nextcloud/pure/18		  && pwd && make build && make deploy
+#	cd `pwd`/linux/advanced/nextcloud/pure/19		  && pwd && make build && make deploy
+#	cd `pwd`/linux/advanced/nextcloud/pure/20		  && pwd && make build && make deploy
+#	cd `pwd`/linux/advanced/nextcloud/pure/21		  && pwd && make build && make deploy
+#	cd `pwd`/linux/advanced/nextcloud/pure/22		  && pwd && make build && make deploy
+#	cd `pwd`/linux/advanced/nextcloud/pure/23		  && pwd && make build && make deploy
+#	cd `pwd`/linux/advanced/nextcloud/pure/24		  && pwd && make build && make deploy
+#	cd `pwd`/linux/advanced/nextcloud/pure/25		  && pwd && make build && make deploy
+#	cd `pwd`/linux/advanced/nextcloud/pure/26		  && pwd && make build && make deploy
+#	cd `pwd`/linux/advanced/nextcloud/pure/27		  && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/nextcloud/pure/28		  && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/nextcloud/pure/29		  && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/nextcloud/pure/30		  && pwd && make build && make deploy
 
 advanced-nextcloud-patched-images:
-	cd `pwd`/linux/advanced/nextcloud/patched/14		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/nextcloud/patched/15		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/nextcloud/patched/16		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/nextcloud/patched/17		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/nextcloud/patched/18		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/nextcloud/patched/19		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/nextcloud/patched/20		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/nextcloud/patched/21		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/nextcloud/patched/22		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/nextcloud/patched/23		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/nextcloud/patched/24		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/nextcloud/patched/25		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/nextcloud/patched/26		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/nextcloud/patched/27		  && pwd && make build && make deploy
+#	cd `pwd`/linux/advanced/nextcloud/patched/14		  && pwd && make build && make deploy
+#	cd `pwd`/linux/advanced/nextcloud/patched/15		  && pwd && make build && make deploy
+#	cd `pwd`/linux/advanced/nextcloud/patched/16		  && pwd && make build && make deploy
+#	cd `pwd`/linux/advanced/nextcloud/patched/17		  && pwd && make build && make deploy
+#	cd `pwd`/linux/advanced/nextcloud/patched/18		  && pwd && make build && make deploy
+#	cd `pwd`/linux/advanced/nextcloud/patched/19		  && pwd && make build && make deploy
+#	cd `pwd`/linux/advanced/nextcloud/patched/20		  && pwd && make build && make deploy
+#	cd `pwd`/linux/advanced/nextcloud/patched/21		  && pwd && make build && make deploy
+#	cd `pwd`/linux/advanced/nextcloud/patched/22		  && pwd && make build && make deploy
+#	cd `pwd`/linux/advanced/nextcloud/patched/23		  && pwd && make build && make deploy
+#	cd `pwd`/linux/advanced/nextcloud/patched/24		  && pwd && make build && make deploy
+#	cd `pwd`/linux/advanced/nextcloud/patched/25		  && pwd && make build && make deploy
+#	cd `pwd`/linux/advanced/nextcloud/patched/26		  && pwd && make build && make deploy
+#	cd `pwd`/linux/advanced/nextcloud/patched/27		  && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/nextcloud/patched/28		  && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/nextcloud/patched/29		  && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/nextcloud/patched/30		  && pwd && make build && make deploy
@@ -581,6 +581,24 @@ ecosystem-debian-bullseye-base-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/main    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/develop    && pwd && make build && make deploy
 
+ecosystem-debian-bullseye-python-images:
+	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/python/2.6  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/python/2.7  && pwd && make build && make deploy
+#	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/python/3.0  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/python/3.1  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/python/3.2  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/python/3.3  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/python/3.4  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/python/3.5  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/python/3.6  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/python/3.7  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/python/3.8  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/python/3.9  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/python/3.10  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/python/3.11  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/python/3.12  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/python/3.13  && pwd && make build && make deploy
+
 ecosystem-debian-bullseye-dotnet-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/dotnet/lts    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/dotnet/sts    && pwd && make build && make deploy
@@ -641,6 +659,24 @@ ecosystem-debian-bookworm-base-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/slim    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/main    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/develop    && pwd && make build && make deploy
+
+ecosystem-debian-bookworm-python-images:
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/python/2.6  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/python/2.7  && pwd && make build && make deploy
+#	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/python/3.0  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/python/3.1  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/python/3.2  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/python/3.3  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/python/3.4  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/python/3.5  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/python/3.6  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/python/3.7  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/python/3.8  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/python/3.9  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/python/3.10  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/python/3.11  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/python/3.12  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/python/3.13  && pwd && make build && make deploy
 
 ecosystem-debian-bookworm-dotnet-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/dotnet/lts    && pwd && make build && make deploy
@@ -703,6 +739,24 @@ ecosystem-debian-trixie-base-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/main    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/develop    && pwd && make build && make deploy
 
+ecosystem-debian-trixie-python-images:
+	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/python/2.6  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/python/2.7  && pwd && make build && make deploy
+#	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/python/3.0  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/python/3.1  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/python/3.2  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/python/3.3  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/python/3.4  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/python/3.5  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/python/3.6  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/python/3.7  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/python/3.8  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/python/3.9  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/python/3.10  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/python/3.11  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/python/3.12  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/python/3.13  && pwd && make build && make deploy
+
 ecosystem-debian-trixie-dotnet-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/dotnet/lts    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/dotnet/sts    && pwd && make build && make deploy
@@ -763,6 +817,24 @@ ecosystem-debian-sid-base-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/slim    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/main    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/develop    && pwd && make build && make deploy
+
+ecosystem-debian-sid-python-images:
+	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/python/2.6  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/python/2.7  && pwd && make build && make deploy
+#	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/python/3.0  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/python/3.1  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/python/3.2  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/python/3.3  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/python/3.4  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/python/3.5  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/python/3.6  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/python/3.7  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/python/3.8  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/python/3.9  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/python/3.10  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/python/3.11  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/python/3.12  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/python/3.13  && pwd && make build && make deploy
 
 ecosystem-debian-sid-dotnet-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/dotnet/lts    && pwd && make build && make deploy
@@ -2412,4 +2484,7 @@ bundle-python:
 	@echo "=============================================="
 	@echo "===== Building  EpicMorg Python images  ====="
 	@echo "=============================================="
-	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/python/3.13  && pwd && make build && make deploy
+	make ecosystem-debian-bullseye-python-images
+	make ecosystem-debian-bookworm-python-images
+	make ecosystem-debian-trixie-python-images
+	make ecosystem-debian-sid-python-images

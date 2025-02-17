@@ -1,5 +1,8 @@
 FROM epicmorg/debian:bookworm-develop  as builder
 
+##################################################################
+#                   Build
+##################################################################
 RUN apt update && apt install -y \
     build-essential \
     libssl-dev \
@@ -20,7 +23,6 @@ RUN apt update && apt install -y \
 # /etc/ld.so.conf.d/
 ARG LD_CONF_DIR=/etc/ld.so.conf.d/
 
-# python 3.10
 ENV PYTHON_VERSION=3.10
 ENV PYTHON_FULL_VERSION=${PYTHON_VERSION}.16
 ENV PYTHON_DIR=${EMG_LOCAL_BASE_DIR}/python/${PYTHON_FULL_VERSION}
@@ -29,9 +31,6 @@ ARG PYTHON_SRC_DIR=${PYTHON_DIR}/src
 ARG PYTHON_DOWNLOAD_URL=https://www.python.org/ftp/python/${PYTHON_FULL_VERSION}/Python-${PYTHON_FULL_VERSION}.tgz
 ARG PYTHON_TEMP=/tmp/Python-${PYTHON_FULL_VERSION}.tgz
 
-##################################################################
-#                   CMake
-##################################################################
 RUN mkdir -p ${PYTHON_DIR} ${PYTHON_SRC_DIR} ${PYTHON_BIN_DIR}
 ADD ${PYTHON_DOWNLOAD_URL} /tmp
 
@@ -53,7 +52,6 @@ RUN ./configure \
     --with-ensurepip=install \
     --enable-profiling \
     --with-system-expat \
-    --enable-option-checking=fatal \
     --with-computed-gotos \
     --with-pydebug \
     --with-trace-refs \
@@ -62,8 +60,11 @@ RUN ./configure \
     --with-static-libpython \
     --with-openssl-rpath=auto \
     --with-openssl=${OPENSSL_34_DIR} \
-    LDFLAGS="-Wl,-rpath,${OPENSSL_34_DIR}/lib64" \
-    CPPFLAGS="-I${OPENSSL_34_DIR}/include"
+    SSL=${OPENSSL_34_DIR} \
+    CFLAGS="-I${OPENSSL_34_DIR}/include" \
+    CPPFLAGS="-I${OPENSSL_34_DIR}/include" \
+    PKG_CONFIG_PATH="${OPENSSL_34_DIR}/lib64/pkgconfig" \
+    LDFLAGS="-L${OPENSSL_34_DIR}/lib64 -Wl,-rpath,${OPENSSL_34_DIR}/lib64"
 
 RUN make -j$(nproc) && \
     make altinstall
