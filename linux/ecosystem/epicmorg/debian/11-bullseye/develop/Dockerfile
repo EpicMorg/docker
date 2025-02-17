@@ -888,7 +888,7 @@ RUN tar -xzf ${OPENSSL_102_TEMP} --directory /tmp && \
     cp -rfv ${OPENSSL_102_TEMP_SRC}/* ${OPENSSL_102_SRC_DIR} && \
     ln -sf ${OPENSSL_102_SRC_DIR} ${OPENSSL_102_DIR}/src && \
     cd ${OPENSSL_102_TEMP_SRC} && \
-    CFLAGS=-Wno-error ./config \
+    CFLAGS="-Wno-error -fPIC" CXXFLAGS="-fPIC" ./config \
       zlib \
       --with-zlib-include=${ZLIB_DIR}/include \
       --with-zlib-lib=${ZLIB_DIR}/lib \
@@ -913,7 +913,7 @@ RUN tar -xzf ${OPENSSL_111_TEMP} --directory /tmp && \
     cp -rfv ${OPENSSL_111_TEMP_SRC}/* ${OPENSSL_111_SRC_DIR} && \
     ln -sf ${OPENSSL_111_SRC_DIR} ${OPENSSL_111_DIR}/src && \
     cd ${OPENSSL_111_TEMP_SRC} && \
-    ./config \
+    CFLAGS="-Wno-error -fPIC" CXXFLAGS="-fPIC" ./config \
       zlib \
       --with-zlib-include=${ZLIB_DIR}/include \
       --with-zlib-lib=${ZLIB_DIR}/lib \
@@ -938,14 +938,14 @@ RUN tar -xzf ${OPENSSL_30_TEMP} --directory /tmp && \
     cp -rfv ${OPENSSL_30_TEMP_SRC}/* ${OPENSSL_30_SRC_DIR} && \
     ln -sf ${OPENSSL_30_SRC_DIR} ${OPENSSL_30_DIR}/src && \
     cd ${OPENSSL_30_TEMP_SRC} && \
-    ./config \
+    CFLAGS="-Wno-error -fPIC" CXXFLAGS="-fPIC" ./config \
       zlib \
       --with-zlib-include=${ZLIB_DIR}/include \
       --with-zlib-lib=${ZLIB_DIR}/lib \
       enable-ktls \
       enable-ec_nistp_64_gcc_128 \
       enable-egd \
-      enable-fips \
+#     enable-fips \
       enable-ssl-trace\
       enable-trace \
       threads \
@@ -966,14 +966,14 @@ RUN tar -xzf ${OPENSSL_31_TEMP} --directory /tmp && \
     cp -rfv ${OPENSSL_31_TEMP_SRC}/* ${OPENSSL_31_SRC_DIR} && \
     ln -sf ${OPENSSL_31_SRC_DIR} ${OPENSSL_31_DIR}/src && \
     cd ${OPENSSL_31_TEMP_SRC} && \
-    ./config \
+    CFLAGS="-Wno-error -fPIC" CXXFLAGS="-fPIC" ./config \
       zlib \
       --with-zlib-include=${ZLIB_DIR}/include \
       --with-zlib-lib=${ZLIB_DIR}/lib \
       enable-ktls \
       enable-ec_nistp_64_gcc_128 \
       enable-egd \
-      enable-fips \
+#     enable-fips \
       enable-ssl-trace\
       enable-trace \
       threads \
@@ -994,7 +994,7 @@ RUN tar -xzf ${OPENSSL_32_TEMP} --directory /tmp && \
     cp -rfv ${OPENSSL_32_TEMP_SRC}/* ${OPENSSL_32_SRC_DIR} && \
     ln -sf ${OPENSSL_32_SRC_DIR} ${OPENSSL_32_DIR}/src && \
     cd ${OPENSSL_32_TEMP_SRC} && \
-    ./config \
+    CFLAGS="-Wno-error -fPIC" CXXFLAGS="-fPIC" ./config \
       zlib \
       --with-zlib-include=${ZLIB_DIR}/include \
       --with-zlib-lib=${ZLIB_DIR}/lib \
@@ -1003,7 +1003,7 @@ RUN tar -xzf ${OPENSSL_32_TEMP} --directory /tmp && \
       enable-ktls \
       enable-ec_nistp_64_gcc_128 \
       enable-egd \
-      enable-fips \
+#     enable-fips \
       enable-ssl-trace\
       enable-trace \
       threads \
@@ -1024,7 +1024,7 @@ RUN tar -xzf ${OPENSSL_33_TEMP} --directory /tmp && \
     cp -rfv ${OPENSSL_33_TEMP_SRC}/* ${OPENSSL_33_SRC_DIR} && \
     ln -sf ${OPENSSL_33_SRC_DIR} ${OPENSSL_33_DIR}/src && \
     cd ${OPENSSL_33_TEMP_SRC} && \
-    ./config \
+    CFLAGS="-Wno-error -fPIC" CXXFLAGS="-fPIC" ./config \
       zlib \
       --with-zlib-include=${ZLIB_DIR}/include \
       --with-zlib-lib=${ZLIB_DIR}/lib \
@@ -1033,7 +1033,7 @@ RUN tar -xzf ${OPENSSL_33_TEMP} --directory /tmp && \
       enable-ktls \
       enable-ec_nistp_64_gcc_128 \
       enable-egd \
-      enable-fips \
+#     enable-fips \
       enable-ssl-trace\
       enable-trace \
       threads \
@@ -1057,7 +1057,7 @@ RUN tar -xzf ${OPENSSL_34_TEMP} --directory /tmp && \
     cp -rfv ${OPENSSL_34_TEMP_SRC}/* ${OPENSSL_34_SRC_DIR} && \
     ln -sf ${OPENSSL_34_SRC_DIR} ${OPENSSL_34_DIR}/src && \
     cd ${OPENSSL_34_TEMP_SRC} && \
-    ./config \
+    CFLAGS="-Wno-error -fPIC" CXXFLAGS="-fPIC" ./config \
       zlib \
       --with-zlib-include=${ZLIB_DIR}/include \
       --with-zlib-lib=${ZLIB_DIR}/lib \
@@ -1066,7 +1066,7 @@ RUN tar -xzf ${OPENSSL_34_TEMP} --directory /tmp && \
       enable-ktls \
       enable-ec_nistp_64_gcc_128 \
       enable-egd \
-      enable-fips \
+#     enable-fips \
       enable-ssl-trace\
       enable-trace \
       threads \

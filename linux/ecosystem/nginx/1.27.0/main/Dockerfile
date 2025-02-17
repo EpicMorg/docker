@@ -84,7 +84,7 @@ RUN ./config \
       enable-ktls \
       enable-ec_nistp_64_gcc_128 \
       enable-egd \
-      enable-fips \
+#     enable-fips \
       enable-ssl-trace\
       enable-trace \
       threads \

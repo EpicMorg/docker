@@ -944,7 +944,7 @@ RUN tar -xzf ${OPENSSL_30_TEMP} --directory /tmp && \
       enable-ktls \
       enable-ec_nistp_64_gcc_128 \
       enable-egd \
-      enable-fips \
+#     enable-fips \
       enable-ssl-trace\
       enable-trace \
       threads \
@@ -972,7 +972,7 @@ RUN tar -xzf ${OPENSSL_31_TEMP} --directory /tmp && \
       enable-ktls \
       enable-ec_nistp_64_gcc_128 \
       enable-egd \
-      enable-fips \
+#     enable-fips \
       enable-ssl-trace\
       enable-trace \
       threads \
@@ -1002,7 +1002,7 @@ RUN tar -xzf ${OPENSSL_32_TEMP} --directory /tmp && \
       enable-ktls \
       enable-ec_nistp_64_gcc_128 \
       enable-egd \
-      enable-fips \
+#     enable-fips \
       enable-ssl-trace\
       enable-trace \
       threads \
@@ -1032,7 +1032,7 @@ RUN tar -xzf ${OPENSSL_33_TEMP} --directory /tmp && \
       enable-ktls \
       enable-ec_nistp_64_gcc_128 \
       enable-egd \
-      enable-fips \
+#     enable-fips \
       enable-ssl-trace\
       enable-trace \
       threads \
@@ -1065,7 +1065,7 @@ RUN tar -xzf ${OPENSSL_34_TEMP} --directory /tmp && \
       enable-ktls \
       enable-ec_nistp_64_gcc_128 \
       enable-egd \
-      enable-fips \
+#     enable-fips \
       enable-ssl-trace\
       enable-trace \
       threads \
