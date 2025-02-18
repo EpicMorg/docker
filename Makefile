@@ -2488,3 +2488,9 @@ bundle-python:
 	make ecosystem-debian-bookworm-python-images
 	make ecosystem-debian-trixie-python-images
 	make ecosystem-debian-sid-python-images
+
+develop:
+	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/develop    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/develop    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/develop    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/develop    && pwd && make build && make deploy

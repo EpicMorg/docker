@@ -897,6 +897,7 @@ RUN tar -xzf ${OPENSSL_102_TEMP} --directory /tmp && \
       enable-ssl-trace \
       threads \
       sctp \
+      shared \
       --release \
       --prefix=${OPENSSL_102_DIR} \
       && \
@@ -922,6 +923,7 @@ RUN tar -xzf ${OPENSSL_111_TEMP} --directory /tmp && \
       enable-ssl-trace \
       threads \
       sctp \
+      shared \
       --release \
       --prefix=${OPENSSL_111_DIR} \
       && \
@@ -950,6 +952,7 @@ RUN tar -xzf ${OPENSSL_30_TEMP} --directory /tmp && \
       enable-trace \
       threads \
       sctp \
+      shared \
       --release \
       --prefix=${OPENSSL_30_DIR} \
       && \
@@ -978,6 +981,7 @@ RUN tar -xzf ${OPENSSL_31_TEMP} --directory /tmp && \
       enable-trace \
       threads \
       sctp \
+      shared \
       --release \
       --prefix=${OPENSSL_31_DIR} \
       && \
@@ -1008,6 +1012,7 @@ RUN tar -xzf ${OPENSSL_32_TEMP} --directory /tmp && \
       enable-trace \
       threads \
       sctp \
+      shared \
       --release \
       --prefix=${OPENSSL_32_DIR} \
       && \
@@ -1038,6 +1043,7 @@ RUN tar -xzf ${OPENSSL_33_TEMP} --directory /tmp && \
       enable-trace \
       threads \
       sctp \
+      shared \
       --release \
       --prefix=${OPENSSL_33_DIR} \
       && \
@@ -1071,6 +1077,7 @@ RUN tar -xzf ${OPENSSL_34_TEMP} --directory /tmp && \
       enable-trace \
       threads \
       sctp \
+      shared \
       --release \
       --prefix=${OPENSSL_34_DIR} \
       && \
