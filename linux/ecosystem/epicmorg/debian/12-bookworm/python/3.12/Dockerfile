@@ -51,7 +51,7 @@ RUN ./configure \
     --enable-loadable-sqlite-extensions \
     --with-ensurepip=install \
     --enable-profiling \
-    --with-system-expat \
+  #  --with-system-expat \
     --with-computed-gotos \
     --with-pydebug \
     --with-trace-refs \

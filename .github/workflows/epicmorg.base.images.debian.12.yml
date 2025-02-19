@@ -38,8 +38,20 @@ jobs:
 
 ##################################################################################
 
-    - name: "Build and Deploy Debian 12 Python 2.6 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/php/php5.6    && pwd && make build && make deploy
+    - name: "Build and Deploy Debian 12 Python 3.9:"
+      run:  	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/python/3.9  && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 12 Python 3.10:"
+      run:  	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/python/3.10  && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 12 Python 3.11:"
+      run:  	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/python/3.11  && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 12 Python 3.12:"
+      run:  	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/python/3.12  && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 12 Python 3.12:"
+      run:  	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/python/3.13  && pwd && make build && make deploy
 
 ##################################################################################
 

@@ -38,6 +38,28 @@ jobs:
 
 ##################################################################################
 
+    - name: "Build and Deploy Debian 13 Python 3.9:"
+      run:  	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/python/3.9  && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 13 Python 3.10:"
+      run:  	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/python/3.10  && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 13 Python 3.11:"
+      run:  	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/python/3.11  && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 13 Python 3.12:"
+      run:  	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/python/3.12  && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 13 Python 3.12:"
+      run:  	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/python/3.13  && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make docker-clean
+
+##################################################################################
+
     - name: "Build and Deploy Debian 13 jdk6 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/13-trixie/jdk/jdk6    && pwd && make build && make deploy
       

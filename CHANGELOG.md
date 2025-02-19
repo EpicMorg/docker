@@ -6,6 +6,7 @@
   * updated `OpenSSL` versions.
   * created `python` base images.
   * updated `nextcloud` images.
+  * fixed `sid` and `trixie` images.
 * `jan`
   * updated `atlassian` images
   * updated some deps in images:

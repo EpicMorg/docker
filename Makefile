@@ -740,10 +740,6 @@ ecosystem-debian-trixie-base-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/develop    && pwd && make build && make deploy
 
 ecosystem-debian-trixie-python-images:
-	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/python/2.6  && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/python/2.7  && pwd && make build && make deploy
-#	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/python/3.0  && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/python/3.1  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/python/3.2  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/python/3.3  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/python/3.4  && pwd && make build && make deploy
@@ -819,10 +815,6 @@ ecosystem-debian-sid-base-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/develop    && pwd && make build && make deploy
 
 ecosystem-debian-sid-python-images:
-	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/python/2.6  && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/python/2.7  && pwd && make build && make deploy
-#	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/python/3.0  && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/python/3.1  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/python/3.2  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/python/3.3  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/python/3.4  && pwd && make build && make deploy
@@ -2484,8 +2476,8 @@ bundle-python:
 	@echo "=============================================="
 	@echo "===== Building  EpicMorg Python images  ====="
 	@echo "=============================================="
-	make ecosystem-debian-bullseye-python-images
-	make ecosystem-debian-bookworm-python-images
+#	make ecosystem-debian-bullseye-python-images
+#	make ecosystem-debian-bookworm-python-images
 	make ecosystem-debian-trixie-python-images
 	make ecosystem-debian-sid-python-images
 
