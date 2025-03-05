@@ -4,4 +4,4 @@ ansible-lint
 ansible-lint-junit
 PyYAML
 python-dotenv
-kaniko-wrapper==1.1.1.1
+kaniko-wrapper==2.0.0.1

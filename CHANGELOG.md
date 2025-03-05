@@ -1,5 +1,7 @@
 # Changelog
 ## 2025
+* `mar`
+  * updated `kaniko-wrapper` to `2.0.0.1`
 * `feb`
   * added `zabbix` images with `7.2` version
   * added `OpenSSL` version `3.4.x` and `1.0.2u`.
