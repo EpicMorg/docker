@@ -20,7 +20,6 @@ jobs:
     - name: Install buildah
       run:  |
         buildah --version
-        echo 'unqualified-search-registries = ["docker.io"]' >> /etc/containers/registries.conf
         buildah info
 
     - name: Test Make
