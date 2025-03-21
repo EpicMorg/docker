@@ -34,3 +34,5 @@ clean:
 	docker network prune -f
 	docker volume prune -f
 	docker system prune -af
+	buildah rm -a
+	buildah rmi -a

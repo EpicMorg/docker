@@ -7,23 +7,23 @@ app:
 	make deploy
 	make clean
 
+
 build:
-	kaniko-wrapper --version
+	buildah-wrapper --build
 
-dry:
-	make dry-run
+deploy:
+	buildah-wrapper --deploy
 
-test:
-	make dry-run
 
-dry-run:
-	kaniko-wrapper --kaniko-image gcr.io/kaniko-project/executor:v1.23.2-debug --dry-run
+build-kaniko:
+	kaniko-wrapper --kaniko-image gcr.io/kaniko-project/executor:debug --dry-run
+
+deploy-kaniko:
+	kaniko-wrapper --deploy --kaniko-image gcr.io/kaniko-project/executor:debug
 
 build-compose:
 	docker-compose build --compress --parallel --progress plain
 
-deploy:
-	kaniko-wrapper --deploy --kaniko-image gcr.io/kaniko-project/executor:v1.23.2-debug
 
 deploy-compose:
 	docker-compose push
@@ -34,3 +34,5 @@ clean:
 	docker network prune -f
 	docker volume prune -f
 	docker system prune -af
+	buildah rm -a
+	buildah rmi -a
