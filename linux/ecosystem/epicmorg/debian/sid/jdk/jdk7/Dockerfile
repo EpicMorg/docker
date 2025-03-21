@@ -36,7 +36,7 @@ RUN tar -xvzf ${K_JDK_TEMP} --directory /usr/local && \
 #ENV GRADLE_BIN=${GRADLE_PATH}/bin
 #ARG GRADLE_TEMP=/tmp/gradle-${GRADLE_VERSION}-all.zip
 
-#ENV KTC_VERSION=2.1.0
+#ENV KTC_VERSION=2.1.10
 #ENV KTC_LINK=https://github.com/JetBrains/kotlin/releases/download/v${KTC_VERSION}/kotlin-compiler-${KTC_VERSION}.zip
 #ARG KTC_TEMP=/tmp/kotlin-compiler-${KTC_VERSION}.zip
 #ENV KTC_ROOT=${EMG_LOCAL_BASE_DIR}/kotlin/${KTC_VERSION}

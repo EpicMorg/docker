@@ -3,9 +3,9 @@ LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
 ARG K_JDK_MAJOR_VERSION=11
-ARG K_JDK_FULL_VERSION=jdk-11.0.25
-ARG K_JDK_VERSION=11.0.25
-ARG K_JDK_BUILD_VERSION=9
+ARG K_JDK_FULL_VERSION=jdk-11.0.26
+ARG K_JDK_VERSION=11.0.26
+ARG K_JDK_BUILD_VERSION=4
 ARG K_JDK_URL=https://github.com/adoptium/temurin${K_JDK_MAJOR_VERSION}-binaries/releases/download/${K_JDK_FULL_VERSION}+${K_JDK_BUILD_VERSION}/OpenJDK${K_JDK_MAJOR_VERSION}U-jdk_x64_linux_hotspot_${K_JDK_VERSION}_${K_JDK_BUILD_VERSION}.tar.gz
 ARG K_JDK_TEMP=/tmp/OpenJDK${K_JDK_MAJOR_VERSION}U-jdk_x64_linux_hotspot_${K_JDK_VERSION}_${K_JDK_BUILD_VERSION}.tar.gz
 
@@ -29,14 +29,14 @@ ENV MAVEN_PATH=${MAVEN_ROOT}/apache-maven-${MAVEN_VERSION}
 ENV MAVEN_BIN=${MAVEN_PATH}/bin
 ARG MAVEN_TEMP=/tmp/apache-maven-${MAVEN_VERSION}-bin.zip
 
-ENV GRADLE_VERSION=8.12
+ENV GRADLE_VERSION=8.13
 ENV GRADLE_LINK=https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-all.zip
 ENV GRADLE_ROOT=${EMG_LOCAL_BASE_DIR}/gradle/${GRADLE_VERSION}
 ENV GRADLE_PATH=${GRADLE_ROOT}/gradle-${GRADLE_VERSION}
 ENV GRADLE_BIN=${GRADLE_PATH}/bin
 ARG GRADLE_TEMP=/tmp/gradle-${GRADLE_VERSION}-all.zip
 
-ENV KTC_VERSION=2.1.0
+ENV KTC_VERSION=2.1.10
 ENV KTC_LINK=https://github.com/JetBrains/kotlin/releases/download/v${KTC_VERSION}/kotlin-compiler-${KTC_VERSION}.zip
 ARG KTC_TEMP=/tmp/kotlin-compiler-${KTC_VERSION}.zip
 ENV KTC_ROOT=${EMG_LOCAL_BASE_DIR}/kotlin/${KTC_VERSION}

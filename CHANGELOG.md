@@ -2,6 +2,10 @@
 ## 2025
 * `mar`
   * updated `kaniko-wrapper` to `2.0.0.1`
+  * installed `buildah-wrapper` `0.0.0.2`
+  * Makefiles switched to buildah build runtime
+  * GHA switched to buildah build runtime
+  * updated nodejs, jdk images
 * `feb`
   * added `zabbix` images with `7.2` version
   * added `OpenSSL` version `3.4.x` and `1.0.2u`.
