@@ -19,8 +19,6 @@ jobs:
 
     - name: Install buildah
       run:  |
-        apt-get update 
-        apt-get install -y buildah
         buildah --version
         echo 'unqualified-search-registries = ["docker.io"]' >> /etc/containers/registries.conf
         buildah info
