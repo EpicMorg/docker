@@ -1,31 +1,31 @@
 # broken envs, generating without it
 #- name: "Generate images for Jira 4 (jdk6)"
 #  import_tasks: atlassian.jira.4.jdk6.yml
-
-- name: "Generate images for Jira 5.0-5.1 (jdk6)"
-  import_tasks: atlassian.jira.5.jdk6.yml
-
-- name: "Generate images for Jira 5.2 (jdk6, jdk7)"
-  import_tasks: atlassian.jira.5.jdk6-7.yml
-
-- name: "Generate images for Jira 6.0-6.2 (jdk7)"
-  import_tasks: atlassian.jira.6.jdk7.yml
-
-- name: "Generate images for Jira 6.3-6.4 (jdk7, jdk8)"
-  import_tasks: atlassian.jira.6.jdk7-8.yml
-
-- name: "Generate images for Jira 7 (jdk8) - old links"
-  import_tasks: atlassian.jira.7.jdk8p1.yml
-
-- name: "Generate images for Jira 7 (jdk8)"
-  import_tasks: atlassian.jira.7.jdk8p2.yml
-
-- name: "Generate images for Jira 8.0-8.1 (jdk8)"
-  import_tasks: atlassian.jira.8.jdk8.yml
-
-- name: "Generate images for Jira 8.2-8.20 (jdk8, jdk11)"
-  import_tasks: atlassian.jira.8.jdk8-11.yml
-
+# 
+# - name: "Generate images for Jira 5.0-5.1 (jdk6)"
+#   import_tasks: atlassian.jira.5.jdk6.yml
+# 
+# - name: "Generate images for Jira 5.2 (jdk6, jdk7)"
+#   import_tasks: atlassian.jira.5.jdk6-7.yml
+# 
+# - name: "Generate images for Jira 6.0-6.2 (jdk7)"
+#   import_tasks: atlassian.jira.6.jdk7.yml
+# 
+# - name: "Generate images for Jira 6.3-6.4 (jdk7, jdk8)"
+#   import_tasks: atlassian.jira.6.jdk7-8.yml
+# 
+# - name: "Generate images for Jira 7 (jdk8) - old links"
+#   import_tasks: atlassian.jira.7.jdk8p1.yml
+# 
+# - name: "Generate images for Jira 7 (jdk8)"
+#   import_tasks: atlassian.jira.7.jdk8p2.yml
+# 
+# - name: "Generate images for Jira 8.0-8.1 (jdk8)"
+#   import_tasks: atlassian.jira.8.jdk8.yml
+# 
+# - name: "Generate images for Jira 8.2-8.20 (jdk8, jdk11)"
+#   import_tasks: atlassian.jira.8.jdk8-11.yml
+# 
 - name: "Generate images for Jira 9.0-9.5 (jdk8, jdk11)"
   import_tasks: atlassian.jira.9.jdk8-11.yml
 
