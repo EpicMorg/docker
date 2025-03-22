@@ -1,4 +1,3 @@
-#version: '3.9'
 services:
   app:
     image: "epicmorg/testrail:auth-ldap-7.4.1.8079"

@@ -1,0 +1,9 @@
+services:
+  app:
+    image: "epicmorg/confluence:{{ item }}"
+    build:
+      context: .
+  app-jdk8:
+    image: "epicmorg/confluence:{{ item }}-jdk8"
+    build:
+      context: .

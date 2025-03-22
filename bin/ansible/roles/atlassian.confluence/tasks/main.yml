@@ -1,0 +1,11 @@
+- name: "Generate images for Confluence 4 (jdk6)"
+  import_tasks: atlassian.confluence.4.jdk6.yml
+
+- name: "Generate images for Confluence 4 (jdk6 + jdk7)"
+  import_tasks: atlassian.confluence.4.jdk6-jdk7.yml
+
+- name: "Generate images for Confluence 5 (jdk7)"
+  import_tasks: atlassian.confluence.5.jdk7.yml
+
+- name: "Generate images for Confluence 5 (jdk7 + jdk8)"
+  import_tasks: atlassian.confluence.5.jdk7-jdk8.yml

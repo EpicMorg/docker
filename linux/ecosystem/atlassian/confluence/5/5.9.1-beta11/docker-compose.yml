@@ -1,0 +1,9 @@
+services:
+  app:
+    image: "epicmorg/confluence:5.9.1-beta11"
+    build:
+      context: .
+  app-jdk6:
+    image: "epicmorg/confluence:5.9.1-beta11-jdk6"
+    build:
+      context: .
