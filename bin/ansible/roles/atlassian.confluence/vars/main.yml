@@ -1,0 +1,10 @@
+# Defaults
+target_directory_confluence_1: "/opt/tmp/confluence/1"
+target_directory_confluence_2: "/opt/tmp/confluence/2"
+target_directory_confluence_3: "/opt/tmp/confluence/3"
+target_directory_confluence_4: "/opt/tmp/confluence/4"
+target_directory_confluence_5: "/opt/tmp/confluence/5"
+target_directory_confluence_6: "/opt/tmp/confluence/6"
+target_directory_confluence_7: "/opt/tmp/confluence/7"
+target_directory_confluence_8: "/opt/tmp/confluence/8"
+target_directory_confluence_9: "/opt/tmp/confluence/9"

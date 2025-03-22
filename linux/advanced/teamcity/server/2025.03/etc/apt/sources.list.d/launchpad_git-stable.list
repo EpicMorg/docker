@@ -1,0 +1,3 @@
+# stable
+deb [signed-by=/etc/apt/keyrings/launchpad-git.gpg] https://ppa.launchpadcontent.net/git-core/ppa/ubuntu jammy main
+deb-src [signed-by=/etc/apt/keyrings/launchpad-git.gpg] https://ppa.launchpadcontent.net/git-core/ppa/ubuntu jammy main

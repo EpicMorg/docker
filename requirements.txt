@@ -4,5 +4,5 @@ ansible-lint
 ansible-lint-junit
 PyYAML
 python-dotenv
-kaniko-wrapper==2.0.0.1
-buildah-wrapper==0.0.0.2
+kaniko-wrapper
+buildah-wrapper

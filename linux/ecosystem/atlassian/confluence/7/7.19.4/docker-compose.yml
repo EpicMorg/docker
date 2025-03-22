@@ -1,7 +1,10 @@
-#version: '3'
 services:
   app:
     image: "epicmorg/confluence:7.19.4"
+    build:
+      context: .
+  app-jdk8:
+    image: "epicmorg/confluence:7.19.4-jdk8"
     build:
       context: .
   app-jdk11:

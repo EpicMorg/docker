@@ -7,6 +7,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 ARG RELEASE=9.17.4
 ARG DOWNLOAD_URL=https://www.atlassian.com/software/jira/downloads/binary/atlassian-jira-software-${RELEASE}.tar.gz
+ARG TEMP_ARCHIVE=/tmp/atlassian-jira-software-${RELEASE}.tar.gz
 
 ##################################################################
 #                   Setup
@@ -29,7 +30,7 @@ EXPOSE 8080
 ##################################################################
 ADD ${DOWNLOAD_URL} /tmp
 RUN mkdir -p ${JIRA_INSTALL_DIR} && \
-    tar -xvzf /tmp/atlassian-jira-software-${RELEASE}.tar.gz --strip-components=1 --directory "${JIRA_INSTALL_DIR}" && \
+    tar -xvzf ${TEMP_ARCHIVE} --strip-components=1 --directory "${JIRA_INSTALL_DIR}" && \
     chown -R ${RUN_USER}:${RUN_GROUP} ${JIRA_INSTALL_DIR}/ && \
     sed -i -e 's/^JVM_SUPPORT_RECOMMENDED_ARGS=""$/: \${JVM_SUPPORT_RECOMMENDED_ARGS:=""}/g' ${JIRA_INSTALL_DIR}/bin/setenv.sh && \
     sed -i -e 's/^JVM_\(.*\)_MEMORY="\(.*\)"$/: \${JVM_\1_MEMORY:=\2}/g' ${JIRA_INSTALL_DIR}/bin/setenv.sh && \

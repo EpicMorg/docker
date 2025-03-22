@@ -9,7 +9,6 @@
 # Ready docker-compose example
 
 ```yml
-version: "3.9"
 services:
   freegpt-webui:
     image: epicmorg/freegpt-webui:latest #1.3.2, <...>, 1.0, etc

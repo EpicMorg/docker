@@ -1,0 +1,5 @@
+services:
+  app:
+    image: "epicmorg/gitlab-runner:node15"
+    build:
+      context: .

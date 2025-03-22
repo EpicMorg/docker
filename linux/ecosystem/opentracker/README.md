@@ -30,8 +30,6 @@ docker run \
 Or with `docker-compose.yml` file:
 
 ```yml
-version: "3"
-
 services:
   tracker:
     image: wiltonsr/opentracker:open

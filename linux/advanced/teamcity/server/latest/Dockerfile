@@ -210,8 +210,14 @@ ENV PATH="${P4_BIN_DIR}:${PATH}"
 
 # Update internal p4 binary to new
 RUN rm -rfv /opt/perforce/bin/p4 && \
-    ln -sfv ${P4_BIN_DIR}/p4 /opt/perforce/bin/p4  && \
-    ln -sfv ${P4_BIN_DIR}/p4 /opt/perforce/usr/bin/p4
+    rm -rfv /bin/p4 && \
+    rm -rfv /sbin/p4 && \
+    rm -rfv /usr/bin/p4 && \
+    rm -rfv /usr/sbin/p4 && \
+    rm -rfv /usr/local/bin/p4 && \
+    rm -rfv /usr/local/sbin/p4
+
+ENV PATH="${P4_BIN_DIR}:${PATH}"
 
 ##################################################################
 #                   Install 7z official binary

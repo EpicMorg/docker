@@ -1,7 +1,6 @@
 # Compose example
 
-```yml
-services:
+```ymlservices:
   ninjam:
     hostname: ninjam
     container_name: ninjam

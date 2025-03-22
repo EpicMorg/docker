@@ -1,7 +1,6 @@
 # Compose example
 
 ```yml
-version: '3.7'
 services:
   balancer:
     image: epicmorg/balancer

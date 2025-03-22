@@ -1,4 +1,3 @@
-#version: '3.9'
 services:
   app:
     image: "epicmorg/jira:10.3.1"

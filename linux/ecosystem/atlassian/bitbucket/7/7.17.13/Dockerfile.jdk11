@@ -7,6 +7,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 ARG RELEASE=7.17.13
 ARG DOWNLOAD_URL=https://www.atlassian.com/software/stash/downloads/binary/atlassian-bitbucket-${RELEASE}.tar.gz
+ARG TEMP_ARCHIVE=/tmp/atlassian-bitbucket-${RELEASE}.tar.gz
 
 ##################################################################
 #                   Setup
@@ -30,7 +31,7 @@ EXPOSE 7999
 ##################################################################
 ADD ${DOWNLOAD_URL} /tmp
 RUN mkdir -p                                 ${BITBUCKET_INSTALL_DIR} &&  \
-    tar -xvzf /tmp/atlassian-bitbucket-${RELEASE}.tar.gz --strip-components=1 --directory "${BITBUCKET_INSTALL_DIR}" && \
+    tar -xvzf ${TEMP_ARCHIVE} --strip-components=1 --directory "${BITBUCKET_INSTALL_DIR}" && \
     chown -R ${RUN_USER}:${RUN_GROUP}        ${BITBUCKET_INSTALL_DIR}
 
 ##################################################################

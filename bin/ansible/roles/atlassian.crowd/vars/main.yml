@@ -1,0 +1,8 @@
+# Defaults
+target_directory_crowd_0: "/opt/tmp/crowd/0"
+target_directory_crowd_1: "/opt/tmp/crowd/1"
+target_directory_crowd_2: "/opt/tmp/crowd/2"
+target_directory_crowd_3: "/opt/tmp/crowd/3"
+target_directory_crowd_4: "/opt/tmp/crowd/4"
+target_directory_crowd_5: "/opt/tmp/crowd/5"
+target_directory_crowd_6: "/opt/tmp/crowd/6"

@@ -9,7 +9,6 @@ This is a custom improved image from this [original repository](https://github.c
 ## Compose example
 
 ```yml
-version: '3.7'
 services:
   mysql:
     container_name: mysql

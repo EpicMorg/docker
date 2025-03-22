@@ -1,13 +1,13 @@
-FROM epicmorg/debian:bullseye-jdk8
-LABEL maintainer="Atlassian Jira Server Team; EpicMorg DevTeam, developer@epicm.org"
+FROM epicmorg/debian:bookworm-jdk8
+LABEL maintainer="Atlassian Confluence Server Team; EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
 ##################################################################
 #                   ARGuments
 ##################################################################
-ARG RELEASE
-ARG DOWNLOAD_URL
-
+ARG RELEASE=6.8.2
+ARG DOWNLOAD_URL=https://www.atlassian.com/software/confluence/downloads/binary/atlassian-confluence-${RELEASE}.tar.gz
+ARG TEMP_ARCHIVE=/tmp/atlassian-confluence-${RELEASE}.tar.gz
 
 ##################################################################
 #                   Setup
@@ -29,22 +29,36 @@ EXPOSE 8091
 ##################################################################
 #                   Installing
 ##################################################################
-RUN mkdir -p                             ${CONFLUENCE_INSTALL_DIR} \
-    && curl -L                           ${DOWNLOAD_URL} | tar -xz --strip-components=1 -C "$CONFLUENCE_INSTALL_DIR" \
-    && chown -R ${RUN_USER}:${RUN_GROUP} ${CONFLUENCE_INSTALL_DIR}/ \
-    && sed -i -e 's/-Xms\([0-9]\+[kmg]\) -Xmx\([0-9]\+[kmg]\)/-Xms\${JVM_MINIMUM_MEMORY:=\1} -Xmx\${JVM_MAXIMUM_MEMORY:=\2} \${JVM_SUPPORT_RECOMMENDED_ARGS} -Dconfluence.home=\${CONFLUENCE_HOME}/g' ${CONFLUENCE_INSTALL_DIR}/bin/setenv.sh \
-    && sed -i -e 's/port="8090"/port="8090" secure="${catalinaConnectorSecure}" scheme="${catalinaConnectorScheme}" proxyName="${catalinaConnectorProxyName}" proxyPort="${catalinaConnectorProxyPort}"/' ${CONFLUENCE_INSTALL_DIR}/conf/server.xml && \
-
-    update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8 && \
-    apt clean -y && \
-    apt autoclean -y && \
+ADD ${DOWNLOAD_URL} /tmp
+RUN mkdir -p ${CONFLUENCE_INSTALL_DIR} && \
+    tar -xvzf ${TEMP_ARCHIVE} --strip-components=1 --directory "${CONFLUENCE_INSTALL_DIR}" && \
+    chown -R ${RUN_USER}:${RUN_GROUP} ${CONFLUENCE_INSTALL_DIR}/ && \
+    sed -i -e 's/-Xms\([0-9]\+[kmg]\) -Xmx\([0-9]\+[kmg]\)/-Xms\${JVM_MINIMUM_MEMORY:=\1} -Xmx\${JVM_MAXIMUM_MEMORY:=\2} \${JVM_SUPPORT_RECOMMENDED_ARGS} -Dconfluence.home=\${CONFLUENCE_HOME}/g' ${CONFLUENCE_INSTALL_DIR}/bin/setenv.sh && \
+    sed -i -e 's/port="8090"/port="8090" secure="${catalinaConnectorSecure}" scheme="${catalinaConnectorScheme}" proxyName="${catalinaConnectorProxyName}" proxyPort="${catalinaConnectorProxyPort}"/' ${CONFLUENCE_INSTALL_DIR}/conf/server.xml && \
+    apt-get clean -y && \
+    apt-get autoremove -y && \
+    apt-get autoclean -y && \
     rm -rfv /var/lib/apt/lists/* && \
-    rm -rfv /var/cache/apt/archives/*.deb
+    rm -rfv /var/cache/apt/archives/*.deb && \
+    rm -rfv /root/tmp/* && \
+    rm -rfv /tmp/*
 
-RUN updatedb
+##################################################################
+#                  cleanup
+##################################################################
+RUN echo "clean up" && \
+    apt-get clean -y && \
+    apt-get autoremove -y && \
+    apt-get autoclean -y && \
+    rm -rfv /var/lib/apt/lists/* && \
+    rm -rfv /var/cache/apt/archives/*.deb && \
+    rm -rfv /root/tmp/* && \
+    rm -rfv /tmp/*
 
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
 CMD ["/entrypoint.sh", "-fg"]
 ENTRYPOINT ["/usr/bin/tini", "--"]
+
+RUN updatedb

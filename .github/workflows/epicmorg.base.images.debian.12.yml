@@ -5,6 +5,10 @@ on:
   schedule:
     - cron:  '0 0 * * 1,3,5'
 
+env:
+  BUILDAH_FORMAT: docker
+  BUILDAH_ISOLATION: docker
+
 jobs:
 
   build-10-images:

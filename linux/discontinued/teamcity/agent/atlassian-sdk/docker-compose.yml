@@ -1,0 +1,5 @@
+services:
+  app:
+    image: "epicmorg/teamcity-agent:atlassian-sdk"
+    build:
+      context: .

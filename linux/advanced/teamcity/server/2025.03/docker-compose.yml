@@ -1,0 +1,5 @@
+services:
+  app:
+    image: "epicmorg/teamcity-server:2025.03"
+    build:
+      context: .

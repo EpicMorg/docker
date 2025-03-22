@@ -1,0 +1,14 @@
+services:
+  app:
+    image: "epicmorg/confluence:4.2.7"
+    build:
+      context: .
+  app-jdk6:
+    image: "epicmorg/confluence:4.2.7-jdk6"
+    build:
+      context: .
+  app-jdk7:
+    image: "epicmorg/confluence:4.2.7-jdk7"
+    build:
+      context: .
+      dockerfile: Dockerfile.jdk7

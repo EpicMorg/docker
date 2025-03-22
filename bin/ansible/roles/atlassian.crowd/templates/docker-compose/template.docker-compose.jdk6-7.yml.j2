@@ -1,0 +1,14 @@
+services:
+  app:
+    image: "epicmorg/crowd:{{ item }}"
+    build:
+      context: .
+  app-jdk6:
+    image: "epicmorg/crowd:{{ item }}-jdk6"
+    build:
+      context: .
+  app-jdk7:
+    image: "epicmorg/crowd:{{ item }}-jdk7"
+    build:
+      context: .
+      dockerfile: Dockerfile.jdk7

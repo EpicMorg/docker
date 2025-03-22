@@ -1,4 +1,3 @@
-#version: '3'
 services:
   qbt:
     image: "epicmorg/qbittorrent:4.6.4"

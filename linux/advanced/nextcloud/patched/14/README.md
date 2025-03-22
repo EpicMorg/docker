@@ -216,12 +216,10 @@ This version will use the apache image and add a mariaDB container. The volumes 
 Make sure to pass in values for `MYSQL_ROOT_PASSWORD` and `MYSQL_PASSWORD` variables before you run this setup.
 
 ```yaml
-version: '2'
 
 volumes:
   nextcloud:
   db:
-
 services:
   db:
     image: mariadb
@@ -257,12 +255,10 @@ As this setup does **not include encryption**, it should be run behind a proxy.
 Make sure to pass in values for `MYSQL_ROOT_PASSWORD` and `MYSQL_PASSWORD` variables before you run this setup.
 
 ```yaml
-version: '2'
 
 volumes:
   nextcloud:
   db:
-
 services:
   db:
     image: mariadb
@@ -302,8 +298,6 @@ Then run `docker-compose up -d`, now you can access Nextcloud at http://localhos
 # Docker Secrets
 As an alternative to passing sensitive information via environment variables, _FILE may be appended to the previously listed environment variables, causing the initialization script to load the values for those variables from files present in the container. In particular, this can be used to load passwords from Docker secrets stored in /run/secrets/<secret_name> files. For example:
 ```yaml
-version: '3.2'
-
 services:
   db:
     image: postgres

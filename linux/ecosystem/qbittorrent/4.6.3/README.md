@@ -21,9 +21,7 @@ QBT_PORT_TRACKER=9000
 
 ### Exampe
 
-``` yaml
-version: '3.9'
-services:
+``` yamlservices:
   qbittorrent:
     image: epicmorg/qbittorrent:latest
     container_name: qbittorrent

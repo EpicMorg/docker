@@ -101,8 +101,6 @@ Example `stack.yml` for `postgres`:
 
 ```yaml
 # Use postgres/example user/password credentials
-version: '3.1'
-
 services:
 
   db:

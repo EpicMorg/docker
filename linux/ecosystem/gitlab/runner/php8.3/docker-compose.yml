@@ -1,6 +1,0 @@
-#version: '3'
-services:
-  app:
-    image: "epicmorg/gitlab-runner:php8.3"
-    build:
-      context: .

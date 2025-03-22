@@ -5,7 +5,6 @@
 # Compose example
 
 ```yml
-version: '3.7'
 services:
   testrail:
     image: epicmorg/testrail-ad-:5.7.0.3942

@@ -5,7 +5,6 @@
 # Compose example
 
 ```yml
-version: '3.7'
 services:
   testrail:
     image: epicmorg/testrail:auth-ldap-6.1.0.4367

@@ -9,7 +9,7 @@ RUN mkdir -p ${GITLAB_RUNNER_HOME} ${GITLAB_RUNNER_CONF} ${GITLAB_RUNNER_CONF}/c
     chmod -R 700 /etc/gitlab-runner
 
 ##################################################################
-#                    docker setup
+#                    docker and buildah setup
 ##################################################################
 
 #Install packages
@@ -24,11 +24,17 @@ RUN install -m 0755 -d /etc/apt/keyrings && \
       containerd.io \
       docker-buildx-plugin \
       docker-compose-plugin \
+      buildah \
+      fuse-overlayfs \
       systemd && \
     systemctl disable docker && \
-    docker --version
+    docker --version && \
+    buildah --version
 
 COPY run-docker.sh /services/run-docker.sh
+COPY etc/containers/registries.conf /etc/containers/registries.conf
+COPY etc/containers/storage.conf /etc/containers/storage.conf
+
 RUN chmod +x /services/run-docker.sh && \
     sync
 
@@ -65,7 +71,7 @@ RUN apt clean -y && \
 
 #Final config
 STOPSIGNAL SIGQUIT
-VOLUME ["${GITLAB_RUNNER_CONF}", "/home/gitlab-runner", "/var/lib/docker"]
+VOLUME ["${GITLAB_RUNNER_CONF}", "/home/gitlab-runner", "/var/lib/docker", "/var/lib/containers"]
 WORKDIR /home/gitlab-runner
 
 # Add image configuration and scripts

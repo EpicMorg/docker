@@ -1,25 +1,14 @@
-#version: '3'
 services:
   app:
-    image: "epicmorg/confluence:${RELEASE}"
+    image: "epicmorg/confluence:8.0.1"
     build:
       context: .
-      args:
-        RELEASE: ${RELEASE}
-        DOWNLOAD_URL: ${DOWNLOAD_URL}
   app-jdk11:
-    image: "epicmorg/confluence:${RELEASE}-jdk11"
+    image: "epicmorg/confluence:8.0.1-jdk11"
     build:
       context: .
-      dockerfile: Dockerfile.jdk11
-      args:
-        RELEASE: ${RELEASE}
-        DOWNLOAD_URL: ${DOWNLOAD_URL}
   app-jdk17:
-    image: "epicmorg/confluence:${RELEASE}-jdk17"
+    image: "epicmorg/confluence:8.0.1-jdk17"
     build:
       context: .
       dockerfile: Dockerfile.jdk17
-      args:
-        RELEASE: ${RELEASE}
-        DOWNLOAD_URL: ${DOWNLOAD_URL}

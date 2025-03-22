@@ -1,4 +1,3 @@
-#version: '3.9'
 services:
   app:
     image: "epicmorg/testrail:7.0.2.1014"

@@ -1,4 +1,4 @@
-VERSION                       =  "2024.12.03"
+VERSION                       =  "2025.03.22"
 AUTHOR                        =  "EpicMorg"
 MODIFIED                      =  "STAM"
 DOCKER_SCAN_SUGGEST           = false
@@ -34,6 +34,9 @@ ansible.gen.jira:
 
 ansible.gen.confluence:
 	cd `pwd`/bin/ansible			&& ansible-playbook ./generate.confluence.yml
+
+ansible.gen.crowd:
+	cd `pwd`/bin/ansible			&& ansible-playbook ./generate.crowd.yml
 
 ansible.gen.bitbucket:
 	cd `pwd`/bin/ansible			&& ansible-playbook ./generate.bitbucket.yml
@@ -98,7 +101,6 @@ advanced-images:
 advanced-mattermost-images:
 	cd `pwd`/linux/advanced/mattermost			&& pwd && make build && make deploy
 
-
 advanced-nextcloud-all-images:
 	make advanced-nextcloud-all-latest-images
 	make advanced-nextcloud-images
@@ -116,12 +118,13 @@ advanced-nextcloud-patched-latest-images:
 
 advanced-teamcity-server-images:
 	cd `pwd`/linux/advanced/teamcity/server/latest	       && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/teamcity/server/2025.03        && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/teamcity/server/2024.12        && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/teamcity/server/2024.07.3      && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/teamcity/server/2024.03.3      && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/teamcity/server/2023.05.6      && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/teamcity/server/2022.10.6      && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/teamcity/server/2022.04.7      && pwd && make build && make deploy
+#	cd `pwd`/linux/advanced/teamcity/server/2024.07.3      && pwd && make build && make deploy
+#	cd `pwd`/linux/advanced/teamcity/server/2024.03.3      && pwd && make build && make deploy
+#	cd `pwd`/linux/advanced/teamcity/server/2023.05.6      && pwd && make build && make deploy
+#	cd `pwd`/linux/advanced/teamcity/server/2022.10.6      && pwd && make build && make deploy
+#	cd `pwd`/linux/advanced/teamcity/server/2022.04.7      && pwd && make build && make deploy
 
 ####################################################################################################################
 
@@ -1173,77 +1176,9 @@ ecosystem-postgres-images:
 
 ecosystem-teamcity-agent-images:
 	cd `pwd`/linux/ecosystem/teamcity/agent/latest         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/teamcity/agent/amxx-sdk/1.9   && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/teamcity/agent/amxx-sdk/1.10  && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/teamcity/agent/android-sdk/jdk8    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/teamcity/agent/android-sdk/jdk11    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/teamcity/agent/android-sdk/jdk17    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/teamcity/agent/atlassian-sdk  && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/teamcity/agent/dotnet-sdk     && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/teamcity/agent/node0.12         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/teamcity/agent/node4         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/teamcity/agent/node5         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/teamcity/agent/node6         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/teamcity/agent/node7         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/teamcity/agent/node8         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/teamcity/agent/node9         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/teamcity/agent/node10         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/teamcity/agent/node11         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/teamcity/agent/node12         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/teamcity/agent/node13         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/teamcity/agent/node14         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/teamcity/agent/node15         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/teamcity/agent/node16         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/teamcity/agent/node17         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/teamcity/agent/node18         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/teamcity/agent/node19         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/teamcity/agent/node20         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/teamcity/agent/node21         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/teamcity/agent/node22         && pwd && make build && make deploy
-#	cd `pwd`/linux/ecosystem/teamcity/agent/php7.2         && pwd && make build && make deploy
-#	cd `pwd`/linux/ecosystem/teamcity/agent/php7.3         && pwd && make build && make deploy
-#	cd `pwd`/linux/ecosystem/teamcity/agent/php7.4         && pwd && make build && make deploy
-#	cd `pwd`/linux/ecosystem/teamcity/agent/php8.0         && pwd && make build && make deploy
-#	cd `pwd`/linux/ecosystem/teamcity/agent/php8.1         && pwd && make build && make deploy
-#	cd `pwd`/linux/ecosystem/teamcity/agent/php8.2         && pwd && make build && make deploy
-#	cd `pwd`/linux/ecosystem/teamcity/agent/php8.3         && pwd && make build && make deploy
-#	cd `pwd`/linux/ecosystem/teamcity/agent/steam-sdk      && pwd && make build && make deploy
 
 ecosystem-gitlab-runner-images:
 	cd `pwd`/linux/ecosystem/gitlab/runner/latest         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/gitlab/runner/amxx-sdk/1.9   && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/gitlab/runner/amxx-sdk/1.10  && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/gitlab/runner/android-sdk/jdk8    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/gitlab/runner/android-sdk/jdk11    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/gitlab/runner/android-sdk/jdk17    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/gitlab/runner/atlassian-sdk  && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/gitlab/runner/dotnet-sdk     && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/gitlab/runner/node0.12         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/gitlab/runner/node4         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/gitlab/runner/node5         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/gitlab/runner/node6         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/gitlab/runner/node7        && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/gitlab/runner/node8         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/gitlab/runner/node9         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/gitlab/runner/node10         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/gitlab/runner/node11         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/gitlab/runner/node12         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/gitlab/runner/node13         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/gitlab/runner/node14         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/gitlab/runner/node15         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/gitlab/runner/node16         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/gitlab/runner/node17         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/gitlab/runner/node18         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/gitlab/runner/node19         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/gitlab/runner/node20         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/gitlab/runner/node21         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/gitlab/runner/node22         && pwd && make build && make deploy
-#	cd `pwd`/linux/ecosystem/gitlab/runner/php7.2         && pwd && make build && make deploy
-#	cd `pwd`/linux/ecosystem/gitlab/runner/php7.3         && pwd && make build && make deploy
-#	cd `pwd`/linux/ecosystem/gitlab/runner/php7.4         && pwd && make build && make deploy
-#	cd `pwd`/linux/ecosystem/gitlab/runner/php8.1         && pwd && make build && make deploy
-#	cd `pwd`/linux/ecosystem/gitlab/runner/php8.2         && pwd && make build && make deploy
-#	cd `pwd`/linux/ecosystem/gitlab/runner/php8.3         && pwd && make build && make deploy
 
 ecosystem-nginx-images:
 	cd `pwd`/linux/ecosystem/nginx/latest/mainline/main      && pwd && make build && make deploy
@@ -1931,6 +1866,10 @@ ecosystem-bitbucket-8-images:
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.19.10                 && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.19.11                 && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.19.12                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.19.13                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.19.14                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.19.15                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.19.16                 && pwd && make build && make deploy
 
 ecosystem-bitbucket-9-images:
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/9/9.0.0                  && pwd && make build && make deploy
@@ -1943,7 +1882,697 @@ ecosystem-bitbucket-9-images:
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/9/9.3.1                  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/9/9.3.2                  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/9/9.4.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/9/9.4.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/9/9.4.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/9/9.4.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/9/9.4.4                  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/9/9.5.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/9/9.5.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/9/9.5.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/9/9.6.0                  && pwd && make build && make deploy
+
+ecosystem-confluence-4-images:
+	cd `pwd`/linux/ecosystem/atlassian/confluence/4/4.0                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/4/4.0.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/4/4.0.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/4/4.0.5                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/4/4.0.7                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/4/4.1                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/4/4.1.10                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/4/4.1.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/4/4.1.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/4/4.1.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/4/4.1.5                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/4/4.1.6                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/4/4.1.7                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/4/4.1.9                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/4/4.2                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/4/4.2.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/4/4.2.11                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/4/4.2.12                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/4/4.2.13                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/4/4.2.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/4/4.2.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/4/4.2.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/4/4.2.5                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/4/4.2.6                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/4/4.2.7                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/4/4.2.8                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/4/4.3                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/4/4.3.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/4/4.3.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/4/4.3.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/4/4.3.5                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/4/4.3.6                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/4/4.3.7                  && pwd && make build && make deploy
+
+ecosystem-confluence-5-images:
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.0                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.0.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.0.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.0.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.1                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.10.0                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.10.1                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.10.2                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.10.3                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.10.4                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.10.6                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.10.7                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.10.8                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.10.9                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.1.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.1.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.1.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.1.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.1.5                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.2.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.2.5                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.3                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.3.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.3.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.4                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.4.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.4.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.4.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.4.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.5                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.5.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.5.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.5.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.5.6                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.5-OD-31-009          && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.6.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.6.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.6.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.6.5                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.6.6                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.7                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.7.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.7.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.7.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.7.5                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.7.6                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.8.10                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.8.13                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.8.14                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.8.15                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.8.16                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.8.17                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.8.18                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.8.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.8.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.8.5                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.8.6                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.8.8                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.8.9                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.9.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.9.10                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.9.11                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.9.12                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.9.14                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.9.1-beta11           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.9.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.9.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.9.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.9.5                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.9.6                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.9.7                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.9.8                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.9.9                  && pwd && make build && make deploy
+
+ecosystem-confluence-6-images:
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.0.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.0.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.0.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.0.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.0.5                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.0.6                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.0.7                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.1.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.10.0                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.10.1                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.10.2                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.10.3                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.1.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.11.0                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.11.1                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.11.2                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.1.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.12.0                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.12.1                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.12.2                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.12.3                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.12.4                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.1.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.13.0                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.13.1                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.13.10                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.13.11                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.13.12                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.13.13                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.13.15                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.13.17                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.13.18                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.13.19                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.13.2                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.13.20                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.13.21                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.13.23                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.13.3                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.13.4                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.13.5                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.13.6                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.13.7                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.13.8                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.13.9                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.1.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.14.0                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.14.1                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.14.2                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.14.3                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.15.1                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.15.10                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.15.2                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.15.4                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.15.6                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.15.7                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.15.8                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.15.9                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.2.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.2.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.2.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.2.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.2.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.3.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.3.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.3.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.3.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.4.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.4.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.4.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.4.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.5.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.5.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.5.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.5.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.6.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.6.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.6.10                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.6.11                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.6.12                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.6.13                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.6.14                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.6.15                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.6.16                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.6.17                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.6.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.6.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.6.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.6.5                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.6.6                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.6.7                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.6.8                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.6.9                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.7.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.7.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.7.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.7.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.8.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.8.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.8.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.8.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.8.5                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.9.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.9.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.9.3                  && pwd && make build && make deploy
+
+ecosystem-confluence-7-images:
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.0.1                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.0.2                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.0.3                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.0.4                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.0.5                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.1.0                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.10.0                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.10.1                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.10.2                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.1.1                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.11.0                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.11.1                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.11.2                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.11.3                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.11.6                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.1.2                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.12.0                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.12.1                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.12.2                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.12.3                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.12.4                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.12.5                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.13.0                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.13.1                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.13.11               && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.13.12               && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.13.13               && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.13.14               && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.13.15               && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.13.16               && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.13.17               && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.13.18               && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.13.19               && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.13.2                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.13.20               && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.13.3                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.13.4                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.13.5                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.13.6                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.13.7                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.13.8                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.13.9                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.14.0                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.14.1                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.14.2                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.14.3                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.14.4                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.15.0                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.15.1                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.15.2                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.15.3                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.16.0                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.16.1                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.16.2                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.16.3                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.16.4                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.16.5                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.17.0                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.17.1                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.17.2                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.17.3                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.17.4                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.17.5                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.18.0                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.18.1                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.18.2                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.18.3                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.19.0                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.19.1                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.19.10               && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.19.11               && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.19.12               && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.19.14               && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.19.15               && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.19.16               && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.19.17               && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.19.18               && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.19.19               && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.19.2                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.19.20               && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.19.21               && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.19.22               && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.19.23               && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.19.24               && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.19.25               && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.19.26               && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.19.27               && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.19.28               && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.19.29               && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.19.3                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.19.30               && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.19.4                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.19.5                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.19.6                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.19.7                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.19.8                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.19.9                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.2.0                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.20.0                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.20.1                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.20.2                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.20.3                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.2.1                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.2.2                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.3.1                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.3.2                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.3.3                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.3.4                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.3.5                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.4.0                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.4.1                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.4.10                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.4.11                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.4.12                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.4.13                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.4.14                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.4.15                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.4.16                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.4.17                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.4.18                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.4.3                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.4.4                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.4.5                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.4.6                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.4.7                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.4.8                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.4.9                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.5.0                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.5.1                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.5.2                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.6.0                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.6.1                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.6.2                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.6.3                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.7.2                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.7.3                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.7.4                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.8.0                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.8.1                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.8.3                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.9.0                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.9.1                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.9.3                 && pwd && make build && make deploy
+
+ecosystem-confluence-8-images:
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.0.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.0.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.0.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.0.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.0.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.1.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.1.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.1.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.1.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.2.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.2.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.2.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.2.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.3.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.3.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.3.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.3.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.3.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.4.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.4.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.4.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.4.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.4.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.4.5                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.5.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.5.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.5.10                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.5.11                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.5.12                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.5.14                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.5.15                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.5.16                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.5.17                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.5.18                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.5.19                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.5.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.5.20                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.5.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.5.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.5.5                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.5.6                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.5.7                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.5.8                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.5.9                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.6.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.6.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.6.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.7.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.7.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.8.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.8.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.9.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.9.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.9.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.9.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.9.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.9.5                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.9.6                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.9.7                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.9.8                  && pwd && make build && make deploy
+
+ecosystem-confluence-9-images:
+	cd `pwd`/linux/ecosystem/atlassian/confluence/9/9.0.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/9/9.0.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/9/9.0.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/9/9.0.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/9/9.1.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/9/9.1.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/9/9.2.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/9/9.2.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/9/9.2.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/9/9.3.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/9/9.3.2                  && pwd && make build && make deploy
+
+ecosystem-crowd-0-images:
+	cd `pwd`/linux/ecosystem/atlassian/crowd/0/0.3.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/0/0.3.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/0/0.3.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/0/0.4                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/0/0.4.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/0/0.4.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/0/0.4.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/0/0.4.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/0/0.4.5                  && pwd && make build && make deploy
+
+ecosystem-crowd-1-images:
+	cd `pwd`/linux/ecosystem/atlassian/crowd/1.0.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/1.0.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/1.0.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/1.0.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/1.0.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/1.0.5                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/1.0.6                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/1.0.7                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/1.1.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/1.1.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/1.1.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/1.2.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/1.2.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/1.2.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/1.2.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/1.3                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/1.3.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/1.3.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/1.4                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/1.4.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/1.4.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/1.4.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/1.4.7                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/1.4.8                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/1.5                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/1.5.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/1.5.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/1.5.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/1.6                    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/1.6.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/1.6.3                  && pwd && make build && make deploy
+
+
+ecosystem-crowd-2-images:
+	cd `pwd`/linux/ecosystem/atlassian/crowd/2/2.0.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/2/2.0.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/2/2.0.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/2/2.0.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/2/2.0.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/2/2.0.5                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/2/2.0.6                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/2/2.0.7                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/2/2.0.9                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/2/2.1.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/2/2.1.0-beta4            && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/2/2.1.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/2/2.1.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/2/2.2.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/2/2.2.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/2/2.2.7                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/2/2.2.9                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/2/2.3.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/2/2.3.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/2/2.3.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/2/2.3.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/2/2.3.6                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/2/2.3.7                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/2/2.3.9                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/2/2.4.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/2/2.4.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/2/2.4.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/2/2.4.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/2/2.5.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/2/2.5.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/2/2.5.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/2/2.5.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/2/2.5.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/2/2.5.5                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/2/2.5.7                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/2/2.6.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/2/2.6.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/2/2.6.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/2/2.6.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/2/2.6.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/2/2.6.5                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/2/2.6.7                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/2/2.7.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/2/2.7.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/2/2.7.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/2/2.8.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/2/2.8.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/2/2.8.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/2/2.8.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/2/2.8.8                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/2/2.9.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/2/2.9.5                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/2/2.9.7                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/2/2.10.1                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/2/2.10.2                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/2/2.10.3                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/2/2.11.0                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/2/2.11.1                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/2/2.11.2                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/2/2.12.0                 && pwd && make build && make deploy
+
+
+ecosystem-crowd-3-images:
+	cd `pwd`/linux/ecosystem/atlassian/crowd/3/3.0.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/3/3.0.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/3/3.0.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/3/3.0.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/3/3.0.5                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/3/3.1.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/3/3.1.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/3/3.1.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/3/3.1.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/3/3.1.5                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/3/3.1.6                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/3/3.2.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/3/3.2.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/3/3.2.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/3/3.2.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/3/3.2.5                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/3/3.2.6                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/3/3.2.7                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/3/3.2.8                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/3/3.2.11                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/3/3.3.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/3/3.3.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/3/3.3.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/3/3.3.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/3/3.3.5                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/3/3.3.6                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/3/3.3.7                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/3/3.4.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/3/3.4.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/3/3.4.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/3/3.4.5                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/3/3.4.6                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/3/3.5.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/3/3.5.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/3/3.6.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/3/3.6.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/3/3.7.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/3/3.7.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/3/3.7.2                  && pwd && make build && make deploy
+
+
+ecosystem-crowd-4-images:
+	cd `pwd`/linux/ecosystem/atlassian/crowd/4/4.0.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/4/4.0.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/4/4.0.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/4/4.0.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/4/4.0.5                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/4/4.1.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/4/4.1.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/4/4.1.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/4/4.1.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/4/4.1.5                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/4/4.1.6                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/4/4.1.8                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/4/4.1.9                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/4/4.1.10                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/4/4.2.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/4/4.2.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/4/4.2.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/4/4.2.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/4/4.2.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/4/4.2.5                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/4/4.3.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/4/4.3.5                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/4/4.3.7                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/4/4.3.8                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/4/4.3.9                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/4/4.3.10                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/4/4.3.11                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/4/4.4.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/4/4.4.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/4/4.4.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/4/4.4.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/4/4.4.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/4/4.4.5                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/4/4.4.6                  && pwd && make build && make deploy
+
+ecosystem-crowd-5-images:
+	cd `pwd`/linux/ecosystem/atlassian/crowd/5/5.0.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/5/5.0.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/5/5.0.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/5/5.0.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/5/5.0.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/5/5.0.5                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/5/5.0.6                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/5/5.0.7                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/5/5.0.8                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/5/5.0.9                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/5/5.0.10                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/5/5.0.11                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/5/5.1.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/5/5.1.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/5/5.1.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/5/5.1.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/5/5.1.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/5/5.1.5                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/5/5.1.6                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/5/5.1.7                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/5/5.1.8                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/5/5.1.9                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/5/5.1.11                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/5/5.1.12                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/5/5.1.13                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/5/5.2.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/5/5.2.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/5/5.2.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/5/5.2.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/5/5.2.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/5/5.2.6                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/5/5.2.7                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/5/5.2.8                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/5/5.2.9                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/5/5.2.10                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/5/5.3.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/5/5.3.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/5/5.3.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/5/5.3.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/5/5.3.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/5/5.3.5                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/5/5.3.6                  && pwd && make build && make deploy
+
+ecosystem-crowd-6-images:
+	cd `pwd`/linux/ecosystem/atlassian/crowd/6/6.0.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/6/6.0.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/6/6.0.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/6/6.0.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/6/6.0.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/6/6.0.6                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/6/6.0.7                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/6/6.1.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/6/6.1.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/6/6.1.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/6/6.1.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/6/6.1.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/6/6.2.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/6/6.2.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/crowd/6/6.2.3                  && pwd && make build && make deploy
 
 ecosystem-jira-4-images:
 	cd `pwd`/linux/ecosystem/atlassian/jira/4/4.1.1                && pwd && make build && make deploy
@@ -2383,6 +3012,8 @@ ecosystem-jira-9-lts-images:
 	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.12.15               && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.12.16               && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.12.17               && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.12.18               && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.12.19               && pwd && make build && make deploy
 
 ecosystem-jira-10-images:
 	cd `pwd`/linux/ecosystem/atlassian/jira/10/10.0.0             && pwd && make build && make deploy
@@ -2394,6 +3025,11 @@ ecosystem-jira-10-images:
 	cd `pwd`/linux/ecosystem/atlassian/jira/10/10.3.0             && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/10/10.3.1             && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/10/10.3.2             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/10/10.3.3             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/10/10.3.4             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/10/10.4.0             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/10/10.4.1             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/10/10.5.0             && pwd && make build && make deploy
 
 bundle-base-images:
 	@echo "======================================="
@@ -2413,6 +3049,32 @@ bundle-gitlab:
 	@echo "===== Building  GitLab     images ====="
 	@echo "======================================="
 	make ecosystem-gitlab-runner-images
+
+bundle-confluence:
+	@echo "======================================="
+	@echo "===== Building  All Confluence  images  ====="
+	@echo "======================================="
+#	make ecosystem-confluence-1-images
+#	make ecosystem-confluence-2-images
+#	make ecosystem-confluence-3-images
+	make ecosystem-confluence-4-images
+	make ecosystem-confluence-5-images
+	make ecosystem-confluence-6-images
+	make ecosystem-confluence-7-images
+	make ecosystem-confluence-8-images
+	make ecosystem-confluence-9-images
+
+bundle-crowd:
+	@echo "======================================="
+	@echo "===== Building  All Crowd  images  ====="
+	@echo "======================================="
+	make ecosystem-crowd-0-images
+	make ecosystem-crowd-1-images
+	make ecosystem-crowd-2-images
+	make ecosystem-crowd-3-images
+	make ecosystem-crowd-4-images
+	make ecosystem-crowd-5-images
+	make ecosystem-crowd-6-images
 
 bundle-bitbucket:
 	@echo "======================================="

@@ -1,11 +1,15 @@
 # Changelog
 ## 2025
 * `mar`
+  * updated `teamcity-server` iamge
+  * added new `atlassian images`: `conflunece` 4 - 9, updated `jira` and `bitbucket`, added new `crowd` iamges.
+  * added new base images: `android-sdk` and `amxx-sdk`
+  * cleaned up `teamcity-agent` and `gitlab-runner` images
   * updated `kaniko-wrapper` to `2.0.0.1`
   * installed `buildah-wrapper` `0.0.0.2`
-  * Makefiles switched to buildah build runtime
-  * GHA switched to buildah build runtime
-  * updated nodejs, jdk images
+  * Makefiles switched to `buildah` build runtime
+  * `GHA` switched to `buildah` build runtime
+  * updated `nodejs`, `jdk` base images
 * `feb`
   * added `zabbix` images with `7.2` version
   * added `OpenSSL` version `3.4.x` and `1.0.2u`.

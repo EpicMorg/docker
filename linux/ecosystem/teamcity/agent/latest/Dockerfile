@@ -1,4 +1,4 @@
-FROM epicmorg/debian:bookworm-develop-jdk8
+FROM epicmorg/debian:bookworm-develop-jdk21
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -47,15 +47,19 @@ RUN install -m 0755 -d /etc/apt/keyrings && \
       containerd.io \
       docker-buildx-plugin \
       docker-compose-plugin \
+      buildah \
+      fuse-overlayfs \
       systemd && \
     systemctl disable docker && \
-    usermod -aG docker buildagent && \
-    docker --version
+    docker --version && \
+    buildah --version
 
 # A better fix for TW-52939 Dockerfile build fails because of aufs
-VOLUME /var/lib/docker
+VOLUME ["/var/lib/docker", "/var/lib/containers"]
 
 COPY run-docker.sh /services/run-docker.sh
+COPY etc/containers/registries.conf /etc/containers/registries.conf
+COPY etc/containers/storage.conf /etc/containers/storage.conf
 RUN chmod +x /services/run-docker.sh && \
     sync
 

@@ -115,103 +115,53 @@ RUN sh -c 'echo "deb [trusted=yes] https://packages.sury.su/php/ $(lsb_release -
 
 RUN apt-get update && \
     apt-get install -y  --allow-unauthenticated \
-      libmemcached-dev \
-      libgmp-dev \
-#      php-pear \
-      php7.4 \
-      php7.4-cli \
-      php7.4-common \
-      php7.4-dev \
-      php7.4-amqp \
-      php7.4-apcu-bc \
-      php7.4-apcu \
-      php7.4-ast \
-      php7.4-bcmath \
-      php7.4-bz2 \
-      php7.4-cgi \
-      php7.4-curl \
-      php7.4-dba \
-      php7.4-decimal \
-      php7.4-dio \
-      php7.4-ds \
-      php7.4-enchant \
-      php7.4-excimer \
-      php7.4-fpm \
-      php7.4-gd \
-      php7.4-gearman \
-      php7.4-geoip \
-#      php7.4-gmagick \
-      php7.4-gmp \
-      php7.4-gnupg \
-      php7.4-grpc \
-      php7.4-http \
-      php7.4-igbinary \
-      php7.4-imagick \
-      php7.4-imap \
-      php7.4-inotify \
-      php7.4-interbase \
-      php7.4-intl \
-      php7.4-json \
-      php7.4-ldap \
-      php7.4-libvirt-php \
-      php7.4-lua \
-      php7.4-lz4 \
-      php7.4-mailparse \
-      php7.4-maxminddb \
-      php7.4-mbstring \
-      php7.4-mcrypt \
-      php7.4-memcache \
-      php7.4-memcached \
-      php7.4-mongodb \
-      php7.4-msgpack \
-      php7.4-mysql \
-      php7.4-oauth \
-      php7.4-odbc \
-      php7.4-opcache \
-      php7.4-pcov \
-      php7.4-pgsql \
-      php7.4-phalcon4 \
-#      php7.4-phalcon5 \
-      php7.4-phpdbg \
-      php7.4-pinba \
-#      php7.4-pq \
-      php7.4-propro \
-      php7.4-protobuf \
-      php7.4-ps \
-      php7.4-pspell \
-#      php7.4-psr \
-      php7.4-radius \
-      php7.4-raphf \
-      php7.4-rdkafka \
-      php7.4-readline \
-      php7.4-redis \
-      php7.4-rrd \
-      php7.4-smbclient \
-      php7.4-snmp \
-      php7.4-soap \
-      php7.4-solr \
-      php7.4-sqlite3 \
-      php7.4-ssh2 \
-      php7.4-stomp \
-      php7.4-sybase \
-      php7.4-tideways \
-      php7.4-tidy \
-      php7.4-uopz \
-      php7.4-uploadprogress \
-      php7.4-uuid \
-      php7.4-vips \
-      php7.4-xdebug \
-      php7.4-xhprof \
-      php7.4-xml \
-      php7.4-xmlrpc \
-      php7.4-xsl \
-#      php7.4-yac \
-      php7.4-yaml \
-      php7.4-zip \
-      php7.4-zmq \
-      php7.4-zstd \
-      smbclient libsmbclient \
-      sendmail && \
+    libmemcached-dev \
+    libmagickwand-dev \
+    imagemagick \
+    php7.4 \
+    php7.4-dev \
+    php7.4-fpm \
+    php7.4-cli \
+    php7.4-cgi \
+    php-pear \
+    php7.4-gmp \
+    php7.4-snmp \
+    php7.4-ldap \
+    php7.4-mail  \
+    php7.4-soap \
+    php7.4-mysql \
+    php7.4-memcached \
+    php7.4-memcache \
+    php7.4-igbinary \
+    php7.4-interbase \
+    php7.4-curl \
+    php7.4-gd \
+    php7.4-intl \
+    php7.4-zip \
+    php7.4-bcmath \
+    php7.4-imap \
+    php7.4-pspell \
+    php7.4-sqlite3 \
+    php7.4-pgsql \
+    php7.4-tidy \
+    php7.4-xmlrpc \
+    php7.4-xml \
+    php7.4-mbstring \
+    php7.4-apcu \
+    php7.4-common \
+    php7.4-json \
+    php7.4-readline \
+    php7.4-enchant \
+    php7.4-ssh2 \
+    php7.4-oauth \
+    #php7.4-gmagick \
+    php7.4-imagick \
+    php7.4-gnupg \
+    php7.4-redis \
+    php7.4-yaml && \
+    # php7.4-geoip \
+    smbclient libsmbclient \
+    sendmail && \
     ln -sfv /etc/ssl/dhparam.pem /etc/php/dhparam.pem && \
     update-alternatives --set php /usr/bin/php7.4 && \
 #    pear clear-cache && \
@@ -243,6 +193,7 @@ RUN phpenmod \
       gnupg \
       iconv \
       imap \
+      imagick \
       json \
       mbstring \
       memcached \

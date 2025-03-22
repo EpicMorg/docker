@@ -1,0 +1,9 @@
+services:
+  app:
+    image: "epicmorg/crowd:{{ item }}"
+    build:
+      context: .
+  app-jdk17:
+    image: "epicmorg/crowd:{{ item }}-jdk17"
+    build:
+      context: .
