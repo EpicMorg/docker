@@ -7,10 +7,10 @@ app:
 	make clean
 
 build:
-	make build-buildah
+	kaniko-wrapper --version
 
 deploy:
-	make deploy-buildah
+	make deploy-kaniko
 
 build-buildah:
 	buildah-wrapper --build
