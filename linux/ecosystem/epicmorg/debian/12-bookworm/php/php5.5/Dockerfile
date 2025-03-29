@@ -103,9 +103,23 @@ RUN  pecl install imagick && \
 ADD https://downloads.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz /tmp/ioncube.tar.gz
 RUN tar -C /tmp -xvf /tmp/ioncube.tar.gz && \
     cp /tmp/ioncube/ioncube_loader_lin_5.5.so ${PHP_MODULE_PATH} && \
+#    echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_5.5.so" >> ${PHP_DIR}/apache2/php.ini && \
+    echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_5.5.so" >> ${PHP_DIR}/cgi/php.ini && \
+    echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_5.5.so" >> ${PHP_DIR}/cli/php.ini && \
+    echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_5.5.so" >> ${PHP_DIR}/fpm/php.ini && \
     echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_5.5.so" >> /usr/local/etc/php/conf.d/php.ini && \
     php -m && \
     php -v
+
+##################################################################
+#                   Installing IOnCube addon
+##################################################################
+ADD https://downloads.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz /tmp/ioncube.tar.gz
+RUN tar -C /tmp -xvf /tmp/ioncube.tar.gz && \
+    cp /tmp/ioncube/ioncube_loader_lin_5.6.so ${PHP_MODULE_PATH} && \
+    php -m && \
+    php -v
+
 
 ##################################################################
 #                   Installing P4 addon

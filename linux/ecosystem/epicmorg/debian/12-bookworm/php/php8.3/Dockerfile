@@ -3,7 +3,7 @@ LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
 ENV PHP_VER=8.3
-ENV PHP_MODULE_VER=20230901
+ENV PHP_MODULE_VER=20230831
 ENV PHP_MODULE_PATH=/usr/lib/php/${PHP_MODULE_VER}
 ENV PHP_DIR=/etc/php/${PHP_VER}
 ARG P4_PHP_INI=${PHP_DIR}/mods-available/perfroce.ini
@@ -211,31 +211,30 @@ RUN pecl install timezonedb && \
     php -m && \
     php -v
 
+##################################################################
+#                   Installing Bolt addon
+##################################################################
+#ADD https://phpbolt.com/wp-content/uploads/2023/03/phpBolt-extension-1.0.5.zip /tmp/phpBolt.zip
+COPY usr/lib/php/20230831/phpBolt-extension-1.0.5-php83.so ${PHP_MODULE_PATH}/phpBolt-extension-1.0.5-php83.so
+#RUN echo "extension = ${PHP_MODULE_PATH}/phpBolt-extension-1.0.5-php83.so" >> ${PHP_DIR}/apache2/php.ini && \
+RUN echo "extension = ${PHP_MODULE_PATH}/phpBolt-extension-1.0.5-php83.so" >> ${PHP_DIR}/cgi/php.ini && \
+    echo "extension = ${PHP_MODULE_PATH}/phpBolt-extension-1.0.5-php83.so" >> ${PHP_DIR}/cli/php.ini && \
+    echo "extension = ${PHP_MODULE_PATH}/phpBolt-extension-1.0.5-php83.so" >> ${PHP_DIR}/fpm/php.ini && \
+    php -m && \
+    php -v
 
 ##################################################################
 #                   Installing IOnCube addon
 #################################################################
-#ADD https://downloads.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz /tmp/ioncube.tar.gz
-#RUN tar -C /tmp -xvf /tmp/ioncube.tar.gz && \
-#    cp /tmp/ioncube/ioncube_loader_lin_8.3.so ${PHP_MODULE_PATH} && \
-###    echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_8.3.so" >> ${PHP_DIR}/apache2/php.ini && \
-#    echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_8.3.so" >> ${PHP_DIR}/cgi/php.ini && \
-#    echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_8.3.so" >> ${PHP_DIR}/cli/php.ini && \
-#    echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_8.3.so" >> ${PHP_DIR}/fpm/php.ini && \
-#    php -m && \
-#    php -v
-
-##################################################################
-#                   Installing Bolt addon
-##################################################################
-#ADD https://phpbolt.com/wp-content/uploads/2023/03/phpBolt-extension-1.0.4.zip /tmp/phpBolt.zip
-#COPY usr/lib/php/20210902/phpBolt-extension-1.0.4-php83.so ${PHP_MODULE_PATH}/phpBolt-extension-1.0.4-php83.so
-##RUN echo "extension = ${PHP_MODULE_PATH}/phpBolt-extension-1.0.4-php83.so" >> ${PHP_DIR}/apache2/php.ini && \
-#RUN echo "extension = ${PHP_MODULE_PATH}/phpBolt-extension-1.0.4-php83.so" >> ${PHP_DIR}/cgi/php.ini && \
-#    echo "extension = ${PHP_MODULE_PATH}/phpBolt-extension-1.0.4-php83.so" >> ${PHP_DIR}/cli/php.ini && \
-#    echo "extension = ${PHP_MODULE_PATH}/phpBolt-extension-1.0.4-php83.so" >> ${PHP_DIR}/fpm/php.ini && \
-#    php -m && \
-#    php -v
+ADD https://downloads.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz /tmp/ioncube.tar.gz
+RUN tar -C /tmp -xvf /tmp/ioncube.tar.gz && \
+    cp /tmp/ioncube/ioncube_loader_lin_8.3.so ${PHP_MODULE_PATH} && \
+##    echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_8.3.so" >> ${PHP_DIR}/apache2/php.ini && \
+    echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_8.3.so" >> ${PHP_DIR}/cgi/php.ini && \
+    echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_8.3.so" >> ${PHP_DIR}/cli/php.ini && \
+    echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_8.3.so" >> ${PHP_DIR}/fpm/php.ini && \
+    php -m && \
+    php -v
 
 ##################################################################
 #                   Installing Composer addon

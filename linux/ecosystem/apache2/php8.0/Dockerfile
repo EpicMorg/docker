@@ -90,7 +90,14 @@ RUN echo "extension = ${PHP_MODULE_PATH}/imagick.so" >> ${PHP_DIR}/apache2/php.i
 ##################################################################
 #                   Installing Bolt addon
 ##################################################################
-RUN echo "extension = ${PHP_MODULE_PATH}/phpBolt-extension-1.0.4-php80.so" >> ${PHP_DIR}/apache2/php.ini
+RUN echo "extension = ${PHP_MODULE_PATH}/phpBolt-extension-1.0.5-php80.so" >> ${PHP_DIR}/apache2/php.ini
+
+##################################################################
+#                   Installing IOnCube addon
+##################################################################
+RUN echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_8.0.so" >> ${PHP_DIR}/apache2/php.ini && \
+    php -m && \
+    php -v
 
 ##################################################################
 #                   Installing P4 addon

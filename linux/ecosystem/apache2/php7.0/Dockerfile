@@ -73,16 +73,16 @@ RUN ln -sf ${CAS_PHP_INI} ${PHP_DIR}/apache2/conf.d/cassandra.ini  && \
     php -v
 
 ##################################################################
+#                   Installing Bolt addon
+##################################################################
+RUN echo "extension = ${PHP_MODULE_PATH}/phpBolt-extension-1.0.5-php70.so" >> ${PHP_DIR}/apache2/php.ini
+
+##################################################################
 #                   Installing IOnCube addon
 ##################################################################
 RUN echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_7.0.so" >> ${PHP_DIR}/apache2/php.ini && \
     php -m && \
     php -v
-
-##################################################################
-#                   Installing Bolt addon
-##################################################################
-RUN echo "extension = ${PHP_MODULE_PATH}/phpBolt-extension-1.0.4-php70.so" >> ${PHP_DIR}/apache2/php.ini
 
 ##################################################################
 #                   Installing timezonedb addon

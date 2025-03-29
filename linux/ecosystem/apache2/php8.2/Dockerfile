@@ -74,16 +74,16 @@ RUN mkdir -p /etc/ldap && \
 #    php -v
 
 ##################################################################
-#                   Installing IOnCube addon
-##################################################################
-#RUN echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_8.2.so" >> ${PHP_DIR}/apache2/php.ini && \
-#    php -m && \
-#    php -v
-
-##################################################################
 #                   Installing Bolt addon
 ##################################################################
-RUN echo "extension = ${PHP_MODULE_PATH}/phpBolt-extension-1.0.4-php82.so" >> ${PHP_DIR}/apache2/php.ini
+RUN echo "extension = ${PHP_MODULE_PATH}/phpBolt-extension-1.0.5-php82.so" >> ${PHP_DIR}/apache2/php.ini
+
+##################################################################
+#                   Installing IOnCube addon
+##################################################################
+RUN echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_8.2.so" >> ${PHP_DIR}/apache2/php.ini && \
+    php -m && \
+    php -v
 
 ##################################################################
 #                   Installing timezonedb addon

@@ -2,9 +2,9 @@ FROM epicmorg/debian:bookworm-php8.4
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
-ENV PHP_MODULE_VER=20220830
+ENV PHP_MODULE_VER=20240924
 ENV PHP_MODULE_PATH=/usr/lib/php/${PHP_MODULE_VER}
-ENV PHP_VER=8.3
+ENV PHP_VER=8.4
 ENV PHP_DIR=/etc/php/${PHP_VER}
 ARG P4_PHP_INI=${PHP_DIR}/mods-available/perfroce.ini
 ARG SMB_PHP_INI=${PHP_DIR}/mods-available/smbclient.ini
@@ -74,16 +74,16 @@ RUN mkdir -p /etc/ldap && \
 #    php -v
 
 ##################################################################
-#                   Installing IOnCube addon
-##################################################################
-#RUN echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_8.2.so" >> ${PHP_DIR}/apache2/php.ini && \
-#    php -m && \
-#    php -v
-
-##################################################################
 #                   Installing Bolt addon
 ##################################################################
-#RUN echo "extension = ${PHP_MODULE_PATH}/phpBolt-extension-1.0.4-php81.so" >> ${PHP_DIR}/apache2/php.ini
+#RUN echo "extension = ${PHP_MODULE_PATH}/phpBolt-extension-1.0.5-php83.so" >> ${PHP_DIR}/apache2/php.ini
+
+##################################################################
+#                   Installing IOnCube addon
+##################################################################
+RUN echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_8.4.so" >> ${PHP_DIR}/apache2/php.ini && \
+    php -m && \
+    php -v
 
 ##################################################################
 #                   Installing timezonedb addon
