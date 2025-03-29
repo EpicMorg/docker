@@ -73,7 +73,7 @@ RUN apt-get update && \
       php5.6-mysqlnd-ms \
       php5.6-oauth \
       php5.6-odbc \
-      php5.6-opcache \
+#      php5.6-opcache \
       php5.6-pgsql \
       php5.6-phpdbg \
       php5.6-propro \
@@ -97,7 +97,7 @@ RUN apt-get update && \
       php5.6-tidy \
       php5.6-uploadprogress \
 #      php5.6-xcache \
-      php5.6-xdebug \
+#      php5.6-xdebug \
       php5.6-xhprof \
       php5.6-xml \
       php5.6-xmlrpc \

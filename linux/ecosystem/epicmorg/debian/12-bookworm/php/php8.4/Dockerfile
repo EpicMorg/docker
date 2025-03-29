@@ -40,7 +40,7 @@ RUN apt-get update && \
       php8.4-mbstring \
       php8.4-mysql \
       php8.4-odbc \
-      php8.4-opcache \
+#      php8.4-opcache \
       php8.4-pgsql \
       php8.4-phpdbg \
       php8.4-readline \

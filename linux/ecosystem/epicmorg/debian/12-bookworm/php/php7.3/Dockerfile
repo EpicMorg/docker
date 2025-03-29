@@ -160,7 +160,7 @@ RUN apt-get update && \
       php7.3-mysql \
       php7.3-oauth \
       php7.3-odbc \
-      php7.3-opcache \
+#      php7.3-opcache \
       php7.3-pcov \
       php7.3-pgsql \
 #      php7.3-phalcon4 \
@@ -189,11 +189,11 @@ RUN apt-get update && \
       php7.3-sybase \
       php7.3-tideways \
       php7.3-tidy \
-      php7.3-uopz \
+#      php7.3-uopz \
       php7.3-uploadprogress \
       php7.3-uuid \
       php7.3-vips \
-      php7.3-xdebug \
+#      php7.3-xdebug \
       php7.3-xhprof \
       php7.3-xml \
       php7.3-xmlrpc \

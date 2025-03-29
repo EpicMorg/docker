@@ -65,7 +65,7 @@ RUN apt-get update && \
       php8.3-mysql \
       php8.3-oauth \
       php8.3-odbc \
-      php8.3-opcache \
+#      php8.3-opcache \
       php8.3-pcov \
       php8.3-pgsql \
 #      php8.3-phalcon5 \
@@ -91,11 +91,11 @@ RUN apt-get update && \
       php8.3-swoole \
       php8.3-sybase \
       php8.3-tidy \
-      php8.3-uopz \
+#      php8.3-uopz \
       php8.3-uploadprogress \
       php8.3-uuid \
       php8.3-vips \
-      php8.3-xdebug \
+#      php8.3-xdebug \
       php8.3-xhprof \
       php8.3-xml \
       php8.3-xmlrpc \

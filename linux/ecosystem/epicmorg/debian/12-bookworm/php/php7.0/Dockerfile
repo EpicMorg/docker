@@ -159,7 +159,7 @@ RUN apt-get update && \
       php7.0-mysql \
       php7.0-oauth \
       php7.0-odbc \
-      php7.0-opcache \
+#      php7.0-opcache \
       php7.0-pgsql \
       php7.0-phpdbg \
       php7.0-pinba \
@@ -189,7 +189,7 @@ RUN apt-get update && \
       php7.0-uploadprogress \
       php7.0-uuid \
       php7.0-vips \
-      php7.0-xdebug \
+#      php7.0-xdebug \
       php7.0-xhprof \
       php7.0-xml \
       php7.0-xmlrpc \

@@ -159,7 +159,7 @@ RUN apt-get update && \
       php7.1-mysql \
       php7.1-oauth \
       php7.1-odbc \
-      php7.1-opcache \
+#      php7.1-opcache \
       php7.1-pcov \
       php7.1-pgsql \
       php7.1-phpdbg \
@@ -187,11 +187,11 @@ RUN apt-get update && \
       php7.1-sybase \
       php7.1-tideways \
       php7.1-tidy \
-      php7.1-uopz \
+#      php7.1-uopz \
       php7.1-uploadprogress \
       php7.1-uuid \
       php7.1-vips \
-      php7.1-xdebug \
+#      php7.1-xdebug \
       php7.1-xhprof \
       php7.1-xml \
       php7.1-xmlrpc \

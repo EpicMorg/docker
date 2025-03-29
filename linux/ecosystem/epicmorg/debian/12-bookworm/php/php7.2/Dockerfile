@@ -160,7 +160,7 @@ RUN apt-get update && \
       php7.2-mysql \
       php7.2-oauth \
       php7.2-odbc \
-      php7.2-opcache \
+#      php7.2-opcache \
       php7.2-pcov \
       php7.2-pgsql \
 #      php7.2-phalcon4 \
@@ -188,11 +188,11 @@ RUN apt-get update && \
       php7.2-sybase \
       php7.2-tideways \
       php7.2-tidy \
-      php7.2-uopz \
+#      php7.2-uopz \
       php7.2-uploadprogress \
       php7.2-uuid \
       php7.2-vips \
-      php7.2-xdebug \
+#      php7.2-xdebug \
       php7.2-xhprof \
       php7.2-xml \
       php7.2-xmlrpc \

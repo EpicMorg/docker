@@ -66,7 +66,7 @@ RUN apt-get update && \
       php8.2-mysql \
       php8.2-oauth \
       php8.2-odbc \
-      php8.2-opcache \
+#      php8.2-opcache \
       php8.2-pcov \
       php8.2-pgsql \
 #      php8.2-phalcon5 \
@@ -94,11 +94,11 @@ RUN apt-get update && \
       php8.2-sybase \
       php8.2-tideways \
       php8.2-tidy \
-      php8.2-uopz \
+#      php8.2-uopz \
       php8.2-uploadprogress \
       php8.2-uuid \
       php8.2-vips \
-      php8.2-xdebug \
+#      php8.2-xdebug \
       php8.2-xhprof \
       php8.2-xml \
       php8.2-xmlrpc \
