@@ -8,25 +8,14 @@ ENV PHP_DIR=/etc/php/${PHP_VER}
 ARG P4_PHP_INI=${PHP_DIR}/mods-available/perfroce.ini
 ARG CAS_PHP_INI=${PHP_DIR}/mods-available/cassandra.ini
 
-#Install base packages
-RUN apt-get update && \
-    apt-get install -y  --allow-unauthenticated \
-      libmagickwand-dev \
-      libmemcached-dev \
-      imagemagick \
-      libncurses5 \
-      autoconf
-
 ##################################################################
-#                   Installing  PHP5.5
+#                   Installing  PHP5.6
 ##################################################################
 RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.su/php/apt.gpg
 RUN sh -c 'echo "deb [trusted=yes] https://packages.sury.su/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list'
 
 RUN apt-get update && \
     apt-get install -y  --allow-unauthenticated \
-      libmemcached-dev \
-      libgmp-dev \
 #      php-pear \
       php5.6 \
       php5.6-cli \
@@ -73,7 +62,7 @@ RUN apt-get update && \
       php5.6-mysqlnd-ms \
       php5.6-oauth \
       php5.6-odbc \
-#      php5.6-opcache \
+      php5.6-opcache \
       php5.6-pgsql \
       php5.6-phpdbg \
       php5.6-propro \
@@ -97,7 +86,7 @@ RUN apt-get update && \
       php5.6-tidy \
       php5.6-uploadprogress \
 #      php5.6-xcache \
-#      php5.6-xdebug \
+      php5.6-xdebug \
       php5.6-xhprof \
       php5.6-xml \
       php5.6-xmlrpc \
@@ -106,9 +95,23 @@ RUN apt-get update && \
       php5.6-yaml \
       php5.6-zip \
       php5.6-zmq \
-      smbclient libsmbclient \
+      smbclient \
+      libsmbclient \
       sendmail && \
     ln -sfv /etc/ssl/dhparam.pem /etc/php/dhparam.pem && \
+    apt-get remove -y \
+#      php5.6* \
+      php7.0*  \
+      php7.1*  \
+      php7.2*  \
+      php7.3*  \
+      php7.4*  \
+      php8.0*  \
+      php8.1*  \
+      php8.2*  \
+      php8.3*  \
+      php8.4*  && \
+    rm -rfv /etc/php/{7.0,7.1,7.2,7.3,7.4,8.0,8.1,8.2,8.3,8.4} && \
     update-alternatives --set php /usr/bin/php5.6 && \
 #    pear clear-cache && \
     pear update-channels && \
@@ -158,6 +161,16 @@ RUN phpenmod \
       xmlwriter \
       xsl \
       yaml && \
+    phpdismod \
+      xdebug \
+      xcache \
+      xhprof \
+      tideways \
+      pcov \
+      swoole \
+      grpc \
+      uopz \
+      msgpack && \
     php -m && \
     php -v
 

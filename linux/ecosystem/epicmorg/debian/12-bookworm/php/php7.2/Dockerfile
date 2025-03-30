@@ -160,7 +160,7 @@ RUN apt-get update && \
       php7.2-mysql \
       php7.2-oauth \
       php7.2-odbc \
-#      php7.2-opcache \
+      php7.2-opcache \
       php7.2-pcov \
       php7.2-pgsql \
 #      php7.2-phalcon4 \
@@ -188,11 +188,11 @@ RUN apt-get update && \
       php7.2-sybase \
       php7.2-tideways \
       php7.2-tidy \
-#      php7.2-uopz \
+      php7.2-uopz \
       php7.2-uploadprogress \
       php7.2-uuid \
       php7.2-vips \
-#      php7.2-xdebug \
+      php7.2-xdebug \
       php7.2-xhprof \
       php7.2-xml \
       php7.2-xmlrpc \
@@ -202,9 +202,23 @@ RUN apt-get update && \
       php7.2-zip \
       php7.2-zmq \
       php7.2-zstd \
-      smbclient libsmbclient \
+      smbclient \
+      libsmbclient \
       sendmail && \
     ln -sfv /etc/ssl/dhparam.pem /etc/php/dhparam.pem && \
+    apt-get remove -y \
+      php5.6* \
+      php7.0*  \
+      php7.1*  \
+#      php7.2*  \
+      php7.3*  \
+      php7.4*  \
+      php8.0*  \
+      php8.1*  \
+      php8.2*  \
+      php8.3*  \
+      php8.4*  && \
+    rm -rfv /etc/php/{5.6,7.0,7.1,7.3,7.4,8.0,8.1,8.2,8.3,8.4} && \
     update-alternatives --set php /usr/bin/php7.2 && \
 #    pear clear-cache && \
     pear update-channels && \
@@ -254,6 +268,16 @@ RUN phpenmod \
       xmlwriter \
       xsl \
       yaml && \
+    phpdismod \
+      xdebug \
+      xcache \
+      xhprof \
+      tideways \
+      pcov \
+      swoole \
+      grpc \
+      uopz \
+      msgpack && \
     php -m && \
     php -v
 

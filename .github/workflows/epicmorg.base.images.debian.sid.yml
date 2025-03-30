@@ -49,11 +49,25 @@ jobs:
     - name: "Build and Deploy Debian SID Python 3.10:"
       run:  	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/python/3.10  && pwd && make build && make deploy
 
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
     - name: "Build and Deploy Debian SID Python 3.11:"
       run:  	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/python/3.11  && pwd && make build && make deploy
 
     - name: "Build and Deploy Debian SID Python 3.12:"
       run:  	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/python/3.12  && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
 
     - name: "Build and Deploy Debian SID Python 3.12:"
       run:  	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/python/3.13  && pwd && make build && make deploy
@@ -120,11 +134,32 @@ jobs:
     - name: "Build and Deploy Debian SID jdk20 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/sid/jdk/jdk20    && pwd && make build && make deploy
 
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
     - name: "Build and Deploy Debian SID jdk21 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/sid/jdk/jdk21    && pwd && make build && make deploy
 
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
     - name: "Build and Deploy Debian SID jdk22 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/sid/jdk/jdk22    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
 
     - name: "Build and Deploy Debian SID jdk23 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/sid/jdk/jdk23    && pwd && make build && make deploy
@@ -152,6 +187,13 @@ jobs:
 
     - name: "Build and Deploy Debian SID NodeJS 5 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/sid/nodejs/node5    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
 
     - name: "Build and Deploy Debian SID NodeJS 6 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/sid/nodejs/node6    && pwd && make build && make deploy
@@ -181,6 +223,13 @@ jobs:
     - name: "Build and Deploy Debian SID NodeJS 12 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/sid/nodejs/node12    && pwd && make build && make deploy
 
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
     - name: "Build and Deploy Debian SID NodeJS 13 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/sid/nodejs/node13    && pwd && make build && make deploy
 
@@ -206,6 +255,13 @@ jobs:
     - name: "Build and Deploy Debian SID NodeJS 18 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/sid/nodejs/node18    && pwd && make build && make deploy
 
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
     - name: "Build and Deploy Debian SID NodeJS 19 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/sid/nodejs/node19    && pwd && make build && make deploy
 
@@ -214,6 +270,13 @@ jobs:
 
     - name: "Build and Deploy Debian SID NodeJS 21 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/sid/nodejs/node21    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
 
     - name: "Build and Deploy Debian SID NodeJS 22 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/sid/nodejs/node22    && pwd && make build && make deploy
@@ -234,17 +297,38 @@ jobs:
     - name: "Build and Deploy Debian SID dotNet STS Image:"
       run:  cd linux/ecosystem/epicmorg/debian/sid/dotnet/sts    && pwd && make build && make deploy
 
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
     - name: "Build and Deploy Debian SID dotNet 5 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/sid/dotnet/dotnet5    && pwd && make build && make deploy
 
     - name: "Build and Deploy Debian SID dotNet 6 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/sid/dotnet/dotnet6    && pwd && make build && make deploy
 
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
     - name: "Build and Deploy Debian SID dotNet 7 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/sid/dotnet/dotnet7    && pwd && make build && make deploy
 
     - name: "Build and Deploy Debian SID dotNet 8 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/sid/dotnet/dotnet8    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
 
     - name: "Build and Deploy Debian SID dotNet 9 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/sid/dotnet/dotnet9    && pwd && make build && make deploy

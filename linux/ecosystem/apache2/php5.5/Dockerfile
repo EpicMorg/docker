@@ -48,6 +48,16 @@ RUN apt-get update && \
       dav_fs \
       alias && \
     ln -sf /etc/ssl/dhparam.pem /etc/apache2/dhparam.pem && \
+    phpdismod \
+      xdebug \
+      xcache \
+      xhprof \
+      tideways \
+      pcov \
+      swoole \
+      grpc \
+      uopz \
+      msgpack && \
     php -m && \
     php -v
 

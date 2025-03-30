@@ -160,7 +160,7 @@ RUN apt-get update && \
       php7.3-mysql \
       php7.3-oauth \
       php7.3-odbc \
-#      php7.3-opcache \
+      php7.3-opcache \
       php7.3-pcov \
       php7.3-pgsql \
 #      php7.3-phalcon4 \
@@ -189,11 +189,11 @@ RUN apt-get update && \
       php7.3-sybase \
       php7.3-tideways \
       php7.3-tidy \
-#      php7.3-uopz \
+      php7.3-uopz \
       php7.3-uploadprogress \
       php7.3-uuid \
       php7.3-vips \
-#      php7.3-xdebug \
+      php7.3-xdebug \
       php7.3-xhprof \
       php7.3-xml \
       php7.3-xmlrpc \
@@ -203,9 +203,23 @@ RUN apt-get update && \
       php7.3-zip \
       php7.3-zmq \
       php7.3-zstd \
-      smbclient libsmbclient \
+      smbclient \
+      libsmbclient \
       sendmail && \
     ln -sfv /etc/ssl/dhparam.pem /etc/php/dhparam.pem && \
+    apt-get remove -y \
+      php5.6* \
+      php7.0*  \
+      php7.1*  \
+      php7.2*  \
+#      php7.3*  \
+      php7.4*  \
+      php8.0*  \
+      php8.1*  \
+      php8.2*  \
+      php8.3*  \
+      php8.4*  && \
+    rm -rfv /etc/php/{5.6,7.0,7.1,7.2,7.4,8.0,8.1,8.2,8.3,8.4} && \
     update-alternatives --set php /usr/bin/php7.3 && \
 #    pear clear-cache && \
     pear update-channels && \
@@ -259,6 +273,16 @@ RUN phpenmod \
       xmlwriter \
       xsl \
       yaml && \
+    phpdismod \
+      xdebug \
+      xcache \
+      xhprof \
+      tideways \
+      pcov \
+      swoole \
+      grpc \
+      uopz \
+      msgpack && \
     php -m && \
     php -v
 

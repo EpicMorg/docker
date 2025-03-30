@@ -1,9 +1,9 @@
-FROM epicmorg/debian:bookworm-php5.5
+FROM epicmorg/debian:bookworm-php5.6
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
 ENV PHP_VER=5.6
-ENV PHP_MODULE_PATH=/usr/local/lib/php/extensions/no-debug-non-zts-20121212
+ENV PHP_MODULE_PATH=/usr/lib/php/20131226
 ENV PHP_DIR=/etc/php/${PHP_VER}
 ARG P4_PHP_INI=${PHP_DIR}/mods-available/perfroce.ini
 ARG CAS_PHP_INI=${PHP_DIR}/mods-available/cassandra.ini
@@ -21,8 +21,8 @@ RUN apt-get update && \
       locate \
       apache2 \
       apache2-utils \
-      libapache2-mod-php5.5 \
-      libapache2-mod-webauth \
+      libapache2-mod-php5.6 \
+#      libapache2-mod-webauth \
       libapache2-mod-xforward \
       libapache2-mod-security2 \
       libmemcached-dev && \
@@ -47,6 +47,41 @@ RUN apt-get update && \
       dav_fs \
       alias && \
     ln -sf /etc/ssl/dhparam.pem /etc/apache2/dhparam.pem && \
+    apt-get remove -y \
+#      php5.6* \
+      php7.0*  \
+      php7.1*  \
+      php7.2*  \
+      php7.3*  \
+      php7.4*  \
+      php8.0*  \
+      php8.1*  \
+      php8.2*  \
+      php8.3*  \
+      php8.4*  && \
+    phpdismod \
+      xdebug \
+      xcache \
+      xhprof \
+      tideways \
+      pcov \
+      swoole \
+      grpc \
+      uopz \
+      msgpack && \
+    apt-get remove -y \
+#      php5.6* \
+      php7.0*  \
+      php7.1*  \
+      php7.2*  \
+      php7.3*  \
+      php7.4*  \
+      php8.0*  \
+      php8.1*  \
+      php8.2*  \
+      php8.3*  \
+      php8.4*  && \
+    rm -rfv /etc/php/{7.0,7.1,7.2,7.3,7.4,8.0,8.1,8.2,8.3,8.4} && \
     php -m && \
     php -v
 

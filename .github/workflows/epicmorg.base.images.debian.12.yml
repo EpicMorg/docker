@@ -82,6 +82,13 @@ jobs:
     - name: "Build and Deploy Debian 12 PHP 7.0 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/php/php7.0    && pwd && make build && make deploy
     
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
     - name: "Build and Deploy Debian 12 PHP 7.1 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/php/php7.1    && pwd && make build && make deploy
     

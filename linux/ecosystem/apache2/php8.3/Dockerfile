@@ -48,6 +48,29 @@ RUN apt-get update && \
       dav_fs \
       alias && \
     ln -sf /etc/ssl/dhparam.pem /etc/apache2/dhparam.pem && \
+    phpdismod \
+      xdebug \
+      xcache \
+      xhprof \
+      tideways \
+      pcov \
+      swoole \
+      grpc \
+      uopz \
+      msgpack && \
+    apt-get remove -y \
+      php5.6* \
+      php7.0*  \
+      php7.1*  \
+      php7.2*  \
+      php7.3*  \
+      php7.4*  \
+      php8.0*  \
+      php8.1*  \
+      php8.2*  \
+#      php8.3*  \
+      php8.4*  && \
+    rm -rfv /etc/php/{5.6,7.0,7.1,7.2,7.3,7.4,8.0,8.1,8.2,8.4} && \
     php -m && \
     php -v
 

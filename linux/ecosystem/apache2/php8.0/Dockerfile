@@ -48,6 +48,29 @@ RUN apt-get update && \
       dav_fs \
       alias && \
     ln -sf /etc/ssl/dhparam.pem /etc/apache2/dhparam.pem && \
+    phpdismod \
+      xdebug \
+      xcache \
+      xhprof \
+      tideways \
+      pcov \
+      swoole \
+      grpc \
+      uopz \
+      msgpack && \
+    apt-get remove -y \
+      php5.6* \
+      php7.0*  \
+      php7.1*  \
+      php7.2*  \
+      php7.3*  \
+      php7.4*  \
+#      php8.0*  \
+      php8.1*  \
+      php8.2*  \
+      php8.3*  \
+      php8.4*  && \
+    rm -rfv /etc/php/{5.6,7.0,7.1,7.2,7.3,7.4,8.1,8.2,8.3,8.4} && \
     php -m && \
     php -v
 
@@ -94,10 +117,11 @@ RUN echo "extension = ${PHP_MODULE_PATH}/phpBolt-extension-1.0.5-php80.so" >> ${
 
 ##################################################################
 #                   Installing IOnCube addon
-##################################################################
-RUN echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_8.0.so" >> ${PHP_DIR}/apache2/php.ini && \
-    php -m && \
-    php -v
+#################################################################
+# NOT OFFICIALLY SUPPORTED
+#RUN echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_8.0.so" >> ${PHP_DIR}/apache2/php.ini && \
+#    php -m && \
+#    php -v
 
 ##################################################################
 #                   Installing P4 addon

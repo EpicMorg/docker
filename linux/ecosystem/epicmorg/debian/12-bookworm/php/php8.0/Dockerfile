@@ -66,7 +66,7 @@ RUN apt-get update && \
       php8.0-mysql \
       php8.0-oauth \
       php8.0-odbc \
-#      php8.0-opcache \
+      php8.0-opcache \
       php8.0-pcov \
       php8.0-pgsql \
       php8.0-phalcon5 \
@@ -94,11 +94,11 @@ RUN apt-get update && \
       php8.0-sybase \
       php8.0-tideways \
       php8.0-tidy \
-#      php8.0-uopz \
+      php8.0-uopz \
       php8.0-uploadprogress \
       php8.0-uuid \
       php8.0-vips \
-#      php8.0-xdebug \
+      php8.0-xdebug \
       php8.0-xhprof \
       php8.0-xml \
       php8.0-xmlrpc \
@@ -108,9 +108,23 @@ RUN apt-get update && \
       php8.0-zip \
       php8.0-zmq \
       php8.0-zstd \
-      smbclient libsmbclient \
+      smbclient \
+      libsmbclient \
       sendmail && \
     ln -sfv /etc/ssl/dhparam.pem /etc/php/dhparam.pem && \
+    apt-get remove -y \
+      php5.6* \
+      php7.0*  \
+      php7.1*  \
+      php7.2*  \
+      php7.3*  \
+      php7.4*  \
+#      php8.0*  \
+      php8.1*  \
+      php8.2*  \
+      php8.3*  \
+      php8.4*  && \
+    rm -rfv /etc/php/{5.6,7.0,7.1,7.2,7.3,7.4,8.1,8.2,8.3,8.4} && \
     update-alternatives --set php /usr/bin/php8.0 && \
 #    pear clear-cache && \
     pear update-channels && \
@@ -164,6 +178,16 @@ RUN phpenmod \
       xmlwriter \
       xsl \
       yaml && \
+    phpdismod \
+      xdebug \
+      xcache \
+      xhprof \
+      tideways \
+      pcov \
+      swoole \
+      grpc \
+      uopz \
+      msgpack && \
     php -m && \
     php -v
 
@@ -241,6 +265,21 @@ RUN echo "extension = ${PHP_MODULE_PATH}/perforce_php80-ssl1.1.1.so" > ${P4_PHP_
     ln -sf ${P4_PHP_INI} ${PHP_DIR}/fpm/conf.d/perforce.ini && \
     php -m && \
     php -v
+    
+##################################################################
+#                   Installing IOnCube addon
+#################################################################
+# NOT OFFICIALLY SUPPORTED
+#
+#ADD https://downloads.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz /tmp/ioncube.tar.gz
+#RUN tar -C /tmp -xvf /tmp/ioncube.tar.gz && \
+#    cp /tmp/ioncube/ioncube_loader_lin_8.0.so ${PHP_MODULE_PATH} && \
+##    echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_8.0.so" >> ${PHP_DIR}/apache2/php.ini && \
+#    echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_8.0.so" >> ${PHP_DIR}/cgi/php.ini && \
+#    echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_8.0.so" >> ${PHP_DIR}/cli/php.ini && \
+#    echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_8.0.so" >> ${PHP_DIR}/fpm/php.ini && \
+#    php -m && \
+#    php -v
 
 ##################################################################
 #                   Installing Composer addon

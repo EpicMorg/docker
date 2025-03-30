@@ -40,7 +40,7 @@ RUN apt-get update && \
       php8.4-mbstring \
       php8.4-mysql \
       php8.4-odbc \
-#      php8.4-opcache \
+      php8.4-opcache \
       php8.4-pgsql \
       php8.4-phpdbg \
       php8.4-readline \
@@ -52,9 +52,23 @@ RUN apt-get update && \
       php8.4-xml \
       php8.4-xsl \
       php8.4-zip \
-      smbclient libsmbclient \
+      smbclient \
+      libsmbclient \
       sendmail && \
     ln -sfv /etc/ssl/dhparam.pem /etc/php/dhparam.pem && \
+    apt-get remove -y \
+      php5.6* \
+      php7.0*  \
+      php7.1*  \
+      php7.2*  \
+      php7.3*  \
+      php7.4*  \
+      php8.0*  \
+      php8.1*  \
+      php8.2*  \
+      php8.3*  && \
+#      php8.4*  && \
+    rm -rfv /etc/php/{5.6,7.0,7.1,7.2,7.3,7.4,8.0,8.1,8.2,8.3} && \
     update-alternatives --set php /usr/bin/php8.4 && \
 #    pear clear-cache && \
     pear update-channels && \
@@ -108,6 +122,16 @@ RUN phpenmod \
       xmlwriter \
       xsl \
       yaml && \
+    phpdismod \
+      xdebug \
+      xcache \
+      xhprof \
+      tideways \
+      pcov \
+      swoole \
+      grpc \
+      uopz \
+      msgpack && \
     php -m && \
     php -v
 
@@ -138,7 +162,7 @@ RUN cd /tmp/cassandra-php-driver && \
 # Cassandra PHP Drivers Install
 ##############################################################################
 #RUN pecl install cassandra && \
-#COPY usr/lib/php/20220829/cassandra.so ${PHP_MODULE_PATH}/cassandra.so
+#COPY usr/lib/php/20240924/cassandra.so ${PHP_MODULE_PATH}/cassandra.so
 #RUN     echo "extension = ${PHP_MODULE_PATH}/cassandra.so" > ${CAS_PHP_INI} && \
 #    ln -sf ${CAS_PHP_INI} ${PHP_DIR}/cgi/conf.d/cassandra.ini && \
 #    ln -sf ${CAS_PHP_INI} ${PHP_DIR}/cli/conf.d/cassandra.ini && \
@@ -175,11 +199,11 @@ RUN cd /tmp/cassandra-php-driver && \
 #################################################################
 ADD https://downloads.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz /tmp/ioncube.tar.gz
 RUN tar -C /tmp -xvf /tmp/ioncube.tar.gz && \
-    cp /tmp/ioncube/ioncube_loader_lin_8.3.so ${PHP_MODULE_PATH} && \
-##    echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_8.3.so" >> ${PHP_DIR}/apache2/php.ini && \
-    echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_8.3.so" >> ${PHP_DIR}/cgi/php.ini && \
-    echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_8.3.so" >> ${PHP_DIR}/cli/php.ini && \
-    echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_8.3.so" >> ${PHP_DIR}/fpm/php.ini && \
+    cp /tmp/ioncube/ioncube_loader_lin_8.4.so ${PHP_MODULE_PATH} && \
+##    echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_8.4.so" >> ${PHP_DIR}/apache2/php.ini && \
+    echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_8.4.so" >> ${PHP_DIR}/cgi/php.ini && \
+    echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_8.4.so" >> ${PHP_DIR}/cli/php.ini && \
+    echo "zend_extension = ${PHP_MODULE_PATH}/ioncube_loader_lin_8.4.so" >> ${PHP_DIR}/fpm/php.ini && \
     php -m && \
     php -v
 

@@ -1,5 +1,16 @@
 #!/bin/bash
 
+# defaults ef env is null
+# : ${SERVER_URL:=}
+# : ${AGENT_TOKEN:=}
+# : ${AGENT_NAME:=}
+# : ${AGENT_DIST:=}
+# : ${LOG_DIR:=}
+# : ${OWN_ADDRESS:=}
+# : ${OWN_PORT:=}
+# : ${CONFIG_DIR:=}
+# : ${CONFIG_FILE:=}
+
 check() {
    if [[ $? != 0 ]]; then
       echo "Error! Stopping the script."
@@ -28,32 +39,26 @@ reconfigure() {
       done
       configure "${opts[@]}"
       echo "File buildAgent.properties was updated"
+      
     fi
     for AGENT_OPT in ${AGENT_OPTS}; do
       echo ${AGENT_OPT} >>  ${CONFIG_DIR}/buildAgent.properties
     done
+    
 }
 
 prepare_conf() {
     echo "Will prepare agent config" ;
-    cp -p ${AGENT_DIST}/conf_dist/*.* ${CONFIG_DIR}/; check
+    cp -p ${AGENT_DIST}/conf/*.* ${CONFIG_DIR}/; check
     cp -p ${CONFIG_DIR}/buildAgent.dist.properties ${CONFIG_DIR}/buildAgent.properties; check
     reconfigure
     echo "File buildAgent.properties was created and updated" ;
 }
 
-AGENT_DIST=/opt/buildagent
-
-CONFIG_DIR=/data/teamcity_agent/conf
-
-LOG_DIR=/opt/buildagent/logs
-
-
 rm -f ${LOG_DIR}/*.pid
 
 if [ -f ${CONFIG_DIR}/buildAgent.properties ] ; then
-   echo "File buildAgent.properties was found in ${CONFIG_DIR}" ;
-   reconfigure
+   echo "File buildAgent.properties was found in ${CONFIG_DIR}. Will start the agent using it." ;
 else
    echo "Will create new buildAgent.properties using distributive" ;
    if [[ -n "${SERVER_URL}" ]]; then
@@ -65,18 +70,7 @@ else
    prepare_conf
 fi
 
-if [ -z "$RUN_AS_BUILDAGENT" -o "$RUN_AS_BUILDAGENT" = "false" -o "$RUN_AS_BUILDAGENT" = "no" ]; then
-    ${AGENT_DIST}/bin/agent.sh start
-else
-    echo "Make sure build agent directory ${AGENT_DIST} is owned by buildagent user"
-    chown -R buildagent:buildagent ${AGENT_DIST}
-    check; sync
-    
-    echo "Start build agent under buildagent user"
-    sudo -E -u buildagent HOME=/home/buildagent ${AGENT_DIST}/bin/agent.sh start
-fi
-
-
+${AGENT_DIST}/bin/agent.sh start
 
 while [ ! -f ${LOG_DIR}/teamcity-agent.log ];
 do

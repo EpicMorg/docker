@@ -2,9 +2,9 @@ FROM epicmorg/debian:bookworm-php8.4
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
+ENV PHP_VER=8.4
 ENV PHP_MODULE_VER=20240924
 ENV PHP_MODULE_PATH=/usr/lib/php/${PHP_MODULE_VER}
-ENV PHP_VER=8.4
 ENV PHP_DIR=/etc/php/${PHP_VER}
 ARG P4_PHP_INI=${PHP_DIR}/mods-available/perfroce.ini
 ARG SMB_PHP_INI=${PHP_DIR}/mods-available/smbclient.ini
@@ -28,7 +28,7 @@ RUN apt-get update && \
       libapache2-mod-xforward \
       libapache2-mod-security2 && \
     a2enmod \
-      php8.3 \
+      php8.4 \
       rewrite \
       ldap \
       heartmonitor \
@@ -48,6 +48,29 @@ RUN apt-get update && \
       dav_fs \
       alias && \
     ln -sf /etc/ssl/dhparam.pem /etc/apache2/dhparam.pem && \
+    phpdismod \
+      xdebug \
+      xcache \
+      xhprof \
+      tideways \
+      pcov \
+      swoole \
+      grpc \
+      uopz \
+      msgpack && \
+    apt-get remove -y \
+      php5.6* \
+      php7.0*  \
+      php7.1*  \
+      php7.2*  \
+      php7.3*  \
+      php7.4*  \
+      php8.0*  \
+      php8.1*  \
+      php8.2*  \
+      php8.3*  && \
+#      php8.4*  && \
+    rm -rfv /etc/php/{5.6,7.0,7.1,7.2,7.3,7.4,8.0,8.1,8.2,8.3} && \
     php -m && \
     php -v
 
@@ -76,7 +99,7 @@ RUN mkdir -p /etc/ldap && \
 ##################################################################
 #                   Installing Bolt addon
 ##################################################################
-#RUN echo "extension = ${PHP_MODULE_PATH}/phpBolt-extension-1.0.5-php83.so" >> ${PHP_DIR}/apache2/php.ini
+#RUN echo "extension = ${PHP_MODULE_PATH}/phpBolt-extension-1.0.5-php84.so" >> ${PHP_DIR}/apache2/php.ini
 
 ##################################################################
 #                   Installing IOnCube addon

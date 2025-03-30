@@ -66,7 +66,7 @@ RUN apt-get update && \
       php8.1-mysql \
       php8.1-oauth \
       php8.1-odbc \
-#      php8.1-opcache \
+      php8.1-opcache \
       php8.1-pcov \
       php8.1-pgsql \
 #      php8.1-phalcon5 \
@@ -94,11 +94,11 @@ RUN apt-get update && \
       php8.1-sybase \
       php8.1-tideways \
       php8.1-tidy \
-#      php8.1-uopz \
+      php8.1-uopz \
       php8.1-uploadprogress \
       php8.1-uuid \
       php8.1-vips \
-#      php8.1-xdebug \
+      php8.1-xdebug \
       php8.1-xhprof \
       php8.1-xml \
       php8.1-xmlrpc \
@@ -108,9 +108,23 @@ RUN apt-get update && \
       php8.1-zip \
       php8.1-zmq \
       php8.1-zstd \
-      smbclient libsmbclient \
+      smbclient \
+      libsmbclient \
       sendmail && \
     ln -sfv /etc/ssl/dhparam.pem /etc/php/dhparam.pem && \
+    apt-get remove -y \
+      php5.6* \
+      php7.0*  \
+      php7.1*  \
+      php7.2*  \
+      php7.3*  \
+      php7.4*  \
+      php8.0*  \
+#      php8.1*  \
+      php8.2*  \
+      php8.3*  \
+      php8.4*  && \
+    rm -rfv /etc/php/{5.6,7.0,7.1,7.2,7.3,7.4,8.0,8.2,8.3,8.4} && \
     update-alternatives --set php /usr/bin/php8.1 && \
 #    pear clear-cache && \
     pear update-channels && \
@@ -164,6 +178,16 @@ RUN phpenmod \
       xmlwriter \
       xsl \
       yaml && \
+    phpdismod \
+      xdebug \
+      xcache \
+      xhprof \
+      tideways \
+      pcov \
+      swoole \
+      grpc \
+      uopz \
+      msgpack && \
     php -m && \
     php -v
 

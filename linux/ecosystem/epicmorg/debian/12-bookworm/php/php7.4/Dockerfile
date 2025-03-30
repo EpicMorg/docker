@@ -167,19 +167,19 @@ RUN apt-get update && \
       php7.4-mysql \
       php7.4-oauth \
       php7.4-odbc \
-#      php7.4-opcache \
+      php7.4-opcache \
       php7.4-pcov \
       php7.4-pgsql \
       php7.4-phalcon4 \
 #      php7.4-phalcon5 \
       php7.4-phpdbg \
       php7.4-pinba \
-#      php7.4-pq \
+      php7.4-pq \
       php7.4-propro \
       php7.4-protobuf \
       php7.4-ps \
       php7.4-pspell \
-#      php7.4-psr \
+      php7.4-psr \
       php7.4-radius \
       php7.4-raphf \
       php7.4-rdkafka \
@@ -196,11 +196,11 @@ RUN apt-get update && \
       php7.4-sybase \
       php7.4-tideways \
       php7.4-tidy \
-#      php7.4-uopz \
+      php7.4-uopz \
       php7.4-uploadprogress \
       php7.4-uuid \
       php7.4-vips \
-#      php7.4-xdebug \
+      php7.4-xdebug \
       php7.4-xhprof \
       php7.4-xml \
       php7.4-xmlrpc \
@@ -210,9 +210,23 @@ RUN apt-get update && \
       php7.4-zip \
       php7.4-zmq \
       php7.4-zstd \
-      smbclient libsmbclient \
+      smbclient \
+      libsmbclient \
       sendmail && \
     ln -sfv /etc/ssl/dhparam.pem /etc/php/dhparam.pem && \
+    apt-get remove -y \
+      php5.6* \
+      php7.0*  \
+      php7.1*  \
+      php7.2*  \
+      php7.3*  \
+#      php7.4*  \
+      php8.0*  \
+      php8.1*  \
+      php8.2*  \
+      php8.3*  \
+      php8.4*  && \
+    rm -rfv /etc/php/{5.6,7.0,7.1,7.2,7.3,8.0,8.1,8.2,8.3,8.4} && \
     update-alternatives --set php /usr/bin/php7.4 && \
 #    pear clear-cache && \
     pear update-channels && \
@@ -266,6 +280,16 @@ RUN phpenmod \
       xmlwriter \
       xsl \
       yaml && \
+    phpdismod \
+      xdebug \
+      xcache \
+      xhprof \
+      tideways \
+      pcov \
+      swoole \
+      grpc \
+      uopz \
+      msgpack && \
     php -m && \
     php -v
 

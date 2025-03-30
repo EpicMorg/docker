@@ -1,0 +1,5 @@
+services:
+  app:
+    image: "epicmorg/testrail:auth-ad-9.0.0.1057"
+    build:
+      context: .

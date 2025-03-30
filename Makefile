@@ -890,7 +890,6 @@ ecosystem-debian-sid-nodejs-images:
 ####################################################################################################################
 
 ecosystem-php-images:
-#	echo "disabled temprorary"
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/php/php5.6             && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/php/php7.0             && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/php/php7.1             && pwd && make build && make deploy
@@ -903,7 +902,32 @@ ecosystem-php-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/php/php8.3             && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/php/php8.4             && pwd && make build && make deploy
 
+testrail-prod:
+	cd `pwd`/linux/ecosystem/testrail/5.7.1.4028/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/5.7.1.4028/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/5.7.1.4028/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.7.2.1043/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.7.2.1043/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/6.7.2.1043/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/7.5.3.1000/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/7.5.3.1000/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/7.5.3.1000/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/8.0.1.1029/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/8.0.1.1029/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/8.0.1.1029/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/8.0.4.7036/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/8.0.4.7036/ad       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/8.0.4.7036/ldap       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/8.0.6.1019/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/8.0.6.1019/ad       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/8.0.6.1019/ldap       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/9.0.0.1057/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/9.0.0.1057/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/9.0.0.1057/ldap         && pwd && make build && make deploy
+
+
 ecosystem-apache2-images:
+	cd `pwd`/linux/ecosystem/apache2/php5.6         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apache2/php7.0         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apache2/php7.1         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apache2/php7.2         && pwd && make build && make deploy
@@ -913,6 +937,7 @@ ecosystem-apache2-images:
 	cd `pwd`/linux/ecosystem/apache2/php8.1         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apache2/php8.2         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apache2/php8.3         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apache2/php8.4         && pwd && make build && make deploy
 
 ecosystem-testrail-images:
 	cd `pwd`/linux/ecosystem/cassandra/3.11       && pwd && make build && make deploy
@@ -979,6 +1004,8 @@ ecosystem-testrail-images:
 	cd `pwd`/linux/ecosystem/testrail/8.0.1.1029/main       && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/testrail/8.0.4.7036/main       && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/testrail/8.0.6.1019/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/8.1.0.6186/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/9.0.0.1057/main       && pwd && make build && make deploy
 
 	cd `pwd`/linux/ecosystem/testrail/5.4.1.3669/ad           && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/testrail/5.5.0.3727/ad           && pwd && make build && make deploy
@@ -1042,6 +1069,8 @@ ecosystem-testrail-images:
 	cd `pwd`/linux/ecosystem/testrail/8.0.1.1029/ad           && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/testrail/8.0.4.7036/ad           && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/testrail/8.0.6.1019/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/8.1.0.6186/ad           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/9.0.0.1057/ad           && pwd && make build && make deploy
     
 	cd `pwd`/linux/ecosystem/testrail/5.4.1.3669/ldap         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/testrail/5.5.0.3727/ldap         && pwd && make build && make deploy
@@ -1105,6 +1134,8 @@ ecosystem-testrail-images:
 	cd `pwd`/linux/ecosystem/testrail/8.0.1.1029/ldap         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/testrail/8.0.4.7036/ldap         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/testrail/8.0.6.1019/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/8.1.0.6186/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/9.0.0.1057/ldap         && pwd && make build && make deploy
 
 ecosystem-torrserver-images:
 	cd `pwd`/linux/ecosystem/torrserver            && pwd && make build && make deploy
@@ -1181,6 +1212,7 @@ ecosystem-postgres-images:
 #	cd `pwd`/linux/ecosystem/postgres/18           && pwd && make build && make deploy
 
 ecosystem-teamcity-agent-images:
+	cd `pwd`/linux/ecosystem/teamcity/agent/minimal         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/teamcity/agent/latest         && pwd && make build && make deploy
 
 ecosystem-gitlab-runner-images:
