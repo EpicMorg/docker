@@ -11,9 +11,6 @@ ARG DOTNET_INSTALL_SCRIPT_URL=https://dotnet.microsoft.com/download/dotnet/scrip
 ENV DOTNET_CLI_TELEMETRY_OPTOUT=true
 ENV DOTNET_SKIP_FIRST_TIME_EXPERIENCE=true
 
-ENV OPENSSL_ROOT=${OPENSSL_34_DIR}
-ENV LD_LIBRARY_PATH=${OPENSSL_ROOT}/lib64:$LD_LIBRARY_PATH
-
 ##################################################################
 #                   installing dotnet
 ##################################################################

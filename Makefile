@@ -72,21 +72,27 @@ docker-compose-install:
 docker-compose-update:
 	@bash ./bin/docker-compose-update.sh
 
+clean:
+	@make buildah-clean
+	@make docker-clean
+
+buildah-clean:
+	buildah rm -a
+	buildah rmi -a
+
 docker-clean:
 	docker container prune -f
 	docker image prune -f
 	docker network prune -f
 	docker volume prune -f
 	docker system prune -af
-	buildah rm -a
-	buildah rmi -a
 
 images:
 	make advanced-images
 	make ecosystem-images
 	make experimental-images
-#	make docker-clean
-#	make docker-clean
+#	make clean
+
 
 advanced-images:
 	@echo "======================================="

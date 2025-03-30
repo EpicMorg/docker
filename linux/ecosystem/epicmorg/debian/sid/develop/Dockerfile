@@ -1046,10 +1046,7 @@ RUN tar -xzf ${OPENSSL_33_TEMP} --directory /tmp && \
       --prefix=${OPENSSL_33_DIR} \
       && \
     make -j$(nproc) && \
-    make -j$(nproc) install && \
-    echo "# OpenSSL support" >> ${LD_CONF_DIR}/OpenSSL.conf && \
-    echo ${OPENSSL_33_LIB_DIR} >> ${LD_CONF_DIR}/OpenSSL.conf && \
-    ldconfig
+    make -j$(nproc) install
 
 ##################################################################
 #                   OpenSSL 3.4
@@ -1080,10 +1077,7 @@ RUN tar -xzf ${OPENSSL_34_TEMP} --directory /tmp && \
       --prefix=${OPENSSL_34_DIR} \
       && \
     make -j$(nproc) && \
-    make -j$(nproc) install && \
-    echo "# OpenSSL support" >> ${LD_CONF_DIR}/OpenSSL.conf && \
-    echo ${OPENSSL_34_LIB_DIR} >> ${LD_CONF_DIR}/OpenSSL.conf && \
-    ldconfig
+    make -j$(nproc) install
 
 ##################################################################
 #                   LibreSSL
@@ -1102,10 +1096,7 @@ RUN tar -xzf ${LIBRESSL_TEMP} --directory /tmp && \
       --prefix=${LIBRESSL_DIR} \
       && \
     make -j$(nproc) && \
-    make -j$(nproc) install && \
-#    echo "# LibreSSL support" >> ${LD_CONF_DIR}/LibreSSL.conf && \
-#    echo ${LIBRESSL_LIB_DIR} >> ${LD_CONF_DIR}/LibreSSL.conf && \
-    ldconfig
+    make -j$(nproc) install
 
 # ##################################################################
 # #                   BoringSSL
@@ -1121,10 +1112,7 @@ RUN tar -xzf ${LIBRESSL_TEMP} --directory /tmp && \
 #     cd ${BORINGSSL_TEMP_SRC}/build && \
 #     cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_POSITION_INDEPENDENT_CODE=TRUE -DBUILD_SHARED_LIBS=1 -DCMAKE_INSTALL_PREFIX=${BORINGSSL_DIR} .. && \
 #     make -j$(if [ $(nproc) -gt 8 ]; then echo $(( $(nproc) / 2 )); else echo $(nproc); fi) && \
-#     make -j$(nproc) install && \
-# #    echo "# BoringSSL support" >> ${LD_CONF_DIR}/BoringSSL.conf && \
-# #    echo ${BORINGSSL_LIB_DIR} >> ${LD_CONF_DIR}/BoringSSL.conf && \
-#     ldconfig
+#     make -j$(nproc) install
 
 ##################################################################
 #                   other   customisations

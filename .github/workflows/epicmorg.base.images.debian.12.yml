@@ -43,7 +43,7 @@ jobs:
 ##################################################################################
 
     - name: Cleanup
-      run: make docker-clean
+      run: make clean
 
 ##################################################################################
 
@@ -52,6 +52,13 @@ jobs:
 
     - name: "Build and Deploy Debian 12 Python 3.10:"
       run:  	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/python/3.10  && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
 
     - name: "Build and Deploy Debian 12 Python 3.11:"
       run:  	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/python/3.11  && pwd && make build && make deploy
@@ -65,7 +72,7 @@ jobs:
 ##################################################################################
 
     - name: Cleanup
-      run: make docker-clean
+      run: make clean
 
 ##################################################################################
 
@@ -87,7 +94,7 @@ jobs:
 ##################################################################################
 
     - name: Cleanup
-      run: make docker-clean
+      run: make clean
 
 ##################################################################################
 
@@ -103,7 +110,7 @@ jobs:
 ##################################################################################
 
     - name: Cleanup
-      run: make docker-clean
+      run: make clean
 
 ##################################################################################
 
@@ -127,7 +134,7 @@ jobs:
 ##################################################################################
 
     - name: Cleanup
-      run: make docker-clean
+      run: make clean
 
 ##################################################################################
 
@@ -140,7 +147,7 @@ jobs:
 ##################################################################################
 
     - name: Cleanup
-      run: make docker-clean
+      run: make clean
 
 ##################################################################################
 
@@ -153,12 +160,19 @@ jobs:
 ##################################################################################
 
     - name: Cleanup
-      run: make docker-clean
+      run: make clean
 
 ##################################################################################
 
     - name: "Build and Deploy Debian 12 jdk18 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/jdk/jdk18    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
 
     - name: "Build and Deploy Debian 12 jdk19 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/jdk/jdk19    && pwd && make build && make deploy
@@ -166,18 +180,39 @@ jobs:
 ##################################################################################
 
     - name: Cleanup
-      run: make docker-clean
+      run: make clean
 
 ##################################################################################
 
     - name: "Build and Deploy Debian 12 jdk20 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/jdk/jdk20    && pwd && make build && make deploy
 
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
     - name: "Build and Deploy Debian 12 jdk21 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/jdk/jdk21    && pwd && make build && make deploy
 
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
     - name: "Build and Deploy Debian 12 jdk22 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/jdk/jdk22    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
 
     - name: "Build and Deploy Debian 12 jdk23 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/jdk/jdk23    && pwd && make build && make deploy
@@ -185,7 +220,7 @@ jobs:
 ##################################################################################
 
     - name: Cleanup
-      run: make docker-clean
+      run: make clean
 
 ##################################################################################
 
@@ -206,6 +241,13 @@ jobs:
     - name: "Build and Deploy Debian 12 NodeJS 5 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node5    && pwd && make build && make deploy
 
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
     - name: "Build and Deploy Debian 12 NodeJS 6 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node6    && pwd && make build && make deploy
 
@@ -221,7 +263,7 @@ jobs:
 ##################################################################################
 
     - name: Cleanup
-      run: make docker-clean
+      run: make clean
 
 ##################################################################################
 
@@ -233,6 +275,13 @@ jobs:
 
     - name: "Build and Deploy Debian 12 NodeJS 12 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node12    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
 
     - name: "Build and Deploy Debian 12 NodeJS 13 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node13    && pwd && make build && make deploy
@@ -246,7 +295,7 @@ jobs:
 ##################################################################################
 
     - name: Cleanup
-      run: make docker-clean
+      run: make clean
 
 ##################################################################################
 
@@ -258,6 +307,13 @@ jobs:
 
     - name: "Build and Deploy Debian 12 NodeJS 18 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node18    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
 
     - name: "Build and Deploy Debian 12 NodeJS 19 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node19    && pwd && make build && make deploy
@@ -277,7 +333,7 @@ jobs:
 ##################################################################################
 
     - name: Cleanup
-      run: make docker-clean
+      run: make clean
 
 ##################################################################################
 
@@ -290,11 +346,25 @@ jobs:
     - name: "Build and Deploy Debian 12 dotNet 5 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/dotnet/dotnet5    && pwd && make build && make deploy
 
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
     - name: "Build and Deploy Debian 12 dotNet 6 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/dotnet/dotnet6    && pwd && make build && make deploy
 
     - name: "Build and Deploy Debian 12 dotNet 7 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/dotnet/dotnet7    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
 
     - name: "Build and Deploy Debian 12 dotNet 8 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/dotnet/dotnet8    && pwd && make build && make deploy
@@ -305,6 +375,6 @@ jobs:
 ##################################################################################
 
     - name: Cleanup
-      run: make docker-clean
+      run: make clean
 
 ##################################################################################
