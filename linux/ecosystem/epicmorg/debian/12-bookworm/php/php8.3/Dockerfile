@@ -183,8 +183,7 @@ RUN phpenmod \
       pcov \
       swoole \
       grpc \
-      uopz \
-      msgpack && \
+      uopz && \
     php -m && \
     php -v
 

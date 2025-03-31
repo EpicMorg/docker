@@ -56,8 +56,7 @@ RUN apt-get update && \
       pcov \
       swoole \
       grpc \
-      uopz \
-      msgpack && \
+      uopz && \
     apt-get remove -y \
       php5.6* \
       php7.0*  \

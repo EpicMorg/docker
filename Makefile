@@ -909,6 +909,12 @@ testrail-prod:
 	cd `pwd`/linux/ecosystem/testrail/6.7.2.1043/main       && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/testrail/6.7.2.1043/ad           && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/testrail/6.7.2.1043/ldap         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/7.0.2.1016/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/7.0.2.1016/ldap       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/7.0.2.1016/ad       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/7.4.1.8092/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/7.4.1.8092/ad       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/7.4.1.8092/ldap       && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/testrail/7.5.3.1000/main       && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/testrail/7.5.3.1000/ad           && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/testrail/7.5.3.1000/ldap         && pwd && make build && make deploy
@@ -921,6 +927,9 @@ testrail-prod:
 	cd `pwd`/linux/ecosystem/testrail/8.0.6.1019/main       && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/testrail/8.0.6.1019/ad       && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/testrail/8.0.6.1019/ldap       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/8.1.0.6186/main       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/8.1.0.6186/ad       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/testrail/8.1.0.6186/ldap       && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/testrail/9.0.0.1057/main       && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/testrail/9.0.0.1057/ad           && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/testrail/9.0.0.1057/ldap         && pwd && make build && make deploy

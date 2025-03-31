@@ -56,8 +56,7 @@ RUN apt-get update && \
       pcov \
       swoole \
       grpc \
-      uopz \
-      msgpack && \
+      uopz && \
     php -m && \
     php -v
 
