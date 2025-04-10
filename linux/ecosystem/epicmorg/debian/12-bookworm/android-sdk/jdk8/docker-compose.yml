@@ -1,5 +1,5 @@
 services:
   app:
-    image: "epicmorg/debian:bookworm-android-sdk-jdk8"
+    image: "hub.epicm.org/epicmorg/debian:bookworm-android-sdk-jdk8"
     build:
       context: .

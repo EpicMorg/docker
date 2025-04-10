@@ -1,10 +1,10 @@
 services:
   app:
-    image: "epicmorg/debian:buster-nodejs13"
+    image: "hub.epicm.org/epicmorg/debian:buster-nodejs13"
     build:
       context: .
   app-develop:
-    image: "epicmorg/debian:buster-develop-nodejs13"
+    image: "hub.epicm.org/epicmorg/debian:buster-develop-nodejs13"
     build:
       context: .
       dockerfile: ./Dockerfile.develop

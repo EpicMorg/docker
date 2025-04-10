@@ -1,0 +1,5 @@
+services:
+  app:
+    image: "hub.epicm.org/epicmorg/freegpt-webui:latest"
+    build:
+      context: .

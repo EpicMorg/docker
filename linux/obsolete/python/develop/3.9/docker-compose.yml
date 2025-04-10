@@ -1,0 +1,5 @@
+services:
+  app:
+    image: "hub.epicm.org/epicmorg/python:3.9-develop"
+    build:
+      context: .

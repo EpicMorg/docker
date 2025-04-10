@@ -1,19 +1,19 @@
 services:
   app:
-    image: "epicmorg/bitbucket:8.16.4"
+    image: "hub.epicm.org/epicmorg/bitbucket:8.16.4"
     build:
       context: .
   app-jdk8:
-    image: "epicmorg/bitbucket:8.16.4-jdk8"
+    image: "hub.epicm.org/epicmorg/bitbucket:8.16.4-jdk8"
     build:
       context: .
   app-jdk11:
-    image: "epicmorg/bitbucket:8.16.4-jdk11"
+    image: "hub.epicm.org/epicmorg/bitbucket:8.16.4-jdk11"
     build:
       context: .
       dockerfile: Dockerfile.jdk11
   app-jdk17:
-    image: "epicmorg/bitbucket:8.16.4-jdk17"
+    image: "hub.epicm.org/epicmorg/bitbucket:8.16.4-jdk17"
     build:
       context: .
       dockerfile: Dockerfile.jdk17

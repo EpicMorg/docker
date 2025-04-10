@@ -1,5 +1,5 @@
 services:
   app:
-    image: "epicmorg/zabbix-proxy-sqlite3:7.0"
+    image: "hub.epicm.org/epicmorg/zabbix-proxy-sqlite3:7.0"
     build:
       context: .

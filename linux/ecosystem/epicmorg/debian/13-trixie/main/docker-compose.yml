@@ -1,5 +1,5 @@
 services:
   app:
-    image: "epicmorg/debian:trixie"
+    image: "hub.epicm.org/epicmorg/debian:trixie"
     build:
       context: .

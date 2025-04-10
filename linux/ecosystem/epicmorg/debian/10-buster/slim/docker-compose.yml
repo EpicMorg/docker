@@ -1,5 +1,5 @@
 services:
   app:
-    image: "epicmorg/debian:buster-slim"
+    image: "hub.epicm.org/epicmorg/debian:buster-slim"
     build:
       context: .

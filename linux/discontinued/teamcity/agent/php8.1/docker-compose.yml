@@ -1,5 +1,0 @@
-services:
-  app:
-    image: "epicmorg/teamcity-agent:php8.1"
-    build:
-      context: .

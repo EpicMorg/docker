@@ -1,10 +1,10 @@
 services:
   app:
-    image: "epicmorg/debian:bullseye-nodejs4"
+    image: "hub.epicm.org/epicmorg/debian:bullseye-nodejs4"
     build:
       context: .
   app-develop:
-    image: "epicmorg/debian:bullseye-develop-nodejs4"
+    image: "hub.epicm.org/epicmorg/debian:bullseye-develop-nodejs4"
     build:
       context: .
       dockerfile: ./Dockerfile.develop

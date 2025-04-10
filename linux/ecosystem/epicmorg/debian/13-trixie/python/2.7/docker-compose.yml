@@ -1,5 +1,5 @@
 services:
   app:
-    image: "epicmorg/debian:trixie-python-2.7"
+    image: "hub.epicm.org/epicmorg/debian:trixie-python-2.7"
     build:
       context: .

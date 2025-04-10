@@ -1,9 +1,9 @@
 services:
   app:
-    image: "epicmorg/gitlab-runner:amxx-sdk"
+    image: "hub.epicm.org/epicmorg/gitlab-runner:amxx-sdk"
     build:
       context: .
   app-19:
-    image: "epicmorg/gitlab-runner:amxx-sdk-1.9"
+    image: "hub.epicm.org/epicmorg/gitlab-runner:amxx-sdk-1.9"
     build:
       context: .

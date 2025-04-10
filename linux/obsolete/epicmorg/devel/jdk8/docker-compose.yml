@@ -1,0 +1,5 @@
+services:
+  app:
+    image: "hub.epicm.org/epicmorg/devel:jdk8"
+    build:
+      context: .

@@ -1,5 +1,5 @@
 services:
   app:
-    image: "epicmorg/opentracker:latest"
+    image: "hub.epicm.org/epicmorg/opentracker:latest"
     build:
       context: .

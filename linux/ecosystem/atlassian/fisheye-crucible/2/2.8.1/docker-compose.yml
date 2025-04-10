@@ -1,6 +1,6 @@
 services:
   app:
-    image: "epicmorg/fisheye-crucible:${RELEASE}"
+    image: "hub.epicm.org/epicmorg/fisheye-crucible:${RELEASE}"
     build:
       context: .
       args:

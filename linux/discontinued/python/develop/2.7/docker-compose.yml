@@ -1,5 +1,0 @@
-services:
-  app:
-    image: "epicmorg/python:2.7-develop"
-    build:
-      context: .

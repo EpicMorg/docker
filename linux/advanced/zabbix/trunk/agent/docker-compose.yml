@@ -1,5 +1,5 @@
 services:
   app:
-    image: "epicmorg/zabbix-agent:trunk"
+    image: "hub.epicm.org/epicmorg/zabbix-agent:trunk"
     build:
       context: .

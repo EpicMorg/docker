@@ -1,5 +1,5 @@
 services:
   app:
-    image: "epicmorg/gitlab-runner:latest"
+    image: "hub.epicm.org/epicmorg/gitlab-runner:latest"
     build:
       context: .

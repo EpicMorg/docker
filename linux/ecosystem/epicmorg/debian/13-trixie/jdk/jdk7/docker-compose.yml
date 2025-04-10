@@ -1,10 +1,10 @@
 services:
   app:
-    image: "epicmorg/debian:trixie-jdk7"
+    image: "hub.epicm.org/epicmorg/debian:trixie-jdk7"
     build:
       context: .
   app-develop:
-    image: "epicmorg/debian:trixie-develop-jdk7"
+    image: "hub.epicm.org/epicmorg/debian:trixie-develop-jdk7"
     build:
       context: .
       dockerfile: ./Dockerfile.develop

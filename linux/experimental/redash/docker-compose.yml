@@ -1,5 +1,5 @@
 services:
   app:
-    image: "epicmorg/redash:latest"
+    image: "hub.epicm.org/epicmorg/redash:latest"
     build:
       context: ./redash-repo

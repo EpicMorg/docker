@@ -1,9 +1,9 @@
 services:
   app:
-    image: "epicmorg/jira:{{ item }}"
+    image: "hub.epicm.org/epicmorg/jira:{{ item }}"
     build:
       context: .
   app-jdk17:
-    image: "epicmorg/jira:{{ item }}-jdk17"
+    image: "hub.epicm.org/epicmorg/jira:{{ item }}-jdk17"
     build:
       context: .

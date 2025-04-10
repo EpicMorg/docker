@@ -1,0 +1,5 @@
+services:
+  app:
+    image: "hub.epicm.org/epicmorg/gitlab-runner:node4"
+    build:
+      context: .

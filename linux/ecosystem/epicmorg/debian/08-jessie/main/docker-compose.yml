@@ -1,5 +1,5 @@
 services:
   app:
-    image: "epicmorg/debian:jessie"
+    image: "hub.epicm.org/epicmorg/debian:jessie"
     build:
       context: .

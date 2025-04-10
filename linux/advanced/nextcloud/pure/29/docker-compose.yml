@@ -1,5 +1,5 @@
 services:
   app:
-    image: "epicmorg/nextcloud:29"
+    image: "hub.epicm.org/epicmorg/nextcloud:29"
     build:
       context: .

@@ -1,10 +1,10 @@
 services:
   app:
-    image: "epicmorg/debian:trixieodejs18"
+    image: "hub.epicm.org/epicmorg/debian:trixieodejs18"
     build:
       context: .
   app-develop:
-    image: "epicmorg/debian:trixie-develop-nodejs18"
+    image: "hub.epicm.org/epicmorg/debian:trixie-develop-nodejs18"
     build:
       context: .
       dockerfile: ./Dockerfile.develop

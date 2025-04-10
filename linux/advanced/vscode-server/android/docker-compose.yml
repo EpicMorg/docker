@@ -1,20 +1,20 @@
 services:
   app:
-    image: "epicmorg/vscode-server:android"
+    image: "hub.epicm.org/epicmorg/vscode-server:android"
     build:
       context: .
   app-jdk11:
-    image: "epicmorg/vscode-server:android-jdk11"
+    image: "hub.epicm.org/epicmorg/vscode-server:android-jdk11"
     build:
       context: .
 
   app-jdk8:
-    image: "epicmorg/vscode-server:android-jdk8"
+    image: "hub.epicm.org/epicmorg/vscode-server:android-jdk8"
     build:
       context: .
       dockerfile: ./Dockerfile.jdk8
   app-jdk17:
-    image: "epicmorg/debian:bookworm-develop-jdk17"
+    image: "hub.epicm.org/epicmorg/debian:bookworm-develop-jdk17"
     build:
       context: .
       dockerfile: ./Dockerfile.jdk17

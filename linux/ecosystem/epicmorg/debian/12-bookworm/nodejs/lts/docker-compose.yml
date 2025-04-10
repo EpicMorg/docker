@@ -1,55 +1,55 @@
 services:
   app:
-    image: "epicmorg/debian:bookworm-nodejs-lts"
+    image: "hub.epicm.org/epicmorg/debian:bookworm-nodejs-lts"
     build:
       context: .
   app-develop:
-    image: "epicmorg/debian:bookworm-develop-nodejs-lts"
+    image: "hub.epicm.org/epicmorg/debian:bookworm-develop-nodejs-lts"
     build:
       context: .
       dockerfile: ./Dockerfile.develop
   app-nodejs-php70:
-    image: "epicmorg/debian:bookworm-php7.0-nodejs"
+    image: "hub.epicm.org/epicmorg/debian:bookworm-php7.0-nodejs"
     build:
       context: .
       dockerfile: ./Dockerfile.php70
   app-nodejs-php71:
-    image: "epicmorg/debian:bookworm-php7.1-nodejs"
+    image: "hub.epicm.org/epicmorg/debian:bookworm-php7.1-nodejs"
     build:
       context: .
       dockerfile: ./Dockerfile.php71
   app-nodejs-php72:
-    image: "epicmorg/debian:bookworm-php7.2-nodejs"
+    image: "hub.epicm.org/epicmorg/debian:bookworm-php7.2-nodejs"
     build:
       context: .
       dockerfile: ./Dockerfile.php72
   app-nodejs-php73:
-    image: "epicmorg/debian:bookworm-php7.3-nodejs"
+    image: "hub.epicm.org/epicmorg/debian:bookworm-php7.3-nodejs"
     build:
       context: .
       dockerfile: ./Dockerfile.php73
   app-nodejs-php74:
-    image: "epicmorg/debian:bookworm-php7.4-nodejs"
+    image: "hub.epicm.org/epicmorg/debian:bookworm-php7.4-nodejs"
     build:
       context: .
       dockerfile: ./Dockerfile.php74
   app-nodejs-php80:
-    image: "epicmorg/debian:bookworm-php8.0-nodejs"
+    image: "hub.epicm.org/epicmorg/debian:bookworm-php8.0-nodejs"
     build:
       context: .
       dockerfile: ./Dockerfile.php80
   app-nodejs-php81:
-    image: "epicmorg/debian:bookworm-php8.1-nodejs"
+    image: "hub.epicm.org/epicmorg/debian:bookworm-php8.1-nodejs"
     build:
       context: .
       dockerfile: ./Dockerfile.php81
   app-nodejs-php82:
-    image: "epicmorg/debian:bookworm-php8.2-nodejs"
+    image: "hub.epicm.org/epicmorg/debian:bookworm-php8.2-nodejs"
     build:
       context: .
       dockerfile: ./Dockerfile.php82
   app-nodejs-php83:
-    image: "epicmorg/debian:bookworm-php8.3-nodejs"
+    image: "hub.epicm.org/epicmorg/debian:bookworm-php8.3-nodejs"
     build:
       context: .
       dockerfile: ./Dockerfile.php83

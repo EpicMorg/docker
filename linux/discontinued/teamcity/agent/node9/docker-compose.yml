@@ -1,5 +1,0 @@
-services:
-  app:
-    image: "epicmorg/teamcity-agent:node9"
-    build:
-      context: .

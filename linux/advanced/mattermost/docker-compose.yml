@@ -1,5 +1,5 @@
 services:
   app:
-    image: "epicmorg/mattermost-enterprise-edition:latest"
+    image: "hub.epicm.org/epicmorg/mattermost-enterprise-edition:latest"
     build:
       context: .

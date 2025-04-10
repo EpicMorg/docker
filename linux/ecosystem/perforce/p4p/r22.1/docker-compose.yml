@@ -1,5 +1,5 @@
 services:
   app:
-    image: "epicmorg/p4p:r22.1"
+    image: "hub.epicm.org/epicmorg/p4p:r22.1"
     build:
       context: .

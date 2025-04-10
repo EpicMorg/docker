@@ -1,5 +1,5 @@
 services:
   app:
-    image: "epicmorg/debian:bullseye-python-2.6"
+    image: "hub.epicm.org/epicmorg/debian:bullseye-python-2.6"
     build:
       context: .

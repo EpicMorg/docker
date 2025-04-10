@@ -1,10 +1,10 @@
 services:
   app:
-    image: "epicmorg/debian:wheezy-nodejs5"
+    image: "hub.epicm.org/epicmorg/debian:wheezy-nodejs5"
     build:
       context: .
   app-develop:
-    image: "epicmorg/debian:wheezy-develop-nodejs5"
+    image: "hub.epicm.org/epicmorg/debian:wheezy-develop-nodejs5"
     build:
       context: .
       dockerfile: ./Dockerfile.develop

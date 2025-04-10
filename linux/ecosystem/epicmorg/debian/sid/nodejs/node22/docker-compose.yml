@@ -1,10 +1,10 @@
 services:
   app:
-    image: "epicmorg/debian:sid-nodejs22"
+    image: "hub.epicm.org/epicmorg/debian:sid-nodejs22"
     build:
       context: .
   app-develop:
-    image: "epicmorg/debian:sid-develop-nodejs22"
+    image: "hub.epicm.org/epicmorg/debian:sid-develop-nodejs22"
     build:
       context: .
       dockerfile: ./Dockerfile.develop

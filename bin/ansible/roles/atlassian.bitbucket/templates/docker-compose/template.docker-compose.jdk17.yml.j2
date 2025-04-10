@@ -1,9 +1,9 @@
 services:
   app:
-    image: "epicmorg/bitbucket:{{ item }}"
+    image: "hub.epicm.org/epicmorg/bitbucket:{{ item }}"
     build:
       context: .
   app-jdk17:
-    image: "epicmorg/bitbucket:{{ item }}-jdk17"
+    image: "hub.epicm.org/epicmorg/bitbucket:{{ item }}-jdk17"
     build:
       context: .

@@ -1,10 +1,10 @@
 services:
   app:
-    image: "epicmorg/debian:sid-jdk7"
+    image: "hub.epicm.org/epicmorg/debian:sid-jdk7"
     build:
       context: .
   app-develop:
-    image: "epicmorg/debian:sid-develop-jdk7"
+    image: "hub.epicm.org/epicmorg/debian:sid-develop-jdk7"
     build:
       context: .
       dockerfile: ./Dockerfile.develop

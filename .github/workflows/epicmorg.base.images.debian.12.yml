@@ -17,10 +17,13 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - name: Log into registry
+    - name: Log into docker registry
       run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
-    - name: Install buildah
+    - name: Log into harbor registry
+      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
+
+    - name: Check buildah
       run:  |
         buildah --version
         buildah info

@@ -1,10 +1,10 @@
 services:
   app:
-    image: "epicmorg/debian:bullseye-jdk23"
+    image: "hub.epicm.org/epicmorg/debian:bullseye-jdk23"
     build:
       context: .
   app-develop:
-    image: "epicmorg/debian:bullseye-develop-jdk23"
+    image: "hub.epicm.org/epicmorg/debian:bullseye-develop-jdk23"
     build:
       context: .
       dockerfile: ./Dockerfile.develop

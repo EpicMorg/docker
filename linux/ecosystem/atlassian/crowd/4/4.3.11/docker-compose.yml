@@ -1,14 +1,14 @@
 services:
   app:
-    image: "epicmorg/crowd:4.3.11"
+    image: "hub.epicm.org/epicmorg/crowd:4.3.11"
     build:
       context: .
   app-jdk8:
-    image: "epicmorg/crowd:4.3.11-jdk8"
+    image: "hub.epicm.org/epicmorg/crowd:4.3.11-jdk8"
     build:
       context: .
   app-jdk11:
-    image: "epicmorg/crowd:4.3.11-jdk11"
+    image: "hub.epicm.org/epicmorg/crowd:4.3.11-jdk11"
     build:
       context: .
       dockerfile: Dockerfile.jdk11

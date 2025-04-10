@@ -1,5 +1,5 @@
 services:
   app:
-    image: "epicmorg/debian:bookworm-python-3.1"
+    image: "hub.epicm.org/epicmorg/debian:bookworm-python-3.1"
     build:
       context: .

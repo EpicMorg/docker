@@ -1,5 +1,5 @@
 services:
   app:
-    image: "epicmorg/vscode-server:cpp"
+    image: "hub.epicm.org/epicmorg/vscode-server:cpp"
     build:
       context: .

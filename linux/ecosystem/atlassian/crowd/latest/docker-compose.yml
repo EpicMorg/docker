@@ -1,9 +1,9 @@
 services:
   app:
-    image: "epicmorg/crowd:latest"
+    image: "hub.epicm.org/epicmorg/crowd:latest"
     build:
       context: .
   app-jdk17:
-    image: "epicmorg/crowd:latest-jdk17"
+    image: "hub.epicm.org/epicmorg/crowd:latest-jdk17"
     build:
       context: .

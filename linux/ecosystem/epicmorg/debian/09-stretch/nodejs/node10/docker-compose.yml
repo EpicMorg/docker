@@ -1,10 +1,10 @@
 services:
   app:
-    image: "epicmorg/debian:stretch-nodejs10"
+    image: "hub.epicm.org/epicmorg/debian:stretch-nodejs10"
     build:
       context: .
   app-develop:
-    image: "epicmorg/debian:stretch-develop-nodejs10"
+    image: "hub.epicm.org/epicmorg/debian:stretch-develop-nodejs10"
     build:
       context: .
       dockerfile: ./Dockerfile.develop

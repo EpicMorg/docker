@@ -1,5 +1,0 @@
-services:
-  app:
-    image: "epicmorg/gitlab-runner:php8.2"
-    build:
-      context: .

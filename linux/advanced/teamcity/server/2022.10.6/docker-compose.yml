@@ -1,5 +1,5 @@
 services:
   app:
-    image: "epicmorg/teamcity-server:2022.10.6"
+    image: "hub.epicm.org/epicmorg/teamcity-server:2022.10.6"
     build:
       context: .

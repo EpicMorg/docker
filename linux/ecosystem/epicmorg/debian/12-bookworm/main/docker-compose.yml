@@ -1,5 +1,5 @@
 services:
   app:
-    image: "epicmorg/debian:bookworm"
+    image: "hub.epicm.org/epicmorg/debian:bookworm"
     build:
       context: .

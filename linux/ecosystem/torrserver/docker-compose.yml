@@ -1,5 +1,5 @@
 services:
   app:
-    image: "epicmorg/torrserver:latest"
+    image: "hub.epicm.org/epicmorg/torrserver:latest"
     build:
       context: .

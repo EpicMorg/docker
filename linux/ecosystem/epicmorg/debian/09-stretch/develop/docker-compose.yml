@@ -1,5 +1,5 @@
 services:
   app:
-    image: "epicmorg/debian:stretch-develop"
+    image: "hub.epicm.org/epicmorg/debian:stretch-develop"
     build:
       context: .

@@ -1,9 +1,9 @@
 services:
   app-jdk21:
-    image: "epicmorg/teamcity-agent:minimal-jdk21"
+    image: "hub.epicm.org/epicmorg/teamcity-agent:minimal-jdk21"
     build:
       context: .
   app:
-    image: "epicmorg/teamcity-agent:minimal"
+    image: "hub.epicm.org/epicmorg/teamcity-agent:minimal"
     build:
       context: .

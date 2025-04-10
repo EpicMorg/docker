@@ -1,5 +1,0 @@
-services:
-  app:
-    image: "epicmorg/prod:jdk8"
-    build:
-      context: .

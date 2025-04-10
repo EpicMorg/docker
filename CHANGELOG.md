@@ -1,4 +1,6 @@
 # Changelog
+* `apr`
+  * changed default docker regitstry hub to own. only for ci builds. 
 ## 2025
 * `mar`
   * updated `teamcity-server` iamge

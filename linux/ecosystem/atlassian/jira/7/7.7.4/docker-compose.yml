@@ -1,9 +1,9 @@
 services:
   app:
-    image: "epicmorg/jira:7.7.4"
+    image: "hub.epicm.org/epicmorg/jira:7.7.4"
     build:
       context: .
   app-jdk8:
-    image: "epicmorg/jira:7.7.4-jdk8"
+    image: "hub.epicm.org/epicmorg/jira:7.7.4-jdk8"
     build:
       context: .

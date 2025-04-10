@@ -1,10 +1,10 @@
 services:
   app:
-    image: "epicmorg/debian:jessie-nodejs12"
+    image: "hub.epicm.org/epicmorg/debian:jessie-nodejs12"
     build:
       context: .
   app-develop:
-    image: "epicmorg/debian:jessie-develop-nodejs12"
+    image: "hub.epicm.org/epicmorg/debian:jessie-develop-nodejs12"
     build:
       context: .
       dockerfile: ./Dockerfile.develop

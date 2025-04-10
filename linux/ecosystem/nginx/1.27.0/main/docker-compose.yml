@@ -1,5 +1,5 @@
 services:
   app:
-    image: "epicmorg/nginx:1.27.0"
+    image: "hub.epicm.org/epicmorg/nginx:1.27.0"
     build:
       context: .

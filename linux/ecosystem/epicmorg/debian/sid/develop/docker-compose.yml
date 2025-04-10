@@ -1,5 +1,5 @@
 services:
   app:
-    image: "epicmorg/debian:sid-develop"
+    image: "hub.epicm.org/epicmorg/debian:sid-develop"
     build:
       context: .

@@ -1,5 +1,0 @@
-services:
-  app:
-    image: "epicmorg/freegpt-webui:1.0"
-    build:
-      context: .

@@ -1,9 +1,9 @@
 services:
   app:
-    image: "epicmorg/confluence:6.0.6"
+    image: "hub.epicm.org/epicmorg/confluence:6.0.6"
     build:
       context: .
   app-jdk8:
-    image: "epicmorg/confluence:6.0.6-jdk8"
+    image: "hub.epicm.org/epicmorg/confluence:6.0.6-jdk8"
     build:
       context: .

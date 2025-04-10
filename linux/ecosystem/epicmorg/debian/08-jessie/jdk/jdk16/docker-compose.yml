@@ -1,10 +1,10 @@
 services:
   app:
-    image: "epicmorg/debian:jessie-jdk16"
+    image: "hub.epicm.org/epicmorg/debian:jessie-jdk16"
     build:
       context: .
   app-develop:
-    image: "epicmorg/debian:jessie-develop-jdk16"
+    image: "hub.epicm.org/epicmorg/debian:jessie-develop-jdk16"
     build:
       context: .
       dockerfile: ./Dockerfile.develop

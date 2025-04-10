@@ -1,6 +1,6 @@
 services:
   app:
-    image: "epicmorg/nginx:${NGINX_VERSION}"
+    image: "hub.epicm.org/epicmorg/nginx:${NGINX_VERSION}"
     build:
       context: .
       args:

@@ -1,10 +1,10 @@
 services:
   app:
-    image: "epicmorg/debian:trixie-dotnet-sts"
+    image: "hub.epicm.org/epicmorg/debian:trixie-dotnet-sts"
     build:
       context: .
   app-develop:
-    image: "epicmorg/debian:trixie-develop-dotnet-sts"
+    image: "hub.epicm.org/epicmorg/debian:trixie-develop-dotnet-sts"
     build:
       context: .
       dockerfile: ./Dockerfile.develop

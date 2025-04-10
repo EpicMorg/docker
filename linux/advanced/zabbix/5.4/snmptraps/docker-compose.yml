@@ -1,5 +1,5 @@
 services:
   app:
-    image: "epicmorg/zabbix-snmptraps:5.4"
+    image: "hub.epicm.org/epicmorg/zabbix-snmptraps:5.4"
     build:
       context: .

@@ -1,5 +1,5 @@
 services:
   app:
-    image: "epicmorg/testrail:auth-ad-6.6.1.1166"
+    image: "hub.epicm.org/epicmorg/testrail:auth-ad-6.6.1.1166"
     build:
       context: .

@@ -1,5 +1,5 @@
 services:
   app:
-    image: "epicmorg/postgres:10"
+    image: "hub.epicm.org/epicmorg/postgres:10"
     build:
       context: .

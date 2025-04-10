@@ -1,14 +1,14 @@
 services:
   app:
-    image: "epicmorg/confluence:{{ item }}"
+    image: "hub.epicm.org/epicmorg/confluence:{{ item }}"
     build:
       context: .
   app-jdk7:
-    image: "epicmorg/confluence:{{ item }}-jdk7"
+    image: "hub.epicm.org/epicmorg/confluence:{{ item }}-jdk7"
     build:
       context: .
   app-jdk8:
-    image: "epicmorg/confluence:{{ item }}-jdk8"
+    image: "hub.epicm.org/epicmorg/confluence:{{ item }}-jdk8"
     build:
       context: .
       dockerfile: Dockerfile.jdk8

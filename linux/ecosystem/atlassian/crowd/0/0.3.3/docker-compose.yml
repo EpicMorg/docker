@@ -1,9 +1,9 @@
 services:
   app:
-    image: "epicmorg/crowd:0.3.3"
+    image: "hub.epicm.org/epicmorg/crowd:0.3.3"
     build:
       context: .
   app-jdk6:
-    image: "epicmorg/crowd:0.3.3-jdk6"
+    image: "hub.epicm.org/epicmorg/crowd:0.3.3-jdk6"
     build:
       context: .

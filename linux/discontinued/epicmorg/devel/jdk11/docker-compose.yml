@@ -1,5 +1,0 @@
-services:
-  app:
-    image: "epicmorg/devel:jdk11"
-    build:
-      context: .

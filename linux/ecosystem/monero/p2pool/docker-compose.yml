@@ -1,6 +1,6 @@
 services:
   app:
-    image: "epicmorg/monero:p2pool"
+    image: "hub.epicm.org/epicmorg/monero:p2pool"
     build:
       context: .
 

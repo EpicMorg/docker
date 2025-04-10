@@ -1,10 +1,10 @@
 services:
   app:
-    image: "epicmorg/debian:bookworm-dotnet-sts"
+    image: "hub.epicm.org/epicmorg/debian:bookworm-dotnet-sts"
     build:
       context: .
   app-develop:
-    image: "epicmorg/debian:bookworm-develop-dotnet-sts"
+    image: "hub.epicm.org/epicmorg/debian:bookworm-develop-dotnet-sts"
     build:
       context: .
       dockerfile: ./Dockerfile.develop

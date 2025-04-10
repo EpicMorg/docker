@@ -1,5 +1,5 @@
 services:
   app:
-    image: "epicmorg/electron-release-server:latest"
+    image: "hub.epicm.org/epicmorg/electron-release-server:latest"
     build:
       context: .

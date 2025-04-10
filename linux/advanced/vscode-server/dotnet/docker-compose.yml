@@ -1,5 +1,5 @@
 services:
   app:
-    image: "epicmorg/vscode-server:dotnet"
+    image: "hub.epicm.org/epicmorg/vscode-server:dotnet"
     build:
       context: .
