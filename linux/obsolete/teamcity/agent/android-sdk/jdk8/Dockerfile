@@ -1,4 +1,4 @@
-FROM epicmorg/teamcity-agent:latest-jdk8
+FROM hub.epicm.org/epicmorg/teamcity-agent:latest-jdk8
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 

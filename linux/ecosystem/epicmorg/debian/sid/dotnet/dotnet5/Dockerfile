@@ -1,4 +1,4 @@
-FROM epicmorg/debian:sid
+FROM hub.epicm.org/epicmorg/debian:sid
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 

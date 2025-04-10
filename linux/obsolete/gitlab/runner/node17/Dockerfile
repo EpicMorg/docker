@@ -1,4 +1,4 @@
-FROM epicmorg/gitlab-runner:latest
+FROM hub.epicm.org/epicmorg/gitlab-runner:latest
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 
 ARG DEBIAN_FRONTEND=noninteractive

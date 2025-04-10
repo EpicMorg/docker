@@ -1,4 +1,4 @@
-FROM epicmorg/prod
+FROM hub.epicm.org/epicmorg/prod
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 

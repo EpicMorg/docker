@@ -1,4 +1,4 @@
-FROM epicmorg/testrail:6.1.1.1021
+FROM hub.epicm.org/epicmorg/testrail:6.1.1.1021
 
 ENV TESTRAIL_PLUGIN_VERSION=1.4
 ENV TESTRAIL_PLUGIN_NAME=ldap

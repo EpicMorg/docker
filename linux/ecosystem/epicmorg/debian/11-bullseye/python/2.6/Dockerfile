@@ -1,4 +1,4 @@
-FROM epicmorg/debian:bullseye-develop  as builder
+FROM hub.epicm.org/epicmorg/debian:bullseye-develop  as builder
 
 ##################################################################
 #                   Build
@@ -58,7 +58,7 @@ RUN make -j$(nproc) && \
 ##################################################################
 ##################################################################
 ##################################################################
-FROM epicmorg/debian:bookworm
+FROM hub.epicm.org/epicmorg/debian:bookworm
 
 RUN apt-get remove -y python3-pip
 

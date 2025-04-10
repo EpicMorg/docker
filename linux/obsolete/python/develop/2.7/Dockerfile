@@ -1,4 +1,4 @@
-FROM epicmorg/python:2.7
+FROM hub.epicm.org/epicmorg/python:2.7
 
 ARG DEBIAN_FRONTEND=noninteractive
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"

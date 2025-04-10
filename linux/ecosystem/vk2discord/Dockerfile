@@ -1,4 +1,4 @@
-FROM epicmorg/nodejs:node17
+FROM hub.epicm.org/epicmorg/nodejs:node17
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 

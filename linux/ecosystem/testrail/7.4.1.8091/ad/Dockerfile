@@ -1,4 +1,4 @@
-FROM epicmorg/testrail:7.4.1.8091
+FROM hub.epicm.org/epicmorg/testrail:7.4.1.8091
 
 ENV TESTRAIL_PLUGIN_VERSION=1.4
 ENV TESTRAIL_PLUGIN_NAME=ad

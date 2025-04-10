@@ -1,4 +1,4 @@
-FROM epicmorg/debian:bullseye
+FROM hub.epicm.org/epicmorg/debian:bullseye
 LABEL maintainer="original by sethforprivacy; EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 

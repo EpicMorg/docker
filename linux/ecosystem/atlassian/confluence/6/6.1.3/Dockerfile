@@ -1,4 +1,4 @@
-FROM epicmorg/debian:bookworm-jdk8
+FROM hub.epicm.org/epicmorg/debian:bookworm-jdk8
 LABEL maintainer="Atlassian Confluence Server Team; EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 

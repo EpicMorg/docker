@@ -1,4 +1,4 @@
-FROM epicmorg/teamcity-agent:minimal
+FROM hub.epicm.org/epicmorg/teamcity-agent:minimal
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 

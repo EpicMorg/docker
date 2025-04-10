@@ -1,4 +1,4 @@
-FROM epicmorg/debian:bullseye-develop as builder
+FROM hub.epicm.org/epicmorg/debian:bullseye-develop as builder
 
 RUN go get -v github.com/vvampirius/retracker/...
 RUN retracker -v

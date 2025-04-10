@@ -6,7 +6,7 @@ ARG NGINX_VERSION
 ##################################################################
 #                   Start build process
 ##################################################################
-FROM epicmorg/debian:bullseye-develop AS builder
+FROM hub.epicm.org/epicmorg/debian:bullseye-develop AS builder
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -90,7 +90,7 @@ RUN pecl install smbclient && \
 ##################################################################
 ##################################################################
 
-FROM epicmorg/nginx:${NGINX_VERSION}
+FROM hub.epicm.org/epicmorg/nginx:${NGINX_VERSION}
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 

@@ -1,4 +1,4 @@
-FROM epicmorg/nextcloud:25
+FROM hub.epicm.org/epicmorg/nextcloud:25
 
 ##################################################################
 #      thank u, mac users. rolling back normal ZipStreammer

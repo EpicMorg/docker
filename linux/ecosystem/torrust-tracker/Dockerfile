@@ -1,4 +1,4 @@
-FROM epicmorg/debian:bullseye-develop as builder
+FROM hub.epicm.org/epicmorg/debian:bullseye-develop as builder
 
 
 RUN git clone https://github.com/torrust/torrust-tracker.git -b develop /opt/torrust-tracker && \

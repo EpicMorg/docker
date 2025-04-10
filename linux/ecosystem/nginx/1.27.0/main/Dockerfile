@@ -5,7 +5,7 @@
 ##################################################################
 ##################################################################
 ##################################################################
-FROM epicmorg/debian:bookworm-develop AS build
+FROM hub.epicm.org/epicmorg/debian:bookworm-develop AS build
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -333,7 +333,7 @@ RUN updatedb
 ##################################################################
 ##################################################################
 ##################################################################
-FROM epicmorg/debian:bookworm
+FROM hub.epicm.org/epicmorg/debian:bookworm
 
 ENV NGINX_VERSION=1.27.0
 ENV NGINX_DIR=${EMG_LOCAL_BASE_DIR}/nginx/${NGINX_VERSION}

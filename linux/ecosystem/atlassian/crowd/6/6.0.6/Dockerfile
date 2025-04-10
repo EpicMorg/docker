@@ -1,4 +1,4 @@
-FROM epicmorg/debian:bookworm-jdk17
+FROM hub.epicm.org/epicmorg/debian:bookworm-jdk17
 LABEL maintainer="Atlassian Crowd Server Team; EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 

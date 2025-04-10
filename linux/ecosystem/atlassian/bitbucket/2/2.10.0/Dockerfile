@@ -1,4 +1,4 @@
-FROM epicmorg/debian:bookworm-jdk7
+FROM hub.epicm.org/epicmorg/debian:bookworm-jdk7
 LABEL maintainer="Atlassian Bitbucket Team; EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 

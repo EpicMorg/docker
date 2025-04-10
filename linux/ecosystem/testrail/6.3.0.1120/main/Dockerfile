@@ -1,4 +1,4 @@
-FROM epicmorg/apache2:php7.1
+FROM hub.epicm.org/epicmorg/apache2:php7.1
 
 ##############################################################################
 # Testrail Install

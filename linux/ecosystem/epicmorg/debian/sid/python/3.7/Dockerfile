@@ -1,4 +1,4 @@
-FROM epicmorg/debian:sid-develop  as builder
+FROM hub.epicm.org/epicmorg/debian:sid-develop  as builder
 
 ##################################################################
 #                   Build
@@ -78,7 +78,7 @@ RUN python${PYTHON_VERSION} -c "import ssl; print(ssl.OPENSSL_VERSION)"
 ##################################################################
 ##################################################################
 ##################################################################
-FROM epicmorg/debian:sid
+FROM hub.epicm.org/epicmorg/debian:sid
 
 RUN apt-get remove -y python3-pip
 

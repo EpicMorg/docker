@@ -1,4 +1,4 @@
-FROM epicmorg/debian:bookworm-develop-jdk17
+FROM hub.epicm.org/epicmorg/debian:bookworm-develop-jdk17
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 

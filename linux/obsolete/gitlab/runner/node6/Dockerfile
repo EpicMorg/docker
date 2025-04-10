@@ -1,4 +1,4 @@
-FROM epicmorg/gitlab-runner:latest
+FROM hub.epicm.org/epicmorg/gitlab-runner:latest
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 
 ARG K_NODE_MAJOR_VERSION=6

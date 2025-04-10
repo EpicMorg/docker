@@ -6,7 +6,7 @@ ARG NGINX_VERSION
 ##################################################################
 #                   Start build process
 ##################################################################
-FROM epicmorg/debian:bullseye-develop AS builder
+FROM hub.epicm.org/epicmorg/debian:bullseye-develop AS builder
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -191,7 +191,7 @@ RUN cd ${NGINX_SRC_DIR} && \
 ##################################################################
 ##################################################################
 
-FROM epicmorg/debian:bullseye
+FROM hub.epicm.org/epicmorg/debian:bullseye
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
