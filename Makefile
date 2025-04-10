@@ -417,59 +417,76 @@ ecosystem-debian-squeeze-nodejs-images:
 
 ecosystem-debian-wheezy-images:
 	make ecosystem-debian-wheezy-base-images
+	@make clean
 	make ecosystem-debian-wheezy-jdk-images
+	@make clean
 	make ecosystem-debian-wheezy-nodejs-images
+	@make clean
 
 ecosystem-debian-wheezy-base-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/07-wheezy/slim    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/07-wheezy/main    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/07-wheezy/develop    && pwd && make build && make deploy
+	@make clean
 
 ecosystem-debian-wheezy-jdk-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/07-wheezy/jdk/jdk6    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/07-wheezy/jdk/jdk7    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/07-wheezy/jdk/jdk8    && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/ecosystem/epicmorg/debian/07-wheezy/jdk/jdk11    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/07-wheezy/jdk/jdk16    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/07-wheezy/jdk/jdk17    && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/ecosystem/epicmorg/debian/07-wheezy/jdk/jdk18    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/07-wheezy/jdk/jdk19    && pwd && make build && make deploy
+	@make clean
 
 ecosystem-debian-wheezy-nodejs-images: 
 	cd `pwd`/linux/ecosystem/epicmorg/debian/07-wheezy/nodejs/node0.12       && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/07-wheezy/nodejs/node4          && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/07-wheezy/nodejs/node5          && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/07-wheezy/nodejs/node6          && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/ecosystem/epicmorg/debian/07-wheezy/nodejs/node7          && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/07-wheezy/nodejs/node8          && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/07-wheezy/nodejs/node9          && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/07-wheezy/nodejs/node10         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/07-wheezy/nodejs/node11         && pwd && make build && make deploy
+	@make clean
 
 ####################################################################################################################
 
 ecosystem-debian-jessie-images:
 	make ecosystem-debian-jessie-base-images
+	@make clean
 	make ecosystem-debian-jessie-jdk-images
+	@make clean
 	make ecosystem-debian-jessie-nodejs-images
+	@make clean
 
 ecosystem-debian-jessie-base-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/slim    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/main    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/develop    && pwd && make build && make deploy
+	@make clean
 
 ecosystem-debian-jessie-jdk-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/jdk/jdk6    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/jdk/jdk7    && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/jdk/jdk8    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/jdk/jdk11    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/jdk/jdk16    && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/jdk/jdk17    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/jdk/jdk18    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/jdk/jdk19    && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/jdk/jdk20    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/jdk/jdk21    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/jdk/jdk22    && pwd && make build && make deploy
+	@make clean
 
 ecosystem-debian-jessie-nodejs-images: 
 	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/nodejs/node0.12       && pwd && make build && make deploy
@@ -477,83 +494,104 @@ ecosystem-debian-jessie-nodejs-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/nodejs/node5          && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/nodejs/node6          && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/nodejs/node7          && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/nodejs/node8          && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/nodejs/node9          && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/nodejs/node10         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/nodejs/node11         && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/nodejs/node12         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/nodejs/node13         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/nodejs/node14         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/nodejs/node15         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/nodejs/node16         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/08-jessie/nodejs/node17         && pwd && make build && make deploy
+	@make clean
 
 ####################################################################################################################
 
 ecosystem-debian-stretch-images:
 	make ecosystem-debian-stretch-base-images
+	@make clean
 	make ecosystem-debian-stretch-jdk-images
+	@make clean
 	make ecosystem-debian-stretch-nodejs-images
+	@make clean
 
 ecosystem-debian-stretch-base-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/slim    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/main    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/develop    && pwd && make build && make deploy
+	@make clean
 
 ecosystem-debian-stretch-jdk-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/jdk/jdk6    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/jdk/jdk7    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/jdk/jdk8    && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/jdk/jdk11    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/jdk/jdk16    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/jdk/jdk17    && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/jdk/jdk18    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/jdk/jdk19    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/jdk/jdk20    && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/jdk/jdk21    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/jdk/jdk22    && pwd && make build && make deploy
+	@make clean
 
 ecosystem-debian-stretch-nodejs-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/nodejs/node0.12       && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/nodejs/node4          && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/nodejs/node5          && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/nodejs/node6          && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/nodejs/node7          && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/nodejs/node8          && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/nodejs/node9          && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/nodejs/node10         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/nodejs/node11         && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/nodejs/node12         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/nodejs/node13         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/nodejs/node14         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/nodejs/node15         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/nodejs/node16         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/09-stretch/nodejs/node17         && pwd && make build && make deploy
+	@make clean
 
 ####################################################################################################################
 
 ecosystem-debian-buster-images:
 	make ecosystem-debian-buster-base-images
+	@make clean
 	make ecosystem-debian-buster-jdk-images
+	@make clean
 	make ecosystem-debian-buster-nodejs-images
+	@make clean
 
 ecosystem-debian-buster-base-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/slim    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/main    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/develop    && pwd && make build && make deploy
+	@make clean
 
 ecosystem-debian-buster-jdk-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/jdk/jdk6    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/jdk/jdk7    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/jdk/jdk8    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/jdk/jdk11    && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/jdk/jdk16    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/jdk/jdk17    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/jdk/jdk18    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/jdk/jdk19    && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/jdk/jdk20    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/jdk/jdk21    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/jdk/jdk22    && pwd && make build && make deploy
+	@make clean
 
 ecosystem-debian-buster-nodejs-images: 
 	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/nodejs/current        && pwd && make build && make deploy
@@ -563,6 +601,7 @@ ecosystem-debian-buster-nodejs-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/nodejs/node5          && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/nodejs/node6          && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/nodejs/node7          && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/nodejs/node8          && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/nodejs/node9          && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/nodejs/node10         && pwd && make build && make deploy
@@ -570,6 +609,7 @@ ecosystem-debian-buster-nodejs-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/nodejs/node12         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/nodejs/node13         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/nodejs/node14         && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/nodejs/node15         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/nodejs/node16         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/nodejs/node17         && pwd && make build && make deploy
@@ -578,19 +618,27 @@ ecosystem-debian-buster-nodejs-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/nodejs/node20         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/nodejs/node21         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/nodejs/node22         && pwd && make build && make deploy
+	@make clean
 
 ####################################################################################################################
 
 ecosystem-debian-bullseye-images:
 	make ecosystem-debian-bullseye-base-images
+	@make clean
+	make ecosystem-debian-bullseye-python-images
+	@make clean
 	make ecosystem-debian-bullseye-dotnet-images
+	@make clean
 	make ecosystem-debian-bullseye-jdk-images
+	@make clean
 	make ecosystem-debian-bullseye-nodejs-images
+	@make clean
 
 ecosystem-debian-bullseye-base-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/slim    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/main    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/develop    && pwd && make build && make deploy
+	@make clean
 
 ecosystem-debian-bullseye-python-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/python/2.6  && pwd && make build && make deploy
@@ -598,40 +646,49 @@ ecosystem-debian-bullseye-python-images:
 #	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/python/3.0  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/python/3.1  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/python/3.2  && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/python/3.3  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/python/3.4  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/python/3.5  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/python/3.6  && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/python/3.7  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/python/3.8  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/python/3.9  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/python/3.10  && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/python/3.11  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/python/3.12  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/python/3.13  && pwd && make build && make deploy
+	@make clean
 
 ecosystem-debian-bullseye-dotnet-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/dotnet/lts    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/dotnet/sts    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/dotnet/dotnet5    && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/dotnet/dotnet6    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/dotnet/dotnet7    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/dotnet/dotnet8    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/dotnet/dotnet9    && pwd && make build && make deploy
+	@make clean
 
 ecosystem-debian-bullseye-jdk-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk/jdk6    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk/jdk7    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk/jdk8    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk/jdk11    && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk/jdk16    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk/jdk17    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk/jdk18    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk/jdk19    && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk/jdk20    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk/jdk21    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk/jdk22    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk/jdk23    && pwd && make build && make deploy
+	@make clean
 
 ecosystem-debian-bullseye-nodejs-images: 
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/nodejs/current        && pwd && make build && make deploy
@@ -639,11 +696,13 @@ ecosystem-debian-bullseye-nodejs-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/nodejs/node0.12       && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/nodejs/node4          && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/nodejs/node5          && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/nodejs/node6          && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/nodejs/node7          && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/nodejs/node8          && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/nodejs/node9          && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/nodejs/node10         && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/nodejs/node11         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/nodejs/node12         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/nodejs/node13         && pwd && make build && make deploy
@@ -652,24 +711,33 @@ ecosystem-debian-bullseye-nodejs-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/nodejs/node16         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/nodejs/node17         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/nodejs/node18         && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/nodejs/node19         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/nodejs/node20         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/nodejs/node21         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/nodejs/node22         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/nodejs/node23         && pwd && make build && make deploy
+	@make clean
 
 ####################################################################################################################
 
 ecosystem-debian-bookworm-images:
 	make ecosystem-debian-bookworm-base-images
+	@make clean
+	make ecosystem-debian-bookworm-python-images
+	@make clean
 	make ecosystem-debian-bookworm-dotnet-images
+	@make clean
 	make ecosystem-debian-bookworm-jdk-images
+	@make clean
 	make ecosystem-debian-bookworm-nodejs-images
+	@make clean
 
 ecosystem-debian-bookworm-base-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/slim    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/main    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/develop    && pwd && make build && make deploy
+	@make clean
 
 ecosystem-debian-bookworm-python-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/python/2.6  && pwd && make build && make deploy
@@ -677,10 +745,12 @@ ecosystem-debian-bookworm-python-images:
 #	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/python/3.0  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/python/3.1  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/python/3.2  && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/python/3.3  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/python/3.4  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/python/3.5  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/python/3.6  && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/python/3.7  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/python/3.8  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/python/3.9  && pwd && make build && make deploy
@@ -688,29 +758,35 @@ ecosystem-debian-bookworm-python-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/python/3.11  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/python/3.12  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/python/3.13  && pwd && make build && make deploy
+	@make clean
 
 ecosystem-debian-bookworm-dotnet-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/dotnet/lts    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/dotnet/sts    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/dotnet/dotnet5    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/dotnet/dotnet6    && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/dotnet/dotnet7    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/dotnet/dotnet8    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/dotnet/dotnet9    && pwd && make build && make deploy
+	@make clean
 
 ecosystem-debian-bookworm-jdk-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk/jdk6    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk/jdk7    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk/jdk8    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk/jdk11    && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk/jdk16    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk/jdk17    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk/jdk18    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk/jdk19    && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk/jdk20    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk/jdk21    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk/jdk22    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk/jdk23    && pwd && make build && make deploy
+	@make clean
 
 ecosystem-debian-bookworm-nodejs-images: 
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/current        && pwd && make build && make deploy
@@ -721,6 +797,7 @@ ecosystem-debian-bookworm-nodejs-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node6          && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node7          && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node8          && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node9          && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node10         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node11         && pwd && make build && make deploy
@@ -728,6 +805,7 @@ ecosystem-debian-bookworm-nodejs-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node13         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node14         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node15         && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node16         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node17         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node18         && pwd && make build && make deploy
@@ -736,42 +814,55 @@ ecosystem-debian-bookworm-nodejs-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node21         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node22         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node23         && pwd && make build && make deploy
+	@make clean
 
 ####################################################################################################################
 
 ecosystem-debian-trixie-images:
 	make ecosystem-debian-trixie-base-images
+	@make clean
+	make ecosystem-debian-trixie-python-images
+	@make clean
 	make ecosystem-debian-trixie-dotnet-images
+	@make clean
 	make ecosystem-debian-trixie-jdk-images
+	@make clean
 	make ecosystem-debian-trixie-nodejs-images
+	@make clean
 
 ecosystem-debian-trixie-base-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/slim    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/main    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/develop    && pwd && make build && make deploy
+	@make clean
 
 ecosystem-debian-trixie-python-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/python/3.2  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/python/3.3  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/python/3.4  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/python/3.5  && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/python/3.6  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/python/3.7  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/python/3.8  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/python/3.9  && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/python/3.10  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/python/3.11  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/python/3.12  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/python/3.13  && pwd && make build && make deploy
+	@make clean
 
 ecosystem-debian-trixie-dotnet-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/dotnet/lts    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/dotnet/sts    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/dotnet/dotnet5    && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/dotnet/dotnet6    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/dotnet/dotnet7    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/dotnet/dotnet8    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/dotnet/dotnet9    && pwd && make build && make deploy
+	@make clean
 
 ecosystem-debian-trixie-jdk-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/jdk/jdk6    && pwd && make build && make deploy
@@ -779,13 +870,16 @@ ecosystem-debian-trixie-jdk-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/jdk/jdk8    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/jdk/jdk11    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/jdk/jdk16    && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/jdk/jdk17    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/jdk/jdk18    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/jdk/jdk19    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/jdk/jdk20    && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/jdk/jdk21    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/jdk/jdk22    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/jdk/jdk23    && pwd && make build && make deploy
+	@make clean
 
 ecosystem-debian-trixie-nodejs-images: 
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/nodejs/current        && pwd && make build && make deploy
@@ -794,6 +888,7 @@ ecosystem-debian-trixie-nodejs-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/nodejs/node4          && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/nodejs/node5          && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/nodejs/node6          && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/nodejs/node7          && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/nodejs/node8          && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/nodejs/node9          && pwd && make build && make deploy
@@ -802,6 +897,7 @@ ecosystem-debian-trixie-nodejs-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/nodejs/node12         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/nodejs/node13         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/nodejs/node14         && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/nodejs/node15         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/nodejs/node16         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/nodejs/node17         && pwd && make build && make deploy
@@ -811,42 +907,55 @@ ecosystem-debian-trixie-nodejs-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/nodejs/node21         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/nodejs/node22         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/nodejs/node23         && pwd && make build && make deploy
+	@make clean
 
 ####################################################################################################################
 
 ecosystem-debian-sid-images:
 	make ecosystem-debian-sid-base-images
+	@make clean
+	make ecosystem-debian-sid-python-images
+	@make clean
 	make ecosystem-debian-sid-dotnet-images
+	@make clean
 	make ecosystem-debian-sid-jdk-images
+	@make clean
 	make ecosystem-debian-sid-nodejs-images
+	@make clean
 
 ecosystem-debian-sid-base-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/slim    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/main    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/develop    && pwd && make build && make deploy
+	@make clean
 
 ecosystem-debian-sid-python-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/python/3.2  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/python/3.3  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/python/3.4  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/python/3.5  && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/python/3.6  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/python/3.7  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/python/3.8  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/python/3.9  && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/python/3.10  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/python/3.11  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/python/3.12  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/python/3.13  && pwd && make build && make deploy
+	@make clean
 
 ecosystem-debian-sid-dotnet-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/dotnet/lts    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/dotnet/sts    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/dotnet/dotnet5    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/dotnet/dotnet6    && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/dotnet/dotnet7    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/dotnet/dotnet8    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/dotnet/dotnet9    && pwd && make build && make deploy
+	@make clean
 
 ecosystem-debian-sid-jdk-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/jdk/jdk6    && pwd && make build && make deploy
@@ -854,13 +963,16 @@ ecosystem-debian-sid-jdk-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/jdk/jdk8    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/jdk/jdk11    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/jdk/jdk16    && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/jdk/jdk17    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/jdk/jdk18    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/jdk/jdk19    && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/jdk/jdk20    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/jdk/jdk21    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/jdk/jdk22    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/jdk/jdk23    && pwd && make build && make deploy
+	@make clean
 
 ecosystem-debian-sid-nodejs-images: 
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/nodejs/current        && pwd && make build && make deploy
@@ -871,6 +983,7 @@ ecosystem-debian-sid-nodejs-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/nodejs/node6          && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/nodejs/node7          && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/nodejs/node8          && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/nodejs/node9          && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/nodejs/node10         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/nodejs/node11         && pwd && make build && make deploy
@@ -879,6 +992,7 @@ ecosystem-debian-sid-nodejs-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/nodejs/node14         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/nodejs/node15         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/nodejs/node16         && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/nodejs/node17         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/nodejs/node18         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/nodejs/node19         && pwd && make build && make deploy
@@ -886,6 +1000,7 @@ ecosystem-debian-sid-nodejs-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/nodejs/node21         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/nodejs/node22         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/nodejs/node23         && pwd && make build && make deploy
+	@make clean
 
 ####################################################################################################################
 
@@ -901,6 +1016,7 @@ ecosystem-php-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/php/php8.2             && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/php/php8.3             && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/php/php8.4             && pwd && make build && make deploy
+	@make clean
 
 testrail-prod:
 	cd `pwd`/linux/ecosystem/testrail/5.7.1.4028/main       && pwd && make build && make deploy
@@ -933,6 +1049,7 @@ testrail-prod:
 	cd `pwd`/linux/ecosystem/testrail/9.0.0.1057/main       && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/testrail/9.0.0.1057/ad           && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/testrail/9.0.0.1057/ldap         && pwd && make build && make deploy
+	@make clean
 
 
 ecosystem-apache2-images:
@@ -947,10 +1064,10 @@ ecosystem-apache2-images:
 	cd `pwd`/linux/ecosystem/apache2/php8.2         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apache2/php8.3         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apache2/php8.4         && pwd && make build && make deploy
+	@make clean
 
 ecosystem-testrail-images:
 	cd `pwd`/linux/ecosystem/cassandra/3.11       && pwd && make build && make deploy
-
 	cd `pwd`/linux/ecosystem/testrail/5.4.1.3669/main       && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/testrail/5.5.0.3727/main       && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/testrail/5.5.0.3731/main       && pwd && make build && make deploy
@@ -1015,6 +1132,7 @@ ecosystem-testrail-images:
 	cd `pwd`/linux/ecosystem/testrail/8.0.6.1019/main       && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/testrail/8.1.0.6186/main       && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/testrail/9.0.0.1057/main       && pwd && make build && make deploy
+	@make clean
 
 	cd `pwd`/linux/ecosystem/testrail/5.4.1.3669/ad           && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/testrail/5.5.0.3727/ad           && pwd && make build && make deploy
@@ -1080,6 +1198,7 @@ ecosystem-testrail-images:
 	cd `pwd`/linux/ecosystem/testrail/8.0.6.1019/ad           && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/testrail/8.1.0.6186/ad           && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/testrail/9.0.0.1057/ad           && pwd && make build && make deploy
+	@make clean
     
 	cd `pwd`/linux/ecosystem/testrail/5.4.1.3669/ldap         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/testrail/5.5.0.3727/ldap         && pwd && make build && make deploy
@@ -1145,6 +1264,7 @@ ecosystem-testrail-images:
 	cd `pwd`/linux/ecosystem/testrail/8.0.6.1019/ldap         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/testrail/8.1.0.6186/ldap         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/testrail/9.0.0.1057/ldap         && pwd && make build && make deploy
+	@make clean
 
 ecosystem-torrserver-images:
 	cd `pwd`/linux/ecosystem/torrserver            && pwd && make build && make deploy
@@ -1169,6 +1289,7 @@ ecosystem-qbittorrent-images:
 	cd `pwd`/linux/ecosystem/qbittorrent/4.5.1    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/qbittorrent/4.5.2    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/qbittorrent/4.5.3    && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/ecosystem/qbittorrent/4.5.4    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/qbittorrent/4.5.5    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/qbittorrent/4.6.0    && pwd && make build && make deploy
@@ -1183,6 +1304,7 @@ ecosystem-qbittorrent-images:
 	cd `pwd`/linux/ecosystem/qbittorrent/5.0.1    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/qbittorrent/5.0.2    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/qbittorrent/testing  && pwd && make build && make deploy
+	@make clean
 
 ecosystem-retracker-images: 
 	cd `pwd`/linux/ecosystem/retracker    && pwd && make build && make deploy
@@ -1207,6 +1329,7 @@ ecosystem-postgres-images:
 	cd `pwd`/linux/ecosystem/postgres/9.1          && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/postgres/9.2          && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/postgres/9.3          && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/ecosystem/postgres/9.4          && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/postgres/9.5          && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/postgres/9.6          && pwd && make build && make deploy
@@ -1219,6 +1342,7 @@ ecosystem-postgres-images:
 	cd `pwd`/linux/ecosystem/postgres/16           && pwd && make build && make deploy
 #	cd `pwd`/linux/ecosystem/postgres/17           && pwd && make build && make deploy
 #	cd `pwd`/linux/ecosystem/postgres/18           && pwd && make build && make deploy
+	@make clean
 
 ecosystem-teamcity-agent-images:
 	cd `pwd`/linux/ecosystem/teamcity/agent/minimal         && pwd && make build && make deploy
@@ -1237,13 +1361,16 @@ advanced-vscode-server-images:
 	cd `pwd`/linux/advanced/vscode-server/amxx/1.9       && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/vscode-server/amxx/1.10      && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/vscode-server/android        && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/advanced/vscode-server/cpp            && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/vscode-server/nodejs         && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/vscode-server/docker         && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/vscode-server/dotnet         && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/vscode-server/dotnet-full    && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/advanced/vscode-server/mono           && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/vscode-server/devops         && pwd && make build && make deploy
+	@make clean
 
 ecosystem-perforce-base-images:
 	cd `pwd`/linuxecosystem/perforce/base/r16.2    && pwd && make build && make deploy
@@ -1251,16 +1378,19 @@ ecosystem-perforce-base-images:
 	cd `pwd`/linuxecosystem/perforce/base/r17.2    && pwd && make build && make deploy
 	cd `pwd`/linuxecosystem/perforce/base/r18.1    && pwd && make build && make deploy
 	cd `pwd`/linuxecosystem/perforce/base/r18.2    && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linuxecosystem/perforce/base/r19.1    && pwd && make build && make deploy
 	cd `pwd`/linuxecosystem/perforce/base/r19.2    && pwd && make build && make deploy
 	cd `pwd`/linuxecosystem/perforce/base/r20.1    && pwd && make build && make deploy
 	cd `pwd`/linuxecosystem/perforce/base/r20.2    && pwd && make build && make deploy
 	cd `pwd`/linuxecosystem/perforce/base/r21.1    && pwd && make build && make deploy
 	cd `pwd`/linuxecosystem/perforce/base/r21.2    && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linuxecosystem/perforce/base/r22.1    && pwd && make build && make deploy
 	cd `pwd`/linuxecosystem/perforce/base/r23.1    && pwd && make build && make deploy
 	cd `pwd`/linuxecosystem/perforce/base/r23.2    && pwd && make build && make deploy
 	cd `pwd`/linuxecosystem/perforce/base/r24.2    && pwd && make build && make deploy
+	@make clean
 
 ecosystem-perforce-proxy-images:
 	cd `pwd`/linuxecosystem/perforce/p4p/r16.2    && pwd && make build && make deploy
@@ -1271,6 +1401,7 @@ ecosystem-perforce-proxy-images:
 	cd `pwd`/linuxecosystem/perforce/p4p/r19.1    && pwd && make build && make deploy
 	cd `pwd`/linuxecosystem/perforce/p4p/r19.2    && pwd && make build && make deploy
 	cd `pwd`/linuxecosystem/perforce/p4p/r20.1    && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linuxecosystem/perforce/p4p/r20.2    && pwd && make build && make deploy
 	cd `pwd`/linuxecosystem/perforce/p4p/r21.1    && pwd && make build && make deploy
 	cd `pwd`/linuxecosystem/perforce/p4p/r21.2    && pwd && make build && make deploy
@@ -1278,6 +1409,7 @@ ecosystem-perforce-proxy-images:
 	cd `pwd`/linuxecosystem/perforce/p4p/r23.1    && pwd && make build && make deploy
 	cd `pwd`/linuxecosystem/perforce/p4p/r23.2    && pwd && make build && make deploy
 	cd `pwd`/linuxecosystem/perforce/p4p/r24.2    && pwd && make build && make deploy
+	@make clean
 
 ecosystem-bitbucket-1-images:
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/1/1.0.3                && pwd && make build && make deploy
@@ -1285,6 +1417,7 @@ ecosystem-bitbucket-1-images:
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/1/1.2.1                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/1/1.2.4                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/1/1.3.1                && pwd && make build && make deploy
+	@make clean
 
 ecosystem-bitbucket-2-images:
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/2/2.0.3                 && pwd && make build && make deploy
@@ -1322,6 +1455,7 @@ ecosystem-bitbucket-2-images:
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/2/2.12.4                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/2/2.12.5                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/2/2.12.6                && pwd && make build && make deploy
+	@make clean
 
 ecosystem-bitbucket-3-images:
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/3/3.0.1                 && pwd && make build && make deploy
@@ -1373,6 +1507,7 @@ ecosystem-bitbucket-3-images:
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/3/3.11.3                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/3/3.11.4                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/3/3.11.6                && pwd && make build && make deploy
+	@make clean
 
 ecosystem-bitbucket-4-images:
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.0.1                  && pwd && make build && make deploy
@@ -1439,6 +1574,7 @@ ecosystem-bitbucket-4-images:
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.14.10                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.14.11                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/4/4.14.12                && pwd && make build && make deploy
+	@make clean
 
 ecosystem-bitbucket-5-images:
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.0.2                  && pwd && make build && make deploy
@@ -1554,6 +1690,7 @@ ecosystem-bitbucket-5-images:
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.16.9                 && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.16.10                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/5/5.16.11                && pwd && make build && make deploy
+	@make clean
 
 ecosystem-bitbucket-6-images:
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.0.0                    && pwd && make build && make deploy
@@ -1637,6 +1774,7 @@ ecosystem-bitbucket-6-images:
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.10.15                  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.10.16                  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/6/6.10.17                  && pwd && make build && make deploy
+	@make clean
 
 ecosystem-bitbucket-7-images:
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.0.0                   && pwd && make build && make deploy
@@ -1773,6 +1911,7 @@ ecosystem-bitbucket-7-images:
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.21.21                 && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.21.22                 && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/7/7.21.23                 && pwd && make build && make deploy
+	@make clean
 
 ecosystem-bitbucket-8-images:
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.0.0                   && pwd && make build && make deploy
@@ -1917,6 +2056,7 @@ ecosystem-bitbucket-8-images:
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.19.14                 && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.19.15                 && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.19.16                 && pwd && make build && make deploy
+	@make clean
 
 ecosystem-bitbucket-9-images:
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/9/9.0.0                  && pwd && make build && make deploy
@@ -1937,6 +2077,7 @@ ecosystem-bitbucket-9-images:
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/9/9.5.1                  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/9/9.5.2                  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/9/9.6.0                  && pwd && make build && make deploy
+	@make clean
 
 ecosystem-confluence-4-images:
 	cd `pwd`/linux/ecosystem/atlassian/confluence/4/4.0                    && pwd && make build && make deploy
@@ -1972,6 +2113,7 @@ ecosystem-confluence-4-images:
 	cd `pwd`/linux/ecosystem/atlassian/confluence/4/4.3.5                  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/confluence/4/4.3.6                  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/confluence/4/4.3.7                  && pwd && make build && make deploy
+	@make clean
 
 ecosystem-confluence-5-images:
 	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.0                    && pwd && make build && make deploy
@@ -2047,6 +2189,7 @@ ecosystem-confluence-5-images:
 	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.9.7                  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.9.8                  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/confluence/5/5.9.9                  && pwd && make build && make deploy
+	@make clean
 
 ecosystem-confluence-6-images:
 	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.0.1                  && pwd && make build && make deploy
@@ -2153,6 +2296,7 @@ ecosystem-confluence-6-images:
 	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.9.0                  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.9.1                  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/confluence/6/6.9.3                  && pwd && make build && make deploy
+	@make clean
 
 ecosystem-confluence-7-images:
 	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.0.1                 && pwd && make build && make deploy
@@ -2298,6 +2442,7 @@ ecosystem-confluence-7-images:
 	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.9.0                 && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.9.1                 && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/confluence/7/7.9.3                 && pwd && make build && make deploy
+	@make clean
 
 ecosystem-confluence-8-images:
 	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.0.0                  && pwd && make build && make deploy
@@ -2360,6 +2505,7 @@ ecosystem-confluence-8-images:
 	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.9.6                  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.9.7                  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.9.8                  && pwd && make build && make deploy
+	@make clean
 
 ecosystem-confluence-9-images:
 	cd `pwd`/linux/ecosystem/atlassian/confluence/9/9.0.0                  && pwd && make build && make deploy
@@ -2373,6 +2519,7 @@ ecosystem-confluence-9-images:
 	cd `pwd`/linux/ecosystem/atlassian/confluence/9/9.2.2                  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/confluence/9/9.3.1                  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/confluence/9/9.3.2                  && pwd && make build && make deploy
+	@make clean
 
 ecosystem-crowd-0-images:
 	cd `pwd`/linux/ecosystem/atlassian/crowd/0/0.3.1                  && pwd && make build && make deploy
@@ -2384,6 +2531,7 @@ ecosystem-crowd-0-images:
 	cd `pwd`/linux/ecosystem/atlassian/crowd/0/0.4.3                  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/crowd/0/0.4.4                  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/crowd/0/0.4.5                  && pwd && make build && make deploy
+	@make clean
 
 ecosystem-crowd-1-images:
 	cd `pwd`/linux/ecosystem/atlassian/crowd/1.0.0                  && pwd && make build && make deploy
@@ -2417,6 +2565,7 @@ ecosystem-crowd-1-images:
 	cd `pwd`/linux/ecosystem/atlassian/crowd/1.6                    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/crowd/1.6.1                  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/crowd/1.6.3                  && pwd && make build && make deploy
+	@make clean
 
 
 ecosystem-crowd-2-images:
@@ -2480,6 +2629,7 @@ ecosystem-crowd-2-images:
 	cd `pwd`/linux/ecosystem/atlassian/crowd/2/2.11.1                 && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/crowd/2/2.11.2                 && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/crowd/2/2.12.0                 && pwd && make build && make deploy
+	@make clean
 
 
 ecosystem-crowd-3-images:
@@ -2522,6 +2672,7 @@ ecosystem-crowd-3-images:
 	cd `pwd`/linux/ecosystem/atlassian/crowd/3/3.7.0                  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/crowd/3/3.7.1                  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/crowd/3/3.7.2                  && pwd && make build && make deploy
+	@make clean
 
 
 ecosystem-crowd-4-images:
@@ -2559,6 +2710,7 @@ ecosystem-crowd-4-images:
 	cd `pwd`/linux/ecosystem/atlassian/crowd/4/4.4.4                  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/crowd/4/4.4.5                  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/crowd/4/4.4.6                  && pwd && make build && make deploy
+	@make clean
 
 ecosystem-crowd-5-images:
 	cd `pwd`/linux/ecosystem/atlassian/crowd/5/5.0.0                  && pwd && make build && make deploy
@@ -2603,6 +2755,7 @@ ecosystem-crowd-5-images:
 	cd `pwd`/linux/ecosystem/atlassian/crowd/5/5.3.4                  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/crowd/5/5.3.5                  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/crowd/5/5.3.6                  && pwd && make build && make deploy
+	@make clean
 
 ecosystem-crowd-6-images:
 	cd `pwd`/linux/ecosystem/atlassian/crowd/6/6.0.0                  && pwd && make build && make deploy
@@ -2620,6 +2773,7 @@ ecosystem-crowd-6-images:
 	cd `pwd`/linux/ecosystem/atlassian/crowd/6/6.2.0                  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/crowd/6/6.2.2                  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/crowd/6/6.2.3                  && pwd && make build && make deploy
+	@make clean
 
 ecosystem-jira-4-images:
 	cd `pwd`/linux/ecosystem/atlassian/jira/4/4.1.1                && pwd && make build && make deploy
@@ -2639,6 +2793,7 @@ ecosystem-jira-4-images:
 	cd `pwd`/linux/ecosystem/atlassian/jira/4/4.4.3                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/4/4.4.4                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/4/4.4.5                && pwd && make build && make deploy
+	@make clean
 
 ecosystem-jira-5-images:
 	cd `pwd`/linux/ecosystem/atlassian/jira/5/5.0                && pwd && make build && make deploy
@@ -2671,6 +2826,7 @@ ecosystem-jira-5-images:
 	cd `pwd`/linux/ecosystem/atlassian/jira/5/5.2.7                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/5/5.2.8                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/5/5.2.9                && pwd && make build && make deploy
+	@make clean
 
 ecosystem-jira-6-images:
 	cd `pwd`/linux/ecosystem/atlassian/jira/6/6.0                && pwd && make build && make deploy
@@ -2730,6 +2886,7 @@ ecosystem-jira-6-images:
 	cd `pwd`/linux/ecosystem/atlassian/jira/6/6.4.12                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/6/6.4.13                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/6/6.4.14                && pwd && make build && make deploy
+	@make clean
 
 ecosystem-jira-7-images:
 	cd `pwd`/linux/ecosystem/atlassian/jira/7/7.0.0                && pwd && make build && make deploy
@@ -2807,6 +2964,7 @@ ecosystem-jira-7-images:
 	cd `pwd`/linux/ecosystem/atlassian/jira/7/7.12.0                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/7/7.12.1                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/7/7.12.3                && pwd && make build && make deploy
+	@make clean
 
 ecosystem-jira-7-lts-images:
 	cd `pwd`/linux/ecosystem/atlassian/jira/7/7.6.4                && pwd && make build && make deploy
@@ -2839,6 +2997,7 @@ ecosystem-jira-7-lts-images:
 	cd `pwd`/linux/ecosystem/atlassian/jira/7/7.13.16                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/7/7.13.17                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/7/7.13.18                && pwd && make build && make deploy
+	@make clean
 
 ecosystem-jira-8-images:
 	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.0.0                && pwd && make build && make deploy
@@ -2922,6 +3081,7 @@ ecosystem-jira-8-images:
 	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.22.3                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.22.4                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.22.6                && pwd && make build && make deploy
+	@make clean
 
 ecosystem-jira-8-lts-images:
 	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.13.0                && pwd && make build && make deploy
@@ -2981,6 +3141,7 @@ ecosystem-jira-8-lts-images:
 	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.20.28                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.20.29                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/8/8.20.30                && pwd && make build && make deploy
+	@make clean
 
 
 ecosystem-jira-9-images:
@@ -3009,6 +3170,7 @@ ecosystem-jira-9-images:
 	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.11.1                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.11.2                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.11.3                && pwd && make build && make deploy
+	@make clean
 
 ecosystem-jira-9-lts-images:
 	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.4.0                && pwd && make build && make deploy
@@ -3061,6 +3223,7 @@ ecosystem-jira-9-lts-images:
 	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.12.17               && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.12.18               && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.12.19               && pwd && make build && make deploy
+	@make clean
 
 ecosystem-jira-10-images:
 	cd `pwd`/linux/ecosystem/atlassian/jira/10/10.0.0             && pwd && make build && make deploy
@@ -3077,6 +3240,7 @@ ecosystem-jira-10-images:
 	cd `pwd`/linux/ecosystem/atlassian/jira/10/10.4.0             && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/10/10.4.1             && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/10/10.5.0             && pwd && make build && make deploy
+	@make clean
 
 bundle-base-images:
 	@echo "======================================="
