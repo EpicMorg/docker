@@ -2,8 +2,8 @@ name: EpicMorg EcoSystem Gitlab Runner Images
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron:  '4 5 * * 2,4,6'
+#  schedule:
+#    - cron:  '4 5 * * 2,4,6'
 
 jobs:
 
