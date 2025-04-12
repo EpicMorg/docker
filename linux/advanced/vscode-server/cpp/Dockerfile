@@ -85,6 +85,8 @@ ARG NINJA_TEMP=/tmp/ninja-linux.zip
 ENV GO_VERSION=1.24.2
 ENV GO_DIR=${EMG_LOCAL_BASE_DIR}/go/${GO_VERSION}
 ARG GO_BIN_DIR=${GO_DIR}/bin
+ARG GO_PATH_DIR=${GO_DIR}/gopath
+ARG GO_PATH_BIN_DIR=${GO_PATH_DIR}/bin
 ARG GO_DOWNLOAD_URL=https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz
 ARG GO_TEMP=/tmp/go${GO_VERSION}.linux-amd64.tar.gz
 
@@ -209,15 +211,16 @@ RUN echo "=============================================" && \
 ##################################################################
 #                   GO compillers
 ##################################################################
-RUN mkdir -p ${GO_DIR}
+RUN mkdir -p ${GO_DIR} ${GO_PATH_BIN_DIR} ${GO_BIN_DIR}
 ADD ${GO_DOWNLOAD_URL} /tmp
 
 RUN tar -xzf ${GO_TEMP} --directory ${GO_DIR} --strip-components=1 && \
     chmod +x ${GO_BIN_DIR}/go && \
     chmod +x ${GO_BIN_DIR}/gofmt
 
-ENV GOPATH=${GO_DIR}
-ENV PATH="${GO_BIN_DIR}:${PATH}"
+ENV GOROOT=${GO_DIR}
+ENV GOPATH=${GO_PATH_DIR}
+ENV PATH="${GO_BIN_DIR}:${GO_PATH_BIN_DIR}:${PATH}"
 
 RUN echo "=============================================" && \
     echo go $(go version) && \

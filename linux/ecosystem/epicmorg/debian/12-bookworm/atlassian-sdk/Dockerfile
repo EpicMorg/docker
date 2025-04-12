@@ -8,7 +8,8 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 ENV ATLASSIAN_SDK_DIR=${EMG_LOCAL_BASE_DIR}/atlassian
 ENV ATLASSIAN_SDK_BIN_DIR=${ATLASSIAN_SDK_DIR}/bin
-ENV ATLASSIAN_SDK_TEMP=/tmp/atlassian-plugin-sdk.tgz
+ARG ATLASSIAN_SDK_TEMP=/tmp/atlassian-plugin-sdk.tgz
+ARG ATLASSIAN_SDK_URL=https://marketplace.atlassian.com/download/plugins/atlassian-plugin-sdk-tgz
 
 ###############################
 # https://community.atlassian.com/t5/Continuous-Delivery-questions/The-repository-https-packages-atlassian-com-atlassian-sdk-deb/qaq-p/1334014
@@ -24,6 +25,8 @@ ENV ATLASSIAN_SDK_TEMP=/tmp/atlassian-plugin-sdk.tgz
 #Install packages
 #RUN curl -SL https://packages.atlassian.com/atlassian-sdk-deb/debian/pool/contrib/a/atlassian-plugin-sdk/atlassian-plugin-sdk_8.0.16_all.deb -o /tmp/atlassian-plugin-sdk.deb && \
 #    dpkg -i /tmp/atlassian-plugin-sdk.deb
+
+ADD ${ATLASSIAN_SDK_URL} ${ATLASSIAN_SDK_TEMP}
 
 RUN mkdir -p ${ATLASSIAN_SDK_BIN_DIR} && \
     wget -O ${ATLASSIAN_SDK_TEMP} "https://marketplace.atlassian.com/download/plugins/atlassian-plugin-sdk-tgz" && \

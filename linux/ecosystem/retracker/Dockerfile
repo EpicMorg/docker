@@ -1,10 +1,11 @@
-FROM hub.epicm.org/epicmorg/debian:bullseye-develop as builder
+FROM hub.epicm.org/epicmorg/debian:bookworm-develop as builder
 
-RUN go get -v github.com/vvampirius/retracker/...
+RUN go install 'github.com/vvampirius/retracker@latest'
+
 RUN retracker -v
 
-FROM  epicmorg/debian:bullseye
-COPY --from=builder /go/bin/retracker /bin/retracker
+FROM  epicmorg/debian:bookworm
+COPY --from=builder  ${GO_PATH_BIN_DIR}/retracker /bin/retracker
 
 ENV RETRACKER_PORT=80
 ENV RETRACKER_MINUTS=180

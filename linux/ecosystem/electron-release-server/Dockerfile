@@ -1,7 +1,6 @@
-FROM hub.epicm.org/epicmorg/nodejs:node12
+FROM hub.epicm.org/epicmorg/debian:bookworm-nodejs19
 
-RUN git clone https://github.com/ArekSredzki/electron-release-server.git /usr/src/electron-release-server && \
-    tree /usr/src/electron-release-server
+RUN git clone https://github.com/ArekSredzki/electron-release-server.git /usr/src/electron-release-server
 
 WORKDIR /usr/src/electron-release-server
 

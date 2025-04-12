@@ -8,7 +8,7 @@ app:
 	make clean
 
 build:
-	buildah-wrapper --build
+	buildah-wrapper --build --squash
 
 deploy:
 	buildah-wrapper --deploy

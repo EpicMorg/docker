@@ -1,4 +1,4 @@
-FROM hub.epicm.org/epicmorg/debian:bullseye-develop as compile-stage
+FROM hub.epicm.org/epicmorg/debian:trixie-develop as compile-stage
 ARG DEBIAN_FRONTEND=noninteractive
 
 WORKDIR /usr/src
@@ -21,8 +21,7 @@ RUN cd /usr/src/opentracker ; \
       install -m 755 opentracker.debug /tmp/stage/bin ; \
       make DESTDIR=/tmp/stage BINDIR="/bin" install
 
-FROM hub.epicm.org/epicmorg/debian:bullseye
-
+FROM hub.epicm.org/epicmorg/debian:trixie
 
 ##################################################################
 #                   setup future environment
