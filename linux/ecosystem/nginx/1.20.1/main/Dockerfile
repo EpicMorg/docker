@@ -183,8 +183,8 @@ RUN cd ${NGINX_SRC_DIR} && \
     --add-dynamic-module=http-lua && \
     cp -fv ${PRE_DIR}/nginx-description-pak ${NGINX_SRC_DIR}/description-pak && \
     fakeroot checkinstall -D --pakdir=/builds/export --maintainer="EpicMorg, developer@epicm.org" --pkgname=nginx-custom  --install=no -y && \
-    apt clean -y && \
-    apt autoclean -y && \
+    apt-get clean -y && \
+    apt-get autoclean -y && \
     rm -rfv /var/lib/apt/lists/* && \
     rm -rfv /var/cache/apt/archives/*.deb
 
@@ -230,8 +230,8 @@ RUN apt-get update && \
     ln -sf /dev/stdout /var/log/nginx/access.log && \
     ln -sf /dev/stderr /var/log/nginx/error.log && \
     ln -sf /etc/ssl/dhparam.pem /etc/nginx/dhparam.pem && \
-    apt clean -y && \
-    apt autoclean -y && \
+    apt-get clean -y && \
+    apt-get autoclean -y && \
     rm -rf /var/lib/apt/lists/* && \
     rm -rf /var/cache/apt/archives/*.deb && \
     rm -rf /tmp/deb/* && \

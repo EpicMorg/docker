@@ -1,6 +1,16 @@
 # Changelog
 * `apr`
-  * changed default docker regitstry hub to own. only for ci builds. 
+  * updated `php` images with `ioncube` module.git a
+  * changed default docker regitstry hub to `own`. only for ci builds.
+  * updated `nodejs` 
+  * updated `jdk` 
+  * added new `openssl` version `3.5.0` `lts`
+  * added various versions of `cmake`
+  * updated `go`
+  * added more flutter compablity
+  * added `qbittorrent`
+  * updated `python`
+  * updated `gitlab-runner`
 ## 2025
 * `mar`
   * updated `teamcity-server` iamge

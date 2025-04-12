@@ -2,17 +2,10 @@ FROM hub.epicm.org/epicmorg/debian:bookworm-develop
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
-ENV GITLAB_RUNNER_HOME=/home/gitlab-runner
-ENV GITLAB_RUNNER_CONF=/etc/gitlab-runner
-ENV GIT_SSH_VARIANT=ssh
-RUN mkdir -p ${GITLAB_RUNNER_HOME} ${GITLAB_RUNNER_CONF} ${GITLAB_RUNNER_CONF}/certs && \
-    chmod -R 700 /etc/gitlab-runner
-
 ##################################################################
-#                    docker and buildah setup
+#        OCI setup: Buildah, Podman, Kaniko, Docker
 ##################################################################
-
-#Install packages
+# https://docs.docker.com/build/architecture/#install-buildx
 RUN install -m 0755 -d /etc/apt/keyrings && \
     curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc && \
     chmod a+r /etc/apt/keyrings/docker.asc && \
@@ -24,61 +17,107 @@ RUN install -m 0755 -d /etc/apt/keyrings && \
       containerd.io \
       docker-buildx-plugin \
       docker-compose-plugin \
-      buildah \
-      fuse-overlayfs \
-      systemd && \
+      containerd.io \
+      buildah \ 
+      podman \ 
+      podman-compose \
+      fuse-overlayfs && \
+    pip3 install --break-system-packages --no-cache-dir \
+      kaniko-wrapper \
+      buildah-wrapper && \
     systemctl disable docker && \
-    docker --version && \
-    buildah --version
-
-COPY run-docker.sh /services/run-docker.sh
-COPY etc/containers/registries.conf /etc/containers/registries.conf
-COPY etc/containers/storage.conf /etc/containers/storage.conf
-
-RUN chmod +x /services/run-docker.sh && \
-    sync
-
-##################################################################
-#                    docker compose setup
-##################################################################
-
-#Install packages
-RUN export  DOCKER_COMPOSE_VERSION=`curl --silent https://api.github.com/repos/docker/compose/releases/latest | jq .name -r` && \
+    systemctl disable podman && \
+    rm -rf /bin/docker-compose && \
+    rm -rf /sbin/docker-compose && \
+    rm -rf /usr/bin/docker-compose && \
+    rm -rf /usr/sbin/docker-compose && \
+    rm -rf /usr/local/bin/docker-compose && \
+    rm -rf /usr/local/sbin/docker-compose && \
+    export  DOCKER_COMPOSE_VERSION=`curl --silent https://api.github.com/repos/docker/compose/releases/latest | jq .name -r` && \
     echo "Latest compose is: ${DOCKER_COMPOSE_VERSION}" && \
     curl -SL https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-Linux-x86_64 -o /usr/local/bin/docker-compose && \
     chmod +x /usr/local/bin/docker-compose && \
-    docker-compose --version
+# cleanup
+    apt-get clean -y && \
+    apt-get clean all -y && \
+    apt-get autoclean -y && \
+    rm -rfv /var/lib/apt/lists/* && \
+    rm -rfv /var/cache/apt/archives/*.deb && \
+    rm -rfv /tmp/* 
 
 ##################################################################
-#                    gitlab runner setup
+#              OCI post-setup
 ##################################################################
-ADD https://gitlab-runner-downloads.s3.amazonaws.com/latest/deb/gitlab-runner_amd64.deb /tmp
-RUN dpkg -i /tmp/gitlab-runner_amd64.deb && \
-    usermod -aG docker gitlab-runner && \
-    cat /etc/passwd && \
-    gitlab-runner --version
+ENV BUILDAH_FORMAT=docker
+ENV BUILDAH_ISOLATION=docker
+ENV DOCKER_HOST="unix:///var/run/docker.sock"
+ENV PODMAN_HOST="unix:///var/run/docker.sock"
+
+COPY etc/ /etc/
+
+##################################################################
+#                   installing dotnet
+##################################################################
+ENV DOTNET_CHANNEL=STS
+ENV DOTNET_ROOT=${EMG_LOCAL_BASE_DIR}/dotnet/${DOTNET_CHANNEL}
+ARG DOTNET_TOOLS_DIR=${DOTNET_ROOT}/tools
+ARG DOTNET_INSTALL_DIR=${DOTNET_ROOT}
+ARG DOTNET_INSTALL_SCRIPT_URL=https://dotnet.microsoft.com/download/dotnet/scripts/v1/dotnet-install.sh
+
+ENV DOTNET_CLI_TELEMETRY_OPTOUT=true
+ENV DOTNET_SKIP_FIRST_TIME_EXPERIENCE=true
+
+ADD ${DOTNET_INSTALL_SCRIPT_URL} /tmp
+RUN mkdir -p ${DOTNET_ROOT} && \ 
+    chmod +x /tmp/dotnet-install.sh && \
+    /tmp/dotnet-install.sh --verbose --no-path --install-dir ${DOTNET_ROOT} --channel ${DOTNET_CHANNEL} --version latest
+
+##################################################################
+#                   Setup $PATH
+##################################################################
+ENV PATH=$PATH:${DOTNET_ROOT}:${DOTNET_TOOLS_DIR}
+
+##################################################################
+#                   Version after install
+##################################################################
+RUN echo "=============================================" && \
+    echo $(dotnet --info) && \
+    echo $(dotnet --list-sdks) && \
+    echo $(dotnet --list-runtimes) && \
+    echo "============================================="
+
+##################################################################
+#                    Mono
+##################################################################
+RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF && \
+#    echo "deb https://download.mono-project.com/repo/debian stable-buster main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list && \
+#    echo "deb https://download.mono-project.com/repo/debian nightly-buster main" | sudo tee /etc/apt/sources.list.d/mono-official-nightly.list && \
+    echo "deb https://download.mono-project.com/repo/debian preview-buster main" | sudo tee /etc/apt/sources.list.d/mono-official-preview.list && \
+    apt-get update && \
+    apt-get install -y  --allow-unauthenticated \
+    mono-complete \
+    mono-llvm-support \
+    mono-devel \
+    mono-dbg \
+    referenceassemblies-pcl \
+    ca-certificates-mono \
+    mono-xsp4
 
 ##################################################################
 #                   cleaninig up
 ##################################################################
-RUN apt clean -y && \
-    apt-get clean all && \
-    apt autoclean -y && \
+RUN apt-get clean -y && \
+    apt-get clean all -y && \
+    apt-get autoclean -y && \
     rm -rfv /var/lib/apt/lists/* && \
     rm -rfv /var/cache/apt/archives/*.deb && \
     rm -rfv /root/tmp/* && \
     rm -rfv /tmp/*
 
-#Final config
-STOPSIGNAL SIGQUIT
-VOLUME ["${GITLAB_RUNNER_CONF}", "/home/gitlab-runner", "/var/lib/docker", "/var/lib/containers"]
-WORKDIR /home/gitlab-runner
+##################################################################
+#                   final config
+##################################################################
 
-# Add image configuration and scripts
-COPY docker-entrypoint.sh /usr/bin/docker-entrypoint.sh
-RUN chmod 755 /usr/bin/docker-entrypoint.sh
+VOLUME ["/var/lib/docker", "/var/lib/containers", "/var/tmp"]
 
 RUN updatedb
-
-ENTRYPOINT ["/usr/bin/dumb-init", "docker-entrypoint.sh"]
-CMD ["run", "--user=gitlab-runner", "--working-directory=/home/gitlab-runner"]

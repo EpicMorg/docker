@@ -16,32 +16,32 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 # Install packages
 ENV AMXX_VERSION=1.10
-ENV AMXX_INSTALL_PATH=/opt/amxmodx/$AMXX_VERSION
-ENV AMXX_BIN_PATH=$AMXX_INSTALL_PATH/scripting
-ENV AMXX_INC_PATH=$AMXX_BIN_PATH/include
-ENV PATH=$PATH:$AMXX_BIN_PATH
-ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$AMXX_BIN_PATH
+ENV AMXX_INSTALL_PATH=${EMG_LOCAL_BASE_DIR}/amxmodx/${AMXX_VERSION}
+ENV AMXX_BIN_PATH=${AMXX_INSTALL_PATH}/scripting
+ENV AMXX_INC_PATH=${AMXX_BIN_PATH}/include
+ENV PATH=${AMXX_BIN_PATH}:${PATH}
+ENV LD_LIBRARY_PATH=${AMXX_BIN_PATH}:${LD_LIBRARY_PATH}
 
 COPY inc.tar /tmp
 
 RUN export AMXX_BASE_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.10/amxmodx-latest-base-linux` && \
-    mkdir -p $AMXX_INSTALL_PATH && \
+    mkdir -p ${AMXX_INSTALL_PATH} && \
     curl -SL https://www.amxmodx.org/amxxdrop/{$AMXX_VERSION}/{$AMXX_BASE_LATEST_VERSION} -o /tmp/amxx_base_latest.tar.gz && \
     cd /tmp && tar -zxf /tmp/amxx_base_latest.tar.gz && cd / && \
-    mv -f /tmp/addons/amxmodx/* $AMXX_INSTALL_PATH && \
-    chmod +x $AMXX_BIN_PATH/amxxpc && \
-    chmod +x $AMXX_BIN_PATH/compile.sh && \
-    tar -C $AMXX_INC_PATH -xvf /tmp/inc.tar && \
-    chown -R gitlab-runner:gitlab-runner $AMXX_INC_PATH && \
-    chmod -R 700 $AMXX_INC_PATH && \
+    mv -f /tmp/addons/amxmodx/* ${AMXX_INSTALL_PATH} && \
+    chmod +x ${AMXX_BIN_PATH}/amxxpc && \
+    chmod +x ${AMXX_BIN_PATH}/compile.sh && \
+    tar -C ${AMXX_INC_PATH} -xvf /tmp/inc.tar && \
+    chown -R gitlab-runner:gitlab-runner ${AMXX_INC_PATH} && \
+    chmod -R 700 ${AMXX_INC_PATH} && \
     amxxpc --help 2>&1 | head -n 1
 
 ##################################################################
 #                   cleaninig up
 ##################################################################
-RUN apt clean -y && \
-    apt-get clean all && \
-    apt autoclean -y && \
+RUN apt-get clean -y && \
+    apt-get clean all -y && \
+    apt-get autoclean -y && \
     rm -rfv /var/lib/apt/lists/* && \
     rm -rfv /var/cache/apt/archives/*.deb && \
     rm -rfv /root/tmp/* && \

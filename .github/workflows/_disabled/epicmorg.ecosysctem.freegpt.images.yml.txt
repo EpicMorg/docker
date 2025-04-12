@@ -1,8 +1,8 @@
 name:  EpicMorg EcoSystem FreeGPT Images
 
 on:
-  schedule:
-    - cron:  '0 0 * * 2,4,6'
+#  schedule:
+#    - cron:  '0 0 * * 2,4,6'
 
 jobs:
 

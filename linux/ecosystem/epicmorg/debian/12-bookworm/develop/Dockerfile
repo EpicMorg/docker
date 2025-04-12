@@ -15,14 +15,56 @@ ARG STEAM_RUNTIME_SDK_URL=http://media.steampowered.com/client/runtime/steam-run
 ARG STEAM_RUNTIME_SDK_TEMP=/tmp/steam-runtime-sdk_latest.tar.xz
 
 # cmake compiller
-ENV CMAKE_VERSION=3.31.3
-ENV CMAKE_DIR=${EMG_LOCAL_BASE_DIR}/cmake/${CMAKE_VERSION}
-ARG CMAKE_BIN_DIR=${CMAKE_DIR}/bin
-ARG CMAKE_DOWNLOAD_URL=https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}-linux-x86_64.tar.gz
-ARG CMAKE_TEMP=/tmp/cmake-${CMAKE_VERSION}-linux-x86_64.tar.gz
+ENV CMAKE_3_31_VERSION=3.31.6
+ENV CMAKE_3_31_DIR=${EMG_LOCAL_BASE_DIR}/cmake/${CMAKE_3_31_VERSION}
+ARG CMAKE_3_31_BIN_DIR=${CMAKE_3_31_DIR}/bin
+ARG CMAKE_3_31_DOWNLOAD_URL=https://github.com/Kitware/CMake/releases/download/v${CMAKE_3_31_VERSION}/cmake-${CMAKE_3_31_VERSION}-linux-x86_64.tar.gz
+ARG CMAKE_3_31_TEMP=/tmp/cmake-${CMAKE_3_31_VERSION}-linux-x86_64.tar.gz
+
+# cmake compiller
+ENV CMAKE_3_30_VERSION=3.30.8
+ENV CMAKE_3_30_DIR=${EMG_LOCAL_BASE_DIR}/cmake/${CMAKE_3_30_VERSION}
+ARG CMAKE_3_30_BIN_DIR=${CMAKE_3_30_DIR}/bin
+ARG CMAKE_3_30_DOWNLOAD_URL=https://github.com/Kitware/CMake/releases/download/v${CMAKE_3_30_VERSION}/cmake-${CMAKE_3_30_VERSION}-linux-x86_64.tar.gz
+ARG CMAKE_3_30_TEMP=/tmp/cmake-${CMAKE_3_30_VERSION}-linux-x86_64.tar.gz
+
+# cmake compiller
+ENV CMAKE_3_21_VERSION=3.21.7
+ENV CMAKE_3_21_DIR=${EMG_LOCAL_BASE_DIR}/cmake/${CMAKE_3_21_VERSION}
+ARG CMAKE_3_21_BIN_DIR=${CMAKE_3_21_DIR}/bin
+ARG CMAKE_3_21_DOWNLOAD_URL=https://github.com/Kitware/CMake/releases/download/v${CMAKE_3_21_VERSION}/cmake-${CMAKE_3_21_VERSION}-linux-x86_64.tar.gz
+ARG CMAKE_3_21_TEMP=/tmp/cmake-${CMAKE_3_21_VERSION}-linux-x86_64.tar.gz
+
+# cmake compiller
+ENV CMAKE_3_20_VERSION=3.20.6
+ENV CMAKE_3_20_DIR=${EMG_LOCAL_BASE_DIR}/cmake/${CMAKE_3_20_VERSION}
+ARG CMAKE_3_20_BIN_DIR=${CMAKE_3_20_DIR}/bin
+ARG CMAKE_3_20_DOWNLOAD_URL=https://github.com/Kitware/CMake/releases/download/v${CMAKE_3_20_VERSION}/cmake-${CMAKE_3_20_VERSION}-linux-x86_64.tar.gz
+ARG CMAKE_3_20_TEMP=/tmp/cmake-${CMAKE_3_20_VERSION}-linux-x86_64.tar.gz
+
+# cmake compiller
+ENV CMAKE_3_19_VERSION=3.19.8
+ENV CMAKE_3_19_DIR=${EMG_LOCAL_BASE_DIR}/cmake/${CMAKE_3_19_VERSION}
+ARG CMAKE_3_19_BIN_DIR=${CMAKE_3_19_DIR}/bin
+ARG CMAKE_3_19_DOWNLOAD_URL=https://github.com/Kitware/CMake/releases/download/v${CMAKE_3_19_VERSION}/cmake-${CMAKE_3_19_VERSION}-linux-x86_64.tar.gz
+ARG CMAKE_3_19_TEMP=/tmp/cmake-${CMAKE_3_19_VERSION}-linux-x86_64.tar.gz
+
+# cmake compiller
+ENV CMAKE_3_18_VERSION=3.18.6
+ENV CMAKE_3_18_DIR=${EMG_LOCAL_BASE_DIR}/cmake/${CMAKE_3_18_VERSION}
+ARG CMAKE_3_18_BIN_DIR=${CMAKE_3_18_DIR}/bin
+ARG CMAKE_3_18_DOWNLOAD_URL=https://github.com/Kitware/CMake/releases/download/v${CMAKE_3_18_VERSION}/cmake-${CMAKE_3_18_VERSION}-linux-x86_64.tar.gz
+ARG CMAKE_3_18_TEMP=/tmp/cmake-${CMAKE_3_18_VERSION}-linux-x86_64.tar.gz
+
+# cmake compiller
+ENV CMAKE_3_16_VERSION=3.16.9
+ENV CMAKE_3_16_DIR=${EMG_LOCAL_BASE_DIR}/cmake/${CMAKE_3_16_VERSION}
+ARG CMAKE_3_16_BIN_DIR=${CMAKE_3_16_DIR}/bin
+ARG CMAKE_3_16_DOWNLOAD_URL=https://github.com/Kitware/CMake/releases/download/v${CMAKE_3_16_VERSION}/cmake-${CMAKE_3_16_VERSION}-linux-x86_64.tar.gz
+ARG CMAKE_3_16_TEMP=/tmp/cmake-${CMAKE_3_16_VERSION}-linux-x86_64.tar.gz
 
 # flutter source tarball
-ENV FLUTTER_VERSION=3.27.1
+ENV FLUTTER_VERSION=3.29.2
 ENV FLUTTER_CHANNEL=stable
 ENV FLUTTER_DIR=${EMG_LOCAL_BASE_DIR}/flutter/${FLUTTER_VERSION}
 ARG FLUTTER_BIN_DIR=${FLUTTER_DIR}/bin
@@ -37,7 +79,7 @@ ARG NINJA_DOWNLOAD_URL=https://github.com/ninja-build/ninja/releases/download/v$
 ARG NINJA_TEMP=/tmp/ninja-linux.zip
 
 # GO source tarball
-ENV GO_VERSION=1.23.4
+ENV GO_VERSION=1.24.2
 ENV GO_DIR=${EMG_LOCAL_BASE_DIR}/go/${GO_VERSION}
 ARG GO_BIN_DIR=${GO_DIR}/bin
 ARG GO_DOWNLOAD_URL=https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz
@@ -75,7 +117,7 @@ ARG ZLIB_TEMP=/tmp/zlib-${ZLIB_VERSION}.tar.gz
 ARG ZLIB_TEMP_SRC=/tmp/zlib-${ZLIB_VERSION}
 
 # zstd source tarball
-ENV ZSTD_VERSION=1.5.6
+ENV ZSTD_VERSION=1.5.7
 ENV ZSTD_DIR=${EMG_LOCAL_BASE_DIR}/zstd/${ZLIB_VERSION}
 ENV ZSTD_BIN_DIR=${ZSTD_DIR}/bin
 ENV ZSTD_INC_DIR=${ZSTD_DIR}/include
@@ -252,6 +294,17 @@ ARG OPENSSL_34_DOWNLOAD_URL=https://www.openssl.org/source/openssl-${OPENSSL_34_
 ARG OPENSSL_34_TEMP=/tmp/openssl-${OPENSSL_34_VERSION}.tar.gz
 ARG OPENSSL_34_TEMP_SRC=/tmp/openssl-${OPENSSL_34_VERSION}
 
+# OpenSSL 3.5
+ENV OPENSSL_35_VERSION=3.5.5
+ENV OPENSSL_35_DIR=${EMG_LOCAL_BASE_DIR}/openssl/${OPENSSL_35_VERSION}
+ENV OPENSSL_35_BIN_DIR=${OPENSSL_35_DIR}/bin
+ENV OPENSSL_35_INC_DIR=${OPENSSL_35_DIR}/include
+ENV OPENSSL_35_LIB_DIR=${OPENSSL_35_DIR}/lib64
+ENV OPENSSL_35_SRC_DIR=/usr/local/src/openssl/${OPENSSL_35_VERSION}
+ARG OPENSSL_35_DOWNLOAD_URL=https://www.openssl.org/source/openssl-${OPENSSL_35_VERSION}.tar.gz
+ARG OPENSSL_35_TEMP=/tmp/openssl-${OPENSSL_35_VERSION}.tar.gz
+ARG OPENSSL_35_TEMP_SRC=/tmp/openssl-${OPENSSL_35_VERSION}
+
 # LibreSSL
 ENV LIBRESSL_VERSION=4.0.0
 ENV LIBRESSL_DIR=${EMG_LOCAL_BASE_DIR}/libressl/${LIBRESSL_VERSION}
@@ -286,6 +339,7 @@ RUN apt-get update && \
     autoconf-archive \
     gnu-standards \
     cmake \
+    clang \
     meson \
     libunwind-dev \
     at \
@@ -408,17 +462,60 @@ RUN echo "=============================================" && \
 ##################################################################
 #                   CMake
 ##################################################################
-RUN mkdir -p ${CMAKE_DIR}
-ADD ${CMAKE_DOWNLOAD_URL} /tmp
+RUN mkdir -p ${CMAKE_3_31_DIR} ${CMAKE_3_30_DIR} ${CMAKE_3_21_DIR} ${CMAKE_3_20_DIR} ${CMAKE_3_19_DIR}  ${CMAKE_3_18_DIR} ${CMAKE_3_16_DIR}
+ADD ${CMAKE_3_31_DOWNLOAD_URL} /tmp
+ADD ${CMAKE_3_30_DOWNLOAD_URL} /tmp
+ADD ${CMAKE_3_21_DOWNLOAD_URL} /tmp
+ADD ${CMAKE_3_20_DOWNLOAD_URL} /tmp
+ADD ${CMAKE_3_19_DOWNLOAD_URL} /tmp
+ADD ${CMAKE_3_18_DOWNLOAD_URL} /tmp
+ADD ${CMAKE_3_16_DOWNLOAD_URL} /tmp
 
-RUN tar -xf ${CMAKE_TEMP} --directory ${CMAKE_DIR} --strip-components=1 && \
-    chmod +x ${CMAKE_BIN_DIR}/ccmake && \
-    chmod +x ${CMAKE_BIN_DIR}/cmake && \
-    chmod +x ${CMAKE_BIN_DIR}/cmake-gui && \
-    chmod +x ${CMAKE_BIN_DIR}/cpack && \
-    chmod +x ${CMAKE_BIN_DIR}/ctest
+RUN tar -xf ${CMAKE_3_31_TEMP} --directory ${CMAKE_3_31_DIR} --strip-components=1 && \
+    chmod +x ${CMAKE_3_31_BIN_DIR}/ccmake && \
+    chmod +x ${CMAKE_3_31_BIN_DIR}/cmake && \
+    chmod +x ${CMAKE_3_31_BIN_DIR}/cmake-gui && \
+    chmod +x ${CMAKE_3_31_BIN_DIR}/cpack && \
+    chmod +x ${CMAKE_3_31_BIN_DIR}/ctest  && \
+    tar -xf ${CMAKE_3_30_TEMP} --directory ${CMAKE_3_30_DIR} --strip-components=1 && \
+    chmod +x ${CMAKE_3_30_BIN_DIR}/ccmake && \
+    chmod +x ${CMAKE_3_30_BIN_DIR}/cmake && \
+    chmod +x ${CMAKE_3_30_BIN_DIR}/cmake-gui && \
+    chmod +x ${CMAKE_3_30_BIN_DIR}/cpack && \
+    chmod +x ${CMAKE_3_30_BIN_DIR}/ctest  && \
+    tar -xf ${CMAKE_3_21_TEMP} --directory ${CMAKE_3_21_DIR} --strip-components=1 && \
+    chmod +x ${CMAKE_3_21_BIN_DIR}/ccmake && \
+    chmod +x ${CMAKE_3_21_BIN_DIR}/cmake && \
+    chmod +x ${CMAKE_3_21_BIN_DIR}/cmake-gui && \
+    chmod +x ${CMAKE_3_21_BIN_DIR}/cpack && \
+    chmod +x ${CMAKE_3_21_BIN_DIR}/ctest && \
+    tar -xf ${CMAKE_3_20_TEMP} --directory ${CMAKE_3_20_DIR} --strip-components=1 && \
+    chmod +x ${CMAKE_3_20_BIN_DIR}/ccmake && \
+    chmod +x ${CMAKE_3_20_BIN_DIR}/cmake && \
+    chmod +x ${CMAKE_3_20_BIN_DIR}/cmake-gui && \
+    chmod +x ${CMAKE_3_20_BIN_DIR}/cpack && \
+    chmod +x ${CMAKE_3_20_BIN_DIR}/ctest && \
+    tar -xf ${CMAKE_3_19_TEMP} --directory ${CMAKE_3_19_DIR} --strip-components=1 && \
+    chmod +x ${CMAKE_3_19_BIN_DIR}/ccmake && \
+    chmod +x ${CMAKE_3_19_BIN_DIR}/cmake && \
+    chmod +x ${CMAKE_3_19_BIN_DIR}/cmake-gui && \
+    chmod +x ${CMAKE_3_19_BIN_DIR}/cpack && \
+    chmod +x ${CMAKE_3_19_BIN_DIR}/ctest && \
+    tar -xf ${CMAKE_3_18_TEMP} --directory ${CMAKE_3_18_DIR} --strip-components=1 && \
+    chmod +x ${CMAKE_3_18_BIN_DIR}/ccmake && \
+    chmod +x ${CMAKE_3_18_BIN_DIR}/cmake && \
+    chmod +x ${CMAKE_3_18_BIN_DIR}/cmake-gui && \
+    chmod +x ${CMAKE_3_18_BIN_DIR}/cpack && \
+    chmod +x ${CMAKE_3_18_BIN_DIR}/ctest && \
+    tar -xf ${CMAKE_3_16_TEMP} --directory ${CMAKE_3_16_DIR} --strip-components=1 && \
+    chmod +x ${CMAKE_3_16_BIN_DIR}/ccmake && \
+    chmod +x ${CMAKE_3_16_BIN_DIR}/cmake && \
+    chmod +x ${CMAKE_3_16_BIN_DIR}/cmake-gui && \
+    chmod +x ${CMAKE_3_16_BIN_DIR}/cpack && \
+    chmod +x ${CMAKE_3_16_BIN_DIR}/ctest
 
-ENV PATH="${CMAKE_BIN_DIR}:${PATH}"
+# Install default latest version
+ENV PATH="${CMAKE_3_31_BIN_DIR}:${PATH}"
 
 RUN echo "=============================================" && \
     echo $(cmake --version) && \
@@ -1076,6 +1173,37 @@ RUN tar -xzf ${OPENSSL_34_TEMP} --directory /tmp && \
       shared \
       --release \
       --prefix=${OPENSSL_34_DIR} \
+      && \
+    make -j$(nproc) && \
+    make -j$(nproc) install
+
+##################################################################
+#                   OpenSSL 3.5
+##################################################################
+RUN mkdir -p ${OPENSSL_35_DIR} ${OPENSSL_35_SRC_DIR}
+ADD ${OPENSSL_35_DOWNLOAD_URL} /tmp
+
+RUN tar -xzf ${OPENSSL_35_TEMP} --directory /tmp && \
+    cp -rfv ${OPENSSL_35_TEMP_SRC}/* ${OPENSSL_35_SRC_DIR} && \
+    ln -sf ${OPENSSL_35_SRC_DIR} ${OPENSSL_35_DIR}/src && \
+    cd ${OPENSSL_35_TEMP_SRC} && \
+    CFLAGS="-Wno-error -fPIC" CXXFLAGS="-fPIC" ./config \
+      zlib \
+      --with-zlib-include=${ZLIB_DIR}/include \
+      --with-zlib-lib=${ZLIB_DIR}/lib \
+      --with-zstd-include=${ZSTD_DIR}/include \
+      --with-zstd-lib=${ZSTD_DIR}/lib \
+      enable-ktls \
+      enable-ec_nistp_64_gcc_128 \
+      enable-egd \
+#     enable-fips \
+      enable-ssl-trace\
+      enable-trace \
+      threads \
+      sctp \
+      shared \
+      --release \
+      --prefix=${OPENSSL_35_DIR} \
       && \
     make -j$(nproc) && \
     make -j$(nproc) install

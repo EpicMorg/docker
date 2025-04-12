@@ -36,8 +36,8 @@ RUN mkdir -p                             ${JIRA_INSTALL_DIR} \
     && sed -i -e 's/grep "java version"/grep -E "(openjdk|java) version"/g' ${JIRA_INSTALL_DIR}/bin/check-java.sh \
     && sed -i -e 's/port="8080"/port="8080" secure="${catalinaConnectorSecure}" scheme="${catalinaConnectorScheme}" proxyName="${catalinaConnectorProxyName}" proxyPort="${catalinaConnectorProxyPort}"/' ${JIRA_INSTALL_DIR}/conf/server.xml && \
     update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8 && \
-    apt clean -y && \
-    apt autoclean -y && \
+    apt-get clean -y && \
+    apt-get autoclean -y && \
     rm -rfv /var/lib/apt/lists/* && \
     rm -rfv /var/cache/apt/archives/*.deb
 

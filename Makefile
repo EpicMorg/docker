@@ -126,11 +126,11 @@ advanced-teamcity-server-images:
 	cd `pwd`/linux/advanced/teamcity/server/latest	       && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/teamcity/server/2025.03        && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/teamcity/server/2024.12        && pwd && make build && make deploy
-#	cd `pwd`/linux/advanced/teamcity/server/2024.07.3      && pwd && make build && make deploy
-#	cd `pwd`/linux/advanced/teamcity/server/2024.03.3      && pwd && make build && make deploy
-#	cd `pwd`/linux/advanced/teamcity/server/2023.05.6      && pwd && make build && make deploy
-#	cd `pwd`/linux/advanced/teamcity/server/2022.10.6      && pwd && make build && make deploy
-#	cd `pwd`/linux/advanced/teamcity/server/2022.04.7      && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/teamcity/server/2024.07.3      && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/teamcity/server/2024.03.3      && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/teamcity/server/2023.05.6      && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/teamcity/server/2022.10.6      && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/teamcity/server/2022.04.7      && pwd && make build && make deploy
 
 ####################################################################################################################
 
@@ -353,17 +353,16 @@ ecosystem-images:
 	make bundle-base-images
 	make ecosystem-php-images
 	make ecosystem-apache2-images
-	make ecosystem-testrail-imagesmake ecosystem-testrail-images
+	make ecosystem-testrail-images
 	make ecosystem-torrserver-images
-	make ecosystem-images
 	make ecosystem-qbittorrent-images
 	make ecosystem-vk2discord-images
 	make ecosystem-postgres-images
 	make ecosystem-teamcity-agent-images
-	make ecosystem-gitlab-runner-images
+#	make ecosystem-gitlab-runner-images
 	make ecosystem-nginx-images
 	make advanced-vscode-server-images
-	make ecosystem-ninjam-image
+	make ecosystem-ninjam-images
 	make bundle-jira
 	make bundle-atlassian-latest
 
@@ -786,6 +785,8 @@ ecosystem-debian-bookworm-jdk-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk/jdk21    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk/jdk22    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk/jdk23    && pwd && make build && make deploy
+	@make clean
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/atlassian-sdk  && pwd && make build && make deploy
 	@make clean
 
 ecosystem-debian-bookworm-nodejs-images: 
@@ -1272,7 +1273,7 @@ ecosystem-torrserver-images:
 ecosystem-electron-release-server-images:
 	cd `pwd`/linux/ecosystem/electron-release-server  && pwd && make build && make deploy
 
-ecosystem-ninjam-image: 
+ecosystem-ninjam-images: 
 	cd `pwd`/linux/ecosystem/ninjam/latest     && pwd && make build && make deploy
 
 ecosystem-vk2discord-images: 
@@ -1303,6 +1304,8 @@ ecosystem-qbittorrent-images:
 	cd `pwd`/linux/ecosystem/qbittorrent/5.0.0    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/qbittorrent/5.0.1    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/qbittorrent/5.0.2    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/qbittorrent/5.0.3    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/qbittorrent/5.0.4    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/qbittorrent/testing  && pwd && make build && make deploy
 	@make clean
 
@@ -1347,9 +1350,83 @@ ecosystem-postgres-images:
 ecosystem-teamcity-agent-images:
 	cd `pwd`/linux/ecosystem/teamcity/agent/minimal         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/teamcity/agent/latest         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/amxx-sdk/1.9         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/amxx-sdk/1.10         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/android-sdk         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/atlassian-sdk         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/node0.12         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/node4         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/node5         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/node6         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/node7         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/node8         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/node9         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/node10         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/node11         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/node12         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/node13         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/node14         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/node15         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/node16         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/node17         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/node18         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/node19         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/node20         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/node21         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/node22         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/node23         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/php56         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/php70         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/php71         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/php72         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/php73         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/php74         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/php80         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/php81         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/php82         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/php83         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/teamcity/agent/php84         && pwd && make build && make deploy
 
 ecosystem-gitlab-runner-images:
+	cd `pwd`/linux/ecosystem/gitlab/runner/minimal         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/gitlab/runner/latest         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/amxx-sdk/1.9         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/amxx-sdk/1.10         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/android-sdk         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/atlassian-sdk         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/dotnet-sdk         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/node0.12         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/node4         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/node5         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/node6         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/node7         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/node8         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/node9         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/node10         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/node11         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/node12         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/node13         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/node14         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/node15         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/node16         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/node17         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/node18         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/node19         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/node20         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/node21         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/node22         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/node23         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/php56         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/php70         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/php71         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/php72         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/php73         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/php74         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/php80         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/php81         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/php82         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/php83         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/gitlab/runner/php84         && pwd && make build && make deploy
 
 ecosystem-nginx-images:
 	cd `pwd`/linux/ecosystem/nginx/latest/mainline/main      && pwd && make build && make deploy

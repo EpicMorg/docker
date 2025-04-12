@@ -2,8 +2,8 @@ name: EpicMorg EcoSystem Atlassian Main Images
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron:  '5 5 * * 1,3,5'
+#  schedule:
+#    - cron:  '5 5 * * 1,3,5'
 
 jobs:
 
