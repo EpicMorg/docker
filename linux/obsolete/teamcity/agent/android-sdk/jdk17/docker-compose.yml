@@ -1,9 +1,0 @@
-services:
-  app:
-    image: "hub.epicm.org/epicmorg/teamcity-agent:android-sdk"
-    build:
-      context: .
-  app-jdk17:
-    image: "hub.epicm.org/epicmorg/teamcity-agent:android-sdk-jdk17"
-    build:
-      context: .

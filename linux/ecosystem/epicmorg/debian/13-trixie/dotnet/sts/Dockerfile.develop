@@ -12,7 +12,8 @@ ENV DOTNET_CLI_TELEMETRY_OPTOUT=true
 ENV DOTNET_SKIP_FIRST_TIME_EXPERIENCE=true
 
 ENV OPENSSL_ROOT=${OPENSSL_34_DIR}
-ENV LD_LIBRARY_PATH=${OPENSSL_ROOT}/lib64:$LD_LIBRARY_PATH
+ENV LD_LIBRARY_PATH="${OPENSSL_ROOT}/lib64:${PYTHON_DIR}/lib:$LD_LIBRARY_PATH"
+ENV PYTHONPATH="${PYTHON_DIR}/lib/python${PYTHON_VERSION}/site-packages:$PYTHONPATH"
 
 ##################################################################
 #                   installing dotnet

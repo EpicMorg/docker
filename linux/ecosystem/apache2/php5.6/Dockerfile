@@ -116,8 +116,8 @@ RUN echo "zend_extension =  ${PHP_MODULE_PATH}/ioncube_loader_lin_5.6.so" >> ${P
 ##################################################################
 #                   cleaninig up
 ##################################################################
-RUN apt clean -y && \
-    apt autoclean -y && \
+RUN apt-get clean -y && \
+    apt-get autoclean -y && \
     rm -rfv /var/lib/apt/lists/* && \
     rm -rfv /var/cache/apt/archives/*.deb && \
     rm -rfv /root/tmp/* && \

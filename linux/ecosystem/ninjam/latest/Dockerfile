@@ -36,9 +36,9 @@ COPY --from=builder /tmp/ninjam/ninjam/server/cclicense.txt  ${NINJAM_BIN}/cclic
 ##################################################################
 #                   cleaninig up
 ##################################################################
-RUN apt clean -y && \
-    apt-get clean all && \
-    apt autoclean -y && \
+RUN apt-get clean -y && \
+    apt-get clean all -y && \
+    apt-get autoclean -y && \
     rm -rfv /var/lib/apt/lists/* && \
     rm -rfv /var/cache/apt/archives/*.deb && \
     rm -rfv /root/tmp/* && \

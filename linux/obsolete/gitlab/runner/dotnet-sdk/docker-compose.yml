@@ -1,5 +1,0 @@
-services:
-  app:
-    image: "hub.epicm.org/epicmorg/teamcity-agent:dotnet-sdk"
-    build:
-      context: .

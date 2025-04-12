@@ -19,9 +19,9 @@ RUN cp -rfv /tmp/vk2discord/* /usr/src/vk2discord/
 ##################################################################
 #                   cleaninig up
 ##################################################################
-RUN apt clean -y && \
-    apt-get clean all && \
-    apt autoclean -y && \
+RUN apt-get clean -y && \
+    apt-get clean all -y && \
+    apt-get autoclean -y && \
     rm -rfv /var/lib/apt/lists/* && \
     rm -rfv /tmp/vk2discord/* && \
     rm -rfv /var/cache/apt/archives/*.deb

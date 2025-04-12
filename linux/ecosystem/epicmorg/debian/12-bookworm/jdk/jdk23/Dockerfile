@@ -3,23 +3,34 @@ LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
 ARG K_JDK_MAJOR_VERSION=23
-ARG K_JDK_FULL_VERSION=jdk-23.0.1
-ARG K_JDK_VERSION=23.0.1
-ARG K_JDK_BUILD_VERSION=11
+ARG K_JDK_FULL_VERSION=jdk-23.0.2
+ARG K_JDK_VERSION=23.0.2
+ARG K_JDK_BUILD_VERSION=7
+ARG K_JDK_DIR=${EMG_LOCAL_BASE_DIR}/java/${K_JDK_MAJOR_VERSION}
 ARG K_JDK_URL=https://github.com/adoptium/temurin${K_JDK_MAJOR_VERSION}-binaries/releases/download/${K_JDK_FULL_VERSION}+${K_JDK_BUILD_VERSION}/OpenJDK${K_JDK_MAJOR_VERSION}U-jdk_x64_linux_hotspot_${K_JDK_VERSION}_${K_JDK_BUILD_VERSION}.tar.gz
 ARG K_JDK_TEMP=/tmp/OpenJDK${K_JDK_MAJOR_VERSION}U-jdk_x64_linux_hotspot_${K_JDK_VERSION}_${K_JDK_BUILD_VERSION}.tar.gz
 
-ENV JAVA_HOME=/usr/local/${K_JDK_FULL_VERSION}+${K_JDK_BUILD_VERSION}
+ENV JAVA_HOME=${K_JDK_DIR}
 ENV JRE_HOME=${JAVA_HOME}
+ENV JDK_HOME=${JAVA_HOME}
 ENV PATH=$PATH:${JAVA_HOME}/bin
 
 ##################################################################
-#                   installing java21
+#                   installing java23
 ##################################################################
 ADD ${K_JDK_URL} /tmp
-RUN tar -xvzf ${K_JDK_TEMP} --directory /usr/local && \
+RUN mkdir -p ${K_JDK_DIR} && \
+    tar -xvzf ${K_JDK_TEMP} --strip-components=1 --directory ${K_JDK_DIR} && \
     ln -sfv ${JAVA_HOME} /usr/jre && \
-    java -version
+    ln -sfv ${JAVA_HOME} /usr/jdk && \
+    java -version && \
+# cleanup
+    apt-get clean -y && \
+    apt-get clean all -y && \
+    apt-get autoclean -y && \
+    rm -rfv /var/lib/apt/lists/* && \
+    rm -rfv /var/cache/apt/archives/*.deb && \
+    rm -rfv /tmp/* 
 
 ##################################################################
 #                   Additional settings

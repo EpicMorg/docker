@@ -28,7 +28,8 @@ COPY --from=builder ${OPENSSL_34_DIR} ${OPENSSL_34_DIR}
 COPY --from=builder ${OPENSSL_34_SRC_DIR} ${OPENSSL_34_SRC_DIR}
 
 ENV OPENSSL_ROOT=${OPENSSL_34_DIR}
-ENV LD_LIBRARY_PATH=${OPENSSL_ROOT}/lib64:$LD_LIBRARY_PATH
+ENV LD_LIBRARY_PATH="${OPENSSL_ROOT}/lib64:${PYTHON_DIR}/lib:$LD_LIBRARY_PATH"
+ENV PYTHONPATH="${PYTHON_DIR}/lib/python${PYTHON_VERSION}/site-packages:$PYTHONPATH"
 
 ##################################################################
 #                   installing dotnet
