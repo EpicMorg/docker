@@ -32,7 +32,7 @@ jobs:
       run:  make pip
 
     - name: "Build and Deploy Cassandra 3.11 Image:"
-      run:  cd linux/ecosystem/cassandra/3.11    && pwd && make build && make deploy
+      run:  cd linux/advanced/cassandra/3.11    && pwd && make build && make deploy
 
 ##################################################################################
 

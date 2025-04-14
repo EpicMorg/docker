@@ -1,4 +1,4 @@
-FROM hub.epicm.org/epicmorg/nodejs:node17
+FROM hub.epicm.org/epicmorg/debian:bookworm-nodejs23
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -7,14 +7,10 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 WORKDIR /usr/src/vk2discord
 
-RUN git clone https://github.com/MrZillaGold/VK2Discord.git /tmp/vk2discord
-
-RUN cp -rvf /tmp/vk2discord/package*.json /usr/src/vk2discord/
+RUN git clone https://github.com/MrZillaGold/VK2Discord.git /usr/src/vk2discord
 
 RUN npm config set engine-strict false && \
-    npm install -g
-
-RUN cp -rfv /tmp/vk2discord/* /usr/src/vk2discord/
+    npm install
 
 ##################################################################
 #                   cleaninig up
@@ -26,4 +22,4 @@ RUN apt-get clean -y && \
     rm -rfv /tmp/vk2discord/* && \
     rm -rfv /var/cache/apt/archives/*.deb
 
-CMD npm start
+CMD ["npm", "start"]

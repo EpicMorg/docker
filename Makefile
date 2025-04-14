@@ -93,11 +93,11 @@ images:
 	make experimental-images
 #	make clean
 
-
 advanced-images:
 	@echo "======================================="
 	@echo "===== Building third-party images ====="
 	@echo "======================================="
+	make advanced-cassandra-images
 	make advanced-mattermost-images
 	make advanced-teamcity-server-images
 	make advanced-nextcloud-all-images
@@ -118,19 +118,32 @@ advanced-nextcloud-all-latest-images:
 
 advanced-nextcloud-pure-latest-images:
 	cd `pwd`/linux/advanced/nextcloud/pure/latest	  && pwd && make build && make deploy
+	@make clean
 
 advanced-nextcloud-patched-latest-images:
 	cd `pwd`/linux/advanced/nextcloud/patched/latest	  && pwd && make build && make deploy
+	@make clean
 
 advanced-teamcity-server-images:
 	cd `pwd`/linux/advanced/teamcity/server/latest	       && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/advanced/teamcity/server/2025.03        && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/advanced/teamcity/server/2024.12        && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/advanced/teamcity/server/2024.07.3      && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/advanced/teamcity/server/2024.03.3      && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/advanced/teamcity/server/2023.05.6      && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/advanced/teamcity/server/2022.10.6      && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/advanced/teamcity/server/2022.04.7      && pwd && make build && make deploy
+	@make clean
+
+advanced-cassandra-images:
+	cd `pwd`/linux/advanced/cassandra/3.11       && pwd && make build && make deploy
 
 ####################################################################################################################
 
@@ -163,6 +176,7 @@ advanced-zabbix-images:
 	make advanced-zabbix-62-images
 	make advanced-zabbix-64-images
 	make advanced-zabbix-70-images
+	make advanced-zabbix-72-images
 	make advanced-zabbix-trunk-images
 
 advanced-zabbix-trunk-images:
@@ -176,6 +190,7 @@ advanced-zabbix-trunk-images:
 	cd `pwd`/linux/advanced/zabbix/trunk/snmptraps			&& pwd && make build && make deploy
 	cd `pwd`/linux/advanced/zabbix/trunk/web-mysql			&& pwd && make build && make deploy
 	cd `pwd`/linux/advanced/zabbix/trunk/web-pgsql			&& pwd && make build && make deploy
+	@make clean
 
 advanced-zabbix-latest-images:
 	cd `pwd`/linux/advanced/zabbix/latest/agent		      && pwd && make build && make deploy
@@ -188,6 +203,7 @@ advanced-zabbix-latest-images:
 	cd `pwd`/linux/advanced/zabbix/latest/snmptraps			&& pwd && make build && make deploy
 	cd `pwd`/linux/advanced/zabbix/latest/web-mysql			&& pwd && make build && make deploy
 	cd `pwd`/linux/advanced/zabbix/latest/web-pgsql			&& pwd && make build && make deploy
+	@make clean
 
 advanced-zabbix-30-images:
 	cd `pwd`/linux/advanced/zabbix/3.0/agent		      && pwd && make build && make deploy 
@@ -199,6 +215,7 @@ advanced-zabbix-30-images:
 	cd `pwd`/linux/advanced/zabbix/3.0/snmptraps			&& pwd && make build && make deploy
 	cd `pwd`/linux/advanced/zabbix/3.0/web-mysql			&& pwd && make build && make deploy
 	cd `pwd`/linux/advanced/zabbix/3.0/web-pgsql			&& pwd && make build && make deploy
+	@make clean
 	
 advanced-zabbix-40-images:
 	cd `pwd`/linux/advanced/zabbix/4.0/agent		      && pwd && make build && make deploy
@@ -210,6 +227,7 @@ advanced-zabbix-40-images:
 	cd `pwd`/linux/advanced/zabbix/4.0/snmptraps			&& pwd && make build && make deploy
 	cd `pwd`/linux/advanced/zabbix/4.0/web-mysql			&& pwd && make build && make deploy
 	cd `pwd`/linux/advanced/zabbix/4.0/web-pgsql			&& pwd && make build && make deploy
+	@make clean
 
 advanced-zabbix-50-images:
 	cd `pwd`/linux/advanced/zabbix/5.0/agent		      && pwd && make build && make deploy
@@ -222,6 +240,7 @@ advanced-zabbix-50-images:
 	cd `pwd`/linux/advanced/zabbix/5.0/snmptraps			&& pwd && make build && make deploy
 	cd `pwd`/linux/advanced/zabbix/5.0/web-mysql			&& pwd && make build && make deploy
 	cd `pwd`/linux/advanced/zabbix/5.0/web-pgsql			&& pwd && make build && make deploy
+	@make clean
 
 advanced-zabbix-52-images:
 	cd `pwd`/linux/advanced/zabbix/5.2/agent		      && pwd && make build && make deploy
@@ -234,6 +253,7 @@ advanced-zabbix-52-images:
 	cd `pwd`/linux/advanced/zabbix/5.2/snmptraps			&& pwd && make build && make deploy
 	cd `pwd`/linux/advanced/zabbix/5.2/web-mysql			&& pwd && make build && make deploy
 	cd `pwd`/linux/advanced/zabbix/5.2/web-pgsql			&& pwd && make build && make deploy
+	@make clean
 
 advanced-zabbix-54-images:
 	cd `pwd`/linux/advanced/zabbix/5.4/agent		      && pwd && make build && make deploy
@@ -246,6 +266,7 @@ advanced-zabbix-54-images:
 	cd `pwd`/linux/advanced/zabbix/5.4/snmptraps			&& pwd && make build && make deploy
 	cd `pwd`/linux/advanced/zabbix/5.4/web-mysql			&& pwd && make build && make deploy
 	cd `pwd`/linux/advanced/zabbix/5.4/web-pgsql			&& pwd && make build && make deploy
+	@make clean
 
 advanced-zabbix-60-images:
 	cd `pwd`/linux/advanced/zabbix/6.0/agent		      && pwd && make build && make deploy
@@ -258,6 +279,7 @@ advanced-zabbix-60-images:
 	cd `pwd`/linux/advanced/zabbix/6.0/snmptraps			&& pwd && make build && make deploy
 	cd `pwd`/linux/advanced/zabbix/6.0/web-mysql			&& pwd && make build && make deploy
 	cd `pwd`/linux/advanced/zabbix/6.0/web-pgsql			&& pwd && make build && make deploy
+	@make clean
 
 advanced-zabbix-62-images:
 	cd `pwd`/linux/advanced/zabbix/6.2/agent		      && pwd && make build && make deploy
@@ -270,6 +292,7 @@ advanced-zabbix-62-images:
 	cd `pwd`/linux/advanced/zabbix/6.2/snmptraps			&& pwd && make build && make deploy
 	cd `pwd`/linux/advanced/zabbix/6.2/web-mysql			&& pwd && make build && make deploy
 	cd `pwd`/linux/advanced/zabbix/6.2/web-pgsql			&& pwd && make build && make deploy
+	@make clean
 
 advanced-zabbix-64-images:
 	cd `pwd`/linux/advanced/zabbix/6.4/agent		      && pwd && make build && make deploy
@@ -282,6 +305,7 @@ advanced-zabbix-64-images:
 	cd `pwd`/linux/advanced/zabbix/6.4/snmptraps			&& pwd && make build && make deploy
 	cd `pwd`/linux/advanced/zabbix/6.4/web-mysql			&& pwd && make build && make deploy
 	cd `pwd`/linux/advanced/zabbix/6.4/web-pgsql			&& pwd && make build && make deploy
+	@make clean
 
 advanced-zabbix-70-images:
 	cd `pwd`/linux/advanced/zabbix/7.0/agent		      && pwd && make build && make deploy
@@ -294,6 +318,7 @@ advanced-zabbix-70-images:
 	cd `pwd`/linux/advanced/zabbix/7.0/snmptraps			&& pwd && make build && make deploy
 	cd `pwd`/linux/advanced/zabbix/7.0/web-mysql			&& pwd && make build && make deploy
 	cd `pwd`/linux/advanced/zabbix/7.0/web-pgsql			&& pwd && make build && make deploy
+	@make clean
 
 advanced-zabbix-72-images:
 	cd `pwd`/linux/advanced/zabbix/7.2/agent		      && pwd && make build && make deploy
@@ -306,6 +331,7 @@ advanced-zabbix-72-images:
 	cd `pwd`/linux/advanced/zabbix/7.2/snmptraps			&& pwd && make build && make deploy
 	cd `pwd`/linux/advanced/zabbix/7.2/web-mysql			&& pwd && make build && make deploy
 	cd `pwd`/linux/advanced/zabbix/7.2/web-pgsql			&& pwd && make build && make deploy
+	@make clean
 
 ####################################################################################################################
 
@@ -327,6 +353,8 @@ advanced-nextcloud-images:
 	cd `pwd`/linux/advanced/nextcloud/pure/28		  && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/nextcloud/pure/29		  && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/nextcloud/pure/30		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/pure/31		  && pwd && make build && make deploy
+	@make clean
 
 advanced-nextcloud-patched-images:
 #	cd `pwd`/linux/advanced/nextcloud/patched/14		  && pwd && make build && make deploy
@@ -346,6 +374,8 @@ advanced-nextcloud-patched-images:
 	cd `pwd`/linux/advanced/nextcloud/patched/28		  && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/nextcloud/patched/29		  && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/nextcloud/patched/30		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/patched/31		  && pwd && make build && make deploy
+	@make clean
 
 ####################################################################################################################
 
@@ -357,14 +387,15 @@ ecosystem-images:
 	make ecosystem-torrserver-images
 	make ecosystem-qbittorrent-images
 	make ecosystem-vk2discord-images
+	make ecosystem-monero-images
+	make ecosystem-ninjam-images
 	make ecosystem-postgres-images
 	make ecosystem-teamcity-agent-images
-#	make ecosystem-gitlab-runner-images
-	make ecosystem-nginx-images
-	make advanced-vscode-server-images
-	make ecosystem-ninjam-images
-	make bundle-jira
-	make bundle-atlassian-latest
+	make ecosystem-gitlab-runner-images
+#	make ecosystem-nginx-images
+#	make advanced-vscode-server-images
+#	make bundle-jira
+#	make bundle-atlassian-latest
 
 ####################################################################################################################
 
@@ -1068,7 +1099,6 @@ ecosystem-apache2-images:
 	@make clean
 
 ecosystem-testrail-images:
-	cd `pwd`/linux/ecosystem/cassandra/3.11       && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/testrail/5.4.1.3669/main       && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/testrail/5.5.0.3727/main       && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/testrail/5.5.0.3731/main       && pwd && make build && make deploy
@@ -1315,9 +1345,9 @@ ecosystem-retracker-images:
 ecosystem-opentracker-images: 
 	cd `pwd`/linux/ecosystem/opentracker    && pwd && make build && make deploy
 
-ecosystem-torrust-tracker-images: 
-	cd `pwd`/linux/ecosystem/torrust-tracker    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/torrust-index    && pwd && make build && make deploy
+experimental-torrust-tracker-images: 
+	cd `pwd`/linux/experimental/torrust-tracker    && pwd && make build && make deploy
+	cd `pwd`/linux/experimental/torrust-index    && pwd && make build && make deploy
 
 ecosystem-monero-images: 
 	cd `pwd`/linux/ecosystem/monero/monerod    && pwd && make build && make deploy

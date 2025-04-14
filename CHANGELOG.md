@@ -1,5 +1,10 @@
 # Changelog
 * `apr`
+  * updated `opentracker`
+  * updated `retracker`
+  * updated `torrserver`
+  * udpated `vk2discord`
+  * updated `electron-release-server`
   * updated `php` images with `ioncube` module.git a
   * changed default docker regitstry hub to `own`. only for ci builds.
   * updated `nodejs` 
@@ -9,6 +14,7 @@
   * updated `go`
   * added more flutter compablity
   * added `qbittorrent`
+  * added `nextcloud` version `31`
   * updated `python`
   * updated `gitlab-runner`
 ## 2025

@@ -2,7 +2,7 @@
 #
 
 # I)   Address opentracker will listen on, using both, tcp AND udp family
-#      (note, that port 6969 is implicite if ommitted).
+#      (note, that port 6969 is implicit if omitted).
 #
 #      If no listen option is given (here or on the command line), opentracker
 #      listens on 0.0.0.0:6969 tcp and udp.
@@ -44,17 +44,65 @@
 #      listing, so choose one of those options at compile time. File format
 #      is straight forward: "<hex info hash>\n<hex info hash>\n..."
 #
+# IIa) You can enable dynamic changesets to accesslists by enabling
+#      WANT_DYNAMIC_ACCESSLIST.
+#
+#      The suggested way to work with dynamic changeset lists is to keep a
+#      main accesslist file that is loaded when opentracker (re)starts and
+#      reloaded infrequently (hourly or daily).
+#
+#      All changes to the accesslist (e.g. from a web frontend) should be
+#      both appended to or removed from that file and sent to opentracker. By
+#      keeping dynamic changeset lists, you can avoid reloading huge
+#      accesslists whenever just a single entry is added or removed.
+#
+#      Any info_hash (format see above) written to the fifo_add file will be
+#      kept on a dynamic add-changeset, removed from the dynamic
+#      delete-changeset and treated as if it was in the main accesslist file.
+#      The semantic of the respective dynamic changeset depends on whether
+#      WANT_ACCESSLIST_WHITE or WANT_ACCESSLIST_BLACK is enabled.
+#
+# access.fifo_add /var/run/opentracker/adder.fifo
+#
+#      Any info_hash (format see above) written to the fifo_delete file will
+#      be kept on a dynamic delete-changeset, removed from the dynamic
+#      add-changeset and treated as if it was not in the main accesslist
+#      file.
+#
+# access.fifo_delete /var/run/opentracker/deleter.fifo
+#
+#      If you reload the accesslist by sending SIGHUP to the tracker process,
+#      the dynamic lists are flushed, as opentracker assumes thoses lists are
+#      merged into the main accesslist.
+#
+#      NOTE: While you can have multiple writers sending lines to the fifos,
+#      any writes larger than PIPE_BUF (see your limits.h, minimally 512
+#      bytes but usually 4096) may be interleaved with data sent by other
+#      writers. This can lead to unparsable lines of info_hashes.
+#
+# IIb)
 #      If you do not want to grant anyone access to your stats, enable the
 #      WANT_RESTRICT_STATS option in Makefile and bless the ip addresses
-#      allowed to fetch stats here.
+#      or network allowed to fetch stats here.
 #
 # access.stats 192.168.0.23
+# access.stats 10.1.1.23
 #
 #      There is another way of hiding your stats. You can obfuscate the path
 #      to them. Normally it is located at /stats but you can configure it to
 #      appear anywhere on your tracker.
 #
 # access.stats_path stats
+#
+# II
+#      If opentracker lives behind one or multiple reverse proxies,
+#      every http connection appears to come from these proxies. In order to
+#      take the X-Forwarded-For address instead, compile opentracker with the
+#      WANT_IP_FROM_PROXY option and set your proxy addresses or networkss here.
+#
+# access.proxy 10.0.1.23
+# access.proxy 192.0.0.0/8
+#
 
 # III) Live sync uses udp multicast packets to keep a cluster of opentrackers
 #      synchronized. This option tells opentracker which port to listen for
