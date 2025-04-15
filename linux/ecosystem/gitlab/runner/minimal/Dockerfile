@@ -15,7 +15,10 @@ ENV GIT_SSH_VARIANT=ssh
 
 ADD https://gitlab-runner-downloads.s3.amazonaws.com/latest/binaries/gitlab-runner-linux-amd64 /tmp
 
-RUN mkdir -p \
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends --allow-unauthenticated \
+        supervisor && \
+    mkdir -p \
       ${GITLAB_RUNNER_DIR} \
       ${GITLAB_RUNNER_BIN_DIR} \
       ${GITLAB_RUNNER_CONF_DIR} \
@@ -29,6 +32,8 @@ RUN mkdir -p \
 ENV PATH=${GITLAB_RUNNER_BIN_DIR}:$PATH
 
 RUN gitlab-runner --version
+
+COPY etc/ /etc/
 
 ##################################################################
 #                   cleaninig up
@@ -46,7 +51,7 @@ RUN apt-get clean -y && \
 ##################################################################
 WORKDIR ${GITLAB_RUNNER_DIR}
 
-VOLUME ["${GITLAB_RUNNER_CONF_DIR}", "${GITLAB_RUNNER_CERTS_DIR}", "${GITLAB_RUNNER_WORKER_DIR}", "/var/log/supervisor"]
+VOLUME ["${GITLAB_RUNNER_CONF_DIR}", "${GITLAB_RUNNER_WORKER_DIR}", "/var/log/supervisor"]
 
 CMD ["/usr/bin/supervisord"]
 

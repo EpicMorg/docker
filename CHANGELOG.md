@@ -1,5 +1,6 @@
 # Changelog
 * `apr`
+  * added `github runner` basic images.
   * updated `opentracker`
   * updated `retracker`
   * updated `torrserver`

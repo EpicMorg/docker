@@ -9,7 +9,7 @@ jobs:
 
   build-torrserver-image:
     name: EpicMorg EcoSystem TorrServer Image
-    runs-on: ubuntu-24.04
+    runs-on: [self-hosted]
 
     steps:
     - uses: actions/checkout@v4
@@ -27,8 +27,8 @@ jobs:
     - name: Test Make
       run:  make
 
-    - name: Install requirements.txt
-      run:  make pip
+#    - name: Install requirements.txt
+#      run:  make pip
 
     - name: Build and Deploy TorrServer
       run:  cd linux/ecosystem/torrserver && make build && make deploy
@@ -37,7 +37,7 @@ jobs:
 
   build-ers-image:
     name: EpicMorg EcoSystem Electron Release Server Image
-    runs-on: ubuntu-24.04
+    runs-on: [self-hosted]
 
     steps:
     - uses: actions/checkout@v4
@@ -55,8 +55,8 @@ jobs:
     - name: Test Make
       run:  make
 
-    - name: Install requirements.txt
-      run:  make pip
+#    - name: Install requirements.txt
+#      run:  make pip
 
     - name: Build and Deploy Electron Release Server
       run:  cd linux/ecosystem/electron-release-server && make build && make deploy
@@ -65,7 +65,7 @@ jobs:
 
   build-vk2discord-image:
     name: EpicMorg EcoSystem vk2discord Image
-    runs-on: ubuntu-24.04
+    runs-on: [self-hosted]
 
     steps:
     - uses: actions/checkout@v4
@@ -83,8 +83,8 @@ jobs:
     - name: Test Make
       run:  make
 
-    - name: Install requirements.txt
-      run:  make pip
+#    - name: Install requirements.txt
+#      run:  make pip
 
     - name: Build and Deploy vk2discord
       run:  cd linux/ecosystem/vk2discord && make build && make deploy
@@ -93,7 +93,7 @@ jobs:
 
   build-qbittorrent-image:
     name: EpicMorg EcoSystem qBittorrent Image
-    runs-on: ubuntu-24.04
+    runs-on: [self-hosted]
 
     steps:
     - uses: actions/checkout@v4
@@ -111,8 +111,8 @@ jobs:
     - name: Test Make
       run:  make
 
-    - name: Install requirements.txt
-      run:  make pip
+#    - name: Install requirements.txt
+#      run:  make pip
 
     - name: Build and Deploy qBittorrent 4.4.0
       run:  cd linux/ecosystem/qbittorrent/4.4.0 && make build && make deploy
@@ -232,7 +232,7 @@ jobs:
 
   build-opentracker-image:
     name: EpicMorg EcoSystem openTracker Image
-    runs-on: ubuntu-24.04
+    runs-on: [self-hosted]
 
     steps:
     - uses: actions/checkout@v4
@@ -250,8 +250,8 @@ jobs:
     - name: Test Make
       run:  make
 
-    - name: Install requirements.txt
-      run:  make pip
+#    - name: Install requirements.txt
+#      run:  make pip
 
     - name: Build and Deploy openTracker
       run:  cd linux/ecosystem/opentracker && make build && make deploy
@@ -260,7 +260,7 @@ jobs:
 
   build-retracker-image:
     name: EpicMorg EcoSystem reTracker Image
-    runs-on: ubuntu-24.04
+    runs-on: [self-hosted]
 
     steps:
     - uses: actions/checkout@v4
@@ -278,8 +278,8 @@ jobs:
     - name: Test Make
       run:  make
 
-    - name: Install requirements.txt
-      run:  make pip
+#    - name: Install requirements.txt
+#      run:  make pip
 # to rework
 #    - name: Build and Deploy reTracker
 #      run:  cd linux/ecosystem/retracker && make build && make deploy
@@ -288,7 +288,7 @@ jobs:
 
   build-torrust-tracker-image:
     name: EpicMorg EcoSystem Torrust Tracker Image
-    runs-on: ubuntu-24.04
+    runs-on: [self-hosted]
 
     steps:
     - uses: actions/checkout@v4
@@ -306,8 +306,8 @@ jobs:
     - name: Test Make
       run:  make
 
-    - name: Install requirements.txt
-      run:  make pip
+#    - name: Install requirements.txt
+#      run:  make pip
 
     - name: Build and Deploy Torrust Tracker
       run:  cd linux/ecosystem/torrust-tracker && make build && make deploy
@@ -319,7 +319,7 @@ jobs:
 
   build-monero-cli-image:
     name: EpicMorg EcoSystem Monero CLI Image
-    runs-on: ubuntu-24.04
+    runs-on: [self-hosted]
 
     steps:
     - uses: actions/checkout@v4
@@ -337,8 +337,8 @@ jobs:
     - name: Test Make
       run:  make
 
-    - name: Install requirements.txt
-      run:  make pip
+#    - name: Install requirements.txt
+#      run:  make pip
 
     - name: Build and Deploy Monero CLI
       run:  cd linux/ecosystem/monero/monerod && make build && make deploy
@@ -347,7 +347,7 @@ jobs:
 
   build-monero-p2pool-image:
     name: EpicMorg EcoSystem Monero p2pool Image
-    runs-on: ubuntu-24.04
+    runs-on: [self-hosted]
 
     steps:
     - uses: actions/checkout@v4
@@ -365,8 +365,8 @@ jobs:
     - name: Test Make
       run:  make
 
-    - name: Install requirements.txt
-      run:  make pip
+#    - name: Install requirements.txt
+#      run:  make pip
 
     - name: Build and Deploy Monero p2pool
       run:  cd linux/ecosystem/monero/p2pool && make build && make deploy
@@ -375,7 +375,7 @@ jobs:
 
   build-ninjam-image:
     name: EpicMorg EcoSystem ninjam Image
-    runs-on: ubuntu-24.04
+    runs-on: [self-hosted]
 
     steps:
     - uses: actions/checkout@v4
@@ -393,8 +393,8 @@ jobs:
     - name: Test Make
       run:  make
 
-    - name: Install requirements.txt
-      run:  make pip
+#    - name: Install requirements.txt
+#      run:  make pip
 
     - name: Build and Deploy ninjam
       run:  cd linux/ecosystem/ninjam/latest && make build && make deploy

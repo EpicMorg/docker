@@ -9,7 +9,7 @@ jobs:
 
   build-glr-main-images:
     name: Build EpicMorg Gitlab Runner Main Images
-    runs-on: ubuntu-24.04
+    runs-on: [self-hosted]
 
     steps:
     - uses: actions/checkout@v4
@@ -27,8 +27,12 @@ jobs:
     - name: Test Make
       run:  make
 
-    - name: Install requirements.txt
-      run:  make pip
+#    - name: Install requirements.txt
+#      run:  make pip
+
+    - name: "Build and Deploy Gitlab Runner minimal Image:"
+      run:  cd linux/ecosystem/gitlab/runner/minimal    && pwd && make build && make deploy
+
 
     - name: "Build and Deploy Gitlab Runner Main Image:"
       run:  cd linux/ecosystem/gitlab/runner/latest    && pwd && make build && make deploy
@@ -37,7 +41,7 @@ jobs:
 #
 #  build-glr-other-images:
 #    name: Build EpicMorg Gitlab Runner Oter Images
-#    runs-on: ubuntu-24.04
+#    runs-on: [self-hosted]
 #    needs: build-glr-main-images
 #
 #    steps:

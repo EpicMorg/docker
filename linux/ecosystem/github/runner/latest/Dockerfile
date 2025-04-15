@@ -1,4 +1,4 @@
-FROM hub.epicm.org/epicmorg/gitlab-runner:minimal
+FROM hub.epicm.org/epicmorg/github-runner:minimal
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -43,10 +43,10 @@ RUN install -m 0755 -d /etc/apt/keyrings && \
     apt-get autoclean -y && \
     rm -rfv /var/lib/apt/lists/* && \
     rm -rfv /var/cache/apt/archives/*.deb && \
-    rm -rfv /tmp/* 
+    rm -rfv /tmp/*  
 
 ##################################################################
-#              OCI post-setup
+#              TeamCity Agent post-setup
 ##################################################################
 ENV BUILDAH_FORMAT=docker
 ENV BUILDAH_ISOLATION=docker
@@ -104,10 +104,10 @@ RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E03280
     mono-xsp4
 
 ##################################################################
-#                   cleaninig up
+#                  Cleanup
 ##################################################################
-RUN apt-get clean -y && \
-    apt-get clean all -y && \
+RUN echo "clean up" && \
+    apt-get clean -y && \
     apt-get autoclean -y && \
     rm -rfv /var/lib/apt/lists/* && \
     rm -rfv /var/cache/apt/archives/*.deb && \
@@ -117,7 +117,7 @@ RUN apt-get clean -y && \
 ##################################################################
 #                   final config
 ##################################################################
-
+WORKDIR ${RUNNER_DIST_DIR}
 VOLUME ["/var/lib/docker", "/var/lib/containers", "/var/tmp"]
 
 RUN updatedb

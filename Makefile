@@ -1,4 +1,4 @@
-VERSION                       =  "2025.03.22"
+VERSION                       =  "2025.04.18"
 AUTHOR                        =  "EpicMorg"
 MODIFIED                      =  "STAM"
 DOCKER_SCAN_SUGGEST           = false
@@ -392,6 +392,7 @@ ecosystem-images:
 	make ecosystem-postgres-images
 	make ecosystem-teamcity-agent-images
 	make ecosystem-gitlab-runner-images
+	make ecosystem-github-runner-images
 #	make ecosystem-nginx-images
 #	make advanced-vscode-server-images
 #	make bundle-jira
@@ -1416,6 +1417,10 @@ ecosystem-teamcity-agent-images:
 	cd `pwd`/linux/ecosystem/teamcity/agent/php82         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/teamcity/agent/php83         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/teamcity/agent/php84         && pwd && make build && make deploy
+
+ecosystem-github-runner-images:
+	cd `pwd`/linux/ecosystem/github/runner/minimal         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/github/runner/latest         && pwd && make build && make deploy
 
 ecosystem-gitlab-runner-images:
 	cd `pwd`/linux/ecosystem/gitlab/runner/minimal         && pwd && make build && make deploy
