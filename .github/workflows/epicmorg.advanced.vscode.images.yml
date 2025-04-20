@@ -2,14 +2,14 @@ name: "EpicMorg Advanced Vscode Server Images"
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '0 0 * * 2,4,6'
+#  schedule:
+#    - cron: '0 0 * * 2,4,6'
 
 jobs:
 
   build-images:
     name: Build EpicMorg Advanced Vscode Server Images
-    runs-on: ubuntu-24.04
+    runs-on: [self-hosted]
 
     steps:
     - uses: actions/checkout@v4
@@ -28,8 +28,8 @@ jobs:
     - name: Test Make
       run:  make
 
-    - name: Install requirements.txt
-      run:  make pip
+#    - name: Install requirements.txt
+#      run:  make pip
 
 ##################################################################################
 

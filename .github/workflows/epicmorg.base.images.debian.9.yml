@@ -9,7 +9,7 @@ jobs:
 
   build-09-images:
     name: Build EpicMorg Debian 9 Images
-    runs-on: ubuntu-24.04
+    runs-on: [self-hosted]
 
     steps:
     - uses: actions/checkout@v4
@@ -27,8 +27,8 @@ jobs:
     - name: Test Make
       run:  make
 
-    - name: Install requirements.txt
-      run:  make pip
+#    - name: Install requirements.txt
+#      run:  make pip
 
     - name: "Build and Deploy Debian 9 slim Image:"
       run:  cd linux/ecosystem/epicmorg/debian/09-stretch/slim    && pwd && make build && make deploy

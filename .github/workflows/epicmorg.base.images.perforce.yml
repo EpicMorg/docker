@@ -9,7 +9,7 @@ jobs:
 
   build-p4-images:
     name: Build EpicMorg Perfocre Images
-    runs-on: ubuntu-24.04
+    runs-on: [self-hosted]
 
     steps:
     - uses: actions/checkout@v4
@@ -27,8 +27,8 @@ jobs:
     - name: Test Make
       run:  make
 
-    - name: Install requirements.txt
-      run:  make pip
+#    - name: Install requirements.txt
+#      run:  make pip
 
     - name: "Build and Deploy Perfocre r16.2 Image:"
       run:  cd linux/ecosystem/perforce/base/r16.2    && pwd && make build && make deploy
@@ -107,7 +107,7 @@ jobs:
 
   build-p4p-images:
     name: Build EpicMorg Perfocre Proxy Images
-    runs-on: ubuntu-24.04
+    runs-on: [self-hosted]
     needs: build-p4-images
 
     steps:
@@ -126,8 +126,8 @@ jobs:
     - name: Test Make
       run:  make
 
-    - name: Install requirements.txt
-      run:  make pip
+#    - name: Install requirements.txt
+#      run:  make pip
 
     - name: "Build and Deploy Perfocre Proxy r16.2 Image:"
       run:  cd linux/ecosystem/perforce/p4p/r16.2    && pwd && make build && make deploy

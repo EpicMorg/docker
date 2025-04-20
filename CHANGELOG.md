@@ -1,5 +1,10 @@
 # Changelog
 * `apr`
+  * added support for `Java` base images of custom CA certs
+  * added support for `Python` base images of custom CA certs
+  * updated `Runssian CA` cert
+  * added `EpicMorg CA Root` cert
+  * added `github runner` basic images
   * updated `opentracker`
   * updated `retracker`
   * updated `torrserver`

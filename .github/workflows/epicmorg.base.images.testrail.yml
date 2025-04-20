@@ -9,7 +9,7 @@ jobs:
 
   build-testrail-images:
     name: Build EpicMorg Testrail Images
-    runs-on: ubuntu-24.04
+    runs-on: [self-hosted]
 #    needs: build-php-images
 
     steps:
@@ -28,8 +28,8 @@ jobs:
     - name: Test Make
       run:  make
 
-    - name: Install requirements.txt
-      run:  make pip
+#    - name: Install requirements.txt
+#      run:  make pip
 
     - name: "Build and Deploy Cassandra 3.11 Image:"
       run:  cd linux/advanced/cassandra/3.11    && pwd && make build && make deploy
@@ -38,7 +38,7 @@ jobs:
 
   build-testrail-702-images:
     name: Build EpicMorg Testrail 7.0.2.1016 Images
-    runs-on: ubuntu-24.04
+    runs-on: [self-hosted]
 #    needs: build-php-images
 
     steps:
@@ -57,8 +57,8 @@ jobs:
     - name: Test Make
       run:  make
 
-    - name: Install requirements.txt
-      run:  make pip
+#    - name: Install requirements.txt
+#      run:  make pip
 
     - name: "Build and Deploy Testrail 7.0.2.1016  Image:"
       run:  cd linux/ecosystem/testrail/7.0.2.1016/main    && pwd && make build && make deploy
@@ -73,7 +73,7 @@ jobs:
 
   build-testrail-741-images:
     name: Build EpicMorg Testrail 7.4.1.8092 Images
-    runs-on: ubuntu-24.04
+    runs-on: [self-hosted]
 #    needs: build-php-images
 
     steps:
@@ -92,8 +92,8 @@ jobs:
     - name: Test Make
       run:  make
 
-    - name: Install requirements.txt
-      run:  make pip
+#    - name: Install requirements.txt
+#      run:  make pip
 
     - name: "Build and Deploy Testrail 7.4.1.8092 Image:"
       run:  cd linux/ecosystem/testrail/7.4.1.8092/main    && pwd && make build && make deploy

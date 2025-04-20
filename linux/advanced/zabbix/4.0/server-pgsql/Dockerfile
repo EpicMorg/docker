@@ -62,3 +62,6 @@ RUN apt-get update -y && \
         wget
 
 RUN echo "zabbix ALL=(ALL) NOPASSWD: /usr/bin/nmap" > /etc/sudoers.d/zabbix
+
+COPY usr/local/share/ca-certificates /usr/local/share/ca-certificates
+RUN update-ca-certificates --fresh

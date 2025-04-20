@@ -2,7 +2,7 @@ FROM mattermost/mattermost-enterprise-edition as bootstrap
 RUN cd ./bin && \
     ls -las
 
-FROM python:2.7-buster as edit
+FROM python:3.13-bookworm as edit
 COPY edit.py /tmp/edit.py
 COPY --from=bootstrap /mattermost/bin/mattermost /tmp/mattermost
 RUN cd /tmp && \
@@ -31,3 +31,6 @@ RUN rm -rfv /mattermost/bin/mattermost
 COPY --from=edit /tmp/mattermost /mattermost/bin/
 RUN cd ./bin && \
     ls -las
+
+COPY usr/local/share/ca-certificates /usr/local/share/ca-certificates
+RUN update-ca-certificates --fresh

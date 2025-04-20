@@ -23,6 +23,7 @@ RUN apt update && apt install -y \
 # /etc/ld.so.conf.d/
 ARG LD_CONF_DIR=/etc/ld.so.conf.d/
 
+ENV REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
 ENV PYTHON_VERSION=3.4
 ENV PYTHON_FULL_VERSION=${PYTHON_VERSION}.10
 ENV PYTHON_DIR=${EMG_LOCAL_BASE_DIR}/python/${PYTHON_VERSION}
@@ -92,6 +93,7 @@ ENV OPENSSL_102_SRC_DIR=/usr/local/src/openssl/${OPENSSL_102_VERSION}
 ##################################################################
 #                  Python 3.4
 ##################################################################
+ENV REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
 ENV PYTHON_VERSION=3.4
 ENV PYTHON_FULL_VERSION=${PYTHON_VERSION}.10
 ENV PYTHON_DIR=${EMG_LOCAL_BASE_DIR}/python/${PYTHON_VERSION}

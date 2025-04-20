@@ -196,6 +196,20 @@ RUN apt-key list  | grep "expired: " | sed -ne 's|pub .*/\([^ ]*\) .*|\1|gp' | x
 RUN update-ca-certificates --fresh
 
 ##################################################################
+#                   Update JavaCA
+##################################################################
+RUN update-ca-certificates --fresh && \
+    for cert in /usr/local/share/ca-certificates/*.crt; do \
+        alias=$(basename "$cert" .crt); \
+        keytool -importcert \
+            -keystore "$JAVA_HOME/lib/security/cacerts" \
+            -storepass changeit \
+            -file "$cert" \
+            -alias "$alias" \
+            -noprompt; \
+    done
+
+##################################################################
 #                  update locales
 ##################################################################
 RUN locale-gen
