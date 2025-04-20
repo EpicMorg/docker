@@ -51,9 +51,9 @@ RUN mkdir -p /usr/share/dotnet/host/fxr
 #                   java11
 ##################################################################
 ARG K_JDK_MAJOR_VERSION=11
-ARG K_JDK_FULL_VERSION=jdk-11.0.26
-ARG K_JDK_VERSION=11.0.26
-ARG K_JDK_BUILD_VERSION=4
+ARG K_JDK_FULL_VERSION=jdk-11.0.27
+ARG K_JDK_VERSION=11.0.27
+ARG K_JDK_BUILD_VERSION=6
 ARG K_JDK_URL=https://github.com/adoptium/temurin${K_JDK_MAJOR_VERSION}-binaries/releases/download/${K_JDK_FULL_VERSION}+${K_JDK_BUILD_VERSION}/OpenJDK${K_JDK_MAJOR_VERSION}U-jdk_x64_linux_hotspot_${K_JDK_VERSION}_${K_JDK_BUILD_VERSION}.tar.gz
 ARG K_JDK_TEMP=/tmp/OpenJDK${K_JDK_MAJOR_VERSION}U-jdk_x64_linux_hotspot_${K_JDK_VERSION}_${K_JDK_BUILD_VERSION}.tar.gz
 
