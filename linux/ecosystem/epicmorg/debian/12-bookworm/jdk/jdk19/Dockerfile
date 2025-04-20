@@ -32,6 +32,20 @@ RUN mkdir -p ${K_JDK_DIR} && \
     rm -rfv /var/cache/apt/archives/*.deb && \
     rm -rfv /tmp/* 
 
+##################################################################
+#                   Update JavaCA
+##################################################################
+RUN update-ca-certificates --fresh && \
+    for cert in /usr/local/share/ca-certificates/*.crt; do \
+        alias=$(basename "$cert" .crt); \
+        keytool -importcert \
+            -keystore "$JAVA_HOME/lib/security/cacerts" \
+            -storepass changeit \
+            -file "$cert" \
+            -alias "$alias" \
+            -noprompt; \
+    done
+
 
 ##################################################################
 #                   Additional settings

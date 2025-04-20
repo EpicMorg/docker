@@ -23,6 +23,7 @@ RUN apt update && apt install -y \
 # /etc/ld.so.conf.d/
 ARG LD_CONF_DIR=/etc/ld.so.conf.d/
 
+ENV REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
 ENV PYTHON_VERSION=2.7
 ENV PYTHON_FULL_VERSION=${PYTHON_VERSION}.18
 ENV PYTHON_DIR=${EMG_LOCAL_BASE_DIR}/python/${PYTHON_VERSION}
@@ -73,6 +74,7 @@ ARG LD_CONF_DIR=/etc/ld.so.conf.d/
 ##################################################################
 #                  Python 2.7
 ##################################################################
+ENV REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
 ENV PYTHON_VERSION=2.7
 ENV PYTHON_FULL_VERSION=${PYTHON_VERSION}.18
 ENV PYTHON_DIR=${EMG_LOCAL_BASE_DIR}/python/${PYTHON_VERSION}

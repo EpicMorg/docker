@@ -21,6 +21,9 @@ LABEL donate.crypto.XMR="884PqZ1gDjWW7fKxtbaeRoBeSh9EGZbkqUyLriWmuKbwLZrAJdYUs4w
 RUN rm -rfv /etc/apt/sources.list
 COPY sources.list /etc/apt/sources.list
 
+COPY usr/local/share/ca-certificates /usr/local/share/ca-certificates
+RUN update-ca-certificates --fresh
+
 ##################################################################
 #                  adding some utils
 ##################################################################

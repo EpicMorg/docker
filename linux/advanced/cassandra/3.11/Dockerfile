@@ -8,4 +8,8 @@ ARG CAS_LUCENE_PLUGIN_URL=https://repo1.maven.org/maven2/com/stratio/cassandra/c
 RUN cd /opt/bitnami/cassandra/lib && \
     curl ${CAS_LUCENE_PLUGIN_URL} --output cassandra-lucene-index-plugin-${CAS_LUCENE_PLUGIN_VER}.jar
 
+
+COPY usr/local/share/ca-certificates /usr/local/share/ca-certificates
+RUN update-ca-certificates --fresh
+
 USER 1001
