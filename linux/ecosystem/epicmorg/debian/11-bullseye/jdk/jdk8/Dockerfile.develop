@@ -3,9 +3,9 @@ LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
 ARG K_JDK_MAJOR_VERSION=8
-ARG K_JDK_FULL_VERSION=jdk8u432
-ARG K_JDK_VERSION=8u432
-ARG K_JDK_BUILD_VERSION=b06
+ARG K_JDK_FULL_VERSION=jdk8u452
+ARG K_JDK_VERSION=8u452
+ARG K_JDK_BUILD_VERSION=b09
 ARG K_JDK_DIR=${EMG_LOCAL_BASE_DIR}/java/${K_JDK_MAJOR_VERSION}
 ARG K_JDK_URL=https://github.com/adoptium/temurin${K_JDK_MAJOR_VERSION}-binaries/releases/download/${K_JDK_FULL_VERSION}-${K_JDK_BUILD_VERSION}/OpenJDK${K_JDK_MAJOR_VERSION}U-jdk_x64_linux_hotspot_${K_JDK_VERSION}${K_JDK_BUILD_VERSION}.tar.gz
 ARG K_JDK_TEMP=/tmp/OpenJDK${K_JDK_MAJOR_VERSION}U-jdk_x64_linux_hotspot_${K_JDK_VERSION}${K_JDK_BUILD_VERSION}.tar.gz
@@ -39,7 +39,7 @@ RUN update-ca-certificates --fresh && \
     for cert in /usr/local/share/ca-certificates/*.crt; do \
         alias=$(basename "$cert" .crt); \
         keytool -importcert \
-            -keystore "$JAVA_HOME/lib/security/cacerts" \
+            -keystore "$JAVA_HOME/jre/lib/security/cacerts" \
             -storepass changeit \
             -file "$cert" \
             -alias "$alias" \
