@@ -1,4 +1,4 @@
-FROM hub.epicm.org/epicmorg/apache2:php7.4
+FROM quay.io/epicmorg/apache2:php7.4
 
 ##############################################################################
 # Testrail Install

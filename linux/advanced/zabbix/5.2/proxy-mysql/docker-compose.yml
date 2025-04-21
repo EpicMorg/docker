@@ -1,5 +1,5 @@
 services:
   app:
-    image: "hub.epicm.org/epicmorg/zabbix-proxy-mysql:5.2"
+    image: "quay.io/epicmorg/zabbix-proxy-mysql:5.2"
     build:
       context: .

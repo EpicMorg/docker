@@ -1,5 +1,5 @@
 services:
   app:
-    image: "hub.epicm.org/epicmorg/debian:bullseye-slim"
+    image: "quay.io/epicmorg/debian:bullseye-slim"
     build:
       context: .

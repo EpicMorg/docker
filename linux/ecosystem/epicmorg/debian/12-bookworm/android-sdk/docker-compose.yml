@@ -1,10 +1,10 @@
 services:
   app:
-    image: "hub.epicm.org/epicmorg/debian:bookworm-android-sdk"
+    image: "quay.io/epicmorg/debian:bookworm-android-sdk"
     build:
       context: .
 
   app-jdk17:
-    image: "hub.epicm.org/epicmorg/debian:bookworm-android-sdk-jdk17"
+    image: "quay.io/epicmorg/debian:bookworm-android-sdk-jdk17"
     build:
       context: .

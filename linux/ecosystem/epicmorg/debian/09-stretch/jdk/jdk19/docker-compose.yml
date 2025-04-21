@@ -1,10 +1,10 @@
 services:
   app:
-    image: "hub.epicm.org/epicmorg/debian:stretch-jdk19"
+    image: "quay.io/epicmorg/debian:stretch-jdk19"
     build:
       context: .
   app-develop:
-    image: "hub.epicm.org/epicmorg/debian:stretch-develop-jdk19"
+    image: "quay.io/epicmorg/debian:stretch-develop-jdk19"
     build:
       context: .
       dockerfile: ./Dockerfile.develop

@@ -1,6 +1,6 @@
 services:
   app:
-    image: "hub.epicm.org/epicmorg/fisheye:${RELEASE}"
+    image: "quay.io/epicmorg/fisheye:${RELEASE}"
     build:
       context: .
       args:

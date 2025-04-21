@@ -1,6 +1,6 @@
 services:
   app:
-    image: "hub.epicm.org/epicmorg/crucible:${RELEASE}"
+    image: "quay.io/epicmorg/crucible:${RELEASE}"
     build:
       context: .
       args:

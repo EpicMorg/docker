@@ -1,4 +1,4 @@
-FROM hub.epicm.org/epicmorg/debian:bookworm-develop AS builder
+FROM quay.io/epicmorg/debian:bookworm-develop AS builder
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -91,7 +91,7 @@ RUN cd ${MAKE_DIR} && \
 ##################################################################
 ##################################################################
 
-FROM hub.epicm.org/epicmorg/gitlab-runner:minimal
+FROM quay.io/epicmorg/gitlab-runner:minimal
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 

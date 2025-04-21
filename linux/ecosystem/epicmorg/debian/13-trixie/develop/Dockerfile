@@ -1,7 +1,7 @@
 ##################################################################
 #                   Temp Layer - Dirty Hack
 ##################################################################
-FROM hub.epicm.org/epicmorg/debian:bookworm as temp-dpkg
+FROM quay.io/epicmorg/debian:bookworm as temp-dpkg
 RUN mkdir -p  /tmp/debs
 WORKDIR /tmp/debs
 RUN cd  /tmp/debs && \
@@ -12,7 +12,7 @@ RUN cd  /tmp/debs && \
 ##################################################################
 #                   Main Layer
 ##################################################################
-FROM hub.epicm.org/epicmorg/debian:trixie
+FROM quay.io/epicmorg/debian:trixie
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 

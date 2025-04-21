@@ -1,5 +1,5 @@
 services:
   app:
-    image: "hub.epicm.org/epicmorg/debian:wheezy-develop"
+    image: "quay.io/epicmorg/debian:wheezy-develop"
     build:
       context: .

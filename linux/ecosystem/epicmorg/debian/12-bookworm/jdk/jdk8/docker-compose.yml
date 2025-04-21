@@ -1,10 +1,10 @@
 services:
   app:
-    image: "hub.epicm.org/epicmorg/debian:bookworm-jdk8"
+    image: "quay.io/epicmorg/debian:bookworm-jdk8"
     build:
       context: .
   app-develop:
-    image: "hub.epicm.org/epicmorg/debian:bookworm-develop-jdk8"
+    image: "quay.io/epicmorg/debian:bookworm-develop-jdk8"
     build:
       context: .
       dockerfile: ./Dockerfile.develop

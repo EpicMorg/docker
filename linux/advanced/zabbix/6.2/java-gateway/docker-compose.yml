@@ -1,5 +1,5 @@
 services:
   app:
-    image: "hub.epicm.org/epicmorg/zabbix-java-gateway:6.2"
+    image: "quay.io/epicmorg/zabbix-java-gateway:6.2"
     build:
       context: .

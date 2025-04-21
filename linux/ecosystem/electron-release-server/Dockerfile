@@ -1,4 +1,4 @@
-FROM hub.epicm.org/epicmorg/debian:bookworm-nodejs19
+FROM quay.io/epicmorg/debian:bookworm-nodejs19
 
 RUN git clone https://github.com/ArekSredzki/electron-release-server.git /usr/src/electron-release-server
 

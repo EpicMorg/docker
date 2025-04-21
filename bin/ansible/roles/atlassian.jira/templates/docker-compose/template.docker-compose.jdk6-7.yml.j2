@@ -1,14 +1,14 @@
 services:
   app:
-    image: "hub.epicm.org/epicmorg/jira:{{ item }}"
+    image: "quay.io/epicmorg/jira:{{ item }}"
     build:
       context: .
   app-jdk6:
-    image: "hub.epicm.org/epicmorg/jira:{{ item }}-jdk6"
+    image: "quay.io/epicmorg/jira:{{ item }}-jdk6"
     build:
       context: .
   app-jdk7:
-    image: "hub.epicm.org/epicmorg/jira:{{ item }}-jdk7"
+    image: "quay.io/epicmorg/jira:{{ item }}-jdk7"
     build:
       context: .
       dockerfile: Dockerfile.jdk7

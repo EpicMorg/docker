@@ -1,4 +1,4 @@
-FROM hub.epicm.org/epicmorg/debian:stretch
+FROM quay.io/epicmorg/debian:stretch
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 
 ARG DEBIAN_FRONTEND=noninteractive

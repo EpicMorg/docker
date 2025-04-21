@@ -1,6 +1,6 @@
 services:
   app:
-    image: "hub.epicm.org/epicmorg/jira:${RELEASE}"
+    image: "quay.io/epicmorg/jira:${RELEASE}"
     build:
       context: .
       args:

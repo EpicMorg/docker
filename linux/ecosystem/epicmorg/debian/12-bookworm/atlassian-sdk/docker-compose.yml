@@ -1,5 +1,5 @@
 services:
   app:
-    image: "hub.epicm.org/epicmorg/debian:bookworm-atlassian-sdk"
+    image: "quay.io/epicmorg/debian:bookworm-atlassian-sdk"
     build:
       context: .

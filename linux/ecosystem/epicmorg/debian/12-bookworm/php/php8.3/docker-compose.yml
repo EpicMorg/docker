@@ -1,5 +1,5 @@
 services:
   app:
-    image: "hub.epicm.org/epicmorg/debian:bookworm-php8.3"
+    image: "quay.io/epicmorg/debian:bookworm-php8.3"
     build:
       context: .

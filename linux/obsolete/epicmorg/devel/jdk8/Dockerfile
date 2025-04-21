@@ -1,4 +1,4 @@
-FROM hub.epicm.org/epicmorg/devel
+FROM quay.io/epicmorg/devel
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 

@@ -1,5 +1,5 @@
 services:
   app:
-    image: "hub.epicm.org/epicmorg/vk2discord:latest"
+    image: "quay.io/epicmorg/vk2discord:latest"
     build:
       context: .

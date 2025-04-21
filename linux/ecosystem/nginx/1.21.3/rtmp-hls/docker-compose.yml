@@ -1,6 +1,6 @@
 services:
   app:
-    image: "hub.epicm.org/epicmorg/nginx:${NGINX_VERSION}-rtmp-hls"
+    image: "quay.io/epicmorg/nginx:${NGINX_VERSION}-rtmp-hls"
     build:
       context: .
       args:

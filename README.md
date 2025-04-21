@@ -1,16 +1,15 @@
 #  [![Activity](https://img.shields.io/github/commit-activity/m/EpicMorg/docker?label=commits&style=flat-square)](https://github.com/EpicMorg/docker/commits) [![GitHub issues](https://img.shields.io/github/issues/EpicMorg/docker.svg?style=popout-square)](https://github.com/EpicMorg/docker/issues) [![GitHub forks](https://img.shields.io/github/forks/EpicMorg/docker.svg?style=popout-square)](https://github.com/EpicMorg/docker/network) [![GitHub stars](https://img.shields.io/github/stars/EpicMorg/docker.svg?style=popout-square)](https://github.com/EpicMorg/docker/stargazers)  [![Size](https://img.shields.io/github/repo-size/EpicMorg/docker?label=size&style=flat-square)](https://github.com/EpicMorg/docker/archive/master.zip) [![Release](https://img.shields.io/github/v/release/EpicMorg/docker?style=flat-square)](https://github.com/EpicMorg/docker/releases) [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/3658/badge)](https://bestpractices.coreinfrastructure.org/projects/3658) [![CodeScene System Mastery](https://codescene.io/projects/6535/status-badges/system-mastery)](https://codescene.io/projects/6535) [![GitHub license](https://img.shields.io/github/license/EpicMorg/docker.svg?style=popout-square)](LICENSE.md) [![Changelog](https://img.shields.io/badge/Changelog-yellow.svg?style=popout-square)](CHANGELOG.md)
 
-## Official Mirrors
+## Official Mirrors and Hubs
 
-|  | `DockerHub` (default) | `Quai.io` (Mirror) | `Harbor` (CI Proxy) 
-|:-------------|:-------------|:-------------|:-------------
-| Links | https://hub.docker.com/r/epicmorg | https://quay.io/epicmorg | https://hub.epicm.org
-| Docker | `docker pull epicmorg/debian:boowkorm` |  `docker pull quay.io/epicmorg/debian:boowkorm` | `docker pull hub.epicm.org/epicmorg/debian:boowkorm`
-| Podman | `podman pull docker.io/epicmorg/debian:boowkorm` |  `podman pull quay.io/epicmorg/debian:boowkorm` | `podman pull hub.epicm.org/epicmorg/debian:boowkorm`
+| Name | Homepage | Docker | Podman |
+| `Quai.io` (default) | https://quay.io/epicmorg |  `docker pull quay.io/epicmorg/debian:boowkorm` |  `podman pull quay.io/epicmorg/debian:boowkorm` 
+| `DockerHub` (Mirror) | https://hub.docker.com/r/epicmorg |  `docker pull epicmorg/debian:boowkorm` |  `podman pullepicmorg/debian:boowkorm` 
+| `Harbor` (Mirror)  | https://hub.epicm.org/epicmorg |  `docker pull hub.epicm.org/epicmorg/debian:boowkorm` |  `podman pull hub.epicm.org/epicmorg/debian:boowkorm` 
 
 ## DEPRECATION WARNING
 
-**At 1st of October 2024, all deprecated tags and images will be deleted from DockerHub:**
+**At 1st of October 2024 all deprecated tags and images were deleted from DockerHub:**
 
 * `epicmorg/nodejs`
 * `epicmorg/php`

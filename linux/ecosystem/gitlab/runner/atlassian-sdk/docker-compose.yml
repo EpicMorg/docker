@@ -1,5 +1,5 @@
 services:
   app:
-    image: "hub.epicm.org/epicmorg/gitlab-runner:atlassian-sdk"
+    image: "quay.io/epicmorg/gitlab-runner:atlassian-sdk"
     build:
       context: .

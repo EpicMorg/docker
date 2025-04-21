@@ -1,4 +1,4 @@
-FROM hub.epicm.org/epicmorg/debian:bookworm-develop  as builder
+FROM quay.io/epicmorg/debian:bookworm-develop  as builder
 
 ##################################################################
 #                   Build
@@ -59,7 +59,7 @@ RUN make -j$(nproc) && \
 ##################################################################
 ##################################################################
 ##################################################################
-FROM hub.epicm.org/epicmorg/debian:bookworm
+FROM quay.io/epicmorg/debian:bookworm
 
 RUN apt-get remove -y python3-pip
 

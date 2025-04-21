@@ -1,5 +1,5 @@
 services:
   app:
-    image: "hub.epicm.org/epicmorg/cassandra:3.11"
+    image: "quay.io/epicmorg/cassandra:3.11"
     build:
       context: .

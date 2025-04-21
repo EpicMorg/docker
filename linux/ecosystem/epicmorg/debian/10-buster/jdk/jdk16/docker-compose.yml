@@ -1,10 +1,10 @@
 services:
   app:
-    image: "hub.epicm.org/epicmorg/debian:buster-jdk16"
+    image: "quay.io/epicmorg/debian:buster-jdk16"
     build:
       context: .
   app-develop:
-    image: "hub.epicm.org/epicmorg/debian:buster-develop-jdk16"
+    image: "quay.io/epicmorg/debian:buster-develop-jdk16"
     build:
       context: .
       dockerfile: ./Dockerfile.develop

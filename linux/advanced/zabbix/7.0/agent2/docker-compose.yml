@@ -1,5 +1,5 @@
 services:
   app:
-    image: "hub.epicm.org/epicmorg/zabbix-agent2:7.0"
+    image: "quay.io/epicmorg/zabbix-agent2:7.0"
     build:
       context: .

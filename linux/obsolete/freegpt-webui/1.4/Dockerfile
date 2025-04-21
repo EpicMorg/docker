@@ -5,7 +5,7 @@
 ##################################################################
 ##################################################################
 ##################################################################
-FROM hub.epicm.org/epicmorg/python:3.10-develop AS build    
+FROM quay.io/epicmorg/python:3.10-develop AS build    
 
 ARG FREEGPT_VERSION=1.4
 
@@ -32,7 +32,7 @@ RUN find ${FREEGPT_PATH} -type f -exec dos2unix -k -s -o {} ';'
 ##################################################################
 ##################################################################
 ##################################################################
-FROM hub.epicm.org/epicmorg/python:3.10 AS production    
+FROM quay.io/epicmorg/python:3.10 AS production    
 
 ENV FREEGPT_PATH=/app
 ENV FREEGPT_PORT=1338

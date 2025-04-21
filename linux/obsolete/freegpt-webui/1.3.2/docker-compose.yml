@@ -1,5 +1,5 @@
 services:
   app:
-    image: "hub.epicm.org/epicmorg/freegpt-webui:1.3.2"
+    image: "quay.io/epicmorg/freegpt-webui:1.3.2"
     build:
       context: .

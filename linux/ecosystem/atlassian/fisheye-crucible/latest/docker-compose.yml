@@ -1,5 +1,5 @@
 services:
   app:
-    image: "hub.epicm.org/epicmorg/fisheye-crucible:latest"
+    image: "quay.io/epicmorg/fisheye-crucible:latest"
     build:
       context: .

@@ -1,5 +1,5 @@
 services:
   app:
-    image: "hub.epicm.org/epicmorg/python:2.7-develop"
+    image: "quay.io/epicmorg/python:2.7-develop"
     build:
       context: .

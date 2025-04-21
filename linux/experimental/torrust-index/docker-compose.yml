@@ -1,5 +1,5 @@
 services:
   app:
-    image: "hub.epicm.org/epicmorg/torrust-index:latest"
+    image: "quay.io/epicmorg/torrust-index:latest"
     build:
       context: .

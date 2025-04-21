@@ -1,4 +1,4 @@
-FROM hub.epicm.org/epicmorg/debian:jessie
+FROM quay.io/epicmorg/debian:jessie
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 
 ARG DEBIAN_FRONTEND=noninteractive

@@ -1,11 +1,11 @@
 services:
   app:
-    image: "hub.epicm.org/epicmorg/debian:stretch-jdk8"
+    image: "quay.io/epicmorg/debian:stretch-jdk8"
     build:
       context: .
       dockerfile: ./Dockerfile
   app-develop:
-    image: "hub.epicm.org/epicmorg/debian:stretch-develop-jdk8"
+    image: "quay.io/epicmorg/debian:stretch-develop-jdk8"
     build:
       context: .
       dockerfile: ./Dockerfile.develop

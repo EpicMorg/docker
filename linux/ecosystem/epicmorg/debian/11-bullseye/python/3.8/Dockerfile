@@ -1,4 +1,4 @@
-FROM hub.epicm.org/epicmorg/debian:bullseye-develop  as builder
+FROM quay.io/epicmorg/debian:bullseye-develop  as builder
 
 ##################################################################
 #                   Build
@@ -79,7 +79,7 @@ RUN python${PYTHON_VERSION} -c "import ssl; print(ssl.OPENSSL_VERSION)"
 ##################################################################
 ##################################################################
 ##################################################################
-FROM hub.epicm.org/epicmorg/debian:bullseye
+FROM quay.io/epicmorg/debian:bullseye
 
 RUN apt-get remove -y python3-pip
 

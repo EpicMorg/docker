@@ -1,10 +1,10 @@
 services:
   app:
-    image: "hub.epicm.org/epicmorg/debian:wheezy-nodejs6"
+    image: "quay.io/epicmorg/debian:wheezy-nodejs6"
     build:
       context: .
   app-develop:
-    image: "hub.epicm.org/epicmorg/debian:wheezy-develop-nodejs6"
+    image: "quay.io/epicmorg/debian:wheezy-develop-nodejs6"
     build:
       context: .
       dockerfile: ./Dockerfile.develop

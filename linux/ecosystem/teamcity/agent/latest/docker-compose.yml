@@ -1,9 +1,9 @@
 services:
   app-jdk21:
-    image: "hub.epicm.org/epicmorg/teamcity-agent:latest-jdk21"
+    image: "quay.io/epicmorg/teamcity-agent:latest-jdk21"
     build:
       context: .
   app:
-    image: "hub.epicm.org/epicmorg/teamcity-agent:latest"
+    image: "quay.io/epicmorg/teamcity-agent:latest"
     build:
       context: .

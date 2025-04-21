@@ -1,4 +1,4 @@
-FROM hub.epicm.org/epicmorg/debian:bookworm-develop as builder
+FROM quay.io/epicmorg/debian:bookworm-develop as builder
 
 RUN git clone https://www-dev.cockos.com/ninjam/ninjam.git /tmp/ninjam && \
     cd /tmp/ninjam/ninjam/server && \
@@ -6,7 +6,7 @@ RUN git clone https://www-dev.cockos.com/ninjam/ninjam.git /tmp/ninjam && \
     dos2unix *.cfg && \
     dos2unix *.txt
 
-FROM hub.epicm.org/epicmorg/debian:bookworm
+FROM quay.io/epicmorg/debian:bookworm
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 

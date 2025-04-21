@@ -1,5 +1,5 @@
 services:
   app:
-    image: "hub.epicm.org/epicmorg/gitlab-runner:node17"
+    image: "quay.io/epicmorg/gitlab-runner:node17"
     build:
       context: .

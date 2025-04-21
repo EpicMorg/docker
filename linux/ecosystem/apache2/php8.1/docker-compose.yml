@@ -1,5 +1,5 @@
 services:
   app:
-    image: "hub.epicm.org/epicmorg/apache2:php8.1"
+    image: "quay.io/epicmorg/apache2:php8.1"
     build:
       context: .
