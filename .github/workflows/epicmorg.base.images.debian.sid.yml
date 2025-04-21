@@ -73,6 +73,9 @@ jobs:
     - name: Test Make
       run:  make
 
+    - name: Install requirements.txt
+      run:  make pip
+
 ##################################################################################
 
     - name: "Build and Deploy Debian SID NodeJS LTS Image:"
@@ -219,6 +222,9 @@ jobs:
     - name: Test Make
       run:  make
 
+    - name: Install requirements.txt
+      run:  make pip
+
 ##################################################################################
 
     - name: "Build and Deploy Debian SID dotNet LTS Image:"
@@ -294,6 +300,9 @@ jobs:
     - name: Test Make
       run:  make
 
+    - name: Install requirements.txt
+      run:  make pip
+
 ##################################################################################
 
     - name: "Build and Deploy Debian SID Python 3.9:"
@@ -355,6 +364,9 @@ jobs:
 
     - name: Test Make
       run:  make
+
+    - name: Install requirements.txt
+      run:  make pip
 
 ##################################################################################
 

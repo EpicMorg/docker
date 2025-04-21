@@ -49,7 +49,119 @@ jobs:
       run: make clean
 
 ##################################################################################
-      
+
+  build-06-node-images:
+    name: Build EpicMorg Debian SID Node Images
+    runs-on: [ubuntu-24.04]
+    needs: build-06-images
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Log into docker registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Log into Quay.IO registry
+      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
+
+#    - name: Log into harbor registry
+#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
+
+    - name: Check buildah
+      run:  |
+        buildah --version
+
+    - name: Test Make
+      run:  make
+
+    - name: Install requirements.txt
+      run:  make pip
+
+##################################################################################
+
+    - name: "Build and Deploy Debian 6 NodeJS 0.12 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/nodejs/node0.12    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 6 NodeJS 4 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/nodejs/node4    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+    - name: "Build and Deploy Debian 6 NodeJS 5 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/nodejs/node5    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 6 NodeJS 6 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/nodejs/node6    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
+    - name: "Build and Deploy Debian 6 NodeJS 7 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/nodejs/node7    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 6 NodeJS 8 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/nodejs/node8    && pwd && make build && make deploy
+    
+    - name: "Build and Deploy Debian 6 NodeJS 9 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/nodejs/node9    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
+    - name: "Build and Deploy Debian 6 NodeJS 10 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/nodejs/node10    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 6 NodeJS 11 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/nodejs/node11    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
+  build-06-jdk-images:
+    name: Build EpicMorg Debian SID Node Images
+    runs-on: [ubuntu-24.04]
+    needs: build-06-node-images
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Log into docker registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Log into Quay.IO registry
+      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
+
+#    - name: Log into harbor registry
+#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
+
+    - name: Check buildah
+      run:  |
+        buildah --version
+
+    - name: Test Make
+      run:  make
+
+    - name: Install requirements.txt
+      run:  make pip
+
+##################################################################################
+
     - name: "Build and Deploy Debian 6 jdk6 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/jdk/jdk6    && pwd && make build && make deploy
       
@@ -95,47 +207,6 @@ jobs:
     - name: "Build and Deploy Debian 6 jdk19 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/jdk/jdk19    && pwd && make build && make deploy
       
-##################################################################################
-
-    - name: Cleanup
-      run: make clean
-
-##################################################################################
-
-    - name: "Build and Deploy Debian 6 NodeJS 0.12 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/nodejs/node0.12    && pwd && make build && make deploy
-
-    - name: "Build and Deploy Debian 6 NodeJS 4 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/nodejs/node4    && pwd && make build && make deploy
-
-    - name: "Build and Deploy Debian 6 NodeJS 5 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/nodejs/node5    && pwd && make build && make deploy
-
-    - name: "Build and Deploy Debian 6 NodeJS 6 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/nodejs/node6    && pwd && make build && make deploy
-
-    - name: "Build and Deploy Debian 6 NodeJS 7 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/nodejs/node7    && pwd && make build && make deploy
-
-    - name: "Build and Deploy Debian 6 NodeJS 8 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/nodejs/node8    && pwd && make build && make deploy
-    
-    - name: "Build and Deploy Debian 6 NodeJS 9 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/nodejs/node9    && pwd && make build && make deploy
-
-##################################################################################
-
-    - name: Cleanup
-      run: make clean
-
-##################################################################################
-
-    - name: "Build and Deploy Debian 6 NodeJS 10 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/nodejs/node10    && pwd && make build && make deploy
-
-    - name: "Build and Deploy Debian 6 NodeJS 11 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/06-squeeze/nodejs/node11    && pwd && make build && make deploy
-
 ##################################################################################
 
     - name: Cleanup
