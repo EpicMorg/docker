@@ -9,7 +9,7 @@ jobs:
 
   build-pgsql-images:
     name: Build EpicMorg PostgreSQL Images
-    runs-on: [self-hosted]
+    runs-on: [ubuntu-24.04]
 
     steps:
     - uses: actions/checkout@v4
@@ -27,8 +27,8 @@ jobs:
     - name: Test Make
       run:  make
 
-#    - name: Install requirements.txt
-#      run:  make pip
+    - name: Install requirements.txt
+      run:  make pip
 
     - name: "Build and Deploy PostgreSQL 8.2 Image:"
       run:  cd linux/ecosystem/postgres/8.2    && pwd && make build && make deploy

@@ -13,7 +13,7 @@ on:
 jobs:
   build-forked-fixed-independed-images:
     name: Forked and fixed independed images
-    runs-on: [self-hosted]
+    runs-on: [ubuntu-24.04]
 
     steps:
     - uses: actions/checkout@v2
@@ -87,7 +87,7 @@ jobs:
 
   build-all-iamges:
     name: All images
-    runs-on: [self-hosted]
+    runs-on: [ubuntu-24.04]
 
     steps:
     - uses: actions/checkout@v2

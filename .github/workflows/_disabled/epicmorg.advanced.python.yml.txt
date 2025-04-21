@@ -9,7 +9,7 @@ jobs:
 
   build-python-base-images:
     name: Build EpicMorg Advanced Debian Python Base Images
-    runs-on: [self-hosted]
+    runs-on: [ubuntu-24.04]
 
     steps:
     - uses: actions/checkout@v4
@@ -27,8 +27,8 @@ jobs:
     - name: Test Make
       run:  make
 
-#    - name: Install requirements.txt
-#      run:  make pip
+    - name: Install requirements.txt
+      run:  make pip
 
     - name: "Build and Deploy Python 2.7 Main Image:"
       run:  cd linux/advanced/python/main/2.7    && pwd && make build && make deploy
@@ -73,7 +73,7 @@ jobs:
 
   build-python-develop-images:
     name: Build EpicMorg Advanced Debian Python Develop Images
-    runs-on: [self-hosted]
+    runs-on: [ubuntu-24.04]
     needs: build-python-base-images
 
     steps:
@@ -92,8 +92,8 @@ jobs:
     - name: Test Make
       run:  make
 
-#    - name: Install requirements.txt
-#      run:  make pip
+    - name: Install requirements.txt
+      run:  make pip
 
     - name: "Build and Deploy Python 2.7 Develop Image:"
       run:  cd linux/advanced/python/develop/2.7    && pwd && make build && make deploy

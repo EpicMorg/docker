@@ -9,7 +9,7 @@ jobs:
 
   build-images:
     name: Build EpicMorg Advanced Vscode Server Images
-    runs-on: [self-hosted]
+    runs-on: [ubuntu-24.04]
 
     steps:
     - uses: actions/checkout@v4
@@ -28,8 +28,8 @@ jobs:
     - name: Test Make
       run:  make
 
-#    - name: Install requirements.txt
-#      run:  make pip
+    - name: Install requirements.txt
+      run:  make pip
 
 ##################################################################################
 

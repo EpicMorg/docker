@@ -9,7 +9,7 @@ jobs:
 
   build-images:
     name: EpicMorg Advanced Images
-    runs-on: [self-hosted]
+    runs-on: [ubuntu-24.04]
 
     steps:
     - uses: actions/checkout@v4
@@ -27,8 +27,8 @@ jobs:
     - name: Test Make
       run:  make
 
-#    - name: Install requirements.txt
-#      run:  make pip
+    - name: Install requirements.txt
+      run:  make pip
 
     - name: "Build and Deploy Advanced Mattermost Images:"
       run:  cd linux/advanced/mattermost && pwd && make build && make deploy
