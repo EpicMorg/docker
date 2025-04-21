@@ -1,0 +1,5 @@
+##multimedia
+#deb [signed-by=/etc/apt/trusted.gpg.d/deb-multimedia-keyring.gpg] http://httpredir.debian.org/debian-multimedia/ bullsyeye main non-free
+#deb-src [signed-by=/etc/apt/trusted.gpg.d/deb-multimedia-keyring.gpg] http://httpredir.debian.org/debian-multimedia/ bullsyeye main non-free
+#deb [signed-by=/etc/apt/trusted.gpg.d/deb-multimedia-keyring.gpg] http://httpredir.debian.org/debian-multimedia/ bullsyeye-backports main
+#deb-src [signed-by=/etc/apt/trusted.gpg.d/deb-multimedia-keyring.gpg] http://httpredir.debian.org/debian-multimedia/ bullsyeye-backports main
