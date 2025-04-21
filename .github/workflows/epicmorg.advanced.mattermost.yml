@@ -1,4 +1,4 @@
-name: EpicMorg Mattermost Image
+name: EpicMorg Advanced Mattermost Image
 
 on:
   workflow_dispatch:

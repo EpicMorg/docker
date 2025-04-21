@@ -1,4 +1,4 @@
-name: EpicMorg EcoSystem TeamCity Servers Images
+name: EpicMorg Advanced TeamCity Servers Images
 
 on:
   workflow_dispatch:
@@ -29,6 +29,9 @@ jobs:
 
     - name: Test Make
       run:  make
+
+    - name: Install requirements.txt
+      run:  make pip
 
     - name: "Build and Deploy Advanced Teamcity Server Image:"
       run:  cd linux/advanced/teamcity/server/latest && pwd && make build && make deploy
