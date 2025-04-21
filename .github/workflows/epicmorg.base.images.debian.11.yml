@@ -7,9 +7,9 @@ on:
 
 jobs:
 
-  build-10-images:
+  build-11-images:
     name: Build EpicMorg Debian 11 LTS Images
-    runs-on: [ubuntu-24.04]
+    runs-on: [ ubuntu-24.04 ]
 
     steps:
     - uses: actions/checkout@v4
@@ -49,132 +49,32 @@ jobs:
 
 ##################################################################################
 
-    - name: "Build and Deploy Debian 11 LTS Python 3.9:"
-      run:  	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/python/3.9  && pwd && make build && make deploy
+  build-11-node-images:
+    name: Build EpicMorg Debian 11 Node Images
+    runs-on: [ ubuntu-24.04 ]
+    needs: build-11-images
 
-##################################################################################
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Log into docker registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
-    - name: Cleanup
-      run: make clean
+    - name: Log into Quay.IO registry
+      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
 
-##################################################################################
+#    - name: Log into harbor registry
+#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
 
-    - name: "Build and Deploy Debian 11 LTS Python 3.10:"
-      run:  	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/python/3.10  && pwd && make build && make deploy
+    - name: Check buildah
+      run:  |
+        buildah --version
 
-    - name: "Build and Deploy Debian 11 LTS Python 3.11:"
-      run:  	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/python/3.11  && pwd && make build && make deploy
+    - name: Test Make
+      run:  make
 
-##################################################################################
-
-    - name: Cleanup
-      run: make clean
-
-##################################################################################
-
-    - name: "Build and Deploy Debian 11 LTS Python 3.12:"
-      run:  	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/python/3.12  && pwd && make build && make deploy
-
-    - name: "Build and Deploy Debian 11 LTS Python 3.12:"
-      run:  	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/python/3.13  && pwd && make build && make deploy
-
-##################################################################################
-
-    - name: Cleanup
-      run: make clean
-
-##################################################################################
-
-
-    - name: "Build and Deploy Debian 11 LTS jdk6 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/11-bullseye/jdk/jdk6    && pwd && make build && make deploy
-      
-    - name: "Build and Deploy Debian 11 LTS jdk7 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/11-bullseye/jdk/jdk7    && pwd && make build && make deploy
-
-##################################################################################
-
-    - name: Cleanup
-      run: make clean
-
-##################################################################################
-
-    - name: "Build and Deploy Debian 11 LTS jdk8 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/11-bullseye/jdk/jdk8    && pwd && make build && make deploy
-      
-    - name: "Build and Deploy Debian 11 LTS jdk11 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/11-bullseye/jdk/jdk11    && pwd && make build && make deploy
-
-##################################################################################
-
-    - name: Cleanup
-      run: make clean
-
-##################################################################################
-
-    - name: "Build and Deploy Debian 11 LTS jdk16 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/11-bullseye/jdk/jdk16    && pwd && make build && make deploy
-      
-    - name: "Build and Deploy Debian 11 LTS jdk17 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/11-bullseye/jdk/jdk17    && pwd && make build && make deploy
-      
-##################################################################################
-
-    - name: Cleanup
-      run: make clean
-
-##################################################################################
-
-    - name: "Build and Deploy Debian 11 LTS jdk18 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/11-bullseye/jdk/jdk18    && pwd && make build && make deploy
-
-##################################################################################
-
-    - name: Cleanup
-      run: make clean
-
-##################################################################################
-
-    - name: "Build and Deploy Debian 11 LTS jdk19 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/11-bullseye/jdk/jdk19    && pwd && make build && make deploy
-
-    - name: "Build and Deploy Debian 11 LTS jdk20 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/11-bullseye/jdk/jdk20    && pwd && make build && make deploy
-
-##################################################################################
-
-    - name: Cleanup
-      run: make clean
-
-##################################################################################
-
-    - name: "Build and Deploy Debian 11 LTS jdk21 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/11-bullseye/jdk/jdk21    && pwd && make build && make deploy
-
-##################################################################################
-
-    - name: Cleanup
-      run: make clean
-
-##################################################################################
-
-    - name: "Build and Deploy Debian 11 LTS jdk22 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/11-bullseye/jdk/jdk22    && pwd && make build && make deploy
-
-##################################################################################
-
-    - name: Cleanup
-      run: make clean
-
-##################################################################################
-
-    - name: "Build and Deploy Debian 11 LTS jdk23 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/11-bullseye/jdk/jdk23    && pwd && make build && make deploy
-
-##################################################################################
-
-    - name: Cleanup
-      run: make clean
+    - name: Install requirements.txt
+      run:  make pip
 
 ##################################################################################
 
@@ -318,6 +218,35 @@ jobs:
 
 ##################################################################################
 
+  build-11-dotnet-images:
+    name: Build EpicMorg Debian 11 dotNet Images
+    runs-on: [ ubuntu-24.04 ]
+    needs: build-11-node-images
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Log into docker registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Log into Quay.IO registry
+      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
+
+#    - name: Log into harbor registry
+#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
+
+    - name: Check buildah
+      run:  |
+        buildah --version
+
+    - name: Test Make
+      run:  make
+
+    - name: Install requirements.txt
+      run:  make pip
+
+##################################################################################
+
     - name: "Build and Deploy Debian 11 dotNet 5 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/11-bullseye/dotnet/dotnet5    && pwd && make build && make deploy
 
@@ -346,6 +275,192 @@ jobs:
 
     - name: "Build and Deploy Debian 11 dotNet 9 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/11-bullseye/dotnet/dotnet9    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
+  build-11-py-images:
+    name: Build EpicMorg Debian 11 Python Images
+    runs-on: [ ubuntu-24.04 ]
+    needs: build-11-dotnet-images
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Log into docker registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Log into Quay.IO registry
+      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
+
+#    - name: Log into harbor registry
+#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
+
+    - name: Check buildah
+      run:  |
+        buildah --version
+
+    - name: Test Make
+      run:  make
+
+    - name: Install requirements.txt
+      run:  make pip
+
+##################################################################################
+
+    - name: "Build and Deploy Debian 11 LTS Python 3.9:"
+      run:  	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/python/3.9  && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
+    - name: "Build and Deploy Debian 11 LTS Python 3.10:"
+      run:  	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/python/3.10  && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 11 LTS Python 3.11:"
+      run:  	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/python/3.11  && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
+    - name: "Build and Deploy Debian 11 LTS Python 3.12:"
+      run:  	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/python/3.12  && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 11 LTS Python 3.13:"
+      run:  	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/python/3.13  && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
+  build-11-jdk-images:
+    name: Build EpicMorg Debian 11 JDK Images
+    runs-on: [ ubuntu-24.04 ]
+    needs: build-11-py-images
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Log into docker registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Log into Quay.IO registry
+      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
+
+#    - name: Log into harbor registry
+#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
+
+    - name: Check buildah
+      run:  |
+        buildah --version
+
+    - name: Test Make
+      run:  make
+
+    - name: Install requirements.txt
+      run:  make pip
+
+##################################################################################
+
+    - name: "Build and Deploy Debian 11 LTS jdk6 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/11-bullseye/jdk/jdk6    && pwd && make build && make deploy
+      
+    - name: "Build and Deploy Debian 11 LTS jdk7 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/11-bullseye/jdk/jdk7    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
+    - name: "Build and Deploy Debian 11 LTS jdk8 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/11-bullseye/jdk/jdk8    && pwd && make build && make deploy
+      
+    - name: "Build and Deploy Debian 11 LTS jdk11 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/11-bullseye/jdk/jdk11    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
+    - name: "Build and Deploy Debian 11 LTS jdk16 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/11-bullseye/jdk/jdk16    && pwd && make build && make deploy
+      
+    - name: "Build and Deploy Debian 11 LTS jdk17 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/11-bullseye/jdk/jdk17    && pwd && make build && make deploy
+      
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
+    - name: "Build and Deploy Debian 11 LTS jdk18 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/11-bullseye/jdk/jdk18    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
+    - name: "Build and Deploy Debian 11 LTS jdk19 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/11-bullseye/jdk/jdk19    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 11 LTS jdk20 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/11-bullseye/jdk/jdk20    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
+    - name: "Build and Deploy Debian 11 LTS jdk21 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/11-bullseye/jdk/jdk21    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
+    - name: "Build and Deploy Debian 11 LTS jdk22 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/11-bullseye/jdk/jdk22    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
+    - name: "Build and Deploy Debian 11 LTS jdk23 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/11-bullseye/jdk/jdk23    && pwd && make build && make deploy
 
 ##################################################################################
 

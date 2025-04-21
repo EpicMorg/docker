@@ -9,7 +9,7 @@ jobs:
 
   build-testrail-images:
     name: Build EpicMorg Testrail Images
-    runs-on: [ubuntu-24.04]
+    runs-on: [ ubuntu-24.04 ]
 #    needs: build-php-images
 
     steps:
@@ -41,7 +41,7 @@ jobs:
 
   build-testrail-702-images:
     name: Build EpicMorg Testrail 7.0.2.1016 Images
-    runs-on: [ubuntu-24.04]
+    runs-on: [ ubuntu-24.04 ]
 #    needs: build-php-images
 
     steps:
@@ -79,7 +79,7 @@ jobs:
 
   build-testrail-741-images:
     name: Build EpicMorg Testrail 7.4.1.8092 Images
-    runs-on: [ubuntu-24.04]
+    runs-on: [ ubuntu-24.04 ]
 #    needs: build-php-images
 
     steps:

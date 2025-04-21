@@ -9,7 +9,7 @@ jobs:
 
   build-latest-images:
     name: EpicMorg Advanced Zabbix Latest Images
-    runs-on: [ubuntu-24.04]
+    runs-on: [ ubuntu-24.04 ]
 
     steps:
     - uses: actions/checkout@v4
@@ -67,7 +67,7 @@ jobs:
 
   build-30-images:
     name: Build EpicMorg Advanced Zabbix 3.0 Images
-    runs-on: [ubuntu-24.04]
+    runs-on: [ ubuntu-24.04 ]
 
     steps:
     - uses: actions/checkout@v4
@@ -122,7 +122,7 @@ jobs:
 
   build-40-images:
     name: Build EpicMorg Advanced Zabbix 4.0 Images
-    runs-on: [ubuntu-24.04]
+    runs-on: [ ubuntu-24.04 ]
 
     steps:
     - uses: actions/checkout@v4
@@ -177,7 +177,7 @@ jobs:
 
   build-50-images:
     name: Build EpicMorg Advanced Zabbix 5.0 Images
-    runs-on: [ubuntu-24.04]
+    runs-on: [ ubuntu-24.04 ]
 
     steps:
     - uses: actions/checkout@v4
@@ -235,7 +235,7 @@ jobs:
 
   build-52-images:
     name: Build EpicMorg Advanced Zabbix 5.2 Images
-    runs-on: [ubuntu-24.04]
+    runs-on: [ ubuntu-24.04 ]
 
     steps:
     - uses: actions/checkout@v4
@@ -293,7 +293,7 @@ jobs:
 
   build-54-images:
     name: Build EpicMorg Advanced Zabbix 5.4 Images
-    runs-on: [ubuntu-24.04]
+    runs-on: [ ubuntu-24.04 ]
 
     steps:
     - uses: actions/checkout@v4
@@ -351,7 +351,7 @@ jobs:
 
   build-60-images:
     name: Build EpicMorg Advanced Zabbix 6.0 Images
-    runs-on: [ubuntu-24.04]
+    runs-on: [ ubuntu-24.04 ]
 
     steps:
     - uses: actions/checkout@v4
@@ -409,7 +409,7 @@ jobs:
 
   build-62-images:
     name: Build EpicMorg Advanced Zabbix 6.2 Images
-    runs-on: [ubuntu-24.04]
+    runs-on: [ ubuntu-24.04 ]
 
     steps:
     - uses: actions/checkout@v4
@@ -467,7 +467,7 @@ jobs:
 
   build-64-images:
     name: Build EpicMorg Advanced Zabbix 6.4 Images
-    runs-on: [ubuntu-24.04]
+    runs-on: [ ubuntu-24.04 ]
 
     steps:
     - uses: actions/checkout@v4
@@ -525,7 +525,7 @@ jobs:
 
   build-70-images:
     name: Build EpicMorg Advanced Zabbix 7.0 Images
-    runs-on: [ubuntu-24.04]
+    runs-on: [ ubuntu-24.04 ]
 
     steps:
     - uses: actions/checkout@v4
@@ -583,7 +583,7 @@ jobs:
 
   build-72-images:
     name: Build EpicMorg Advanced Zabbix 7.2 Images
-    runs-on: [ubuntu-24.04]
+    runs-on: [ ubuntu-24.04 ]
 
     steps:
     - uses: actions/checkout@v4
@@ -641,7 +641,7 @@ jobs:
 
   build-trunk-images:
     name: Build EpicMorg Advanced Zabbix trunk Images
-    runs-on: [ubuntu-24.04]
+    runs-on: [ ubuntu-24.04 ]
 
     steps:
     - uses: actions/checkout@v4

@@ -9,7 +9,7 @@ jobs:
 
   build-glr-main-images:
     name: Build EpicMorg Gitlab Runner Main Images
-    runs-on: [ubuntu-24.04]
+    runs-on: [ ubuntu-24.04 ]
 
     steps:
     - uses: actions/checkout@v4
@@ -44,7 +44,7 @@ jobs:
 #
 #  build-glr-other-images:
 #    name: Build EpicMorg Gitlab Runner Oter Images
-#    runs-on: [ubuntu-24.04]
+#    runs-on: [ ubuntu-24.04 ]
 #    needs: build-glr-main-images
 #
 #    steps:

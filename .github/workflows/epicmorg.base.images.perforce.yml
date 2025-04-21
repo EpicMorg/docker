@@ -9,7 +9,7 @@ jobs:
 
   build-p4-images:
     name: Build EpicMorg Perfocre Images
-    runs-on: [ubuntu-24.04]
+    runs-on: [ ubuntu-24.04 ]
 
     steps:
     - uses: actions/checkout@v4
@@ -110,7 +110,7 @@ jobs:
 
   build-p4p-images:
     name: Build EpicMorg Perfocre Proxy Images
-    runs-on: [ubuntu-24.04]
+    runs-on: [ ubuntu-24.04 ]
     needs: build-p4-images
 
     steps:
