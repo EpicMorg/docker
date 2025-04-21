@@ -1,4 +1,4 @@
-name: EpicMorg Advanced Images
+name: EpicMorg Mattermost Image
 
 on:
   workflow_dispatch:
@@ -35,9 +35,6 @@ jobs:
 
     - name: "Build and Deploy Advanced Mattermost Images:"
       run:  cd linux/advanced/mattermost && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Teamcity Server Image:"
-      run:  cd linux/advanced/teamcity/server/latest && pwd && make build && make deploy
 
 ##################################################################################
 

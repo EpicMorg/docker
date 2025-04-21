@@ -30,8 +30,6 @@ jobs:
     - name: Test Make
       run:  make
 
-
-
     - name: "Build and Deploy TeamCity Agent Minimal Image (jdk21):"
       run:  cd linux/ecosystem/teamcity/agent/minimal && pwd && make build && make deploy
 

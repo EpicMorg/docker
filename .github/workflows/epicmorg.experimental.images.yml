@@ -2,8 +2,8 @@ name: EpicMorg experimental Images
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '0 01 * * 2,4,6'
+#  schedule:
+#    - cron: '0 01 * * 2,4,6'
 
 jobs:
 

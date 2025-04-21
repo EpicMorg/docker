@@ -1,0 +1,77 @@
+name: EpicMorg EcoSystem TeamCity Servers Images
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 08 * * 2,4,6'
+
+jobs:
+
+  build-tcs-main-images:
+    name: Build EpicMorg TeamCity Agent Main Images
+    runs-on: [ubuntu-24.04]
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Log into docker registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Log into Quay.IO registry
+      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
+
+#    - name: Log into harbor registry
+#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
+
+    - name: Check buildah
+      run:  |
+        buildah --version
+
+    - name: Test Make
+      run:  make
+
+    - name: "Build and Deploy Advanced Teamcity Server Image:"
+      run:  cd linux/advanced/teamcity/server/latest && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Teamcity Server 2025.03 Image:"
+      run:  cd linux/advanced/teamcity/server/2025.03 && pwd && make build && make deploy
+
+
+    - name: "Build and Deploy Advanced Teamcity Server 2024.12 Image:"
+      run:  cd linux/advanced/teamcity/server/2024.12 && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
+    - name: "Build and Deploy Advanced Teamcity Server 2024.07.3 Image:"
+      run:  cd linux/advanced/teamcity/server/2024.07.3 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Teamcity Server 2024.03.3 Image:"
+      run:  cd linux/advanced/teamcity/server/2024.03.3 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Teamcity Server 2023.05.6 Image:"
+      run:  cd linux/advanced/teamcity/server/2023.05.6 && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
+    - name: "Build and Deploy Advanced Teamcity Server 2022.10.6 Image:"
+      run:  cd linux/advanced/teamcity/server/2022.10.6 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Teamcity Server 2022.04.7 Image:"
+      run:  cd linux/advanced/teamcity/server/2022.04.7&& pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
