@@ -9,7 +9,7 @@ jobs:
 
   build-pure-images:
     name: EpicMorg Advanced Nextcloud Stock Images
-    runs-on: [ubuntu-24.04]
+    runs-on: [ ubuntu-24.04 ]
 
     steps:
     - uses: actions/checkout@v4
@@ -103,7 +103,7 @@ jobs:
 
   build-patched-images:
     name: Advanced Nextcloud Patched Images
-    runs-on: [ubuntu-24.04]
+    runs-on: [ ubuntu-24.04 ]
     needs: build-pure-images
 
     steps:

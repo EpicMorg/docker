@@ -9,7 +9,7 @@ jobs:
 
   build-torrserver-image:
     name: EpicMorg EcoSystem TorrServer Image
-    runs-on: [ubuntu-24.04]
+    runs-on: [ ubuntu-24.04 ]
 
     steps:
     - uses: actions/checkout@v4
@@ -40,7 +40,7 @@ jobs:
 
   build-ers-image:
     name: EpicMorg EcoSystem Electron Release Server Image
-    runs-on: [ubuntu-24.04]
+    runs-on: [ ubuntu-24.04 ]
 
     steps:
     - uses: actions/checkout@v4
@@ -71,7 +71,7 @@ jobs:
 
   build-vk2discord-image:
     name: EpicMorg EcoSystem vk2discord Image
-    runs-on: [ubuntu-24.04]
+    runs-on: [ ubuntu-24.04 ]
 
     steps:
     - uses: actions/checkout@v4
@@ -102,7 +102,7 @@ jobs:
 
   build-qbittorrent-image:
     name: EpicMorg EcoSystem qBittorrent Image
-    runs-on: [ubuntu-24.04]
+    runs-on: [ ubuntu-24.04 ]
 
     steps:
     - uses: actions/checkout@v4
@@ -244,7 +244,7 @@ jobs:
 
   build-opentracker-image:
     name: EpicMorg EcoSystem openTracker Image
-    runs-on: [ubuntu-24.04]
+    runs-on: [ ubuntu-24.04 ]
 
     steps:
     - uses: actions/checkout@v4
@@ -275,7 +275,7 @@ jobs:
 
   build-retracker-image:
     name: EpicMorg EcoSystem reTracker Image
-    runs-on: [ubuntu-24.04]
+    runs-on: [ ubuntu-24.04 ]
 
     steps:
     - uses: actions/checkout@v4
@@ -306,7 +306,7 @@ jobs:
 
   build-torrust-tracker-image:
     name: EpicMorg EcoSystem Torrust Tracker Image
-    runs-on: [ubuntu-24.04]
+    runs-on: [ ubuntu-24.04 ]
 
     steps:
     - uses: actions/checkout@v4
@@ -340,7 +340,7 @@ jobs:
 
   build-monero-cli-image:
     name: EpicMorg EcoSystem Monero CLI Image
-    runs-on: [ubuntu-24.04]
+    runs-on: [ ubuntu-24.04 ]
 
     steps:
     - uses: actions/checkout@v4
@@ -371,7 +371,7 @@ jobs:
 
   build-monero-p2pool-image:
     name: EpicMorg EcoSystem Monero p2pool Image
-    runs-on: [ubuntu-24.04]
+    runs-on: [ ubuntu-24.04 ]
 
     steps:
     - uses: actions/checkout@v4
@@ -402,7 +402,7 @@ jobs:
 
   build-ninjam-image:
     name: EpicMorg EcoSystem ninjam Image
-    runs-on: [ubuntu-24.04]
+    runs-on: [ ubuntu-24.04 ]
 
     steps:
     - uses: actions/checkout@v4

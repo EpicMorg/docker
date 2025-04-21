@@ -9,7 +9,7 @@ jobs:
 
   build-tcs-main-images:
     name: Build EpicMorg TeamCity Agent Main Images
-    runs-on: [ubuntu-24.04]
+    runs-on: [ ubuntu-24.04 ]
 
     steps:
     - uses: actions/checkout@v4

@@ -7,9 +7,9 @@ on:
 
 jobs:
 
-  build-10-images:
+  build-13-images:
     name: Build EpicMorg Debian 13 Images
-    runs-on: [ubuntu-24.04]
+    runs-on: [ ubuntu-24.04 ]
 
     steps:
     - uses: actions/checkout@v4
@@ -49,124 +49,32 @@ jobs:
 
 ##################################################################################
 
-    - name: "Build and Deploy Debian 13 Python 3.9:"
-      run:  	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/python/3.9  && pwd && make build && make deploy
+  build-13-node-images:
+    name: Build EpicMorg Debian 13 Node Images
+    runs-on: [ ubuntu-24.04 ]
+    needs: build-13-images
 
-##################################################################################
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Log into docker registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
-    - name: Cleanup
-      run: make clean
+    - name: Log into Quay.IO registry
+      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
 
-##################################################################################
+#    - name: Log into harbor registry
+#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
 
-    - name: "Build and Deploy Debian 13 Python 3.10:"
-      run:  	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/python/3.10  && pwd && make build && make deploy
+    - name: Check buildah
+      run:  |
+        buildah --version
 
-    - name: "Build and Deploy Debian 13 Python 3.11:"
-      run:  	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/python/3.11  && pwd && make build && make deploy
+    - name: Test Make
+      run:  make
 
-##################################################################################
-
-    - name: Cleanup
-      run: make clean
-
-##################################################################################
-
-    - name: "Build and Deploy Debian 13 Python 3.12:"
-      run:  	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/python/3.12  && pwd && make build && make deploy
-
-    - name: "Build and Deploy Debian 13 Python 3.12:"
-      run:  	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/python/3.13  && pwd && make build && make deploy
-
-##################################################################################
-
-    - name: Cleanup
-      run: make clean
-
-##################################################################################
-
-    - name: "Build and Deploy Debian 13 jdk6 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/13-trixie/jdk/jdk6    && pwd && make build && make deploy
-      
-    - name: "Build and Deploy Debian 13 jdk7 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/13-trixie/jdk/jdk7    && pwd && make build && make deploy
-
-##################################################################################
-
-    - name: Cleanup
-      run: make clean
-
-##################################################################################
-
-    - name: "Build and Deploy Debian 13 jdk8 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/13-trixie/jdk/jdk8    && pwd && make build && make deploy
-      
-    - name: "Build and Deploy Debian 13 jdk11 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/13-trixie/jdk/jdk11    && pwd && make build && make deploy
-
-##################################################################################
-
-    - name: Cleanup
-      run: make clean
-
-##################################################################################
-
-    - name: "Build and Deploy Debian 13 jdk16 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/13-trixie/jdk/jdk16    && pwd && make build && make deploy
-
-    - name: "Build and Deploy Debian 13 jdk17 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/13-trixie/jdk/jdk17    && pwd && make build && make deploy
-
-##################################################################################
-
-    - name: Cleanup
-      run: make clean
-
-##################################################################################
-
-    - name: "Build and Deploy Debian 13 jdk18 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/13-trixie/jdk/jdk18    && pwd && make build && make deploy
-
-    - name: "Build and Deploy Debian 13 jdk19 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/13-trixie/jdk/jdk19    && pwd && make build && make deploy
-
-##################################################################################
-
-    - name: Cleanup
-      run: make clean
-
-##################################################################################
-
-    - name: "Build and Deploy Debian 13 jdk20 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/13-trixie/jdk/jdk20    && pwd && make build && make deploy
-
-    - name: "Build and Deploy Debian 13 jdk21 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/13-trixie/jdk/jdk21    && pwd && make build && make deploy
-
-##################################################################################
-
-    - name: Cleanup
-      run: make clean
-
-##################################################################################
-
-    - name: "Build and Deploy Debian 13 jdk22 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/13-trixie/jdk/jdk22    && pwd && make build && make deploy
-
-##################################################################################
-
-    - name: Cleanup
-      run: make clean
-
-##################################################################################
-
-    - name: "Build and Deploy Debian 13 jdk23 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/13-trixie/jdk/jdk23    && pwd && make build && make deploy
-
-##################################################################################
-
-    - name: Cleanup
-      run: make clean
+    - name: Install requirements.txt
+      run:  make pip
 
 ##################################################################################
 
@@ -290,6 +198,35 @@ jobs:
 
 ##################################################################################
 
+  build-13-dotnet-images:
+    name: Build EpicMorg Debian 13 dotNet Images
+    runs-on: [ ubuntu-24.04 ]
+    needs: build-13-node-images
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Log into docker registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Log into Quay.IO registry
+      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
+
+#    - name: Log into harbor registry
+#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
+
+    - name: Check buildah
+      run:  |
+        buildah --version
+
+    - name: Test Make
+      run:  make
+
+    - name: Install requirements.txt
+      run:  make pip
+
+##################################################################################
+
     - name: "Build and Deploy Debian 13 dotNet LTS Image:"
       run:  cd linux/ecosystem/epicmorg/debian/13-trixie/dotnet/lts    && pwd && make build && make deploy
 
@@ -332,55 +269,188 @@ jobs:
     - name: "Build and Deploy Debian 13 dotNet 9 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/13-trixie/dotnet/dotnet9    && pwd && make build && make deploy
 
-# ##################################################################################
-# 
-# #    - name: "Build and Deploy Debian 13 PHP Latest Image:"
-# #      run:  cd linux/ecosystem/epicmorg/debian/13-trixie/php/latest    && pwd && make build && make deploy
-# 
-#     - name: "Build and Deploy Debian 13 PHP 7.0 Image:"
-#       run:  cd linux/ecosystem/epicmorg/debian/13-trixie/php/php7.0    && pwd && make build && make deploy
-#     
-#     - name: "Build and Deploy Debian 13 PHP 7.1 Image:"
-#       run:  cd linux/ecosystem/epicmorg/debian/13-trixie/php/php7.1    && pwd && make build && make deploy
-#     
-#     - name: "Build and Deploy Debian 13 PHP 7.2 Image:"
-#       run:  cd linux/ecosystem/epicmorg/debian/13-trixie/php/php7.2    && pwd && make build && make deploy
-#     
-#     - name: "Build and Deploy Debian 13 PHP 7.3 Image:"
-#       run:  cd linux/ecosystem/epicmorg/debian/13-trixie/php/php7.3    && pwd && make build && make deploy
-# 
-# ##################################################################################
-# 
-#     - name: Cleanup
-#       run: make clean
-# 
-# ##################################################################################
-# 
-#     - name: "Build and Deploy Debian 13 PHP 7.4 Image:"
-#       run:  cd linux/ecosystem/epicmorg/debian/13-trixie/php/php7.4    && pwd && make build && make deploy
-#     
-#     - name: "Build and Deploy Debian 13 PHP 8.0 Image:"
-#       run:  cd linux/ecosystem/epicmorg/debian/13-trixie/php/php8.0    && pwd && make build && make deploy
-#     
-#     - name: "Build and Deploy Debian 13 PHP 8.1 Image:"
-#       run:  cd linux/ecosystem/epicmorg/debian/13-trixie/php/php8.1    && pwd && make build && make deploy
-# 
-# ##################################################################################
-# 
-#     - name: Cleanup
-#       run: make clean
-# 
-# ##################################################################################
-# 
-#     - name: "Build and Deploy Debian 13 PHP 8.2 Image:"
-#       run:  cd linux/ecosystem/epicmorg/debian/13-trixie/php/php8.2    && pwd && make build && make deploy
-#     
-#     - name: "Build and Deploy Debian 13 PHP 8.3 Image:"
-#       run:  cd linux/ecosystem/epicmorg/debian/13-trixie/php/php8.3    && pwd && make build && make deploy
-# 
-# ##################################################################################
-# 
-#     - name: Cleanup
-#       run: make clean
-# 
-# ##################################################################################
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
+  build-13-py-images:
+    name: Build EpicMorg Debian 13 Python Images
+    runs-on: [ ubuntu-24.04 ]
+    needs: build-13-dotnet-images
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Log into docker registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Log into Quay.IO registry
+      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
+
+#    - name: Log into harbor registry
+#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
+
+    - name: Check buildah
+      run:  |
+        buildah --version
+
+    - name: Test Make
+      run:  make
+
+    - name: Install requirements.txt
+      run:  make pip
+
+##################################################################################
+
+    - name: "Build and Deploy Debian 13 Python 3.9:"
+      run:  	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/python/3.9  && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
+    - name: "Build and Deploy Debian 13 Python 3.10:"
+      run:  	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/python/3.10  && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 13 Python 3.11:"
+      run:  	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/python/3.11  && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
+    - name: "Build and Deploy Debian 13 Python 3.12:"
+      run:  	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/python/3.12  && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 13 Python 3.12:"
+      run:  	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/python/3.13  && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
+  build-13-jdk-images:
+    name: Build EpicMorg Debian 13 JDK Images
+    runs-on: [ ubuntu-24.04 ]
+    needs: build-13-py-images
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Log into docker registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Log into Quay.IO registry
+      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
+
+#    - name: Log into harbor registry
+#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
+
+    - name: Check buildah
+      run:  |
+        buildah --version
+
+    - name: Test Make
+      run:  make
+
+    - name: Install requirements.txt
+      run:  make pip
+
+##################################################################################
+
+    - name: "Build and Deploy Debian 13 jdk6 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/13-trixie/jdk/jdk6    && pwd && make build && make deploy
+      
+    - name: "Build and Deploy Debian 13 jdk7 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/13-trixie/jdk/jdk7    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
+    - name: "Build and Deploy Debian 13 jdk8 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/13-trixie/jdk/jdk8    && pwd && make build && make deploy
+      
+    - name: "Build and Deploy Debian 13 jdk11 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/13-trixie/jdk/jdk11    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
+    - name: "Build and Deploy Debian 13 jdk16 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/13-trixie/jdk/jdk16    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 13 jdk17 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/13-trixie/jdk/jdk17    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
+    - name: "Build and Deploy Debian 13 jdk18 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/13-trixie/jdk/jdk18    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 13 jdk19 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/13-trixie/jdk/jdk19    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
+    - name: "Build and Deploy Debian 13 jdk20 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/13-trixie/jdk/jdk20    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 13 jdk21 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/13-trixie/jdk/jdk21    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
+    - name: "Build and Deploy Debian 13 jdk22 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/13-trixie/jdk/jdk22    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
+    - name: "Build and Deploy Debian 13 jdk23 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/13-trixie/jdk/jdk23    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################

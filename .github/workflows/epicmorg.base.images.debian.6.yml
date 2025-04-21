@@ -9,7 +9,7 @@ jobs:
 
   build-06-images:
     name: Build EpicMorg Debian 6 Images
-    runs-on: [ubuntu-24.04]
+    runs-on: [ ubuntu-24.04 ]
 
     steps:
     - uses: actions/checkout@v4
@@ -51,8 +51,8 @@ jobs:
 ##################################################################################
 
   build-06-node-images:
-    name: Build EpicMorg Debian SID Node Images
-    runs-on: [ubuntu-24.04]
+    name: Build EpicMorg Debian 6 Node Images
+    runs-on: [ ubuntu-24.04 ]
     needs: build-06-images
 
     steps:
@@ -134,8 +134,8 @@ jobs:
 ##################################################################################
 
   build-06-jdk-images:
-    name: Build EpicMorg Debian SID Node Images
-    runs-on: [ubuntu-24.04]
+    name: Build EpicMorg Debian 6 JDK Images
+    runs-on: [ ubuntu-24.04 ]
     needs: build-06-node-images
 
     steps:

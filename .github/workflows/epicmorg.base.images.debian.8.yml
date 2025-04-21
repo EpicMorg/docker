@@ -9,7 +9,7 @@ jobs:
 
   build-08-images:
     name: Build EpicMorg Debian 8 Images
-    runs-on: [ubuntu-24.04]
+    runs-on: [ ubuntu-24.04 ]
 
     steps:
     - uses: actions/checkout@v4
@@ -48,7 +48,152 @@ jobs:
       run: make clean
 
 ##################################################################################
-      
+
+  build-08-node-images:
+    name: Build EpicMorg Debian 8 Node Images
+    runs-on: [ ubuntu-24.04 ]
+    needs: build-08-images
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Log into docker registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Log into Quay.IO registry
+      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
+
+#    - name: Log into harbor registry
+#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
+
+    - name: Check buildah
+      run:  |
+        buildah --version
+
+    - name: Test Make
+      run:  make
+
+    - name: Install requirements.txt
+      run:  make pip
+
+##################################################################################
+
+    - name: "Build and Deploy Debian 8 NodeJS 0.12 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/08-jessie/nodejs/node0.12    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 8 NodeJS 4 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/08-jessie/nodejs/node4    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
+    - name: "Build and Deploy Debian 8 NodeJS 5 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/08-jessie/nodejs/node5    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 8 NodeJS 6 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/08-jessie/nodejs/node6    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
+    - name: "Build and Deploy Debian 8 NodeJS 7 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/08-jessie/nodejs/node7    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 8 NodeJS 8 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/08-jessie/nodejs/node8    && pwd && make build && make deploy
+    
+    - name: "Build and Deploy Debian 8 NodeJS 9 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/08-jessie/nodejs/node8    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
+    - name: "Build and Deploy Debian 8 NodeJS 10 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/08-jessie/nodejs/node10    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 8 NodeJS 11 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/08-jessie/nodejs/node11    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 8 NodeJS 12 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/08-jessie/nodejs/node12    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
+    - name: "Build and Deploy Debian 8 NodeJS 13 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/08-jessie/nodejs/node13    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 8 NodeJS 14 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/08-jessie/nodejs/node14    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 8 NodeJS 15 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/08-jessie/nodejs/node15    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
+    - name: "Build and Deploy Debian 8 NodeJS 16 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/08-jessie/nodejs/node16    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian 8 NodeJS 17 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/08-jessie/nodejs/node17    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
+  build-08-jdk-images:
+    name: Build EpicMorg Debian 8 JDK Images
+    runs-on: [ ubuntu-24.04 ]
+    needs: build-08-node-images
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Log into docker registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Log into Quay.IO registry
+      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
+
+#    - name: Log into harbor registry
+#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
+
+    - name: Check buildah
+      run:  |
+        buildah --version
+
+    - name: Test Make
+      run:  make
+
+    - name: Install requirements.txt
+      run:  make pip
+
+##################################################################################
+
     - name: "Build and Deploy Debian 8 jdk6 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/08-jessie/jdk/jdk6    && pwd && make build && make deploy
       
@@ -116,70 +261,3 @@ jobs:
       run: make clean
 
 ##################################################################################
-
-    - name: "Build and Deploy Debian 8 NodeJS 0.12 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/08-jessie/nodejs/node0.12    && pwd && make build && make deploy
-
-    - name: "Build and Deploy Debian 8 NodeJS 4 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/08-jessie/nodejs/node4    && pwd && make build && make deploy
-
-    - name: "Build and Deploy Debian 8 NodeJS 5 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/08-jessie/nodejs/node5    && pwd && make build && make deploy
-
-    - name: "Build and Deploy Debian 8 NodeJS 6 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/08-jessie/nodejs/node6    && pwd && make build && make deploy
-
-    - name: "Build and Deploy Debian 8 NodeJS 7 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/08-jessie/nodejs/node7    && pwd && make build && make deploy
-
-    - name: "Build and Deploy Debian 8 NodeJS 8 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/08-jessie/nodejs/node8    && pwd && make build && make deploy
-    
-    - name: "Build and Deploy Debian 8 NodeJS 9 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/08-jessie/nodejs/node8    && pwd && make build && make deploy
-
-##################################################################################
-
-    - name: Cleanup
-      run: make clean
-
-##################################################################################
-
-    - name: "Build and Deploy Debian 8 NodeJS 10 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/08-jessie/nodejs/node10    && pwd && make build && make deploy
-
-    - name: "Build and Deploy Debian 8 NodeJS 11 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/08-jessie/nodejs/node11    && pwd && make build && make deploy
-
-    - name: "Build and Deploy Debian 8 NodeJS 12 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/08-jessie/nodejs/node12    && pwd && make build && make deploy
-
-    - name: "Build and Deploy Debian 8 NodeJS 13 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/08-jessie/nodejs/node13    && pwd && make build && make deploy
-
-    - name: "Build and Deploy Debian 8 NodeJS 14 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/08-jessie/nodejs/node14    && pwd && make build && make deploy
-
-    - name: "Build and Deploy Debian 8 NodeJS 15 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/08-jessie/nodejs/node15    && pwd && make build && make deploy
-
-##################################################################################
-
-    - name: Cleanup
-      run: make clean
-
-##################################################################################
-
-    - name: "Build and Deploy Debian 8 NodeJS 16 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/08-jessie/nodejs/node16    && pwd && make build && make deploy
-
-    - name: "Build and Deploy Debian 8 NodeJS 17 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/08-jessie/nodejs/node17    && pwd && make build && make deploy
-
-##################################################################################
-
-    - name: Cleanup
-      run: make clean
-
-##################################################################################
-
