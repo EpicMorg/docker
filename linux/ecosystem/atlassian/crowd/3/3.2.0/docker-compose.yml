@@ -1,14 +1,14 @@
 services:
   app:
-    image: "hub.epicm.org/epicmorg/crowd:3.2.0"
+    image: "quay.io/epicmorg/crowd:3.2.0"
     build:
       context: .
   app-jdk6:
-    image: "hub.epicm.org/epicmorg/crowd:3.2.0-jdk6"
+    image: "quay.io/epicmorg/crowd:3.2.0-jdk6"
     build:
       context: .
   app-jdk7:
-    image: "hub.epicm.org/epicmorg/crowd:3.2.0-jdk7"
+    image: "quay.io/epicmorg/crowd:3.2.0-jdk7"
     build:
       context: .
       dockerfile: Dockerfile.jdk7

@@ -1,14 +1,14 @@
 services:
   app:
-    image: "hub.epicm.org/epicmorg/bitbucket:latest"
+    image: "quay.io/epicmorg/bitbucket:latest"
     build:
       context: .
   app-jdk17:
-    image: "hub.epicm.org/epicmorg/bitbucket:latest-jdk17"
+    image: "quay.io/epicmorg/bitbucket:latest-jdk17"
     build:
       context: .
   app-jdk21:
-    image: "hub.epicm.org/epicmorg/bitbucket:latest-jdk21"
+    image: "quay.io/epicmorg/bitbucket:latest-jdk21"
     build:
       context: .
       dockerfile: ./Dockerfile.jdk21

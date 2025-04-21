@@ -1,11 +1,11 @@
 services:
   app:
-    image: "hub.epicm.org/epicmorg/debian:bullseye-jdk11"
+    image: "quay.io/epicmorg/debian:bullseye-jdk11"
     build:
       context: .
       dockerfile: ./Dockerfile
   app-develop:
-    image: "hub.epicm.org/epicmorg/debian:bullseye-develop-jdk11"
+    image: "quay.io/epicmorg/debian:bullseye-develop-jdk11"
     build:
       context: .
       dockerfile: ./Dockerfile.develop

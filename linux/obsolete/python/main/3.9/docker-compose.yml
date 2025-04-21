@@ -1,6 +1,6 @@
 services:
   app:
-    image: "hub.epicm.org/epicmorg/python:3.9"
+    image: "quay.io/epicmorg/python:3.9"
     build:
       context: .
       args:

@@ -1,10 +1,10 @@
 services:
   app:
-    image: "hub.epicm.org/epicmorg/debian:sid-dotnet9"
+    image: "quay.io/epicmorg/debian:sid-dotnet9"
     build:
       context: .
   app-develop:
-    image: "hub.epicm.org/epicmorg/debian:sid-develop-dotnet9"
+    image: "quay.io/epicmorg/debian:sid-develop-dotnet9"
     build:
       context: .
       dockerfile: ./Dockerfile.develop

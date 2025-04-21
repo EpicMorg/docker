@@ -1,6 +1,6 @@
 services:
   app:
-    image: "hub.epicm.org/epicmorg/nginx:${NGINX_TAG}"
+    image: "quay.io/epicmorg/nginx:${NGINX_TAG}"
     build:
       context: .
       args:

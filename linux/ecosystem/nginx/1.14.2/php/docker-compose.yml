@@ -1,6 +1,6 @@
 services:
   app:
-    image: "hub.epicm.org/epicmorg/nginx:${NGINX_VERSION}-php"
+    image: "quay.io/epicmorg/nginx:${NGINX_VERSION}-php"
     build:
       context: .
       args:

@@ -1,5 +1,5 @@
 services:
   app:
-    image: "hub.epicm.org/epicmorg/devel:latest"
+    image: "quay.io/epicmorg/devel:latest"
     build:
       context: .

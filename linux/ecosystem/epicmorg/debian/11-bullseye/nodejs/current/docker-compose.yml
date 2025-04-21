@@ -1,10 +1,10 @@
 services:
   app:
-    image: "hub.epicm.org/epicmorg/debian:bullseye-nodejs-current"
+    image: "quay.io/epicmorg/debian:bullseye-nodejs-current"
     build:
       context: .
   app-develop:
-    image: "hub.epicm.org/epicmorg/debian:bullseye-develop-nodejs-current"
+    image: "quay.io/epicmorg/debian:bullseye-develop-nodejs-current"
     build:
       context: .
       dockerfile: ./Dockerfile.develop

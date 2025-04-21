@@ -1,5 +1,5 @@
 services:
   app:
-    image: "hub.epicm.org/epicmorg/teamcity-agent:android-sdk"
+    image: "quay.io/epicmorg/teamcity-agent:android-sdk"
     build:
       context: .

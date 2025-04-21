@@ -1,10 +1,10 @@
 services:
   app:
-    image: "hub.epicm.org/epicmorg/debian:wheezy-jdk11"
+    image: "quay.io/epicmorg/debian:wheezy-jdk11"
     build:
       context: .
   app-develop:
-    image: "hub.epicm.org/epicmorg/debian:wheezy-develop-jdk11"
+    image: "quay.io/epicmorg/debian:wheezy-develop-jdk11"
     build:
       context: .
       dockerfile: ./Dockerfile.develop

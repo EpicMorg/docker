@@ -1,4 +1,4 @@
-FROM hub.epicm.org/epicmorg/debian:bullseye
+FROM quay.io/epicmorg/debian:bullseye
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 

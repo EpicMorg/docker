@@ -6,7 +6,7 @@ ARG NGINX_VERSION
 ##################################################################
 #                   Start build process
 ##################################################################
-FROM hub.epicm.org/epicmorg/nginx:${NGINX_VERSION}
+FROM quay.io/epicmorg/nginx:${NGINX_VERSION}
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 

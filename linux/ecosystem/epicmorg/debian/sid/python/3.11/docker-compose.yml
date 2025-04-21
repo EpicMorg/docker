@@ -1,5 +1,5 @@
 services:
   app:
-    image: "hub.epicm.org/epicmorg/debian:sid-python-3.11"
+    image: "quay.io/epicmorg/debian:sid-python-3.11"
     build:
       context: .

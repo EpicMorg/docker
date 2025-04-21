@@ -1,5 +1,5 @@
 services:
   app:
-    image: "hub.epicm.org/epicmorg/debian:stretch-slim"
+    image: "quay.io/epicmorg/debian:stretch-slim"
     build:
       context: .

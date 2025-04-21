@@ -1,10 +1,10 @@
 services:
   app:
-    image: "hub.epicm.org/epicmorg/debian:bullseye-dotnet-lts"
+    image: "quay.io/epicmorg/debian:bullseye-dotnet-lts"
     build:
       context: .
   app-develop:
-    image: "hub.epicm.org/epicmorg/debian:bullseye-develop-dotnet-lts"
+    image: "quay.io/epicmorg/debian:bullseye-develop-dotnet-lts"
     build:
       context: .
       dockerfile: ./Dockerfile.develop

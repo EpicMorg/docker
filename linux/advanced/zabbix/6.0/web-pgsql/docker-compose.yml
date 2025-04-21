@@ -1,5 +1,5 @@
 services:
   app:
-    image: "hub.epicm.org/epicmorg/zabbix-web-apache-pgsql:6.0"
+    image: "quay.io/epicmorg/zabbix-web-apache-pgsql:6.0"
     build:
       context: .

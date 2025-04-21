@@ -1,10 +1,10 @@
 services:
   app:
-    image: "hub.epicm.org/epicmorg/debian:sid-nodejs14"
+    image: "quay.io/epicmorg/debian:sid-nodejs14"
     build:
       context: .
   app-develop:
-    image: "hub.epicm.org/epicmorg/debian:sid-develop-nodejs14"
+    image: "quay.io/epicmorg/debian:sid-develop-nodejs14"
     build:
       context: .
       dockerfile: ./Dockerfile.develop

@@ -1,5 +1,5 @@
 
-FROM hub.epicm.org/epicmorg/nodejs:node19 as nodejs
+FROM quay.io/epicmorg/nodejs:node19 as nodejs
 
 RUN git clone https://github.com/torrust/torrust-index-frontend.git -b develop /opt/torrust-index-frontend && \
     cd /opt/torrust-index-frontend && \
@@ -11,7 +11,7 @@ RUN git clone https://github.com/torrust/torrust-index-frontend.git -b develop /
     ls -las
 
 
-FROM hub.epicm.org/epicmorg/debian:bullseye-develop as builder
+FROM quay.io/epicmorg/debian:bullseye-develop as builder
 
 RUN git clone https://github.com/torrust/torrust-index-backend.git -b develop /opt/torrust-index-backend && \
     cd /opt/torrust-index-backend && \

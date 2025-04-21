@@ -1,10 +1,10 @@
 services:
   app:
-    image: "hub.epicm.org/epicmorg/debian:buster-nodejs22"
+    image: "quay.io/epicmorg/debian:buster-nodejs22"
     build:
       context: .
   app-develop:
-    image: "hub.epicm.org/epicmorg/debian:buster-develop-nodejs22"
+    image: "quay.io/epicmorg/debian:buster-develop-nodejs22"
     build:
       context: .
       dockerfile: ./Dockerfile.develop

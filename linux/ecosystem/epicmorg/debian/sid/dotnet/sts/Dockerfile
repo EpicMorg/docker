@@ -1,7 +1,7 @@
-FROM hub.epicm.org/epicmorg/debian:sid-develop  as builder
+FROM quay.io/epicmorg/debian:sid-develop  as builder
 RUN echo "Just temp lyer to copy OpenSSL"
 
-FROM hub.epicm.org/epicmorg/debian:sid
+FROM quay.io/epicmorg/debian:sid
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 

@@ -1,5 +1,5 @@
 services:
   app:
-    image: "hub.epicm.org/epicmorg/debian:squeeze-slim"
+    image: "quay.io/epicmorg/debian:squeeze-slim"
     build:
       context: .

@@ -1,4 +1,4 @@
-FROM hub.epicm.org/epicmorg/debian:bookworm-develop as builder
+FROM quay.io/epicmorg/debian:bookworm-develop as builder
 
 RUN go install 'github.com/vvampirius/retracker@latest'
 

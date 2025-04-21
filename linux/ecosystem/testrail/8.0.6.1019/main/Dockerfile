@@ -1,4 +1,4 @@
-FROM hub.epicm.org/epicmorg/apache2:php8.1
+FROM quay.io/epicmorg/apache2:php8.1
 
 ##############################################################################
 # Testrail Install

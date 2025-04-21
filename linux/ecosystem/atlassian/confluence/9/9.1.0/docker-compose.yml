@@ -1,14 +1,14 @@
 services:
   app:
-    image: "hub.epicm.org/epicmorg/confluence:9.1.0"
+    image: "quay.io/epicmorg/confluence:9.1.0"
     build:
       context: .
   app-jdk17:
-    image: "hub.epicm.org/epicmorg/confluence:9.1.0-jdk17"
+    image: "quay.io/epicmorg/confluence:9.1.0-jdk17"
     build:
       context: .
   app-jdk21:
-    image: "hub.epicm.org/epicmorg/confluence:9.1.0-jdk21"
+    image: "quay.io/epicmorg/confluence:9.1.0-jdk21"
     build:
       context: .
       dockerfile: Dockerfile.jdk21

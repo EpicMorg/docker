@@ -1,5 +1,5 @@
 services:
   app:
-    image: "hub.epicm.org/epicmorg/retracker:latest"
+    image: "quay.io/epicmorg/retracker:latest"
     build:
       context: .

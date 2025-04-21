@@ -1,4 +1,4 @@
-FROM hub.epicm.org/epicmorg/perforce:r18.1
+FROM quay.io/epicmorg/perforce:r18.1
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 

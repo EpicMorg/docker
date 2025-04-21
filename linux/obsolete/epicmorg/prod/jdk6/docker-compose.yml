@@ -1,5 +1,5 @@
 services:
   app:
-    image: "hub.epicm.org/epicmorg/prod:jdk6"
+    image: "quay.io/epicmorg/prod:jdk6"
     build:
       context: .

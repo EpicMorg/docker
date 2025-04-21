@@ -1,5 +1,5 @@
 services:
   app:
-    image: "hub.epicm.org/epicmorg/vscode-server:devops"
+    image: "quay.io/epicmorg/vscode-server:devops"
     build:
       context: .

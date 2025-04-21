@@ -1,4 +1,4 @@
-FROM hub.epicm.org/epicmorg/debian:squeeze-slim
+FROM quay.io/epicmorg/debian:squeeze-slim
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 

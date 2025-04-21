@@ -1,5 +1,5 @@
 services:
   app:
-    image: "hub.epicm.org/epicmorg/teamcity-server:latest"
+    image: "quay.io/epicmorg/teamcity-server:latest"
     build:
       context: .

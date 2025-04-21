@@ -1,9 +1,9 @@
 services:
   app:
-    image: "hub.epicm.org/epicmorg/jira:latest"
+    image: "quay.io/epicmorg/jira:latest"
     build:
       context: .
   app-jdk17:
-    image: "hub.epicm.org/epicmorg/jira:latest-jdk17"
+    image: "quay.io/epicmorg/jira:latest-jdk17"
     build:
       context: .

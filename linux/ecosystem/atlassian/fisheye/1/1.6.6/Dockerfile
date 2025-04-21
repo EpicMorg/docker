@@ -1,4 +1,4 @@
-FROM hub.epicm.org/epicmorg/debian:bullseye-jdk7
+FROM quay.io/epicmorg/debian:bullseye-jdk7
 LABEL maintainer="Atlassian Jira Server Team; EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 

@@ -1,5 +1,5 @@
 services:
   app:
-    image: "hub.epicm.org/epicmorg/teamcity-agent:php8.4"
+    image: "quay.io/epicmorg/teamcity-agent:php8.4"
     build:
       context: .

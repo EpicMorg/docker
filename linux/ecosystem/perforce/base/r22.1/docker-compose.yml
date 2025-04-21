@@ -1,5 +1,5 @@
 services:
   app:
-    image: "hub.epicm.org/epicmorg/perforce:r22.1"
+    image: "quay.io/epicmorg/perforce:r22.1"
     build:
       context: .
