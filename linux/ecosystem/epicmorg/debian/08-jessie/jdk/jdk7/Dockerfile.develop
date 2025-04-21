@@ -38,7 +38,7 @@ RUN update-ca-certificates --fresh && \
     for cert in /usr/local/share/ca-certificates/*.crt; do \
         alias=$(basename "$cert" .crt); \
         keytool -importcert \
-            -keystore "$JAVA_HOME/lib/security/cacerts" \
+            -keystore "$JAVA_HOME/jre/lib/security/cacerts" \
             -storepass changeit \
             -file "$cert" \
             -alias "$alias" \
