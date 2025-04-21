@@ -2,8 +2,8 @@ name: EpicMorg Advanced Images
 
 on:
   workflow_dispatch:
-#  schedule:
-#    - cron: '0 02 * * 2,4,6'
+  schedule:
+    - cron: '0 02 * * 2,4,6'
 
 jobs:
 
@@ -26,7 +26,6 @@ jobs:
     - name: Check buildah
       run:  |
         buildah --version
-        buildah info
 
     - name: Test Make
       run:  make

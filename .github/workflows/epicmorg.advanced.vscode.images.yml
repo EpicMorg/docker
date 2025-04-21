@@ -2,8 +2,8 @@ name: "EpicMorg Advanced Vscode Server Images"
 
 on:
   workflow_dispatch:
-#  schedule:
-#    - cron: '0 0 * * 2,4,6'
+  schedule:
+    - cron: '0 0 * * 2,4,6'
 
 jobs:
 

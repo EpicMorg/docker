@@ -2,8 +2,8 @@ name:  EpicMorg Advanced Nextcloud Images
 
 on:
   workflow_dispatch:
-#  schedule:
-#    - cron: '0 02 * * 2,4,6'
+  schedule:
+    - cron: '0 02 * * 2,4,6'
 
 jobs:
 
@@ -26,7 +26,6 @@ jobs:
     - name: Check buildah
       run:  |
         buildah --version
-        buildah info
 
     - name: Test Make
       run:  make
@@ -91,6 +90,9 @@ jobs:
     - name: "Build and Deploy Advanced Nextcloud 30 Stock Images:"
       run:  cd linux/advanced/nextcloud/pure/30 && pwd && make build && make deploy
 
+    - name: "Build and Deploy Advanced Nextcloud 31 Stock Images:"
+      run:  cd linux/advanced/nextcloud/pure/31 && pwd && make build && make deploy
+
     - name: "Build and Deploy Advanced Nextcloud Latest Stock Images:"
       run:  cd linux/advanced/nextcloud/pure/latest && pwd && make build && make deploy
     
@@ -102,6 +104,7 @@ jobs:
   build-patched-images:
     name: Advanced Nextcloud Patched Images
     runs-on: [ubuntu-24.04]
+    needs: build-pure-images
 
     steps:
     - uses: actions/checkout@v4
@@ -118,7 +121,6 @@ jobs:
     - name: Check buildah
       run:  |
         buildah --version
-        buildah info
 
     - name: Test Make
       run:  make
@@ -182,6 +184,9 @@ jobs:
 
     - name: "Build and Deploy Advanced Nextcloud 30 Patched Images:"
       run:  cd linux/advanced/nextcloud/patched/30 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Nextcloud 31 Patched Images:"
+      run:  cd linux/advanced/nextcloud/patched/31 && pwd && make build && make deploy
 
     - name: "Build and Deploy Advanced Nextcloud Latest Patched Images:"
       run:  cd linux/advanced/nextcloud/patched/latest && pwd && make build && make deploy

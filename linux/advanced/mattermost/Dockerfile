@@ -32,5 +32,9 @@ COPY --from=edit /tmp/mattermost /mattermost/bin/
 RUN cd ./bin && \
     ls -las
 
+USER root
+
 COPY usr/local/share/ca-certificates /usr/local/share/ca-certificates
 RUN update-ca-certificates --fresh
+
+USER mattermost
