@@ -1,4 +1,4 @@
-name: EpicMorg Debian 9 Images
+name: EpicMorg Base - Debian 9 Images
 
 on:
   workflow_dispatch:

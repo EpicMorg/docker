@@ -256,6 +256,8 @@ RUN apt-get update && \
     autopkgtest \
     gcc-multilib \
     g++-multilib \
+    clang \
+    pkg-config \ 
     libxkbcommon-dev \
     zlib1g-dev \
     libfreetype6-dev \

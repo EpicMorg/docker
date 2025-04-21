@@ -1,0 +1,51 @@
+name: EpicMorg EcoSystem Perforce Images
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '4 4 * * 1,3,5'
+
+jobs:
+  build-perforce-images:
+    name: Build Perforce and Proxy Images
+    runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        version: [
+          'r16.2', 
+          'r17.1', 'r17.2',
+          'r18.1', 'r18.2', 
+          'r19.1', 'r19.2',
+          'r20.1', 'r20.2', 
+          'r21.1', 'r21.2',
+          'r22.1', 
+          'r23.1', 'r23.2', 
+          'r24.2'
+        ]
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Log into docker registry
+      run: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Log into Quay.IO registry
+      run: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
+
+    - name: Check buildah
+      run: buildah --version
+
+    - name: Test Make
+      run: make
+
+    - name: Install requirements.txt
+      run: make pip
+
+    - name: Build and Deploy Perforce ${{ matrix.version }}
+      run: cd linux/ecosystem/perforce/base/${{ matrix.version }} && pwd && make build && make deploy
+
+    - name: Build and Deploy Perforce Proxy ${{ matrix.version }}
+      run: cd linux/ecosystem/perforce/p4p/${{ matrix.version }} && pwd && make build && make deploy
+
+    - name: Final Cleanup
+      run: make clean

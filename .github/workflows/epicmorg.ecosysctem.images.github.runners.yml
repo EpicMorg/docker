@@ -1,0 +1,110 @@
+name: EpicMorg EcoSystem Github Runner Images
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron:  '4 5 * * 2,4,6'
+
+jobs:
+  build-main-runners:
+    name: Build Main Github Runners
+    runs-on: ubuntu-24.04
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Log into docker registry
+      run: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Log into Quay.IO registry
+      run: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
+
+    - name: Test Make
+      run: make
+
+    - name: Install requirements.txt
+      run: make pip
+
+    - name: Build and Deploy Minimal Github Runner
+      run: cd linux/ecosystem/github/runner/minimal && pwd && make build && make deploy
+
+    - name: Build and Deploy Main Github Runner
+      run: cd linux/ecosystem/github/runner/latest && pwd && make build && make deploy
+
+  build-additional-runners:
+    name: Build Additional Github Runner
+    runs-on: ubuntu-24.04
+    needs: build-main-runners
+    strategy:
+      matrix:
+        agent_type: [
+          # AMXX SDK
+          {type: 'amxx-sdk', version: '1.9', path: 'amxx-sdk/1.9'},
+          {type: 'amxx-sdk', version: '1.10', path: 'amxx-sdk/1.10'},
+          
+          # Android SDK
+          {type: 'android-sdk', version: 'latest', path: 'android-sdk'},
+          
+          # Atlassian SDK
+          {type: 'atlassian-sdk', version: 'latest', path: 'atlassian-sdk'},
+          
+          # Node.js versions
+          {type: 'node', version: '0.12', path: 'node0.12'},
+          {type: 'node', version: '4', path: 'node4'},
+          {type: 'node', version: '5', path: 'node5'},
+          {type: 'node', version: '6', path: 'node6'},
+          {type: 'node', version: '7', path: 'node7'},
+          {type: 'node', version: '8', path: 'node8'},
+          {type: 'node', version: '9', path: 'node9'},
+          {type: 'node', version: '10', path: 'node10'},
+          {type: 'node', version: '11', path: 'node11'},
+          {type: 'node', version: '12', path: 'node12'},
+          {type: 'node', version: '13', path: 'node13'},
+          {type: 'node', version: '14', path: 'node14'},
+          {type: 'node', version: '15', path: 'node15'},
+          {type: 'node', version: '16', path: 'node16'},
+          {type: 'node', version: '17', path: 'node17'},
+          {type: 'node', version: '18', path: 'node18'},
+          {type: 'node', version: '19', path: 'node19'},
+          {type: 'node', version: '20', path: 'node20'},
+          {type: 'node', version: '21', path: 'node21'},
+          {type: 'node', version: '22', path: 'node22'},
+          {type: 'node', version: '23', path: 'node23'},
+          
+          # PHP versions
+          {type: 'php', version: '5.6', path: 'php56'},
+          {type: 'php', version: '7.0', path: 'php70'},
+          {type: 'php', version: '7.1', path: 'php71'},
+          {type: 'php', version: '7.2', path: 'php72'},
+          {type: 'php', version: '7.3', path: 'php73'},
+          {type: 'php', version: '7.4', path: 'php74'},
+          {type: 'php', version: '8.0', path: 'php80'},
+          {type: 'php', version: '8.1', path: 'php81'},
+          {type: 'php', version: '8.2', path: 'php82'},
+          {type: 'php', version: '8.3', path: 'php83'},
+          {type: 'php', version: '8.4', path: 'php84'}
+        ]
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Log into docker registry
+      run: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Log into Quay.IO registry
+      run: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
+
+    - name: Check buildah
+      run: buildah --version
+
+    - name: Test Make
+      run: make
+
+    - name: Install requirements.txt
+      run: make pip
+
+    - name: Build and Deploy Github Runner ${{ matrix.agent_type.type }} ${{ matrix.agent_type.version }}
+      run: cd linux/ecosystem/github/runner/${{ matrix.agent_type.path }} && pwd && make build && make deploy
+
+    - name: Cleanup
+      run: make clean

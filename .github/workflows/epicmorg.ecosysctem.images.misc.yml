@@ -1,0 +1,259 @@
+name:  EpicMorg EcoSystem Misc Images
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron:  '0 0 * * 2,4,6'
+
+jobs:
+
+  build-torrserver-image:
+    name: EpicMorg EcoSystem TorrServer Image
+    runs-on: [ ubuntu-24.04 ]
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Log into docker registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Log into Quay.IO registry
+      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
+
+#    - name: Log into harbor registry
+#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
+
+    - name: Check buildah
+      run:  |
+        buildah --version
+
+    - name: Test Make
+      run:  make
+
+    - name: Install requirements.txt
+      run:  make pip
+
+    - name: Build and Deploy TorrServer
+      run:  cd linux/ecosystem/torrserver && make build && make deploy
+
+##################################################################################
+
+  build-ers-image:
+    name: EpicMorg EcoSystem Electron Release Server Image
+    runs-on: [ ubuntu-24.04 ]
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Log into docker registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Log into Quay.IO registry
+      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
+
+#    - name: Log into harbor registry
+#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
+
+    - name: Check buildah
+      run:  |
+        buildah --version
+
+    - name: Test Make
+      run:  make
+
+    - name: Install requirements.txt
+      run:  make pip
+
+    - name: Build and Deploy Electron Release Server
+      run:  cd linux/ecosystem/electron-release-server && make build && make deploy
+
+##################################################################################
+
+  build-vk2discord-image:
+    name: EpicMorg EcoSystem vk2discord Image
+    runs-on: [ ubuntu-24.04 ]
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Log into docker registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Log into Quay.IO registry
+      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
+
+#    - name: Log into harbor registry
+#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
+
+    - name: Check buildah
+      run:  |
+        buildah --version
+
+    - name: Test Make
+      run:  make
+
+    - name: Install requirements.txt
+      run:  make pip
+
+    - name: Build and Deploy vk2discord
+      run:  cd linux/ecosystem/vk2discord && make build && make deploy
+
+##################################################################################
+
+  build-opentracker-image:
+    name: EpicMorg EcoSystem openTracker Image
+    runs-on: [ ubuntu-24.04 ]
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Log into docker registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Log into Quay.IO registry
+      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
+
+#    - name: Log into harbor registry
+#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
+
+    - name: Check buildah
+      run:  |
+        buildah --version
+
+    - name: Test Make
+      run:  make
+
+    - name: Install requirements.txt
+      run:  make pip
+
+    - name: Build and Deploy openTracker
+      run:  cd linux/ecosystem/opentracker && make build && make deploy
+
+##################################################################################
+
+  build-retracker-image:
+    name: EpicMorg EcoSystem reTracker Image
+    runs-on: [ ubuntu-24.04 ]
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Log into docker registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Log into Quay.IO registry
+      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
+
+#    - name: Log into harbor registry
+#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
+
+    - name: Check buildah
+      run:  |
+        buildah --version
+
+    - name: Test Make
+      run:  make
+
+    - name: Install requirements.txt
+      run:  make pip
+# to rework
+#    - name: Build and Deploy reTracker
+#      run:  cd linux/ecosystem/retracker && make build && make deploy
+
+##################################################################################
+
+  build-monero-cli-image:
+    name: EpicMorg EcoSystem Monero CLI Image
+    runs-on: [ ubuntu-24.04 ]
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Log into docker registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Log into Quay.IO registry
+      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
+
+#    - name: Log into harbor registry
+#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
+
+    - name: Check buildah
+      run:  |
+        buildah --version
+
+    - name: Test Make
+      run:  make
+
+    - name: Install requirements.txt
+      run:  make pip
+
+    - name: Build and Deploy Monero CLI
+      run:  cd linux/ecosystem/monero/monerod && make build && make deploy
+
+##################################################################################
+
+  build-monero-p2pool-image:
+    name: EpicMorg EcoSystem Monero p2pool Image
+    runs-on: [ ubuntu-24.04 ]
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Log into docker registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Log into Quay.IO registry
+      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
+
+#    - name: Log into harbor registry
+#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
+
+    - name: Check buildah
+      run:  |
+        buildah --version
+
+    - name: Test Make
+      run:  make
+
+    - name: Install requirements.txt
+      run:  make pip
+
+    - name: Build and Deploy Monero p2pool
+      run:  cd linux/ecosystem/monero/p2pool && make build && make deploy
+
+##################################################################################
+
+  build-ninjam-image:
+    name: EpicMorg EcoSystem ninjam Image
+    runs-on: [ ubuntu-24.04 ]
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Log into docker registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Log into Quay.IO registry
+      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
+
+#    - name: Log into harbor registry
+#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
+
+    - name: Check buildah
+      run:  |
+        buildah --version
+
+    - name: Test Make
+      run:  make
+
+    - name: Install requirements.txt
+      run:  make pip
+
+    - name: Build and Deploy ninjam
+      run:  cd linux/ecosystem/ninjam/latest && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean

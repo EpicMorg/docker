@@ -1,7 +1,7 @@
 ################################################################################
 # https://github.com/linuxserver/docker-code-server/pkgs/container/code-server
 ################################################################################
-FROM quay.io/epicmorg/vscode-server:latest
+FROM quay.io/epicmorg/vscode-server:cpp
 
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
@@ -148,17 +148,12 @@ RUN sdkmanager --install --verbose \
 #
       "platform-tools"  \
 #
-      "platforms;android-21" \
-      "platforms;android-34" \
       "platforms;android-35" \
 #
-      "build-tools;21.1.2" \
-      "build-tools;34.0.0" \
       "build-tools;35.0.0" \
 #
       "extras;android;m2repository" \
 #
-      "ndk;25.1.8937393" \
       "ndk;25.2.9519653"
 
 ENV PATH="${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin:${ANDROID_SDK_ROOT}/tools/bin:${ANDROID_SDK_ROOT}/tools:${ANDROID_SDK_ROOT}/tools/proguard/bin:${ANDROID_SDK_ROOT}/platform-tools:${PATH}"

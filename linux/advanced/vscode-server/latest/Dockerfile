@@ -78,13 +78,6 @@ ENV GOSU_VERSION=1.17
 ARG GOSU_BIN_DIR=${EMG_LOCAL_BASE_DIR}/gosu/${GOSU_VERSION}/bin
 ARG GOSU_DOWNLOAD_URL=https://github.com/tianon/gosu/releases/download/${GOSU_VERSION}/gosu-amd64
 
-ENV FLUTTER_VERSION=3.29.2
-ENV FLUTTER_CHANNEL=stable
-ENV FLUTTER_DIR=${EMG_LOCAL_BASE_DIR}/flutter/${FLUTTER_VERSION}
-ARG FLUTTER_BIN_DIR=${FLUTTER_DIR}/bin
-ARG FLUTTER_DOWNLOAD_URL=https://storage.googleapis.com/flutter_infra_release/releases/${FLUTTER_CHANNEL}/linux/flutter_linux_${FLUTTER_VERSION}-${FLUTTER_CHANNEL}.tar.xz
-ARG FLUTTER_TEMP=/tmp/flutter_linux_${FLUTTER_VERSION}-${FLUTTER_CHANNEL}.tar.xz
-
 ENV BuildDocker true
 
 ##################################################################
@@ -117,6 +110,9 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
         bash \
         binutils \
         ca-certificates \
+        python3 \
+        python3-pip \
+        python3-dev \
         cmatrix \
         cmatrix-xfont \
         console-cyrillic \
@@ -215,30 +211,6 @@ ENV PATH="${SZ_BIN_DIR}:${PATH}"
 RUN echo "=============================================" && \
     echo 7zz $(7zz | head -4) && \
     echo 7z $(7z | head -4) && \
-    echo "============================================="
-
-##################################################################
-#                   Flutter SDK
-##################################################################
-RUN mkdir -p ${FLUTTER_DIR}
-ADD ${FLUTTER_DOWNLOAD_URL} /tmp
-
-RUN tar -xf ${FLUTTER_TEMP} --directory ${FLUTTER_DIR} --strip-components=1 && \
-    chmod +x ${FLUTTER_BIN_DIR}/dart && \
-    chmod +x ${FLUTTER_BIN_DIR}/flutter && \
-    chmod +x ${FLUTTER_BIN_DIR}/internal/shared.sh && \
-    chmod +x ${FLUTTER_BIN_DIR}/internal/update_dart_sdk.sh
-
-ENV PATH="${FLUTTER_BIN_DIR}:${PATH}"
-
-RUN git config --global --add safe.directory ${FLUTTER_DIR} && \
-    flutter precache && \
-    flutter config --no-analytics && \
-    dart --disable-analytics
-
-RUN echo "=============================================" && \
-    echo dart $(dart --version) && \
-    echo flutter $(flutter --version) && \
     echo "============================================="
 
 ##################################################################

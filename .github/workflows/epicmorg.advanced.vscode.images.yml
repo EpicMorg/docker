@@ -8,7 +8,7 @@ on:
 jobs:
 
   build-images:
-    name: Build EpicMorg Advanced Vscode Server Images
+    name: Build EpicMorg Advanced Vscode Server - Latest Image
     runs-on: [ ubuntu-24.04 ]
 
     steps:
@@ -38,6 +38,40 @@ jobs:
     - name: "Build and Deploy Advanced Vscode Server Images:"
       run:  cd linux/advanced/vscode-server/latest && pwd && make build && make deploy
 
+    - name: "Build and Deploy Advanced Vscode Server CPP Images:"
+      run:  cd linux/advanced/vscode-server/cpp && pwd && make build && make deploy
+
+##################################################################################
+
+  build-other-images:
+    name: Build EpicMorg Advanced Vscode Server - Other Images
+    runs-on: [ ubuntu-24.04 ]
+    needs: build-images
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Log into docker registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Log into Quay.IO registry
+      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
+
+#    - name: Log into harbor registry
+#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
+
+    - name: Check buildah
+      run:  |
+        buildah --version
+
+    - name: Test Make
+      run:  make
+
+    - name: Install requirements.txt
+      run:  make pip
+
+##################################################################################
+
     - name: "Build and Deploy Advanced  Vscode Server AMXX 1.9 Images:"
       run:  cd linux/advanced/vscode-server/amxx/1.9 && pwd && make build && make deploy
 
@@ -63,9 +97,6 @@ jobs:
 
     - name: "Build and Deploy Advanced Vscode Server NodeJS Images:"
       run:  cd linux/advanced/vscode-server/nodejs && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Vscode Server CPP Images:"
-      run:  cd linux/advanced/vscode-server/cpp && pwd && make build && make deploy
 
     - name: "Build and Deploy Advanced Vscode Server Docker Images:"
       run:  cd linux/advanced/vscode-server/docker && pwd && make build && make deploy
