@@ -1,5 +1,6 @@
 # Changelog
 * `apr`
+  * updated `cassandra`
   * added support for `Java` base images of custom CA certs
   * added support for `Python` base images of custom CA certs
   * updated `Runssian CA` cert
