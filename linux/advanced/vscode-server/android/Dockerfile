@@ -124,10 +124,12 @@ RUN chmod +x -R ${KNPL_BIN}
 ENV ANDROID_HOME=${EMG_LOCAL_BASE_DIR}/android/sdk
 ENV ANDROID_SDK_ROOT=${ANDROID_HOME}
 
+COPY tmp/sdkmanager_0.6.11-2_all.deb /tmp
+
 RUN apt-get update && \
+    apt-get install /tmp/sdkmanager_0.6.11-2_all.deb -y && \
     apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
       android-sdk \
-      sdkmanager \
       android-sdk-build-tools \
       android-sdk-platform-tools-common \
       android-sdk-platform-tools \

@@ -36,9 +36,21 @@ jobs:
     - name: "Build and Deploy Advanced Teamcity Server Image:"
       run:  cd linux/advanced/teamcity/server/latest && pwd && make build && make deploy
 
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
     - name: "Build and Deploy Advanced Teamcity Server 2025.03 Image:"
       run:  cd linux/advanced/teamcity/server/2025.03 && pwd && make build && make deploy
 
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
 
     - name: "Build and Deploy Advanced Teamcity Server 2024.12 Image:"
       run:  cd linux/advanced/teamcity/server/2024.12 && pwd && make build && make deploy
@@ -49,13 +61,24 @@ jobs:
       run: make clean
 
 ##################################################################################
-
     - name: "Build and Deploy Advanced Teamcity Server 2024.07.3 Image:"
       run:  cd linux/advanced/teamcity/server/2024.07.3 && pwd && make build && make deploy
 
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
     - name: "Build and Deploy Advanced Teamcity Server 2024.03.3 Image:"
       run:  cd linux/advanced/teamcity/server/2024.03.3 && pwd && make build && make deploy
 
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
     - name: "Build and Deploy Advanced Teamcity Server 2023.05.6 Image:"
       run:  cd linux/advanced/teamcity/server/2023.05.6 && pwd && make build && make deploy
 
@@ -68,6 +91,13 @@ jobs:
 
     - name: "Build and Deploy Advanced Teamcity Server 2022.10.6 Image:"
       run:  cd linux/advanced/teamcity/server/2022.10.6 && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
 
     - name: "Build and Deploy Advanced Teamcity Server 2022.04.7 Image:"
       run:  cd linux/advanced/teamcity/server/2022.04.7&& pwd && make build && make deploy
