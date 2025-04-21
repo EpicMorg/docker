@@ -70,7 +70,7 @@ RUN update-ca-certificates
 ARG P4_VERSION=r23.2
 ARG P4_DOWNLOAD_URL=https://filehost.perforce.com/perforce/${P4_VERSION}/bin.linux26x86_64/p4
 
-ARG SZ_VERSION=7z2407
+ARG SZ_VERSION=7z2409
 ARG SZ_DOWNLOAD_URL=https://www.7-zip.org/a/${SZ_VERSION}-linux-x64.tar.xz
 ARG SZ_TEMP=/tmp/${SZ_VERSION}-linux-x64.tar.xz
 

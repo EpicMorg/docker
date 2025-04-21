@@ -7,7 +7,7 @@ on:
 
 jobs:
 
-  build-10-images:
+  build-sid-images:
     name: Build EpicMorg Debian SID Images
     runs-on: [ubuntu-24.04]
 
@@ -49,131 +49,29 @@ jobs:
 
 ##################################################################################
 
-    - name: "Build and Deploy Debian SID Python 3.9:"
-      run:  	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/python/3.9  && pwd && make build && make deploy
+  build-sid-node-images:
+    name: Build EpicMorg Debian SID Node Images
+    runs-on: [ubuntu-24.04]
+    needs: build-sid-images
 
-    - name: "Build and Deploy Debian SID Python 3.10:"
-      run:  	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/python/3.10  && pwd && make build && make deploy
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Log into docker registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
-##################################################################################
+    - name: Log into Quay.IO registry
+      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
 
-    - name: Cleanup
-      run: make clean
+#    - name: Log into harbor registry
+#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
 
-##################################################################################
+    - name: Check buildah
+      run:  |
+        buildah --version
 
-    - name: "Build and Deploy Debian SID Python 3.11:"
-      run:  	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/python/3.11  && pwd && make build && make deploy
-
-    - name: "Build and Deploy Debian SID Python 3.12:"
-      run:  	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/python/3.12  && pwd && make build && make deploy
-
-##################################################################################
-
-    - name: Cleanup
-      run: make clean
-
-##################################################################################
-
-    - name: "Build and Deploy Debian SID Python 3.12:"
-      run:  	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/python/3.13  && pwd && make build && make deploy
-
-##################################################################################
-
-    - name: Cleanup
-      run: make clean
-
-##################################################################################
-
-    - name: "Build and Deploy Debian SID jdk6 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/sid/jdk/jdk6    && pwd && make build && make deploy
-      
-    - name: "Build and Deploy Debian SID jdk7 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/sid/jdk/jdk7    && pwd && make build && make deploy
-
-##################################################################################
-
-    - name: Cleanup
-      run: make clean
-
-##################################################################################
-
-    - name: "Build and Deploy Debian SID jdk8 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/sid/jdk/jdk8    && pwd && make build && make deploy
-      
-    - name: "Build and Deploy Debian SID jdk11 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/sid/jdk/jdk11    && pwd && make build && make deploy
-
-##################################################################################
-
-    - name: Cleanup
-      run: make clean
-
-##################################################################################
-
-    - name: "Build and Deploy Debian SID jdk16 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/sid/jdk/jdk16    && pwd && make build && make deploy
-
-    - name: "Build and Deploy Debian SID jdk17 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/sid/jdk/jdk17    && pwd && make build && make deploy
-
-##################################################################################
-
-    - name: Cleanup
-      run: make clean
-
-##################################################################################
-
-    - name: "Build and Deploy Debian SID jdk18 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/sid/jdk/jdk18    && pwd && make build && make deploy
-
-    - name: "Build and Deploy Debian SID jdk19 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/sid/jdk/jdk19    && pwd && make build && make deploy
-
-##################################################################################
-
-    - name: Cleanup
-      run: make clean
-
-##################################################################################
-
-    - name: "Build and Deploy Debian SID jdk20 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/sid/jdk/jdk20    && pwd && make build && make deploy
-
-##################################################################################
-
-    - name: Cleanup
-      run: make clean
-
-##################################################################################
-
-    - name: "Build and Deploy Debian SID jdk21 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/sid/jdk/jdk21    && pwd && make build && make deploy
-
-##################################################################################
-
-    - name: Cleanup
-      run: make clean
-
-##################################################################################
-
-    - name: "Build and Deploy Debian SID jdk22 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/sid/jdk/jdk22    && pwd && make build && make deploy
-
-##################################################################################
-
-    - name: Cleanup
-      run: make clean
-
-##################################################################################
-
-    - name: "Build and Deploy Debian SID jdk23 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/sid/jdk/jdk23    && pwd && make build && make deploy
-
-##################################################################################
-
-    - name: Cleanup
-      run: make clean
+    - name: Test Make
+      run:  make
 
 ##################################################################################
 
@@ -297,6 +195,32 @@ jobs:
 
 ##################################################################################
 
+  build-sid-dotnet-images:
+    name: Build EpicMorg Debian SID dotNet Images
+    runs-on: [ubuntu-24.04]
+    needs: build-sid-node-images
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Log into docker registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Log into Quay.IO registry
+      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
+
+#    - name: Log into harbor registry
+#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
+
+    - name: Check buildah
+      run:  |
+        buildah --version
+
+    - name: Test Make
+      run:  make
+
+##################################################################################
+
     - name: "Build and Deploy Debian SID dotNet LTS Image:"
       run:  cd linux/ecosystem/epicmorg/debian/sid/dotnet/lts    && pwd && make build && make deploy
 
@@ -338,6 +262,193 @@ jobs:
 
     - name: "Build and Deploy Debian SID dotNet 9 Image:"
       run:  cd linux/ecosystem/epicmorg/debian/sid/dotnet/dotnet9    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
+  build-sid-py-images:
+    name: Build EpicMorg Debian SID Python Images
+    runs-on: [ubuntu-24.04]
+    needs: build-sid-dotnet-images
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Log into docker registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Log into Quay.IO registry
+      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
+
+#    - name: Log into harbor registry
+#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
+
+    - name: Check buildah
+      run:  |
+        buildah --version
+
+    - name: Test Make
+      run:  make
+
+##################################################################################
+
+    - name: "Build and Deploy Debian SID Python 3.9:"
+      run:  	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/python/3.9  && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian SID Python 3.10:"
+      run:  	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/python/3.10  && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
+    - name: "Build and Deploy Debian SID Python 3.11:"
+      run:  	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/python/3.11  && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian SID Python 3.12:"
+      run:  	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/python/3.12  && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
+    - name: "Build and Deploy Debian SID Python 3.12:"
+      run:  	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/python/3.13  && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
+  build-sid-jdk-images:
+    name: Build EpicMorg Debian SID JDK Images
+    runs-on: [ubuntu-24.04]
+    needs: build-sid-py-images
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Log into docker registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Log into Quay.IO registry
+      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
+
+#    - name: Log into harbor registry
+#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
+
+    - name: Check buildah
+      run:  |
+        buildah --version
+
+    - name: Test Make
+      run:  make
+
+##################################################################################
+
+    - name: "Build and Deploy Debian SID jdk6 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/sid/jdk/jdk6    && pwd && make build && make deploy
+      
+    - name: "Build and Deploy Debian SID jdk7 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/sid/jdk/jdk7    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
+    - name: "Build and Deploy Debian SID jdk8 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/sid/jdk/jdk8    && pwd && make build && make deploy
+      
+    - name: "Build and Deploy Debian SID jdk11 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/sid/jdk/jdk11    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
+    - name: "Build and Deploy Debian SID jdk16 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/sid/jdk/jdk16    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian SID jdk17 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/sid/jdk/jdk17    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
+    - name: "Build and Deploy Debian SID jdk18 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/sid/jdk/jdk18    && pwd && make build && make deploy
+
+    - name: "Build and Deploy Debian SID jdk19 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/sid/jdk/jdk19    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
+    - name: "Build and Deploy Debian SID jdk20 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/sid/jdk/jdk20    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
+    - name: "Build and Deploy Debian SID jdk21 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/sid/jdk/jdk21    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
+    - name: "Build and Deploy Debian SID jdk22 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/sid/jdk/jdk22    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
+    - name: "Build and Deploy Debian SID jdk23 Image:"
+      run:  cd linux/ecosystem/epicmorg/debian/sid/jdk/jdk23    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
 
 # ##################################################################################
 # 

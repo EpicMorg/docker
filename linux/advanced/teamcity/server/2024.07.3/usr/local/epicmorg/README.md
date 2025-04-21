@@ -12,7 +12,7 @@ example:
 ```
 /usr/local/epicmorg/
 |-- 7z
-|   `-- 7z2407
+|   `-- 7z2409
 |       |-- History.txt
 |       |-- License.txt
 |       |-- MANUAL

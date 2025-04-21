@@ -19,7 +19,7 @@ ENV PATH=$PATH:${JAVA_HOME}/bin
 ##################################################################
 ADD ${K_JDK_URL} /tmp
 RUN mkdir -p ${K_JDK_DIR} && \
-    tar -xvzf ${K_JDK_TEMP} --strip-components=1 --directory ${K_JDK_DIR} && \
+    tar -xzf ${K_JDK_TEMP} --strip-components=1 --directory ${K_JDK_DIR} && \
     ln -sfv ${JAVA_HOME} /usr/jre && \
     ln -sfv ${JAVA_HOME} /usr/jdk && \
     java -version && \
@@ -103,7 +103,7 @@ RUN update-ca-certificates --fresh && \
 #                   kotlin-native-prebuilt-linux
 ##################################################################
 #ADD ${KNPL_LINK} /tmp
-#RUN tar -xvzf ${KNPL_TEMP} --directory ${KTC_ROOT}
+#RUN tar -xzf ${KNPL_TEMP} --directory ${KTC_ROOT}
 #RUN chmod +x -R ${KNPL_BIN}
 
 ##################################################################

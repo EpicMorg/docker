@@ -441,7 +441,7 @@ RUN export DOCKER_COMPOSE_VERSION=`curl --silent https://api.github.com/repos/do
 #                   installing java11
 ##################################################################
 ADD ${K_JDK_URL} /tmp
-RUN tar -xvzf ${K_JDK_TEMP} --directory /usr/local && \
+RUN tar -xzf ${K_JDK_TEMP} --directory /usr/local && \
     ln -sfv ${JAVA_HOME} /usr/jre && \
     java -version
 
@@ -510,7 +510,7 @@ RUN kotlin -version
 #                   kotlin-native-prebuilt-linux
 ##################################################################
 ADD ${KNPL_LINK} /tmp
-RUN tar -xvzf ${KNPL_TEMP} --directory ${KTC_ROOT}
+RUN tar -xzf ${KNPL_TEMP} --directory ${KTC_ROOT}
 RUN chmod +x -R ${KNPL_BIN}
 
 ##################################################################
@@ -577,8 +577,8 @@ RUN groupadd -g 1337 node && \
 ADD ${K_NODE_URL} /tmp
 ADD ${K_NODE_HEADERS_URL} /tmp
 
-RUN tar -xvzf /tmp/node-v${K_NODE_VERSION}-linux-x64.tar.gz --strip-components=1 --directory /usr/local && \
-    tar -xvzf /tmp/node-v${K_NODE_VERSION}-headers.tar.gz --strip-components=1 --directory /usr/local && \
+RUN tar -xzf /tmp/node-v${K_NODE_VERSION}-linux-x64.tar.gz --strip-components=1 --directory /usr/local && \
+    tar -xzf /tmp/node-v${K_NODE_VERSION}-headers.tar.gz --strip-components=1 --directory /usr/local && \
     rm -rfv /usr/local/CHANGELOG.md /usr/local/LICENSE /usr/local/README.md
 
 RUN npm install -g pnpm yarn

@@ -41,42 +41,49 @@ RUN mkdir -p /etc/apt/keyrings
 ##################################################################
 #                   ARGuments
 ##################################################################
-ARG P4_VERSION=r24.1
+ENV P4_VERSION=r24.1
 ARG P4_BIN_DIR=${EMG_LOCAL_BASE_DIR}/p4/${P4_VERSION}/bin
 ARG P4_DOWNLOAD_URL=https://filehost.perforce.com/perforce/${P4_VERSION}/bin.linux26x86_64/p4
 
-ARG SZ_VERSION=7z2407
+ENV SZ_VERSION=7z2409
 ARG SZ_BIN_DIR=${EMG_LOCAL_BASE_DIR}/7z/${SZ_VERSION}/bin
 ARG SZ_DOWNLOAD_URL=https://www.7-zip.org/a/${SZ_VERSION}-linux-x64.tar.xz
 ARG SZ_TEMP=/tmp/${SZ_VERSION}-linux-x64.tar.xz
 
-ARG LAZYGIT_VERSION=0.42.0
+ENV LAZYGIT_VERSION=0.42.0
 ARG LAZYGIT_BIN_DIR=${EMG_LOCAL_BASE_DIR}/lazygit/${LAZYGIT_VERSION}/bin
 ARG LAZYGIT_DOWNLOAD_URL=https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz
 ARG LAZYGIT_TEMP=/tmp/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz
 
-ARG LAZYCLI_VERSION=0.1.15
+ENV LAZYCLI_VERSION=0.1.15
 ARG LAZYCLI_BIN_DIR=${EMG_LOCAL_BASE_DIR}/lazycli/${LAZYCLI_VERSION}/bin
 ARG LAZYCLI_DOWNLOAD_URL=https://github.com/jesseduffield/lazycli/releases/download/v${LAZYCLI_VERSION}/lazycli-linux-x64.tar.gz
 ARG LAZYCLI_TEMP=/tmp/lazycli-linux-x64.tar.gz
 
-ARG LAZYNPM_VERSION=0.1.4
+ENV LAZYNPM_VERSION=0.1.4
 ARG LAZYNPM_BIN_DIR=${EMG_LOCAL_BASE_DIR}/lazynpm/${LAZYNPM_VERSION}/bin
 ARG LAZYNPM_DOWNLOAD_URL=https://github.com/jesseduffield/lazynpm/releases/download/v${LAZYNPM_VERSION}/lazynpm_${LAZYNPM_VERSION}_Linux_x86_64.tar.gz
 ARG LAZYNPM_TEMP=/tmp/lazynpm_${LAZYNPM_VERSION}_Linux_x86_64.tar.gz
 
-ARG LAZYDOCKER_VERSION=0.23.3
+ENV LAZYDOCKER_VERSION=0.23.3
 ARG LAZYDOCKER_BIN_DIR=${EMG_LOCAL_BASE_DIR}/lazydocker/${LAZYDOCKER_VERSION}/bin
 ARG LAZYDOCKER_DOWNLOAD_URL=https://github.com/jesseduffield/lazydocker/releases/download/v${LAZYDOCKER_VERSION}/lazydocker_${LAZYDOCKER_VERSION}_Linux_x86_64.tar.gz
 ARG LAZYDOCKER_TEMP=/tmp/lazydocker_${LAZYDOCKER_VERSION}_Linux_x86_64.tar.gz
 
-ARG DUMB_INIT_VERSION=1.2.5
+ENV DUMB_INIT_VERSION=1.2.5
 ARG DUMB_INIT_BIN_DIR=${EMG_LOCAL_BASE_DIR}/dumb-init/${DUMB_INIT_VERSION}/bin
 ARG DUMB_INIT_DOWNLOAD_URL=https://github.com/Yelp/dumb-init/releases/download/v${DUMB_INIT_VERSION}/dumb-init_${DUMB_INIT_VERSION}_x86_64
 
-ARG GOSU_VERSION=1.17
+ENV GOSU_VERSION=1.17
 ARG GOSU_BIN_DIR=${EMG_LOCAL_BASE_DIR}/gosu/${GOSU_VERSION}/bin
 ARG GOSU_DOWNLOAD_URL=https://github.com/tianon/gosu/releases/download/${GOSU_VERSION}/gosu-amd64
+
+ENV FLUTTER_VERSION=3.29.2
+ENV FLUTTER_CHANNEL=stable
+ENV FLUTTER_DIR=${EMG_LOCAL_BASE_DIR}/flutter/${FLUTTER_VERSION}
+ARG FLUTTER_BIN_DIR=${FLUTTER_DIR}/bin
+ARG FLUTTER_DOWNLOAD_URL=https://storage.googleapis.com/flutter_infra_release/releases/${FLUTTER_CHANNEL}/linux/flutter_linux_${FLUTTER_VERSION}-${FLUTTER_CHANNEL}.tar.xz
+ARG FLUTTER_TEMP=/tmp/flutter_linux_${FLUTTER_VERSION}-${FLUTTER_CHANNEL}.tar.xz
 
 ENV BuildDocker true
 
@@ -208,6 +215,30 @@ ENV PATH="${SZ_BIN_DIR}:${PATH}"
 RUN echo "=============================================" && \
     echo 7zz $(7zz | head -4) && \
     echo 7z $(7z | head -4) && \
+    echo "============================================="
+
+##################################################################
+#                   Flutter SDK
+##################################################################
+RUN mkdir -p ${FLUTTER_DIR}
+ADD ${FLUTTER_DOWNLOAD_URL} /tmp
+
+RUN tar -xf ${FLUTTER_TEMP} --directory ${FLUTTER_DIR} --strip-components=1 && \
+    chmod +x ${FLUTTER_BIN_DIR}/dart && \
+    chmod +x ${FLUTTER_BIN_DIR}/flutter && \
+    chmod +x ${FLUTTER_BIN_DIR}/internal/shared.sh && \
+    chmod +x ${FLUTTER_BIN_DIR}/internal/update_dart_sdk.sh
+
+ENV PATH="${FLUTTER_BIN_DIR}:${PATH}"
+
+RUN git config --global --add safe.directory ${FLUTTER_DIR} && \
+    flutter precache && \
+    flutter config --no-analytics && \
+    dart --disable-analytics
+
+RUN echo "=============================================" && \
+    echo dart $(dart --version) && \
+    echo flutter $(flutter --version) && \
     echo "============================================="
 
 ##################################################################

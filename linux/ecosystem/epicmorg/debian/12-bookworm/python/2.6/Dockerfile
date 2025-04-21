@@ -35,7 +35,7 @@ ARG PYTHON_TEMP=/tmp/Python-${PYTHON_FULL_VERSION}.tgz
 RUN mkdir -p ${PYTHON_DIR} ${PYTHON_SRC_DIR} ${PYTHON_BIN_DIR}
 ADD ${PYTHON_DOWNLOAD_URL} /tmp
 
-RUN tar -xvzf ${PYTHON_TEMP} --strip-components=1 --directory ${PYTHON_SRC_DIR}
+RUN tar -xzf ${PYTHON_TEMP} --strip-components=1 --directory ${PYTHON_SRC_DIR}
 
 ENV PATH="${PYTHON_BIN_DIR}:${PATH}"
 

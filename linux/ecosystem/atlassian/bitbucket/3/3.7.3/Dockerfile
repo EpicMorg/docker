@@ -32,7 +32,7 @@ EXPOSE 7999
 ##################################################################
 ADD ${DOWNLOAD_URL} /tmp
 RUN mkdir -p                                 ${BITBUCKET_INSTALL_DIR} &&  \
-    tar -xvzf ${TEMP_ARCHIVE} --strip-components=1 --directory "${BITBUCKET_INSTALL_DIR}" && \
+    tar -xzf ${TEMP_ARCHIVE} --strip-components=1 --directory "${BITBUCKET_INSTALL_DIR}" && \
     chown -R ${RUN_USER}:${RUN_GROUP}        ${BITBUCKET_INSTALL_DIR}
 
 ##################################################################

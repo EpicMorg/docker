@@ -20,7 +20,7 @@ ENV PATH=$PATH:${JAVA_HOME}/bin
 ##################################################################
 ADD ${K_JDK_URL} /tmp
 RUN mkdir -p ${K_JDK_DIR} && \
-    tar -xvzf ${K_JDK_TEMP} --strip-components=1 --directory ${K_JDK_DIR} && \
+    tar -xzf ${K_JDK_TEMP} --strip-components=1 --directory ${K_JDK_DIR} && \
     ln -sfv ${JAVA_HOME} /usr/jre && \
     ln -sfv ${JAVA_HOME} /usr/jdk && \
     java -version && \
@@ -97,7 +97,7 @@ RUN kotlin -version
 #                   kotlin-native-prebuilt-linux
 ##################################################################
 ADD ${KNPL_LINK} /tmp
-RUN tar -xvzf ${KNPL_TEMP} --directory ${KTC_ROOT}
+RUN tar -xzf ${KNPL_TEMP} --directory ${KTC_ROOT}
 RUN chmod +x -R ${KNPL_BIN}
 
 ##################################################################
@@ -126,7 +126,7 @@ ARG ATLASSIAN_SDK_URL=https://marketplace.atlassian.com/download/plugins/atlassi
 ADD ${ATLASSIAN_SDK_URL} ${ATLASSIAN_SDK_TEMP}
 
 RUN mkdir -p ${ATLASSIAN_SDK_BIN_DIR} && \
-    tar -xvzf /tmp/atlassian-plugin-sdk.tgz --strip-components=1 --directory ${ATLASSIAN_SDK_DIR}
+    tar -xzf /tmp/atlassian-plugin-sdk.tgz --strip-components=1 --directory ${ATLASSIAN_SDK_DIR}
 
 ENV PATH=$PATH:${ATLASSIAN_SDK_BIN_DIR}
 

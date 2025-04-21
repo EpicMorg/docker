@@ -28,7 +28,7 @@ ARG ATLASSIAN_SDK_URL=https://marketplace.atlassian.com/download/plugins/atlassi
 ADD ${ATLASSIAN_SDK_URL} ${ATLASSIAN_SDK_TEMP}
 
 RUN mkdir -p ${ATLASSIAN_SDK_BIN_DIR} && \
-    tar -xvzf /tmp/atlassian-plugin-sdk.tgz --strip-components=1 --directory ${ATLASSIAN_SDK_DIR}
+    tar -xzf /tmp/atlassian-plugin-sdk.tgz --strip-components=1 --directory ${ATLASSIAN_SDK_DIR}
 
 ENV PATH=$PATH:${ATLASSIAN_SDK_BIN_DIR}
 

@@ -20,7 +20,7 @@ ENV PATH=$PATH:${JAVA_HOME}/bin
 ##################################################################
 ADD ${K_JDK_URL} /tmp
 RUN mkdir -p ${K_JDK_DIR} && \
-    tar -xvzf ${K_JDK_TEMP} --strip-components=1 --directory ${K_JDK_DIR} && \
+    tar -xzf ${K_JDK_TEMP} --strip-components=1 --directory ${K_JDK_DIR} && \
     ln -sfv ${JAVA_HOME} /usr/jre && \
     ln -sfv ${JAVA_HOME} /usr/jdk && \
     java -version && \

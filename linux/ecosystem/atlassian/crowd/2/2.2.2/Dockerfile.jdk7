@@ -36,7 +36,7 @@ RUN apt-get update && \
     apt-get clean autoclean && apt-get autoremove -y && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p ${CROWD_INSTALL_DIR} ${CROWD_DB} /opt/atlassian/support /opt/atlassian/etc && \
-    tar -xvzf ${TEMP_ARCHIVE} --strip-components=1 --directory "${CROWD_INSTALL_DIR}" && \
+    tar -xzf ${TEMP_ARCHIVE} --strip-components=1 --directory "${CROWD_INSTALL_DIR}" && \
     sed -i -e '2s/^exec/cd "`dirname "$0"`" \&\& exec/' ${CROWD_INSTALL_DIR}/start_crowd.sh && \
     sed -i -e 's#exec "$PRGDIR"/"$EXECUTABLE" start "$@"#exec "$PRGDIR"/"$EXECUTABLE" run "$@"#g' ${CROWD_INSTALL_DIR}/apache-tomcat/bin/startup.sh && \
     sed -i -e 's/-Xms\([0-9]\+[kmg]\) -Xmx\([0-9]\+[kmg]\)/-Xms\${JVM_MINIMUM_MEMORY:=\1} -Xmx\${JVM_MAXIMUM_MEMORY:=\2} \${JVM_SUPPORT_RECOMMENDED_ARGS} -Dcrowd.home=\${CROWD_HOME}/g' ${CROWD_INSTALL_DIR}/apache-tomcat/bin/setenv.sh && \

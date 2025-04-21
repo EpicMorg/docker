@@ -35,7 +35,7 @@ ARG PYTHON_TEMP=/tmp/Python-${PYTHON_FULL_VERSION}.tgz
 RUN mkdir -p ${PYTHON_DIR} ${PYTHON_SRC_DIR} ${PYTHON_BIN_DIR}
 ADD ${PYTHON_DOWNLOAD_URL} /tmp
 
-RUN tar -xvzf ${PYTHON_TEMP} --strip-components=1 --directory ${PYTHON_SRC_DIR}
+RUN tar -xzf ${PYTHON_TEMP} --strip-components=1 --directory ${PYTHON_SRC_DIR}
 
 ENV OPENSSL_ROOT=${OPENSSL_111_DIR}
 ENV LD_LIBRARY_PATH="${OPENSSL_ROOT}/lib:${PYTHON_DIR}/lib:$LD_LIBRARY_PATH"

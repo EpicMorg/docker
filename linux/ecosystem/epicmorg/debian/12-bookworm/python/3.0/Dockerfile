@@ -35,7 +35,7 @@ ARG PYTHON_TEMP=/tmp/Python-${PYTHON_FULL_VERSION}.tgz
 RUN mkdir -p ${PYTHON_DIR} ${PYTHON_SRC_DIR} ${PYTHON_BIN_DIR}
 ADD ${PYTHON_DOWNLOAD_URL} /tmp
 
-RUN tar -xvzf ${PYTHON_TEMP} --strip-components=1 --directory ${PYTHON_SRC_DIR}
+RUN tar -xzf ${PYTHON_TEMP} --strip-components=1 --directory ${PYTHON_SRC_DIR}
 
 ENV OPENSSL_ROOT=${OPENSSL_102_DIR}
 ENV LD_LIBRARY_PATH="${OPENSSL_ROOT}/lib:${PYTHON_DIR}/lib:$LD_LIBRARY_PATH"
@@ -115,7 +115,7 @@ RUN mv ${PYTHON_SRC_DIR} /usr/local/src/${PYTHON_FULL_VERSION} && \
     rm -rfv /usr/bin/pip && \
     rm -rfv /usr/bin/python && \
     rm -rfv /usr/bin/python3 && \
-#    tar -xvzf /tmp/9.0.3.tar.gz --directory /tmp && \
+#    tar -xzf /tmp/9.0.3.tar.gz --directory /tmp && \
 #    cd  /tmp/pip-9.0.3 && ${PYTHON_DIR}/bin/python${PYTHON_VERSION} ./setup.py install && \
 #    update-alternatives --install /usr/bin/pip3 pip3 ${PYTHON_DIR}/bin/pip${PYTHON_VERSION} 1 && \
 #    update-alternatives --install /usr/bin/pip pip ${PYTHON_DIR}/bin/pip${PYTHON_VERSION} 1 && \

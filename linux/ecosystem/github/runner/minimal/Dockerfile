@@ -26,7 +26,7 @@ RUN mkdir -p ${RUNNER_DIST_DIR} ${RUNNER_DIST_DIR} ${RUNNER_WORK_DIR} && \
     apt-get update && \
     apt-get install -y --no-install-recommends --allow-unauthenticated \
         supervisor && \
-    tar -xvzf ${RUNNER_TEMP} --directory ${RUNNER_DIST_DIR} && \
+    tar -xzf ${RUNNER_TEMP} --directory ${RUNNER_DIST_DIR} && \
     chmod +x ${RUNNER_DIST_DIR}/bin/*.sh && \
     chmod +x ${RUNNER_DIST_DIR}/sbin/*.sh && \
     ${RUNNER_DIST_DIR}/bin//installdependencies.sh && \
