@@ -56,13 +56,60 @@ RUN update-ca-certificates --fresh && \
     done
 
 ##################################################################
+#                   installing utils
+##################################################################
+RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections && \
+    apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
+    apt-transport-https \
+    apt-utils \
+    aptitude \
+    bash \
+    binutils \
+    ca-certificates \
+    curl \
+    dirmngr \
+    gnupg \
+    gnupg1 \
+    gnupg2 \
+    locales \
+    locate \
+    rar \
+    software-properties-common \
+    sudo \
+    unrar \
+    unrar-free \
+    unzip \
+    wget \
+    zip
+
+##################################################################
+#                  update locales
+##################################################################
+RUN locale-gen
+
+##################################################################
 #                   Install Cassandra Plugin
 ##################################################################
 ENV CAS_LUCENE_PLUGIN_VER=3.11.3.0
 ARG CAS_LUCENE_PLUGIN_DEST=/opt/bitnami/cassandra/lib/
 ARG CAS_LUCENE_PLUGIN_URL=https://repo1.maven.org/maven2/com/stratio/cassandra/cassandra-lucene-index-plugin/${CAS_LUCENE_PLUGIN_VER}/cassandra-lucene-index-plugin-${CAS_LUCENE_PLUGIN_VER}.jar
 
-ADD cd ${CAS_LUCENE_PLUGIN_URL} ${CAS_LUCENE_PLUGIN_DEST}
+ADD ${CAS_LUCENE_PLUGIN_URL} ${CAS_LUCENE_PLUGIN_DEST}
 
+##################################################################
+#                  Cleanup
+##################################################################
+RUN echo "clean up" && \
+    apt-get clean -y && \
+    apt-get autoclean -y && \
+    rm -rfv /var/lib/apt/lists/* && \
+    rm -rfv /var/cache/apt/archives/*.deb && \
+    rm -rfv /root/tmp/* && \
+    rm -rfv /tmp/*
+
+##################################################################
+#                  update file db
+##################################################################
+RUN updatedb
 
 USER 1001
