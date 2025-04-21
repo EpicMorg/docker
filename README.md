@@ -3,9 +3,10 @@
 ## Official Mirrors and Hubs
 
 | Name | Homepage | Docker | Podman |
-| `Quai.io` (default) | https://quay.io/epicmorg |  `docker pull quay.io/epicmorg/debian:boowkorm` |  `podman pull quay.io/epicmorg/debian:boowkorm` 
-| `DockerHub` (Mirror) | https://hub.docker.com/r/epicmorg |  `docker pull epicmorg/debian:boowkorm` |  `podman pullepicmorg/debian:boowkorm` 
-| `Harbor` (Mirror)  | https://hub.epicm.org/epicmorg |  `docker pull hub.epicm.org/epicmorg/debian:boowkorm` |  `podman pull hub.epicm.org/epicmorg/debian:boowkorm` 
+|:-------------|:-------------|:-------------|:-------------|
+| `Quai.io` (default) | https://quay.io/epicmorg |  `docker pull quay.io/epicmorg/debian:boowkorm` |  `podman pull quay.io/epicmorg/debian:boowkorm` |
+| `DockerHub` (Mirror) | https://hub.docker.com/r/epicmorg |  `docker pull epicmorg/debian:boowkorm` |  `podman pullepicmorg/debian:boowkorm` |
+| `Harbor` (Mirror)  | https://hub.epicm.org/epicmorg |  `docker pull hub.epicm.org/epicmorg/debian:boowkorm` |  `podman pull hub.epicm.org/epicmorg/debian:boowkorm` |
 
 ## DEPRECATION WARNING
 
