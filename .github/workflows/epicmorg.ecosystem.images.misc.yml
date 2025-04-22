@@ -156,9 +156,9 @@ jobs:
 
     - name: Install requirements.txt
       run:  make pip
-# to rework
-#    - name: Build and Deploy reTracker
-#      run:  cd linux/ecosystem/retracker && make build && make deploy
+
+    - name: Build and Deploy reTracker
+      run:  cd linux/ecosystem/retracker && make build && make deploy
 
 ##################################################################################
 

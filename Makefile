@@ -625,8 +625,6 @@ ecosystem-debian-buster-jdk-images:
 	@make clean
 
 ecosystem-debian-buster-nodejs-images: 
-	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/nodejs/current        && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/nodejs/lts            && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/nodejs/node0.12       && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/nodejs/node4          && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/10-buster/nodejs/node5          && pwd && make build && make deploy
@@ -722,8 +720,6 @@ ecosystem-debian-bullseye-jdk-images:
 	@make clean
 
 ecosystem-debian-bullseye-nodejs-images: 
-	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/nodejs/current        && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/nodejs/lts            && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/nodejs/node0.12       && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/nodejs/node4          && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/nodejs/node5          && pwd && make build && make deploy
