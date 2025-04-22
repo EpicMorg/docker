@@ -1,4 +1,4 @@
-name: EpicMorg Base - Debian 10 Images
+name: EpicMorg Base - Debian 09 Images
 
 on:
   workflow_dispatch:
@@ -7,7 +7,7 @@ on:
 
 jobs:
   build-base-images:
-    name: Build Debian 10 Base Images
+    name: Build Debian 9 Base Images
     runs-on: ubuntu-24.04
 
     steps:
@@ -28,28 +28,27 @@ jobs:
     - name: Install requirements.txt
       run: make pip
 
-    - name: Build and Deploy Debian 10 slim
-      run: cd linux/ecosystem/epicmorg/debian/10-buster/slim && pwd && make build && make deploy
+    - name: Build and Deploy Debian 9 slim
+      run: cd linux/ecosystem/epicmorg/debian/09-stretch/slim && pwd && make build && make deploy
 
-    - name: Build and Deploy Debian 10 main
-      run: cd linux/ecosystem/epicmorg/debian/10-buster/main && pwd && make build && make deploy
+    - name: Build and Deploy Debian 9 main
+      run: cd linux/ecosystem/epicmorg/debian/09-stretch/main && pwd && make build && make deploy
       
-    - name: Build and Deploy Debian 10 develop
-      run: cd linux/ecosystem/epicmorg/debian/10-buster/develop && pwd && make build && make deploy
+    - name: Build and Deploy Debian 9 develop
+      run: cd linux/ecosystem/epicmorg/debian/09-stretch/develop && pwd && make build && make deploy
 
     - name: Cleanup
       run: make clean
 
   build-node-images:
-    name: Build Debian 10 Node.js ${{ matrix.version }}
+    name: Build Debian 9 Node.js ${{ matrix.version }}
     runs-on: ubuntu-24.04
     needs: build-base-images
     strategy:
       matrix:
         version: [
           '0.12', '4', '5', '6', '7', '8', '9',
-          '10', '11', '12', '13', '14', '15', '16', '17', '18', '19',
-          '20', '21', '22'
+          '10', '11', '12', '13', '14', '15', '16', '17'
           ]
 
     steps:
@@ -71,13 +70,13 @@ jobs:
       run: make pip
 
     - name: Build and Deploy Node.js ${{ matrix.version }}
-      run: cd linux/ecosystem/epicmorg/debian/10-buster/nodejs/node${{ matrix.version }} && pwd && make build && make deploy
+      run: cd linux/ecosystem/epicmorg/debian/09-stretch/nodejs/node${{ matrix.version }} && pwd && make build && make deploy
 
     - name: Cleanup
       run: make clean
 
   build-jdk-images:
-    name: Build Debian 10 JDK ${{ matrix.version }}
+    name: Build Debian 9 JDK ${{ matrix.version }}
     runs-on: ubuntu-24.04
     needs: build-base-images
     strategy:
@@ -107,7 +106,7 @@ jobs:
       run: make pip
 
     - name: Build and Deploy JDK ${{ matrix.version }}
-      run: cd linux/ecosystem/epicmorg/debian/10-buster/jdk/jdk${{ matrix.version }} && pwd && make build && make deploy
+      run: cd linux/ecosystem/epicmorg/debian/09-stretch/jdk/jdk${{ matrix.version }} && pwd && make build && make deploy
 
     - name: Cleanup
       run: make clean

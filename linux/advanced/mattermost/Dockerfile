@@ -2,8 +2,8 @@ FROM mattermost/mattermost-enterprise-edition as bootstrap
 RUN cd ./bin && \
     ls -las
 
-FROM python:3.13-bookworm as edit
-COPY edit.py /tmp/edit.py
+FROM python:2.7 as edit
+COPY edit.py2 /tmp/edit.py
 COPY --from=bootstrap /mattermost/bin/mattermost /tmp/mattermost
 RUN cd /tmp && \
     chmod +x ./edit.py && \
