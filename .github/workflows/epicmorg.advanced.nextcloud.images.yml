@@ -7,7 +7,7 @@ on:
 
 jobs:
   build-nextcloud-images:
-    name: Build Nextcloud ${{ matrix.version }} (${{ matrix.image_type }})
+    name: Build Nextcloud ${{ matrix.version }} Images
     runs-on: ubuntu-24.04
     strategy:
       matrix:

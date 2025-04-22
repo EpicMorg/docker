@@ -3,541 +3,247 @@ name: EpicMorg Base - Debian 12 Images
 on:
   workflow_dispatch:
   schedule:
-    - cron:  '0 0 * * 1,3,5'
-
-env:
-  BUILDAH_FORMAT: docker
-  BUILDAH_ISOLATION: docker
+    - cron: '0 0 * * 1,3,5'
 
 jobs:
-
-  build-12-images:
-    name: Build EpicMorg Debian 12 Images
-    runs-on: [ ubuntu-24.04 ]
+  build-base-images:
+    name: Build Debian 12 Base Images
+    runs-on: ubuntu-24.04
 
     steps:
     - uses: actions/checkout@v4
     
     - name: Log into docker registry
-      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+      run: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
     - name: Log into Quay.IO registry
-      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
-
-#    - name: Log into harbor registry
-#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
+      run: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
 
     - name: Check buildah
-      run:  |
-        buildah --version
+      run: buildah --version
 
     - name: Test Make
-      run:  make
+      run: make
 
     - name: Install requirements.txt
-      run:  make pip
+      run: make pip
 
-    - name: "Build and Deploy Debian 12 slim Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/slim    && pwd && make build && make deploy
+    - name: Build and Deploy Debian 12 slim
+      run: cd linux/ecosystem/epicmorg/debian/12-bookworm/slim && pwd && make build && make deploy
 
-    - name: "Build and Deploy Debian 12 main Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/main    && pwd && make build && make deploy
+    - name: Build and Deploy Debian 12 main
+      run: cd linux/ecosystem/epicmorg/debian/12-bookworm/main && pwd && make build && make deploy
       
-    - name: "Build and Deploy Debian 12 develop Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/develop    && pwd && make build && make deploy
-
-##################################################################################
+    - name: Build and Deploy Debian 12 develop
+      run: cd linux/ecosystem/epicmorg/debian/12-bookworm/develop && pwd && make build && make deploy
 
     - name: Cleanup
       run: make clean
 
-##################################################################################
-
-  build-12-node-images:
-    name: Build EpicMorg Debian 12 Node Images
-    runs-on: [ ubuntu-24.04 ]
-    needs: build-12-images
+  build-node-images:
+    name: Build Debian 12 Node.js Images
+    runs-on: ubuntu-24.04
+    needs: build-base-images
+    strategy:
+      matrix:
+        include:
+          # Special Node versions
+          - {type: 'lts', path: 'nodejs/lts'}
+          - {type: 'current', path: 'nodejs/current'}
+          # Node version matrix
+          - {version: '0.12', path: 'nodejs/node0.12'}
+          - {version: '4', path: 'nodejs/node4'}
+          - {version: '5', path: 'nodejs/node5'}
+          - {version: '6', path: 'nodejs/node6'}
+          - {version: '7', path: 'nodejs/node7'}
+          - {version: '8', path: 'nodejs/node8'}
+          - {version: '9', path: 'nodejs/node9'}
+          - {version: '10', path: 'nodejs/node10'}
+          - {version: '11', path: 'nodejs/node11'}
+          - {version: '12', path: 'nodejs/node12'}
+          - {version: '13', path: 'nodejs/node13'}
+          - {version: '14', path: 'nodejs/node14'}
+          - {version: '15', path: 'nodejs/node15'}
+          - {version: '16', path: 'nodejs/node16'}
+          - {version: '17', path: 'nodejs/node17'}
+          - {version: '18', path: 'nodejs/node18'}
+          - {version: '19', path: 'nodejs/node19'}
+          - {version: '20', path: 'nodejs/node20'}
+          - {version: '21', path: 'nodejs/node21'}
+          - {version: '22', path: 'nodejs/node22'}
+          - {version: '23', path: 'nodejs/node23'}
 
     steps:
     - uses: actions/checkout@v4
     
     - name: Log into docker registry
-      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+      run: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
     - name: Log into Quay.IO registry
-      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
-
-#    - name: Log into harbor registry
-#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
+      run: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
 
     - name: Check buildah
-      run:  |
-        buildah --version
+      run: buildah --version
 
     - name: Test Make
-      run:  make
+      run: make
 
     - name: Install requirements.txt
-      run:  make pip
+      run: make pipin
 
-##################################################################################
-
-    - name: "Build and Deploy Debian 12 NodeJS LTS Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/lts    && pwd && make build && make deploy
-
-    - name: "Build and Deploy Debian 12 NodeJS Current Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/current    && pwd && make build && make deploy
-
-##################################################################################
-
-    - name: "Build and Deploy Debian 12 NodeJS 0.12 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node0.12    && pwd && make build && make deploy
-
-    - name: "Build and Deploy Debian 12 NodeJS 4 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node4    && pwd && make build && make deploy
-
-    - name: "Build and Deploy Debian 12 NodeJS 5 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node5    && pwd && make build && make deploy
-
-##################################################################################
+    - name: Build and Deploy Node.js ${{ matrix.type || matrix.version }}
+      run: cd linux/ecosystem/epicmorg/debian/12-bookworm/${{ matrix.path }} && pwd && make build && make deploy
 
     - name: Cleanup
       run: make clean
 
-##################################################################################
-
-    - name: "Build and Deploy Debian 12 NodeJS 6 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node6    && pwd && make build && make deploy
-
-    - name: "Build and Deploy Debian 12 NodeJS 7 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node7    && pwd && make build && make deploy
-
-    - name: "Build and Deploy Debian 12 NodeJS 8 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node8    && pwd && make build && make deploy
-    
-    - name: "Build and Deploy Debian 12 NodeJS 9 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node8    && pwd && make build && make deploy
-
-##################################################################################
-
-    - name: Cleanup
-      run: make clean
-
-##################################################################################
-
-    - name: "Build and Deploy Debian 12 NodeJS 10 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node10    && pwd && make build && make deploy
-
-    - name: "Build and Deploy Debian 12 NodeJS 11 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node11    && pwd && make build && make deploy
-
-    - name: "Build and Deploy Debian 12 NodeJS 12 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node12    && pwd && make build && make deploy
-
-##################################################################################
-
-    - name: Cleanup
-      run: make clean
-
-##################################################################################
-
-    - name: "Build and Deploy Debian 12 NodeJS 13 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node13    && pwd && make build && make deploy
-
-    - name: "Build and Deploy Debian 12 NodeJS 14 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node14    && pwd && make build && make deploy
-
-    - name: "Build and Deploy Debian 12 NodeJS 15 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node15    && pwd && make build && make deploy
-
-##################################################################################
-
-    - name: Cleanup
-      run: make clean
-
-##################################################################################
-
-    - name: "Build and Deploy Debian 12 NodeJS 16 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node16    && pwd && make build && make deploy
-
-    - name: "Build and Deploy Debian 12 NodeJS 17 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node17    && pwd && make build && make deploy
-
-    - name: "Build and Deploy Debian 12 NodeJS 18 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node18    && pwd && make build && make deploy
-
-##################################################################################
-
-    - name: Cleanup
-      run: make clean
-
-##################################################################################
-
-    - name: "Build and Deploy Debian 12 NodeJS 19 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node19    && pwd && make build && make deploy
-
-    - name: "Build and Deploy Debian 12 NodeJS 20 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node20    && pwd && make build && make deploy
-
-    - name: "Build and Deploy Debian 12 NodeJS 21 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node21    && pwd && make build && make deploy
-
-    - name: "Build and Deploy Debian 12 NodeJS 22 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node22    && pwd && make build && make deploy
-
-    - name: "Build and Deploy Debian 12 NodeJS 23 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node23    && pwd && make build && make deploy
-
-##################################################################################
-
-    - name: Cleanup
-      run: make clean
-
-##################################################################################
-
-  build-12-dotnet-images:
-    name: Build EpicMorg Debian 12 dotNet Images
-    runs-on: [ ubuntu-24.04 ]
-    needs: build-12-node-images
+  build-dotnet-images:
+    name: Build Debian 12 .NET Images
+    runs-on: ubuntu-24.04
+    needs: build-base-images
+    strategy:
+      matrix:
+        include:
+          # Special .NET versions
+          - {type: 'lts', path: 'dotnet/lts'}
+          - {type: 'sts', path: 'dotnet/sts'}
+          # .NET version matrix
+          - {version: '5', path: 'dotnet/dotnet5'}
+          - {version: '6', path: 'dotnet/dotnet6'}
+          - {version: '7', path: 'dotnet/dotnet7'}
+          - {version: '8', path: 'dotnet/dotnet8'}
+          - {version: '9', path: 'dotnet/dotnet9'}
 
     steps:
     - uses: actions/checkout@v4
     
     - name: Log into docker registry
-      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+      run: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
     - name: Log into Quay.IO registry
-      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
-
-#    - name: Log into harbor registry
-#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
+      run: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
 
     - name: Check buildah
-      run:  |
-        buildah --version
+      run: buildah --version
 
     - name: Test Make
-      run:  make
+      run: make
 
     - name: Install requirements.txt
-      run:  make pip
+      run: make pip
 
-##################################################################################
-
-    - name: "Build and Deploy Debian 12 dotNet LTS Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/dotnet/lts    && pwd && make build && make deploy
-
-    - name: "Build and Deploy Debian 12 dotNet STS Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/dotnet/sts    && pwd && make build && make deploy
-
-    - name: "Build and Deploy Debian 12 dotNet 5 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/dotnet/dotnet5    && pwd && make build && make deploy
-
-##################################################################################
+    - name: Build and Deploy .NET ${{ matrix.type || matrix.version }}
+      run: cd linux/ecosystem/epicmorg/debian/12-bookworm/${{ matrix.path }} && pwd && make build && make deploy
 
     - name: Cleanup
       run: make clean
 
-##################################################################################
-
-    - name: "Build and Deploy Debian 12 dotNet 6 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/dotnet/dotnet6    && pwd && make build && make deploy
-
-    - name: "Build and Deploy Debian 12 dotNet 7 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/dotnet/dotnet7    && pwd && make build && make deploy
-
-##################################################################################
-
-    - name: Cleanup
-      run: make clean
-
-##################################################################################
-
-    - name: "Build and Deploy Debian 12 dotNet 8 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/dotnet/dotnet8    && pwd && make build && make deploy
-
-    - name: "Build and Deploy Debian 12 dotNet 9 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/dotnet/dotnet9    && pwd && make build && make deploy
-
-##################################################################################
-
-    - name: Cleanup
-      run: make clean
-
-##################################################################################
-
-  build-12-php-images:
-    name: Build EpicMorg Debian 12 PHP Images
-    runs-on: [ ubuntu-24.04 ]
-    needs: build-12-node-images
+  build-php-images:
+    name: Build Debian 12 PHP Images
+    runs-on: ubuntu-24.04
+    needs: build-base-images
+    strategy:
+      matrix:
+        version: [
+          '5.6', 
+          '7.0', '7.1', '7.2', '7.3', '7.4', 
+          '8.0', '8.1', '8.2', '8.3', '8.4'
+          ]
 
     steps:
     - uses: actions/checkout@v4
     
     - name: Log into docker registry
-      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+      run: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
     - name: Log into Quay.IO registry
-      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
-
-#    - name: Log into harbor registry
-#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
+      run: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
 
     - name: Check buildah
-      run:  |
-        buildah --version
+      run: buildah --version
 
     - name: Test Make
-      run:  make
+      run: make
 
     - name: Install requirements.txt
-      run:  make pip
+      run: make pip
 
-##################################################################################
-
-    - name: "Build and Deploy Debian 12 PHP 5.6 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/php/php5.6    && pwd && make build && make deploy
-    
-    - name: "Build and Deploy Debian 12 PHP 7.0 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/php/php7.0    && pwd && make build && make deploy
-    
-##################################################################################
+    - name: Build and Deploy PHP ${{ matrix.version }}
+      run: cd linux/ecosystem/epicmorg/debian/12-bookworm/php/php${{ matrix.version }} && pwd && make build && make deploy
 
     - name: Cleanup
       run: make clean
 
-##################################################################################
-
-    - name: "Build and Deploy Debian 12 PHP 7.1 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/php/php7.1    && pwd && make build && make deploy
-    
-    - name: "Build and Deploy Debian 12 PHP 7.2 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/php/php7.2    && pwd && make build && make deploy
-    
-    - name: "Build and Deploy Debian 12 PHP 7.3 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/php/php7.3    && pwd && make build && make deploy
-
-##################################################################################
-
-    - name: Cleanup
-      run: make clean
-
-##################################################################################
-
-    - name: "Build and Deploy Debian 12 PHP 7.4 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/php/php7.4    && pwd && make build && make deploy
-    
-    - name: "Build and Deploy Debian 12 PHP 8.0 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/php/php8.0    && pwd && make build && make deploy
-    
-    - name: "Build and Deploy Debian 12 PHP 8.1 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/php/php8.1    && pwd && make build && make deploy
-
-##################################################################################
-
-    - name: Cleanup
-      run: make clean
-
-##################################################################################
-
-    - name: "Build and Deploy Debian 12 PHP 8.2 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/php/php8.2    && pwd && make build && make deploy
-    
-    - name: "Build and Deploy Debian 12 PHP 8.3 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/php/php8.3    && pwd && make build && make deploy
-
-    - name: "Build and Deploy Debian 12 PHP 8.4 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/php/php8.4    && pwd && make build && make deploy
-
-##################################################################################
-
-    - name: Cleanup
-      run: make clean
-
-##################################################################################
-
-  build-12-py-images:
-    name: Build EpicMorg Debian 12 Python Images
-    runs-on: [ ubuntu-24.04 ]
-    needs: build-12-dotnet-images
+  build-python-images:
+    name: Build Debian 12 Python Images
+    runs-on: ubuntu-24.04
+    needs: build-base-images
+    strategy:
+      matrix:
+        version: [
+          '2.6', '2.7',
+#         '3.0',
+          '3.1', '3.2', '3.3', '3.4', '3.5', 
+          '3.6', '3.7',  '3.8', '3.9', 
+          '3.10', '3.11', '3.12', '3.13'
+          ]
 
     steps:
     - uses: actions/checkout@v4
     
     - name: Log into docker registry
-      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+      run: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
     - name: Log into Quay.IO registry
-      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
-
-#    - name: Log into harbor registry
-#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
+      run: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
 
     - name: Check buildah
-      run:  |
-        buildah --version
+      run: buildah --version
 
     - name: Test Make
-      run:  make
+      run: make
 
     - name: Install requirements.txt
-      run:  make pip
+      run: make pip
 
-##################################################################################
-
-    - name: "Build and Deploy Debian 12 Python 3.9:"
-      run:  	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/python/3.9  && pwd && make build && make deploy
-
-    - name: "Build and Deploy Debian 12 Python 3.10:"
-      run:  	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/python/3.10  && pwd && make build && make deploy
-
-##################################################################################
+    - name: Build and Deploy Python ${{ matrix.version }}
+      run: cd linux/ecosystem/epicmorg/debian/12-bookworm/python/${{ matrix.version }} && pwd && make build && make deploy
 
     - name: Cleanup
       run: make clean
 
-##################################################################################
-
-    - name: "Build and Deploy Debian 12 Python 3.11:"
-      run:  	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/python/3.11  && pwd && make build && make deploy
-
-    - name: "Build and Deploy Debian 12 Python 3.12:"
-      run:  	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/python/3.12  && pwd && make build && make deploy
-
-    - name: "Build and Deploy Debian 12 Python 3.13:"
-      run:  	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/python/3.13  && pwd && make build && make deploy
-
-##################################################################################
-
-    - name: Cleanup
-      run: make clean
-
-##################################################################################
-
-  build-12-jdk-images:
-    name: Build EpicMorg Debian 12 JDK Images
-    runs-on: [ ubuntu-24.04 ]
-    needs: build-12-py-images
+  build-jdk-images:
+    name: Build Debian 12 JDK Images
+    runs-on: ubuntu-24.04
+    needs: build-base-images
+    strategy:
+      matrix:
+        version: [
+          '6', '7',
+          '8', '11', '17', '21',
+          '16',  '18', '19', '20',  '22', '23'
+          ]
 
     steps:
     - uses: actions/checkout@v4
     
     - name: Log into docker registry
-      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+      run: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
     - name: Log into Quay.IO registry
-      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
-
-#    - name: Log into harbor registry
-#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
+      run: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
 
     - name: Check buildah
-      run:  |
-        buildah --version
+      run: buildah --version
 
     - name: Test Make
-      run:  make
+      run: make
 
     - name: Install requirements.txt
-      run:  make pip
+      run: make pip
 
-##################################################################################
-
-    - name: "Build and Deploy Debian 12 jdk6 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/jdk/jdk6    && pwd && make build && make deploy
-      
-    - name: "Build and Deploy Debian 12 jdk7 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/jdk/jdk7    && pwd && make build && make deploy
-
-##################################################################################
+    - name: Build and Deploy JDK ${{ matrix.version }}
+      run: cd linux/ecosystem/epicmorg/debian/12-bookworm/jdk/jdk${{ matrix.version }} && pwd && make build && make deploy
 
     - name: Cleanup
       run: make clean
-
-##################################################################################
-
-    - name: "Build and Deploy Debian 12 jdk8 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/jdk/jdk8    && pwd && make build && make deploy
-      
-    - name: "Build and Deploy Debian 12 jdk11 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/jdk/jdk11    && pwd && make build && make deploy
-
-##################################################################################
-
-    - name: Cleanup
-      run: make clean
-
-##################################################################################
-
-    - name: "Build and Deploy Debian 12 jdk16 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/jdk/jdk16    && pwd && make build && make deploy
-
-    - name: "Build and Deploy Debian 12 jdk17 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/jdk/jdk17    && pwd && make build && make deploy
-
-##################################################################################
-
-    - name: Cleanup
-      run: make clean
-
-##################################################################################
-
-    - name: "Build and Deploy Debian 12 jdk18 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/jdk/jdk18    && pwd && make build && make deploy
-
-##################################################################################
-
-    - name: Cleanup
-      run: make clean
-
-##################################################################################
-
-    - name: "Build and Deploy Debian 12 jdk19 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/jdk/jdk19    && pwd && make build && make deploy
-
-##################################################################################
-
-    - name: Cleanup
-      run: make clean
-
-##################################################################################
-
-    - name: "Build and Deploy Debian 12 jdk20 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/jdk/jdk20    && pwd && make build && make deploy
-
-##################################################################################
-
-    - name: Cleanup
-      run: make clean
-
-##################################################################################
-
-    - name: "Build and Deploy Debian 12 jdk21 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/jdk/jdk21    && pwd && make build && make deploy
-
-##################################################################################
-
-    - name: Cleanup
-      run: make clean
-
-##################################################################################
-
-    - name: "Build and Deploy Debian 12 jdk22 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/jdk/jdk22    && pwd && make build && make deploy
-
-##################################################################################
-
-    - name: Cleanup
-      run: make clean
-
-##################################################################################
-
-    - name: "Build and Deploy Debian 12 jdk23 Image:"
-      run:  cd linux/ecosystem/epicmorg/debian/12-bookworm/jdk/jdk23    && pwd && make build && make deploy
-
-##################################################################################
-
-    - name: Cleanup
-      run: make clean
-
-##################################################################################
