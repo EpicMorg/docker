@@ -1,4 +1,7 @@
 # Changelog
+
+## 2025
+
 * `apr`
   * updated `cassandra`
   * added support for `Java` base images of custom CA certs
@@ -23,7 +26,7 @@
   * added `nextcloud` version `31`
   * updated `python`
   * updated `gitlab-runner`
-## 2025
+  
 * `mar`
   * updated `teamcity-server` iamge
   * added new `atlassian images`: `conflunece` 4 - 9, updated `jira` and `bitbucket`, added new `crowd` iamges.
@@ -34,6 +37,7 @@
   * Makefiles switched to `buildah` build runtime
   * `GHA` switched to `buildah` build runtime
   * updated `nodejs`, `jdk` base images
+
 * `feb`
   * added `zabbix` images with `7.2` version
   * added `OpenSSL` version `3.4.x` and `1.0.2u`.
@@ -41,6 +45,7 @@
   * created `python` base images.
   * updated `nextcloud` images.
   * fixed `sid` and `trixie` images.
+
 * `jan`
   * updated `atlassian` images
   * updated some deps in images:
@@ -52,6 +57,7 @@
   * fixed building of `debian` `12`, `13`, `sid`:
     * temprorary deprecated `boringssl` due compile issues. 
       * also, current maintainer do not like google's `rolling` update politics.
+
 ## 2024
 * `dec`
   * reworked `dhparam` regeneration in base images

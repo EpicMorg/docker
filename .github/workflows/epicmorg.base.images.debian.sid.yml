@@ -1,4 +1,4 @@
-name: EpicMorg Debian SID Images
+name: EpicMorg Base - Debian SID Images
 
 on:
   workflow_dispatch:

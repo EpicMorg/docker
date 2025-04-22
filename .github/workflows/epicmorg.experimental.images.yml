@@ -45,3 +45,35 @@ jobs:
       run: make clean
 
 ##################################################################################
+
+  build-torrust-tracker-image:
+    name: EpicMorg EcoSystem Torrust Tracker Image
+    runs-on: [ ubuntu-24.04 ]
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Log into docker registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Log into Quay.IO registry
+      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
+
+#    - name: Log into harbor registry
+#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
+
+    - name: Check buildah
+      run:  |
+        buildah --version
+
+    - name: Test Make
+      run:  make
+
+    - name: Install requirements.txt
+      run:  make pip
+
+    - name: Build and Deploy Torrust Tracker
+      run:  cd linux/ecosystem/torrust-tracker && make build && make deploy
+# to rework
+#    - name: Build and Deploy Torrust Index
+#      run:  cd linux/ecosystem/torrust-index && make build && make deploy

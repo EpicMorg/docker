@@ -1,0 +1,304 @@
+name: EpicMorg EcoSystem Testrail Images
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '4 4 * * 1,3,5'
+
+jobs:
+  build-testrail-main-images:
+    name: Build EpicMorg Testrail Main Images
+    runs-on: [ ubuntu-24.04 ]
+    strategy:
+      matrix:
+        version: [
+          '5.4.1.3669',
+          '5.5.0.3727',
+          '5.5.0.3731',
+          '5.5.0.3735',
+          '5.5.1.3746',
+          '5.6.0.3853',
+          '5.6.0.3856',
+          '5.6.0.3861',
+          '5.6.0.3862',
+          '5.6.0.3865',
+          '5.7.0.3938',
+          '5.7.0.3942',
+          '5.7.0.3951',
+          '5.7.1.4026',
+          '5.7.1.4028',
+          '6.0.0.4140',
+          '6.0.1.4163',
+          '6.1.0.4367',
+          '6.1.0.4369',
+          '6.1.1.1020',
+          '6.1.1.1021',
+          '6.2.0.1085',
+          '6.2.1.1003',
+          '6.2.1.1005',
+          '6.2.2.1107',
+          '6.2.3.1114',
+          '6.3.0.1120',
+          '6.3.1.1004',
+          '6.3.1.1006',
+          '6.4.0.1284',
+          '6.4.0.1293',
+          '6.5.0.1298',
+          '6.5.1.1002',
+          '6.5.3.1001',
+          '6.5.4.1002',
+          '6.5.4.1007',
+          '6.5.5.1009',
+          '6.5.6.1014',
+          '6.5.7.1000',
+          '6.6.0.1156',
+          '6.6.1.1166',
+          '6.7.1.1020',
+          '6.7.2.1037',
+          '6.7.2.1043',
+          '7.0.0.1057',
+          '7.0.1.1002',
+          '7.0.1.1013',
+          '7.0.2.1014',
+          '7.0.2.1015',
+          '7.0.2.1016',
+          '7.4.1.8079',
+          '7.4.1.8091',
+          '7.4.1.8092',
+          '7.5.1.7010',
+          '7.5.1.7012',
+          '7.5.1.7013',
+          '7.5.2.1002',
+          '7.5.3.1000',
+          '8.0.0.1089',
+          '8.0.1.1029',
+          '8.0.4.7036',
+          '8.0.6.1019',
+          '8.1.0.6186',
+          '9.0.0.1057'
+               ]
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Log into docker registry
+      run: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Log into Quay.IO registry
+      run: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
+
+    - name: Check buildah
+      run: |
+        buildah --version
+
+    - name: Test Make
+      run: make
+
+    - name: Install requirements.txt
+      run: make pip
+
+    - name: "Build and Deploy Testrail ${{ matrix.version }} Image:"
+      run: cd linux/ecosystem/testrail/${{ matrix.version }}/main && pwd && make build && make deploy
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
+  build-testrail-ad-images:
+    name: Build EpicMorg Testrail AD Images
+    runs-on: [ ubuntu-24.04 ]
+    needs: build-testrail-main-images
+    strategy:
+      matrix:
+        version: [
+          '5.4.1.3669',
+          '5.5.0.3727',
+          '5.5.0.3731',
+          '5.5.0.3735',
+          '5.5.1.3746',
+          '5.6.0.3853',
+          '5.6.0.3856',
+          '5.6.0.3861',
+          '5.6.0.3862',
+          '5.6.0.3865',
+          '5.7.0.3938',
+          '5.7.0.3942',
+          '5.7.0.3951',
+          '5.7.1.4026',
+          '5.7.1.4028',
+          '6.0.0.4140',
+          '6.0.1.4163',
+          '6.1.0.4367',
+          '6.1.0.4369',
+          '6.1.1.1020',
+          '6.1.1.1021',
+          '6.2.0.1085',
+          '6.2.1.1003',
+          '6.2.1.1005',
+          '6.2.2.1107',
+          '6.2.3.1114',
+          '6.3.0.1120',
+          '6.3.1.1004',
+          '6.3.1.1006',
+          '6.4.0.1284',
+          '6.4.0.1293',
+          '6.5.0.1298',
+          '6.5.1.1002',
+          '6.5.3.1001',
+          '6.5.4.1002',
+          '6.5.4.1007',
+          '6.5.5.1009',
+          '6.5.6.1014',
+          '6.5.7.1000',
+          '6.6.0.1156',
+          '6.6.1.1166',
+          '6.7.1.1020',
+          '6.7.2.1037',
+          '6.7.2.1043',
+          '7.0.0.1057',
+          '7.0.1.1002',
+          '7.0.1.1013',
+          '7.0.2.1014',
+          '7.0.2.1015',
+          '7.0.2.1016',
+          '7.4.1.8079',
+          '7.4.1.8091',
+          '7.4.1.8092',
+          '7.5.1.7010',
+          '7.5.1.7012',
+          '7.5.1.7013',
+          '7.5.2.1002',
+          '7.5.3.1000',
+          '8.0.0.1089',
+          '8.0.1.1029',
+          '8.0.4.7036',
+          '8.0.6.1019',
+          '8.1.0.6186',
+          '9.0.0.1057'
+        ]
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Log into docker registry
+      run: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Log into Quay.IO registry
+      run: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
+
+    - name: Check buildah
+      run: |
+        buildah --version
+
+    - name: Test Make
+      run: make
+
+    - name: Install requirements.txt
+      run: make pip
+
+    - name: "Build and Deploy Testrail ${{ matrix.version }} + AD Image:"
+      run: cd linux/ecosystem/testrail/${{ matrix.version }}/ad && pwd && make build && make deploy
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
+  build-testrail-ldap-images:
+    name: Build EpicMorg Testrail LDAP Images
+    runs-on: [ ubuntu-24.04 ]
+    needs: build-testrail-main-images
+    strategy:
+      matrix:
+        version: [
+          '5.4.1.3669',
+          '5.5.0.3727',
+          '5.5.0.3731',
+          '5.5.0.3735',
+          '5.5.1.3746',
+          '5.6.0.3853',
+          '5.6.0.3856',
+          '5.6.0.3861',
+          '5.6.0.3862',
+          '5.6.0.3865',
+          '5.7.0.3938',
+          '5.7.0.3942',
+          '5.7.0.3951',
+          '5.7.1.4026',
+          '5.7.1.4028',
+          '6.0.0.4140',
+          '6.0.1.4163',
+          '6.1.0.4367',
+          '6.1.0.4369',
+          '6.1.1.1020',
+          '6.1.1.1021',
+          '6.2.0.1085',
+          '6.2.1.1003',
+          '6.2.1.1005',
+          '6.2.2.1107',
+          '6.2.3.1114',
+          '6.3.0.1120',
+          '6.3.1.1004',
+          '6.3.1.1006',
+          '6.4.0.1284',
+          '6.4.0.1293',
+          '6.5.0.1298',
+          '6.5.1.1002',
+          '6.5.3.1001',
+          '6.5.4.1002',
+          '6.5.4.1007',
+          '6.5.5.1009',
+          '6.5.6.1014',
+          '6.5.7.1000',
+          '6.6.0.1156',
+          '6.6.1.1166',
+          '6.7.1.1020',
+          '6.7.2.1037',
+          '6.7.2.1043',
+          '7.0.0.1057',
+          '7.0.1.1002',
+          '7.0.1.1013',
+          '7.0.2.1014',
+          '7.0.2.1015',
+          '7.0.2.1016',
+          '7.4.1.8079',
+          '7.4.1.8091',
+          '7.4.1.8092',
+          '7.5.1.7010',
+          '7.5.1.7012',
+          '7.5.1.7013',
+          '7.5.2.1002',
+          '7.5.3.1000',
+          '8.0.0.1089',
+          '8.0.1.1029',
+          '8.0.4.7036',
+          '8.0.6.1019',
+          '8.1.0.6186',
+          '9.0.0.1057'
+        ]
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Log into docker registry
+      run: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Log into Quay.IO registry
+      run: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
+
+    - name: Check buildah
+      run: |
+        buildah --version
+
+    - name: Test Make
+      run: make
+
+    - name: Install requirements.txt
+      run: make pip
+
+    - name: "Build and Deploy Testrail ${{ matrix.version }} + LDAP Image:"
+      run: cd linux/ecosystem/testrail/${{ matrix.version }}/ldap && pwd && make build && make deploy
+
+    - name: Cleanup
+      run: make clean

@@ -3,7 +3,3 @@ services:
     image: "quay.io/epicmorg/vscode-server:android"
     build:
       context: .
-  app-jdk17:
-    image: "quay.io/epicmorg/debian:bookworm-develop-jdk17"
-    build:
-      context: .

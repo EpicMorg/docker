@@ -1,0 +1,5 @@
+services:
+  app:
+    image: "quay.io/epicmorg/github-runner:android-sdk"
+    build:
+      context: .

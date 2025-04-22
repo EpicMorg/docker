@@ -22,7 +22,7 @@ RUN mkdir -p ${DOTNET_ROOT} && \
 ##################################################################
 #                   Setup $PATH
 ##################################################################
-ENV PATH=$PATH:${DOTNET_ROOT}:${DOTNET_TOOLS_DIR}:${OPENSSL_34_BIN_DIR}
+ENV PATH=$PATH:${DOTNET_ROOT}:${DOTNET_TOOLS_DIR}
 
 ##################################################################
 #                   Version after install

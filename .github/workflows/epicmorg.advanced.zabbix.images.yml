@@ -65,583 +65,10 @@ jobs:
 
 ##################################################################################
 
-  build-30-images:
-    name: Build EpicMorg Advanced Zabbix 3.0 Images
-    runs-on: [ ubuntu-24.04 ]
-
-    steps:
-    - uses: actions/checkout@v4
-    
-    - name: Log into docker registry
-      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
-
-    - name: Log into Quay.IO registry
-      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
-
-#    - name: Log into harbor registry
-#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
-
-    - name: Check buildah
-      run:  |
-        buildah --version
-
-    - name: Test Make
-      run:  make
-
-    - name: Install requirements.txt
-      run:  make pip
-
-    - name: "Build and Deploy Advanced Zabbix Agent Images:"
-      run:  cd linux/advanced/zabbix/3.0/agent && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Java Gateway  Images:"
-      run:  cd linux/advanced/zabbix/3.0/java-gateway && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Proxy Mysql Images:"
-      run:  cd linux/advanced/zabbix/3.0/proxy-mysql && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Proxy Sqlite3 Images:"
-      run:  cd linux/advanced/zabbix/3.0/proxy-sqlite3 && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Server Mysql Images:"
-      run:  cd linux/advanced/zabbix/3.0/server-mysql && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Server Pgsql Images:"
-      run:  cd linux/advanced/zabbix/3.0/server-pgsql && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Snmptraps Images:"
-      run:  cd linux/advanced/zabbix/3.0/snmptraps && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Web Mysql Images:"
-      run:  cd linux/advanced/zabbix/3.0/web-mysql && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Web Pgsql Images:"
-      run:  cd linux/advanced/zabbix/3.0/web-pgsql && pwd && make build && make deploy
-
-##################################################################################
-
-  build-40-images:
-    name: Build EpicMorg Advanced Zabbix 4.0 Images
-    runs-on: [ ubuntu-24.04 ]
-
-    steps:
-    - uses: actions/checkout@v4
-    
-    - name: Log into docker registry
-      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
-
-    - name: Log into Quay.IO registry
-      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
-
-#    - name: Log into harbor registry
-#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
-
-    - name: Check buildah
-      run:  |
-        buildah --version
-
-    - name: Test Make
-      run:  make
-
-    - name: Install requirements.txt
-      run:  make pip
-
-    - name: "Build and Deploy Advanced Zabbix Agent Images:"
-      run:  cd linux/advanced/zabbix/4.0/agent && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Java Gateway  Images:"
-      run:  cd linux/advanced/zabbix/4.0/java-gateway && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Proxy Mysql Images:"
-      run:  cd linux/advanced/zabbix/4.0/proxy-mysql && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Proxy Sqlite3 Images:"
-      run:  cd linux/advanced/zabbix/4.0/proxy-sqlite3 && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Server Mysql Images:"
-      run:  cd linux/advanced/zabbix/4.0/server-mysql && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Server Pgsql Images:"
-      run:  cd linux/advanced/zabbix/4.0/server-pgsql && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Snmptraps Images:"
-      run:  cd linux/advanced/zabbix/4.0/snmptraps && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Web Mysql Images:"
-      run:  cd linux/advanced/zabbix/4.0/web-mysql && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Web Pgsql Images:"
-      run:  cd linux/advanced/zabbix/4.0/web-pgsql && pwd && make build && make deploy
-
-##################################################################################
-
-  build-50-images:
-    name: Build EpicMorg Advanced Zabbix 5.0 Images
-    runs-on: [ ubuntu-24.04 ]
-
-    steps:
-    - uses: actions/checkout@v4
-    
-    - name: Log into docker registry
-      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
-
-    - name: Log into Quay.IO registry
-      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
-
-#    - name: Log into harbor registry
-#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
-
-    - name: Check buildah
-      run:  |
-        buildah --version
-
-    - name: Test Make
-      run:  make
-
-    - name: Install requirements.txt
-      run:  make pip
-
-    - name: "Build and Deploy Advanced Zabbix Agent Images:"
-      run:  cd linux/advanced/zabbix/5.0/agent && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Agent2 Images:"
-      run:  cd linux/advanced/zabbix/5.0/agent2 && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Java Gateway  Images:"
-      run:  cd linux/advanced/zabbix/5.0/java-gateway && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Proxy Mysql Images:"
-      run:  cd linux/advanced/zabbix/5.0/proxy-mysql && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Proxy Sqlite3 Images:"
-      run:  cd linux/advanced/zabbix/5.0/proxy-sqlite3 && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Server Mysql Images:"
-      run:  cd linux/advanced/zabbix/5.0/server-mysql && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Server Pgsql Images:"
-      run:  cd linux/advanced/zabbix/5.0/server-pgsql && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Snmptraps Images:"
-      run:  cd linux/advanced/zabbix/5.0/snmptraps && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Web Mysql Images:"
-      run:  cd linux/advanced/zabbix/5.0/web-mysql && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Web Pgsql Images:"
-      run:  cd linux/advanced/zabbix/5.0/web-pgsql && pwd && make build && make deploy
-
-##################################################################################
-
-  build-52-images:
-    name: Build EpicMorg Advanced Zabbix 5.2 Images
-    runs-on: [ ubuntu-24.04 ]
-
-    steps:
-    - uses: actions/checkout@v4
-    
-    - name: Log into docker registry
-      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
-
-    - name: Log into Quay.IO registry
-      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
-
-#    - name: Log into harbor registry
-#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
-
-    - name: Check buildah
-      run:  |
-        buildah --version
-
-    - name: Test Make
-      run:  make
-
-    - name: Install requirements.txt
-      run:  make pip
-
-    - name: "Build and Deploy Advanced Zabbix Agent Images:"
-      run:  cd linux/advanced/zabbix/5.2/agent && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Agent2 Images:"
-      run:  cd linux/advanced/zabbix/5.2/agent2 && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Java Gateway  Images:"
-      run:  cd linux/advanced/zabbix/5.2/java-gateway && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Proxy Mysql Images:"
-      run:  cd linux/advanced/zabbix/5.2/proxy-mysql && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Proxy Sqlite3 Images:"
-      run:  cd linux/advanced/zabbix/5.2/proxy-sqlite3 && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Server Mysql Images:"
-      run:  cd linux/advanced/zabbix/5.2/server-mysql && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Server Pgsql Images:"
-      run:  cd linux/advanced/zabbix/5.2/server-pgsql && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Snmptraps Images:"
-      run:  cd linux/advanced/zabbix/5.2/snmptraps && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Web Mysql Images:"
-      run:  cd linux/advanced/zabbix/5.2/web-mysql && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Web Pgsql Images:"
-      run:  cd linux/advanced/zabbix/5.2/web-pgsql && pwd && make build && make deploy
-
-##################################################################################
-
-  build-54-images:
-    name: Build EpicMorg Advanced Zabbix 5.4 Images
-    runs-on: [ ubuntu-24.04 ]
-
-    steps:
-    - uses: actions/checkout@v4
-    
-    - name: Log into docker registry
-      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
-
-    - name: Log into Quay.IO registry
-      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
-
-#    - name: Log into harbor registry
-#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
-
-    - name: Check buildah
-      run:  |
-        buildah --version
-
-    - name: Test Make
-      run:  make
-
-    - name: Install requirements.txt
-      run:  make pip
-
-    - name: "Build and Deploy Advanced Zabbix Agent Images:"
-      run:  cd linux/advanced/zabbix/5.4/agent && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Agent2 Images:"
-      run:  cd linux/advanced/zabbix/5.4/agent2 && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Java Gateway  Images:"
-      run:  cd linux/advanced/zabbix/5.4/java-gateway && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Proxy Mysql Images:"
-      run:  cd linux/advanced/zabbix/5.4/proxy-mysql && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Proxy Sqlite3 Images:"
-      run:  cd linux/advanced/zabbix/5.4/proxy-sqlite3 && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Server Mysql Images:"
-      run:  cd linux/advanced/zabbix/5.4/server-mysql && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Server Pgsql Images:"
-      run:  cd linux/advanced/zabbix/5.4/server-pgsql && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Snmptraps Images:"
-      run:  cd linux/advanced/zabbix/5.4/snmptraps && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Web Mysql Images:"
-      run:  cd linux/advanced/zabbix/5.4/web-mysql && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Web Pgsql Images:"
-      run:  cd linux/advanced/zabbix/5.4/web-pgsql && pwd && make build && make deploy
-
-##################################################################################
-
-  build-60-images:
-    name: Build EpicMorg Advanced Zabbix 6.0 Images
-    runs-on: [ ubuntu-24.04 ]
-
-    steps:
-    - uses: actions/checkout@v4
-    
-    - name: Log into docker registry
-      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
-
-    - name: Log into Quay.IO registry
-      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
-
-#    - name: Log into harbor registry
-#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
-
-    - name: Check buildah
-      run:  |
-        buildah --version
-
-    - name: Test Make
-      run:  make
-
-    - name: Install requirements.txt
-      run:  make pip
-
-    - name: "Build and Deploy Advanced Zabbix Agent Images:"
-      run:  cd linux/advanced/zabbix/6.0/agent && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Agent2 Images:"
-      run:  cd linux/advanced/zabbix/6.0/agent2 && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Java Gateway  Images:"
-      run:  cd linux/advanced/zabbix/6.0/java-gateway && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Proxy Mysql Images:"
-      run:  cd linux/advanced/zabbix/6.0/proxy-mysql && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Proxy Sqlite3 Images:"
-      run:  cd linux/advanced/zabbix/6.0/proxy-sqlite3 && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Server Mysql Images:"
-      run:  cd linux/advanced/zabbix/6.0/server-mysql && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Server Pgsql Images:"
-      run:  cd linux/advanced/zabbix/6.0/server-pgsql && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Snmptraps Images:"
-      run:  cd linux/advanced/zabbix/6.0/snmptraps && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Web Mysql Images:"
-      run:  cd linux/advanced/zabbix/6.0/web-mysql && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Web Pgsql Images:"
-      run:  cd linux/advanced/zabbix/6.0/web-pgsql && pwd && make build && make deploy
-
-##################################################################################
-
-  build-62-images:
-    name: Build EpicMorg Advanced Zabbix 6.2 Images
-    runs-on: [ ubuntu-24.04 ]
-
-    steps:
-    - uses: actions/checkout@v4
-    
-    - name: Log into docker registry
-      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
-
-    - name: Log into Quay.IO registry
-      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
-
-#    - name: Log into harbor registry
-#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
-
-    - name: Check buildah
-      run:  |
-        buildah --version
-
-    - name: Test Make
-      run:  make
-
-    - name: Install requirements.txt
-      run:  make pip
-
-    - name: "Build and Deploy Advanced Zabbix Agent Images:"
-      run:  cd linux/advanced/zabbix/6.2/agent && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Agent2 Images:"
-      run:  cd linux/advanced/zabbix/6.2/agent2 && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Java Gateway  Images:"
-      run:  cd linux/advanced/zabbix/6.2/java-gateway && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Proxy Mysql Images:"
-      run:  cd linux/advanced/zabbix/6.2/proxy-mysql && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Proxy Sqlite3 Images:"
-      run:  cd linux/advanced/zabbix/6.2/proxy-sqlite3 && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Server Mysql Images:"
-      run:  cd linux/advanced/zabbix/6.2/server-mysql && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Server Pgsql Images:"
-      run:  cd linux/advanced/zabbix/6.2/server-pgsql && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Snmptraps Images:"
-      run:  cd linux/advanced/zabbix/6.2/snmptraps && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Web Mysql Images:"
-      run:  cd linux/advanced/zabbix/6.2/web-mysql && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Web Pgsql Images:"
-      run:  cd linux/advanced/zabbix/6.2/web-pgsql && pwd && make build && make deploy
-
-##################################################################################
-
-  build-64-images:
-    name: Build EpicMorg Advanced Zabbix 6.4 Images
-    runs-on: [ ubuntu-24.04 ]
-
-    steps:
-    - uses: actions/checkout@v4
-    
-    - name: Log into docker registry
-      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
-
-    - name: Log into Quay.IO registry
-      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
-
-#    - name: Log into harbor registry
-#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
-
-    - name: Check buildah
-      run:  |
-        buildah --version
-
-    - name: Test Make
-      run:  make
-
-    - name: Install requirements.txt
-      run:  make pip
-
-    - name: "Build and Deploy Advanced Zabbix Agent Images:"
-      run:  cd linux/advanced/zabbix/6.4/agent && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Agent2 Images:"
-      run:  cd linux/advanced/zabbix/6.4/agent2 && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Java Gateway  Images:"
-      run:  cd linux/advanced/zabbix/6.4/java-gateway && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Proxy Mysql Images:"
-      run:  cd linux/advanced/zabbix/6.4/proxy-mysql && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Proxy Sqlite3 Images:"
-      run:  cd linux/advanced/zabbix/6.4/proxy-sqlite3 && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Server Mysql Images:"
-      run:  cd linux/advanced/zabbix/6.4/server-mysql && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Server Pgsql Images:"
-      run:  cd linux/advanced/zabbix/6.4/server-pgsql && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Snmptraps Images:"
-      run:  cd linux/advanced/zabbix/6.4/snmptraps && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Web Mysql Images:"
-      run:  cd linux/advanced/zabbix/6.4/web-mysql && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Web Pgsql Images:"
-      run:  cd linux/advanced/zabbix/6.4/web-pgsql && pwd && make build && make deploy
-
-##################################################################################
-
-  build-70-images:
-    name: Build EpicMorg Advanced Zabbix 7.0 Images
-    runs-on: [ ubuntu-24.04 ]
-
-    steps:
-    - uses: actions/checkout@v4
-    
-    - name: Log into docker registry
-      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
-
-    - name: Log into Quay.IO registry
-      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
-
-#    - name: Log into harbor registry
-#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
-
-    - name: Check buildah
-      run:  |
-        buildah --version
-
-    - name: Test Make
-      run:  make
-
-    - name: Install requirements.txt
-      run:  make pip
-
-    - name: "Build and Deploy Advanced Zabbix Agent Images:"
-      run:  cd linux/advanced/zabbix/7.0/agent && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Agent2 Images:"
-      run:  cd linux/advanced/zabbix/7.0/agent2 && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Java Gateway  Images:"
-      run:  cd linux/advanced/zabbix/7.0/java-gateway && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Proxy Mysql Images:"
-      run:  cd linux/advanced/zabbix/7.0/proxy-mysql && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Proxy Sqlite3 Images:"
-      run:  cd linux/advanced/zabbix/7.0/proxy-sqlite3 && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Server Mysql Images:"
-      run:  cd linux/advanced/zabbix/7.0/server-mysql && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Server Pgsql Images:"
-      run:  cd linux/advanced/zabbix/7.0/server-pgsql && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Snmptraps Images:"
-      run:  cd linux/advanced/zabbix/7.0/snmptraps && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Web Mysql Images:"
-      run:  cd linux/advanced/zabbix/7.0/web-mysql && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Web Pgsql Images:"
-      run:  cd linux/advanced/zabbix/7.0/web-pgsql && pwd && make build && make deploy
-
-##################################################################################
-
-  build-72-images:
-    name: Build EpicMorg Advanced Zabbix 7.2 Images
-    runs-on: [ ubuntu-24.04 ]
-
-    steps:
-    - uses: actions/checkout@v4
-    
-    - name: Log into docker registry
-      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
-
-    - name: Log into Quay.IO registry
-      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
-
-#    - name: Log into harbor registry
-#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
-
-    - name: Check buildah
-      run:  |
-        buildah --version
-
-    - name: Test Make
-      run:  make
-
-    - name: Install requirements.txt
-      run:  make pip
-
-    - name: "Build and Deploy Advanced Zabbix Agent Images:"
-      run:  cd linux/advanced/zabbix/7.2/agent && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Agent2 Images:"
-      run:  cd linux/advanced/zabbix/7.2/agent2 && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Java Gateway  Images:"
-      run:  cd linux/advanced/zabbix/7.2/java-gateway && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Proxy Mysql Images:"
-      run:  cd linux/advanced/zabbix/7.2/proxy-mysql && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Proxy Sqlite3 Images:"
-      run:  cd linux/advanced/zabbix/7.2/proxy-sqlite3 && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Server Mysql Images:"
-      run:  cd linux/advanced/zabbix/7.2/server-mysql && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Server Pgsql Images:"
-      run:  cd linux/advanced/zabbix/7.2/server-pgsql && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Snmptraps Images:"
-      run:  cd linux/advanced/zabbix/7.2/snmptraps && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Web Mysql Images:"
-      run:  cd linux/advanced/zabbix/7.2/web-mysql && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Zabbix Web Pgsql Images:"
-      run:  cd linux/advanced/zabbix/7.2/web-pgsql && pwd && make build && make deploy
-
-##################################################################################
-
   build-trunk-images:
     name: Build EpicMorg Advanced Zabbix trunk Images
     runs-on: [ ubuntu-24.04 ]
+    needs: build-latest-images
 
     steps:
     - uses: actions/checkout@v4
@@ -697,5 +124,636 @@ jobs:
 
 ##################################################################################
 
+  build-72-images:
+    name: Build EpicMorg Advanced Zabbix 7.2 Images
+    runs-on: [ ubuntu-24.04 ]
+    needs: build-trunk-images
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Log into docker registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Log into Quay.IO registry
+      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
+
+#    - name: Log into harbor registry
+#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
+
+    - name: Check buildah
+      run:  |
+        buildah --version
+
+    - name: Test Make
+      run:  make
+
+    - name: Install requirements.txt
+      run:  make pip
+
+    - name: "Build and Deploy Advanced Zabbix Agent Images:"
+      run:  cd linux/advanced/zabbix/7.2/agent && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Agent2 Images:"
+      run:  cd linux/advanced/zabbix/7.2/agent2 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Java Gateway  Images:"
+      run:  cd linux/advanced/zabbix/7.2/java-gateway && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Proxy Mysql Images:"
+      run:  cd linux/advanced/zabbix/7.2/proxy-mysql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Proxy Sqlite3 Images:"
+      run:  cd linux/advanced/zabbix/7.2/proxy-sqlite3 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Server Mysql Images:"
+      run:  cd linux/advanced/zabbix/7.2/server-mysql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Server Pgsql Images:"
+      run:  cd linux/advanced/zabbix/7.2/server-pgsql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Snmptraps Images:"
+      run:  cd linux/advanced/zabbix/7.2/snmptraps && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Web Mysql Images:"
+      run:  cd linux/advanced/zabbix/7.2/web-mysql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Web Pgsql Images:"
+      run:  cd linux/advanced/zabbix/7.2/web-pgsql && pwd && make build && make deploy
+
+##################################################################################
+
     - name: Cleanup
       run: make clean
+
+##################################################################################
+
+  build-70-images:
+    name: Build EpicMorg Advanced Zabbix 7.0 Images
+    runs-on: [ ubuntu-24.04 ]
+    needs: build-72-images
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Log into docker registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Log into Quay.IO registry
+      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
+
+#    - name: Log into harbor registry
+#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
+
+    - name: Check buildah
+      run:  |
+        buildah --version
+
+    - name: Test Make
+      run:  make
+
+    - name: Install requirements.txt
+      run:  make pip
+
+    - name: "Build and Deploy Advanced Zabbix Agent Images:"
+      run:  cd linux/advanced/zabbix/7.0/agent && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Agent2 Images:"
+      run:  cd linux/advanced/zabbix/7.0/agent2 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Java Gateway  Images:"
+      run:  cd linux/advanced/zabbix/7.0/java-gateway && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Proxy Mysql Images:"
+      run:  cd linux/advanced/zabbix/7.0/proxy-mysql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Proxy Sqlite3 Images:"
+      run:  cd linux/advanced/zabbix/7.0/proxy-sqlite3 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Server Mysql Images:"
+      run:  cd linux/advanced/zabbix/7.0/server-mysql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Server Pgsql Images:"
+      run:  cd linux/advanced/zabbix/7.0/server-pgsql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Snmptraps Images:"
+      run:  cd linux/advanced/zabbix/7.0/snmptraps && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Web Mysql Images:"
+      run:  cd linux/advanced/zabbix/7.0/web-mysql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Web Pgsql Images:"
+      run:  cd linux/advanced/zabbix/7.0/web-pgsql && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
+  build-64-images:
+    name: Build EpicMorg Advanced Zabbix 6.4 Images
+    runs-on: [ ubuntu-24.04 ]
+    needs: build-70-images
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Log into docker registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Log into Quay.IO registry
+      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
+
+#    - name: Log into harbor registry
+#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
+
+    - name: Check buildah
+      run:  |
+        buildah --version
+
+    - name: Test Make
+      run:  make
+
+    - name: Install requirements.txt
+      run:  make pip
+
+    - name: "Build and Deploy Advanced Zabbix Agent Images:"
+      run:  cd linux/advanced/zabbix/6.4/agent && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Agent2 Images:"
+      run:  cd linux/advanced/zabbix/6.4/agent2 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Java Gateway  Images:"
+      run:  cd linux/advanced/zabbix/6.4/java-gateway && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Proxy Mysql Images:"
+      run:  cd linux/advanced/zabbix/6.4/proxy-mysql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Proxy Sqlite3 Images:"
+      run:  cd linux/advanced/zabbix/6.4/proxy-sqlite3 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Server Mysql Images:"
+      run:  cd linux/advanced/zabbix/6.4/server-mysql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Server Pgsql Images:"
+      run:  cd linux/advanced/zabbix/6.4/server-pgsql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Snmptraps Images:"
+      run:  cd linux/advanced/zabbix/6.4/snmptraps && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Web Mysql Images:"
+      run:  cd linux/advanced/zabbix/6.4/web-mysql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Web Pgsql Images:"
+      run:  cd linux/advanced/zabbix/6.4/web-pgsql && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
+  build-62-images:
+    name: Build EpicMorg Advanced Zabbix 6.2 Images
+    runs-on: [ ubuntu-24.04 ]
+    needs: build-64-images
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Log into docker registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Log into Quay.IO registry
+      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
+
+#    - name: Log into harbor registry
+#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
+
+    - name: Check buildah
+      run:  |
+        buildah --version
+
+    - name: Test Make
+      run:  make
+
+    - name: Install requirements.txt
+      run:  make pip
+
+    - name: "Build and Deploy Advanced Zabbix Agent Images:"
+      run:  cd linux/advanced/zabbix/6.2/agent && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Agent2 Images:"
+      run:  cd linux/advanced/zabbix/6.2/agent2 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Java Gateway  Images:"
+      run:  cd linux/advanced/zabbix/6.2/java-gateway && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Proxy Mysql Images:"
+      run:  cd linux/advanced/zabbix/6.2/proxy-mysql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Proxy Sqlite3 Images:"
+      run:  cd linux/advanced/zabbix/6.2/proxy-sqlite3 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Server Mysql Images:"
+      run:  cd linux/advanced/zabbix/6.2/server-mysql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Server Pgsql Images:"
+      run:  cd linux/advanced/zabbix/6.2/server-pgsql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Snmptraps Images:"
+      run:  cd linux/advanced/zabbix/6.2/snmptraps && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Web Mysql Images:"
+      run:  cd linux/advanced/zabbix/6.2/web-mysql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Web Pgsql Images:"
+      run:  cd linux/advanced/zabbix/6.2/web-pgsql && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
+  build-60-images:
+    name: Build EpicMorg Advanced Zabbix 6.0 Images
+    runs-on: [ ubuntu-24.04 ]
+    needs: build-62-images
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Log into docker registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Log into Quay.IO registry
+      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
+
+#    - name: Log into harbor registry
+#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
+
+    - name: Check buildah
+      run:  |
+        buildah --version
+
+    - name: Test Make
+      run:  make
+
+    - name: Install requirements.txt
+      run:  make pip
+
+    - name: "Build and Deploy Advanced Zabbix Agent Images:"
+      run:  cd linux/advanced/zabbix/6.0/agent && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Agent2 Images:"
+      run:  cd linux/advanced/zabbix/6.0/agent2 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Java Gateway  Images:"
+      run:  cd linux/advanced/zabbix/6.0/java-gateway && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Proxy Mysql Images:"
+      run:  cd linux/advanced/zabbix/6.0/proxy-mysql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Proxy Sqlite3 Images:"
+      run:  cd linux/advanced/zabbix/6.0/proxy-sqlite3 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Server Mysql Images:"
+      run:  cd linux/advanced/zabbix/6.0/server-mysql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Server Pgsql Images:"
+      run:  cd linux/advanced/zabbix/6.0/server-pgsql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Snmptraps Images:"
+      run:  cd linux/advanced/zabbix/6.0/snmptraps && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Web Mysql Images:"
+      run:  cd linux/advanced/zabbix/6.0/web-mysql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Web Pgsql Images:"
+      run:  cd linux/advanced/zabbix/6.0/web-pgsql && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
+  build-54-images:
+    name: Build EpicMorg Advanced Zabbix 5.4 Images
+    runs-on: [ ubuntu-24.04 ]
+    needs: build-60-images
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Log into docker registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Log into Quay.IO registry
+      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
+
+#    - name: Log into harbor registry
+#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
+
+    - name: Check buildah
+      run:  |
+        buildah --version
+
+    - name: Test Make
+      run:  make
+
+    - name: Install requirements.txt
+      run:  make pip
+
+    - name: "Build and Deploy Advanced Zabbix Agent Images:"
+      run:  cd linux/advanced/zabbix/5.4/agent && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Agent2 Images:"
+      run:  cd linux/advanced/zabbix/5.4/agent2 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Java Gateway  Images:"
+      run:  cd linux/advanced/zabbix/5.4/java-gateway && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Proxy Mysql Images:"
+      run:  cd linux/advanced/zabbix/5.4/proxy-mysql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Proxy Sqlite3 Images:"
+      run:  cd linux/advanced/zabbix/5.4/proxy-sqlite3 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Server Mysql Images:"
+      run:  cd linux/advanced/zabbix/5.4/server-mysql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Server Pgsql Images:"
+      run:  cd linux/advanced/zabbix/5.4/server-pgsql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Snmptraps Images:"
+      run:  cd linux/advanced/zabbix/5.4/snmptraps && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Web Mysql Images:"
+      run:  cd linux/advanced/zabbix/5.4/web-mysql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Web Pgsql Images:"
+      run:  cd linux/advanced/zabbix/5.4/web-pgsql && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
+  build-52-images:
+    name: Build EpicMorg Advanced Zabbix 5.2 Images
+    runs-on: [ ubuntu-24.04 ]
+    needs: build-54-images
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Log into docker registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Log into Quay.IO registry
+      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
+
+#    - name: Log into harbor registry
+#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
+
+    - name: Check buildah
+      run:  |
+        buildah --version
+
+    - name: Test Make
+      run:  make
+
+    - name: Install requirements.txt
+      run:  make pip
+
+    - name: "Build and Deploy Advanced Zabbix Agent Images:"
+      run:  cd linux/advanced/zabbix/5.2/agent && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Agent2 Images:"
+      run:  cd linux/advanced/zabbix/5.2/agent2 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Java Gateway  Images:"
+      run:  cd linux/advanced/zabbix/5.2/java-gateway && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Proxy Mysql Images:"
+      run:  cd linux/advanced/zabbix/5.2/proxy-mysql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Proxy Sqlite3 Images:"
+      run:  cd linux/advanced/zabbix/5.2/proxy-sqlite3 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Server Mysql Images:"
+      run:  cd linux/advanced/zabbix/5.2/server-mysql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Server Pgsql Images:"
+      run:  cd linux/advanced/zabbix/5.2/server-pgsql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Snmptraps Images:"
+      run:  cd linux/advanced/zabbix/5.2/snmptraps && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Web Mysql Images:"
+      run:  cd linux/advanced/zabbix/5.2/web-mysql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Web Pgsql Images:"
+      run:  cd linux/advanced/zabbix/5.2/web-pgsql && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
+  build-50-images:
+    name: Build EpicMorg Advanced Zabbix 5.0 Images
+    runs-on: [ ubuntu-24.04 ]
+    needs: build-52-images
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Log into docker registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Log into Quay.IO registry
+      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
+
+#    - name: Log into harbor registry
+#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
+
+    - name: Check buildah
+      run:  |
+        buildah --version
+
+    - name: Test Make
+      run:  make
+
+    - name: Install requirements.txt
+      run:  make pip
+
+    - name: "Build and Deploy Advanced Zabbix Agent Images:"
+      run:  cd linux/advanced/zabbix/5.0/agent && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Agent2 Images:"
+      run:  cd linux/advanced/zabbix/5.0/agent2 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Java Gateway  Images:"
+      run:  cd linux/advanced/zabbix/5.0/java-gateway && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Proxy Mysql Images:"
+      run:  cd linux/advanced/zabbix/5.0/proxy-mysql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Proxy Sqlite3 Images:"
+      run:  cd linux/advanced/zabbix/5.0/proxy-sqlite3 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Server Mysql Images:"
+      run:  cd linux/advanced/zabbix/5.0/server-mysql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Server Pgsql Images:"
+      run:  cd linux/advanced/zabbix/5.0/server-pgsql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Snmptraps Images:"
+      run:  cd linux/advanced/zabbix/5.0/snmptraps && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Web Mysql Images:"
+      run:  cd linux/advanced/zabbix/5.0/web-mysql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Web Pgsql Images:"
+      run:  cd linux/advanced/zabbix/5.0/web-pgsql && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
+  build-40-images:
+    name: Build EpicMorg Advanced Zabbix 4.0 Images
+    runs-on: [ ubuntu-24.04 ]
+    needs: build-50-images
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Log into docker registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Log into Quay.IO registry
+      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
+
+#    - name: Log into harbor registry
+#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
+
+    - name: Check buildah
+      run:  |
+        buildah --version
+
+    - name: Test Make
+      run:  make
+
+    - name: Install requirements.txt
+      run:  make pip
+
+    - name: "Build and Deploy Advanced Zabbix Agent Images:"
+      run:  cd linux/advanced/zabbix/4.0/agent && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Java Gateway  Images:"
+      run:  cd linux/advanced/zabbix/4.0/java-gateway && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Proxy Mysql Images:"
+      run:  cd linux/advanced/zabbix/4.0/proxy-mysql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Proxy Sqlite3 Images:"
+      run:  cd linux/advanced/zabbix/4.0/proxy-sqlite3 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Server Mysql Images:"
+      run:  cd linux/advanced/zabbix/4.0/server-mysql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Server Pgsql Images:"
+      run:  cd linux/advanced/zabbix/4.0/server-pgsql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Snmptraps Images:"
+      run:  cd linux/advanced/zabbix/4.0/snmptraps && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Web Mysql Images:"
+      run:  cd linux/advanced/zabbix/4.0/web-mysql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Web Pgsql Images:"
+      run:  cd linux/advanced/zabbix/4.0/web-pgsql && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################
+
+  build-30-images:
+    name: Build EpicMorg Advanced Zabbix 3.0 Images
+    runs-on: [ ubuntu-24.04 ]
+    needs: build-40-images
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Log into docker registry
+      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Log into Quay.IO registry
+      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
+
+#    - name: Log into harbor registry
+#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
+
+    - name: Check buildah
+      run:  |
+        buildah --version
+
+    - name: Test Make
+      run:  make
+
+    - name: Install requirements.txt
+      run:  make pip
+
+    - name: "Build and Deploy Advanced Zabbix Agent Images:"
+      run:  cd linux/advanced/zabbix/3.0/agent && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Java Gateway  Images:"
+      run:  cd linux/advanced/zabbix/3.0/java-gateway && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Proxy Mysql Images:"
+      run:  cd linux/advanced/zabbix/3.0/proxy-mysql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Proxy Sqlite3 Images:"
+      run:  cd linux/advanced/zabbix/3.0/proxy-sqlite3 && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Server Mysql Images:"
+      run:  cd linux/advanced/zabbix/3.0/server-mysql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Server Pgsql Images:"
+      run:  cd linux/advanced/zabbix/3.0/server-pgsql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Snmptraps Images:"
+      run:  cd linux/advanced/zabbix/3.0/snmptraps && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Web Mysql Images:"
+      run:  cd linux/advanced/zabbix/3.0/web-mysql && pwd && make build && make deploy
+
+    - name: "Build and Deploy Advanced Zabbix Web Pgsql Images:"
+      run:  cd linux/advanced/zabbix/3.0/web-pgsql && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      run: make clean
+
+##################################################################################

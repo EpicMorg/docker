@@ -1,4 +1,4 @@
-name:  EpicMorg Advanced Nextcloud Images
+name: EpicMorg Advanced Nextcloud Images
 
 on:
   workflow_dispatch:
@@ -6,192 +6,40 @@ on:
     - cron: '0 02 * * 2,4,6'
 
 jobs:
-
-  build-pure-images:
-    name: EpicMorg Advanced Nextcloud Stock Images
-    runs-on: [ ubuntu-24.04 ]
-
+  build-nextcloud-images:
+    name: Build Nextcloud ${{ matrix.version }} (${{ matrix.image_type }})
+    runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        version: [
+#         '14', '15', '16', '17', '18', '19',
+#         '20', '21', '22', '23', '24', '25', '26', 
+          '27', '28', '29', 
+          '30', '31', 'latest'
+        ]
     steps:
     - uses: actions/checkout@v4
     
     - name: Log into docker registry
-      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+      run: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
     - name: Log into Quay.IO registry
-      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
-
-#    - name: Log into harbor registry
-#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
+      run: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
 
     - name: Check buildah
-      run:  |
-        buildah --version
+      run: buildah --version
 
     - name: Test Make
-      run:  make
+      run: make
 
     - name: Install requirements.txt
-      run:  make pip
+      run: make pip
 
-#    - name: "Build and Deploy Advanced Nextcloud 14 Stock Images:"
-#      run:  cd linux/advanced/nextcloud/pure/14 && pwd && make build && make deploy
-#
-#    - name: "Build and Deploy Advanced Nextcloud 15 Stock Images:"
-#      run:  cd linux/advanced/nextcloud/pure/15 && pwd && make build && make deploy
-#
-#    - name: "Build and Deploy Advanced Nextcloud 16 Stock Images:"
-#      run:  cd linux/advanced/nextcloud/pure/16 && pwd && make build && make deploy
-#
-#    - name: "Build and Deploy Advanced Nextcloud 17 Stock Images:"
-#      run:  cd linux/advanced/nextcloud/pure/17 && pwd && make build && make deploy
-#
-#    - name: "Build and Deploy Advanced Nextcloud 18 Stock Images:"
-#      run:  cd linux/advanced/nextcloud/pure/18 && pwd && make build && make deploy
-#    
-#    - name: Cleanup
-#      run: make clean
-#
-#    - name: "Build and Deploy Advanced Nextcloud 19 Stock Images:"
-#      run:  cd linux/advanced/nextcloud/pure/19 && pwd && make build && make deploy
-#
-#    - name: "Build and Deploy Advanced Nextcloud 20 Stock Images:"
-#      run:  cd linux/advanced/nextcloud/pure/20 && pwd && make build && make deploy
-#
-#    - name: "Build and Deploy Advanced Nextcloud 21 Stock Images:"
-#      run:  cd linux/advanced/nextcloud/pure/21 && pwd && make build && make deploy
-#
-#    - name: "Build and Deploy Advanced Nextcloud 22 Stock Images:"
-#      run:  cd linux/advanced/nextcloud/pure/22 && pwd && make build && make deploy
-#    
-#    - name: Cleanup
-#      run: make clean
-#
-#    - name: "Build and Deploy Advanced Nextcloud 23 Stock Images:"
-#      run:  cd linux/advanced/nextcloud/pure/23 && pwd && make build && make deploy
-#
-#    - name: "Build and Deploy Advanced Nextcloud 24 Stock Images:"
-#      run:  cd linux/advanced/nextcloud/pure/24 && pwd && make build && make deploy
-#
-#    - name: "Build and Deploy Advanced Nextcloud 25 Stock Images:"
-#      run:  cd linux/advanced/nextcloud/pure/25 && pwd && make build && make deploy
-#
-#    - name: "Build and Deploy Advanced Nextcloud 26 Stock Images:"
-#      run:  cd linux/advanced/nextcloud/pure/26 && pwd && make build && make deploy
+    - name: Build and Deploy Nextcloud ${{ matrix.version }} Stock
+      run: cd linux/advanced/nextcloud/pure/${{ matrix.version }} && pwd && make build && make deploy
 
-    - name: "Build and Deploy Advanced Nextcloud 27 Stock Images:"
-      run:  cd linux/advanced/nextcloud/pure/27 && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Nextcloud 28 Stock Images:"
-      run:  cd linux/advanced/nextcloud/pure/28 && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Nextcloud 29 Stock Images:"
-      run:  cd linux/advanced/nextcloud/pure/29 && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Nextcloud 30 Stock Images:"
-      run:  cd linux/advanced/nextcloud/pure/30 && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Nextcloud 31 Stock Images:"
-      run:  cd linux/advanced/nextcloud/pure/31 && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Nextcloud Latest Stock Images:"
-      run:  cd linux/advanced/nextcloud/pure/latest && pwd && make build && make deploy
-    
-    - name: Cleanup
-      run: make clean
-
-##################################################################################
-
-  build-patched-images:
-    name: Advanced Nextcloud Patched Images
-    runs-on: [ ubuntu-24.04 ]
-    needs: build-pure-images
-
-    steps:
-    - uses: actions/checkout@v4
-    
-    - name: Log into docker registry
-      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
-
-    - name: Log into Quay.IO registry
-      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
-
-#    - name: Log into harbor registry
-#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
-
-    - name: Check buildah
-      run:  |
-        buildah --version
-
-    - name: Test Make
-      run:  make
-
-    - name: Install requirements.txt
-      run:  make pip
-
-#    - name: "Build and Deploy Advanced Nextcloud 14 Patched Images:"
-#      run:  cd linux/advanced/nextcloud/patched/14 && pwd && make build && make deploy
-#
-#    - name: "Build and Deploy Advanced Nextcloud 15 Patched Images:"
-#      run:  cd linux/advanced/nextcloud/patched/15 && pwd && make build && make deploy
-#
-#    - name: "Build and Deploy Advanced Nextcloud 16 Patched Images:"
-#      run:  cd linux/advanced/nextcloud/patched/16 && pwd && make build && make deploy
-#
-#    - name: "Build and Deploy Advanced Nextcloud 17 Patched Images:"
-#      run:  cd linux/advanced/nextcloud/patched/17 && pwd && make build && make deploy
-#
-#    - name: "Build and Deploy Advanced Nextcloud 18 Patched Images:"
-#      run:  cd linux/advanced/nextcloud/patched/18 && pwd && make build && make deploy
-#
-#    - name: "Build and Deploy Advanced Nextcloud 19 Patched Images:"
-#      run:  cd linux/advanced/nextcloud/patched/19 && pwd && make build && make deploy
-#    
-#    - name: Cleanup
-#      run: make clean
-#
-#    - name: "Build and Deploy Advanced Nextcloud 20 Patched Images:"
-#      run:  cd linux/advanced/nextcloud/patched/20 && pwd && make build && make deploy
-#
-#    - name: "Build and Deploy Advanced Nextcloud 21 Patched Images:"
-#      run:  cd linux/advanced/nextcloud/patched/21 && pwd && make build && make deploy
-#
-#    - name: "Build and Deploy Advanced Nextcloud 22 Patched Images:"
-#      run:  cd linux/advanced/nextcloud/patched/22 && pwd && make build && make deploy
-#
-#    - name: "Build and Deploy Advanced Nextcloud 23 Patched Images:"
-#      run:  cd linux/advanced/nextcloud/patched/23 && pwd && make build && make deploy
-#
-#    - name: "Build and Deploy Advanced Nextcloud 24 Patched Images:"
-#      run:  cd linux/advanced/nextcloud/patched/24 && pwd && make build && make deploy
-#    
-#    - name: Cleanup
-#      run: make clean
-#
-#    - name: "Build and Deploy Advanced Nextcloud 25 Patched Images:"
-#      run:  cd linux/advanced/nextcloud/patched/25 && pwd && make build && make deploy
-#
-#    - name: "Build and Deploy Advanced Nextcloud 26 Patched Images:"
-#      run:  cd linux/advanced/nextcloud/patched/26 && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Nextcloud 27 Patched Images:"
-      run:  cd linux/advanced/nextcloud/patched/27 && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Nextcloud 28 Patched Images:"
-      run:  cd linux/advanced/nextcloud/patched/28 && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Nextcloud 29 Patched Images:"
-      run:  cd linux/advanced/nextcloud/patched/29 && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Nextcloud 30 Patched Images:"
-      run:  cd linux/advanced/nextcloud/patched/30 && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Nextcloud 31 Patched Images:"
-      run:  cd linux/advanced/nextcloud/patched/31 && pwd && make build && make deploy
-
-    - name: "Build and Deploy Advanced Nextcloud Latest Patched Images:"
-      run:  cd linux/advanced/nextcloud/patched/latest && pwd && make build && make deploy
-
-##################################################################################
+    - name: Build and Deploy Nextcloud ${{ matrix.version }} Patched
+      run: cd linux/advanced/nextcloud/patched/${{ matrix.version }} && pwd && make build && make deploy
 
     - name: Cleanup
       run: make clean

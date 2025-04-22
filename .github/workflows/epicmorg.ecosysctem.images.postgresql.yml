@@ -1,0 +1,43 @@
+name: EpicMorg EcoSystem PostgreSQL Images
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '5 5 * * 1,3,5'
+
+jobs:
+  build-pgsql-images:
+    name: Build PostgreSQL ${{ matrix.version }}
+    runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        version: [
+          '8.2', '8.3', '8.4',
+          '9.0', '9.1', '9.2', '9.3', '9.4', '9.5', '9.6',
+          '10', '11', '12', '13', '14', '15', '16'
+          # '17', '18'
+        ]
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Log into docker registry
+      run: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Log into Quay.IO registry
+      run: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
+
+    - name: Check buildah
+      run: buildah --version
+
+    - name: Test Make
+      run: make
+
+    - name: Install requirements.txt
+      run: make pip
+
+    - name: Build and Deploy PostgreSQL ${{ matrix.version }}
+      run: cd linux/ecosystem/postgres/${{ matrix.version }} && pwd && make build && make deploy
+
+    - name: Cleanup
+      run: make clean
