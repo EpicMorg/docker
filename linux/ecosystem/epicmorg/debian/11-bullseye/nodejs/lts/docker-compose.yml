@@ -1,0 +1,10 @@
+services:
+  app:
+    image: "quay.io/epicmorg/debian:bullseye-nodejs-lts"
+    build:
+      context: .
+  app-develop:
+    image: "quay.io/epicmorg/debian:bullseye-develop-nodejs-lts"
+    build:
+      context: .
+      dockerfile: ./Dockerfile.develop

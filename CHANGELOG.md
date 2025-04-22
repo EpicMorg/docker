@@ -3,6 +3,8 @@
 ## 2025
 
 * `apr`
+  * added `GitHub Actions` to `Bitbucket` images.
+  * added new `telegram` `bot` with `quotes`.
   * updated `cassandra`
   * added support for `Java` base images of custom CA certs
   * added support for `Python` base images of custom CA certs

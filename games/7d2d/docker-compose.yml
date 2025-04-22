@@ -1,0 +1,12 @@
+version: '3.7'
+services:
+  7d2d_server:
+    container_name: 7d2d_ds_v1
+    build: .
+    ports:
+      - "26900-26903:26900-26903"
+      - "8080-8081:8080-8081"
+    restart: always
+    volumes:
+      - /docker/7test/vol:/valve/volume
+

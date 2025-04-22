@@ -13,67 +13,75 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+      with: 
+          clean:  true
+          show-progress:  true
+          submodules:  true
     
     - name: Log into docker registry
-      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
     - name: Log into Quay.IO registry
-      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
-
-#    - name: Log into harbor registry
-#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
 
     - name: Check buildah
-      run:  |
-        buildah --version
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: buildah --version
 
     - name: Test Make
-      run:  make
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: make
 
     - name: Install requirements.txt
-      run:  make pip
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: make pip
 
     - name: "Build and Deploy Advanced Sentry Image:"
-      run:  cd linux/experimental/sentry/latest && pwd && make build && make deploy
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: cd linux/experimental/sentry/latest && pwd && make build && make deploy
 
     - name: "Build and Deploy Advanced Redash Images:"
-      run:  cd linux/experimental/redash && pwd && make sync && make patch && make build && make deploy
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: cd linux/experimental/redash && pwd && make sync && make patch && make build && make deploy
 
 ##################################################################################
 
     - name: Cleanup
-      run: make clean
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: make clean
 
 ##################################################################################
-
-  build-torrust-tracker-image:
-    name: EpicMorg EcoSystem Torrust Tracker Image
-    runs-on: [ ubuntu-24.04 ]
-
-    steps:
-    - uses: actions/checkout@v4
-    
-    - name: Log into docker registry
-      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
-
-    - name: Log into Quay.IO registry
-      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
-
-#    - name: Log into harbor registry
-#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
-
-    - name: Check buildah
-      run:  |
-        buildah --version
-
-    - name: Test Make
-      run:  make
-
-    - name: Install requirements.txt
-      run:  make pip
-
-    - name: Build and Deploy Torrust Tracker
-      run:  cd linux/ecosystem/torrust-tracker && make build && make deploy
-# to rework
-#    - name: Build and Deploy Torrust Index
-#      run:  cd linux/ecosystem/torrust-index && make build && make deploy

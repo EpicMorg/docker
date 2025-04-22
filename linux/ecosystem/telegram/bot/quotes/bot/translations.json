@@ -1,0 +1,20 @@
+{
+    "start_message": "Simple start message here.",
+    "help_message": "Simple help message here.\n\nLine two",
+    "version_message": "v 1.0",
+    "quote_button_text": "Button name",
+    "commands": {
+        "start": {
+            "description": "Command starg description here."
+        },
+        "say": {
+            "description": "Command say description here."
+        },
+        "help": {
+            "description": "Command help description here."
+        },
+        "version": {
+            "description": "Command version description here."
+        }
+    }
+}

@@ -1,5 +1,0 @@
-services:
-  app:
-    image: "quay.io/epicmorg/python:3.13-develop"
-    build:
-      context: .

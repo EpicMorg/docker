@@ -1,11 +1,13 @@
 FROM quay.io/epicmorg/debian:bookworm-develop as builder
 
+ARG GOPATH=/tmp/gopath
+
 RUN go install 'github.com/vvampirius/retracker@latest'
 
 RUN retracker -v
 
 FROM  epicmorg/debian:bookworm
-COPY --from=builder  ${GO_PATH_BIN_DIR}/retracker /bin/retracker
+COPY --from=builder  /tmp/gopath/retracker /bin/retracker
 
 ENV RETRACKER_PORT=80
 ENV RETRACKER_MINUTS=180
