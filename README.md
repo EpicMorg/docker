@@ -1,4 +1,13 @@
-#  [![Activity](https://img.shields.io/github/commit-activity/m/EpicMorg/docker?label=commits&style=flat-square)](https://github.com/EpicMorg/docker/commits) [![GitHub issues](https://img.shields.io/github/issues/EpicMorg/docker.svg?style=popout-square)](https://github.com/EpicMorg/docker/issues) [![GitHub forks](https://img.shields.io/github/forks/EpicMorg/docker.svg?style=popout-square)](https://github.com/EpicMorg/docker/network) [![GitHub stars](https://img.shields.io/github/stars/EpicMorg/docker.svg?style=popout-square)](https://github.com/EpicMorg/docker/stargazers)  [![Size](https://img.shields.io/github/repo-size/EpicMorg/docker?label=size&style=flat-square)](https://github.com/EpicMorg/docker/archive/master.zip) [![Release](https://img.shields.io/github/v/release/EpicMorg/docker?style=flat-square)](https://github.com/EpicMorg/docker/releases) [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/3658/badge)](https://bestpractices.coreinfrastructure.org/projects/3658) [![CodeScene System Mastery](https://codescene.io/projects/6535/status-badges/system-mastery)](https://codescene.io/projects/6535) [![GitHub license](https://img.shields.io/github/license/EpicMorg/docker.svg?style=popout-square)](LICENSE.md) [![Changelog](https://img.shields.io/badge/Changelog-yellow.svg?style=popout-square)](CHANGELOG.md)
+#  [![Activity](https://img.shields.io/github/commit-activity/m/EpicMorg/docker?label=commits&style=flat-square)](https://github.com/EpicMorg/docker/commits) [![GitHub issues](https://img.shields.io/github/issues/EpicMorg/docker.svg?style=popout-square)](https://github.com/EpicMorg/docker/issues) [![GitHub forks](https://img.shields.io/github/forks/EpicMorg/docker.svg?style=popout-square)](https://github.com/EpicMorg/docker/network) [![GitHub stars](https://img.shields.io/github/stars/EpicMorg/docker.svg?style=popout-square)](https://github.com/EpicMorg/docker/stargazers)  [![Size](https://img.shields.io/github/repo-size/EpicMorg/docker?label=size&style=flat-square)](https://github.com/EpicMorg/docker/archive/master.zip) [![Release](https://img.shields.io/github/v/release/EpicMorg/docker?style=flat-square)](https://github.com/EpicMorg/docker/releases) [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/3658/badge)](https://bestpractices.coreinfrastructure.org/projects/3658)  [![GitHub license](https://img.shields.io/github/license/EpicMorg/docker.svg?style=popout-square)](LICENSE.md) [![Changelog](https://img.shields.io/badge/Changelog-yellow.svg?style=popout-square)](CHANGELOG.md) [![CodeScene System Mastery](https://codescene.io/projects/6535/status-badges/system-mastery)](https://codescene.io/projects/6535)
+
+## Description
+A collection of docker images for production use. This repo contains 2 types of images - `advanced` and `ecosystem`. We support `linux x86_64` docker engine (`Win64` is still in the ***testing*** stage).
+
+* `linux/advanced` folder contains improved images like `nextcloud` or `teamcity server`, `zabbix collection`, etc. These images just forked from original developers and patched a bit.
+* `linux/ecosystem` folder contains images developed by our team like full `Atlassian Stack`, compilled `nginx`, `php`, `testrail` and othres.
+
+![](https://raw.githubusercontent.com/EpicMorg/docker/master/.github/logo.png)
+
 
 ## Official Mirrors and Hubs
 
@@ -20,14 +29,6 @@
 | `ru-RU` | `en-US` | 
 |:-------------|:-------------|
 | [:ru: :bookmark_tabs:](SUPPORT.ru.md) | [:us: :bookmark_tabs:](SUPPORT.md)
-
-## Description
-A collection of docker images for production use. This repo contains 2 types of images - `advanced` and `ecosystem`. We support `linux x86_64` docker engine (`Win64` is still in the ***testing*** stage).
-
-* `linux/advanced` folder contains improved images like `nextcloud` or `teamcity server`, `zabbix collection`, etc. These images just forked from original developers and patched a bit.
-* `linux/ecosystem` folder contains images developed by our team like full `Atlassian Stack`, compilled `nginx`, `php`, `testrail` and othres.
-
-![](https://raw.githubusercontent.com/EpicMorg/docker/master/.github/logo.png)
 
 
 ## Debian CI Status
