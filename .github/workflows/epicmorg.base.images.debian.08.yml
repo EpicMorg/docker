@@ -8,41 +8,90 @@ on:
 jobs:
   build-base-images:
     name: Build Debian 8 Base Images
-    runs-on: ubuntu-24.04
+    runs-on: [ ubuntu-24.04 ]
 
     steps:
     - uses: actions/checkout@v4
+      with: 
+          clean:  true
+          show-progress:  true
+          submodules:  true
     
     - name: Log into docker registry
-      run: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
     - name: Log into Quay.IO registry
-      run: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
 
     - name: Check buildah
-      run: buildah --version
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: buildah --version
 
     - name: Test Make
-      run: make
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: make
 
     - name: Install requirements.txt
-      run: make pip
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: make pip
 
     - name: Build and Deploy Debian 8 slim
-      run: cd linux/ecosystem/epicmorg/debian/08-jessie/slim && pwd && make build && make deploy
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: cd linux/ecosystem/epicmorg/debian/08-jessie/slim && pwd && make build && make deploy
 
     - name: Build and Deploy Debian 8 main
-      run: cd linux/ecosystem/epicmorg/debian/08-jessie/main && pwd && make build && make deploy
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: cd linux/ecosystem/epicmorg/debian/08-jessie/main && pwd && make build && make deploy
       
     - name: Build and Deploy Debian 8 develop
-      run: cd linux/ecosystem/epicmorg/debian/08-jessie/develop && pwd && make build && make deploy
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: cd linux/ecosystem/epicmorg/debian/08-jessie/develop && pwd && make build && make deploy
 
     - name: Cleanup
-      run: make clean
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: make clean
 
   build-node-images:
     name: Build Debian 8 Node.js ${{ matrix.version }}
-    runs-on: ubuntu-24.04
+    runs-on: [ ubuntu-24.04 ]
     needs: build-base-images
     strategy:
       matrix:
@@ -53,31 +102,70 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+      with: 
+          clean:  true
+          show-progress:  true
+          submodules:  true
     
     - name: Log into docker registry
-      run: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
     - name: Log into Quay.IO registry
-      run: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
 
     - name: Check buildah
-      run: buildah --version
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: buildah --version
 
     - name: Test Make
-      run: make
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: make
 
     - name: Install requirements.txt
-      run: make pip
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: make pip
 
     - name: Build and Deploy Node.js ${{ matrix.version }}
-      run: cd linux/ecosystem/epicmorg/debian/08-jessie/nodejs/node${{ matrix.version }} && pwd && make build && make deploy
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: cd linux/ecosystem/epicmorg/debian/08-jessie/nodejs/node${{ matrix.version }} && pwd && make build && make deploy
 
     - name: Cleanup
-      run: make clean
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: make clean
 
   build-jdk-images:
     name: Build Debian 8 JDK ${{ matrix.version }}
-    runs-on: ubuntu-24.04
+    runs-on: [ ubuntu-24.04 ]
     needs: build-base-images
     strategy:
       matrix:
@@ -89,24 +177,63 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+      with: 
+          clean:  true
+          show-progress:  true
+          submodules:  true
     
     - name: Log into docker registry
-      run: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
     - name: Log into Quay.IO registry
-      run: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
 
     - name: Check buildah
-      run: buildah --version
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: buildah --version
 
     - name: Test Make
-      run: make
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: make
 
     - name: Install requirements.txt
-      run: make pip
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: make pip
 
     - name: Build and Deploy JDK ${{ matrix.version }}
-      run: cd linux/ecosystem/epicmorg/debian/08-jessie/jdk/jdk${{ matrix.version }} && pwd && make build && make deploy
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: cd linux/ecosystem/epicmorg/debian/08-jessie/jdk/jdk${{ matrix.version }} && pwd && make build && make deploy
 
     - name: Cleanup
-      run: make clean
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: make clean

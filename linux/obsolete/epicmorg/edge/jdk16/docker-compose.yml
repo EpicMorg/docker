@@ -1,5 +1,0 @@
-services:
-  app:
-    image: "quay.io/epicmorg/edge:jdk16"
-    build:
-      context: .

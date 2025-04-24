@@ -2,20 +2,18 @@
 
 ## Official Mirrors and Hubs
 
-| Name | Homepage | Docker | Podman |
-|:-------------|:-------------|:-------------|:-------------|
-| `Quai.io` (default) | https://quay.io/epicmorg |  `docker pull quay.io/epicmorg/debian:boowkorm` |  `podman pull quay.io/epicmorg/debian:boowkorm` |
-| `DockerHub` (Mirror) | https://hub.docker.com/r/epicmorg |  `docker pull epicmorg/debian:boowkorm` |  `podman pull epicmorg/debian:boowkorm` |
-| `Harbor` (Mirror)  | https://hub.epicm.org/epicmorg |  `docker pull hub.epicm.org/epicmorg/debian:boowkorm` |  `podman pull hub.epicm.org/epicmorg/debian:boowkorm` |
+| Name | Homepage |
+|:-------------|-------------:|
+| `Quai.io` (default) | https://quay.io/epicmorg | 
+| `DockerHub` (Mirror) | https://hub.docker.com/r/epicmorg |
+| `Harbor` (Mirror)  | https://hub.epicm.org/epicmorg | 
 
-## DEPRECATION WARNING
-
-**At 1st of October 2024 all deprecated tags and images were deleted from DockerHub:**
-
-* `epicmorg/nodejs`
-* `epicmorg/php`
-
-For more information - look at `Support Document` to replace this tags and images.
+## Docker and Podman support:
+| Docker | Podman |
+|:-------------|-------------:|
+|  `docker pull quay.io/epicmorg/debian:boowkorm` |  `podman pull quay.io/epicmorg/debian:boowkorm` |
+|  `docker pull epicmorg/debian:boowkorm` |  `podman pull epicmorg/debian:boowkorm` |
+|  `docker pull hub.epicm.org/epicmorg/debian:boowkorm` |  `podman pull hub.epicm.org/epicmorg/ debian:boowkorm` |
 
 ## Support Document for Docker Image Concepts in Project
 
@@ -23,7 +21,16 @@ For more information - look at `Support Document` to replace this tags and image
 |:-------------|:-------------|
 | [:ru: :bookmark_tabs:](SUPPORT.ru.md) | [:us: :bookmark_tabs:](SUPPORT.md)
 
-## CI Status
+## Description
+A collection of docker images for production use. This repo contains 2 types of images - `advanced` and `ecosystem`. We support `linux x86_64` docker engine (`Win64` is still in the ***testing*** stage).
+
+* `linux/advanced` folder contains improved images like `nextcloud` or `teamcity server`, `zabbix collection`, etc. These images just forked from original developers and patched a bit.
+* `linux/ecosystem` folder contains images developed by our team like full `Atlassian Stack`, compilled `nginx`, `php`, `testrail` and othres.
+
+![](https://raw.githubusercontent.com/EpicMorg/docker/master/.github/logo.png)
+
+
+## Debian CI Status
 
 | Debian | **codename** | **status** | **End of life date (with LTS, not ELTS)**
 |:-------------|:-------------|:-------------|:-------------|
@@ -37,13 +44,50 @@ For more information - look at `Support Document` to replace this tags and image
 | [![GHA](https://img.shields.io/github/actions/workflow/status/EpicMorg/docker/epicmorg.base.images.debian.07.yml?label=7&logo=Debian%20Legacy%20Images&style=flat-square)](https://github.com/EpicMorg/docker/actions/workflows/epicmorg.base.images.debian.07.yml) | `wheezy` | `deprecated` | `2018-05-31` |
 | [![GHA](https://img.shields.io/github/actions/workflow/status/EpicMorg/docker/epicmorg.base.images.debian.06.yml?label=6&logo=Debian%20Legacy%20Images&style=flat-square)](https://github.com/EpicMorg/docker/actions/workflows/epicmorg.base.images.debian.06.yml) | `squeeze` | `deprecated` | `2016-02-29` |
 
-## Description
-A collection of docker images for production use. This repo contains 2 types of images - `advanced` and `ecosystem`. We support `linux x86_64` docker engine (`Win64` is still in the ***testing*** stage).
+### Atlassian CI Status
 
-* `linux/advanced` folder contains improved images like `nextcloud` or `teamcity server`, `zabbix collection`, etc. These images just forked from original developers and patched a bit.
-* `linux/ecosystem` folder contains images developed by our team like full `Atlassian Stack`, compilled `nginx`, `php`, `testrail` and othres.
+| Bitbucket |
+|:-------------|
+| [![GHA](https://img.shields.io/github/actions/workflow/status/EpicMorg/docker/epicmorg.ecosystem.images.atlassian.bitbucket.01.yml?label=bitbucket&logo=Atlassian%20Bitbucket%2001&style=flat-square)](https://github.com/EpicMorg/docker/actions/workflows/epicmorg.ecosystem.images.atlassian.bitbucket.01.yml) |
+| [![GHA](https://img.shields.io/github/actions/workflow/status/EpicMorg/docker/epicmorg.ecosystem.images.atlassian.bitbucket.02.yml?label=bitbucket&logo=Atlassian%20Bitbucket%2002&style=flat-square)](https://github.com/EpicMorg/docker/actions/workflows/epicmorg.ecosystem.images.atlassian.bitbucket.02.yml) |
+| [![GHA](https://img.shields.io/github/actions/workflow/status/EpicMorg/docker/epicmorg.ecosystem.images.atlassian.bitbucket.03.yml?label=bitbucket&logo=Atlassian%20Bitbucket%2003&style=flat-square)](https://github.com/EpicMorg/docker/actions/workflows/epicmorg.ecosystem.images.atlassian.bitbucket.03.yml) |
+| [![GHA](https://img.shields.io/github/actions/workflow/status/EpicMorg/docker/epicmorg.ecosystem.images.atlassian.bitbucket.04.yml?label=bitbucket&logo=Atlassian%20Bitbucket%2004&style=flat-square)](https://github.com/EpicMorg/docker/actions/workflows/epicmorg.ecosystem.images.atlassian.bitbucket.04.yml) |
+| [![GHA](https://img.shields.io/github/actions/workflow/status/EpicMorg/docker/epicmorg.ecosystem.images.atlassian.bitbucket.05.yml?label=bitbucket&logo=Atlassian%20Bitbucket%2005&style=flat-square)](https://github.com/EpicMorg/docker/actions/workflows/epicmorg.ecosystem.images.atlassian.bitbucket.05.yml) |
+| [![GHA](https://img.shields.io/github/actions/workflow/status/EpicMorg/docker/epicmorg.ecosystem.images.atlassian.bitbucket.06.yml?label=bitbucket&logo=Atlassian%20Bitbucket%2006&style=flat-square)](https://github.com/EpicMorg/docker/actions/workflows/epicmorg.ecosystem.images.atlassian.bitbucket.06.yml) |
+| [![GHA](https://img.shields.io/github/actions/workflow/status/EpicMorg/docker/epicmorg.ecosystem.images.atlassian.bitbucket.07.yml?label=bitbucket&logo=Atlassian%20Bitbucket%2007&style=flat-square)](https://github.com/EpicMorg/docker/actions/workflows/epicmorg.ecosystem.images.atlassian.bitbucket.07.yml) |
+| [![GHA](https://img.shields.io/github/actions/workflow/status/EpicMorg/docker/epicmorg.ecosystem.images.atlassian.bitbucket.08.yml?label=bitbucket&logo=Atlassian%20Bitbucket%2008&style=flat-square)](https://github.com/EpicMorg/docker/actions/workflows/epicmorg.ecosystem.images.atlassian.bitbucket.08.yml) |
+| [![GHA](https://img.shields.io/github/actions/workflow/status/EpicMorg/docker/epicmorg.ecosystem.images.atlassian.bitbucket.09.yml?label=bitbucket&logo=Atlassian%20Bitbucket%2009&style=flat-square)](https://github.com/EpicMorg/docker/actions/workflows/epicmorg.ecosystem.images.atlassian.bitbucket.09.yml) |
 
-![](https://raw.githubusercontent.com/EpicMorg/docker/master/.github/logo.png)
+> [!WARNING]
+> **DEPRECATION WARNING**
+> 
+> **At 1st of October 2024 all deprecated tags and images were deleted from Hubs (DockerHub, Quay, etc):**
+
+* `epicmorg/nodejs` - image, migrated to `epicmorg/debian:bookworm-nodejs<version>`. Look at `linux/ecosystem/epicmorg/debian/12-bookworm/nodejs`.
+* `epicmorg/php` - image, migrated to `epicmorg/debian:bookworm-php<version>`. Look at `linux/ecosystem/epicmorg/debian/12-bookworm/php`.
+* `epicmorg/python` - image, migrated to `epicmorg/debian:bookworm-python<version>`. Look at `linux/ecosystem/epicmorg/debian/12-bookworm/python`.
+* `epicmorg/apache2:latest` - ONLY `latest` tag.
+* `epicmorg/torrust-index` - deprecated, deleted as abadoned. Sorry.
+* `epicmorg/torrust-tracker` - deprecated, deleted as abadoned. Sorry.
+* `epicmorg/staytus` - deprecated, deleted as abadoned. Sorry.
+* `epicmorg/freegpt-webui` - deprecated, deleted as abadoned. Sorry.
+* `epicmorg/syspass` - deprecated, deleted as abadoned. Sorry.
+
+> [!IMPORTANT]  
+> **At 1st of May 2025 this images will be\were renamed and old images and tags will be\were deleted from Hubs (DockerHub, Quay, etc):**
+
+* `epicmorg/linux-steamcmd` -> `epicmorg/games:steamcmd` - Base iamge for various games images.
+* `epicmorg/linux-csgo` -> `epicmorg/games:csgo`.
+* `epicmorg/linux-7d2d` -> `epicmorg/games:7d2d`.
+* `epicmorg/win32` -> `epicmorg/windows` - Base `windows` images like a `epicmorg/debian`.
+
+
+> [!IMPORTANT]  
+> **At 1st of May 2025 this images will be\were archived at Hubs (DockerHub, Quay, etc):**
+
+* `epicmorg/astralinux` - I am not shure to support this images.
+
+For more information - look at `Support Document` to replace this tags and images.
 
 # Secondary CI Status
 

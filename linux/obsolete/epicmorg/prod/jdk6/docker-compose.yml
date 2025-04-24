@@ -1,5 +1,0 @@
-services:
-  app:
-    image: "quay.io/epicmorg/prod:jdk6"
-    build:
-      context: .

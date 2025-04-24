@@ -8,7 +8,7 @@ on:
 jobs:
   build-trunk:
     name: Build Zabbix trunk Images
-    runs-on: ubuntu-24.04
+    runs-on: [ ubuntu-24.04 ]
     strategy:
       matrix:
         image_type: [
@@ -22,37 +22,72 @@ jobs:
     
     steps:
     - uses: actions/checkout@v4
+      with: 
+          clean:  true
+          show-progress:  true
+          submodules:  true
     
     - name: Log into docker registry
-      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
     - name: Log into Quay.IO registry
-      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
-
-#    - name: Log into harbor registry
-#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
 
     - name: Check buildah
-      run:  |
-        buildah --version
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: buildah --version
 
     - name: Test Make
-      run:  make
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: make
 
     - name: Install requirements.txt
-      run:  make pip
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: make pip
 
     - name: Build and Deploy Zabbix trunk (${{ matrix.image_type }})
-      run: cd linux/advanced/zabbix/trunk/${{ matrix.image_type }} && pwd && make build && make deploy
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: cd linux/advanced/zabbix/trunk/${{ matrix.image_type }} && pwd && make build && make deploy
 
     - name: Cleanup
-      run: make clean
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: make clean
 
 ##################################################################
 
   build-latest:
     name: Build Zabbix latest Images
-    runs-on: ubuntu-24.04
+    runs-on: [ ubuntu-24.04 ]
     needs: build-trunk
     strategy:
       matrix:
@@ -67,43 +102,80 @@ jobs:
     
     steps:
     - uses: actions/checkout@v4
+      with: 
+          clean:  true
+          show-progress:  true
+          submodules:  true
     
     - name: Log into docker registry
-      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
     - name: Log into Quay.IO registry
-      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
-
-#    - name: Log into harbor registry
-#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
 
     - name: Check buildah
-      run:  |
-        buildah --version
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: buildah --version
 
     - name: Test Make
-      run:  make
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: make
 
     - name: Install requirements.txt
-      run:  make pip
-
-    - name: Log into docker registry
-      run: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: make pip
 
     - name: Log into Quay.IO registry
-      run: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
 
     - name: Build and Deploy Zabbix latest (${{ matrix.image_type }})
-      run: cd linux/advanced/zabbix/latest/${{ matrix.image_type }} && pwd && make build && make deploy
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: cd linux/advanced/zabbix/latest/${{ matrix.image_type }} && pwd && make build && make deploy
 
     - name: Cleanup
-      run: make clean
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: make clean
 
 ##################################################################
 
   build-72:
     name: Build Zabbix 7.2 Images
-    runs-on: ubuntu-24.04
+    runs-on: [ ubuntu-24.04 ]
     needs: build-latest
     strategy:
       matrix:
@@ -118,40 +190,72 @@ jobs:
     
     steps:
     - uses: actions/checkout@v4
+      with: 
+          clean:  true
+          show-progress:  true
+          submodules:  true
     
     - name: Log into docker registry
-      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
     - name: Log into Quay.IO registry
-      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
-
-#    - name: Log into harbor registry
-#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
 
     - name: Check buildah
-      run:  |
-        buildah --version
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: buildah --version
 
     - name: Test Make
-      run:  make
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: make
 
     - name: Install requirements.txt
-      run:  make pip
-
-    - name: Log into docker registry
-      run: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: make pip
 
     - name: Build and Deploy Zabbix 7.2 (${{ matrix.image_type }})
-      run: cd linux/advanced/zabbix/7.2/${{ matrix.image_type }} && pwd && make build && make deploy
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: cd linux/advanced/zabbix/7.2/${{ matrix.image_type }} && pwd && make build && make deploy
 
     - name: Cleanup
-      run: make clean
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: make clean
 
 ##################################################################
 
   build-70:
     name: Build Zabbix 7.0 Images
-    runs-on: ubuntu-24.04
+    runs-on: [ ubuntu-24.04 ]
     needs: build-latest
     strategy:
       matrix:
@@ -166,40 +270,72 @@ jobs:
     
     steps:
     - uses: actions/checkout@v4
+      with: 
+          clean:  true
+          show-progress:  true
+          submodules:  true
     
     - name: Log into docker registry
-      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
     - name: Log into Quay.IO registry
-      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
-
-#    - name: Log into harbor registry
-#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
 
     - name: Check buildah
-      run:  |
-        buildah --version
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: buildah --version
 
     - name: Test Make
-      run:  make
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: make
 
     - name: Install requirements.txt
-      run:  make pip
-
-    - name: Log into docker registry
-      run: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: make pip
 
     - name: Build and Deploy Zabbix 7.0 (${{ matrix.image_type }})
-      run: cd linux/advanced/zabbix/7.0/${{ matrix.image_type }} && pwd && make build && make deploy
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: cd linux/advanced/zabbix/7.0/${{ matrix.image_type }} && pwd && make build && make deploy
 
     - name: Cleanup
-      run: make clean
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: make clean
 
 ##################################################################
 
   build-64:
     name: Build Zabbix 6.4 Images
-    runs-on: ubuntu-24.04
+    runs-on: [ ubuntu-24.04 ]
     needs: build-latest
     strategy:
       matrix:
@@ -214,40 +350,72 @@ jobs:
     
     steps:
     - uses: actions/checkout@v4
+      with: 
+          clean:  true
+          show-progress:  true
+          submodules:  true
     
     - name: Log into docker registry
-      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
     - name: Log into Quay.IO registry
-      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
-
-#    - name: Log into harbor registry
-#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
 
     - name: Check buildah
-      run:  |
-        buildah --version
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: buildah --version
 
     - name: Test Make
-      run:  make
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: make
 
     - name: Install requirements.txt
-      run:  make pip
-
-    - name: Log into docker registry
-      run: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: make pip
 
     - name: Build and Deploy Zabbix 6.4 (${{ matrix.image_type }})
-      run: cd linux/advanced/zabbix/6.4/${{ matrix.image_type }} && pwd && make build && make deploy
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: cd linux/advanced/zabbix/6.4/${{ matrix.image_type }} && pwd && make build && make deploy
 
     - name: Cleanup
-      run: make clean
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: make clean
 
 ##################################################################
 
   build-62:
     name: Build Zabbix 6.2 Images
-    runs-on: ubuntu-24.04
+    runs-on: [ ubuntu-24.04 ]
     needs: build-latest
     strategy:
       matrix:
@@ -262,40 +430,72 @@ jobs:
     
     steps:
     - uses: actions/checkout@v4
+      with: 
+          clean:  true
+          show-progress:  true
+          submodules:  true
     
     - name: Log into docker registry
-      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
     - name: Log into Quay.IO registry
-      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
-
-#    - name: Log into harbor registry
-#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
 
     - name: Check buildah
-      run:  |
-        buildah --version
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: buildah --version
 
     - name: Test Make
-      run:  make
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: make
 
     - name: Install requirements.txt
-      run:  make pip
-
-    - name: Log into docker registry
-      run: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: make pip
 
     - name: Build and Deploy Zabbix 6.2 (${{ matrix.image_type }})
-      run: cd linux/advanced/zabbix/6.2/${{ matrix.image_type }} && pwd && make build && make deploy
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: cd linux/advanced/zabbix/6.2/${{ matrix.image_type }} && pwd && make build && make deploy
 
     - name: Cleanup
-      run: make clean
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: make clean
 
 ##################################################################
 
   build-60:
     name: Build Zabbix 6.0 Images
-    runs-on: ubuntu-24.04
+    runs-on: [ ubuntu-24.04 ]
     needs: build-latest
     strategy:
       matrix:
@@ -310,40 +510,72 @@ jobs:
     
     steps:
     - uses: actions/checkout@v4
+      with: 
+          clean:  true
+          show-progress:  true
+          submodules:  true
     
     - name: Log into docker registry
-      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
     - name: Log into Quay.IO registry
-      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
-
-#    - name: Log into harbor registry
-#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
 
     - name: Check buildah
-      run:  |
-        buildah --version
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: buildah --version
 
     - name: Test Make
-      run:  make
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: make
 
     - name: Install requirements.txt
-      run:  make pip
-
-    - name: Log into docker registry
-      run: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: make pip
 
     - name: Build and Deploy Zabbix 6.0 (${{ matrix.image_type }})
-      run: cd linux/advanced/zabbix/6.0/${{ matrix.image_type }} && pwd && make build && make deploy
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: cd linux/advanced/zabbix/6.0/${{ matrix.image_type }} && pwd && make build && make deploy
 
     - name: Cleanup
-      run: make clean
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: make clean
 
 ##################################################################
 
   build-54:
     name: Build Zabbix 5.4 Images
-    runs-on: ubuntu-24.04
+    runs-on: [ ubuntu-24.04 ]
     needs: build-latest
     strategy:
       matrix:
@@ -358,40 +590,72 @@ jobs:
     
     steps:
     - uses: actions/checkout@v4
+      with: 
+          clean:  true
+          show-progress:  true
+          submodules:  true
     
     - name: Log into docker registry
-      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
     - name: Log into Quay.IO registry
-      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
-
-#    - name: Log into harbor registry
-#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
 
     - name: Check buildah
-      run:  |
-        buildah --version
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: buildah --version
 
     - name: Test Make
-      run:  make
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: make
 
     - name: Install requirements.txt
-      run:  make pip
-
-    - name: Log into docker registry
-      run: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: make pip
 
     - name: Build and Deploy Zabbix 5.4 (${{ matrix.image_type }})
-      run: cd linux/advanced/zabbix/5.4/${{ matrix.image_type }} && pwd && make build && make deploy
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: cd linux/advanced/zabbix/5.4/${{ matrix.image_type }} && pwd && make build && make deploy
 
     - name: Cleanup
-      run: make clean
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: make clean
 
 ##################################################################
 
   build-52:
     name: Build Zabbix 6.2 Images
-    runs-on: ubuntu-24.04
+    runs-on: [ ubuntu-24.04 ]
     needs: build-latest
     strategy:
       matrix:
@@ -406,40 +670,72 @@ jobs:
     
     steps:
     - uses: actions/checkout@v4
+      with: 
+          clean:  true
+          show-progress:  true
+          submodules:  true
     
     - name: Log into docker registry
-      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
     - name: Log into Quay.IO registry
-      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
-
-#    - name: Log into harbor registry
-#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
 
     - name: Check buildah
-      run:  |
-        buildah --version
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: buildah --version
 
     - name: Test Make
-      run:  make
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: make
 
     - name: Install requirements.txt
-      run:  make pip
-
-    - name: Log into docker registry
-      run: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: make pip
 
     - name: Build and Deploy Zabbix 5.2 (${{ matrix.image_type }})
-      run: cd linux/advanced/zabbix/5.2/${{ matrix.image_type }} && pwd && make build && make deploy
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: cd linux/advanced/zabbix/5.2/${{ matrix.image_type }} && pwd && make build && make deploy
 
     - name: Cleanup
-      run: make clean
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: make clean
 
 ##################################################################
 
   build-50:
     name: Build Zabbix 5.0 Images
-    runs-on: ubuntu-24.04
+    runs-on: [ ubuntu-24.04 ]
     needs: build-latest
     strategy:
       matrix:
@@ -454,40 +750,72 @@ jobs:
     
     steps:
     - uses: actions/checkout@v4
+      with: 
+          clean:  true
+          show-progress:  true
+          submodules:  true
     
     - name: Log into docker registry
-      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
     - name: Log into Quay.IO registry
-      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
-
-#    - name: Log into harbor registry
-#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
 
     - name: Check buildah
-      run:  |
-        buildah --version
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: buildah --version
 
     - name: Test Make
-      run:  make
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: make
 
     - name: Install requirements.txt
-      run:  make pip
-
-    - name: Log into docker registry
-      run: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: make pip
 
     - name: Build and Deploy Zabbix 5.0 (${{ matrix.image_type }})
-      run: cd linux/advanced/zabbix/5.0/${{ matrix.image_type }} && pwd && make build && make deploy
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: cd linux/advanced/zabbix/5.0/${{ matrix.image_type }} && pwd && make build && make deploy
 
     - name: Cleanup
-      run: make clean
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: make clean
 
 ##################################################################
 
   build-40:
     name: Build Zabbix 4.0 Images
-    runs-on: ubuntu-24.04
+    runs-on: [ ubuntu-24.04 ]
     needs: build-latest
     strategy:
       matrix:
@@ -502,40 +830,72 @@ jobs:
     
     steps:
     - uses: actions/checkout@v4
+      with: 
+          clean:  true
+          show-progress:  true
+          submodules:  true
     
     - name: Log into docker registry
-      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
     - name: Log into Quay.IO registry
-      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
-
-#    - name: Log into harbor registry
-#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
 
     - name: Check buildah
-      run:  |
-        buildah --version
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: buildah --version
 
     - name: Test Make
-      run:  make
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: make
 
     - name: Install requirements.txt
-      run:  make pip
-
-    - name: Log into docker registry
-      run: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: make pip
 
     - name: Build and Deploy Zabbix 4.0 (${{ matrix.image_type }})
-      run: cd linux/advanced/zabbix/4.0/${{ matrix.image_type }} && pwd && make build && make deploy
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: cd linux/advanced/zabbix/4.0/${{ matrix.image_type }} && pwd && make build && make deploy
 
     - name: Cleanup
-      run: make clean
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: make clean
 
 ##################################################################
 
   build-30:
     name: Build Zabbix 3.0 Images
-    runs-on: ubuntu-24.04
+    runs-on: [ ubuntu-24.04 ]
     needs: build-latest
     strategy:
       matrix:
@@ -550,31 +910,63 @@ jobs:
     
     steps:
     - uses: actions/checkout@v4
+      with: 
+          clean:  true
+          show-progress:  true
+          submodules:  true
     
     - name: Log into docker registry
-      run:  echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
     - name: Log into Quay.IO registry
-      run:  echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
-
-#    - name: Log into harbor registry
-#      run:  echo "${{ secrets.HARBOR_SERVER_KEY }}" | docker login -u "${{ secrets.HARBOR_SERVER_LOGIN }}" --password-stdin "${{ secrets.HARBOR_SERVER_URL }}"
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
 
     - name: Check buildah
-      run:  |
-        buildah --version
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: buildah --version
 
     - name: Test Make
-      run:  make
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: make
 
     - name: Install requirements.txt
-      run:  make pip
-
-    - name: Log into docker registry
-      run: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: make pip
 
     - name: Build and Deploy Zabbix 3.0 (${{ matrix.image_type }})
-      run: cd linux/advanced/zabbix/3.0/${{ matrix.image_type }} && pwd && make build && make deploy
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: cd linux/advanced/zabbix/3.0/${{ matrix.image_type }} && pwd && make build && make deploy
 
     - name: Cleanup
-      run: make clean
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: make clean
