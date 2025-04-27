@@ -1,0 +1,139 @@
+name: EpicMorg Atlassian Crowd 02 Images
+
+on:
+  workflow_dispatch:
+
+jobs:
+
+  build-images:
+    name: Atlassian Crowd ${{ matrix.version }} Image
+    runs-on: [ ubuntu-24.04 ]
+    strategy:
+      matrix:
+        version: [
+         '2.0.0',
+         '2.0.1',
+         '2.0.2',
+         '2.0.3',
+         '2.0.4',
+         '2.0.5',
+         '2.0.6',
+         '2.0.7',
+         '2.0.9',
+         '2.1.0',
+         '2.10.1',
+         '2.10.2',
+         '2.10.3',
+         '2.1.0-beta4',
+         '2.1.1',
+         '2.11.0',
+         '2.11.1',
+         '2.11.2',
+         '2.1.2',
+         '2.12.0',
+         '2.2.2',
+         '2.2.4',
+         '2.2.7',
+         '2.2.9',
+         '2.3.1',
+         '2.3.2',
+         '2.3.3',
+         '2.3.4',
+         '2.3.6',
+         '2.3.7',
+         '2.3.9',
+         '2.4.0',
+         '2.4.1',
+         '2.4.10',
+         '2.4.2',
+         '2.5.0',
+         '2.5.1',
+         '2.5.2',
+         '2.5.3',
+         '2.5.4',
+         '2.5.5',
+         '2.5.7',
+         '2.6.0',
+         '2.6.1',
+         '2.6.2',
+         '2.6.3',
+         '2.6.4',
+         '2.6.5',
+         '2.6.7',
+         '2.7.0',
+         '2.7.1',
+         '2.7.2',
+         '2.8.0',
+         '2.8.2',
+         '2.8.3',
+         '2.8.4',
+         '2.8.8',
+         '2.9.1',
+         '2.9.5',
+         '2.9.7',
+        ]
+
+    steps:
+    - uses: actions/checkout@v4
+      with: 
+          clean:  true
+          show-progress:  true
+          submodules:  true
+    
+    - name: Log into docker registry
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Log into Quay.IO registry
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
+
+    - name: Check buildah
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: buildah --version
+
+    - name: Test Make
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: make
+
+    - name: Install requirements.txt
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: make pip
+
+    - name: "Build and Deploy Atlassian crowd ${{ matrix.version }} Image:"
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: cd linux/ecosystem/atlassian/crowd/2/${{ matrix.version }}    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: make clean
