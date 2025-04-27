@@ -1,8 +1,0 @@
-services:
-  app:
-    image: "quay.io/epicmorg/fisheye:${RELEASE}"
-    build:
-      context: .
-      args:
-        RELEASE: ${RELEASE}
-        DOWNLOAD_URL: ${DOWNLOAD_URL}

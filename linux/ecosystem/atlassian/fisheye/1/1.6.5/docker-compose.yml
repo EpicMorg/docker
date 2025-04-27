@@ -1,8 +1,9 @@
 services:
   app:
-    image: "quay.io/epicmorg/fisheye:${RELEASE}"
+    image: "quay.io/epicmorg/fisheye:1.6.5"
     build:
       context: .
-      args:
-        RELEASE: ${RELEASE}
-        DOWNLOAD_URL: ${DOWNLOAD_URL}
+  app-jdk6:
+    image: "quay.io/epicmorg/fisheye:1.6.5-jdk6"
+    build:
+      context: .

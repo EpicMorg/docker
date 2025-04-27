@@ -29,8 +29,8 @@ jobs:
          '1.5.3',
          '1.5.4',
          '1.6.0',
-         '1.6.0Beta1',
-         '1.6.0Beta2',
+         '1.6.0.beta1',
+         '1.6.0.beta2',
          '1.6.1',
          '1.6.2',
          '1.6.2.1',
@@ -89,7 +89,7 @@ jobs:
           max_attempts: 15
           command: make pip
 
-    - name: "Build and Deploy Atlassian crucible ${{ matrix.version }} Image:"
+    - name: "Build and Deploy Atlassian Crucible ${{ matrix.version }} Image:"
       uses: nick-fields/retry@v3
       with:   
           retry_wait_seconds: 45

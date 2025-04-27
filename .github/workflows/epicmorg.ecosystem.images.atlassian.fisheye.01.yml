@@ -1,0 +1,107 @@
+name: EpicMorg Atlassian Fisheye 01 Images
+
+on:
+  workflow_dispatch:
+
+jobs:
+
+  build-images:
+    name: Atlassian Fisheye ${{ matrix.version }} Image
+    runs-on: [ ubuntu-24.04 ]
+    strategy:
+      matrix:
+        version: [
+         '1.0.1a',
+         '1.1.3',
+         '1.2.5',
+         '1.3.3',
+         '1.3.4',
+         '1.3.5',
+         '1.3.6',
+         '1.3.7',
+         '1.3.8',
+         '1.4',
+         '1.4.1',
+         '1.4.2',
+         '1.4.3',
+         '1.5',
+         '1.5.1',
+         '1.5.2',
+         '1.5.3',
+         '1.5.4',
+         '1.6.0',
+         '1.6.0.beta1',
+         '1.6.0.beta2',
+         '1.6.1',
+         '1.6.3',
+         '1.6.4',
+         '1.6.5',
+         '1.6.5.a',
+         '1.6.5a',
+         '1.6.6',
+        ]
+
+    steps:
+    - uses: actions/checkout@v4
+      with: 
+          clean:  true
+          show-progress:  true
+          submodules:  true
+    
+    - name: Log into docker registry
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Log into Quay.IO registry
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
+
+    - name: Check buildah
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: buildah --version
+
+    - name: Test Make
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: make
+
+    - name: Install requirements.txt
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: make pip
+
+    - name: "Build and Deploy Atlassian Fisheye ${{ matrix.version }} Image:"
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: cd linux/ecosystem/atlassian/fisheye/1/${{ matrix.version }}    && pwd && make build && make deploy
+
+##################################################################################
+
+    - name: Cleanup
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: make clean

@@ -1,0 +1,15 @@
+services:
+  app:
+    image: "quay.io/epicmorg/fisheye-crucible:{{ item }}"
+    build:
+      context: .
+      dockerfile: Dockerfile.jdk7
+  app-jdk6:
+    image: "quay.io/epicmorg/fisheye-crucible:{{ item }}-jdk6"
+    build:
+      context: .
+  app-jdk7:
+    image: "quay.io/epicmorg/fisheye-crucible:{{ item }}-jdk7"
+    build:
+      context: .
+      dockerfile: Dockerfile.jdk7

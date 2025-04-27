@@ -1,12 +1,13 @@
-FROM quay.io/epicmorg/debian:bullseye-jdk7
-LABEL maintainer="Atlassian Jira Server Team; EpicMorg DevTeam, developer@epicm.org"
+FROM quay.io/epicmorg/debian:bookworm-jdk6
+LABEL maintainer="Atlassian Fisheye Server Team; EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
 ##################################################################
 #                   ARGuments
 ##################################################################
-ARG RELEASE
-ARG DOWNLOAD_URL
+ARG RELEASE=2.10.6
+ARG DOWNLOAD_URL=https://www.atlassian.com/software/fisheye/downloads/binary/fisheye-${RELEASE}.zip
+ARG TEMP_ARCHIVE=/tmp/fisheye-${RELEASE}.zip
 
 ##################################################################
 #                   Setup
@@ -27,21 +28,36 @@ EXPOSE 8060
 ##################################################################
 #                   Installing
 ##################################################################
-RUN mkdir -p                 ${FISHEYE_HOME} \
-    && wget -nv --random-wait -c ${DOWNLOAD_URL} -O /tmp/fisheye-${RELEASE}.zip \
-    && unzip -q /tmp/fisheye-${RELEASE}.zip -d /tmp \
-    && mv /tmp/fecru-${RELEASE}/* ${FISHEYE_HOME} \
-    && chown -R ${RUN_USER}:${RUN_GROUP} ${FISHEYE_HOME} \
-    && chmod +x /usr/bin/p4 \
-    && update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8 \
-    && apt-get clean -y \
-    && apt-get autoclean -y \
-    && rm -rfv  /tmp/fisheye-${RELEASE}.zip \
-    && rm -rfv  /tmp/fecru-${RELEASE} \
-    && rm -rfv /var/lib/apt/lists/* \
-    && rm -rfv /var/cache/apt/archives/*.deb
+ADD ${DOWNLOAD_URL} /tmp
 
-COPY entrypoint.sh /entrypoint.sh 
+RUN mkdir -p ${FISHEYE_HOME} ${FISHEYE_INST} && \
+    7zz x ${TEMP_ARCHIVE} -o/tmp/fisheye-temp && \
+    mv /tmp/fisheye-temp/*/* "${FISHEYE_HOME}" && \
+    update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8 && \
+    apt-get clean -y && \
+    apt-get autoremove -y && \
+    apt-get autoclean -y && \
+    rm -rfv /var/lib/apt/lists/* && \
+    rm -rfv /var/cache/apt/archives/*.deb && \
+    rm -rfv /root/tmp/* && \
+    rm -rfv /tmp/*
+
+COPY entrypoint.sh  /entrypoint.sh 
+
+RUN chmod +x /entrypoint.sh && \
+    chown -R ${RUN_USER}:${RUN_GROUP} ${FISHEYE_HOME}
+
+##################################################################
+#                  cleanup
+##################################################################
+RUN echo "clean up" && \
+    apt-get clean -y && \
+    apt-get autoremove -y && \
+    apt-get autoclean -y && \
+    rm -rfv /var/lib/apt/lists/* && \
+    rm -rfv /var/cache/apt/archives/*.deb && \
+    rm -rfv /root/tmp/* && \
+    rm -rfv /tmp/*
 
 CMD ["/entrypoint.sh", "run"]
 ENTRYPOINT ["/usr/bin/tini", "--"]

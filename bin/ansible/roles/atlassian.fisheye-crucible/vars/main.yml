@@ -1,0 +1,4 @@
+# Defaults
+target_directory_fisheye_2: "/opt/tmp/fisheye-crucible/2"
+target_directory_fisheye_3: "/opt/tmp/fisheye-crucible/3"
+target_directory_fisheye_4: "/opt/tmp/fisheye-crucible/4"
