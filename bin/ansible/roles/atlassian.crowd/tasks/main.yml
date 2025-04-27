@@ -1,23 +1,23 @@
-- name: "Generate images for Crowd 0 (jdk6) [init]"
-  import_tasks: atlassian.crowd.0.jdk6.initial.yml
-
-- name: "Generate images for Crowd 0 (jdk6)"
-  import_tasks: atlassian.crowd.0.jdk6.yml
-
-- name: "Generate images for Crowd 1 (jdk6 + jdk7)"
-  import_tasks: atlassian.crowd.1.jdk6-jdk7.yml
-
-- name: "Generate images for Crowd 2 (jdk6 + jdk7)"
-  import_tasks: atlassian.crowd.2.jdk6-jdk7.yml
-
-- name: "Generate images for Crowd 3 (jdk6 + jdk7)"
-  import_tasks: atlassian.crowd.3.jdk6-jdk7.yml
-
-- name: "Generate images for Crowd 4 (jdk8 + jdk11)"
-  import_tasks: atlassian.crowd.4.jdk8-jdk11.yml
-
-- name: "Generate images for Crowd 5 (jdk8 + jdk11)"
-  import_tasks: atlassian.crowd.5.jdk8-jdk11.yml
+#- name: "Generate images for Crowd 0 (jdk6) [init]"
+#  import_tasks: atlassian.crowd.0.jdk6.initial.yml
+#
+#- name: "Generate images for Crowd 0 (jdk6)"
+#  import_tasks: atlassian.crowd.0.jdk6.yml
+#
+#- name: "Generate images for Crowd 1 (jdk6 + jdk7)"
+#  import_tasks: atlassian.crowd.1.jdk6-jdk7.yml
+#
+#- name: "Generate images for Crowd 2 (jdk6 + jdk7)"
+#  import_tasks: atlassian.crowd.2.jdk6-jdk7.yml
+#
+#- name: "Generate images for Crowd 3 (jdk6 + jdk7)"
+#  import_tasks: atlassian.crowd.3.jdk6-jdk7.yml
+#
+#- name: "Generate images for Crowd 4 (jdk8 + jdk11)"
+#  import_tasks: atlassian.crowd.4.jdk8-jdk11.yml
+#
+#- name: "Generate images for Crowd 5 (jdk8 + jdk11)"
+#  import_tasks: atlassian.crowd.5.jdk8-jdk11.yml
 
 - name: "Generate images for Crowd 6 (jdk17)"
   import_tasks: atlassian.crowd.6.jdk17.yml

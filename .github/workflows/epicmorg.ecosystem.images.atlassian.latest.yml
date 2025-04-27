@@ -74,6 +74,14 @@ jobs:
           max_attempts: 15
           command: cd linux/ecosystem/atlassian/confluence/latest    && pwd && make build && make deploy
 
+    - name: "Build and Deploy Atlassian Crowd Image:"
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: cd linux/ecosystem/atlassian/crowd/latest    && pwd && make build && make deploy
+
 #    - name: "Build and Deploy Atlassian Crucible Image:"
 #      uses: nick-fields/retry@v3
 #      with:   
