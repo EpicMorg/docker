@@ -5,7 +5,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 #                   ARGuments
 ##################################################################
-ARG RELEASE=1.6.0Beta2
+ARG RELEASE=1.6.0.beta2
 ARG DOWNLOAD_URL=https://www.atlassian.com/software/crucible/downloads/binary/crucible-${RELEASE}.zip
 ARG TEMP_ARCHIVE=/tmp/crucible-${RELEASE}.zip
 
