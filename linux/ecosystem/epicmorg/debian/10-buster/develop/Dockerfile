@@ -64,7 +64,7 @@ ARG CMAKE_3_16_DOWNLOAD_URL=https://github.com/Kitware/CMake/releases/download/v
 ARG CMAKE_3_16_TEMP=/tmp/cmake-${CMAKE_3_16_VERSION}-linux-x86_64.tar.gz
 
 # flutter source tarball
-ENV FLUTTER_VERSION=3.29.2
+ENV FLUTTER_VERSION=3.29.3
 ENV FLUTTER_CHANNEL=stable
 ENV FLUTTER_DIR=${EMG_LOCAL_BASE_DIR}/flutter/${FLUTTER_VERSION}
 ARG FLUTTER_BIN_DIR=${FLUTTER_DIR}/bin

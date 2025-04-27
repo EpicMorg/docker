@@ -64,7 +64,7 @@ ARG CMAKE_3_16_DOWNLOAD_URL=https://github.com/Kitware/CMake/releases/download/v
 ARG CMAKE_3_16_TEMP=/tmp/cmake-${CMAKE_3_16_VERSION}-linux-x86_64.tar.gz
 
 # flutter source tarball
-ENV FLUTTER_VERSION=3.29.2
+ENV FLUTTER_VERSION=3.29.3
 ENV FLUTTER_CHANNEL=stable
 ENV FLUTTER_DIR=${EMG_LOCAL_BASE_DIR}/flutter/${FLUTTER_VERSION}
 ARG FLUTTER_BIN_DIR=${FLUTTER_DIR}/bin
@@ -146,12 +146,12 @@ ENV LIBATOMICOPS_DIR=${EMG_LOCAL_BASE_DIR}/libatomic_ops/${LIBATOMICOPS_VERSION}
 ENV LIBATOMICOPS_INC_DIR=${LIBATOMICOPS_DIR}/include
 ENV LIBATOMICOPS_LIB_DIR=${LIBATOMICOPS_DIR}/lib
 ENV LIBATOMICOPS_SRC_DIR=/usr/local/src/libatomic_ops/${LIBATOMICOPS_VERSION}
-ARG LIBATOMICOPS_DOWNLOAD_URL=https://github.com/ivmai/libatomic_ops/releases/download/v${LIBATOMICOPS_VERSION}/libatomic_ops-${LIBATOMICOPS_VERSION}.tar.gz
+ARG LIBATOMICOPS_DOWNLOAD_URL=https://github.com/bdwgc/libatomic_ops/releases/download/v${LIBATOMICOPS_VERSION}/libatomic_ops-${LIBATOMICOPS_VERSION}.tar.gz
 ARG LIBATOMICOPS_TEMP=/tmp/libatomic_ops-${LIBATOMICOPS_VERSION}.tar.gz
 ARG LIBATOMICOPS_TEMP_SRC=/tmp/libatomic_ops-${LIBATOMICOPS_VERSION}
 
 # libimagequant source
-ENV LIBIMAGEQUANT_VERSION=4.3.1
+ENV LIBIMAGEQUANT_VERSION=4.3.4
 ARG LIBIMAGEQUANT_DOWNLOAD_URL=https://github.com/ImageOptim/libimagequant
 ENV LIBIMAGEQUANT_DIR=${EMG_LOCAL_BASE_DIR}/libimagequant
 ENV LIBIMAGEQUANT_SRC_DIR=/usr/local/src/libimagequant/${LIBIMAGEQUANT_VERSION}
@@ -1190,7 +1190,7 @@ RUN tar -xzf ${OPENSSL_35_TEMP} --directory /tmp && \
     cp -rfv ${OPENSSL_35_TEMP_SRC}/* ${OPENSSL_35_SRC_DIR} && \
     ln -sf ${OPENSSL_35_SRC_DIR} ${OPENSSL_35_DIR}/src && \
     cd ${OPENSSL_35_TEMP_SRC} && \
-    CFLAGS="-Wno-error -fPIC" CXXFLAGS="-fPIC" ./config \
+    CFLAGS="-Wno-error -fPIC" CXXFLAGS="-fPIC" ./c \
       zlib \
       --with-zlib-include=${ZLIB_DIR}/include \
       --with-zlib-lib=${ZLIB_DIR}/lib \
