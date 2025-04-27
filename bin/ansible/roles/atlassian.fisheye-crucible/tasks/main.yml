@@ -1,0 +1,14 @@
+#- name: "Generate images for Fisheye + Crucible 2 (jdk6)"
+#  import_tasks: atlassian.fisheye.2.jdk6.yml
+#
+#- name: "Generate images for Fisheye + Crucible 2 (jdk6 + jdk7)"
+#  import_tasks: atlassian.fisheye.2.jdk6-7.yml
+#
+#- name: "Generate images for Fisheye + Crucible 3 (jdk6 + jdk7)"
+#  import_tasks: atlassian.fisheye.3.jdk6-7.yml
+#
+#- name: "Generate images for Fisheye + Crucible 3 (jdk8)"
+#  import_tasks: atlassian.fisheye.3.jdk8.yml
+#
+- name: "Generate images for Fisheye + Crucible 4 (jdk8)"
+  import_tasks: atlassian.fisheye.4.jdk8.yml

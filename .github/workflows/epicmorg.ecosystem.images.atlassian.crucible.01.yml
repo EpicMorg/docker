@@ -89,7 +89,7 @@ jobs:
           max_attempts: 15
           command: make pip
 
-    - name: "Build and Deploy Atlassian crucible ${{ matrix.version }} Image:"
+    - name: "Build and Deploy Atlassian Crucible ${{ matrix.version }} Image:"
       uses: nick-fields/retry@v3
       with:   
           retry_wait_seconds: 45

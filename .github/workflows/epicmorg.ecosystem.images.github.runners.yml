@@ -121,7 +121,7 @@ jobs:
           {type: 'php', version: '8.1', path: 'php81'},
           {type: 'php', version: '8.2', path: 'php82'},
           {type: 'php', version: '8.3', path: 'php83'},
-          {type: 'php', version: '8.4', path: 'php84'}
+          {type: 'php', version: '8.4', path: 'php84'},
         ]
 
     steps:

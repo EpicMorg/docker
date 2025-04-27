@@ -1,8 +1,15 @@
 services:
   app:
-    image: "quay.io/epicmorg/fisheye-crucible:${RELEASE}"
+    image: "quay.io/epicmorg/fisheye-crucible:2.8.1"
     build:
       context: .
-      args:
-        RELEASE: ${RELEASE}
-        DOWNLOAD_URL: ${DOWNLOAD_URL}
+      dockerfile: Dockerfile.jdk7
+  app-jdk6:
+    image: "quay.io/epicmorg/fisheye-crucible:2.8.1-jdk6"
+    build:
+      context: .
+  app-jdk7:
+    image: "quay.io/epicmorg/fisheye-crucible:2.8.1-jdk7"
+    build:
+      context: .
+      dockerfile: Dockerfile.jdk7

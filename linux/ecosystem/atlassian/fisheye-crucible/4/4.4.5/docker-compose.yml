@@ -1,8 +1,9 @@
 services:
   app:
-    image: "quay.io/epicmorg/fisheye-crucible:${RELEASE}"
+    image: "quay.io/epicmorg/fisheye-crucible:4.4.5"
     build:
       context: .
-      args:
-        RELEASE: ${RELEASE}
-        DOWNLOAD_URL: ${DOWNLOAD_URL}
+  app-jdk8:
+    image: "quay.io/epicmorg/fisheye-crucible:4.4.5-jdk8"
+    build:
+      context: .
