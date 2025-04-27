@@ -38,6 +38,9 @@ ansible.gen.confluence:
 ansible.gen.crowd:
 	cd `pwd`/bin/ansible			&& ansible-playbook ./generate.crowd.yml
 
+ansible.gen.crucible:
+	cd `pwd`/bin/ansible			&& ansible-playbook ./generate.crucible.yml
+
 ansible.gen.bitbucket:
 	cd `pwd`/bin/ansible			&& ansible-playbook ./generate.bitbucket.yml
 
