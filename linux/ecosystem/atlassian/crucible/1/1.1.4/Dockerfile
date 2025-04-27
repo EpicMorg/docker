@@ -42,7 +42,7 @@ RUN mkdir -p  ${FISHEYE_HOME} ${FISHEYE_INST} && \
     rm -rfv /root/tmp/* && \
     rm -rfv /tmp/*
 
-COPY entrypoint.sh   /
+COPY entrypoint.sh /entrypoint.sh 
 
 RUN chmod +x /entrypoint.sh && \
     chown -R ${RUN_USER}:${RUN_GROUP} ${FISHEYE_HOME}
@@ -58,8 +58,6 @@ RUN echo "clean up" && \
     rm -rfv /var/cache/apt/archives/*.deb && \
     rm -rfv /root/tmp/* && \
     rm -rfv /tmp/*
-
-COPY entrypoint.sh /entrypoint.sh 
 
 CMD ["/entrypoint.sh", "run"]
 ENTRYPOINT ["/usr/bin/tini", "--"]

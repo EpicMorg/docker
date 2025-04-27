@@ -1,9 +1,9 @@
 services:
   app:
-    image: "quay.io/epicmorg/crucible:1.6.0Beta2"
+    image: "quay.io/epicmorg/crucible:1.6.0.beta2"
     build:
       context: .
   app-jdk6:
-    image: "quay.io/epicmorg/crucible:1.6.0Beta2-jdk6"
+    image: "quay.io/epicmorg/crucible:1.6.0.beta2-jdk6"
     build:
       context: .

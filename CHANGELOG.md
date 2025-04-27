@@ -3,6 +3,7 @@
 ## 2025
 
 * `apr`
+  * added `fisheye` images to `gha`.
   * added `crucible` images to `gha`.
   * added `GitHub Actions` to `Bitbucket` images.
   * added new `telegram` `bot` with `quotes`.

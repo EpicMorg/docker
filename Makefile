@@ -41,6 +41,9 @@ ansible.gen.crowd:
 ansible.gen.crucible:
 	cd `pwd`/bin/ansible			&& ansible-playbook ./generate.crucible.yml
 
+ansible.gen.fisheye:
+	cd `pwd`/bin/ansible			&& ansible-playbook ./generate.fisheye.yml
+
 ansible.gen.bitbucket:
 	cd `pwd`/bin/ansible			&& ansible-playbook ./generate.bitbucket.yml
 
