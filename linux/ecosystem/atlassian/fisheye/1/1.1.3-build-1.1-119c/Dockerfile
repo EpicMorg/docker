@@ -5,7 +5,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 #                   ARGuments
 ##################################################################
-ARG RELEASE=1.2.5
+ARG RELEASE=1.1.3-build-1.1-119c
 ARG DOWNLOAD_URL=https://www.atlassian.com/software/fisheye/downloads/binary/fisheye-${RELEASE}.zip
 ARG TEMP_ARCHIVE=/tmp/fisheye-${RELEASE}.zip
 
