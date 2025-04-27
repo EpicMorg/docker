@@ -1,0 +1,9 @@
+services:
+  app:
+    image: "quay.io/epicmorg/crucible:{{ item }}"
+    build:
+      context: .
+  app-jdk6:
+    image: "quay.io/epicmorg/crucible:{{ item }}-jdk6"
+    build:
+      context: .

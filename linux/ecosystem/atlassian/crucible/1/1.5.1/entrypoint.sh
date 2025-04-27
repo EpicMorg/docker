@@ -17,7 +17,7 @@ fi
 
 export FISHEYE_OPTS="${FISHEYE_OPTS} ${JVM_SUPPORT_RECOMMENDED_ARGS}"
 
-# Start Bamboo as the correct user
+# Start Crucible as the correct user
 if [ "${UID}" -eq 0 ]; then
     echo "User is currently root. Will change directory ownership to ${RUN_USER}:${RUN_GROUP}, then downgrade permission to ${RUN_USER}"
     PERMISSIONS_SIGNATURE=$(stat -c "%u:%U:%a" "${FISHEYE_INST}")

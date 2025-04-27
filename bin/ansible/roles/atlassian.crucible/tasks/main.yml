@@ -1,0 +1,2 @@
+- name: "Generate images for Crucible 1 (jdk16)"
+  import_tasks: atlassian.crucible.1.jdk6.yml
