@@ -1,0 +1,17 @@
+services:
+  app:
+    image: "quay.io/epicmorg/fisheye:1.2.5-build-201"
+    build:
+      context: .
+  app-jdk6:
+    image: "quay.io/epicmorg/fisheye:1.2.5-build-201-jdk6"
+    build:
+      context: .
+  app1:
+    image: "quay.io/epicmorg/fisheye:1.2.5"
+    build:
+      context: .
+  app2:
+    image: "quay.io/epicmorg/fisheye:1.2.5-jdk6"
+    build:
+      context: .
