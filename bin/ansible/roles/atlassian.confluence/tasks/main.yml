@@ -19,8 +19,8 @@
 # - name: "Generate images for Confluence 7 (jdk8 + jdk11)"
 #   import_tasks: atlassian.confluence.7.jdk8-jdk11.yml
 #
-# - name: "Generate images for Confluence 8 (jdk11 + jdk17)"
-#   import_tasks: atlassian.confluence.8.jdk11-jdk17.yml
+- name: "Generate images for Confluence 8 (jdk11 + jdk17)"
+  import_tasks: atlassian.confluence.8.jdk11-jdk17.yml
 
 - name: "Generate images for Confluence 9 (jdk17 + jdk21)"
   import_tasks: atlassian.confluence.9.jdk17-jdk21.yml
