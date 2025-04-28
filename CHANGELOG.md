@@ -3,6 +3,7 @@
 ## 2025
 
 * `apr`
+  * restored `astralinux`, reworked, added `1.8` version.
   * fixed `nginx` iamges, added new `1.28` version.
   * added `fisheye` images to `gha`.
   * added `crucible` images to `gha`.
