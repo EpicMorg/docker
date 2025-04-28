@@ -3,6 +3,7 @@
 ## 2025
 
 * `apr`
+  * fixed `nginx` iamges, added new `1.28` version.
   * added `fisheye` images to `gha`.
   * added `crucible` images to `gha`.
   * added `GitHub Actions` to `Bitbucket` images.
