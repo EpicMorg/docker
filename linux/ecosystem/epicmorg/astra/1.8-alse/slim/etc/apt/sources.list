@@ -1,0 +1,11 @@
+# Основной репозиторий, включающий актуальное оперативное или срочное обновление
+deb https://dl.astralinux.ru/astra/stable/1.8_x86-64/repository-main/                1.8_x86-64 main contrib non-free non-free-firmware
+
+# Расширенный репозиторий, соответствующий актуальному оперативному обновлению
+deb https://dl.astralinux.ru/astra/stable/1.8_x86-64/extended-repository/            1.8_x86-64 main contrib non-free non-free-firmware
+
+deb https://dl.astralinux.ru/astra/frozen/1.8_x86-64/1.8.1/main-repository/          1.8_x86-64 main contrib non-free non-free-firmware
+deb https://dl.astralinux.ru/astra/frozen/1.8_x86-64/1.8.1/extended-repository/      1.8_x86-64 main contrib non-free non-free-firmware
+
+deb https://dl.astralinux.ru/astra/frozen/1.8_x86-64/1.8.2/main-repository/          1.8_x86-64 contrib main non-free non-free-firmware
+deb https://dl.astralinux.ru/astra/frozen/1.8_x86-64/1.8.2/extended-repository/      1.8_x86-64 contrib main non-free non-free-firmware

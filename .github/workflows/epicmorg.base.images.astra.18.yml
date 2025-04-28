@@ -1,14 +1,14 @@
-name: EpicMorg Astra 1.7 SE Images
+name: EpicMorg Astra 1.8 SE Images
 
 on:
   workflow_dispatch:
   schedule:
-    - cron:  '2 2 * * 1,3,5'
+    - cron:  '3 3 * * 1,3,5'
 
 jobs:
 
   build-alse-images:
-    name: Build EpicMorg Astra 1.7 SE Images
+    name: Build EpicMorg Astra 1.8 SE Images
     runs-on: [ ubuntu-24.04 ]
 
     steps:
@@ -59,29 +59,29 @@ jobs:
           command: make pip
 
 
-    - name: "Build and Deploy Astra 1.7 SE slim Image:"
+    - name: "Build and Deploy Astra 1.8 SE slim Image:"
       uses: nick-fields/retry@v3
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
           max_attempts: 15
-          command: cd linux/ecosystem/epicmorg/astra/1.7-alse/slim    && pwd && make build && make deploy
+          command: cd linux/ecosystem/epicmorg/astra/1.8-alse/slim    && pwd && make build && make deploy
 
-    - name: "Build and Deploy Astra 1.7 SE main Image:"
+    - name: "Build and Deploy Astra 1.8 SE main Image:"
       uses: nick-fields/retry@v3
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
           max_attempts: 15
-          command: cd linux/ecosystem/epicmorg/astra/1.7-alse/main    && pwd && make build && make deploy
+          command: cd linux/ecosystem/epicmorg/astra/1.8-alse/main    && pwd && make build && make deploy
       
-    - name: "Build and Deploy Astra 1.7 SE develop Image:"
+    - name: "Build and Deploy Astra 1.8 SE develop Image:"
       uses: nick-fields/retry@v3
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
           max_attempts: 15
-          command: cd linux/ecosystem/epicmorg/astra/1.7-alse/develop    && pwd && make build && make deploy
+          command: cd linux/ecosystem/epicmorg/astra/1.8-alse/develop    && pwd && make build && make deploy
 
     - name: Cleanup
       uses: nick-fields/retry@v3
