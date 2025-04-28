@@ -13,9 +13,9 @@ A collection of docker images for production use. This repo contains 2 types of 
 
 | Name | Homepage |
 |:-------------|-------------:|
-| `Quai.io` (default) | https://quay.io/epicmorg | 
+| `Quai.io` (default) | https://quay.io/organization/epicmorg | 
 | `DockerHub` (Mirror) | https://hub.docker.com/r/epicmorg |
-| `Harbor` (Mirror)  | https://hub.epicm.org/epicmorg | 
+| `Harbor` (Mirror)  | [[text](https://hub.epicm.org/epicmorg)](https://hub.epicm.org/account/sign-in?globalSearch=epicmorg) | 
 
 ## Docker and Podman support:
 | Docker | Podman |
