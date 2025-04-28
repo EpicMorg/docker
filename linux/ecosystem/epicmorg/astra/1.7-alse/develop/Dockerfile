@@ -813,7 +813,7 @@ RUN tar -xzf ${LIBGD_TEMP} --directory /tmp && \
       --enable-gd-formats \
       --with-tiff \
       --with-webp \
-      --with-heif \
+#      --with-heif \
       --with-avif \
       --with-x \
       && \
