@@ -1,0 +1,22 @@
+# Основной репозиторий
+deb https://dl.astralinux.ru/astra/stable/1.7_x86-64/repository-main/     1.7_x86-64 main contrib non-free
+deb https://mirror.yandex.ru/mirrors/astralinux/stable/1.7_x86-64/repository-main/  1.7_x86-64 main contrib non-free
+
+# Оперативные обновления основного репозитория
+deb https://dl.astralinux.ru/astra/stable/1.7_x86-64/repository-update/   1.7_x86-64 main contrib non-free
+deb https://mirror.yandex.ru/mirrors/astralinux/stable/1.7_x86-64/repository-update/   1.7_x86-64 main contrib non-free
+
+# Базовый репозиторий
+deb https://dl.astralinux.ru/astra/stable/1.7_x86-64/repository-base/     1.7_x86-64 main contrib non-free
+deb https://mirror.yandex.ru/mirrors/astralinux/stable/1.7_x86-64/repository-base/     1.7_x86-64 main contrib non-free
+
+# Расширенный репозиторий
+deb https://dl.astralinux.ru/astra/stable/1.7_x86-64/repository-extended/ 1.7_x86-64 main contrib non-free
+deb https://mirror.yandex.ru/mirrors/astralinux/stable/1.7_x86-64/repository-extended/     1.7_x86-64 main contrib non-free
+
+# Расширенный репозиторий (компонент astra-ce)
+deb https://dl.astralinux.ru/astra/stable/1.7_x86-64/repository-extended/ 1.7_x86-64 astra-ce
+
+# Последнее срочное обновление (если доступно):
+#deb https://dl.astralinux.ru/astra/stable/1.7_x86-64/uu/last/repository-update/ main contrib non-free
+
