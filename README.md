@@ -13,9 +13,9 @@ A collection of docker images for production use. This repo contains 2 types of 
 
 | Name | Homepage |
 |:-------------|-------------:|
-| `Quai.io` (default) | https://quay.io/epicmorg | 
+| `Quai.io` (default) | https://quay.io/organization/epicmorg | 
 | `DockerHub` (Mirror) | https://hub.docker.com/r/epicmorg |
-| `Harbor` (Mirror)  | https://hub.epicm.org/epicmorg | 
+| `Harbor` (Mirror)  | [[text](https://hub.epicm.org/epicmorg)](https://hub.epicm.org/account/sign-in?globalSearch=epicmorg) | 
 
 ## Docker and Podman support:
 | Docker | Podman |
@@ -107,6 +107,10 @@ For more information - look at `Support Document` to replace this tags and image
 | :no_entry_sign: | [![GHA](https://img.shields.io/github/actions/workflow/status/EpicMorg/docker/epicmorg.ecosystem.images.giltab.runners.yml?label=Gitlab%20Runner%20Images&logo=Gitlab%20Runner%20Images&style=flat-square)](https://github.com/EpicMorg/docker/actions/workflows/epicmorg.ecosystem.images.giltab.runners.yml)
 | :no_entry_sign: | [![GHA](https://img.shields.io/github/actions/workflow/status/EpicMorg/docker/epicmorg.ecosystem.images.github.runners.yml?label=GitHub%20Runner%20Images&logo=GitHub%20Runner%20Images&style=flat-square)](https://github.com/EpicMorg/docker/actions/workflows/epicmorg.ecosystem.images.github.runners.yml)
 | :no_entry_sign: | [![GHA](https://img.shields.io/github/actions/workflow/status/EpicMorg/docker/epicmorg.ecosystem.images.qbittorrent.yml?label=qBittorrent%20Images&logo=qBittorrent%20Images&style=flat-square)](https://github.com/EpicMorg/docker/actions/workflows/epicmorg.ecosystem.images.qbittorrent.yml)
+| :no_entry_sign: | [![GHA](https://img.shields.io/github/actions/workflow/status/EpicMorg/docker/epicmorg.ecosystem.images.nginx.yml?label=nginx&logo=nginx&style=flat-square)](https://github.com/EpicMorg/docker/actions/workflows/epicmorg.ecosystem.images.nginx.yml)
+| :no_entry_sign: | [![GHA](https://img.shields.io/github/actions/workflow/status/EpicMorg/docker/epicmorg.base.images.astra.rootfs.yml?label=astra%20rootfs&logo=astra%20rootfs&style=flat-square)](https://github.com/EpicMorg/docker/actions/workflows/epicmorg.base.images.astra.rootfs.yml)
+| :no_entry_sign: | [![GHA](https://img.shields.io/github/actions/workflow/status/EpicMorg/docker/epicmorg.base.images.astra.17.yml?label=astra%201.7&logo=astra%201.7&style=flat-square)](https://github.com/EpicMorg/docker/actions/workflows/epicmorg.base.images.astra.17.yml)
+| :no_entry_sign: | [![GHA](https://img.shields.io/github/actions/workflow/status/EpicMorg/docker/epicmorg.base.images.astra.18.yml?label=astra%201.8&logo=astra%201.8&style=flat-square)](https://github.com/EpicMorg/docker/actions/workflows/epicmorg.base.images.astra.18.yml)
 
 # Few popular products [![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/B0B81CUI4)
 
