@@ -2,12 +2,12 @@ name: EpicMorg Astra 1.7 SE Images
 
 on:
   workflow_dispatch:
-#  schedule:
-#    - cron:  '2 2 * * 1,3,5'
+  schedule:
+    - cron:  '2 2 * * 1,3,5'
 
 jobs:
 
-  build-10-images:
+  build-alse-images:
     name: Build EpicMorg Astra 1.7 SE Images
     runs-on: [ ubuntu-24.04 ]
 
@@ -60,115 +60,33 @@ jobs:
 
 
     - name: "Build and Deploy Astra 1.7 SE slim Image:"
-      run:  cd linux/ecosystem/epicmorg/astra/1.7-alse/slim    && pwd && make build && make deploy
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: cd linux/ecosystem/epicmorg/astra/1.7-alse/slim    && pwd && make build && make deploy
 
     - name: "Build and Deploy Astra 1.7 SE main Image:"
-      run:  cd linux/ecosystem/epicmorg/astra/1.7-alse/main    && pwd && make build && make deploy
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: cd linux/ecosystem/epicmorg/astra/1.7-alse/main    && pwd && make build && make deploy
       
     - name: "Build and Deploy Astra 1.7 SE develop Image:"
-      run:  cd linux/ecosystem/epicmorg/astra/1.7-alse/develop    && pwd && make build && make deploy
-
-##################################################################################
-
-    - name: Cleanup
-      run: make docker-clean
-
-##################################################################################
-
-    - name: "Build and Deploy Astra 1.7 SE jdk6 Image:"
-      run:  cd linux/ecosystem/epicmorg/astra/1.7-alse/jdk6    && pwd && make build && make deploy
-
-    - name: "Build and Deploy Astra 1.7 SE jdk7 Image:"
-      run:  cd linux/ecosystem/epicmorg/astra/1.7-alse/jdk7    && pwd && make build && make deploy
-  
-    - name: "Build and Deploy Astra 1.7 SE jdk8 Image:"
-      run:  cd linux/ecosystem/epicmorg/astra/1.7-alse/jdk8    && pwd && make build && make deploy
-
-    - name: "Build and Deploy Astra 1.7 SE jdk11 Image:"
-      run:  cd linux/ecosystem/epicmorg/astra/1.7-alse/jdk11    && pwd && make build && make deploy
-
-    - name: "Build and Deploy Astra 1.7 SE jdk16 Image:"
-      run:  cd linux/ecosystem/epicmorg/astra/1.7-alse/jdk16    && pwd && make build && make deploy
-
-##################################################################################
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: cd linux/ecosystem/epicmorg/astra/1.7-alse/develop    && pwd && make build && make deploy
 
     - name: Cleanup
-      run: make docker-clean
-
-##################################################################################
-
-
-    - name: "Build and Deploy Astra 1.7 SE jdk17 Image:"
-      run:  cd linux/ecosystem/epicmorg/astra/1.7-alse/jdk17    && pwd && make build && make deploy
-
-    - name: "Build and Deploy Astra 1.7 SE jdk18 Image:"
-      run:  cd linux/ecosystem/epicmorg/astra/1.7-alse/jdk18    && pwd && make build && make deploy
-
-    - name: "Build and Deploy Astra 1.7 SE jdk19 Image:"
-      run:  cd linux/ecosystem/epicmorg/astra/1.7-alse/jdk19    && pwd && make build && make deploy
-
-    - name: "Build and Deploy Astra 1.7 SE jdk20 Image:"
-      run:  cd linux/ecosystem/epicmorg/astra/1.7-alse/jdk20    && pwd && make build && make deploy
-
-##################################################################################
-
-    - name: Cleanup
-      run: make docker-clean
-
-##################################################################################
-
-    - name: "Build and Deploy Astra 1.7 SE jdk21 Image:"
-      run:  cd linux/ecosystem/epicmorg/astra/1.7-alse/jdk21    && pwd && make build && make deploy
-
-    - name: "Build and Deploy Astra 1.7 SE jdk22 Image:"
-      run:  cd /linux/ecosystem/epicmorg/astra/1.7-alse/jdk22    && pwd && make build && make deploy
-
-
-##################################################################################
-
-    - name: Cleanup
-      run: make docker-clean
-
-##################################################################################
-
-
-    - name: "Build and Deploy Astra 1.7 SE python3.10 Image:"
-      run:  cd linux/ecosystem/epicmorg/astra/1.7-alse/python3.10    && pwd && make build && make deploy
-
-  
-##################################################################################
-
-    - name: Cleanup
-      run: make docker-clean
-
-##################################################################################
-
-    - name: "Build and Deploy Astra 1.7 SE python3.11 Image:"
-      run:  cd linux/ecosystem/epicmorg/astra/1.7-alse/python3.11    && pwd && make build && make deploy
-##################################################################################
-
-    - name: Cleanup
-      run: make docker-clean
-
-##################################################################################
-
-    - name: "Build and Deploy Astra 1.7 SE python3.12 Image:"
-      run:  cd linux/ecosystem/epicmorg/astra/1.7-alse/python3.12    && pwd && make build && make deploy
-
-##################################################################################
-
-    - name: Cleanup
-      run: make docker-clean
-
-##################################################################################
-
-    - name: "Build and Deploy Astra 1.7 SE python3.13 Image:"
-      run:  cd linux/ecosystem/epicmorg/astra/1.7-alse/python3.13    && pwd && make build && make deploy
-
-##################################################################################
-
-    - name: Cleanup
-      run: make docker-clean
-
-##################################################################################
- 
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: make clean

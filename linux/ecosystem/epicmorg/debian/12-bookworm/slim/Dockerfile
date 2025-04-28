@@ -53,8 +53,10 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     bash \
     binutils \
     ca-certificates \
+    coreutils \
     curl \
     dirmngr \
+    file \
     gnupg \
     gnupg1 \
     gnupg2 \
@@ -91,7 +93,7 @@ RUN chmod +x ${EMG_LOCAL_BASE_DIR}/welcome.sh && \
     echo '[ ! -z "$TERM" -a -x ${EMG_LOCAL_BASE_DIR}/welcome.sh -a -x ${EMG_LOCAL_BASE_DIR}/welcome.sh ] && ${EMG_LOCAL_BASE_DIR}/welcome.sh' >> /etc/bash.bashrc
 
 ##################################################################
-#                  Preparew dhparam.pem (4096 bit)
+#                  Prepare dhparam.pem (4096 bit)
 ##################################################################
 ENV SSL_DHPARAM_FILE=/etc/ssl/dhparam.pem
 COPY etc/ssl/dhparam.pem ${SSL_DHPARAM_FILE}

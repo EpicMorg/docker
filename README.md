@@ -70,6 +70,7 @@ A collection of docker images for production use. This repo contains 2 types of 
 * `epicmorg/php` - image, migrated to `epicmorg/debian:bookworm-php<version>`. Look at `linux/ecosystem/epicmorg/debian/12-bookworm/php`.
 * `epicmorg/python` - image, migrated to `epicmorg/debian:bookworm-python<version>`. Look at `linux/ecosystem/epicmorg/debian/12-bookworm/python`.
 * `epicmorg/apache2:latest` - ONLY `latest` tag.
+* `epicmorg/nginx:<version>.<build>` - deprecated tags with build-version. at now - all versions are only `<major>.<minor>`. Example: `1.27.1` -> `1.27`.
 * `epicmorg/torrust-index` - deprecated, deleted as abadoned. Sorry.
 * `epicmorg/torrust-tracker` - deprecated, deleted as abadoned. Sorry.
 * `epicmorg/staytus` - deprecated, deleted as abadoned. Sorry.

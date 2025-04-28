@@ -7,7 +7,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 RUN echo "Default folder for installation of customized soft is: ${EMG_LOCAL_BASE_DIR}"
 
-ARG P4_VERSION=r23.2
+ARG P4_VERSION=r24.2
 ARG P4_BIN_DIR=${EMG_LOCAL_BASE_DIR}/p4/${P4_VERSION}/bin
 ARG P4_DOWNLOAD_URL=https://filehost.perforce.com/perforce/${P4_VERSION}/bin.linux26x86_64/p4
 

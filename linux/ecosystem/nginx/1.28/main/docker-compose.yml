@@ -1,0 +1,9 @@
+services:
+  app:
+    image: "quay.io/epicmorg/nginx:1.28"
+    build:
+      context: .
+  app-latest:
+    image: "quay.io/epicmorg/nginx:latest"
+    build:
+      context: .
