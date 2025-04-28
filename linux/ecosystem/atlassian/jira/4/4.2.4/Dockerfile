@@ -7,7 +7,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 ARG RELEASE=4.2.4
 ARG DOWNLOAD_URL=https://www.atlassian.com/software/jira/downloads/binary/atlassian-jira-enterprise-${RELEASE}-b591-standalone.tar.gz
-ARG TEMP_ARCHIVE=/tmp/atlassian-jira-enterprise-${RELEASE}-standalone.tar.gz
+ARG TEMP_ARCHIVE=/tmp/atlassian-jira-enterprise-${RELEASE}-b591-standalone.tar.gz
 
 ##################################################################
 #                   Setup
