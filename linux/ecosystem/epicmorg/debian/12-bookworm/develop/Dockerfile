@@ -1190,7 +1190,7 @@ RUN tar -xzf ${OPENSSL_35_TEMP} --directory /tmp && \
     cp -rfv ${OPENSSL_35_TEMP_SRC}/* ${OPENSSL_35_SRC_DIR} && \
     ln -sf ${OPENSSL_35_SRC_DIR} ${OPENSSL_35_DIR}/src && \
     cd ${OPENSSL_35_TEMP_SRC} && \
-    CFLAGS="-Wno-error -fPIC" CXXFLAGS="-fPIC" ./c \
+    CFLAGS="-Wno-error -fPIC" CXXFLAGS="-fPIC" ./config \
       zlib \
       --with-zlib-include=${ZLIB_DIR}/include \
       --with-zlib-lib=${ZLIB_DIR}/lib \
