@@ -1,4 +1,4 @@
-FROM quay.io/epicmorg/astralinux:1.7-main
+FROM quay.io/epicmorg/astralinux:1.8-main
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -327,7 +327,7 @@ ARG BORINGSSL_DOWNLOAD_URL=https://boringssl.googlesource.com/boringssl
 ARG BORINGSSL_TEMP_SRC=/tmp/boringssl
 
 ##################################################################
-#                   bullseye sources list
+#                   bookworm sources list
 ##################################################################
 RUN apt-get update && \
     apt-get dist-upgrade -y
@@ -339,7 +339,7 @@ RUN apt-get update && \
     apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests --allow-downgrades \
     build-essential \
     autoconf-archive \
-    gnu-standards \
+#    gnu-standards \
     cmake \
     clang \
     meson \
@@ -367,7 +367,6 @@ RUN apt-get update && \
     libmp3lame-dev \
     libopus-dev \
     libavcodec-extra \
-    libheif-dev \
     libtheora-dev \
     libvorbis-dev \
     libflac-dev \
@@ -434,8 +433,9 @@ RUN apt-get update && \
     libmd-dev \
     valgrind \
 #    valgrind-dbg \
+    valgrind-if-available \
     valgrind-mpi \
-#    gcovr \
+    gcovr \
     lcov \
     libsctp-dev \
     libharfbuzz-dev \
@@ -564,7 +564,7 @@ RUN echo "=============================================" && \
 ##################################################################
 #                   GO compillers
 ##################################################################
-RUN mkdir -p ${GO_DIR} ${GO_PATH_BIN_DIR} ${GO_BIN_DIR}
+RUN mkdir -p ${GO_DIR} ${GO_PATH_BIN_DIR} ${GO_BIN_DIR} ${GO_BIN_DIR}
 ADD ${GO_DOWNLOAD_URL} /tmp
 
 RUN tar -xzf ${GO_TEMP} --directory ${GO_DIR} --strip-components=1 && \
@@ -604,7 +604,7 @@ RUN tar -xzf ${ZLIB_TEMP} --directory /tmp && \
     cp -rfv ${ZLIB_TEMP_SRC}/* ${ZLIB_SRC_DIR} && \
     ln -sf ${ZLIB_SRC_DIR}  ${ZLIB_DIR}/src && \
     cd ${ZLIB_TEMP_SRC} && \
-    ./configure \
+    CFLAGS=-Wno-error ./configure \
 #      --static \
       --prefix=${ZLIB_DIR} \
       && \
@@ -626,7 +626,7 @@ RUN tar -xzf ${ZSTD_TEMP} --directory /tmp && \
     cd ${ZSTD_TEMP_SRC} && \
     mkdir -p ${ZSTD_TEMP_SRC}/build/cmake/builddir && \
     cd ${ZSTD_TEMP_SRC}/build/cmake/builddir && \
-    cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=${ZSTD_DIR} -DZSTD_BUILD_STATIC=ON -DZSTD_BUILD_SHARED=ON .. && \
+    CFLAGS=-Wno-error cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=${ZSTD_DIR} -DZSTD_BUILD_STATIC=ON -DZSTD_BUILD_SHARED=ON .. && \
     make -j$(nproc) && \
     make -j$(nproc) install && \
     echo "# ZSTD support" >> ${LD_CONF_DIR}/ZSTD.conf && \
@@ -645,7 +645,7 @@ RUN tar -xzf ${PCRE_TEMP} --directory /tmp && \
     cp -rfv ${PCRE_TEMP_SRC}/* ${PCRE_SRC_DIR} && \
     ln -sf ${PCRE_SRC_DIR} ${PCRE_DIR}/src && \
     cd ${PCRE_TEMP_SRC} && \
-    ./configure --prefix=${PCRE_DIR} \
+    CFLAGS=-Wno-error ./configure --prefix=${PCRE_DIR} \
         --disable-silent-rules \
         --enable-shared \
         --enable-static \
@@ -716,7 +716,7 @@ RUN tar -xzf ${IP2LOC_TEMP} --directory /tmp && \
     automake --gnu --add-missing && \
     autoconf && \
     autoreconf -i -v --force && \
-    ./configure \
+    CFLAGS=-Wno-error ./configure \
       --prefix=${IP2LOC_DIR} \
       --disable-silent-rules \
       --enable-shared \
@@ -741,7 +741,7 @@ RUN tar -xzf ${LIBATOMICOPS_TEMP} --directory /tmp && \
     ln -sf ${LIBATOMICOPS_SRC_DIR} ${LIBATOMICOPS_DIR}/src && \
     cd ${LIBATOMICOPS_TEMP_SRC} && \
     ./autogen.sh && \
-    ./configure \
+    CFLAGS=-Wno-error ./configure \
       --prefix=${LIBATOMICOPS_DIR} \
       --disable-silent-rules \
       --enable-shared \
@@ -795,7 +795,7 @@ RUN tar -xzf ${LIBGD_TEMP} --directory /tmp && \
     ln -sf ${LIBGD_SRC_DIR} ${LIBGD_DIR}/src && \
     cd ${LIBGD_TEMP_SRC} && \
     ./bootstrap.sh && \
-    ./configure \
+    CFLAGS=-Wno-error ./configure \
       --prefix=${LIBGD_DIR} \
       --disable-silent-rules \
       --enable-static \
@@ -825,100 +825,98 @@ RUN tar -xzf ${LIBGD_TEMP} --directory /tmp && \
 
 ENV PATH="${LIBGD_BIN_DIR}:${PATH}" 
 
-# TO FIX
-# ##################################################################
-# #                   libxml2
-# ##################################################################
-# RUN mkdir -p ${LIBXML2_DIR} ${LIBXML2_SRC_DIR}
-# ADD ${LIBXML2_DOWNLOAD_URL} /tmp
-# 
-# RUN tar -xzf ${LIBXML2_TEMP} --directory /tmp && \
-#     cp -rfv ${LIBXML2_TEMP_SRC}/* ${LIBXML2_SRC_DIR} && \
-#     ln -sf ${LIBXML2_SRC_DIR} ${LIBXML2_DIR}/src && \
-#     cd ${LIBXML2_TEMP_SRC} && \
-#     ./autogen.sh && \
-#     ./configure \
-#       --prefix=${LIBXML2_DIR} \
-#       --disable-silent-rules \
-#       --enable-static \
-#       --enable-shared \
-#       --with-aix-soname=both \
-#       --with-c14n \
-#       --with-catalog \
-#       --with-debug \
-#       --with-ftp \
-#       --with-history \
-#       --with-html \
-#       --with-http \
-#       --with-iconv \
-#       --with-readline \
-#       --with-http \
-#       --with-icu \
-#       --with-iso8859x \
-#       --with-output \
-#       --with-pattern \
-#       --with-push \
-#       --with-python \
-#       --with-reader \
-#       --with-regexps \
-#       --with-sax1 \
-#       --with-schemas \
-#       --with-schematron \
-#       --with-threads \
-#       --with-thread-alloc \
-#       --with-tree \
-#       --with-valid \
-#       --with-writer \
-#       --with-xinclude \
-#       --with-xpath \
-#       --with-xptr \
-#       --with-xptr-locs \
-#       --with-lzma \
-#       --with-zlib=${ZSTD_DIR} \
-#       --with-legacy \
-#       --with-tls \
-#       --with-python-sys-prefix \
-#       && \
-#     make -j$(nproc) && \
-#     make -j$(nproc) install && \
-#     echo "# libxslt support" >> ${LD_CONF_DIR}/libxml2.conf && \
-#     echo ${LIBXML2_LIB_DIR} >> ${LD_CONF_DIR}/libxml2.conf && \
-#     ldconfig
-# 
-# ENV PATH="${LIBXML2_BIN_DIR}:${PATH}" 
+##################################################################
+#                   libxml2
+##################################################################
+RUN mkdir -p ${LIBXML2_DIR} ${LIBXML2_SRC_DIR}
+ADD ${LIBXML2_DOWNLOAD_URL} /tmp
 
-# TO FIX
-# ##################################################################
-# #                   libxslt
-# ##################################################################
-# RUN mkdir -p ${LIBXSLT_DIR} ${LIBXSLT_SRC_DIR}
-# ADD ${LIBXSLT_DOWNLOAD_URL} /tmp
-# 
-# RUN tar -xzf ${LIBXSLT_TEMP} --directory /tmp && \
-#     cp -rfv ${LIBXSLT_TEMP_SRC}/* ${LIBXSLT_SRC_DIR} && \
-#     ln -sf ${LIBXSLT_SRC_DIR} ${LIBXSLT_DIR}/src && \
-#     cd ${LIBXSLT_TEMP_SRC} && \
-#     ./autogen.sh && \
-#     ./configure \
-#       --prefix=${LIBXSLT_DIR} \
-#       --disable-silent-rules \
-#       --enable-static \
-#       --enable-shared \
-#       --with-aix-soname=both \
-# #      --with-python-sys-prefix \
-#       --with-crypto \
-#       --with-debug \
-#       --with-debugger \
-#       --with-profiler \
-#       --with-plugins \
-#       && \
-#     make -j$(nproc) && \
-#     make -j$(nproc) install && \
-#     echo "# libxslt support" >> ${LD_CONF_DIR}/libxslt.conf && \
-#     echo ${LIBXSLT_LIB_DIR} >> ${LD_CONF_DIR}/libxslt.conf && \
-#     ldconfig
-# 
-# ENV PATH="${LIBXSLT_BIN_DIR}:${PATH}" 
+RUN tar -xzf ${LIBXML2_TEMP} --directory /tmp && \
+    cp -rfv ${LIBXML2_TEMP_SRC}/* ${LIBXML2_SRC_DIR} && \
+    ln -sf ${LIBXML2_SRC_DIR} ${LIBXML2_DIR}/src && \
+    cd ${LIBXML2_TEMP_SRC} && \
+    ./autogen.sh && \
+    CFLAGS=-Wno-error ./configure \
+      --prefix=${LIBXML2_DIR} \
+      --disable-silent-rules \
+      --enable-static \
+      --enable-shared \
+      --with-aix-soname=both \
+      --with-c14n \
+      --with-catalog \
+      --with-debug \
+      --with-ftp \
+      --with-history \
+      --with-html \
+      --with-http \
+      --with-iconv \
+      --with-readline \
+      --with-http \
+      --with-icu \
+      --with-iso8859x \
+      --with-output \
+      --with-pattern \
+      --with-push \
+      --with-python \
+      --with-reader \
+      --with-regexps \
+      --with-sax1 \
+      --with-schemas \
+      --with-schematron \
+      --with-threads \
+      --with-thread-alloc \
+      --with-tree \
+      --with-valid \
+      --with-writer \
+      --with-xinclude \
+      --with-xpath \
+      --with-xptr \
+      --with-xptr-locs \
+      --with-lzma \
+      --with-zlib=${ZSTD_DIR} \
+      --with-legacy \
+      --with-tls \
+      --with-python-sys-prefix \
+      && \
+    make -j$(nproc) && \
+    make -j$(nproc) install && \
+    echo "# libxslt support" >> ${LD_CONF_DIR}/libxml2.conf && \
+    echo ${LIBXML2_LIB_DIR} >> ${LD_CONF_DIR}/libxml2.conf && \
+    ldconfig
+
+ENV PATH="${LIBXML2_BIN_DIR}:${PATH}" 
+
+##################################################################
+#                   libxslt
+##################################################################
+RUN mkdir -p ${LIBXSLT_DIR} ${LIBXSLT_SRC_DIR}
+ADD ${LIBXSLT_DOWNLOAD_URL} /tmp
+
+RUN tar -xzf ${LIBXSLT_TEMP} --directory /tmp && \
+    cp -rfv ${LIBXSLT_TEMP_SRC}/* ${LIBXSLT_SRC_DIR} && \
+    ln -sf ${LIBXSLT_SRC_DIR} ${LIBXSLT_DIR}/src && \
+    cd ${LIBXSLT_TEMP_SRC} && \
+    ./autogen.sh && \
+    CFLAGS=-Wno-error ./configure \
+      --prefix=${LIBXSLT_DIR} \
+      --disable-silent-rules \
+      --enable-static \
+      --enable-shared \
+      --with-aix-soname=both \
+      --with-python-sys-prefix \
+      --with-crypto \
+      --with-debug \
+      --with-debugger \
+      --with-profiler \
+      --with-plugins \
+      && \
+    make -j$(nproc) && \
+    make -j$(nproc) install && \
+    echo "# libxslt support" >> ${LD_CONF_DIR}/libxslt.conf && \
+    echo ${LIBXSLT_LIB_DIR} >> ${LD_CONF_DIR}/libxslt.conf && \
+    ldconfig
+
+ENV PATH="${LIBXSLT_BIN_DIR}:${PATH}" 
 
 ##################################################################
 #                   MAxMind GeoIP
@@ -934,7 +932,7 @@ RUN tar -xzf ${MM_GEOIP_TEMP} --directory /tmp && \
     aclocal && \
     autoconf && \
     automake --add-missing && \
-    ./configure \
+    CFLAGS=-Wno-error ./configure \
       --prefix=${MM_GEOIP_DIR} \
       --disable-silent-rules \
       --enable-shared \
@@ -960,7 +958,7 @@ RUN tar -xzf ${GPERFTOOLS_TEMP} --directory /tmp && \
     cp -rfv ${GPERFTOOLS_TEMP_SRC}/* ${GPERFTOOLS_SRC_DIR} && \
     ln -sf ${GPERFTOOLS_SRC_DIR} ${GPERFTOOLS_DIR}/src && \
     cd ${GPERFTOOLS_TEMP_SRC} && \
-    ./configure \
+    CFLAGS=-Wno-error ./configure \
       --prefix=${GPERFTOOLS_DIR} \
       --disable-silent-rules \
       --enable-shared \
@@ -996,6 +994,7 @@ RUN tar -xzf ${OPENSSL_102_TEMP} --directory /tmp && \
       enable-egd \
       enable-ssl-trace \
       threads \
+      shared \
       sctp \
       shared \
       --release \
@@ -1148,10 +1147,7 @@ RUN tar -xzf ${OPENSSL_33_TEMP} --directory /tmp && \
       --prefix=${OPENSSL_33_DIR} \
       && \
     make -j$(nproc) && \
-    make -j$(nproc) install && \
-    echo "# OpenSSL support" >> ${LD_CONF_DIR}/OpenSSL.conf && \
-    echo ${OPENSSL_33_LIB_DIR} >> ${LD_CONF_DIR}/OpenSSL.conf && \
-    ldconfig
+    make -j$(nproc) install
 
 ##################################################################
 #                   OpenSSL 3.4
@@ -1213,10 +1209,7 @@ RUN tar -xzf ${OPENSSL_35_TEMP} --directory /tmp && \
       --prefix=${OPENSSL_35_DIR} \
       && \
     make -j$(nproc) && \
-    make -j$(nproc) install && \
-    echo "# OpenSSL support" >> ${LD_CONF_DIR}/OpenSSL.conf && \
-    echo ${OPENSSL_34_LIB_DIR} >> ${LD_CONF_DIR}/OpenSSL.conf && \
-    ldconfig
+    make -j$(nproc) install
 
 ##################################################################
 #                   LibreSSL
@@ -1228,36 +1221,30 @@ RUN tar -xzf ${LIBRESSL_TEMP} --directory /tmp && \
     cp -rfv ${LIBRESSL_TEMP_SRC}/* ${LIBRESSL_SRC_DIR} && \
     ln -sfv ${LIBRESSL_SRC_DIR} ${LIBRESSL_DIR}/src && \
     cd ${LIBRESSL_TEMP_SRC} && \
-    ./config \
+    CFLAGS=-Wno-error ./config \
       --enable-static \
       --enable-shared \
       --disable-silent-rules \
       --prefix=${LIBRESSL_DIR} \
       && \
     make -j$(nproc) && \
-    make -j$(nproc) install && \
-#    echo "# LibreSSL support" >> ${LD_CONF_DIR}/LibreSSL.conf && \
-#    echo ${LIBRESSL_LIB_DIR} >> ${LD_CONF_DIR}/LibreSSL.conf && \
-    ldconfig
+    make -j$(nproc) install
 
-##################################################################
-#                   BoringSSL
-##################################################################
-#  RUN mkdir -p ${BORINGSSL_DIR} ${BORINGSSL_SRC_DIR} && \
-#      git clone -b ${BORINGSSL_VERSION} ${BORINGSSL_DOWNLOAD_URL} ${BORINGSSL_TEMP_SRC} && \
-#      cp -rfv ${BORINGSSL_TEMP_SRC}/* ${BORINGSSL_SRC_DIR} && \
-#      ln -sf ${BORINGSSL_SRC_DIR} ${BORINGSSL_DIR}/src && \
-#      cd ${BORINGSSL_TEMP_SRC} && \
-#      mkdir ${BORINGSSL_TEMP_SRC}/build && \
-#  #    cmake -GNinja -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_POSITION_INDEPENDENT_CODE=TRUE -DBUILD_SHARED_LIBS=1 -DCMAKE_INSTALL_PREFIX=${BORINGSSL_DIR} && \
-#  #    ninja -C build && \
-#      cd ${BORINGSSL_TEMP_SRC}/build && \
-#      cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_POSITION_INDEPENDENT_CODE=TRUE -DBUILD_SHARED_LIBS=1 -DCMAKE_INSTALL_PREFIX=${BORINGSSL_DIR} .. && \
-#      make -j$(if [ $(nproc) -gt 8 ]; then echo $(( $(nproc) / 2 )); else echo $(nproc); fi) && \
-#      make -j$(nproc) install && \
-#  #    echo "# BoringSSL support" >> ${LD_CONF_DIR}/BoringSSL.conf && \
-#  #    echo ${BORINGSSL_LIB_DIR} >> ${LD_CONF_DIR}/BoringSSL.conf && \
-#      ldconfig
+# ##################################################################
+# #                   BoringSSL
+# ##################################################################
+# RUN mkdir -p ${BORINGSSL_DIR} ${BORINGSSL_SRC_DIR} && \
+#     git clone -b ${BORINGSSL_VERSION} ${BORINGSSL_DOWNLOAD_URL} ${BORINGSSL_TEMP_SRC} && \
+#     cp -rfv ${BORINGSSL_TEMP_SRC}/* ${BORINGSSL_SRC_DIR} && \
+#     ln -sf ${BORINGSSL_SRC_DIR} ${BORINGSSL_DIR}/src && \
+#     cd ${BORINGSSL_TEMP_SRC} && \
+#     mkdir ${BORINGSSL_TEMP_SRC}/build && \
+# #    cmake -GNinja -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_POSITION_INDEPENDENT_CODE=TRUE -DBUILD_SHARED_LIBS=1 -DCMAKE_INSTALL_PREFIX=${BORINGSSL_DIR} && \
+# #    ninja -C build && \
+#     cd ${BORINGSSL_TEMP_SRC}/build && \
+#     cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_POSITION_INDEPENDENT_CODE=TRUE -DBUILD_SHARED_LIBS=1 -DCMAKE_INSTALL_PREFIX=${BORINGSSL_DIR} .. && \
+#     make -j$(if [ $(nproc) -gt 8 ]; then echo $(( $(nproc) / 2 )); else echo $(nproc); fi) && \
+#     make -j$(nproc) install
 
 ##################################################################
 #                   other   customisations

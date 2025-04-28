@@ -82,7 +82,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     iftop \
 #    iotop \
     iperf \
-    iperf3 \
+#    iperf3 \
     iputils-ping \
     jq \
     kmod \
@@ -156,7 +156,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     ntfs-3g \
 #    reiser4progs \
     reiserfsprogs \
-    udftools \
+#    udftools \
     xfsprogs \
     xfsdump
 
