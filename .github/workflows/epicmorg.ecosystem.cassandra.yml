@@ -1,11 +1,11 @@
-name: EpicMorg Advanced Cassandra Image
+name: EpicMorg Ecosystem Cassandra Image
 on:
   workflow_dispatch:
   schedule:
     - cron: '0 02 * * 2,4,6'
 jobs:
   build-images:
-    name: EpicMorg Advanced Cassandra Image
+    name: EpicMorg Ecosystem Cassandra Image
     runs-on: [ ubuntu-24.04 ]
     steps:
     - uses: actions/checkout@v4
@@ -61,7 +61,7 @@ jobs:
           retry_wait_seconds: 45
           timeout_minutes: 600
           max_attempts: 15
-          command: cd linux/advanced/cassandra/3.11    && pwd && make build && make deploy
+          command: cd linux/ecosystem/cassandra/3.11    && pwd && make build && make deploy
 
 ##################################################################################
 
