@@ -110,9 +110,9 @@ ENV CASSANDRA_DATA /var/lib/cassandra
 ENV CASSANDRA_VERSION 3.11.19
 ENV CASSANDRA_SHA512 42d7732c2b81c65a960101d1146603d430de341adcdf8d0ffc649753a340cf64dad696050f2ec01faff5f15e726f4f2a459f0b3ac281569b957f7726f51d43e0
 
-ENV CASSANDRA_LUCENE_PLUGIN_VER=3.11.3.0
+ENV CASSANDRA_LUCENE_PLUGIN_VER=3.11.10.0
 ARG CASSANDRA_LUCENE_PLUGIN_DEST=${CASSANDRA_HOME}/lib/
-ARG CASSANDRA_LUCENE_PLUGIN_URL=https://repo1.maven.org/maven2/com/stratio/cassandra/cassandra-lucene-index-plugin/${CASSANDRA_LUCENE_PLUGIN_VER}/cassandra-lucene-index-plugin-${CASSANDRA_LUCENE_PLUGIN_VER}.jar
+ARG CASSANDRA_LUCENE_PLUGIN_URL=https://github.com/EpicMorg/cassandra-lucene-index/releases/download/${CASSANDRA_LUCENE_PLUGIN_VER}/cassandra-lucene-index-plugin-${CASSANDRA_LUCENE_PLUGIN_VER}.jar
 
 ENV PATH ${CASSANDRA_HOME}/bin:$PATH
 
@@ -211,6 +211,10 @@ RUN set -eux; \
 	chmod -R a+rwX "${CASSANDRA_CONF}"; \
 	ln -sT ${CASSANDRA_DATA} "${CASSANDRA_HOME}/data"; \
 	ln -sT /var/log/cassandra "${CASSANDRA_HOME}/logs"; \
+	mkdir -p /usr/share/cassandra /usr/local/share/cassandra ; \
+	ln -sT "${CASSANDRA_HOME}/lib" /usr/share/cassandra/lib ; \
+	ln -sT "${CASSANDRA_HOME}/lib" /usr/local/share/cassandra/lib ; \
+	ln -sT "${CASSANDRA_HOME}" ${EMG_LOCAL_BASE_DIR}/cassandra ; \
 	\
 # smoke test
 	cassandra -v
@@ -225,6 +229,8 @@ VOLUME ${CASSANDRA_DATA}
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN ln -s /usr/local/bin/docker-entrypoint.sh /docker-entrypoint.sh && \
     chmod +x /usr/local/bin/docker-entrypoint.sh
+
+WORKDIR ${CASSANDRA_HOME}
 
 ENTRYPOINT ["docker-entrypoint.sh"]
 
