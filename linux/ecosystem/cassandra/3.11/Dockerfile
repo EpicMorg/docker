@@ -110,9 +110,9 @@ ENV CASSANDRA_DATA /var/lib/cassandra
 ENV CASSANDRA_VERSION 3.11.19
 ENV CASSANDRA_SHA512 42d7732c2b81c65a960101d1146603d430de341adcdf8d0ffc649753a340cf64dad696050f2ec01faff5f15e726f4f2a459f0b3ac281569b957f7726f51d43e0
 
-ENV CASSANDRA_LUCENE_PLUGIN_VER=3.11.10.0
 ARG CASSANDRA_LUCENE_PLUGIN_DEST=${CASSANDRA_HOME}/lib/
-ARG CASSANDRA_LUCENE_PLUGIN_URL=https://github.com/EpicMorg/cassandra-lucene-index/releases/download/${CASSANDRA_LUCENE_PLUGIN_VER}/cassandra-lucene-index-plugin-${CASSANDRA_LUCENE_PLUGIN_VER}.jar
+#ENV CASSANDRA_LUCENE_PLUGIN_VER=3.11.10.0
+#ARG CASSANDRA_LUCENE_PLUGIN_URL=https://github.com/EpicMorg/cassandra-lucene-index/releases/download/${CASSANDRA_LUCENE_PLUGIN_VER}/cassandra-lucene-index-plugin-${CASSANDRA_LUCENE_PLUGIN_VER}.jar
 
 ENV PATH ${CASSANDRA_HOME}/bin:$PATH
 
@@ -222,7 +222,7 @@ RUN set -eux; \
 ##################################################################
 #                   Install Cassandra Plugin
 ##################################################################
-ADD ${CASSANDRA_LUCENE_PLUGIN_URL} ${CASSANDRA_LUCENE_PLUGIN_DEST}
+COPY opt/cassandra/lib/cassandra-lucene-index-plugin-3.11.4.jar ${CASSANDRA_LUCENE_PLUGIN_DEST}/
 
 VOLUME ${CASSANDRA_DATA}
 
