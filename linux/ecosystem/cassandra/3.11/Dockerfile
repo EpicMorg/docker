@@ -112,7 +112,6 @@ ENV CASSANDRA_SHA512 42d7732c2b81c65a960101d1146603d430de341adcdf8d0ffc649753a34
 
 ENV CASSANDRA_LUCENE_PLUGIN_VER=3.11.10.0
 ARG CASSANDRA_LUCENE_PLUGIN_DEST=${CASSANDRA_HOME}/lib/
-#ARG CASSANDRA_LUCENE_PLUGIN_URL=https://repo1.maven.org/maven2/com/stratio/cassandra/cassandra-lucene-index-plugin/${CASSANDRA_LUCENE_PLUGIN_VER}/cassandra-lucene-index-plugin-${CASSANDRA_LUCENE_PLUGIN_VER}.jar
 ARG CASSANDRA_LUCENE_PLUGIN_URL=https://github.com/EpicMorg/cassandra-lucene-index/releases/download/${CASSANDRA_LUCENE_PLUGIN_VER}/cassandra-lucene-index-plugin-${CASSANDRA_LUCENE_PLUGIN_VER}.jar
 
 ENV PATH ${CASSANDRA_HOME}/bin:$PATH
