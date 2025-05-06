@@ -222,7 +222,7 @@ RUN set -eux; \
 ##################################################################
 #                   Install Cassandra Plugin
 ##################################################################
-#ADD ${CASSANDRA_LUCENE_PLUGIN_URL} ${CASSANDRA_LUCENE_PLUGIN_DEST}
+ADD ${CASSANDRA_LUCENE_PLUGIN_URL} ${CASSANDRA_LUCENE_PLUGIN_DEST}
 
 VOLUME ${CASSANDRA_DATA}
 
