@@ -1,3 +1,0 @@
-#main
-deb [trusted=yes]  http://httpredir.debian.org/debian/ sid main contrib non-free non-free-firmware
-deb-src [trusted=yes]  http://httpredir.debian.org/debian/ sid main contrib non-free non-free-firmware

@@ -1,5 +1,7 @@
-##multimedia
-#deb [signed-by=/etc/apt/trusted.gpg.d/deb-multimedia-keyring.gpg] http://httpredir.debian.org/debian-multimedia/ buster main non-free
-#deb-src [signed-by=/etc/apt/trusted.gpg.d/deb-multimedia-keyring.gpg] http://httpredir.debian.org/debian-multimedia/ buster main non-free
-#deb [signed-by=/etc/apt/trusted.gpg.d/deb-multimedia-keyring.gpg] http://httpredir.debian.org/debian-multimedia/ buster-backports main
-#deb-src [signed-by=/etc/apt/trusted.gpg.d/deb-multimedia-keyring.gpg] http://httpredir.debian.org/debian-multimedia/ buster-backports main
+## multimedia
+
+#deb [trusted=yes signed-by=/etc/apt/trusted.gpg.d/deb-multimedia-keyring.gpg] https://archive.deb-multimedia.org buster main non-free
+#deb-src [trusted=yes signed-by=/etc/apt/trusted.gpg.d/deb-multimedia-keyring.gpg] https://archive.deb-multimedia.org buster main non-free
+
+#deb [trusted=yes signed-by=/etc/apt/trusted.gpg.d/deb-multimedia-keyring.gpg] https://archive.deb-multimedia.org buster-backports main non-free
+#deb-src [trusted=yes signed-by=/etc/apt/trusted.gpg.d/deb-multimedia-keyring.gpg] https://archive.deb-multimedia.org buster-backports main non-free

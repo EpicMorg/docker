@@ -1,5 +1,7 @@
-##multimedia
-#deb [signed-by=/etc/apt/trusted.gpg.d/deb-multimedia-keyring.gpg] http://httpredir.debian.org/debian-multimedia/ bookworm main non-free non-free-firmware
-#deb-src [signed-by=/etc/apt/trusted.gpg.d/deb-multimedia-keyring.gpg] http://httpredir.debian.org/debian-multimedia/ bookworm main non-free non-free-firmware
-#deb [signed-by=/etc/apt/trusted.gpg.d/deb-multimedia-keyring.gpg] http://httpredir.debian.org/debian-multimedia/ bookworm-backports main
-#deb-src [signed-by=/etc/apt/trusted.gpg.d/deb-multimedia-keyring.gpg] http://httpredir.debian.org/debian-multimedia/ bookworm-backports main
+## multimedia
+
+#deb [trusted=yes signed-by=/etc/apt/keyrings/deb-multimedia-keyring.gpg] https://deb-multimedia.org bookworm main non-free
+#deb-src [trusted=yes signed-by=/etc/apt/keyrings/deb-multimedia-keyring.gpg] https://deb-multimedia.org bookworm main non-free
+
+#deb [trusted=yes signed-by=/etc/apt/keyrings/deb-multimedia-keyring.gpg] https://deb-multimedia.org bookworm-backports main non-free
+#deb-src [trusted=yes signed-by=/etc/apt/keyrings/deb-multimedia-keyring.gpg] https://deb-multimedia.org bookworm-backports main non-free

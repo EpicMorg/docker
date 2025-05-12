@@ -1,17 +1,17 @@
 #main
 deb [trusted=yes]  http://archive.debian.org/debian/ jessie main contrib non-free
-deb-src [trusted=yes]  http://archive.debian.org/debian/ jessie main contrib non-free
+deb-src [trusted=yes] http://archive.debian.org/debian/ jessie main contrib non-free
 
 #deb [trusted=yes]  http://archive.debian.org/debian/ jessie-kfreebsd main contrib non-free
-#deb-src [trusted=yes]  http://archive.debian.org/debian/ jessie-kfreebsd main contrib non-free
+#deb-src [trusted=yes] http://archive.debian.org/debian/ jessie-kfreebsd main contrib non-free
 
 deb [trusted=yes]  http://archive.debian.org/debian/ jessie-backports main contrib non-free
-deb-src [trusted=yes]  http://archive.debian.org/debian/ jessie-backports main contrib non-free
+deb-src [trusted=yes] http://archive.debian.org/debian/ jessie-backports main contrib non-free
 
 deb [trusted=yes]  http://archive.debian.org/debian/ jessie-backports-sloppy main contrib non-free
-deb-src [trusted=yes]  http://archive.debian.org/debian/ jessie-backports-sloppy main contrib non-free
+deb-src [trusted=yes] http://archive.debian.org/debian/ jessie-backports-sloppy main contrib non-free
 
 #security
 
 deb [trusted=yes]  http://archive.debian.org/debian-security/ jessie/updates main contrib non-free
-deb-src [trusted=yes]  http://archive.debian.org/debian-security/ jessie/updates main contrib non-free
+deb-src [trusted=yes] http://archive.debian.org/debian-security/ jessie/updates main contrib non-free

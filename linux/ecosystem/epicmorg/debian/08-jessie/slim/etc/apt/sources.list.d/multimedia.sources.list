@@ -1,0 +1,7 @@
+## multimedia
+
+#deb [trusted=yes] https://archive.deb-multimedia.org jessie main non-free
+#deb-src [trusted=yes] https://archive.deb-multimedia.org jessie main non-free
+
+#deb [trusted=yes] https://archive.deb-multimedia.org jessie-backports main non-free
+#deb-src [trusted=yes] https://archive.deb-multimedia.org jessie-backports main non-free

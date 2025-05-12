@@ -1,0 +1,7 @@
+## multimedia
+
+#deb [trusted=yes] https://archive.deb-multimedia.org stretch main non-free
+#deb-src [trusted=yes] https://archive.deb-multimedia.org stretch main non-free
+
+#deb [trusted=yes] https://archive.deb-multimedia.org stretch-backports main non-free
+#deb-src [trusted=yes] https://archive.deb-multimedia.org stretch-backports main non-free

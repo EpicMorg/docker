@@ -26,15 +26,10 @@ RUN mkdir -p /etc/apt/keyrings
 #                   sources list
 ##################################################################
 RUN rm -rfv /etc/apt/sources.list
-RUN rm -rfv /etc/apt/sources.list.d/debian.sources 
+RUN rm -rfv /etc/apt/sources.list.d/*
 RUN rm -rfv /etc/locale.gen
 
-COPY etc/apt/keyrings/deb-multimedia-keyring.gpg /etc/apt/keyrings/deb-multimedia-keyring.gpg
-COPY etc/apt/apt.conf.d/99-no-check-valid-until /etc/apt/apt.conf.d/99-no-check-valid-until
-COPY etc/apt/apt.conf.d/98-allow-unauthenticated /etc/apt/apt.conf.d/98-allow-unauthenticated
-COPY etc/apt/apt.conf.d/97-allow-cert-exp /etc/apt/apt.conf.d/97-allow-cert-exp
-COPY etc/apt/apt.conf.d/96-apt-retries /etc/apt/apt.conf.d/96-apt-retries
-COPY etc/apt/sources.list /etc/apt/sources.list
+COPY etc/apt /etc/apt
 COPY etc/locale.gen /etc/locale.gen
 COPY usr/local/share/ca-certificates /usr/local/share/ca-certificates
 
