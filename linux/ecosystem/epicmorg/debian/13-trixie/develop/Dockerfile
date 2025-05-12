@@ -573,8 +573,9 @@ RUN tar -xf ${FLUTTER_TEMP} --directory ${FLUTTER_DIR} --strip-components=1 && \
 ENV PATH="${FLUTTER_BIN_DIR}:${PATH}"
 
 RUN git config --global --add safe.directory ${FLUTTER_DIR} && \
-    flutter precache && \
     flutter config --no-analytics && \
+    flutter config --no-cli-animations && \
+    flutter precache && \
     dart --disable-analytics
 
 RUN echo "=============================================" && \
