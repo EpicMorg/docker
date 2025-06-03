@@ -1,7 +1,8 @@
 # Changelog
 
 ## 2025
-
+* `may`-`jun`
+  * buildah squash to service images
 * `apr`
   * added `cassandra` by ecosystem.
   * restored `astralinux`, reworked, added `1.8` version.

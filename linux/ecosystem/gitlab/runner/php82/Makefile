@@ -13,7 +13,7 @@ deploy:
 	make deploy-kaniko
 
 build-buildah:
-	buildah-wrapper --build
+	buildah-wrapper --build --squash
 
 deploy-buildah:
 	buildah-wrapper --deploy
