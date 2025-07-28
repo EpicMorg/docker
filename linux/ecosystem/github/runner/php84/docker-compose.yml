@@ -1,5 +1,5 @@
 services:
   app:
-    image: "quay.io/epicmorg/github-runner:php8.4"
+    image: "epicmorg/github-runner:php8.4"
     build:
       context: .

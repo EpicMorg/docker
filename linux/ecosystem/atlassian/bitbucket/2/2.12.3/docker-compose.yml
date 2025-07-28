@@ -1,9 +1,9 @@
 services:
   app:
-    image: "quay.io/epicmorg/bitbucket:2.12.3"
+    image: "epicmorg/bitbucket:2.12.3"
     build:
       context: .
   app-jdk7:
-    image: "quay.io/epicmorg/bitbucket:2.12.3-jdk7"
+    image: "epicmorg/bitbucket:2.12.3-jdk7"
     build:
       context: .

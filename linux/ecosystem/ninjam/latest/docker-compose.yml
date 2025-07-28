@@ -1,5 +1,5 @@
 services:
   app:
-    image: "quay.io/epicmorg/ninjam:latest"
+    image: "epicmorg/ninjam:latest"
     build:
       context: .

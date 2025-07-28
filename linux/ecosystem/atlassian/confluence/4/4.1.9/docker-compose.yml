@@ -1,9 +1,9 @@
 services:
   app:
-    image: "quay.io/epicmorg/confluence:4.1.9"
+    image: "epicmorg/confluence:4.1.9"
     build:
       context: .
   app-jdk6:
-    image: "quay.io/epicmorg/confluence:4.1.9-jdk6"
+    image: "epicmorg/confluence:4.1.9-jdk6"
     build:
       context: .

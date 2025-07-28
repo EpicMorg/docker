@@ -1,5 +1,5 @@
 services:
   app:
-    image: "quay.io/epicmorg/debian:stretch"
+    image: "epicmorg/debian:stretch"
     build:
       context: .

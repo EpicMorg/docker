@@ -1,5 +1,5 @@
 services:
   app:
-    image: "quay.io/epicmorg/debian:buster"
+    image: "epicmorg/debian:buster"
     build:
       context: .

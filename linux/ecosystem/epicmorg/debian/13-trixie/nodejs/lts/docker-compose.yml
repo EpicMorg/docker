@@ -1,10 +1,10 @@
 services:
   app:
-    image: "quay.io/epicmorg/debian:trixie-nodejs-lts"
+    image: "epicmorg/debian:trixie-nodejs-lts"
     build:
       context: .
   app-develop:
-    image: "quay.io/epicmorg/debian:trixie-develop-nodejs-lts"
+    image: "epicmorg/debian:trixie-develop-nodejs-lts"
     build:
       context: .
       dockerfile: ./Dockerfile.develop

@@ -1,5 +1,5 @@
 services:
   app:
-    image: "quay.io/epicmorg/electron-release-server:latest"
+    image: "epicmorg/electron-release-server:latest"
     build:
       context: .

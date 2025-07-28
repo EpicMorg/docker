@@ -1,5 +1,5 @@
 services:
   app:
-    image: "quay.io/epicmorg/zabbix-web-apache-mysql:trunk"
+    image: "epicmorg/zabbix-web-apache-mysql:trunk"
     build:
       context: .

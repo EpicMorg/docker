@@ -1,5 +1,5 @@
 services:
   app:
-    image: "quay.io/epicmorg/teamcity-agent:node4"
+    image: "epicmorg/teamcity-agent:node4"
     build:
       context: .

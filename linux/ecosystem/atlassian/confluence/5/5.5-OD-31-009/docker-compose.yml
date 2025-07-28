@@ -1,9 +1,9 @@
 services:
   app:
-    image: "quay.io/epicmorg/confluence:5.5-OD-31-009"
+    image: "epicmorg/confluence:5.5-OD-31-009"
     build:
       context: .
   app-jdk7:
-    image: "quay.io/epicmorg/confluence:5.5-OD-31-009-jdk7"
+    image: "epicmorg/confluence:5.5-OD-31-009-jdk7"
     build:
       context: .

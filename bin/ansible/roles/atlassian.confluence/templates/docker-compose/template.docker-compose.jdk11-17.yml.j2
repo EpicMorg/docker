@@ -1,14 +1,14 @@
 services:
   app:
-    image: "quay.io/epicmorg/confluence:{{ item }}"
+    image: "epicmorg/confluence:{{ item }}"
     build:
       context: .
   app-jdk11:
-    image: "quay.io/epicmorg/confluence:{{ item }}-jdk11"
+    image: "epicmorg/confluence:{{ item }}-jdk11"
     build:
       context: .
   app-jdk17:
-    image: "quay.io/epicmorg/confluence:{{ item }}-jdk17"
+    image: "epicmorg/confluence:{{ item }}-jdk17"
     build:
       context: .
       dockerfile: Dockerfile.jdk17

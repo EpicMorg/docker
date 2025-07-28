@@ -1,5 +1,5 @@
 services:
   app:
-    image: "quay.io/epicmorg/debian:wheezy"
+    image: "epicmorg/debian:wheezy"
     build:
       context: .

@@ -1,6 +1,6 @@
 services:
   app:
-    image: "quay.io/epicmorg/monero:latest"
+    image: "epicmorg/monero:latest"
     build:
       context: .
 

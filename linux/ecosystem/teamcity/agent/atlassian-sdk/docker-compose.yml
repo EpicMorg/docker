@@ -1,5 +1,5 @@
 services:
   app:
-    image: "quay.io/epicmorg/teamcity-agent:atlassian-sdk"
+    image: "epicmorg/teamcity-agent:atlassian-sdk"
     build:
       context: .

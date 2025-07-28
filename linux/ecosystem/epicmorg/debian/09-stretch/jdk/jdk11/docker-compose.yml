@@ -1,11 +1,11 @@
 services:
   app:
-    image: "quay.io/epicmorg/debian:stretch-jdk11"
+    image: "epicmorg/debian:stretch-jdk11"
     build:
       context: .
       dockerfile: ./Dockerfile
   app-develop:
-    image: "quay.io/epicmorg/debian:stretch-develop-jdk11"
+    image: "epicmorg/debian:stretch-develop-jdk11"
     build:
       context: .
       dockerfile: ./Dockerfile.develop

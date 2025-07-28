@@ -1,9 +1,9 @@
 services:
   app:
-    image: "quay.io/epicmorg/gitlab-runner:amxx-sdk"
+    image: "epicmorg/gitlab-runner:amxx-sdk"
     build:
       context: .
   app-19:
-    image: "quay.io/epicmorg/gitlab-runner:amxx-sdk-1.9"
+    image: "epicmorg/gitlab-runner:amxx-sdk-1.9"
     build:
       context: .

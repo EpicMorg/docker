@@ -1,5 +1,5 @@
 services:
   app:
-    image: "quay.io/epicmorg/debian:trixie-slim"
+    image: "epicmorg/debian:trixie-slim"
     build:
       context: .

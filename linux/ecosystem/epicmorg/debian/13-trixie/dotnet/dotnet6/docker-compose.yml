@@ -1,10 +1,10 @@
 services:
   app:
-    image: "quay.io/epicmorg/debian:trixie-dotnet6"
+    image: "epicmorg/debian:trixie-dotnet6"
     build:
       context: .
   app-develop:
-    image: "quay.io/epicmorg/debian:trixie-develop-dotnet6"
+    image: "epicmorg/debian:trixie-develop-dotnet6"
     build:
       context: .
       dockerfile: ./Dockerfile.develop

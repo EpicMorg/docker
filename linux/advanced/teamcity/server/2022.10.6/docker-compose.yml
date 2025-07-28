@@ -1,5 +1,5 @@
 services:
   app:
-    image: "quay.io/epicmorg/teamcity-server:2022.10.6"
+    image: "epicmorg/teamcity-server:2022.10.6"
     build:
       context: .

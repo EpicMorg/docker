@@ -1,9 +1,9 @@
 services:
   app:
-    image: "quay.io/epicmorg/crowd:{{ item }}"
+    image: "epicmorg/crowd:{{ item }}"
     build:
       context: .
   app-jdk6:
-    image: "quay.io/epicmorg/crowd:{{ item }}-jdk6"
+    image: "epicmorg/crowd:{{ item }}-jdk6"
     build:
       context: .

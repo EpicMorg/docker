@@ -1,5 +1,5 @@
 services:
   app:
-    image: "quay.io/epicmorg/testrail:auth-ad-6.1.0.4369"
+    image: "epicmorg/testrail:auth-ad-6.1.0.4369"
     build:
       context: .

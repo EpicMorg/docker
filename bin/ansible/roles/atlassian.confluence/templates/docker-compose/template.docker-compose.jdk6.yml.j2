@@ -1,9 +1,9 @@
 services:
   app:
-    image: "quay.io/epicmorg/confluence:{{ item }}"
+    image: "epicmorg/confluence:{{ item }}"
     build:
       context: .
   app-jdk6:
-    image: "quay.io/epicmorg/confluence:{{ item }}-jdk6"
+    image: "epicmorg/confluence:{{ item }}-jdk6"
     build:
       context: .

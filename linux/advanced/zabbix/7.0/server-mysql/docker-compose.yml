@@ -1,5 +1,5 @@
 services:
   app:
-    image: "quay.io/epicmorg/zabbix-server-mysql:7.0"
+    image: "epicmorg/zabbix-server-mysql:7.0"
     build:
       context: .

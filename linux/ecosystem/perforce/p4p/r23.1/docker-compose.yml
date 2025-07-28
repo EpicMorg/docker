@@ -1,5 +1,5 @@
 services:
   app:
-    image: "quay.io/epicmorg/p4p:r23.1"
+    image: "epicmorg/p4p:r23.1"
     build:
       context: .

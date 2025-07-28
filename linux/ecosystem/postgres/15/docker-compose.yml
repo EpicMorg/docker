@@ -1,5 +1,5 @@
 services:
   app:
-    image: "quay.io/epicmorg/postgres:15"
+    image: "epicmorg/postgres:15"
     build:
       context: .

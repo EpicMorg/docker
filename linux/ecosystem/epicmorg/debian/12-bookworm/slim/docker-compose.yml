@@ -1,5 +1,5 @@
 services:
   app:
-    image: "quay.io/epicmorg/debian:bookworm-slim"
+    image: "epicmorg/debian:bookworm-slim"
     build:
       context: .

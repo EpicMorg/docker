@@ -1,10 +1,10 @@
 services:
   app:
-    image: "quay.io/epicmorg/debian:trixies5"
+    image: "epicmorg/debian:trixies5"
     build:
       context: .
   app-develop:
-    image: "quay.io/epicmorg/debian:trixie-develop-nodejs5"
+    image: "epicmorg/debian:trixie-develop-nodejs5"
     build:
       context: .
       dockerfile: ./Dockerfile.develop

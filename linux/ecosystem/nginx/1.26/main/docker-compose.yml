@@ -1,5 +1,5 @@
 services:
   app:
-    image: "quay.io/epicmorg/nginx:1.26"
+    image: "epicmorg/nginx:1.26"
     build:
       context: .
