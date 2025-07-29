@@ -28,7 +28,20 @@ ENV CROWD_DB                                        ${CROWD_INSTALL_DIR}/databas
 ##################################################################
 #                   Installing
 ##################################################################
-ADD ${DOWNLOAD_URL} /tmp
+RUN wget -c \
+    --user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:128.0) Gecko/20100101 Firefox/128.0" \
+    --no-check-certificate \
+    --tries=5 \
+    --timeout=30 \
+    --waitretry=5 \
+    --retry-connrefused \
+    --dns-timeout=10 \
+    --read-timeout=20 \
+    --progress=dot:giga \
+    --no-clobber \
+    -O /tmp/$(basename "${DOWNLOAD_URL}") \
+    "${DOWNLOAD_URL}"
+
 
 RUN apt-get update && \
     apt-get upgrade -y && \

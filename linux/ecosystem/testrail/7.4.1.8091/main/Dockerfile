@@ -31,7 +31,20 @@ ENV OPENSSL_CONF=/etc/ssl/
 
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
-ADD ${DOWNLOAD_URL} ${TESTRAIL_RELEASE_DIR}/testrail-${TESTRAIL_VERSION}-ion72.zip
+RUN wget -c \
+    --user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:128.0) Gecko/20100101 Firefox/128.0" \
+    --no-check-certificate \
+    --tries=5 \
+    --timeout=30 \
+    --waitretry=5 \
+    --retry-connrefused \
+    --dns-timeout=10 \
+    --read-timeout=20 \
+    --progress=dot:giga \
+    --no-clobber \
+    -O ${TESTRAIL_RELEASE_DIR}/testrail-${TESTRAIL_VERSION}-ion72.zip \
+    "${DOWNLOAD_URL}"
+
 RUN echo "[testrail] Preparing folders" && \
     mkdir -p ${TESTRAIL_RELEASE_DIR} && \
     mkdir -p ${TR_WWW_PATH} && \
