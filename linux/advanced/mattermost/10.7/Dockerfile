@@ -1,6 +1,7 @@
-FROM mattermost/mattermost-enterprise-edition as bootstrap
+FROM mattermost/mattermost-enterprise-edition:release-10.7 as bootstrap
 RUN cd ./bin && \
-    ls -las
+    ls -las && \
+    mattermost version
 
 FROM python:2.7 as edit
 COPY edit.py2 /tmp/edit.py
@@ -9,7 +10,7 @@ RUN cd /tmp && \
     chmod +x ./edit.py && \
     ./edit.py
 
-FROM mattermost/mattermost-enterprise-edition
+FROM mattermost/mattermost-enterprise-edition:release-10.7
 
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 LABEL org.opencontainers.image.vendor="EpicMorg DevTeam, developer@epicm.org"
@@ -30,7 +31,8 @@ LABEL donate.crypto.XMR="884PqZ1gDjWW7fKxtbaeRoBeSh9EGZbkqUyLriWmuKbwLZrAJdYUs4w
 RUN rm -rfv /mattermost/bin/mattermost
 COPY --from=edit /tmp/mattermost /mattermost/bin/
 RUN cd ./bin && \
-    ls -las
+    ls -las && \
+    mattermost version
 
 USER root
 

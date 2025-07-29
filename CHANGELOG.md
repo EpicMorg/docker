@@ -4,7 +4,7 @@
 * `jul`
   * updated `python`, `node`, `cmake`, `openssl`, `flutter`, `go`, `nginx`, `steamcmd`, `KTC`, `gradle`, `maven`
   * fixed buildah builds
-  * fixed `opentracker` builds
+  * fixed `opentracker`, `mattermost`  builds
   * reverted to `dockerhub` as main `mirror`
 * `may`-`jun`
   * buildah squash to service images
