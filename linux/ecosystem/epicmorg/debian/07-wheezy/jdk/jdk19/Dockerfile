@@ -62,21 +62,21 @@ RUN update-ca-certificates --fresh && \
 ##################################################################
 #                   Additional settings
 ##################################################################
-ENV MAVEN_VERSION=3.9.9
+ENV MAVEN_VERSION=3.9.11
 ENV MAVEN_LINK=https://dlcdn.apache.org/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.zip
 ENV MAVEN_ROOT=${EMG_LOCAL_BASE_DIR}/maven/${MAVEN_VERSION}
 ENV MAVEN_PATH=${MAVEN_ROOT}/apache-maven-${MAVEN_VERSION}
 ENV MAVEN_BIN=${MAVEN_PATH}/bin
 ARG MAVEN_TEMP=/tmp/apache-maven-${MAVEN_VERSION}-bin.zip
 
-ENV GRADLE_VERSION=8.13
+ENV GRADLE_VERSION=8.14
 ENV GRADLE_LINK=https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-all.zip
 ENV GRADLE_ROOT=${EMG_LOCAL_BASE_DIR}/gradle/${GRADLE_VERSION}
 ENV GRADLE_PATH=${GRADLE_ROOT}/gradle-${GRADLE_VERSION}
 ENV GRADLE_BIN=${GRADLE_PATH}/bin
 ARG GRADLE_TEMP=/tmp/gradle-${GRADLE_VERSION}-all.zip
 
-ENV KTC_VERSION=2.1.10
+ENV KTC_VERSION=2.2.0
 ENV KTC_LINK=https://github.com/JetBrains/kotlin/releases/download/v${KTC_VERSION}/kotlin-compiler-${KTC_VERSION}.zip
 ARG KTC_TEMP=/tmp/kotlin-compiler-${KTC_VERSION}.zip
 ENV KTC_ROOT=${EMG_LOCAL_BASE_DIR}/kotlin/${KTC_VERSION}
