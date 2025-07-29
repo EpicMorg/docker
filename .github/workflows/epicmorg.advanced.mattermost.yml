@@ -10,6 +10,12 @@ jobs:
   build-images:
     name: EpicMorg Advanced Images
     runs-on: [ ubuntu-24.04 ]
+    strategy:
+      matrix:
+        version: [
+#         '9-stable',  '9.11',  '9.10',  '9.9',  '9.8',  '9.7',  '9.6',  '9.5',  '9.4',  '9.3',  '9.2',  '9.1',  '9.0', 
+          '10-stable', '10.11', '10.10', '10.9', '10.8', '10.7', '10.6', '10.5', '10.4', '10.3', '10.2', '10.1', '10.0', 
+        ]
 
     steps:
     - uses: actions/checkout@v4
@@ -58,13 +64,13 @@ jobs:
           max_attempts: 15
           command: make pip
 
-    - name: "Build and Deploy Advanced Mattermost Images:"
+    - name: "Build and Deploy Advanced Mattermost Image:"
       uses: nick-fields/retry@v3
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
           max_attempts: 15
-          command: cd linux/advanced/mattermost && pwd && make build && make deploy
+          command: cd linux/advanced/mattermost/${{ matrix.version }} && pwd && make build && make deploy
 
 ##################################################################################
 
