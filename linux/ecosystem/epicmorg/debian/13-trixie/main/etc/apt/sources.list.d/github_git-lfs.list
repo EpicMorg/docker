@@ -1,2 +1,0 @@
-deb [trusted=yes] https://packagecloud.io/github/git-lfs/debian/ trixie main
-deb-src [trusted=yes] https://packagecloud.io/github/git-lfs/debian/ trixie main

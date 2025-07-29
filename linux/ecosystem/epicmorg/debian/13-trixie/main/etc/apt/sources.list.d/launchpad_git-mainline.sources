@@ -1,0 +1,7 @@
+Types: deb deb-src
+URIs: https://ppa.launchpadcontent.net/git-core/candidate/ubuntu
+Suites: noble
+Components: main
+Signed-By: /etc/apt/keyrings/launchpad-git.gpg
+Trusted: yes
+Enabled: yes
