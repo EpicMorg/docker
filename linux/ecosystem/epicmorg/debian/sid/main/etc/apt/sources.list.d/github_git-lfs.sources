@@ -1,0 +1,6 @@
+Types: deb deb-src
+URIs: https://packagecloud.io/github/git-lfs/debian/
+Suites: trixie
+Components: main
+Trusted: yes
+Enabled: yes

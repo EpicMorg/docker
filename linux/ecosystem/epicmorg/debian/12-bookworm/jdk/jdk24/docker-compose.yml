@@ -1,0 +1,10 @@
+services:
+  app:
+    image: "epicmorg/debian:bookworm-jdk24"
+    build:
+      context: .
+  app-develop:
+    image: "epicmorg/debian:bookworm-develop-jdk24"
+    build:
+      context: .
+      dockerfile: ./Dockerfile.develop

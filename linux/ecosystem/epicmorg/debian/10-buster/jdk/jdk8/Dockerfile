@@ -3,9 +3,9 @@ LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
 ARG K_JDK_MAJOR_VERSION=8
-ARG K_JDK_FULL_VERSION=jdk8u452
-ARG K_JDK_VERSION=8u452
-ARG K_JDK_BUILD_VERSION=b09
+ARG K_JDK_FULL_VERSION=jdk8u462
+ARG K_JDK_VERSION=8u462
+ARG K_JDK_BUILD_VERSION=b08
 ARG K_JDK_DIR=${EMG_LOCAL_BASE_DIR}/java/${K_JDK_MAJOR_VERSION}
 ARG K_JDK_URL=https://github.com/adoptium/temurin${K_JDK_MAJOR_VERSION}-binaries/releases/download/${K_JDK_FULL_VERSION}-${K_JDK_BUILD_VERSION}/OpenJDK${K_JDK_MAJOR_VERSION}U-jdk_x64_linux_hotspot_${K_JDK_VERSION}${K_JDK_BUILD_VERSION}.tar.gz
 ARG K_JDK_TEMP=/tmp/OpenJDK${K_JDK_MAJOR_VERSION}U-jdk_x64_linux_hotspot_${K_JDK_VERSION}${K_JDK_BUILD_VERSION}.tar.gz
@@ -21,12 +21,12 @@ ENV PATH=$PATH:${JAVA_HOME}/bin
 RUN wget -c \
     --user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:128.0) Gecko/20100101 Firefox/128.0" \
     --no-check-certificate \
-    --tries=5 \
-    --timeout=30 \
-    --waitretry=5 \
     --retry-connrefused \
-    --dns-timeout=10 \
-    --read-timeout=20 \
+    --tries=15 \
+    --timeout=30 \
+    --waitretry=15 \
+    --dns-timeout=30 \
+    --read-timeout=30 \
     --progress=dot:giga \
     --no-clobber \
     -O /tmp/$(basename "${K_JDK_URL}") \

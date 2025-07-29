@@ -32,12 +32,12 @@ EXPOSE 8091
 RUN wget -c \
     --user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:128.0) Gecko/20100101 Firefox/128.0" \
     --no-check-certificate \
-    --tries=5 \
-    --timeout=30 \
-    --waitretry=5 \
     --retry-connrefused \
-    --dns-timeout=10 \
-    --read-timeout=20 \
+    --tries=15 \
+    --timeout=30 \
+    --waitretry=15 \
+    --dns-timeout=30 \
+    --read-timeout=30 \
     --progress=dot:giga \
     --no-clobber \
     -O /tmp/$(basename "${DOWNLOAD_URL}") \

@@ -167,9 +167,12 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
 RUN gpg --keyserver keyserver.ubuntu.com --recv-keys F911AB184317630C59970973E363C90F8F1B6217 && \
     gpg --export --output /etc/apt/keyrings/launchpad-git.gpg F911AB184317630C59970973E363C90F8F1B6217 && \
     rm -rfv /etc/apt/sources.list.d/launchpad_git-mainline.list && \
-    rm -rfv /etc/apt/sources.list.d/launchpad_git-stable.list
-COPY etc/apt/sources.list.d/launchpad_git-mainline.list /etc/apt/sources.list.d/launchpad_git-mainline.list
-COPY etc/apt/sources.list.d/launchpad_git-stable.list /etc/apt/sources.list.d/launchpad_git-stable.list
+    rm -rfv /etc/apt/sources.list.d/launchpad_git-stable.list && \
+    rm -rfv /etc/apt/sources.list.d/launchpad_git-mainline.sources && \
+    rm -rfv /etc/apt/sources.list.d/launchpad_git-stable.sources
+
+COPY etc/apt/sources.list.d/launchpad_git-mainline.sources /etc/apt/sources.list.d/launchpad_git-mainline.sources
+COPY etc/apt/sources.list.d/launchpad_git-stable.sources /etc/apt/sources.list.d/launchpad_git-stable.sources
 RUN apt-get update &&  \
     apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
     git
@@ -182,8 +185,10 @@ RUN echo "=============================================" && \
 #                   git-lfs official binary
 ##################################################################
 RUN curl -fsSL https://packagecloud.io/github/git-lfs/gpgkey | gpg --dearmor > /etc/apt/keyrings/github_git-lfs-archive-keyring.gpg && \
-    rm -rfv /etc/apt/sources.list.d/github_git-lfs.list
-COPY etc/apt/sources.list.d/github_git-lfs.list /etc/apt/sources.list.d/github_git-lfs.list
+    rm -rfv /etc/apt/sources.list.d/github_git-lfs.list && \
+    rm -rfv /etc/apt/sources.list.d/github_git-lfs.sources
+
+COPY etc/apt/sources.list.d/github_git-lfs.sources /etc/apt/sources.list.d/github_git-lfs.sources
 RUN apt-get update &&  \
     apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
     git \
