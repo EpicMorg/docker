@@ -89,8 +89,9 @@ ARG LD_CONF_DIR=/etc/ld.so.conf.d/
 ##################################################################
 #                  OpenSSL 3.4
 ##################################################################
-ENV OPENSSL_34_VERSION=3.4.1
-ENV OPENSSL_34_DIR=${EMG_LOCAL_BASE_DIR}/openssl/${OPENSSL_34_VERSION}
+ENV OPENSSL_34_MIN_VERSION=3.4
+ENV OPENSSL_34_VERSION=${OPENSSL_34_MIN_VERSION}.2
+ENV OPENSSL_34_DIR=${EMG_LOCAL_BASE_DIR}/openssl/${OPENSSL_34_MIN_VERSION}
 ENV OPENSSL_34_BIN_DIR=${OPENSSL_34_DIR}/bin
 ENV OPENSSL_34_INC_DIR=${OPENSSL_34_DIR}/include
 ENV OPENSSL_34_LIB_DIR=${OPENSSL_34_DIR}/lib64
