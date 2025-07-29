@@ -93,8 +93,9 @@ ARG NINJA_DOWNLOAD_URL=https://github.com/ninja-build/ninja/releases/download/v$
 ARG NINJA_TEMP=/tmp/ninja-linux.zip
 
 # GO source tarball
-ENV GO_VERSION=1.24.2
-ENV GO_DIR=${EMG_LOCAL_BASE_DIR}/go/${GO_VERSION}
+ENV GO_MIN_VERSION=1.24
+ENV GO_VERSION=${GO_MIN_VERSION}.5
+ENV GO_DIR=${EMG_LOCAL_BASE_DIR}/go/${GO_MIN_VERSION}
 ARG GO_BIN_DIR=${GO_DIR}/bin
 ARG GO_PATH_DIR=${GO_DIR}/gopath
 ARG GO_PATH_BIN_DIR=${GO_PATH_DIR}/bin
