@@ -1,6 +1,11 @@
 # Changelog
 
 ## 2025
+* `jul`
+  * updated `python`, `node`, `cmake`, `openssl`, `flutter`, `go`, `nginx`, `steamcmd`
+  * fixed buildah builds
+  * fixed `opentracker` builds
+  * reverted to `dockerhub` as main `mirror`
 * `may`-`jun`
   * buildah squash to service images
 * `apr`
