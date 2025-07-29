@@ -2,7 +2,7 @@
 
 ## 2025
 * `jul`
-  * updated `python`, `node`, `cmake`, `openssl`, `flutter`, `go`, `nginx`, `steamcmd`
+  * updated `python`, `node`, `cmake`, `openssl`, `flutter`, `go`, `nginx`, `steamcmd`, `KTC`, `gradle`, `maven`
   * fixed buildah builds
   * fixed `opentracker` builds
   * reverted to `dockerhub` as main `mirror`
