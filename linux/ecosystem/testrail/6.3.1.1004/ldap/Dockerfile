@@ -1,4 +1,4 @@
-FROM quay.io/epicmorg/testrail:6.3.1.1004
+FROM epicmorg/testrail:6.3.1.1004
 
 ENV TESTRAIL_PLUGIN_VERSION=1.4
 ENV TESTRAIL_PLUGIN_NAME=ldap

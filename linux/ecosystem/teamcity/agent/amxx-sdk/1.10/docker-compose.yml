@@ -1,5 +1,5 @@
 services:
   app:
-    image: "quay.io/epicmorg/teamcity-agent:amxx-sdk-rc"
+    image: "epicmorg/teamcity-agent:amxx-sdk-rc"
     build:
       context: .

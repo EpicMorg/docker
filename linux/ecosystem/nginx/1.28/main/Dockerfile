@@ -5,7 +5,7 @@
 ##################################################################
 ##################################################################
 ##################################################################
-FROM quay.io/epicmorg/debian:bookworm-develop AS build
+FROM epicmorg/debian:bookworm-develop AS build
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -306,7 +306,7 @@ RUN updatedb
 ##################################################################
 ##################################################################
 ##################################################################
-FROM quay.io/epicmorg/debian:bookworm
+FROM epicmorg/debian:bookworm
 
 ENV NGINX_VERSION=1.28
 ENV NGINX_VERSION_FULL=${NGINX_VERSION}.0

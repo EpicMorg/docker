@@ -1,4 +1,4 @@
-FROM quay.io/epicmorg/debian:bookworm-jdk17
+FROM epicmorg/debian:bookworm-jdk17
 LABEL maintainer="Atlassian Confluence Server Team; EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -29,7 +29,20 @@ EXPOSE 8091
 ##################################################################
 #                   Installing
 ##################################################################
-ADD ${DOWNLOAD_URL} /tmp
+RUN wget -c \
+    --user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:128.0) Gecko/20100101 Firefox/128.0" \
+    --no-check-certificate \
+    --tries=5 \
+    --timeout=30 \
+    --waitretry=5 \
+    --retry-connrefused \
+    --dns-timeout=10 \
+    --read-timeout=20 \
+    --progress=dot:giga \
+    --no-clobber \
+    -O /tmp/$(basename "${DOWNLOAD_URL}") \
+    "${DOWNLOAD_URL}"
+
 RUN mkdir -p ${CONFLUENCE_INSTALL_DIR} && \
     tar -xzf ${TEMP_ARCHIVE} --strip-components=1 --directory "${CONFLUENCE_INSTALL_DIR}" && \
     chown -R ${RUN_USER}:${RUN_GROUP} ${CONFLUENCE_INSTALL_DIR}/ && \

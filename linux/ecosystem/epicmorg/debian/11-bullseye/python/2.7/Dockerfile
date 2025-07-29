@@ -1,4 +1,4 @@
-FROM quay.io/epicmorg/debian:bullseye-develop  as builder
+FROM epicmorg/debian:bullseye-develop  as builder
 
 ##################################################################
 #                   Build
@@ -63,7 +63,7 @@ RUN make -j$(nproc) && \
 ##################################################################
 ##################################################################
 ##################################################################
-FROM quay.io/epicmorg/debian:bullseye
+FROM epicmorg/debian:bullseye
 
 RUN apt-get remove -y python3-pip
 

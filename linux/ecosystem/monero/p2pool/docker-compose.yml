@@ -1,6 +1,6 @@
 services:
   app:
-    image: "quay.io/epicmorg/monero:p2pool"
+    image: "epicmorg/monero:p2pool"
     build:
       context: .
 

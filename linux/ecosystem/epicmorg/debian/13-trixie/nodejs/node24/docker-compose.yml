@@ -1,0 +1,10 @@
+services:
+  app:
+    image: "epicmorg/debian:trixie-nodejs24"
+    build:
+      context: .
+  app-develop:
+    image: "epicmorg/debian:trixie-develop-nodejs24"
+    build:
+      context: .
+      dockerfile: ./Dockerfile.develop

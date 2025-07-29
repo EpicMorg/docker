@@ -1,5 +1,5 @@
 services:
   app:
-    image: "quay.io/epicmorg/apache2:php5.5"
+    image: "epicmorg/apache2:php5.5"
     build:
       context: .

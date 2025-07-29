@@ -1,5 +1,5 @@
 services:
   app:
-    image: "quay.io/epicmorg/opentracker:latest"
+    image: "epicmorg/opentracker:latest"
     build:
       context: .

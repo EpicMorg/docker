@@ -1,5 +1,5 @@
 services:
   app:
-    image: "quay.io/epicmorg/gitlab-runner:dotnet-sdk"
+    image: "epicmorg/gitlab-runner:dotnet-sdk"
     build:
       context: .

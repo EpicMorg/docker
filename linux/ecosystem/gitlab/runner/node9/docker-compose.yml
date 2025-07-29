@@ -1,5 +1,5 @@
 services:
   app:
-    image: "quay.io/epicmorg/gitlab-runner:node9"
+    image: "epicmorg/gitlab-runner:node9"
     build:
       context: .

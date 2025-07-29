@@ -1,10 +1,10 @@
 services:
   app:
-    image: "quay.io/epicmorg/debian:jessie-nodejs15"
+    image: "epicmorg/debian:jessie-nodejs15"
     build:
       context: .
   app-develop:
-    image: "quay.io/epicmorg/debian:jessie-develop-nodejs15"
+    image: "epicmorg/debian:jessie-develop-nodejs15"
     build:
       context: .
       dockerfile: ./Dockerfile.develop

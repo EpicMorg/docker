@@ -1,15 +1,15 @@
 services:
   app:
-    image: "quay.io/epicmorg/fisheye-crucible:3.1.6"
+    image: "epicmorg/fisheye-crucible:3.1.6"
     build:
       context: .
       dockerfile: Dockerfile.jdk7
   app-jdk6:
-    image: "quay.io/epicmorg/fisheye-crucible:3.1.6-jdk6"
+    image: "epicmorg/fisheye-crucible:3.1.6-jdk6"
     build:
       context: .
   app-jdk7:
-    image: "quay.io/epicmorg/fisheye-crucible:3.1.6-jdk7"
+    image: "epicmorg/fisheye-crucible:3.1.6-jdk7"
     build:
       context: .
       dockerfile: Dockerfile.jdk7

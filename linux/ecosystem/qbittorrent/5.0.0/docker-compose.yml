@@ -1,14 +1,14 @@
 services:
   qbt:
-    image: "quay.io/epicmorg/qbittorrent:5.0.0"
+    image: "epicmorg/qbittorrent:5.0.0"
     build:
       context: .
   qbt-libtorrent2:
-    image: "quay.io/epicmorg/qbittorrent:5.0.0-libtorrent2.0.10"
+    image: "epicmorg/qbittorrent:5.0.0-libtorrent2.0.10"
     build:
       context: .
   qbt-libtorrent1:
-    image: "quay.io/epicmorg/qbittorrent:5.0.0-libtorrent1.2.19"
+    image: "epicmorg/qbittorrent:5.0.0-libtorrent1.2.19"
     build:
       context: .
       dockerfile: ./Dockerfile.libtorrent1

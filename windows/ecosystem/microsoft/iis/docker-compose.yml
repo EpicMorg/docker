@@ -1,5 +1,5 @@
 services:
   app:
-    image: "quay.io/epicmorg/win32-iis:2022-core"
+    image: "epicmorg/win32-iis:2022-core"
     build:
       context: .

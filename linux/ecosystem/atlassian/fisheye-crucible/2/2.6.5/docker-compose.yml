@@ -1,10 +1,10 @@
 services:
   app:
-    image: "quay.io/epicmorg/fisheye-crucible:2.6.5"
+    image: "epicmorg/fisheye-crucible:2.6.5"
     build:
       context: .
   app-jdk6:
-    image: "quay.io/epicmorg/fisheye-crucible:2.6.5-jdk6"
+    image: "epicmorg/fisheye-crucible:2.6.5-jdk6"
     build:
       context: .
 

@@ -1,9 +1,9 @@
 services:
   app:
-    image: "quay.io/epicmorg/crowd:0.4.1"
+    image: "epicmorg/crowd:0.4.1"
     build:
       context: .
   app-jdk6:
-    image: "quay.io/epicmorg/crowd:0.4.1-jdk6"
+    image: "epicmorg/crowd:0.4.1-jdk6"
     build:
       context: .

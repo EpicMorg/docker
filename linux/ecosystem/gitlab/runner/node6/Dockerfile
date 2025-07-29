@@ -1,4 +1,4 @@
-FROM quay.io/epicmorg/gitlab-runner:minimal
+FROM epicmorg/gitlab-runner:minimal
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 
 ARG K_NODE_MAJOR_VERSION=6

@@ -1,10 +1,10 @@
 services:
   app:
-    image: "quay.io/epicmorg/debian:trixie-jdk23"
+    image: "epicmorg/debian:trixie-jdk23"
     build:
       context: .
   app-develop:
-    image: "quay.io/epicmorg/debian:trixie-develop-jdk23"
+    image: "epicmorg/debian:trixie-develop-jdk23"
     build:
       context: .
       dockerfile: ./Dockerfile.develop

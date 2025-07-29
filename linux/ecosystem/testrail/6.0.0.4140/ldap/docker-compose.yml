@@ -1,5 +1,5 @@
 services:
   app:
-    image: "quay.io/epicmorg/testrail:auth-ldap-6.0.0.4140"
+    image: "epicmorg/testrail:auth-ldap-6.0.0.4140"
     build:
       context: .

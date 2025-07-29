@@ -1,10 +1,10 @@
 services:
   app:
-    image: "quay.io/epicmorg/debian:bookworm-nodejs-lts"
+    image: "epicmorg/debian:bookworm-nodejs-lts"
     build:
       context: .
   app-develop:
-    image: "quay.io/epicmorg/debian:bookworm-develop-nodejs-lts"
+    image: "epicmorg/debian:bookworm-develop-nodejs-lts"
     build:
       context: .
       dockerfile: ./Dockerfile.develop

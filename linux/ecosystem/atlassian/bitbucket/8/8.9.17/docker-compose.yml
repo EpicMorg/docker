@@ -1,19 +1,19 @@
 services:
   app:
-    image: "quay.io/epicmorg/bitbucket:8.9.17"
+    image: "epicmorg/bitbucket:8.9.17"
     build:
       context: .
   app-jdk8:
-    image: "quay.io/epicmorg/bitbucket:8.9.17-jdk8"
+    image: "epicmorg/bitbucket:8.9.17-jdk8"
     build:
       context: .
   app-jdk11:
-    image: "quay.io/epicmorg/bitbucket:8.9.17-jdk11"
+    image: "epicmorg/bitbucket:8.9.17-jdk11"
     build:
       context: .
       dockerfile: Dockerfile.jdk11
   app-jdk17:
-    image: "quay.io/epicmorg/bitbucket:8.9.17-jdk17"
+    image: "epicmorg/bitbucket:8.9.17-jdk17"
     build:
       context: .
       dockerfile: Dockerfile.jdk17

@@ -1,4 +1,4 @@
-FROM quay.io/epicmorg/nextcloud:17
+FROM epicmorg/nextcloud:17
 
 ##################################################################
 #      thank u, mac users. rolling back normal ZipStreammer

@@ -1,4 +1,4 @@
-FROM quay.io/epicmorg/debian:bookworm-python-3.11
+FROM epicmorg/debian:bookworm-python-3.11
 
 ENV TELEGRAMBOT_DIR=${EMG_LOCAL_BASE_DIR}/telegram/bot/quotes
 RUN mkdir -p ${TELEGRAMBOT_DIR}

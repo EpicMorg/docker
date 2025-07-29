@@ -1,5 +1,5 @@
 services:
   app:
-    image: "quay.io/epicmorg/debian:bullseye-python-3.9"
+    image: "epicmorg/debian:bullseye-python-3.9"
     build:
       context: .

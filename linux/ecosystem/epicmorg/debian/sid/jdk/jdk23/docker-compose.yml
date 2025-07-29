@@ -1,10 +1,10 @@
 services:
   app:
-    image: "quay.io/epicmorg/debian:sid-jdk23"
+    image: "epicmorg/debian:sid-jdk23"
     build:
       context: .
   app-develop:
-    image: "quay.io/epicmorg/debian:sid-develop-jdk23"
+    image: "epicmorg/debian:sid-develop-jdk23"
     build:
       context: .
       dockerfile: ./Dockerfile.develop

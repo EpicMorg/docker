@@ -1,5 +1,5 @@
 services:
   app:
-    image: "quay.io/epicmorg/testrail:6.7.1.1020"
+    image: "epicmorg/testrail:6.7.1.1020"
     build:
       context: .

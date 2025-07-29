@@ -1,4 +1,4 @@
-FROM quay.io/epicmorg/debian:trixie-develop  as builder
+FROM epicmorg/debian:trixie-develop  as builder
 
 ##################################################################
 #                   Build
@@ -24,7 +24,7 @@ RUN apt update && apt install -y \
 ARG LD_CONF_DIR=/etc/ld.so.conf.d/
 
 ENV PYTHON_VERSION=3.13
-ENV PYTHON_FULL_VERSION=${PYTHON_VERSION}.3
+ENV PYTHON_FULL_VERSION=${PYTHON_VERSION}.5
 ENV PYTHON_DIR=${EMG_LOCAL_BASE_DIR}/python/${PYTHON_VERSION}
 ARG PYTHON_BIN_DIR=${PYTHON_DIR}/bin
 ARG PYTHON_SRC_DIR=${PYTHON_DIR}/src
@@ -79,7 +79,7 @@ RUN python${PYTHON_VERSION} -c "import ssl; print(ssl.OPENSSL_VERSION)"
 ##################################################################
 ##################################################################
 ##################################################################
-FROM quay.io/epicmorg/debian:trixie
+FROM epicmorg/debian:trixie
 
 RUN apt-get remove -y python3-pip
 
@@ -89,8 +89,9 @@ ARG LD_CONF_DIR=/etc/ld.so.conf.d/
 ##################################################################
 #                  OpenSSL 3.4
 ##################################################################
-ENV OPENSSL_34_VERSION=3.4.1
-ENV OPENSSL_34_DIR=${EMG_LOCAL_BASE_DIR}/openssl/${OPENSSL_34_VERSION}
+ENV OPENSSL_34_MIN_VERSION=3.4
+ENV OPENSSL_34_VERSION=${OPENSSL_34_MIN_VERSION}.2
+ENV OPENSSL_34_DIR=${EMG_LOCAL_BASE_DIR}/openssl/${OPENSSL_34_MIN_VERSION}
 ENV OPENSSL_34_BIN_DIR=${OPENSSL_34_DIR}/bin
 ENV OPENSSL_34_INC_DIR=${OPENSSL_34_DIR}/include
 ENV OPENSSL_34_LIB_DIR=${OPENSSL_34_DIR}/lib64
@@ -100,7 +101,7 @@ ENV OPENSSL_34_SRC_DIR=/usr/local/src/openssl/${OPENSSL_34_VERSION}
 #                  Python 3.13
 ##################################################################
 ENV PYTHON_VERSION=3.13
-ENV PYTHON_FULL_VERSION=${PYTHON_VERSION}.3
+ENV PYTHON_FULL_VERSION=${PYTHON_VERSION}.5
 ENV PYTHON_DIR=${EMG_LOCAL_BASE_DIR}/python/${PYTHON_VERSION}
 ARG PYTHON_BIN_DIR=${PYTHON_DIR}/bin
 ARG PYTHON_SRC_DIR=${PYTHON_DIR}/src

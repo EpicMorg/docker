@@ -1,4 +1,4 @@
-FROM quay.io/epicmorg/debian:trixie-develop  as builder
+FROM epicmorg/debian:trixie-develop  as builder
 
 ##################################################################
 #                   Build
@@ -24,7 +24,7 @@ RUN apt update && apt install -y \
 ARG LD_CONF_DIR=/etc/ld.so.conf.d/
 
 ENV PYTHON_VERSION=3.9
-ENV PYTHON_FULL_VERSION=${PYTHON_VERSION}.22
+ENV PYTHON_FULL_VERSION=${PYTHON_VERSION}.23
 ENV PYTHON_DIR=${EMG_LOCAL_BASE_DIR}/python/${PYTHON_VERSION}
 ARG PYTHON_BIN_DIR=${PYTHON_DIR}/bin
 ARG PYTHON_SRC_DIR=${PYTHON_DIR}/src
@@ -79,7 +79,7 @@ RUN python${PYTHON_VERSION} -c "import ssl; print(ssl.OPENSSL_VERSION)"
 ##################################################################
 ##################################################################
 ##################################################################
-FROM quay.io/epicmorg/debian:trixie
+FROM epicmorg/debian:trixie
 
 RUN apt-get remove -y python3-pip
 
@@ -100,7 +100,7 @@ ENV OPENSSL_111_SRC_DIR=/usr/local/src/openssl/${OPENSSL_111_VERSION}
 #                  Python 3.9
 ##################################################################
 ENV PYTHON_VERSION=3.9
-ENV PYTHON_FULL_VERSION=${PYTHON_VERSION}.22
+ENV PYTHON_FULL_VERSION=${PYTHON_VERSION}.23
 ENV PYTHON_DIR=${EMG_LOCAL_BASE_DIR}/python/${PYTHON_VERSION}
 ARG PYTHON_BIN_DIR=${PYTHON_DIR}/bin
 ARG PYTHON_SRC_DIR=${PYTHON_DIR}/src

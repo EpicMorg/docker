@@ -1,5 +1,5 @@
 services:
   app:
-    image: "quay.io/epicmorg/vscode-server:mono"
+    image: "epicmorg/vscode-server:mono"
     build:
       context: .

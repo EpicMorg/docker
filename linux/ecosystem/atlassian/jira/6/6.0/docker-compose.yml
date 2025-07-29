@@ -1,9 +1,9 @@
 services:
   app:
-    image: "quay.io/epicmorg/jira:6.0"
+    image: "epicmorg/jira:6.0"
     build:
       context: .
   app-jdk7:
-    image: "quay.io/epicmorg/jira:6.0-jdk7"
+    image: "epicmorg/jira:6.0-jdk7"
     build:
       context: .

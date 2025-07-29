@@ -1,5 +1,5 @@
 services:
   app:
-    image: "quay.io/epicmorg/debian:jessie-slim"
+    image: "epicmorg/debian:jessie-slim"
     build:
       context: .

@@ -1,10 +1,10 @@
 services:
   app:
-    image: "quay.io/epicmorg/debian:squeeze-nodejs10"
+    image: "epicmorg/debian:squeeze-nodejs10"
     build:
       context: .
   app-develop:
-    image: "quay.io/epicmorg/debian:squeeze-develop-nodejs10"
+    image: "epicmorg/debian:squeeze-develop-nodejs10"
     build:
       context: .
       dockerfile: ./Dockerfile.develop

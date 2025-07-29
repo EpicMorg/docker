@@ -118,6 +118,7 @@ jobs:
           - {version: '21', path: 'nodejs/node21'}
           - {version: '22', path: 'nodejs/node22'}
           - {version: '23', path: 'nodejs/node23'}
+          - {version: '24', path: 'nodejs/node24'}
     steps:
     - uses: actions/checkout@v4
       with: 

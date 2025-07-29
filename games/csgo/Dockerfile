@@ -1,4 +1,4 @@
-FROM epicmorg/linux-steamcmd
+FROM epicmorg/steamcmd:linux
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 

@@ -1,4 +1,4 @@
-FROM quay.io/epicmorg/debian:sid-slim
+FROM epicmorg/debian:sid-slim
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 

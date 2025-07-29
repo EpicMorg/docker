@@ -1,7 +1,7 @@
 ################################################################################
 # https://github.com/linuxserver/docker-code-server/pkgs/container/code-server
 ################################################################################
-FROM quay.io/epicmorg/vscode-server:cpp
+FROM epicmorg/vscode-server:cpp
 
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive

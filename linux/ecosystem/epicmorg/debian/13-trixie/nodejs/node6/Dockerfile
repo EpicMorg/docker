@@ -1,4 +1,4 @@
-FROM quay.io/epicmorg/debian:trixie
+FROM epicmorg/debian:trixie
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 
 ARG DEBIAN_FRONTEND=noninteractive

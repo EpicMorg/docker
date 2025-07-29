@@ -1,4 +1,4 @@
-FROM quay.io/epicmorg/debian:bookworm-develop-jdk21
+FROM epicmorg/debian:bookworm-develop-jdk21
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 

@@ -1,6 +1,6 @@
 services:
   app:
-    image: "quay.io/epicmorg/nginx:${NGINX_VERSION}"
+    image: "epicmorg/nginx:${NGINX_VERSION}"
     build:
       context: .
       args:

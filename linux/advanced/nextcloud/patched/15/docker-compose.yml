@@ -1,5 +1,5 @@
 services:
   app:
-    image: "quay.io/epicmorg/nextcloud:15-patched"
+    image: "epicmorg/nextcloud:15-patched"
     build:
       context: .

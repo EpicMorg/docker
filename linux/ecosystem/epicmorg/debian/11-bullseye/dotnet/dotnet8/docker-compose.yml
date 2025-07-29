@@ -1,10 +1,10 @@
 services:
   app:
-    image: "quay.io/epicmorg/debian:bullseye-dotnet8"
+    image: "epicmorg/debian:bullseye-dotnet8"
     build:
       context: .
   app-develop:
-    image: "quay.io/epicmorg/debian:bullseye-develop-dotnet8"
+    image: "epicmorg/debian:bullseye-develop-dotnet8"
     build:
       context: .
       dockerfile: ./Dockerfile.develop

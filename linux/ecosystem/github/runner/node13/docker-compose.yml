@@ -1,5 +1,5 @@
 services:
   app:
-    image: "quay.io/epicmorg/github-runner:node13"
+    image: "epicmorg/github-runner:node13"
     build:
       context: .

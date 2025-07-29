@@ -1,4 +1,4 @@
-FROM quay.io/epicmorg/debian:bookworm-develop  as builder
+FROM epicmorg/debian:bookworm-develop  as builder
 
 ##################################################################
 #                   Build
@@ -25,7 +25,7 @@ ARG LD_CONF_DIR=/etc/ld.so.conf.d/
 
 ENV REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
 ENV PYTHON_VERSION=3.12
-ENV PYTHON_FULL_VERSION=${PYTHON_VERSION}.10
+ENV PYTHON_FULL_VERSION=${PYTHON_VERSION}.11
 ENV PYTHON_DIR=${EMG_LOCAL_BASE_DIR}/python/${PYTHON_VERSION}
 ARG PYTHON_BIN_DIR=${PYTHON_DIR}/bin
 ARG PYTHON_SRC_DIR=${PYTHON_DIR}/src
@@ -80,7 +80,7 @@ RUN python${PYTHON_VERSION} -c "import ssl; print(ssl.OPENSSL_VERSION)"
 ##################################################################
 ##################################################################
 ##################################################################
-FROM quay.io/epicmorg/debian:bookworm
+FROM epicmorg/debian:bookworm
 
 RUN apt-get remove -y python3-pip
 
@@ -90,8 +90,9 @@ ARG LD_CONF_DIR=/etc/ld.so.conf.d/
 ##################################################################
 #                  OpenSSL 3.4
 ##################################################################
-ENV OPENSSL_34_VERSION=3.4.1
-ENV OPENSSL_34_DIR=${EMG_LOCAL_BASE_DIR}/openssl/${OPENSSL_34_VERSION}
+ENV OPENSSL_34_MIN_VERSION=3.4
+ENV OPENSSL_34_VERSION=${OPENSSL_34_MIN_VERSION}.2
+ENV OPENSSL_34_DIR=${EMG_LOCAL_BASE_DIR}/openssl/${OPENSSL_34_MIN_VERSION}
 ENV OPENSSL_34_BIN_DIR=${OPENSSL_34_DIR}/bin
 ENV OPENSSL_34_INC_DIR=${OPENSSL_34_DIR}/include
 ENV OPENSSL_34_LIB_DIR=${OPENSSL_34_DIR}/lib64
@@ -102,7 +103,7 @@ ENV OPENSSL_34_SRC_DIR=/usr/local/src/openssl/${OPENSSL_34_VERSION}
 ##################################################################
 ENV REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
 ENV PYTHON_VERSION=3.12
-ENV PYTHON_FULL_VERSION=${PYTHON_VERSION}.10
+ENV PYTHON_FULL_VERSION=${PYTHON_VERSION}.11
 ENV PYTHON_DIR=${EMG_LOCAL_BASE_DIR}/python/${PYTHON_VERSION}
 ARG PYTHON_BIN_DIR=${PYTHON_DIR}/bin
 ARG PYTHON_SRC_DIR=${PYTHON_DIR}/src

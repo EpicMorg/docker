@@ -1,5 +1,5 @@
 services:
   app:
-    image: "quay.io/epicmorg/telegram:bot-quotes"
+    image: "epicmorg/telegram:bot-quotes"
     build:
       context: .

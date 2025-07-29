@@ -1,4 +1,4 @@
-FROM quay.io/epicmorg/debian:squeeze
+FROM epicmorg/debian:squeeze
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 
 ARG DEBIAN_FRONTEND=noninteractive

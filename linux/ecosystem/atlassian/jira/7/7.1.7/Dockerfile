@@ -1,4 +1,4 @@
-FROM quay.io/epicmorg/debian:bookworm-jdk8
+FROM epicmorg/debian:bookworm-jdk8
 LABEL maintainer="Atlassian Jira Server Team; EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -27,7 +27,20 @@ EXPOSE 8080
 ##################################################################
 #                   Installing
 ##################################################################
-ADD ${DOWNLOAD_URL} /tmp
+RUN wget -c \
+    --user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:128.0) Gecko/20100101 Firefox/128.0" \
+    --no-check-certificate \
+    --tries=5 \
+    --timeout=30 \
+    --waitretry=5 \
+    --retry-connrefused \
+    --dns-timeout=10 \
+    --read-timeout=20 \
+    --progress=dot:giga \
+    --no-clobber \
+    -O /tmp/$(basename "${DOWNLOAD_URL}") \
+    "${DOWNLOAD_URL}"
+
 RUN mkdir -p ${JIRA_INSTALL_DIR} && \
     tar -xzf /tmp/atlassian-jira-software-${RELEASE}-jira-${RELEASE}.tar.gz --strip-components=1 --directory "${JIRA_INSTALL_DIR}" && \
     chown -R ${RUN_USER}:${RUN_GROUP} ${JIRA_INSTALL_DIR}/ && \

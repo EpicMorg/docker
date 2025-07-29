@@ -1,5 +1,5 @@
 services:
   app:
-    image: "quay.io/epicmorg/zabbix-snmptraps:trunk"
+    image: "epicmorg/zabbix-snmptraps:trunk"
     build:
       context: .

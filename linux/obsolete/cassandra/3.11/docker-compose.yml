@@ -1,5 +1,5 @@
 services:
   app:
-    image: "quay.io/epicmorg/cassandra:3.11-bitnami"
+    image: "epicmorg/cassandra:3.11-bitnami"
     build:
       context: .
