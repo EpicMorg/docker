@@ -2,16 +2,18 @@ FROM epicmorg/debian:bookworm
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
-ARG DOWNLOAD_URL=http://media.steampowered.com/installer/steamcmd_linux.tar.gz
+#ARG DOWNLOAD_URL=http://media.steampowered.com/installer/steamcmd_linux.tar.gz
+ARG DOWNLOAD_URL=http://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz
 
-ENV LD_LIBRARY_PATH=/steamcmd/linux64
-ENV VALVE_FOLDER=/valve
-ENV VALVE_STEAMCMD_FOLDER=${VALVE_FOLDER}/steamcmd
+ENV VALVE_FOLDER=${EMG_LOCAL_BASE_DIR}/valve
 ENV VALVE_GAME_FOLDER=${VALVE_FOLDER}/game
 ENV VALVE_VOLUME_FOLDER=${VALVE_FOLDER}/volume
-ENV PATH="${VALVE_STEAMCMD_FOLDER}:${PATH}"
+ENV VALVE_STEAMCMD_FOLDER=${VALVE_FOLDER}/steamcmd
+ENV VALVE_STEAMCMD_LOGS=${VALVE_STEAMCMD_FOLDER}/logs
+ARG VALVE_STEAMCMD_TEMP=/tmp/steamcmd_linux.tar.gz
 
-WORKDIR ${VALVE_STEAMCMD_FOLDER}
+ENV PATH="${VALVE_STEAMCMD_FOLDER}:${PATH}"
+ENV LD_LIBRARY_PATH=/${VALVE_STEAMCMD_FOLDER}/linux64
 
 ##################################################################
 #                   installing steamcmd
@@ -29,24 +31,35 @@ RUN wget -c \
     --read-timeout=20 \
     --progress=dot:giga \
     --no-clobber \
-    -O /${VALVE_STEAMCMD_FOLDER}/$(basename "${DOWNLOAD_URL}") \
+    -O ${VALVE_STEAMCMD_TEMP} \
     "${DOWNLOAD_URL}"
 
 RUN dpkg --add-architecture i386 && \
     apt-get update && \
-    apt-get autoremove -y && \
-    apt-get install -y --allow-unauthenticated gcc-multilib lib32stdc++6 lib32gcc1 && \
-    tar -xvf $VALVE_STEAMCMD_FOLDER/steamcmd_linux.tar.gz -C $VALVE_STEAMCMD_FOLDER && \
-    ln -s $VALVE_STEAMCMD_FOLDER/steamcmd.sh $VALVE_STEAMCMD_FOLDER/steamcmd && \
-    ln -s $VALVE_STEAMCMD_FOLDER/steam.sh $VALVE_STEAMCMD_FOLDER/steam && \
+    apt-get install -y --allow-unauthenticated \
+        gcc-multilib \
+        lib32stdc++6 \
+        lib32gcc-s1 \
+        curl && \
+    tar -xvf ${VALVE_STEAMCMD_TEMP} -C ${VALVE_STEAMCMD_FOLDER} && \
+    ln -sfv ${VALVE_STEAMCMD_FOLDER} /root/Steam && \
+    ln -sfv ${VALVE_STEAMCMD_FOLDER}/steamcmd.sh ${VALVE_STEAMCMD_FOLDER}/steamcmd && \
+    ln -sfv ${VALVE_STEAMCMD_FOLDER}/steam.sh ${VALVE_STEAMCMD_FOLDER}/steam && \
     steamcmd +quit
 
 ##################################################################
 #                   cleaninig up
 ##################################################################
-RUN apt clean -y && \
-    apt autoclean -y && \
-    rm -rfv $VALVE_STEAMCMD_FOLDER/steamcmd_linux.tar.gz && \
-    rm -rfv /tmp/ && \
+RUN echo "clean up" && \
+    apt-get clean -y && \
+    apt-get autoclean -y && \
     rm -rfv /var/lib/apt/lists/* && \
-    rm -rfv /var/cache/apt/archives/*.deb
+    rm -rfv /var/cache/apt/archives/*.deb && \
+    rm -rfv /root/tmp/* && \
+    rm -rfv /tmp/*
+
+
+WORKDIR ${VALVE_STEAMCMD_FOLDER}
+VOLUME ${VALVE_STEAMCMD_LOGS} ${VALVE_VOLUME_FOLDER}
+
+RUN updatedb
