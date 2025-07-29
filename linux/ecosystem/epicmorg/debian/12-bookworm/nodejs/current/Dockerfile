@@ -4,7 +4,7 @@ LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
 ARG K_NODE_MAJOR_VERSION=23
-ARG K_NODE_VERSION=${K_NODE_MAJOR_VERSION}.11.0
+ARG K_NODE_VERSION=${K_NODE_MAJOR_VERSION}.11.1
 ARG K_NODE_URL=https://nodejs.org/dist/v${K_NODE_VERSION}/node-v${K_NODE_VERSION}-linux-x64.tar.gz
 ARG K_NODE_HEADERS_URL=https://nodejs.org/dist/v${K_NODE_VERSION}/node-v${K_NODE_VERSION}-headers.tar.gz
 
