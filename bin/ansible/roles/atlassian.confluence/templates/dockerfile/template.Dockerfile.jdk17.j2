@@ -32,11 +32,11 @@ EXPOSE 8091
 RUN wget -c \
     --user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:128.0) Gecko/20100101 Firefox/128.0" \
     --no-check-certificate \
-    --tries=5 \
+    --tries=15 \
     --timeout=30 \
-    --waitretry=5 \
+    --waitretry=15 \
+    --dns-timeout=30 \
     --retry-connrefused \
-    --dns-timeout=10 \
     --read-timeout=20 \
     --progress=dot:giga \
     --no-clobber \
