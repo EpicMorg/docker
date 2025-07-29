@@ -1,4 +1,4 @@
-FROM quay.io/epicmorg/debian:bookworm-python-2.7  as builder
+FROM epicmorg/debian:bookworm-python-2.7  as builder
 
 RUN echo "=============================================" && \
     python${PYTHON_VERSION} --version && \
@@ -18,7 +18,7 @@ RUN echo "=============================================" && \
 ##################################################################
 ##################################################################
 
-FROM quay.io/epicmorg/debian:bookworm-jdk8
+FROM epicmorg/debian:bookworm-jdk8
 
 ##################################################################
 #                  Python 2.7

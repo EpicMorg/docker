@@ -1,4 +1,4 @@
-FROM quay.io/epicmorg/debian:bookworm-jdk7
+FROM epicmorg/debian:bookworm-jdk7
 LABEL maintainer="Atlassian Jira Server Team; EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 

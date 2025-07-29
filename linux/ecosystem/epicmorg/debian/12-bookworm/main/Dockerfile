@@ -1,4 +1,4 @@
-FROM quay.io/epicmorg/debian:bookworm-slim
+FROM epicmorg/debian:bookworm-slim
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 

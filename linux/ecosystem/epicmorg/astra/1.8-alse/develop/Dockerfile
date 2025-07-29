@@ -1,4 +1,4 @@
-FROM quay.io/epicmorg/astralinux:1.8-main
+FROM epicmorg/astralinux:1.8-main
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 

@@ -1,4 +1,4 @@
-FROM quay.io/epicmorg/debian:bookworm-jdk6
+FROM epicmorg/debian:bookworm-jdk6
 LABEL maintainer="Atlassian Crowd Server Team; EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 

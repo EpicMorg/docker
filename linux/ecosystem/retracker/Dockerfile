@@ -1,4 +1,4 @@
-FROM quay.io/epicmorg/debian:bookworm-develop as builder
+FROM epicmorg/debian:bookworm-develop as builder
 
 ARG GOPATH=/tmp/gopath
 

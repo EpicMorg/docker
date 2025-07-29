@@ -1,4 +1,4 @@
-FROM quay.io/epicmorg/testrail:6.5.5.1009
+FROM epicmorg/testrail:6.5.5.1009
 
 ENV TESTRAIL_PLUGIN_VERSION=1.4
 ENV TESTRAIL_PLUGIN_NAME=ad

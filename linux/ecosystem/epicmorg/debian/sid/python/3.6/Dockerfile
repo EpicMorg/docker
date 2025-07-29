@@ -1,4 +1,4 @@
-FROM quay.io/epicmorg/debian:sid-develop  as builder
+FROM epicmorg/debian:sid-develop  as builder
 
 ##################################################################
 #                   Build
@@ -75,7 +75,7 @@ RUN python${PYTHON_VERSION} -c "import ssl; print(ssl.OPENSSL_VERSION)"
 ##################################################################
 ##################################################################
 ##################################################################
-FROM quay.io/epicmorg/debian:sid
+FROM epicmorg/debian:sid
 
 RUN apt-get remove -y python3-pip
 

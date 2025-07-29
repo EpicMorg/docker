@@ -6,7 +6,7 @@ ARG NGINX_VERSION
 ##################################################################
 #                   Start build process
 ##################################################################
-FROM quay.io/epicmorg/debian:bookworm-develop AS builder
+FROM epicmorg/debian:bookworm-develop AS builder
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -99,7 +99,7 @@ RUN pecl install smbclient && \
 ##################################################################
 ##################################################################
 
-FROM quay.io/epicmorg/nginx:${NGINX_VERSION}
+FROM epicmorg/nginx:${NGINX_VERSION}
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 

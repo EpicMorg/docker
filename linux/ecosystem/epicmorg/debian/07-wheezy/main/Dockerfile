@@ -1,4 +1,4 @@
-FROM quay.io/epicmorg/debian:wheezy-slim
+FROM epicmorg/debian:wheezy-slim
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 

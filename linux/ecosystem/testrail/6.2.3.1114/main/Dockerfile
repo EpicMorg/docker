@@ -1,4 +1,4 @@
-FROM quay.io/epicmorg/apache2:php7.1
+FROM epicmorg/apache2:php7.1
 
 ##############################################################################
 # Testrail Install

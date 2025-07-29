@@ -1,7 +1,7 @@
 ##################################################################
 #                   Start build process
 ##################################################################
-FROM quay.io/epicmorg/debian:bookworm-develop AS builder
+FROM epicmorg/debian:bookworm-develop AS builder
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -278,7 +278,7 @@ RUN ls -las ${NGINX_SRC_DIR}
 ##################################################################
 ##################################################################
 
-FROM quay.io/epicmorg/debian:bookworm
+FROM epicmorg/debian:bookworm
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 

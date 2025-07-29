@@ -1,4 +1,4 @@
-FROM quay.io/epicmorg/astralinux:1.8-rootfs
+FROM epicmorg/astralinux:1.8-rootfs
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 
 ##################################################################

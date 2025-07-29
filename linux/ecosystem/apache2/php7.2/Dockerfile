@@ -1,4 +1,4 @@
-FROM quay.io/epicmorg/debian:bookworm-php7.2
+FROM epicmorg/debian:bookworm-php7.2
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
