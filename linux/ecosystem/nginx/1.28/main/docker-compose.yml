@@ -3,7 +3,3 @@ services:
     image: "epicmorg/nginx:1.28"
     build:
       context: .
-  app-latest:
-    image: "epicmorg/nginx:latest"
-    build:
-      context: .
