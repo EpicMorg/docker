@@ -1,4 +1,4 @@
-FROM mattermost/mattermost-enterprise-edition:release-10.8 as bootstrap
+FROM mattermost/mattermost-enterprise-edition:10.8 as bootstrap
 RUN cd ./bin && \
     ls -las && \
     mattermost version
@@ -10,7 +10,7 @@ RUN cd /tmp && \
     chmod +x ./edit.py && \
     ./edit.py
 
-FROM mattermost/mattermost-enterprise-edition:release-10.8
+FROM mattermost/mattermost-enterprise-edition:10.8
 
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 LABEL org.opencontainers.image.vendor="EpicMorg DevTeam, developer@epicm.org"
