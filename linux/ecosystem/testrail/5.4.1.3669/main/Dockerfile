@@ -31,7 +31,7 @@ ENV OPENSSL_CONF=/etc/ssl/
 
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
-RUN wget -c \
+RUN mkdir -p ${TESTRAIL_RELEASE_DIR} && \wget -c \
     --user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:128.0) Gecko/20100101 Firefox/128.0" \
     --no-check-certificate \
     --retry-connrefused \
@@ -46,7 +46,6 @@ RUN wget -c \
     "${DOWNLOAD_URL}"
 
 RUN echo "[testrail] Preparing folders" && \
-    mkdir -p ${TESTRAIL_RELEASE_DIR} && \
     mkdir -p ${TR_WWW_PATH} && \
     mkdir -p ${TR_DEFAULT_ATTACHMENT_DIR} ${TR_DEFAULT_REPORT_DIR} ${TR_DEFAULT_AUDIT_DIR} ${TR_DEFAULT_LOG_DIR} && \
     echo "[testrail] Downloading and installing" && \
