@@ -1,4 +1,4 @@
-FROM bitnami/cassandra:3.11
+FROM docker.io/bitnami/cassandra:3.11
 
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 LABEL org.opencontainers.image.vendor="EpicMorg DevTeam, developer@epicm.org"

@@ -6,7 +6,7 @@ ARG NGINX_VERSION
 ##################################################################
 #                   Start build process
 ##################################################################
-FROM epicmorg/debian:bullseye-develop AS builder
+FROM docker.io/epicmorg/debian:bullseye-develop AS builder
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -90,12 +90,12 @@ RUN pecl install smbclient && \
 ##################################################################
 ##################################################################
 
-FROM epicmorg/nginx:${NGINX_VERSION}
+FROM docker.io/epicmorg/nginx:${NGINX_VERSION}
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
 ##################################################################
-#                   Installing php fpm for nginx from deb
+#                   Installing php fpm for nginx FROM docker.io/deb
 ##################################################################
 ENV PHP_MODULE_PATH=/usr/lib/php/20190902
 ENV PHP_VER=7.4

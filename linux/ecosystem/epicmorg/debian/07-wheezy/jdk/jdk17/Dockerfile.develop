@@ -1,4 +1,4 @@
-FROM epicmorg/debian:wheezy-develop
+FROM docker.io/epicmorg/debian:wheezy-develop
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 

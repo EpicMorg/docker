@@ -1,4 +1,4 @@
-FROM epicmorg/debian:bullseye
+FROM docker.io/epicmorg/debian:bullseye
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 
 ARG DEBIAN_FRONTEND=noninteractive

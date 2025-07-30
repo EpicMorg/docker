@@ -1,4 +1,4 @@
-name: EpicMorg Advanced Mattermost Image
+name: EpicMorg Mattermost Image
 
 on:
   workflow_dispatch:
@@ -8,7 +8,7 @@ on:
 jobs:
 
   build-images:
-    name: EpicMorg Advanced Images
+    name: EpicMorg Mattermost Images
     runs-on: [ ubuntu-24.04 ]
     strategy:
       matrix:

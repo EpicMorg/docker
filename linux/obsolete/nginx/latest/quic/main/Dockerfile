@@ -6,7 +6,7 @@ ARG NGINX_VERSION
 ##################################################################
 #                   Start build process
 ##################################################################
-FROM epicmorg/debian:bullseye-develop AS builder
+FROM docker.io/epicmorg/debian:bullseye-develop AS builder
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -213,7 +213,7 @@ RUN cd ${NGINX_SRC_DIR} && \
 ##################################################################
 ##################################################################
 
-FROM epicmorg/debian:bullseye
+FROM docker.io/epicmorg/debian:bullseye
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -223,7 +223,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN echo "TLS_REQCERT never" >> /etc/ldap/ldap.conf
 
 ##################################################################
-#                   Installing nginx from deb
+#                   Installing nginx FROM docker.io/deb
 ##################################################################
 ADD pre/ngninx.pre.tar.gz /
 COPY --from=builder /builds/export /tmp/deb

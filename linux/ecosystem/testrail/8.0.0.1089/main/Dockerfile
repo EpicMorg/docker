@@ -1,4 +1,4 @@
-FROM epicmorg/apache2:php8.1
+FROM docker.io/epicmorg/apache2:php8.1
 
 ##############################################################################
 # Testrail Install

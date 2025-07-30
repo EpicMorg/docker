@@ -1,7 +1,7 @@
 ##################################################################
 #                   Start build process
 ##################################################################
-FROM epicmorg/debian:bookworm-develop AS builder
+FROM docker.io/epicmorg/debian:bookworm-develop AS builder
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -278,7 +278,7 @@ RUN ls -las ${NGINX_SRC_DIR}
 ##################################################################
 ##################################################################
 
-FROM epicmorg/debian:bookworm
+FROM docker.io/epicmorg/debian:bookworm
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -288,7 +288,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN echo "TLS_REQCERT never" >> /etc/ldap/ldap.conf
 
 ##################################################################
-#                   Installing nginx from deb
+#                   Installing nginx FROM docker.io/deb
 ##################################################################
 COPY ./pre/nginx-pre /tmp/nginx-pre
 COPY --from=builder /builds/export /tmp/deb

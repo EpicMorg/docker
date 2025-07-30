@@ -1,4 +1,4 @@
-FROM epicmorg/debian:trixie-develop  as builder
+FROM docker.io/epicmorg/debian:trixie-develop  as builder
 
 ##################################################################
 #                   Build
@@ -71,7 +71,7 @@ RUN python${PYTHON_VERSION} -c "import ssl; print(ssl.OPENSSL_VERSION)"
 ##################################################################
 ##################################################################
 ##################################################################
-FROM epicmorg/debian:trixie
+FROM docker.io/epicmorg/debian:trixie
 
 RUN apt-get remove -y python3-pip
 

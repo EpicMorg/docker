@@ -1,4 +1,4 @@
-FROM epicmorg/github-runner:minimal
+FROM docker.io/epicmorg/github-runner:minimal
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 
 ARG K_NODE_MAJOR_VERSION=6

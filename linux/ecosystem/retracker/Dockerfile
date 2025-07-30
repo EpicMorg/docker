@@ -1,4 +1,4 @@
-FROM epicmorg/debian:bookworm-develop as builder
+FROM docker.io/epicmorg/debian:bookworm-develop as builder
 
 
 RUN mkdir /tmp/gopath
@@ -10,7 +10,7 @@ RUN go install 'github.com/vvampirius/retracker@latest'
 
 RUN /tmp/gopath/bin/retracker -v
 
-FROM  epicmorg/debian:bookworm
+FROM docker.io/ epicmorg/debian:bookworm
 
 
 ENV RETRACKER_FOLDER=${EMG_LOCAL_BASE_DIR}/retracker

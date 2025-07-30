@@ -1,4 +1,4 @@
-FROM epicmorg/debian:bookworm-python-2.7  as builder
+FROM docker.io/epicmorg/debian:bookworm-python-2.7  as builder
 
 RUN echo "=============================================" && \
     python${PYTHON_VERSION} --version && \
@@ -18,7 +18,7 @@ RUN echo "=============================================" && \
 ##################################################################
 ##################################################################
 
-FROM epicmorg/debian:bookworm-jdk8
+FROM docker.io/epicmorg/debian:bookworm-jdk8
 
 ##################################################################
 #                  Python 2.7
@@ -90,7 +90,7 @@ RUN set -eux; \
 	ln -sT "$libjemalloc" /usr/local/lib/libjemalloc.so; \
 	ldconfig
 
-# grab gosu for easy step-down from root
+# grab gosu for easy step-down FROM docker.io/root
 # https://github.com/tianon/gosu/releases
 RUN set -eux; \
 	savedAptMark="$(apt-mark showmanual)"; \
@@ -160,7 +160,7 @@ RUN set -eux; \
 		for distUrl in \
 # https://github.com/docker-library/tomcat/pull/308
 			https://dlcdn.apache.org/ \
-# if the version is outdated, we have to pull from the archive
+# if the version is outdated, we have to pull FROM docker.io/the archive
 			https://archive.apache.org/dist/ \
 		; do \
 			if wget --progress=dot:giga -O "$f" "$distUrl$distFile" && [ -s "$f" ]; then \

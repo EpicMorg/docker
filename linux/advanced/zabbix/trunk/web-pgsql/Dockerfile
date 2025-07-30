@@ -1,4 +1,4 @@
-FROM zabbix/zabbix-web-apache-pgsql:ubuntu-trunk
+FROM docker.io/zabbix/zabbix-web-apache-pgsql:ubuntu-trunk
 ENV DEBIAN_FRONTEND noninteractive
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 LABEL org.opencontainers.image.vendor="EpicMorg DevTeam, developer@epicm.org"

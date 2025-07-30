@@ -1,4 +1,4 @@
-FROM debian/eol:jessie-slim
+FROM docker.io/debian/eol:jessie-slim
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 LABEL org.opencontainers.image.vendor="EpicMorg DevTeam, developer@epicm.org"
 LABEL org.opencontainers.image.authors="STAM, kasthack, Aleks-Z"

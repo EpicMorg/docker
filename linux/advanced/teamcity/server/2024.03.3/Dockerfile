@@ -1,4 +1,4 @@
-FROM jetbrains/teamcity-server:2024.03.3
+FROM docker.io/jetbrains/teamcity-server:2024.03.3
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 LABEL org.opencontainers.image.vendor="EpicMorg DevTeam, developer@epicm.org"
 LABEL org.opencontainers.image.authors="STAM, kasthack, Aleks-Z"
@@ -325,7 +325,7 @@ RUN echo "=============================================" && \
     echo "============================================="
 
 ##################################################################
-#                    gosu for easy step-down from root
+#                    gosu for easy step-down FROM docker.io/root
 ##################################################################
 RUN mkdir -p ${GOSU_BIN_DIR}
 ADD ${GOSU_DOWNLOAD_URL} ${GOSU_BIN_DIR}

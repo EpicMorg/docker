@@ -1,4 +1,4 @@
-FROM zabbix/zabbix-snmptraps:ubuntu-latest
+FROM docker.io/zabbix/zabbix-snmptraps:ubuntu-latest
 ENV DEBIAN_FRONTEND noninteractive
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 LABEL org.opencontainers.image.vendor="EpicMorg DevTeam, developer@epicm.org"

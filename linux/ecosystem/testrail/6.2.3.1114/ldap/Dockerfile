@@ -1,4 +1,4 @@
-FROM epicmorg/testrail:6.2.3.1114
+FROM docker.io/epicmorg/testrail:6.2.3.1114
 
 ENV TESTRAIL_PLUGIN_VERSION=1.4
 ENV TESTRAIL_PLUGIN_NAME=ldap

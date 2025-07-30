@@ -1,4 +1,4 @@
-FROM zabbix/zabbix-java-gateway:5.0-ubuntu-latest
+FROM docker.io/zabbix/zabbix-java-gateway:5.0-ubuntu-latest
 ENV DEBIAN_FRONTEND noninteractive
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 LABEL org.opencontainers.image.vendor="EpicMorg DevTeam, developer@epicm.org"

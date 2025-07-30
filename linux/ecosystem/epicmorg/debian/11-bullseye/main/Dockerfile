@@ -1,4 +1,4 @@
-FROM epicmorg/debian:bullseye-slim
+FROM docker.io/epicmorg/debian:bullseye-slim
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -315,7 +315,7 @@ RUN echo "=============================================" && \
     echo "============================================="
 
 ##################################################################
-#                    gosu for easy step-down from root
+#                    gosu for easy step-down FROM docker.io/root
 ##################################################################
 RUN mkdir -p ${GOSU_BIN_DIR}
 ADD ${GOSU_DOWNLOAD_URL} ${GOSU_BIN_DIR}

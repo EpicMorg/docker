@@ -1,4 +1,4 @@
-FROM nextcloud:29
+FROM docker.io/nextcloud:29
 ENV DEBIAN_FRONTEND noninteractive
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 LABEL org.opencontainers.image.vendor="EpicMorg DevTeam, developer@epicm.org"

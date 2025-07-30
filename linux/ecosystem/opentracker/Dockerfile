@@ -1,10 +1,10 @@
-FROM epicmorg/debian:trixie-develop as compile-stage
+FROM docker.io/epicmorg/debian:trixie-develop as compile-stage
 ARG DEBIAN_FRONTEND=noninteractive
 
 WORKDIR /usr/src
 
 ##################################################################
-# Run libowfat compilation in separated layer to benefit from docker layer cache
+# Run libowfat compilation in separated layer to benefit FROM docker.io/docker layer cache
 ##################################################################
 RUN cvs -d :pserver:cvs@cvs.fefe.de:/cvs -z9 co libowfat ; \
     git clone git://erdgeist.org/opentracker ; \
@@ -21,7 +21,7 @@ RUN cd /usr/src/opentracker ; \
       install -m 755 opentracker.debug /tmp/stage/bin ; \
       make DESTDIR=/tmp/stage BINDIR="/bin" install
 
-FROM epicmorg/debian:trixie
+FROM docker.io/epicmorg/debian:trixie
 
 ##################################################################
 #                   setup future environment

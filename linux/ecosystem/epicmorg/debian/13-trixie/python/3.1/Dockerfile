@@ -1,4 +1,4 @@
-FROM epicmorg/debian:trixie-develop  as builder
+FROM docker.io/epicmorg/debian:trixie-develop  as builder
 
 ##################################################################
 #                   Build
@@ -69,7 +69,7 @@ RUN make -j$(nproc) && \
 ##################################################################
 ##################################################################
 ##################################################################
-FROM epicmorg/debian:trixie
+FROM docker.io/epicmorg/debian:trixie
 
 RUN apt-get remove -y python3-pip
 

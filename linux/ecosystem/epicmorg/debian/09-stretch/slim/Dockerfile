@@ -1,4 +1,4 @@
-FROM debian/eol:stretch-slim
+FROM docker.io/debian/eol:stretch-slim
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 LABEL org.opencontainers.image.vendor="EpicMorg DevTeam, developer@epicm.org"
 LABEL org.opencontainers.image.authors="STAM, kasthack, Aleks-Z"

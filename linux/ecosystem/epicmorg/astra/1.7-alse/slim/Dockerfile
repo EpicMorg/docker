@@ -1,4 +1,4 @@
-FROM epicmorg/astralinux:1.7-rootfs
+FROM docker.io/epicmorg/astralinux:1.7-rootfs
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 
 ##################################################################

@@ -1,7 +1,7 @@
 ################################################################################
 # https://github.com/linuxserver/docker-code-server/pkgs/container/code-server
 ################################################################################
-FROM ghcr.io/linuxserver/code-server:latest
+FROM docker.io/ghcr.io/linuxserver/code-server:latest
 
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 LABEL org.opencontainers.image.vendor="EpicMorg DevTeam, developer@epicm.org"
@@ -293,7 +293,7 @@ RUN echo "=============================================" && \
     echo "============================================="
 
 ##################################################################
-#                    gosu for easy step-down from root
+#                    gosu for easy step-down FROM docker.io/root
 ##################################################################
 RUN mkdir -p ${GOSU_BIN_DIR}
 ADD ${GOSU_DOWNLOAD_URL} ${GOSU_BIN_DIR}

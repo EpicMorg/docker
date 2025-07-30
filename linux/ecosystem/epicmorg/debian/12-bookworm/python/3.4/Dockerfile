@@ -1,4 +1,4 @@
-FROM epicmorg/debian:bookworm-develop  as builder
+FROM docker.io/epicmorg/debian:bookworm-develop  as builder
 
 ##################################################################
 #                   Build
@@ -73,7 +73,7 @@ RUN python${PYTHON_VERSION} -c "import ssl; print(ssl.OPENSSL_VERSION)"
 ##################################################################
 ##################################################################
 ##################################################################
-FROM epicmorg/debian:bookworm
+FROM docker.io/epicmorg/debian:bookworm
 
 RUN apt-get remove -y python3-pip
 

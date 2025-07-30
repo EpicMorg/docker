@@ -1,4 +1,4 @@
-FROM epicmorg/debian:bullseye-jdk8
+FROM docker.io/epicmorg/debian:bullseye-jdk8
 LABEL maintainer="Atlassian Jira Server Team; EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 

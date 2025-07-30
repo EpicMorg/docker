@@ -1,7 +1,7 @@
-FROM epicmorg/debian:trixie-develop  as builder
+FROM docker.io/epicmorg/debian:trixie-develop  as builder
 RUN echo "Just temp lyer to copy OpenSSL"
 
-FROM epicmorg/debian:trixie
+FROM docker.io/epicmorg/debian:trixie
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 

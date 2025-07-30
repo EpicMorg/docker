@@ -1,4 +1,4 @@
-FROM epicmorg/debian:bookworm-nodejs23
+FROM docker.io/epicmorg/debian:bookworm-nodejs23
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 

@@ -1,4 +1,4 @@
-FROM epicmorg/debian:bookworm-jdk6
+FROM docker.io/epicmorg/debian:bookworm-jdk6
 LABEL maintainer="Atlassian Jira Server Team; EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 

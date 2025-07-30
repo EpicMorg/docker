@@ -1,4 +1,4 @@
-FROM debian/eol:squeeze-slim
+FROM docker.io/debian/eol:squeeze-slim
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 LABEL org.opencontainers.image.vendor="EpicMorg DevTeam, developer@epicm.org"
 LABEL org.opencontainers.image.authors="STAM, kasthack, Aleks-Z"

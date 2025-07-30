@@ -1,16 +1,16 @@
-FROM mattermost/mattermost-enterprise-edition:release-10.8 as bootstrap
+FROM docker.io/mattermost/mattermost-enterprise-edition:release-10.8 as bootstrap
 RUN cd ./bin && \
     ls -las && \
     mattermost version
 
-FROM python:2.7 as edit
+FROM docker.io/python:2.7 as edit
 COPY edit.py2 /tmp/edit.py
 COPY --from=bootstrap /mattermost/bin/mattermost /tmp/mattermost
 RUN cd /tmp && \
     chmod +x ./edit.py && \
     ./edit.py
 
-FROM mattermost/mattermost-enterprise-edition:release-10.8
+FROM docker.io/mattermost/mattermost-enterprise-edition:release-10.8
 
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 LABEL org.opencontainers.image.vendor="EpicMorg DevTeam, developer@epicm.org"

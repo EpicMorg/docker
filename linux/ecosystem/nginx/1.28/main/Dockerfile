@@ -5,7 +5,7 @@
 ##################################################################
 ##################################################################
 ##################################################################
-FROM epicmorg/debian:bookworm-develop AS build
+FROM docker.io/epicmorg/debian:bookworm-develop AS build
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -306,7 +306,7 @@ RUN updatedb
 ##################################################################
 ##################################################################
 ##################################################################
-FROM epicmorg/debian:bookworm
+FROM docker.io/epicmorg/debian:bookworm
 
 ENV NGINX_VERSION=1.28
 ENV NGINX_VERSION_FULL=${NGINX_VERSION}.0
@@ -326,7 +326,7 @@ ENV NGINX_PID=${NGINX_PID_DIR}/nginx.pid
 ENV NGINX_SRC_DIR=/usr/local/src/nginx/${NGINX_VERSION}
 
 ##################################################################
-#        Copy compilled nginx from dev stage and prepare
+#        Copy compilled nginx FROM docker.io/dev stage and prepare
 ##################################################################
 RUN mkdir -p \
       ${NGINX_CONF_DIR}/sites-enabled \

@@ -1,4 +1,4 @@
-FROM nginx AS build
+FROM docker.io/nginx AS build
 
 WORKDIR /src
 RUN apt-get update && \
@@ -23,7 +23,7 @@ RUN hg clone -b quic https://hg.nginx.org/nginx-quic && \
    make
 
 
-FROM nginx
+FROM docker.io/nginx
 COPY --from=build /src/nginx-quic/objs/nginx /usr/sbin
 RUN /usr/sbin/nginx -V > /dev/stderr
 EXPOSE 80 443

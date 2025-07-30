@@ -1,4 +1,4 @@
-FROM epicmorg/gitlab-runner:minimal
+FROM docker.io/epicmorg/gitlab-runner:minimal
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 

@@ -1,4 +1,4 @@
-FROM zabbix/zabbix-agent:ubuntu-trunk
+FROM docker.io/zabbix/zabbix-agent:ubuntu-trunk
 ENV DEBIAN_FRONTEND noninteractive
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 LABEL org.opencontainers.image.vendor="EpicMorg DevTeam, developer@epicm.org"

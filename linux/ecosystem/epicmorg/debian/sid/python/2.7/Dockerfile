@@ -1,4 +1,4 @@
-FROM epicmorg/debian:sid-develop  as builder
+FROM docker.io/epicmorg/debian:sid-develop  as builder
 
 ##################################################################
 #                   Build
@@ -63,7 +63,7 @@ RUN make -j$(nproc) && \
 ##################################################################
 ##################################################################
 ##################################################################
-FROM epicmorg/debian:sid
+FROM docker.io/epicmorg/debian:sid
 
 RUN apt-get remove -y python3-pip
 

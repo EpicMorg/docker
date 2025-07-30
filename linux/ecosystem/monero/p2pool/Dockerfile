@@ -1,4 +1,4 @@
-FROM epicmorg/debian:bookworm
+FROM docker.io/epicmorg/debian:bookworm
 LABEL maintainer="original by sethforprivacy; EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 

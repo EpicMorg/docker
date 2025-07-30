@@ -1,4 +1,4 @@
-FROM epicmorg/testrail:6.5.4.1007
+FROM docker.io/epicmorg/testrail:6.5.4.1007
 
 ENV TESTRAIL_PLUGIN_VERSION=1.4
 ENV TESTRAIL_PLUGIN_NAME=ad
