@@ -18,19 +18,21 @@ ENV PATH=$PATH:${JAVA_HOME}/bin
 ##################################################################
 #                   installing java17
 ##################################################################
-RUN wget -c \
-    --user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:128.0) Gecko/20100101 Firefox/128.0" \
-    --no-check-certificate \
-    --retry-connrefused \
-    --tries=15 \
-    --timeout=30 \
-    --waitretry=15 \
-    --dns-timeout=30 \
-    --read-timeout=30 \
-    --progress=dot:giga \
-    --no-clobber \
-    -O /tmp/$(basename "${K_JDK_URL}") \
-    "${K_JDK_URL}"
+#RUN wget -c \
+#    --user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:128.0) Gecko/20100101 Firefox/128.0" \
+#    --no-check-certificate \
+#    --retry-connrefused \
+#    --tries=15 \
+#    --timeout=30 \
+#    --waitretry=15 \
+#    --dns-timeout=30 \
+#    --read-timeout=30 \
+#    --progress=dot:giga \
+#    --no-clobber \
+#    -O /tmp/$(basename "${K_JDK_URL}") \
+#    "${K_JDK_URL}"
+
+ADD ${K_JDK_URL} /tmp
 
 RUN mkdir -p ${K_JDK_DIR} && \
     tar -xzf ${K_JDK_TEMP} --strip-components=1 --directory ${K_JDK_DIR} && \
