@@ -31,20 +31,22 @@ ENV OPENSSL_CONF=/etc/ssl/
 
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
-RUN mkdir -p ${TESTRAIL_RELEASE_DIR} && \
-    wget -c \
-    --user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:128.0) Gecko/20100101 Firefox/128.0" \
-    --no-check-certificate \
-    --retry-connrefused \
-    --tries=15 \
-    --timeout=30 \
-    --waitretry=15 \
-    --dns-timeout=30 \
-    --read-timeout=30 \
-    --progress=dot:giga \
-    --no-clobber \
-    -O ${TESTRAIL_RELEASE_DIR}/testrail-${TESTRAIL_VERSION}-ion81.zip \
-    "${DOWNLOAD_URL}"
+#RUN mkdir -p ${TESTRAIL_RELEASE_DIR} && \
+#    wget -c \
+#    --user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:128.0) Gecko/20100101 Firefox/128.0" \
+#    --no-check-certificate \
+#    --retry-connrefused \
+#    --tries=15 \
+#    --timeout=30 \
+#    --waitretry=15 \
+#    --dns-timeout=30 \
+#    --read-timeout=30 \
+#    --progress=dot:giga \
+#    --no-clobber \
+#    -O ${TESTRAIL_RELEASE_DIR}/testrail-${TESTRAIL_VERSION}-ion81.zip \
+#    "${DOWNLOAD_URL}"
+
+ADD ${DOWNLOAD_URL} ${TESTRAIL_RELEASE_DIR}/testrail-${TESTRAIL_VERSION}-ion81.zip
 
 RUN echo "[testrail] Preparing folders" && \
     mkdir -p ${TR_WWW_PATH} && \
