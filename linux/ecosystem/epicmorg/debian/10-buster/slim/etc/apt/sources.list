@@ -15,8 +15,5 @@ deb [trusted=yes] http://archive.debian.org/debian/ buster-proposed-updates main
 deb-src [trusted=yes] http://archive.debian.org/debian/ buster-proposed-updates main contrib non-free
 
 #security
-deb [trusted=yes] http://security.debian.org/debian-security/ buster/updates main contrib non-free
-deb-src [trusted=yes] http://security.debian.org/debian-security/ buster/updates main contrib non-free
-
-deb [trusted=yes] http://httpredir.debian.org/debian-security/ buster/updates main contrib non-free
-deb-src [trusted=yes] http://httpredir.debian.org/debian-security/ buster/updates main contrib non-free
+deb [trusted=yes] http://archive.debian.org/debian-security/ buster/updates main contrib non-free
+deb-src [trusted=yes] http://archive.debian.org/debian-security/ buster/updates main contrib non-free
