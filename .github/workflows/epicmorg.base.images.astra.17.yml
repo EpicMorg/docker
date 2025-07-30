@@ -1,4 +1,4 @@
-name: EpicMorg Astra 1.7 SE Images
+name: Astra 1.7 SE
 
 on:
   workflow_dispatch:
@@ -8,7 +8,7 @@ on:
 jobs:
 
   build-alse-images:
-    name: Build EpicMorg Astra 1.7 SE Images
+    name: Astra 1.7 SE
     runs-on: [ ubuntu-24.04 ]
 
     steps:

@@ -8,7 +8,7 @@ on:
 jobs:
 
   build-images:
-    name: Mattermost 
+    name: Nextcloud ${{ matrix.version }}
     runs-on: [ ubuntu-24.04 ]
     strategy:
       matrix:

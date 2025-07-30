@@ -1,4 +1,4 @@
-name: EpicMorg Advanced TeamCity Servers Images
+name: TeamCity Servers
 
 on:
   workflow_dispatch:
@@ -7,7 +7,7 @@ on:
 
 jobs:
   build-teamcity-servers:
-    name: Build TeamCity Server ${{ matrix.version }} Image
+    name: TC Server ${{ matrix.version }}
     runs-on: [ ubuntu-24.04 ]
     strategy:
       matrix:

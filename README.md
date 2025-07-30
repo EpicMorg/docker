@@ -13,15 +13,15 @@ A collection of docker images for production use. This repo contains 2 types of 
 
 | Name | Homepage |
 |:-------------|-------------:|
-| `Quai.io` (default) | https://quay.io/organization/epicmorg | 
-| `DockerHub` (Mirror) | https://hub.docker.com/r/epicmorg |
+| `DockerHub` (Default) | https://hub.docker.com/r/epicmorg |
+| `Quai.io` (Mirror) | https://quay.io/organization/epicmorg | 
 | `Harbor` (Mirror)  | [https://hub.epicm.org/epicmorg](https://hub.epicm.org/account/sign-in?globalSearch=epicmorg) | 
 
 ## Docker and Podman support:
 | Docker | Podman |
 |:-------------|-------------:|
-|  `docker pull quay.io/epicmorg/debian:boowkorm` |  `podman pull quay.io/epicmorg/debian:boowkorm` |
 |  `docker pull epicmorg/debian:boowkorm` |  `podman pull epicmorg/debian:boowkorm` |
+|  `docker pull quay.io/epicmorg/debian:boowkorm` |  `podman pull quay.io/epicmorg/debian:boowkorm` |
 |  `docker pull hub.epicm.org/epicmorg/debian:boowkorm` |  `podman pull hub.epicm.org/epicmorg/ debian:boowkorm` |
 
 ## Support Document for Docker Image Concepts in Project
@@ -102,7 +102,7 @@ For more information - look at `Support Document` to replace this tags and image
 | [![GHA](https://img.shields.io/github/actions/workflow/status/EpicMorg/docker/epicmorg.advanced.zabbix.images.yml?label=Zabbix%20Images&logo=Zabbix%20Images&style=flat-square)](https://github.com/EpicMorg/docker/actions/workflows/epicmorg.advanced.zabbix.images.yml)  | [![GHA](https://img.shields.io/github/actions/workflow/status/EpicMorg/docker/epicmorg.ecosystem.images.testrail.yml?label=Testrail%20Images&logo=Testrail%20Images&style=flat-square)](https://github.com/EpicMorg/docker/actions/workflows/epicmorg.ecosystem.images.testrail.yml)
 | [![GHA](https://img.shields.io/github/actions/workflow/status/EpicMorg/docker/epicmorg.advanced.vscode.images.yml?label=Vscode%20Server%20Images&logo=Vscode%20Server%20Images&style=flat-square)](https://github.com/EpicMorg/docker/actions/workflows/epicmorg.advanced.vscode.images.yml) | [![GHA](https://img.shields.io/github/actions/workflow/status/EpicMorg/docker/epicmorg.ecosystem.images.teamcity.agents.yml?label=TeamCity%20Agents%20Images&logo=TeamCity%20Agents%20Images&style=flat-square)](https://github.com/EpicMorg/docker/actions/workflows/epicmorg.ecosystem.images.teamcity.agents.yml)
 | [![GHA](https://img.shields.io/github/actions/workflow/status/EpicMorg/docker/epicmorg.advanced.teamcity.servers.yml?label=TeamCity%20Servers&logo=EpicMorg%20TeamCity%20Servers&style=flat-square)](https://github.com/EpicMorg/docker/actions/workflows/epicmorg.advanced.teamcity.servers.yml) | [![GHA](https://img.shields.io/github/actions/workflow/status/EpicMorg/docker/epicmorg.ecosystem.images.misc.yml?label=EcoSystem%20Misc%20Images&logo=EcoSystem%20Misc%20Images&style=flat-square)](https://github.com/EpicMorg/docker/actions/workflows/epicmorg.ecosystem.images.misc.yml)
-| [![GHA](https://img.shields.io/github/actions/workflow/status/EpicMorg/docker/epicmorg.advanced.cassandra.yml?label=Cassandra&logo=Cassandra&style=flat-square)](https://github.com/EpicMorg/docker/actions/workflows/epicmorg.advanced.cassandra.yml) | [![GHA](https://img.shields.io/github/actions/workflow/status/EpicMorg/docker/epicmorg.ecosystem.images.atlassian.latest.yml?label=Atlassian%20Latest%20Images&logo=Atlassian%20Latest%20Images&style=flat-square)](https://github.com/EpicMorg/docker/actions/workflows/epicmorg.ecosystem.images.atlassian.latest.yml)
+| [![GHA](https://img.shields.io/github/actions/workflow/status/EpicMorg/docker/epicmorg.ecosystem.cassandra.yml?label=Cassandra&logo=Cassandra&style=flat-square)](https://github.com/EpicMorg/docker/actions/workflows/epicmorg.ecosystem.cassandra.yml) | [![GHA](https://img.shields.io/github/actions/workflow/status/EpicMorg/docker/epicmorg.ecosystem.images.atlassian.latest.yml?label=Atlassian%20Latest%20Images&logo=Atlassian%20Latest%20Images&style=flat-square)](https://github.com/EpicMorg/docker/actions/workflows/epicmorg.ecosystem.images.atlassian.latest.yml)
 | :no_entry_sign: | [![GHA](https://img.shields.io/github/actions/workflow/status/EpicMorg/docker/epicmorg.ecosystem.images.perforce.yml?label=Perfocre%20Images&logo=Perfocre%20Images&style=flat-square)](https://github.com/EpicMorg/docker/actions/workflows/epicmorg.ecosystem.images.perforce.yml)
 | :no_entry_sign: | [![GHA](https://img.shields.io/github/actions/workflow/status/EpicMorg/docker/epicmorg.ecosystem.images.giltab.runners.yml?label=Gitlab%20Runner%20Images&logo=Gitlab%20Runner%20Images&style=flat-square)](https://github.com/EpicMorg/docker/actions/workflows/epicmorg.ecosystem.images.giltab.runners.yml)
 | :no_entry_sign: | [![GHA](https://img.shields.io/github/actions/workflow/status/EpicMorg/docker/epicmorg.ecosystem.images.github.runners.yml?label=GitHub%20Runner%20Images&logo=GitHub%20Runner%20Images&style=flat-square)](https://github.com/EpicMorg/docker/actions/workflows/epicmorg.ecosystem.images.github.runners.yml)

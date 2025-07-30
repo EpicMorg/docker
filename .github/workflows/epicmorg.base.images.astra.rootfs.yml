@@ -1,4 +1,4 @@
-name: EpicMorg Astra rootFS Images
+name: Astra rootFS
 
 on:
   workflow_dispatch:
@@ -8,7 +8,7 @@ on:
 jobs:
 
   build-alse-images:
-    name: Build EpicMorg Astra rootFS Images
+    name: Astra rootFS ${{ matrix.version }}
     runs-on: [ ubuntu-24.04 ]
     strategy:
       matrix:

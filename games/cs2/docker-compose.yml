@@ -1,5 +1,5 @@
 services:
   app:
-    image: "epicmorg/steamcmd:linux"
+    image: "epicmorg/games:cs2"
     build:
       context: .

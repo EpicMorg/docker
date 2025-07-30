@@ -1,22 +1,18 @@
-name: EpicMorg Nextcloud Images
+name:  EpicMorg Games Ecosystem
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 02 * * 2,4,6'
+    - cron:  '1 1 * * 2,4,6'
 
 jobs:
-  build-nextcloud-images:
-    name: Nextcloud ${{ matrix.version }}
+
+##################################################################################
+
+  build-steamcmd-image:
+    name: SteamCMD
     runs-on: [ ubuntu-24.04 ]
-    strategy:
-      matrix:
-        version: [
-#         '14', '15', '16', '17', '18', '19',
-#         '20', '21', '22', '23', '24', '25', '26', 
-          '27', '28', '29', 
-          '30', '31', 'latest'
-        ]
+
     steps:
     - uses: actions/checkout@v4
       with: 
@@ -55,30 +51,16 @@ jobs:
           timeout_minutes: 600
           max_attempts: 15
           command: make
-
-    - name: Install requirements.txt
+ 
+    - name: Build and Deploy SteamCMD
       uses: nick-fields/retry@v3
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
           max_attempts: 15
-          command: make pip
+          command: cd linux/ecosystem/steamcmd && make build && make deploy
 
-    - name: Build and Deploy Nextcloud ${{ matrix.version }} Stock
-      uses: nick-fields/retry@v3
-      with:   
-          retry_wait_seconds: 45
-          timeout_minutes: 600
-          max_attempts: 15
-          command: cd linux/advanced/nextcloud/pure/${{ matrix.version }} && pwd && make build && make deploy
-
-    - name: Build and Deploy Nextcloud ${{ matrix.version }} Patched
-      uses: nick-fields/retry@v3
-      with:   
-          retry_wait_seconds: 45
-          timeout_minutes: 600
-          max_attempts: 15
-          command: cd linux/advanced/nextcloud/patched/${{ matrix.version }} && pwd && make build && make deploy
+##################################################################################
 
     - name: Cleanup
       uses: nick-fields/retry@v3

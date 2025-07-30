@@ -1,4 +1,4 @@
-name: EpicMorg Advanced Zabbix Images
+name: Zabbix Images
 
 on:
   workflow_dispatch:
@@ -7,7 +7,7 @@ on:
 
 jobs:
   build-trunk:
-    name: Build Zabbix trunk Images
+    name: Zabbix Trunk ${{ matrix.image_type }}
     runs-on: [ ubuntu-24.04 ]
     strategy:
       matrix:
@@ -86,7 +86,7 @@ jobs:
 ##################################################################
 
   build-latest:
-    name: Build Zabbix latest Images
+    name: Zabbix Latest ${{ matrix.image_type }}
     runs-on: [ ubuntu-24.04 ]
     needs: build-trunk
     strategy:
@@ -174,7 +174,7 @@ jobs:
 ##################################################################
 
   build-72:
-    name: Build Zabbix 7.2 Images
+    name: Zabbix 7.2 (${{ matrix.image_type }})
     runs-on: [ ubuntu-24.04 ]
     needs: build-latest
     strategy:
@@ -235,7 +235,7 @@ jobs:
           max_attempts: 15
           command: make pip
 
-    - name: Build and Deploy Zabbix 7.2 (${{ matrix.image_type }})
+    - name: Zabbix 7.2 (${{ matrix.image_type }})
       uses: nick-fields/retry@v3
       with:   
           retry_wait_seconds: 45
@@ -254,7 +254,7 @@ jobs:
 ##################################################################
 
   build-70:
-    name: Build Zabbix 7.0 Images
+    name: Zabbix 7.0 (${{ matrix.image_type }})
     runs-on: [ ubuntu-24.04 ]
     needs: build-latest
     strategy:
@@ -315,7 +315,7 @@ jobs:
           max_attempts: 15
           command: make pip
 
-    - name: Build and Deploy Zabbix 7.0 (${{ matrix.image_type }})
+    - name: Zabbix 7.0 (${{ matrix.image_type }})
       uses: nick-fields/retry@v3
       with:   
           retry_wait_seconds: 45
@@ -334,7 +334,7 @@ jobs:
 ##################################################################
 
   build-64:
-    name: Build Zabbix 6.4 Images
+    name: Zabbix 6.4 (${{ matrix.image_type }})
     runs-on: [ ubuntu-24.04 ]
     needs: build-latest
     strategy:
@@ -395,7 +395,7 @@ jobs:
           max_attempts: 15
           command: make pip
 
-    - name: Build and Deploy Zabbix 6.4 (${{ matrix.image_type }})
+    - name: Zabbix 6.4 (${{ matrix.image_type }})
       uses: nick-fields/retry@v3
       with:   
           retry_wait_seconds: 45
@@ -414,7 +414,7 @@ jobs:
 ##################################################################
 
   build-62:
-    name: Build Zabbix 6.2 Images
+    name: Zabbix 6.2 (${{ matrix.image_type }})
     runs-on: [ ubuntu-24.04 ]
     needs: build-latest
     strategy:
@@ -475,7 +475,7 @@ jobs:
           max_attempts: 15
           command: make pip
 
-    - name: Build and Deploy Zabbix 6.2 (${{ matrix.image_type }})
+    - name: Zabbix 6.2 (${{ matrix.image_type }})
       uses: nick-fields/retry@v3
       with:   
           retry_wait_seconds: 45
@@ -494,7 +494,7 @@ jobs:
 ##################################################################
 
   build-60:
-    name: Build Zabbix 6.0 Images
+    name: Zabbix 6.0 (${{ matrix.image_type }})
     runs-on: [ ubuntu-24.04 ]
     needs: build-latest
     strategy:
@@ -555,7 +555,7 @@ jobs:
           max_attempts: 15
           command: make pip
 
-    - name: Build and Deploy Zabbix 6.0 (${{ matrix.image_type }})
+    - name: Zabbix 6.0 (${{ matrix.image_type }})
       uses: nick-fields/retry@v3
       with:   
           retry_wait_seconds: 45
@@ -574,7 +574,7 @@ jobs:
 ##################################################################
 
   build-54:
-    name: Build Zabbix 5.4 Images
+    name: Zabbix 5.4 (${{ matrix.image_type }})
     runs-on: [ ubuntu-24.04 ]
     needs: build-latest
     strategy:
@@ -635,7 +635,7 @@ jobs:
           max_attempts: 15
           command: make pip
 
-    - name: Build and Deploy Zabbix 5.4 (${{ matrix.image_type }})
+    - name: Zabbix 5.4 (${{ matrix.image_type }})
       uses: nick-fields/retry@v3
       with:   
           retry_wait_seconds: 45
@@ -715,7 +715,7 @@ jobs:
           max_attempts: 15
           command: make pip
 
-    - name: Build and Deploy Zabbix 5.2 (${{ matrix.image_type }})
+    - name: Zabbix 5.2 (${{ matrix.image_type }})
       uses: nick-fields/retry@v3
       with:   
           retry_wait_seconds: 45
@@ -734,7 +734,7 @@ jobs:
 ##################################################################
 
   build-50:
-    name: Build Zabbix 5.0 Images
+    name: Zabbix 5.0 (${{ matrix.image_type }})
     runs-on: [ ubuntu-24.04 ]
     needs: build-latest
     strategy:
@@ -795,7 +795,7 @@ jobs:
           max_attempts: 15
           command: make pip
 
-    - name: Build and Deploy Zabbix 5.0 (${{ matrix.image_type }})
+    - name: Zabbix 5.0 (${{ matrix.image_type }})
       uses: nick-fields/retry@v3
       with:   
           retry_wait_seconds: 45
@@ -875,7 +875,7 @@ jobs:
           max_attempts: 15
           command: make pip
 
-    - name: Build and Deploy Zabbix 4.0 (${{ matrix.image_type }})
+    - name: Zabbix 4.0 (${{ matrix.image_type }})
       uses: nick-fields/retry@v3
       with:   
           retry_wait_seconds: 45
@@ -894,7 +894,7 @@ jobs:
 ##################################################################
 
   build-30:
-    name: Build Zabbix 3.0 Images
+    name: Zabbix 3.0 (${{ matrix.image_type }})
     runs-on: [ ubuntu-24.04 ]
     needs: build-latest
     strategy:
@@ -955,7 +955,7 @@ jobs:
           max_attempts: 15
           command: make pip
 
-    - name: Build and Deploy Zabbix 3.0 (${{ matrix.image_type }})
+    - name: Zabbix 3.0 (${{ matrix.image_type }})
       uses: nick-fields/retry@v3
       with:   
           retry_wait_seconds: 45

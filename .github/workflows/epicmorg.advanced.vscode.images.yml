@@ -1,4 +1,4 @@
-name: EpicMorg Advanced Vscode Server Images
+name: VSCode Servers
 
 on:
   workflow_dispatch:
@@ -7,7 +7,7 @@ on:
 
 jobs:
   build-main-images:
-    name: Build VSCode Main Images
+    name: VSCode Main
     runs-on: [ ubuntu-24.04 ]
     
     steps:
@@ -74,7 +74,7 @@ jobs:
           command: cd linux/advanced/vscode-server/cpp && pwd && make build && make deploy
 
   build-other-images:
-    name: Build VSCode ${{ matrix.image.type }} ${{ matrix.image.version || '' }}
+    name: VSCode ${{ matrix.image.type }} ${{ matrix.image.version || '' }}
     runs-on: [ ubuntu-24.04 ]
     needs: build-main-images
     strategy:
