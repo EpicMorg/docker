@@ -58,7 +58,7 @@ jobs:
           retry_wait_seconds: 45
           timeout_minutes: 600
           max_attempts: 15
-          command: cd linux/ecosystem/steamcmd && make build && make deploy
+          command: cd games/steamcmd && make build && make deploy
 
 ##################################################################################
 
