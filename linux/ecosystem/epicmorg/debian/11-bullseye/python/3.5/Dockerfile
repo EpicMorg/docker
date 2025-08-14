@@ -75,6 +75,13 @@ RUN python${PYTHON_VERSION} -c "import ssl; print(ssl.OPENSSL_VERSION)"
 ##################################################################
 ##################################################################
 FROM docker.io/epicmorg/debian:bullseye
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    python3-dev \
+    libc6 \
+    libgcc-s1 \
+    libstdc++6 \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN apt-get remove -y python3-pip
 
