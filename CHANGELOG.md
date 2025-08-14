@@ -1,6 +1,11 @@
 # Changelog
 
 ## 2025
+* `aug`:
+  * fixed:
+    * `python` base images by [@MamonovEvgeniy](https://github.com/MamonovEvgeniy)
+    * `vscode` latest image
+    * `steamcmd` build pipeline
 * `jul`
   * updated:
     * `python`, `node`, `cmake`, 

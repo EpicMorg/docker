@@ -51,14 +51,22 @@ jobs:
           timeout_minutes: 600
           max_attempts: 15
           command: make
- 
+
+    - name: Install requirements.txt
+      uses: nick-fields/retry@v3
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: make pip
+
     - name: Build and Deploy SteamCMD
       uses: nick-fields/retry@v3
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
           max_attempts: 15
-          command: cd games/steamcmd && make build && make deploy
+          command: cd games/steamcmd && pwd && make build && make deploy
 
 ##################################################################################
 
