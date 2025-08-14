@@ -71,6 +71,13 @@ RUN make -j$(nproc) && \
 ##################################################################
 ##################################################################
 FROM docker.io/epicmorg/debian:bookworm
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    python3-dev \
+    libc6 \
+    libgcc-s1 \
+    libstdc++6 \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN apt-get remove -y python3-pip
 
