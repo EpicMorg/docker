@@ -1342,6 +1342,11 @@ ecosystem-qbittorrent-images:
 	cd `pwd`/linux/ecosystem/qbittorrent/5.0.2    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/qbittorrent/5.0.3    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/qbittorrent/5.0.4    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/qbittorrent/5.0.5    && pwd && make build && make deploy
+	@make clean
+	cd `pwd`/linux/ecosystem/qbittorrent/5.1.0    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/qbittorrent/5.1.1    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/qbittorrent/5.1.2    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/qbittorrent/testing  && pwd && make build && make deploy
 	@make clean
 
