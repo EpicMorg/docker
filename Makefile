@@ -827,8 +827,6 @@ ecosystem-debian-bookworm-jdk-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk/jdk24    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk/jdk25    && pwd && make build && make deploy
 	@make clean
-	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/atlassian-sdk  && pwd && make build && make deploy
-	@make clean
 
 ecosystem-debian-bookworm-nodejs-images: 
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/current        && pwd && make build && make deploy
@@ -1550,6 +1548,11 @@ ecosystem-perforce-proxy-images:
 	cd `pwd`/linuxecosystem/perforce/p4p/r24.2    && pwd && make build && make deploy
 	@make clean
 
+
+ecosystem-atlassian-sdk-images:
+	cd `pwd`/linux/ecosystem/atlassian/sdk/8.2.9                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/sdk/9.1.1                && pwd && make build && make deploy
+
 ecosystem-bitbucket-1-images:
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/1/1.0.3                && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/1/1.1.2                && pwd && make build && make deploy
@@ -2195,6 +2198,14 @@ ecosystem-bitbucket-8-images:
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.19.14                 && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.19.15                 && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.19.16                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.19.17                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.19.18                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.19.19                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.19.20                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.19.21                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.19.23                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/8/8.19.24                 && pwd && make build && make deploy	
+
 	@make clean
 
 ecosystem-bitbucket-9-images:
@@ -2212,10 +2223,32 @@ ecosystem-bitbucket-9-images:
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/9/9.4.2                  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/9/9.4.3                  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/9/9.4.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/9/9.4.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/9/9.4.5                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/9/9.4.6                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/9/9.4.7                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/9/9.4.8                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/9/9.4.9                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/9/9.4.10                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/9/9.4.11                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/9/9.4.12                  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/9/9.5.0                  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/9/9.5.1                  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/9/9.5.2                  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/9/9.6.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/9/9.6.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/9/9.6.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/9/9.6.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/9/9.6.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/9/9.6.5                  && pwd && make build && make deploy
+
+	@make clean
+
+ecosystem-bitbucket-9-images:
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/10/10.0.0-eap3             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/10/10.0.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/10/10.0.1                  && pwd && make build && make deploy
+
 	@make clean
 
 ecosystem-confluence-4-images:
@@ -2621,6 +2654,12 @@ ecosystem-confluence-8-images:
 	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.5.19                 && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.5.2                  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.5.20                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.5.22                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.5.23                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.5.24                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.5.25                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.5.26                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.5.27                 && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.5.3                  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.5.4                  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.5.5                  && pwd && make build && make deploy
@@ -2656,8 +2695,30 @@ ecosystem-confluence-9-images:
 	cd `pwd`/linux/ecosystem/atlassian/confluence/9/9.2.0                  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/confluence/9/9.2.1                  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/confluence/9/9.2.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/9/9.2.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/9/9.2.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/9/9.2.5                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/9/9.2.6                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/9/9.2.7                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/9/9.2.8                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/9/9.2.9                  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/confluence/9/9.3.1                  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/confluence/9/9.3.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/9/9.4.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/9/9.4.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/9/9.5.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/9/9.5.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/9/9.5.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/9/9.5.4                  && pwd && make build && make deploy
+
+	@make clean
+
+ecosystem-confluence-10-images:
+	cd `pwd`/linux/ecosystem/atlassian/confluence/10/10.0.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/10/10.0.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/10/10.1.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/10/10.2.0-beta2            && pwd && make build && make deploy
+
 	@make clean
 
 ecosystem-crowd-0-images:
@@ -3362,6 +3423,15 @@ ecosystem-jira-9-lts-images:
 	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.12.17               && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.12.18               && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.12.19               && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.12.20               && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.12.21               && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.12.22               && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.12.23               && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.12.24               && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.12.25               && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.12.26               && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.12.27               && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.12.28               && pwd && make build && make deploy
 	@make clean
 
 ecosystem-jira-10-images:
@@ -3376,11 +3446,34 @@ ecosystem-jira-10-images:
 	cd `pwd`/linux/ecosystem/atlassian/jira/10/10.3.2             && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/10/10.3.3             && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/10/10.3.4             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/10/10.3.5             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/10/10.3.6             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/10/10.3.7             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/10/10.3.8             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/10/10.3.9             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/10/10.3.10             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/10/10.3.11             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/10/10.3.12             && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/10/10.4.0             && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/10/10.4.1             && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/10/10.5.0             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/10/10.5.1             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/10/10.6.0             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/10/10.6.1             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/10/10.7.1             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/10/10.7.2             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/10/10.7.3             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/10/10.7.4             && pwd && make build && make deploy
+
 	@make clean
 
+ecosystem-jira-11-images:
+	cd `pwd`/linux/ecosystem/atlassian/jira/11/11.0.0             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/11/11.0.1             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/11/11.1.0             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/11/11.1.1             && pwd && make build && make deploy
+
+	@make clean
 
 ecosystem-mattermost-images:
 	make ecosystem-mattermost-images-11

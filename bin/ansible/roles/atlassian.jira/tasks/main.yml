@@ -34,3 +34,6 @@
 
 - name: "Generate images for Jira 10+ (jdk17)"
   import_tasks: atlassian.jira.10.jdk17.yml
+
+- name: "Generate images for Jira 11+ (jdk21)"
+  import_tasks: atlassian.jira.11.jdk21.yml

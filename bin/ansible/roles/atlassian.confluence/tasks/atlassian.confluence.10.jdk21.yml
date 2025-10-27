@@ -1,0 +1,52 @@
+- name: Read versions from file
+  slurp:
+     src: "roles/common/files/versions/confluence/10.jdk21.txt"
+  register: version_output
+
+- name: Set version variable
+  set_fact:
+    confluence_versions: "{{ version_output['content'] | b64decode | trim | split('\n') }}"
+
+- name: Create directories for Confluence versions
+  file:
+    path: "{{ target_directory_confluence_10 }}/{{ item }}"
+    state: directory
+    mode: '0755'
+    force: true
+  with_items: "{{ confluence_versions }}"
+
+- name: Copy .env with link from template to each version directory
+  template:
+    src: "env/template.env.j2"
+    dest: "{{ target_directory_confluence_10 }}/{{ item }}/.env"
+    force: true
+  with_items: "{{ confluence_versions }}"
+
+- name: Copy docker-compose.yml from template to each version directory
+  template:
+    src: "docker-compose/template.docker-compose.jdk21.yml.j2"
+    dest: "{{ target_directory_confluence_10 }}/{{ item }}/docker-compose.yml"
+    force: true
+  with_items: "{{ confluence_versions }}"
+
+- name: Copy Dockerfile from template to each version directory
+  template:
+    src: "dockerfile/template.Dockerfile.jdk21.j2"
+    dest: "{{ target_directory_confluence_10 }}/{{ item }}/Dockerfile"
+    force: true
+  with_items: "{{ confluence_versions }}"
+
+- name: Copy entrypoint.sh from 'files' directory to each version directory
+  copy:
+    src: "entrypoint.sh"
+    dest: "{{ target_directory_confluence_10 }}/{{ item }}/entrypoint.sh"
+    mode: "0777"
+    force: true
+  with_items: "{{ confluence_versions }}"
+
+- name: Copy Makefile from 'files' directory to each version directory
+  copy:
+    src: "Makefile"
+    dest: "{{ target_directory_confluence_10 }}/{{ item }}/Makefile"
+    force: true
+  with_items: "{{ confluence_versions }}"

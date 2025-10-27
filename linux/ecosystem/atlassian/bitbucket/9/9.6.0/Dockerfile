@@ -1,4 +1,4 @@
-FROM docker.io/epicmorg/debian:bookworm-jdk17
+FROM docker.io/epicmorg/debian:bookworm-jdk21
 LABEL maintainer="Atlassian Bitbucket Team; EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 

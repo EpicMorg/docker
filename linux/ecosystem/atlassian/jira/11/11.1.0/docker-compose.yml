@@ -1,0 +1,9 @@
+services:
+  app:
+    image: "epicmorg/jira:11.1.0"
+    build:
+      context: .
+  app-jdk21:
+    image: "epicmorg/jira:11.1.0-jdk21"
+    build:
+      context: .
