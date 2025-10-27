@@ -1,0 +1,19 @@
+services:
+  app:
+    image: "epicmorg/jira:9.12.27"
+    build:
+      context: .
+  app-jdk8:
+    image: "epicmorg/jira:9.12.27-jdk8"
+    build:
+      context: .
+  app-jdk11:
+    image: "epicmorg/jira:9.12.27-jdk11"
+    build:
+      context: .
+      dockerfile: Dockerfile.jdk11
+  app-jdk17:
+    image: "epicmorg/jira:9.12.27-jdk17"
+    build:
+      context: .
+      dockerfile: Dockerfile.jdk17

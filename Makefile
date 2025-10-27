@@ -3423,6 +3423,15 @@ ecosystem-jira-9-lts-images:
 	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.12.17               && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.12.18               && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.12.19               && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.12.20               && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.12.21               && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.12.22               && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.12.23               && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.12.24               && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.12.25               && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.12.26               && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.12.27               && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/9/9.12.28               && pwd && make build && make deploy
 	@make clean
 
 ecosystem-jira-10-images:
@@ -3437,11 +3446,34 @@ ecosystem-jira-10-images:
 	cd `pwd`/linux/ecosystem/atlassian/jira/10/10.3.2             && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/10/10.3.3             && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/10/10.3.4             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/10/10.3.5             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/10/10.3.6             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/10/10.3.7             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/10/10.3.8             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/10/10.3.9             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/10/10.3.10             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/10/10.3.11             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/10/10.3.12             && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/10/10.4.0             && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/10/10.4.1             && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/10/10.5.0             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/10/10.5.1             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/10/10.6.0             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/10/10.6.1             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/10/10.7.1             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/10/10.7.2             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/10/10.7.3             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/10/10.7.4             && pwd && make build && make deploy
+
 	@make clean
 
+ecosystem-jira-11-images:
+	cd `pwd`/linux/ecosystem/atlassian/jira/11/11.0.0             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/11/11.0.1             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/11/11.1.0             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/11/11.1.1             && pwd && make build && make deploy
+
+	@make clean
 
 ecosystem-mattermost-images:
 	make ecosystem-mattermost-images-11

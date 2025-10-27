@@ -16,6 +16,7 @@
     * added `9.1.1` version
   * updated `bitbucket` images
   * updated `confluence` images
+  * updated `jira` images
 * `aug`:
   * fixed:
     * `python` base images by [@MamonovEvgeniy](https://github.com/MamonovEvgeniy)
