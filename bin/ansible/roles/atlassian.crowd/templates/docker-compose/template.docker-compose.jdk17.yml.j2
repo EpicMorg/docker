@@ -3,7 +3,11 @@ services:
     image: "epicmorg/crowd:{{ item }}"
     build:
       context: .
+    x-mirrors:
+      - quay.io/epicmorg/crowd:{{ item }}
   app-jdk17:
     image: "epicmorg/crowd:{{ item }}-jdk17"
     build:
       context: .
+    x-mirrors:
+      - quay.io/epicmorg/crowd:{{ item }}-jdk17

@@ -7,3 +7,5 @@ services:
     image: "epicmorg/confluence:{{ item }}-jdk6"
     build:
       context: .
+    x-mirrors:
+      - quay.io/epicmorg/confluence:{{ item }}-jdk6

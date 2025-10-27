@@ -3,7 +3,11 @@ services:
     image: "epicmorg/fisheye:{{ item }}"
     build:
       context: .
+    x-mirrors:
+      - quay.io/epicmorg/fisheye:{{ item }}
   app-jdk6:
     image: "epicmorg/fisheye:{{ item }}-jdk6"
     build:
       context: .
+    x-mirrors:
+      - quay.io/epicmorg/fisheye:{{ item }}-jdk6

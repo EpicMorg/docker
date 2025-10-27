@@ -3,8 +3,13 @@ services:
     image: "epicmorg/debian:trixie-dotnet5"
     build:
       context: .
+    x-mirrors:
+      - quay.io/epicmorg/debian:trixie-dotnet5
+
   app-develop:
     image: "epicmorg/debian:trixie-develop-dotnet5"
     build:
       context: .
       dockerfile: ./Dockerfile.develop
+    x-mirrors:
+      - quay.io/epicmorg/debian:trixie-develop-dotnet5

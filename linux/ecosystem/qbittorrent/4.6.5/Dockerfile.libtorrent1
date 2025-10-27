@@ -31,17 +31,6 @@ RUN wget --no-check-certificate -nv --random-wait --retry-connrefused --continue
 #                   other   customisations
 ##################################################################
 
-##################################################################
-#                   cleaninig up
-##################################################################
-RUN echo "clean up" && \
-    apt-get clean -y && \
-    apt-get autoclean -y && \
-    rm -rfv /var/lib/apt/lists/* && \
-    rm -rfv /var/cache/apt/archives/*.deb && \
-    rm -rfv /root/tmp/* && \
-    rm -rfv /tmp/*
-
 VOLUME ${QBT_DIR}
 
 #healthcheck. good practice
@@ -50,8 +39,6 @@ HEALTHCHECK --interval=2m --timeout=3s CMD curl --insecure -f ${QBT_PROTOCOL}://
 # Add image configuration and scripts
 COPY docker-entrypoint.sh /usr/bin/docker-entrypoint.sh
 RUN chmod 755 /usr/bin/docker-entrypoint.sh
-
-RUN updatedb
 
 #Final config
 EXPOSE ${QBT_PORT_WEBUI} ${QBT_PORT_WEBUI}/udp ${QBT_PORT_NAT} ${QBT_PORT_NAT}/udp ${QBT_PORT_TRACKER} ${QBT_PORT_TRACKER}/udp

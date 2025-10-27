@@ -96,20 +96,5 @@ ARG CAS_LUCENE_PLUGIN_URL=https://repo1.maven.org/maven2/com/stratio/cassandra/c
 
 ADD ${CAS_LUCENE_PLUGIN_URL} ${CAS_LUCENE_PLUGIN_DEST}
 
-##################################################################
-#                  Cleanup
-##################################################################
-RUN echo "clean up" && \
-    apt-get clean -y && \
-    apt-get autoclean -y && \
-    rm -rfv /var/lib/apt/lists/* && \
-    rm -rfv /var/cache/apt/archives/*.deb && \
-    rm -rfv /root/tmp/* && \
-    rm -rfv /tmp/*
-
-##################################################################
-#                  update file db
-##################################################################
-RUN updatedb
 
 USER 1001

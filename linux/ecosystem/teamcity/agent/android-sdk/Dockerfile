@@ -16,6 +16,23 @@ ENV JDK_HOME=${JAVA_HOME}
 ENV PATH=$PATH:${JAVA_HOME}/bin
 
 ##################################################################
+#                    Shared wget args
+##################################################################
+ARG WGET_ARGS="--continue \
+  --quiet \
+  --no-check-certificate \
+  --retry-connrefused \
+  --tries=15 \
+  --timeout=30 \
+  --waitretry=15 \
+  --dns-timeout=30 \
+  --connect-timeout=30 \
+  --read-timeout=30 \
+  --no-clobber"
+
+ARG WGET_USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:128.0) Gecko/20100101 Firefox/128.0"
+
+##################################################################
 #                   installing java17
 ##################################################################
 ADD ${K_JDK_URL} /tmp
@@ -90,5 +107,3 @@ RUN echo "clean up" && \
 #                   final config
 ##################################################################
 WORKDIR ${AGENT_DIST}
-
-RUN updatedb

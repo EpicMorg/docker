@@ -3,3 +3,5 @@ services:
     image: "epicmorg/debian:trixie"
     build:
       context: .
+    x-mirrors:
+      - quay.io/epicmorg/debian:trixie

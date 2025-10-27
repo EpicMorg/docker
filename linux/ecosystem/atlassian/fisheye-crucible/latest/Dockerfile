@@ -11,12 +11,12 @@ ARG DOWNLOAD_URL=https://www.atlassian.com/software/fisheye/downloads/binary/fis
 ##################################################################
 #                   Setup
 ##################################################################
-ENV RUN_USER            daemon
-ENV RUN_GROUP           daemon
+ENV RUN_USER=daemon
+ENV RUN_GROUP=daemon
 
 # https://confluence.atlassian.com/fisheye/fisheye-folder-layout-298976940.html
-ENV FISHEYE_HOME        /opt/atlassian/fecru
-ENV FISHEYE_INST        /var/atlassian/application-data/fecru
+ENV FISHEYE_HOME=/opt/atlassian/fecru
+ENV FISHEYE_INST=/var/atlassian/application-data/fecru
 
 VOLUME ["${FISHEYE_INST}"]
 WORKDIR $FISHEYE_INST

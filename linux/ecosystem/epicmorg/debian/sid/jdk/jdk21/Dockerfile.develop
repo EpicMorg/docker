@@ -16,25 +16,28 @@ ENV JDK_HOME=${JAVA_HOME}
 ENV PATH=$PATH:${JAVA_HOME}/bin
 
 ##################################################################
+#                    Shared wget args
+##################################################################
+ARG WGET_ARGS="--continue \
+  --quiet \
+  --no-check-certificate \
+  --retry-connrefused \
+  --tries=15 \
+  --timeout=30 \
+  --waitretry=15 \
+  --dns-timeout=30 \
+  --connect-timeout=30 \
+  --read-timeout=30 \
+  --no-clobber"
+
+ARG WGET_USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:128.0) Gecko/20100101 Firefox/128.0"
+
+##################################################################
 #                   installing java21
 ##################################################################
-#RUN wget -c \
-#    --user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:128.0) Gecko/20100101 Firefox/128.0" \
-#    --no-check-certificate \
-#    --retry-connrefused \
-#    --tries=15 \
-#    --timeout=30 \
-#    --waitretry=15 \
-#    --dns-timeout=30 \
-#    --read-timeout=30 \
-#    --progress=dot:giga \
-#    --no-clobber \
-#    -O /tmp/$(basename "${K_JDK_URL}") \
-#    "${K_JDK_URL}"
-
-ADD ${K_JDK_URL} /tmp
-
-RUN mkdir -p ${K_JDK_DIR} && \
+RUN set -eux; \
+    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -P /tmp ${K_JDK_URL} && \
+    mkdir -p ${K_JDK_DIR} && \
     tar -xzf ${K_JDK_TEMP} --strip-components=1 --directory ${K_JDK_DIR} && \
     ln -sfv ${JAVA_HOME} /usr/jre && \
     ln -sfv ${JAVA_HOME} /usr/jdk && \
@@ -101,43 +104,35 @@ ENV PATH=${PATH}:${MAVEN_BIN}:${GRADLE_BIN}:${KTC_BIN}:${KNPL_BIN}
 ENV MAVEN_HOME=${MAVEN_ROOT}
 ENV M2_HOME=${MAVEN_ROOT}
 
-ADD ${MAVEN_LINK} /tmp
-RUN 7zz x ${MAVEN_TEMP} -o${MAVEN_ROOT}
+RUN set -eux; \
+    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -P /tmp ${MAVEN_LINK} && \
+    7zz x ${MAVEN_TEMP} -o${MAVEN_ROOT}
 RUN chmod +x -R ${MAVEN_BIN}
 RUN mvn -v
 
 ##################################################################
 #                   GRADLE
 ##################################################################
-ADD ${GRADLE_LINK} /tmp
-RUN 7zz x ${GRADLE_TEMP} -o${GRADLE_ROOT}
+RUN set -eux; \
+    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -P /tmp ${GRADLE_LINK} && \
+    7zz x ${GRADLE_TEMP} -o${GRADLE_ROOT}
 RUN chmod +x -R ${GRADLE_BIN}
 RUN gradle -v
 
 ##################################################################
 #                   kotlin-compiler
 ##################################################################
-ADD ${KTC_LINK} /tmp
-RUN 7zz x ${KTC_TEMP} -o${KTC_ROOT}
+RUN set -eux; \
+    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -P /tmp ${KTC_LINK} && \
+    7zz x ${KTC_TEMP} -o${KTC_ROOT}
 RUN chmod +x -R ${KTC_BIN}
 RUN kotlin -version
 
 ##################################################################
 #                   kotlin-native-prebuilt-linux
 ##################################################################
-ADD ${KNPL_LINK} /tmp
-RUN tar -xzf ${KNPL_TEMP} --directory ${KTC_ROOT}
+RUN set -eux; \
+    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -P /tmp ${KNPL_LINK} && \
+    tar -xzf ${KNPL_TEMP} --directory ${KTC_ROOT}
 RUN chmod +x -R ${KNPL_BIN}
 
-##################################################################
-#                  Cleanup
-##################################################################
-RUN echo "clean up" && \
-    apt-get clean -y && \
-    apt-get autoclean -y && \
-    rm -rfv /var/lib/apt/lists/* && \
-    rm -rfv /var/cache/apt/archives/*.deb && \
-    rm -rfv /root/tmp/* && \
-    rm -rfv /tmp/*
-
-RUN updatedb

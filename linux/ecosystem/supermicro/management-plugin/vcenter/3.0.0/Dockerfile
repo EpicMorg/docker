@@ -39,5 +39,3 @@ EXPOSE 8443
 
 CMD ["/entrypoint.sh", "-fg"]
 ENTRYPOINT ["/usr/bin/tini", "--"]
-
-RUN updatedb

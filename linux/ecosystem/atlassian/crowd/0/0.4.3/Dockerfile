@@ -12,43 +12,46 @@ ARG TEMP_ARCHIVE=/tmp/crowd-0.4.3-std.zip
 ##################################################################
 #                   Setup
 ##################################################################
-ENV RUN_USER            daemon
-ENV RUN_GROUP           daemon
-ENV APP_NAME            crowd
+ENV RUN_USER=daemon
+ENV RUN_GROUP=daemon
+ENV APP_NAME=crowd
 
 #2004
 #ENV RUN_UID             0
 #ENV RUN_GID             0
 
 # https://confluence.atlassian.com/crowd/important-directories-and-files-78676537.html
-ENV CROWD_HOME                                      /var/atlassian/application-data/crowd
-ENV CROWD_INSTALL_DIR                               /opt/atlassian/crowd
-ENV CROWD_DB                                        ${CROWD_INSTALL_DIR}/database
+ENV CROWD_HOME=/var/atlassian/application-data/crowd
+ENV CROWD_INSTALL_DIR=/opt/atlassian/crowd
+ENV CROWD_DB=${CROWD_INSTALL_DIR}/database
+
+##################################################################
+#                    Shared wget args
+##################################################################
+ARG WGET_ARGS="--continue \
+  --quiet \
+  --no-check-certificate \
+  --retry-connrefused \
+  --tries=15 \
+  --timeout=30 \
+  --waitretry=15 \
+  --dns-timeout=30 \
+  --connect-timeout=30 \
+  --read-timeout=30 \
+  --no-clobber"
+
+ARG WGET_USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:128.0) Gecko/20100101 Firefox/128.0"
 
 ##################################################################
 #                   Installing
 ##################################################################
-RUN wget -c \
-    --user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:128.0) Gecko/20100101 Firefox/128.0" \
-    --no-check-certificate \
-    --retry-connrefused \
-    --tries=15 \
-    --timeout=30 \
-    --waitretry=15 \
-    --dns-timeout=30 \
-    --read-timeout=30 \
-    --progress=dot:giga \
-    --no-clobber \
-    -O /tmp/$(basename "${DOWNLOAD_URL}") \
-    "${DOWNLOAD_URL}"
-
-
-RUN apt-get update && \
+RUN set -eux; \
+    apt-get update && \
     apt-get upgrade -y && \
     apt-get install -y --no-install-recommends fontconfig python3 python3-jinja2 tini && \
     apt-get clean autoclean && apt-get autoremove -y && rm -rf /var/lib/apt/lists/*
-
-RUN mkdir -p ${CROWD_INSTALL_DIR} ${CROWD_DB} /opt/atlassian/support /opt/atlassian/etc && \
+    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -P /tmp ${DOWNLOAD_URL} && \
+    mkdir -p ${CROWD_INSTALL_DIR} ${CROWD_DB} /opt/atlassian/support /opt/atlassian/etc && \
     7zz x ${TEMP_ARCHIVE} -o/tmp/crowd-temp && \
     mv /tmp/crowd-temp/*/* "${CROWD_INSTALL_DIR}" && \
     sed -i -e '2s/^exec/cd "`dirname "$0"`" \&\& exec/' ${CROWD_INSTALL_DIR}/start_crowd.sh && \
@@ -96,5 +99,3 @@ WORKDIR ${CROWD_HOME}
 CMD ["/entrypoint.sh", "-fg"]
 #CMD ["/entrypoint.py"]
 ENTRYPOINT ["/usr/bin/tini", "--"]
-
-RUN updatedb

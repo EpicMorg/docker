@@ -12,12 +12,12 @@ ARG TEMP_ARCHIVE=/tmp/fisheye-${RELEASE}.zip
 ##################################################################
 #                   Setup
 ##################################################################
-ENV RUN_USER            daemon
-ENV RUN_GROUP           daemon
+ENV RUN_USER=daemon
+ENV RUN_GROUP=daemon
 
 # https://confluence.atlassian.com/fisheye/fisheye-folder-layout-298976940.html
-ENV FISHEYE_HOME        /opt/atlassian/fecru
-ENV FISHEYE_INST        /var/atlassian/application-data/fecru
+ENV FISHEYE_HOME=/opt/atlassian/fecru
+ENV FISHEYE_INST=/var/atlassian/application-data/fecru
 
 VOLUME ["${FISHEYE_INST}"]
 WORKDIR $FISHEYE_INST
@@ -26,24 +26,28 @@ WORKDIR $FISHEYE_INST
 EXPOSE 8060
 
 ##################################################################
+#                    Shared wget args
+##################################################################
+ARG WGET_ARGS="--continue \
+  --quiet \
+  --no-check-certificate \
+  --retry-connrefused \
+  --tries=15 \
+  --timeout=30 \
+  --waitretry=15 \
+  --dns-timeout=30 \
+  --connect-timeout=30 \
+  --read-timeout=30 \
+  --no-clobber"
+
+ARG WGET_USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:128.0) Gecko/20100101 Firefox/128.0"
+
+##################################################################
 #                   Installing
 ##################################################################
-RUN wget -c \
-    --user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:128.0) Gecko/20100101 Firefox/128.0" \
-    --no-check-certificate \
-    --retry-connrefused \
-    --tries=15 \
-    --timeout=30 \
-    --waitretry=15 \
-    --dns-timeout=30 \
-    --read-timeout=30 \
-    --progress=dot:giga \
-    --no-clobber \
-    -O /tmp/$(basename "${DOWNLOAD_URL}") \
-    "${DOWNLOAD_URL}"
-
-
-RUN mkdir -p ${FISHEYE_HOME} ${FISHEYE_INST} && \
+RUN set -eux; \
+    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -P /tmp ${DOWNLOAD_URL} && \
+    mkdir -p ${FISHEYE_HOME} ${FISHEYE_INST} && \
     7zz x ${TEMP_ARCHIVE} -o/tmp/fisheye-temp && \
     mv /tmp/fisheye-temp/*/* "${FISHEYE_HOME}" && \
     update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8 && \

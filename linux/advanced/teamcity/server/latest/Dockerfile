@@ -351,32 +351,36 @@ RUN echo "=============================================" && \
 ENV MAVEN_HOME=${MAVEN_ROOT}
 ENV M2_HOME=${MAVEN_ROOT}
 
-ADD ${MAVEN_LINK} /tmp
-RUN 7zz x ${MAVEN_TEMP} -o${MAVEN_ROOT}
+RUN set -eux; \
+    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -P /tmp ${MAVEN_LINK} && \
+    7zz x ${MAVEN_TEMP} -o${MAVEN_ROOT}
 RUN chmod +x -R ${MAVEN_BIN}
 RUN mvn -v
 
 ##################################################################
 #                   GRADLE
 ##################################################################
-ADD ${GRADLE_LINK} /tmp
-RUN 7zz x ${GRADLE_TEMP} -o${GRADLE_ROOT}
+RUN set -eux; \
+    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -P /tmp ${GRADLE_LINK} && \
+    7zz x ${GRADLE_TEMP} -o${GRADLE_ROOT}
 RUN chmod +x -R ${GRADLE_BIN}
 RUN gradle -v
 
 ##################################################################
 #                   kotlin-compiler
 ##################################################################
-ADD ${KTC_LINK} /tmp
-RUN 7zz x ${KTC_TEMP} -o${KTC_ROOT}
+RUN set -eux; \
+    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -P /tmp ${KTC_LINK} && \
+    7zz x ${KTC_TEMP} -o${KTC_ROOT}
 RUN chmod +x -R ${KTC_BIN}
 RUN kotlin -version
 
 ##################################################################
 #                   kotlin-native-prebuilt-linux
 ##################################################################
-ADD ${KNPL_LINK} /tmp
-RUN tar -xzf ${KNPL_TEMP} --directory ${KTC_ROOT}
+RUN set -eux; \
+    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -P /tmp ${KNPL_LINK} && \
+    tar -xzf ${KNPL_TEMP} --directory ${KTC_ROOT}
 RUN chmod +x -R ${KNPL_BIN}
 
 ##################################################################
@@ -427,21 +431,6 @@ RUN echo "=============================================" && \
     echo gh $(gh --version) && \
     echo "============================================="
 
-##################################################################
-#                  Cleanup
-##################################################################
-RUN echo "clean up" && \
-    apt-get clean -y && \
-    apt-get autoclean -y && \
-    rm -rfv /var/lib/apt/lists/* && \
-    rm -rfv /var/cache/apt/archives/*.deb && \
-    rm -rfv /root/tmp/* && \
-    rm -rfv /tmp/*
-
-##################################################################
-#                  update file db
-##################################################################
-RUN updatedb
 
 ##################################################################
 #                  Set original user back

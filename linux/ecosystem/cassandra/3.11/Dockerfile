@@ -242,18 +242,3 @@ ENTRYPOINT ["docker-entrypoint.sh"]
 EXPOSE 7000 7001 7199 9042 9160
 CMD ["cassandra", "-f"]
 
-##################################################################
-#                  Cleanup
-##################################################################
-RUN echo "clean up" && \
-    apt-get clean -y && \
-    apt-get autoclean -y && \
-    rm -rfv /var/lib/apt/lists/* && \
-    rm -rfv /var/cache/apt/archives/*.deb && \
-    rm -rfv /root/tmp/* && \
-    rm -rfv /tmp/*
-
-##################################################################
-#                  update file db
-##################################################################
-RUN updatedb

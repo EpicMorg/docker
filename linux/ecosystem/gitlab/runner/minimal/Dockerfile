@@ -54,5 +54,3 @@ WORKDIR ${GITLAB_RUNNER_DIR}
 VOLUME ["${GITLAB_RUNNER_CONF_DIR}", "${GITLAB_RUNNER_WORKER_DIR}", "/var/log/supervisor"]
 
 CMD ["/usr/bin/supervisord"]
-
-RUN updatedb

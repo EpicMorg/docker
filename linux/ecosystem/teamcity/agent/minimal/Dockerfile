@@ -33,16 +33,6 @@ RUN apt-get update && \
     chmod +x ${AGENT_DIST}/sbin/*.sh && \
     sync
 
-##################################################################
-#                  Cleanup
-##################################################################
-RUN echo "clean up" && \
-    apt-get clean -y && \
-    apt-get autoclean -y && \
-    rm -rfv /var/lib/apt/lists/* && \
-    rm -rfv /var/cache/apt/archives/*.deb && \
-    rm -rfv /root/tmp/* && \
-    rm -rfv /tmp/*
 
 ##################################################################
 #                   final config
@@ -52,5 +42,3 @@ WORKDIR ${AGENT_DIST}
 VOLUME ["${AGENT_DIST}/conf", "${AGENT_DIST}/work", "${AGENT_DIST}/logs", "/var/log/supervisor"]
 
 CMD ["/usr/bin/supervisord"]
-
-RUN updatedb

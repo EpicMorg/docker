@@ -1,17 +1,3 @@
-##################################################################
-#                   Temp Layer - Dirty Hack
-##################################################################
-FROM docker.io/epicmorg/debian:bookworm as temp-dpkg
-RUN mkdir -p  /tmp/debs
-WORKDIR /tmp/debs
-RUN cd  /tmp/debs && \
-    apt-get update && \
-    apt-get download \ 
-      checkinstall
-
-##################################################################
-#                   Main Layer
-##################################################################
 FROM docker.io/epicmorg/debian:trixie
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
@@ -29,8 +15,16 @@ ARG STEAM_RUNTIME_SDK_URL=http://media.steampowered.com/client/runtime/steam-run
 ARG STEAM_RUNTIME_SDK_TEMP=/tmp/steam-runtime-sdk_latest.tar.xz
 
 # cmake compiller
+ENV CMAKE_4_1_MIN_VERSION=4.1
+ENV CMAKE_4_1_VERSION=${CMAKE_4_1_MIN_VERSION}.2
+ENV CMAKE_4_1_DIR=${EMG_LOCAL_BASE_DIR}/cmake/${CMAKE_4_1_MIN_VERSION}
+ARG CMAKE_4_1_BIN_DIR=${CMAKE_4_1_DIR}/bin
+ARG CMAKE_4_1_DOWNLOAD_URL=https://github.com/Kitware/CMake/releases/download/v${CMAKE_4_1_VERSION}/cmake-${CMAKE_4_1_VERSION}-linux-x86_64.tar.gz
+ARG CMAKE_4_1_TEMP=/tmp/cmake-${CMAKE_4_1_VERSION}-linux-x86_64.tar.gz
+
+# cmake compiller
 ENV CMAKE_4_0_MIN_VERSION=4.0
-ENV CMAKE_4_0_VERSION=${CMAKE_4_0_MIN_VERSION}.3
+ENV CMAKE_4_0_VERSION=${CMAKE_4_0_MIN_VERSION}.4
 ENV CMAKE_4_0_DIR=${EMG_LOCAL_BASE_DIR}/cmake/${CMAKE_4_0_MIN_VERSION}
 ARG CMAKE_4_0_BIN_DIR=${CMAKE_4_0_DIR}/bin
 ARG CMAKE_4_0_DOWNLOAD_URL=https://github.com/Kitware/CMake/releases/download/v${CMAKE_4_0_VERSION}/cmake-${CMAKE_4_0_VERSION}-linux-x86_64.tar.gz
@@ -38,7 +32,7 @@ ARG CMAKE_4_0_TEMP=/tmp/cmake-${CMAKE_4_0_VERSION}-linux-x86_64.tar.gz
 
 # cmake compiller
 ENV CMAKE_3_31_MIN_VERSION=3.31
-ENV CMAKE_3_31_VERSION=${CMAKE_3_31_MIN_VERSION}.8
+ENV CMAKE_3_31_VERSION=${CMAKE_3_31_MIN_VERSION}.9
 ENV CMAKE_3_31_DIR=${EMG_LOCAL_BASE_DIR}/cmake/${CMAKE_3_31_MIN_VERSION}
 ARG CMAKE_3_31_BIN_DIR=${CMAKE_3_31_DIR}/bin
 ARG CMAKE_3_31_DOWNLOAD_URL=https://github.com/Kitware/CMake/releases/download/v${CMAKE_3_31_VERSION}/cmake-${CMAKE_3_31_VERSION}-linux-x86_64.tar.gz
@@ -132,12 +126,48 @@ ARG PCRE_TEMP_SRC=/tmp/pcre2-${PCRE_VERSION}
 # luajit2-openresty source tarball
 ENV LUAJIT2OR_VERSION=2.1
 ENV LUAJIT2OR_DIR=${EMG_LOCAL_BASE_DIR}/luajit2/${LUAJIT2OR_VERSION}
-ENV LUAJIT2OR_BIN_DIR=${PCRE_DIR}/bin
+ENV LUAJIT2OR_BIN_DIR=${LUAJIT2OR_DIR}/bin
 ENV LUAJIT2OR_LIB_DIR=${LUAJIT2OR_DIR}/lib
 ENV LUAJIT2OR_INC_DIR=${LUAJIT2OR_DIR}/include
 ENV LUAJIT2OR_SRC_DIR=/usr/local/src/luajit2/${LUAJIT2OR_VERSION}
 ARG LUAJIT2OR_DOWNLOAD_URL=https://github.com/openresty/luajit2.git
 ARG LUAJIT2OR_TEMP_SRC=/tmp/luajit2
+
+# bzip2 1.0.6 for old software compatibility
+ENV BZIP2_106_VERSION=1.0.6
+ENV BZIP2_106_INSTALL_DIR=${EMG_LOCAL_BASE_DIR}/bzip2/${BZIP2_106_VERSION}
+ARG BZIP2_106_DOWNLOAD_URL=https://sourceware.org/pub/bzip2/bzip2-${BZIP2_106_VERSION}.tar.gz
+ARG BZIP2_106_TEMP=/tmp/bzip2-${BZIP2_106_VERSION}.tar.gz
+ARG BZIP2_106_TEMP_SRC=/tmp/bzip2-${BZIP2_106_VERSION}
+
+# bzip2 1.0.8
+ENV BZIP2_108_VERSION=1.0.8
+ENV BZIP2_108_INSTALL_DIR=${EMG_LOCAL_BASE_DIR}/bzip2/${BZIP2_108_VERSION}
+ARG BZIP2_108_DOWNLOAD_URL=https://sourceware.org/pub/bzip2/bzip2-${BZIP2_108_VERSION}.tar.gz
+ARG BZIP2_108_TEMP=/tmp/bzip2-${BZIP2_108_VERSION}.tar.gz
+ARG BZIP2_108_TEMP_SRC=/tmp/bzip2-${BZIP2_108_VERSION}
+
+# libffi-3.0.13 for old software compatibility
+ENV FFI_VERSION=3.0.13
+ENV FFI_INSTALL_DIR=${EMG_LOCAL_BASE_DIR}/libffi/${FFI_VERSION}
+ARG FFI_DOWNLOAD_URL=https://github.com/libffi/libffi/archive/refs/tags/v${FFI_VERSION}.tar.gz
+ARG FFI_TEMP=/tmp/libffi-v${FFI_VERSION}.tar.gz
+ARG FFI_TEMP_SRC=/tmp/libffi-${FFI_VERSION}
+
+# ncurses-5.9 for old software compatibility
+ENV NCURSES_VERSION=5.9
+ENV NCURSES_INSTALL_DIR=${EMG_LOCAL_BASE_DIR}/ncurses/${NCURSES_VERSION}
+ARG NCURSES_DOWNLOAD_URL=https://invisible-island.net/archives/ncurses/ncurses-${NCURSES_VERSION}.tar.gz
+#ARG NCURSES_DOWNLOAD_URL=https://ftp.gnu.org/gnu/ncurses/ncurses-${NCURSES_VERSION}.tar.gz
+ARG NCURSES_TEMP=/tmp/ncurses-${NCURSES_VERSION}.tar.gz
+ARG NCURSES_TEMP_SRC=/tmp/ncurses-${NCURSES_VERSION}
+
+# libdb-5.3 for old software compatibility
+ENV LIBDB_VERSION=5.3.28
+ENV LIBDB_INSTALL_DIR=${EMG_LOCAL_BASE_DIR}/libdb/${LIBDB_VERSION}
+ARG LIBDB_DOWNLOAD_URL=https://download.oracle.com/berkeley-db/db-${LIBDB_VERSION}.tar.gz
+ARG LIBDB_TEMP=/tmp/db-${LIBDB_VERSION}.tar.gz
+ARG LIBDB_TEMP_SRC=/tmp/db-${LIBDB_VERSION}
 
 # zlib source tarball
 ENV ZLIB_VERSION=1.3.1
@@ -151,7 +181,7 @@ ARG ZLIB_TEMP_SRC=/tmp/zlib-${ZLIB_VERSION}
 
 # zstd source tarball
 ENV ZSTD_VERSION=1.5.7
-ENV ZSTD_DIR=${EMG_LOCAL_BASE_DIR}/zstd/${ZLIB_VERSION}
+ENV ZSTD_DIR=${EMG_LOCAL_BASE_DIR}/zstd/${ZSTD_VERSION}
 ENV ZSTD_BIN_DIR=${ZSTD_DIR}/bin
 ENV ZSTD_INC_DIR=${ZSTD_DIR}/include
 ENV ZSTD_LIB_DIR=${ZSTD_DIR}/lib
@@ -167,9 +197,9 @@ ENV IP2LOC_BIN_DIR=${IP2LOC_DIR}/bin
 ENV IP2LOC_INC_DIR=${IP2LOC_DIR}/include
 ENV IP2LOC_LIB_DIR=${IP2LOC_DIR}/lib
 ENV IP2LOC_SRC_DIR=/usr/local/src/ip2location/${IP2LOC_VERSION}
-ARG IP2LOC_DOWNLOAD_URL=https://github.com/chrislim2888/IP2Location-C-Library/archive/refs/heads/master.tar.gz
-ARG IP2LOC_TEMP=/tmp/master.tar.gz
-ARG IP2LOC_TEMP_SRC=/tmp/IP2Location-C-Library-master
+ARG IP2LOC_DOWNLOAD_URL=https://github.com/chrislim2888/IP2Location-C-Library/archive/refs/tags/${IP2LOC_VERSION}.tar.gz
+ARG IP2LOC_TEMP=/tmp/${IP2LOC_VERSION}.tar.gz
+ARG IP2LOC_TEMP_SRC=/tmp/IP2Location-C-Library-${IP2LOC_VERSION}
 
 # libatomic_ops source tarball
 ENV LIBATOMICOPS_VERSION=7.8.4
@@ -376,6 +406,23 @@ ARG BORINGSSL_DOWNLOAD_URL=https://boringssl.googlesource.com/boringssl
 ARG BORINGSSL_TEMP_SRC=/tmp/boringssl
 
 ##################################################################
+#                    Shared wget args
+##################################################################
+ARG WGET_ARGS="--continue \
+  --quiet \
+  --no-check-certificate \
+  --retry-connrefused \
+  --tries=15 \
+  --timeout=30 \
+  --waitretry=15 \
+  --dns-timeout=30 \
+  --connect-timeout=30 \
+  --read-timeout=30 \
+  --no-clobber"
+
+ARG WGET_USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:128.0) Gecko/20100101 Firefox/128.0"
+
+##################################################################
 #                   trixie sources list
 ##################################################################
 RUN apt-get update && \
@@ -384,8 +431,7 @@ RUN apt-get update && \
 ##################################################################
 #                   installing
 ##################################################################
-RUN apt-get update && \
-    apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests --allow-downgrades \
+RUN apt-get install -y --no-install-recommends --no-install-suggests --allow-downgrades \
     build-essential \
     autoconf-archive \
     gnu-standards \
@@ -434,7 +480,7 @@ RUN apt-get update && \
     autotools-dev \
     dpkg-dev \
     fakeroot \
-#   checkinstall \
+    checkinstall \
     dh-make \
     zlib1g \
     zlib1g-dev \
@@ -480,7 +526,7 @@ RUN apt-get update && \
     libbsd-dev \
     libedit-dev \
     libmd-dev \
-   valgrind \
+    valgrind \
 #    valgrind-dbg \
     valgrind-if-available \
     valgrind-mpi \
@@ -491,14 +537,14 @@ RUN apt-get update && \
     libfribidi-dev \
     libpng-dev \
     libjpeg-dev \
-    libfreetype6-dev
-
-RUN mkdir -p /tmp/debs
-COPY --from=temp-dpkg /tmp/debs /tmp/debs
-RUN cd /tmp/debs && \
-    dpkg -i ./* || true && \
-    apt-get -f install -y && \
-    dpkg -i ./* 
+    libfreetype6-dev \
+    doxygen && \
+      echo "clean up" && \
+      apt-get clean -y && \
+      apt-get autoclean -y && \
+      rm -rfv /var/lib/apt/lists/* && \
+      rm -rfv /var/cache/apt/archives/*.deb && \
+      rm -rfv /tmp/*
 
 ##################################################################
 #                   Rust compillers
@@ -507,7 +553,8 @@ ENV CARGO_HOME=${EMG_LOCAL_BASE_DIR}/cargo
 ENV RUSTUP_HOME=${EMG_LOCAL_BASE_DIR}/rustup
 ARG CARGO_BIN=${CARGO_HOME}/bin
 
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path --profile complete --default-toolchain stable --verbose
+RUN set -eux; \
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | stdbuf -e0  sh -s -- -y --no-modify-path --profile complete --default-toolchain stable --verbose
 
 ENV PATH="$CARGO_HOME/bin:${PATH}"
 
@@ -520,57 +567,73 @@ RUN echo "=============================================" && \
 ##################################################################
 #                   CMake
 ##################################################################
-RUN mkdir -p ${CMAKE_3_31_DIR} ${CMAKE_3_30_DIR} ${CMAKE_3_21_DIR} ${CMAKE_3_20_DIR} ${CMAKE_3_19_DIR}  ${CMAKE_3_18_DIR} ${CMAKE_3_16_DIR}
-ADD ${CMAKE_3_31_DOWNLOAD_URL} /tmp
-ADD ${CMAKE_3_30_DOWNLOAD_URL} /tmp
-ADD ${CMAKE_3_21_DOWNLOAD_URL} /tmp
-ADD ${CMAKE_3_20_DOWNLOAD_URL} /tmp
-ADD ${CMAKE_3_19_DOWNLOAD_URL} /tmp
-ADD ${CMAKE_3_18_DOWNLOAD_URL} /tmp
-ADD ${CMAKE_3_16_DOWNLOAD_URL} /tmp
-
-RUN tar -xf ${CMAKE_3_31_TEMP} --directory ${CMAKE_3_31_DIR} --strip-components=1 && \
-    chmod +x ${CMAKE_3_31_BIN_DIR}/ccmake && \
-    chmod +x ${CMAKE_3_31_BIN_DIR}/cmake && \
-    chmod +x ${CMAKE_3_31_BIN_DIR}/cmake-gui && \
-    chmod +x ${CMAKE_3_31_BIN_DIR}/cpack && \
-    chmod +x ${CMAKE_3_31_BIN_DIR}/ctest  && \
+RUN set -eux; \
+    mkdir -p ${CMAKE_4_1_DIR} ${CMAKE_4_0_DIR} ${CMAKE_3_31_DIR}  ${CMAKE_3_30_DIR} ${CMAKE_3_21_DIR} ${CMAKE_3_20_DIR} ${CMAKE_3_19_DIR}  ${CMAKE_3_18_DIR} ${CMAKE_3_16_DIR} && \
+    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -P /tmp ${CMAKE_4_1_DOWNLOAD_URL} && \
+    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -P /tmp ${CMAKE_4_0_DOWNLOAD_URL} && \
+    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -P /tmp ${CMAKE_3_31_DOWNLOAD_URL} && \
+    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -P /tmp ${CMAKE_3_30_DOWNLOAD_URL} && \
+    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -P /tmp ${CMAKE_3_21_DOWNLOAD_URL} && \
+    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -P /tmp ${CMAKE_3_20_DOWNLOAD_URL} && \
+    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -P /tmp ${CMAKE_3_19_DOWNLOAD_URL} && \
+    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -P /tmp ${CMAKE_3_18_DOWNLOAD_URL} && \
+    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -P /tmp ${CMAKE_3_16_DOWNLOAD_URL} && \
+    tar -xf ${CMAKE_4_1_TEMP} --directory ${CMAKE_4_1_DIR} --strip-components=1 && \
+      chmod +x ${CMAKE_4_1_BIN_DIR}/ccmake && \
+      chmod +x ${CMAKE_4_1_BIN_DIR}/cmake && \
+      chmod +x ${CMAKE_4_1_BIN_DIR}/cmake-gui && \
+      chmod +x ${CMAKE_4_1_BIN_DIR}/cpack && \
+      chmod +x ${CMAKE_4_1_BIN_DIR}/ctest  && \
+    tar -xf ${CMAKE_4_0_TEMP} --directory ${CMAKE_4_0_DIR} --strip-components=1 && \
+      chmod +x ${CMAKE_4_0_BIN_DIR}/ccmake && \
+      chmod +x ${CMAKE_4_0_BIN_DIR}/cmake && \
+      chmod +x ${CMAKE_4_0_BIN_DIR}/cmake-gui && \
+      chmod +x ${CMAKE_4_0_BIN_DIR}/cpack && \
+      chmod +x ${CMAKE_4_0_BIN_DIR}/ctest  && \
+    tar -xf ${CMAKE_3_31_TEMP} --directory ${CMAKE_3_31_DIR} --strip-components=1 && \
+      chmod +x ${CMAKE_3_31_BIN_DIR}/ccmake && \
+      chmod +x ${CMAKE_3_31_BIN_DIR}/cmake && \
+      chmod +x ${CMAKE_3_31_BIN_DIR}/cmake-gui && \
+      chmod +x ${CMAKE_3_31_BIN_DIR}/cpack && \
+      chmod +x ${CMAKE_3_31_BIN_DIR}/ctest  && \
     tar -xf ${CMAKE_3_30_TEMP} --directory ${CMAKE_3_30_DIR} --strip-components=1 && \
-    chmod +x ${CMAKE_3_30_BIN_DIR}/ccmake && \
-    chmod +x ${CMAKE_3_30_BIN_DIR}/cmake && \
-    chmod +x ${CMAKE_3_30_BIN_DIR}/cmake-gui && \
-    chmod +x ${CMAKE_3_30_BIN_DIR}/cpack && \
-    chmod +x ${CMAKE_3_30_BIN_DIR}/ctest  && \
+      chmod +x ${CMAKE_3_30_BIN_DIR}/ccmake && \
+      chmod +x ${CMAKE_3_30_BIN_DIR}/cmake && \
+      chmod +x ${CMAKE_3_30_BIN_DIR}/cmake-gui && \
+      chmod +x ${CMAKE_3_30_BIN_DIR}/cpack && \
+      chmod +x ${CMAKE_3_30_BIN_DIR}/ctest  && \
     tar -xf ${CMAKE_3_21_TEMP} --directory ${CMAKE_3_21_DIR} --strip-components=1 && \
-    chmod +x ${CMAKE_3_21_BIN_DIR}/ccmake && \
-    chmod +x ${CMAKE_3_21_BIN_DIR}/cmake && \
-    chmod +x ${CMAKE_3_21_BIN_DIR}/cmake-gui && \
-    chmod +x ${CMAKE_3_21_BIN_DIR}/cpack && \
-    chmod +x ${CMAKE_3_21_BIN_DIR}/ctest && \
+      chmod +x ${CMAKE_3_21_BIN_DIR}/ccmake && \
+      chmod +x ${CMAKE_3_21_BIN_DIR}/cmake && \
+      chmod +x ${CMAKE_3_21_BIN_DIR}/cmake-gui && \
+      chmod +x ${CMAKE_3_21_BIN_DIR}/cpack && \
+      chmod +x ${CMAKE_3_21_BIN_DIR}/ctest && \
     tar -xf ${CMAKE_3_20_TEMP} --directory ${CMAKE_3_20_DIR} --strip-components=1 && \
-    chmod +x ${CMAKE_3_20_BIN_DIR}/ccmake && \
-    chmod +x ${CMAKE_3_20_BIN_DIR}/cmake && \
-    chmod +x ${CMAKE_3_20_BIN_DIR}/cmake-gui && \
-    chmod +x ${CMAKE_3_20_BIN_DIR}/cpack && \
-    chmod +x ${CMAKE_3_20_BIN_DIR}/ctest && \
+      chmod +x ${CMAKE_3_20_BIN_DIR}/ccmake && \
+      chmod +x ${CMAKE_3_20_BIN_DIR}/cmake && \
+      chmod +x ${CMAKE_3_20_BIN_DIR}/cmake-gui && \
+      chmod +x ${CMAKE_3_20_BIN_DIR}/cpack && \
+      chmod +x ${CMAKE_3_20_BIN_DIR}/ctest && \
     tar -xf ${CMAKE_3_19_TEMP} --directory ${CMAKE_3_19_DIR} --strip-components=1 && \
-    chmod +x ${CMAKE_3_19_BIN_DIR}/ccmake && \
-    chmod +x ${CMAKE_3_19_BIN_DIR}/cmake && \
-    chmod +x ${CMAKE_3_19_BIN_DIR}/cmake-gui && \
-    chmod +x ${CMAKE_3_19_BIN_DIR}/cpack && \
-    chmod +x ${CMAKE_3_19_BIN_DIR}/ctest && \
+      chmod +x ${CMAKE_3_19_BIN_DIR}/ccmake && \
+      chmod +x ${CMAKE_3_19_BIN_DIR}/cmake && \
+      chmod +x ${CMAKE_3_19_BIN_DIR}/cmake-gui && \
+      chmod +x ${CMAKE_3_19_BIN_DIR}/cpack && \
+      chmod +x ${CMAKE_3_19_BIN_DIR}/ctest && \
     tar -xf ${CMAKE_3_18_TEMP} --directory ${CMAKE_3_18_DIR} --strip-components=1 && \
-    chmod +x ${CMAKE_3_18_BIN_DIR}/ccmake && \
-    chmod +x ${CMAKE_3_18_BIN_DIR}/cmake && \
-    chmod +x ${CMAKE_3_18_BIN_DIR}/cmake-gui && \
-    chmod +x ${CMAKE_3_18_BIN_DIR}/cpack && \
-    chmod +x ${CMAKE_3_18_BIN_DIR}/ctest && \
+      chmod +x ${CMAKE_3_18_BIN_DIR}/ccmake && \
+      chmod +x ${CMAKE_3_18_BIN_DIR}/cmake && \
+      chmod +x ${CMAKE_3_18_BIN_DIR}/cmake-gui && \
+      chmod +x ${CMAKE_3_18_BIN_DIR}/cpack && \
+      chmod +x ${CMAKE_3_18_BIN_DIR}/ctest && \
     tar -xf ${CMAKE_3_16_TEMP} --directory ${CMAKE_3_16_DIR} --strip-components=1 && \
-    chmod +x ${CMAKE_3_16_BIN_DIR}/ccmake && \
-    chmod +x ${CMAKE_3_16_BIN_DIR}/cmake && \
-    chmod +x ${CMAKE_3_16_BIN_DIR}/cmake-gui && \
-    chmod +x ${CMAKE_3_16_BIN_DIR}/cpack && \
-    chmod +x ${CMAKE_3_16_BIN_DIR}/ctest
+      chmod +x ${CMAKE_3_16_BIN_DIR}/ccmake && \
+      chmod +x ${CMAKE_3_16_BIN_DIR}/cmake && \
+      chmod +x ${CMAKE_3_16_BIN_DIR}/cmake-gui && \
+      chmod +x ${CMAKE_3_16_BIN_DIR}/cpack && \
+      chmod +x ${CMAKE_3_16_BIN_DIR}/ctest && \
+    echo "clean up" && \
+    rm -rfv /tmp/*
 
 # Install default latest version
 ENV PATH="${CMAKE_3_31_BIN_DIR}:${PATH}"
@@ -582,28 +645,33 @@ RUN echo "=============================================" && \
 ##################################################################
 #                   steam runtime and ssdk
 ##################################################################
-RUN mkdir -p ${STEAM_RUNTIME_SDK_DIR}
-ADD ${STEAM_RUNTIME_SDK_URL} /tmp
-
-RUN tar -xf ${STEAM_RUNTIME_SDK_TEMP} --directory ${STEAM_RUNTIME_SDK_DIR} --strip-components=1 && \
+SHELL ["/bin/bash", "-c"]
+RUN mkdir -p ${STEAM_RUNTIME_SDK_DIR} && \
+    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -P /tmp ${STEAM_RUNTIME_SDK_URL} && \
+    tar -xf ${STEAM_RUNTIME_SDK_TEMP} --directory ${STEAM_RUNTIME_SDK_DIR} --strip-components=1 && \
     chmod +x ${STEAM_RUNTIME_SDK_BIN_DIR} -R && \
     chmod +x ${STEAM_RUNTIME_SDK_DIR}/setup.sh && \
     chmod +x ${STEAM_RUNTIME_SDK_DIR}/shell.sh && \
     chmod +x ${STEAM_RUNTIME_SDK_DIR}/shell-amd64.sh && \
-    chmod +x ${STEAM_RUNTIME_SDK_DIR}/shell-i386.sh
-#    printf '%s\n' 3 1 Y Y Y | ./setup.sh
+    chmod +x ${STEAM_RUNTIME_SDK_DIR}/shell-i386.sh && \
+    printf '%s\n' 3 1 Y Y Y | ${STEAM_RUNTIME_SDK_DIR}/setup.sh && \
+      echo "clean up" && \
+      rm -rfv /tmp/*
+SHELL ["/bin/sh", "-c"]
 
 ##################################################################
 #                   Flutter SDK
 ##################################################################
-RUN mkdir -p ${FLUTTER_DIR}
-ADD ${FLUTTER_DOWNLOAD_URL} /tmp
-
-RUN tar -xf ${FLUTTER_TEMP} --directory ${FLUTTER_DIR} --strip-components=1 && \
+RUN set -eux; \
+    mkdir -p ${FLUTTER_DIR} && \
+    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -P /tmp ${FLUTTER_DOWNLOAD_URL} && \
+    tar -xf ${FLUTTER_TEMP} --directory ${FLUTTER_DIR} --strip-components=1 && \
     chmod +x ${FLUTTER_BIN_DIR}/dart && \
     chmod +x ${FLUTTER_BIN_DIR}/flutter && \
     chmod +x ${FLUTTER_BIN_DIR}/internal/shared.sh && \
-    chmod +x ${FLUTTER_BIN_DIR}/internal/update_dart_sdk.sh
+    chmod +x ${FLUTTER_BIN_DIR}/internal/update_dart_sdk.sh && \
+      echo "clean up" && \
+      rm -rfv /tmp/*
 
 ENV PATH="${FLUTTER_BIN_DIR}:${PATH}"
 
@@ -621,12 +689,14 @@ RUN echo "=============================================" && \
 ##################################################################
 #                   GO compillers
 ##################################################################
-RUN mkdir -p ${GO_DIR} ${GO_PATH_BIN_DIR} ${GO_BIN_DIR}
-ADD ${GO_DOWNLOAD_URL} /tmp
-
-RUN tar -xzf ${GO_TEMP} --directory ${GO_DIR} --strip-components=1 && \
+RUN set -eux; \
+    mkdir -p ${GO_DIR} ${GO_PATH_BIN_DIR} ${GO_BIN_DIR} && \
+    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -P /tmp ${GO_DOWNLOAD_URL} && \
+    tar -xzf ${GO_TEMP} --directory ${GO_DIR} --strip-components=1 && \
     chmod +x ${GO_BIN_DIR}/go && \
-    chmod +x ${GO_BIN_DIR}/gofmt
+    chmod +x ${GO_BIN_DIR}/gofmt && \
+      echo "clean up" && \
+      rm -rfv /tmp/*
 
 ENV GOROOT=${GO_DIR}
 ENV GOPATH=${GO_PATH_DIR}
@@ -639,11 +709,13 @@ RUN echo "=============================================" && \
 ##################################################################
 #                   Get NINJA binary
 ##################################################################
-RUN mkdir -p ${NINJA_BIN_DIR}
-ADD ${NINJA_DOWNLOAD_URL} /tmp
-
-RUN 7zz x ${NINJA_TEMP} -o${NINJA_BIN_DIR} -y  && \
-    chmod +x ${NINJA_BIN_DIR}/ninja
+RUN set -eux; \
+    mkdir -p ${NINJA_BIN_DIR} && \
+    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -P /tmp ${NINJA_DOWNLOAD_URL} && \
+    7zz x ${NINJA_TEMP} -o${NINJA_BIN_DIR} -y  && \
+    chmod +x ${NINJA_BIN_DIR}/ninja && \
+      echo "clean up" && \
+      rm -rfv /tmp/*
 
 ENV PATH="${NINJA_BIN_DIR}:${PATH}"
 
@@ -652,12 +724,116 @@ RUN echo "=============================================" && \
     echo "============================================="
 
 ##################################################################
+#                   BZIP2 1.0.6 library
+##################################################################
+RUN set -eux; \
+    mkdir -p ${BZIP2_106_INSTALL_DIR} && \
+    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -O ${BZIP2_106_TEMP} ${BZIP2_106_DOWNLOAD_URL} && \
+    tar -xzf ${BZIP2_106_TEMP} -C /tmp && \
+    cd ${BZIP2_106_TEMP_SRC} && \
+    make -j$(nproc) PREFIX=${BZIP2_106_INSTALL_DIR} install && \
+    gcc -shared -Wl,-soname,libbz2.so.1.0 -o ${BZIP2_106_INSTALL_DIR}/lib/libbz2.so.1.0.6 libbz2.a && \
+    ln -sf ${BZIP2_106_INSTALL_DIR}/lib/libbz2.so.1.0.6 ${BZIP2_106_INSTALL_DIR}/lib/libbz2.so.1.0 && \
+    ln -sf ${BZIP2_106_INSTALL_DIR}/lib/libbz2.so.1.0.6 ${BZIP2_106_INSTALL_DIR}/lib/libbz2.so && \
+    ldconfig && \
+      echo "clean up" && \
+      rm -rfv /tmp/*
+
+##################################################################
+#                   BZIP2 1.0.8 library
+##################################################################
+RUN set -eux; \
+    mkdir -p ${BZIP2_108_INSTALL_DIR} && \
+    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -O ${BZIP2_108_TEMP} ${BZIP2_108_DOWNLOAD_URL} && \
+    tar -xzf ${BZIP2_108_TEMP} -C /tmp && \
+    cd ${BZIP2_108_TEMP_SRC} && \
+    make -j$(nproc) PREFIX=${BZIP2_108_INSTALL_DIR} install && \
+    gcc -shared -Wl,-soname,libbz2.so.1.0 -o ${BZIP2_108_INSTALL_DIR}/lib/libbz2.so.1.0.8 libbz2.a && \
+    ln -sf ${BZIP2_108_INSTALL_DIR}/lib/libbz2.so.1.0.8 ${BZIP2_108_INSTALL_DIR}/lib/libbz2.so.1.0 && \
+    ln -sf ${BZIP2_108_INSTALL_DIR}/lib/libbz2.so.1.0.8 ${BZIP2_108_INSTALL_DIR}/lib/libbz2.so && \
+    ldconfig && \
+      echo "clean up" && \
+      rm -rfv /tmp/*
+
+##################################################################
+#                   FFI library
+##################################################################
+RUN set -eux; \
+    mkdir -p ${FFI_INSTALL_DIR} && \
+    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -O ${FFI_TEMP} ${FFI_DOWNLOAD_URL} && \
+    tar -xzf ${FFI_TEMP} -C /tmp && \
+    cd ${FFI_TEMP_SRC} && \
+    ./configure \
+        --prefix=${FFI_INSTALL_DIR} \
+        --enable-shared \
+        --disable-static \
+    && \
+    make -j$(nproc) && \
+    make install && \
+    ldconfig && \
+      echo "clean up" && \
+      rm -rfv /tmp/*
+
+##################################################################
+#                   ncurses library
+##################################################################
+# Issue: https://github.com/pbouda/buildroot-qt-dev/issues/6
+COPY tmp/ncurses-${NCURSES_VERSION}-const.patch /tmp/ncurses-${NCURSES_VERSION}-const.patch
+COPY tmp/ncurses-${NCURSES_VERSION}-gcc-5.patch /tmp/ncurses-${NCURSES_VERSION}-gcc-5.patch
+
+RUN  mkdir -p ${NCURSES_INSTALL_DIR} && \
+    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -O ${NCURSES_TEMP} ${NCURSES_DOWNLOAD_URL} && \
+    tar -xzf ${NCURSES_TEMP} -C /tmp && \
+    cd ${NCURSES_TEMP_SRC} && \
+    mv /tmp/ncurses-${NCURSES_VERSION}-const.patch . && \
+    mv /tmp/ncurses-${NCURSES_VERSION}-gcc-5.patch . && \
+    patch -p1 < ncurses-${NCURSES_VERSION}-gcc-5.patch && \
+    patch -p1 < ncurses-${NCURSES_VERSION}-const.patch && \
+    ./configure \
+        CXXFLAGS="-std=c++11" \
+        --prefix=${NCURSES_INSTALL_DIR} \
+        --with-shared \
+        --with-cxx-shared \
+        --without-debug \
+        --without-ada \
+        --enable-widec \
+        --enable-symlinks \ 
+        --with-normal \
+        && \
+    make -j$(nproc) && \
+    make install && \
+    ldconfig && \
+      echo "clean up" && \
+      rm -rfv /tmp/*
+
+##################################################################
+#                   libdb library
+##################################################################
+RUN set -eux; \
+    mkdir -p ${LIBDB_INSTALL_DIR} && \
+    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -O ${LIBDB_TEMP} ${LIBDB_DOWNLOAD_URL} && \
+    tar -xzf ${LIBDB_TEMP} -C /tmp && \
+    cd ${LIBDB_TEMP_SRC}/build_unix && \
+    ../dist/configure \
+        CFLAGS="-std=gnu89" \
+        --prefix=${LIBDB_INSTALL_DIR} \
+        --enable-cxx=no \
+        --enable-java=no \
+        --enable-tcl=no \
+    && \
+    make -j$(nproc) && \
+    make install && \
+    ldconfig && \
+      echo "clean up" && \
+      rm -rfv /tmp/*
+
+##################################################################
 #                   ZLIB library
 ##################################################################
-RUN mkdir -p ${ZLIB_DIR} ${ZLIB_SRC_DIR}
-ADD ${ZLIB_DOWNLOAD_URL} /tmp
-
-RUN tar -xzf ${ZLIB_TEMP} --directory /tmp && \
+RUN set -eux; \
+    mkdir -p ${ZLIB_DIR} ${ZLIB_SRC_DIR} && \
+    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -P /tmp ${ZLIB_DOWNLOAD_URL} && \
+    tar -xzf ${ZLIB_TEMP} --directory /tmp && \
     cp -rfv ${ZLIB_TEMP_SRC}/* ${ZLIB_SRC_DIR} && \
     ln -sf ${ZLIB_SRC_DIR}  ${ZLIB_DIR}/src && \
     cd ${ZLIB_TEMP_SRC} && \
@@ -669,15 +845,17 @@ RUN tar -xzf ${ZLIB_TEMP} --directory /tmp && \
     make -j$(nproc) install && \
     echo "# ZLIB support" >> ${LD_CONF_DIR}/ZLIB.conf && \
     echo ${ZLIB_LIB_DIR} >> ${LD_CONF_DIR}/ZLIB.conf && \
-    ldconfig
+    ldconfig && \
+      echo "clean up" && \
+      rm -rfv /tmp/*
 
 ##################################################################
 #                   ZSTD library
 ##################################################################
-RUN mkdir -p ${ZSTD_DIR} ${ZSTD_SRC_DIR}
-ADD ${ZSTD_DOWNLOAD_URL} /tmp
-
-RUN tar -xzf ${ZSTD_TEMP} --directory /tmp && \
+RUN set -eux; \
+    mkdir -p ${ZSTD_DIR} ${ZSTD_SRC_DIR} && \
+    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -P /tmp ${ZSTD_DOWNLOAD_URL} && \
+    tar -xzf ${ZSTD_TEMP} --directory /tmp && \
     cp -rfv ${ZSTD_TEMP_SRC}/* ${ZSTD_SRC_DIR} && \
     ln -sf ${ZSTD_SRC_DIR}  ${ZSTD_DIR}/src && \
     cd ${ZSTD_TEMP_SRC} && \
@@ -688,17 +866,19 @@ RUN tar -xzf ${ZSTD_TEMP} --directory /tmp && \
     make -j$(nproc) install && \
     echo "# ZSTD support" >> ${LD_CONF_DIR}/ZSTD.conf && \
     echo ${ZSTD_LIB_DIR} >> ${LD_CONF_DIR}/ZSTD.conf && \
-    ldconfig
+    ldconfig && \
+      echo "clean up" && \
+      rm -rfv /tmp/*
 
 ENV PATH="${ZSTD_BIN_DIR}:${PATH}"
 
 ##################################################################
 #                   PRCE2 static library
 ##################################################################
-RUN mkdir -p ${PCRE_BIN_DIR} ${PCRE_SRC_DIR}
-ADD ${PCRE_DOWNLOAD_URL} /tmp
-
-RUN tar -xzf ${PCRE_TEMP} --directory /tmp && \
+RUN set -eux; \
+    mkdir -p ${PCRE_BIN_DIR} ${PCRE_SRC_DIR} && \
+    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -P /tmp ${PCRE_DOWNLOAD_URL} && \
+    tar -xzf ${PCRE_TEMP} --directory /tmp && \
     cp -rfv ${PCRE_TEMP_SRC}/* ${PCRE_SRC_DIR} && \
     ln -sf ${PCRE_SRC_DIR} ${PCRE_DIR}/src && \
     cd ${PCRE_TEMP_SRC} && \
@@ -729,7 +909,9 @@ RUN tar -xzf ${PCRE_TEMP} --directory /tmp && \
     make -j$(nproc) install && \
     echo "# PRCE2 support" >> ${LD_CONF_DIR}/PRCE2.conf && \
     echo ${PCRE_LIB_DIR} >> ${LD_CONF_DIR}/PRCE2.conf && \
-    ldconfig
+    ldconfig && \
+      echo "clean up" && \
+      rm -rfv /tmp/*
 
 ENV PATH="${PCRE_BIN_DIR}:${PATH}"
 
@@ -740,7 +922,8 @@ RUN echo "=============================================" && \
 ##################################################################
 #                   LuaJIT2 OpenResty 2.1
 ##################################################################
-RUN mkdir -p ${LUAJIT2OR_DIR} ${LUAJIT2OR_SRC_DIR} && \
+RUN set -eux; \
+    mkdir -p ${LUAJIT2OR_DIR} ${LUAJIT2OR_SRC_DIR} && \
     git clone ${LUAJIT2OR_DOWNLOAD_URL} ${LUAJIT2OR_TEMP_SRC} && \
     cp -rfv ${LUAJIT2OR_TEMP_SRC}/* ${LUAJIT2OR_SRC_DIR} && \
     ln -sf ${LUAJIT2OR_SRC_DIR} ${LUAJIT2OR_DIR}/src && \
@@ -750,7 +933,9 @@ RUN mkdir -p ${LUAJIT2OR_DIR} ${LUAJIT2OR_SRC_DIR} && \
     make -j$(nproc) install PREFIX=${LUAJIT2OR_DIR} && \
     echo "# LuaJIT2 support" >> ${LD_CONF_DIR}/LuaJIT2.conf && \
     echo ${LUAJIT2OR_LIB_DIR} >> ${LD_CONF_DIR}/LuaJIT2.conf && \
-    ldconfig
+    ldconfig && \
+      echo "clean up" && \
+      rm -rfv /tmp/*
 
 ENV PATH="${LUAJIT2OR_BIN_DIR}:${PATH}"
 
@@ -761,10 +946,10 @@ RUN echo "=============================================" && \
 ##################################################################
 #                   IP2Location
 ##################################################################
-RUN mkdir -p ${IP2LOC_DIR} ${IP2LOC_SRC_DIR}
-ADD ${IP2LOC_DOWNLOAD_URL} /tmp
-
-RUN tar -xzf ${IP2LOC_TEMP} --directory /tmp && \
+RUN set -eux; \
+    mkdir -p ${IP2LOC_DIR} ${IP2LOC_SRC_DIR} && \
+    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -P /tmp ${IP2LOC_DOWNLOAD_URL} && \
+    tar -xzf ${IP2LOC_TEMP} --directory /tmp && \
     cp -rfv ${IP2LOC_TEMP_SRC}/* ${IP2LOC_SRC_DIR} && \
     ln -sf ${IP2LOC_SRC_DIR} ${IP2LOC_DIR}/src && \
     cd ${IP2LOC_TEMP_SRC} && \
@@ -783,17 +968,19 @@ RUN tar -xzf ${IP2LOC_TEMP} --directory /tmp && \
     make -j$(nproc) install && \
     echo "# IP2Location support" >> ${LD_CONF_DIR}/IP2Location.conf && \
     echo ${IP2LOC_LIB_DIR} >> ${LD_CONF_DIR}/IP2Location.conf && \
-    ldconfig
+    ldconfig && \
+      echo "clean up" && \
+      rm -rfv /tmp/*
 
 ENV PATH="${IP2LOC_BIN_DIR}:${PATH}"
 
 ##################################################################
 #                   libatomic_ops
 ##################################################################
-RUN mkdir -p ${LIBATOMICOPS_DIR} ${LIBATOMICOPS_SRC_DIR}
-ADD ${LIBATOMICOPS_DOWNLOAD_URL} /tmp
-
-RUN tar -xzf ${LIBATOMICOPS_TEMP} --directory /tmp && \
+RUN set -eux; \
+    mkdir -p ${LIBATOMICOPS_DIR} ${LIBATOMICOPS_SRC_DIR} && \
+    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -P /tmp ${LIBATOMICOPS_DOWNLOAD_URL} && \
+    tar -xzf ${LIBATOMICOPS_TEMP} --directory /tmp && \
     cp -rfv ${LIBATOMICOPS_TEMP_SRC}/* ${LIBATOMICOPS_SRC_DIR} && \
     ln -sf ${LIBATOMICOPS_SRC_DIR} ${LIBATOMICOPS_DIR}/src && \
     cd ${LIBATOMICOPS_TEMP_SRC} && \
@@ -811,14 +998,16 @@ RUN tar -xzf ${LIBATOMICOPS_TEMP} --directory /tmp && \
     ln -sfv ${LIBATOMICOPS_SRC_DIR} ${LIBATOMICOPS_SRC_DIR}/src && \
     echo "# libatomic_ops support" >> ${LD_CONF_DIR}/libatomic_ops.conf && \
     echo ${LIBATOMICOPS_LIB_DIR} >> ${LD_CONF_DIR}/libatomic_ops.conf && \
-    ldconfig
+    ldconfig && \
+      echo "clean up" && \
+      rm -rfv /tmp/*
 
 ##################################################################
 #                   libimagequant
 ##################################################################
-RUN mkdir -p ${LIBIMAGEQUANT_DIR} ${LIBIMAGEQUANT_SRC_DIR}
-
-RUN git clone ${LIBIMAGEQUANT_DOWNLOAD_URL} ${LIBIMAGEQUANT_TEMP_SRC} && \
+RUN set -eux; \
+    mkdir -p ${LIBIMAGEQUANT_DIR} ${LIBIMAGEQUANT_SRC_DIR} && \
+    git clone ${LIBIMAGEQUANT_DOWNLOAD_URL} ${LIBIMAGEQUANT_TEMP_SRC} && \
     cp -rfv ${LIBIMAGEQUANT_TEMP_SRC}/* ${LIBIMAGEQUANT_SRC_DIR} && \
     ln -sf ${LIBIMAGEQUANT_SRC_DIR} ${LIBIMAGEQUANT_DIR}/src && \
     cd ${LIBIMAGEQUANT_TEMP_SRC} && \
@@ -826,28 +1015,32 @@ RUN git clone ${LIBIMAGEQUANT_DOWNLOAD_URL} ${LIBIMAGEQUANT_TEMP_SRC} && \
     cd ${LIBIMAGEQUANT_TEMP_SRC}/imagequant-sys && \
       cargo build --release && \
       make -j$(nproc) && \
-      make -j$(nproc) install
+      make -j$(nproc) install && \
+    echo "clean up" && \
+    rm -rfv /tmp/*
 
 ##################################################################
 #                   libraqm
 ##################################################################
-RUN mkdir -p ${LIBRAQM_DIR} ${LIBRAQM_SRC_DIR}
-
-RUN git clone ${LIBRAQM_DOWNLOAD_URL} ${LIBRAQM_TEMP_SRC} && \
+RUN set -eux; \
+    mkdir -p ${LIBRAQM_DIR} ${LIBRAQM_SRC_DIR} && \
+    git clone ${LIBRAQM_DOWNLOAD_URL} ${LIBRAQM_TEMP_SRC} && \
     cp -rfv ${LIBRAQM_TEMP_SRC}/* ${LIBRAQM_SRC_DIR} && \
     ln -sf ${LIBRAQM_SRC_DIR} ${LIBRAQM_DIR}/src && \
     cd ${LIBRAQM_TEMP_SRC} && \
     meson build && \
     ninja -C build && \
-    ninja -C build install
+    ninja -C build install && \
+      echo "clean up" && \
+      rm -rfv /tmp/*
 
 ##################################################################
 #                   libgd
 ##################################################################
-RUN mkdir -p ${LIBGD_DIR} ${LIBGD_SRC_DIR}
-ADD ${LIBGD_DOWNLOAD_URL} /tmp
-
-RUN tar -xzf ${LIBGD_TEMP} --directory /tmp && \
+RUN set -eux; \
+    mkdir -p ${LIBGD_DIR} ${LIBGD_SRC_DIR} && \
+    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -P /tmp ${LIBGD_DOWNLOAD_URL} && \
+    tar -xzf ${LIBGD_TEMP} --directory /tmp && \
     cp -rfv ${LIBGD_TEMP_SRC}/* ${LIBGD_SRC_DIR} && \
     ln -sf ${LIBGD_SRC_DIR} ${LIBGD_DIR}/src && \
     cd ${LIBGD_TEMP_SRC} && \
@@ -859,7 +1052,7 @@ RUN tar -xzf ${LIBGD_TEMP} --directory /tmp && \
       --enable-shared \
       --with-aix-soname=both \
       --with-libiconv-prefix \
-      --with-zlib=${ZSTD_SRC_DIR} \
+      --with-zlib=${ZLIB_SRC_DIR} \
       --with-png --with-freetype \
       --with-raqm=${LIBRAQM_SRC_DIR} \
       --with-fontconfig \
@@ -878,17 +1071,20 @@ RUN tar -xzf ${LIBGD_TEMP} --directory /tmp && \
     make -j$(nproc) install && \
     echo "# libgd support" >> ${LD_CONF_DIR}/libgd.conf && \
     echo ${LIBGD_LIB_DIR} >> ${LD_CONF_DIR}/libgd.conf && \
-    ldconfig
+    ldconfig && \
+      echo "clean up" && \
+      rm -rfv /tmp/*
 
 ENV PATH="${LIBGD_BIN_DIR}:${PATH}" 
 
 ##################################################################
 #                   libxml2
 ##################################################################
-RUN mkdir -p ${LIBXML2_DIR} ${LIBXML2_SRC_DIR}
-ADD ${LIBXML2_DOWNLOAD_URL} /tmp
-
-RUN tar -xzf ${LIBXML2_TEMP} --directory /tmp && \
+RUN set -eux; \
+    mkdir -p ${LIBXML2_DIR} ${LIBXML2_SRC_DIR} && \
+#    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -O ${LIBXML2_TEMP} ${LIBXML2_DOWNLOAD_URL} && \
+    curl -L ${LIBXML2_DOWNLOAD_URL} -o ${LIBXML2_TEMP} && \
+    tar -xzf ${LIBXML2_TEMP} --directory /tmp && \
     cp -rfv ${LIBXML2_TEMP_SRC}/* ${LIBXML2_SRC_DIR} && \
     ln -sf ${LIBXML2_SRC_DIR} ${LIBXML2_DIR}/src && \
     cd ${LIBXML2_TEMP_SRC} && \
@@ -930,7 +1126,7 @@ RUN tar -xzf ${LIBXML2_TEMP} --directory /tmp && \
       --with-xptr \
       --with-xptr-locs \
       --with-lzma \
-      --with-zlib=${ZSTD_DIR} \
+      --with-zlib=${ZLIB_SRC_DIR} \
       --with-legacy \
       --with-tls \
       --with-python-sys-prefix \
@@ -939,17 +1135,20 @@ RUN tar -xzf ${LIBXML2_TEMP} --directory /tmp && \
     make -j$(nproc) install && \
     echo "# libxslt support" >> ${LD_CONF_DIR}/libxml2.conf && \
     echo ${LIBXML2_LIB_DIR} >> ${LD_CONF_DIR}/libxml2.conf && \
-    ldconfig
+    ldconfig && \
+      echo "clean up" && \
+      rm -rfv /tmp/*
 
 ENV PATH="${LIBXML2_BIN_DIR}:${PATH}" 
 
 ##################################################################
 #                   libxslt
 ##################################################################
-RUN mkdir -p ${LIBXSLT_DIR} ${LIBXSLT_SRC_DIR}
-ADD ${LIBXSLT_DOWNLOAD_URL} /tmp
-
-RUN tar -xzf ${LIBXSLT_TEMP} --directory /tmp && \
+RUN set -eux; \
+    mkdir -p ${LIBXSLT_DIR} ${LIBXSLT_SRC_DIR} && \
+#    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -O ${LIBXSLT_TEMP} ${LIBXSLT_DOWNLOAD_URL} && \
+    curl -L ${LIBXSLT_DOWNLOAD_URL} -o ${LIBXSLT_TEMP} && \
+    tar -xzf ${LIBXSLT_TEMP} --directory /tmp && \
     cp -rfv ${LIBXSLT_TEMP_SRC}/* ${LIBXSLT_SRC_DIR} && \
     ln -sf ${LIBXSLT_SRC_DIR} ${LIBXSLT_DIR}/src && \
     cd ${LIBXSLT_TEMP_SRC} && \
@@ -971,17 +1170,19 @@ RUN tar -xzf ${LIBXSLT_TEMP} --directory /tmp && \
     make -j$(nproc) install && \
     echo "# libxslt support" >> ${LD_CONF_DIR}/libxslt.conf && \
     echo ${LIBXSLT_LIB_DIR} >> ${LD_CONF_DIR}/libxslt.conf && \
-    ldconfig
+    ldconfig && \
+      echo "clean up" && \
+      rm -rfv /tmp/*
 
 ENV PATH="${LIBXSLT_BIN_DIR}:${PATH}" 
 
 ##################################################################
 #                   MAxMind GeoIP
 ##################################################################
-RUN mkdir -p ${MM_GEOIP_DIR} ${MM_GEOIP_SRC_DIR}
-ADD ${MM_GEOIP_DOWNLOAD_URL} /tmp
-
-RUN tar -xzf ${MM_GEOIP_TEMP} --directory /tmp && \
+RUN set -eux; \
+    mkdir -p ${MM_GEOIP_DIR} ${MM_GEOIP_SRC_DIR} && \
+    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -P /tmp ${MM_GEOIP_DOWNLOAD_URL} && \
+    tar -xzf ${MM_GEOIP_TEMP} --directory /tmp && \
     cp -rfv ${MM_GEOIP_TEMP_SRC}/* ${MM_GEOIP_SRC_DIR} && \
     ln -sf ${MM_GEOIP_SRC_DIR} ${MM_GEOIP_DIR}/src && \
     cd ${MM_GEOIP_TEMP_SRC} && \
@@ -1001,17 +1202,19 @@ RUN tar -xzf ${MM_GEOIP_TEMP} --directory /tmp && \
     make -j$(nproc) install && \
     echo "# GeoIP support" >> ${LD_CONF_DIR}/GeoIP.conf && \
     echo ${MM_GEOIP_LIB_DIR} >> ${LD_CONF_DIR}/GeoIP.conf && \
-    ldconfig
+    ldconfig && \
+      echo "clean up" && \
+      rm -rfv /tmp/*
 
 ENV PATH="${MM_GEOIP_BIN_DIR}:${PATH}" 
 
 ##################################################################
 #                   Google perftools
 ##################################################################
-RUN mkdir -p ${GPERFTOOLS_DIR} ${GPERFTOOLS_SRC_DIR}
-ADD ${GPERFTOOLS_DOWNLOAD_URL} /tmp
-
-RUN tar -xzf ${GPERFTOOLS_TEMP} --directory /tmp && \
+RUN set -eux; \
+    mkdir -p ${GPERFTOOLS_DIR} ${GPERFTOOLS_SRC_DIR} && \
+    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -P /tmp ${GPERFTOOLS_DOWNLOAD_URL} && \
+    tar -xzf ${GPERFTOOLS_TEMP} --directory /tmp && \
     cp -rfv ${GPERFTOOLS_TEMP_SRC}/* ${GPERFTOOLS_SRC_DIR} && \
     ln -sf ${GPERFTOOLS_SRC_DIR} ${GPERFTOOLS_DIR}/src && \
     cd ${GPERFTOOLS_TEMP_SRC} && \
@@ -1029,17 +1232,19 @@ RUN tar -xzf ${GPERFTOOLS_TEMP} --directory /tmp && \
     make -j$(nproc) install && \
     echo "# Google perftools support" >> ${LD_CONF_DIR}/Googleperftools.conf && \
     echo ${GPERFTOOLS_LIB_DIR} >> ${LD_CONF_DIR}/Googleperftools.conf && \
-    ldconfig
+    ldconfig && \
+      echo "clean up" && \
+      rm -rfv /tmp/*
 
 ENV PATH="${GPERFTOOLS_BIN_DIR}:${PATH}" 
 
 ##################################################################
 #                   OpenSSL 1.0.2u
 ##################################################################
-RUN mkdir -p ${OPENSSL_102_DIR} ${OPENSSL_102_SRC_DIR}
-ADD ${OPENSSL_102_DOWNLOAD_URL} /tmp
-
-RUN tar -xzf ${OPENSSL_102_TEMP} --directory /tmp && \
+RUN set -eux; \
+    mkdir -p ${OPENSSL_102_DIR} ${OPENSSL_102_SRC_DIR} && \
+    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -P /tmp ${OPENSSL_102_DOWNLOAD_URL} && \
+    tar -xzf ${OPENSSL_102_TEMP} --directory /tmp && \
     cp -rfv ${OPENSSL_102_TEMP_SRC}/* ${OPENSSL_102_SRC_DIR} && \
     ln -sf ${OPENSSL_102_SRC_DIR} ${OPENSSL_102_DIR}/src && \
     cd ${OPENSSL_102_TEMP_SRC} && \
@@ -1057,15 +1262,17 @@ RUN tar -xzf ${OPENSSL_102_TEMP} --directory /tmp && \
       --prefix=${OPENSSL_102_DIR} \
       && \
     make -j$(nproc) && \
-    make -j$(nproc) install
+    make -j$(nproc) install && \
+      echo "clean up" && \
+      rm -rfv /tmp/*
 
 ##################################################################
 #                   OpenSSL 1.1.1.1
 ##################################################################
-RUN mkdir -p ${OPENSSL_111_DIR} ${OPENSSL_111_SRC_DIR}
-ADD ${OPENSSL_111_DOWNLOAD_URL} /tmp
-
-RUN tar -xzf ${OPENSSL_111_TEMP} --directory /tmp && \
+RUN set -eux; \
+    mkdir -p ${OPENSSL_111_DIR} ${OPENSSL_111_SRC_DIR} && \
+    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -P /tmp ${OPENSSL_111_DOWNLOAD_URL} && \
+    tar -xzf ${OPENSSL_111_TEMP} --directory /tmp && \
     cp -rfv ${OPENSSL_111_TEMP_SRC}/* ${OPENSSL_111_SRC_DIR} && \
     ln -sf ${OPENSSL_111_SRC_DIR} ${OPENSSL_111_DIR}/src && \
     cd ${OPENSSL_111_TEMP_SRC} && \
@@ -1083,15 +1290,17 @@ RUN tar -xzf ${OPENSSL_111_TEMP} --directory /tmp && \
       --prefix=${OPENSSL_111_DIR} \
       && \
     make -j$(nproc) && \
-    make -j$(nproc) install
+    make -j$(nproc) install && \
+      echo "clean up" && \
+      rm -rfv /tmp/*
 
 ##################################################################
 #                   OpenSSL 3.0
 ##################################################################
-RUN mkdir -p ${OPENSSL_30_DIR} ${OPENSSL_30_SRC_DIR}
-ADD ${OPENSSL_30_DOWNLOAD_URL} /tmp
-
-RUN tar -xzf ${OPENSSL_30_TEMP} --directory /tmp && \
+RUN set -eux; \
+    mkdir -p ${OPENSSL_30_DIR} ${OPENSSL_30_SRC_DIR} && \
+    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -P /tmp ${OPENSSL_30_DOWNLOAD_URL} && \
+    tar -xzf ${OPENSSL_30_TEMP} --directory /tmp && \
     cp -rfv ${OPENSSL_30_TEMP_SRC}/* ${OPENSSL_30_SRC_DIR} && \
     ln -sf ${OPENSSL_30_SRC_DIR} ${OPENSSL_30_DIR}/src && \
     cd ${OPENSSL_30_TEMP_SRC} && \
@@ -1112,15 +1321,17 @@ RUN tar -xzf ${OPENSSL_30_TEMP} --directory /tmp && \
       --prefix=${OPENSSL_30_DIR} \
       && \
     make -j$(nproc) && \
-    make -j$(nproc) install
+    make -j$(nproc) install && \
+      echo "clean up" && \
+      rm -rfv /tmp/*
 
 ##################################################################
 #                   OpenSSL 3.1
 ##################################################################
-RUN mkdir -p ${OPENSSL_31_DIR} ${OPENSSL_31_SRC_DIR}
-ADD ${OPENSSL_31_DOWNLOAD_URL} /tmp
-
-RUN tar -xzf ${OPENSSL_31_TEMP} --directory /tmp && \
+RUN set -eux; \
+    mkdir -p ${OPENSSL_31_DIR} ${OPENSSL_31_SRC_DIR} && \
+    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -P /tmp ${OPENSSL_31_DOWNLOAD_URL} && \
+    tar -xzf ${OPENSSL_31_TEMP} --directory /tmp && \
     cp -rfv ${OPENSSL_31_TEMP_SRC}/* ${OPENSSL_31_SRC_DIR} && \
     ln -sf ${OPENSSL_31_SRC_DIR} ${OPENSSL_31_DIR}/src && \
     cd ${OPENSSL_31_TEMP_SRC} && \
@@ -1141,15 +1352,17 @@ RUN tar -xzf ${OPENSSL_31_TEMP} --directory /tmp && \
       --prefix=${OPENSSL_31_DIR} \
       && \
     make -j$(nproc) && \
-    make -j$(nproc) install
+    make -j$(nproc) install && \
+      echo "clean up" && \
+      rm -rfv /tmp/*
 
 ##################################################################
 #                   OpenSSL 3.2
 ##################################################################
-RUN mkdir -p ${OPENSSL_32_DIR} ${OPENSSL_32_SRC_DIR}
-ADD ${OPENSSL_32_DOWNLOAD_URL} /tmp
-
-RUN tar -xzf ${OPENSSL_32_TEMP} --directory /tmp && \
+RUN set -eux; \
+    mkdir -p ${OPENSSL_32_DIR} ${OPENSSL_32_SRC_DIR} && \
+    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -P /tmp ${OPENSSL_32_DOWNLOAD_URL} && \
+    tar -xzf ${OPENSSL_32_TEMP} --directory /tmp && \
     cp -rfv ${OPENSSL_32_TEMP_SRC}/* ${OPENSSL_32_SRC_DIR} && \
     ln -sf ${OPENSSL_32_SRC_DIR} ${OPENSSL_32_DIR}/src && \
     cd ${OPENSSL_32_TEMP_SRC} && \
@@ -1172,15 +1385,17 @@ RUN tar -xzf ${OPENSSL_32_TEMP} --directory /tmp && \
       --prefix=${OPENSSL_32_DIR} \
       && \
     make -j$(nproc) && \
-    make -j$(nproc) install
+    make -j$(nproc) install && \
+      echo "clean up" && \
+      rm -rfv /tmp/*
 
 ##################################################################
 #                   OpenSSL 3.3
 ##################################################################
-RUN mkdir -p ${OPENSSL_33_DIR} ${OPENSSL_33_SRC_DIR}
-ADD ${OPENSSL_33_DOWNLOAD_URL} /tmp
-
-RUN tar -xzf ${OPENSSL_33_TEMP} --directory /tmp && \
+RUN set -eux; \
+    mkdir -p ${OPENSSL_33_DIR} ${OPENSSL_33_SRC_DIR} && \
+    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -P /tmp ${OPENSSL_33_DOWNLOAD_URL} && \
+    tar -xzf ${OPENSSL_33_TEMP} --directory /tmp && \
     cp -rfv ${OPENSSL_33_TEMP_SRC}/* ${OPENSSL_33_SRC_DIR} && \
     ln -sf ${OPENSSL_33_SRC_DIR} ${OPENSSL_33_DIR}/src && \
     cd ${OPENSSL_33_TEMP_SRC} && \
@@ -1203,15 +1418,17 @@ RUN tar -xzf ${OPENSSL_33_TEMP} --directory /tmp && \
       --prefix=${OPENSSL_33_DIR} \
       && \
     make -j$(nproc) && \
-    make -j$(nproc) install
+    make -j$(nproc) install && \
+      echo "clean up" && \
+      rm -rfv /tmp/*
 
 ##################################################################
 #                   OpenSSL 3.4
 ##################################################################
-RUN mkdir -p ${OPENSSL_34_DIR} ${OPENSSL_34_SRC_DIR}
-ADD ${OPENSSL_34_DOWNLOAD_URL} /tmp
-
-RUN tar -xzf ${OPENSSL_34_TEMP} --directory /tmp && \
+RUN set -eux; \
+    mkdir -p ${OPENSSL_34_DIR} ${OPENSSL_34_SRC_DIR} && \
+    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -P /tmp ${OPENSSL_34_DOWNLOAD_URL} && \
+    tar -xzf ${OPENSSL_34_TEMP} --directory /tmp && \
     cp -rfv ${OPENSSL_34_TEMP_SRC}/* ${OPENSSL_34_SRC_DIR} && \
     ln -sf ${OPENSSL_34_SRC_DIR} ${OPENSSL_34_DIR}/src && \
     cd ${OPENSSL_34_TEMP_SRC} && \
@@ -1234,15 +1451,17 @@ RUN tar -xzf ${OPENSSL_34_TEMP} --directory /tmp && \
       --prefix=${OPENSSL_34_DIR} \
       && \
     make -j$(nproc) && \
-    make -j$(nproc) install
+    make -j$(nproc) install && \
+      echo "clean up" && \
+      rm -rfv /tmp/*
 
 ##################################################################
 #                   OpenSSL 3.5
 ##################################################################
-RUN mkdir -p ${OPENSSL_35_DIR} ${OPENSSL_35_SRC_DIR}
-ADD ${OPENSSL_35_DOWNLOAD_URL} /tmp
-
-RUN tar -xzf ${OPENSSL_35_TEMP} --directory /tmp && \
+RUN set -eux; \
+    mkdir -p ${OPENSSL_35_DIR} ${OPENSSL_35_SRC_DIR} && \
+    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -P /tmp ${OPENSSL_35_DOWNLOAD_URL} && \
+    tar -xzf ${OPENSSL_35_TEMP} --directory /tmp && \
     cp -rfv ${OPENSSL_35_TEMP_SRC}/* ${OPENSSL_35_SRC_DIR} && \
     ln -sf ${OPENSSL_35_SRC_DIR} ${OPENSSL_35_DIR}/src && \
     cd ${OPENSSL_35_TEMP_SRC} && \
@@ -1265,15 +1484,17 @@ RUN tar -xzf ${OPENSSL_35_TEMP} --directory /tmp && \
       --prefix=${OPENSSL_35_DIR} \
       && \
     make -j$(nproc) && \
-    make -j$(nproc) install
+    make -j$(nproc) install && \
+      echo "clean up" && \
+      rm -rfv /tmp/*
 
 ##################################################################
 #                   OpenSSL 3.6
 ##################################################################
-RUN mkdir -p ${OPENSSL_36_DIR} ${OPENSSL_36_SRC_DIR}
-ADD ${OPENSSL_36_DOWNLOAD_URL} /tmp
-
-RUN tar -xzf ${OPENSSL_36_TEMP} --directory /tmp && \
+RUN set -eux; \
+    mkdir -p ${OPENSSL_36_DIR} ${OPENSSL_36_SRC_DIR} && \
+    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -P /tmp ${OPENSSL_36_DOWNLOAD_URL} && \
+    tar -xzf ${OPENSSL_36_TEMP} --directory /tmp && \
     cp -rfv ${OPENSSL_36_TEMP_SRC}/* ${OPENSSL_36_SRC_DIR} && \
     ln -sf ${OPENSSL_36_SRC_DIR} ${OPENSSL_36_DIR}/src && \
     cd ${OPENSSL_36_TEMP_SRC} && \
@@ -1296,15 +1517,17 @@ RUN tar -xzf ${OPENSSL_36_TEMP} --directory /tmp && \
       --prefix=${OPENSSL_36_DIR} \
       && \
     make -j$(nproc) && \
-    make -j$(nproc) install
+    make -j$(nproc) install && \
+      echo "clean up" && \
+      rm -rfv /tmp/*
 
 ##################################################################
 #                   LibreSSL
 ##################################################################
-RUN mkdir -p ${LIBRESSL_DIR} ${LIBRESSL_SRC_DIR}
-ADD ${LIBRESSL_DOWNLOAD_URL} /tmp
-
-RUN tar -xzf ${LIBRESSL_TEMP} --directory /tmp && \
+RUN set -eux; \
+    mkdir -p ${LIBRESSL_DIR} ${LIBRESSL_SRC_DIR} && \
+    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -P /tmp ${LIBRESSL_DOWNLOAD_URL} && \
+    tar -xzf ${LIBRESSL_TEMP} --directory /tmp && \
     cp -rfv ${LIBRESSL_TEMP_SRC}/* ${LIBRESSL_SRC_DIR} && \
     ln -sfv ${LIBRESSL_SRC_DIR} ${LIBRESSL_DIR}/src && \
     cd ${LIBRESSL_TEMP_SRC} && \
@@ -1315,7 +1538,9 @@ RUN tar -xzf ${LIBRESSL_TEMP} --directory /tmp && \
       --prefix=${LIBRESSL_DIR} \
       && \
     make -j$(nproc) && \
-    make -j$(nproc) install
+    make -j$(nproc) install && \
+      echo "clean up" && \
+      rm -rfv /tmp/*
 
 # ##################################################################
 # #                   BoringSSL
@@ -1336,16 +1561,4 @@ RUN tar -xzf ${LIBRESSL_TEMP} --directory /tmp && \
 ##################################################################
 #                   other   customisations
 ##################################################################
-
-##################################################################
-#                  Cleanup
-##################################################################
-RUN echo "clean up" && \
-    apt-get clean -y && \
-    apt-get autoclean -y && \
-    rm -rfv /var/lib/apt/lists/* && \
-    rm -rfv /var/cache/apt/archives/*.deb && \
-    rm -rfv /root/tmp/* && \
-    rm -rfv /tmp/*
-
-RUN updatedb
+ 

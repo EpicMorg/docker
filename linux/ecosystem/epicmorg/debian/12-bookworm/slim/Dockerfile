@@ -57,6 +57,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     gnupg2 \
     locales \
     locate \
+    lsb-release \
     rar \
     software-properties-common \
     sudo \
@@ -100,17 +101,9 @@ RUN openssl dhparam -in ${SSL_DHPARAM_FILE} -text -noout | grep bit
 WORKDIR ${EMG_LOCAL_BASE_DIR}
 
 ##################################################################
-#                  Cleanup
+#                   Version after install
 ##################################################################
-RUN echo "clean up" && \
-    apt-get clean -y && \
-    apt-get autoclean -y && \
-    rm -rfv /var/lib/apt/lists/* && \
-    rm -rfv /var/cache/apt/archives/*.deb && \
-    rm -rfv /root/tmp/* && \
-    rm -rfv /tmp/*
-
-##################################################################
-#                  update file db
-##################################################################
-RUN updatedb
+RUN echo "=============================================" && \
+    echo $(lsb_release -d) && \
+    echo "Version: $(cat /etc/debian_version)" && \
+    echo "============================================="

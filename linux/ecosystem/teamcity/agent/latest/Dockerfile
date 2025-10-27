@@ -103,16 +103,6 @@ RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E03280
     ca-certificates-mono \
     mono-xsp4
 
-##################################################################
-#                  Cleanup
-##################################################################
-RUN echo "clean up" && \
-    apt-get clean -y && \
-    apt-get autoclean -y && \
-    rm -rfv /var/lib/apt/lists/* && \
-    rm -rfv /var/cache/apt/archives/*.deb && \
-    rm -rfv /root/tmp/* && \
-    rm -rfv /tmp/*
 
 ##################################################################
 #                   final config
@@ -121,5 +111,3 @@ WORKDIR ${AGENT_DIST}
 
 # A better fix for TW-52939 Dockerfile build fails because of aufs
 VOLUME ["/var/lib/docker", "/var/lib/containers", "/var/tmp"]
-
-RUN updatedb

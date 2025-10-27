@@ -286,18 +286,6 @@ RUN CFLAGS="-Wno-error -fPIC" CXXFLAGS="-fPIC" ./configure \
 RUN rm -rfv ${NGINX_CONF_DIR}/nginx.conf && \
     mkdir -p ${NGINX_MODULES_DIR} ${NGINX_MODULES_PERL_DIR}
 
-##################################################################
-#                  Cleanup
-##################################################################
-RUN echo "clean up" && \
-    apt-get clean -y && \
-    apt-get autoclean -y && \
-    rm -rfv /var/lib/apt/lists/* && \
-    rm -rfv /var/cache/apt/archives/*.deb && \
-    rm -rfv /root/tmp/* && \
-    rm -rfv /tmp/*
-
-RUN updatedb
 
 ##################################################################
 ##################################################################
@@ -377,21 +365,7 @@ VOLUME ["${NGINX_CACHE_DIR}"]
 ##################################################################
 WORKDIR ${NGINX_DIR}
 
-##################################################################
-#                  Cleanup
-##################################################################
-RUN echo "clean up" && \
-    apt-get clean -y && \
-    apt-get autoclean -y && \
-    rm -rfv /var/lib/apt/lists/* && \
-    rm -rfv /var/cache/apt/archives/*.deb && \
-    rm -rfv /root/tmp/* && \
-    rm -rfv /tmp/*
 
-RUN updatedb
-
-##################################################################
-#                   Run nginx in foreground
 ##################################################################
 RUN nginx -V
 

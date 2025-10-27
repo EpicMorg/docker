@@ -62,18 +62,6 @@ ENV PODMAN_HOST="unix:///var/run/docker.sock"
 
 COPY etc/ /etc/
 
-##################################################################
-#                  Cleanup
-##################################################################
-RUN echo "clean up" && \
-    apt-get clean -y && \
-    apt-get autoclean -y && \
-    rm -rfv /var/lib/apt/lists/* && \
-    rm -rfv /var/cache/apt/archives/*.deb && \
-    rm -rfv /root/tmp/* && \
-    rm -rfv /tmp/*
 
 # A better fix for TW-52939 Dockerfile build fails because of aufs
 VOLUME ["/var/lib/docker", "/var/lib/containers", "/var/tmp", "/var/log/supervisor"]
-
-RUN updatedb

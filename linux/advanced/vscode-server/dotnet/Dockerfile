@@ -24,10 +24,28 @@ ENV DOTNET_CLI_TELEMETRY_OPTOUT=true
 ENV DOTNET_SKIP_FIRST_TIME_EXPERIENCE=true
 
 ##################################################################
+#                    Shared wget args
+##################################################################
+ARG WGET_ARGS="--continue \
+  --quiet \
+  --no-check-certificate \
+  --retry-connrefused \
+  --tries=15 \
+  --timeout=30 \
+  --waitretry=15 \
+  --dns-timeout=30 \
+  --connect-timeout=30 \
+  --read-timeout=30 \
+  --no-clobber"
+
+ARG WGET_USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:128.0) Gecko/20100101 Firefox/128.0"
+
+##################################################################
 #                   installing dotnet
 ##################################################################
-ADD ${DOTNET_INSTALL_SCRIPT_URL} /tmp
-RUN mkdir -p ${DOTNET_ROOT} && \ 
+RUN set -eux; \
+    mkdir -p ${DOTNET_ROOT} && \ 
+    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -P /tmp ${DOTNET_INSTALL_SCRIPT_URL} && \
     chmod +x /tmp/dotnet-install.sh && \
     /tmp/dotnet-install.sh --verbose --no-path --install-dir ${DOTNET_ROOT} --channel ${DOTNET_CHANNEL} --version latest
 
@@ -45,15 +63,3 @@ RUN echo "=============================================" && \
     echo $(dotnet --list-runtimes) && \
     echo "============================================="
 
-##################################################################
-#                  Cleanup
-##################################################################
-RUN echo "clean up" && \
-    apt-get clean -y && \
-    apt-get autoclean -y && \
-    rm -rfv /var/lib/apt/lists/* && \
-    rm -rfv /var/cache/apt/archives/*.deb && \
-    rm -rfv /root/tmp/* && \
-    rm -rfv /tmp/*
-
-RUN updatedb

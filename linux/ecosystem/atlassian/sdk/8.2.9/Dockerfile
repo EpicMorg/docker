@@ -66,5 +66,3 @@ RUN echo "clean up" && \
     rm -rfv /root/tmp/* && \
     rm -rfv /tmp/*
 
-
-RUN updatedb

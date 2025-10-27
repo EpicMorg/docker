@@ -3,7 +3,11 @@ services:
     image: "epicmorg/bitbucket:{{ item }}"
     build:
       context: .
+    x-mirrors:
+      - quay.io/epicmorg/bitbucket:{{ item }}
   app-jdk8:
     image: "epicmorg/bitbucket:{{ item }}-jdk8"
     build:
       context: .
+    x-mirrors:
+      - quay.io/epicmorg/bitbucket:{{ item }}-jdk8

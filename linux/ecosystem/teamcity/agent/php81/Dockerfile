@@ -284,5 +284,3 @@ RUN echo "clean up" && \
 #                   final config
 ##################################################################
 WORKDIR ${AGENT_DIST}
-
-RUN updatedb

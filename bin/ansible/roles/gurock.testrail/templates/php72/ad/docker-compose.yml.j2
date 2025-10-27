@@ -3,3 +3,5 @@ services:
     image: "epicmorg/testrail:auth-ad-{{ item }}"
     build:
       context: .
+    x-mirrors:
+      - quay.io/epicmorg/testrail:auth-ad-{{ item }}

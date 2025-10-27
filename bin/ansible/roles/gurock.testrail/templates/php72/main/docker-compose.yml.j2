@@ -3,3 +3,5 @@ services:
     image: "epicmorg/testrail:{{ item }}"
     build:
       context: .
+    x-mirrors:
+      - quay.io/epicmorg/testrail:{{ item }}

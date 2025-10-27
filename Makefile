@@ -29,6 +29,16 @@ help:
 	@echo "make experimental-images          - build experimental images."
 	@echo "make images                       - build all images."
 
+ansible.gen.all:
+	@make -s ansible.gen.jira
+	@make -s ansible.gen.confluence
+	@make -s ansible.gen.crowd
+	@make -s ansible.gen.crucible
+	@make -s ansible.gen.fisheye
+	@make -s ansible.gen.fisheye-crucible
+	@make -s ansible.gen.bitbucket
+	@make -s ansible.gen.testrail
+	
 ansible.gen.jira:
 	cd `pwd`/bin/ansible			&& ansible-playbook ./generate.jira.yml
 
@@ -2244,7 +2254,7 @@ ecosystem-bitbucket-9-images:
 
 	@make clean
 
-ecosystem-bitbucket-9-images:
+ecosystem-bitbucket-10-images:
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/10/10.0.0-eap3             && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/10/10.0.0                  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/10/10.0.1                  && pwd && make build && make deploy

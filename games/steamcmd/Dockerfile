@@ -47,19 +47,6 @@ RUN dpkg --add-architecture i386 && \
     ln -sfv ${VALVE_STEAMCMD_FOLDER}/steam.sh ${VALVE_STEAMCMD_FOLDER}/steam && \
     steamcmd +quit
 
-##################################################################
-#                   cleaninig up
-##################################################################
-RUN echo "clean up" && \
-    apt-get clean -y && \
-    apt-get autoclean -y && \
-    rm -rfv /var/lib/apt/lists/* && \
-    rm -rfv /var/cache/apt/archives/*.deb && \
-    rm -rfv /root/tmp/* && \
-    rm -rfv /tmp/*
-
 
 WORKDIR ${VALVE_STEAMCMD_FOLDER}
 VOLUME ${VALVE_STEAMCMD_LOGS} ${VALVE_VOLUME_FOLDER}
-
-RUN updatedb

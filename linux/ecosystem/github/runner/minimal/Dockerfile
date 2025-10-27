@@ -32,16 +32,6 @@ RUN mkdir -p ${RUNNER_DIST_DIR} ${RUNNER_DIST_DIR} ${RUNNER_WORK_DIR} && \
     ${RUNNER_DIST_DIR}/bin//installdependencies.sh && \
     sync
 
-##################################################################
-#                  Cleanup
-##################################################################
-RUN echo "clean up" && \
-    apt-get clean -y && \
-    apt-get autoclean -y && \
-    rm -rfv /var/lib/apt/lists/* && \
-    rm -rfv /var/cache/apt/archives/*.deb && \
-    rm -rfv /root/tmp/* && \
-    rm -rfv /tmp/*
 
 ##################################################################
 #                   final config
@@ -51,5 +41,3 @@ WORKDIR ${RUNNER_DIST_DIR}
 VOLUME ["${RUNNER_WORK_DIR}", "${RUNNER_DIAG_DIR}", "/var/log/supervisor"]
 
 CMD ["/usr/bin/supervisord"]
-
-RUN updatedb

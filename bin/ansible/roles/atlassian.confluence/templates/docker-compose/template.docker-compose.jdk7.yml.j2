@@ -3,7 +3,11 @@ services:
     image: "epicmorg/confluence:{{ item }}"
     build:
       context: .
+    x-mirrors:
+      - quay.io/epicmorg/confluence:{{ item }}
   app-jdk7:
     image: "epicmorg/confluence:{{ item }}-jdk7"
     build:
       context: .
+    x-mirrors:
+      - quay.io/epicmorg/confluence:{{ item }}-jdk7

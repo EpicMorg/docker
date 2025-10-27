@@ -46,5 +46,3 @@ RUN apt-get clean -y && \
     rm -rfv /var/cache/apt/archives/*.deb && \
     rm -rfv /root/tmp/* && \
     rm -rfv /tmp/*
-
-RUN updatedb

@@ -119,5 +119,3 @@ RUN apt-get clean -y && \
 ##################################################################
 
 VOLUME ["/var/lib/docker", "/var/lib/containers", "/var/tmp"]
-
-RUN updatedb

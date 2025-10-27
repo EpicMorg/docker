@@ -11,12 +11,12 @@ ARG DOWNLOAD_URL=https://product-downloads.atlassian.com/software/stash/download
 ##################################################################
 #                   Setup
 ##################################################################
-ENV RUN_USER            daemon
-ENV RUN_GROUP           daemon
+ENV RUN_USER=daemon
+ENV RUN_GROUP=daemon
 
 # https://confluence.atlassian.com/display/BitbucketServer/Bitbucket+Server+home+directory
-ENV BITBUCKET_HOME          /var/atlassian/application-data/bitbucket
-ENV BITBUCKET_INSTALL_DIR   /opt/atlassian/bitbucket
+ENV BITBUCKET_HOME=/var/atlassian/application-data/bitbucket
+ENV BITBUCKET_INSTALL_DIR=/opt/atlassian/bitbucket
 
 VOLUME ["${BITBUCKET_HOME}"]
 WORKDIR $BITBUCKET_HOME

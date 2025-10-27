@@ -1,21 +1,21 @@
 # Cant template urls because each versions have unical link. need to rework
 
-#   - name: Read versions from file
-#     slurp:
-#        src: "roles/common/files/versions/jira/4.jdk6.txt"
-#     register: version_output
-#   
-#   - name: Set version variable
-#     set_fact:
-#       jira_versions: "{{ version_output['content'] | b64decode | trim | split('\n') }}"
-#   
-#   - name: Create directories for Jira versions
-#     file:
-#       path: "{{ target_directory_jira_4 }}/{{ item }}"
-#       state: directory
-#       mode: '0755'
-#       force: true
-#     with_items: "{{ jira_versions }}"
+- name: Read versions from file
+  slurp:
+     src: "roles/common/files/versions/jira/4.jdk6.txt"
+  register: version_output
+ 
+- name: Set version variable
+  set_fact:
+    jira_versions: "{{ version_output['content'] | b64decode | trim | split('\n') }}"
+  
+- name: Create directories for Jira versions
+  file:
+    path: "{{ target_directory_jira_4 }}/{{ item }}"
+    state: directory
+    mode: '0755'
+    force: true
+  with_items: "{{ jira_versions }}"
 #   
 #   #- name: Copy .env with link from template to each version directory
 #   #  template:
@@ -24,12 +24,12 @@
 #   #    force: true
 #   #  with_items: "{{ jira_versions }}"
 #   
-#   - name: Copy docker-compose.yml from template to each version directory
-#     copy:
-#       src: "docker-compose.yml"
-#       dest: "{{ target_directory_jira_4 }}/{{ item }}/docker-compose.yml"
-#       force: true
-#     with_items: "{{ jira_versions }}"
+- name: Copy docker-compose.yml from template to each version directory
+  template:
+    src: "docker-compose/template.docker-compose.jdk6.yml.j2"
+    dest: "{{ target_directory_jira_4 }}/{{ item }}/docker-compose.yml"
+    force: true
+  with_items: "{{ jira_versions }}"
 #   
 #   - name: Copy Dockerfile from template to each version directory
 #     copy:

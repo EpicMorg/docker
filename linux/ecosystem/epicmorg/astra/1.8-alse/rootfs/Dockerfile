@@ -32,13 +32,3 @@ COPY etc/apt/sources.list /etc/apt/sources.list
 RUN apt-get update && \
     apt-get dist-upgrade -y
 
-##################################################################
-#                  Cleanup
-##################################################################
-RUN echo "clean up" && \
-    apt-get clean -y && \
-    apt-get autoclean -y && \
-    rm -rfv /var/lib/apt/lists/* && \
-    rm -rfv /var/cache/apt/archives/*.deb && \
-    rm -rfv /root/tmp/* && \
-    rm -rfv /tmp/*

@@ -1,4 +1,4 @@
-FROM docker.io/epicmorg/debian:trixie-develop  as builder
+FROM docker.io/epicmorg/debian:trixie-develop AS builder
 
 ##################################################################
 #                   Build
@@ -116,15 +116,3 @@ RUN echo "=============================================" && \
 
 WORKDIR ${EMG_LOCAL_BASE_DIR}
 
-##################################################################
-#                  cleanup
-##################################################################
-RUN echo "clean up" && \
-    apt-get clean -y && \
-    apt-get autoclean -y && \
-    rm -rfv /var/lib/apt/lists/* && \
-    rm -rfv /var/cache/apt/archives/*.deb && \
-    rm -rfv /root/tmp/* && \
-    rm -rfv /tmp/*
-
-RUN updatedb
