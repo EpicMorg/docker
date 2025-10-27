@@ -24,8 +24,8 @@ RUN apt update && apt install -y \
 ARG LD_CONF_DIR=/etc/ld.so.conf.d/
 
 ENV REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
-ENV PYTHON_VERSION=3.10
-ENV PYTHON_FULL_VERSION=${PYTHON_VERSION}.19
+ENV PYTHON_VERSION=3.14
+ENV PYTHON_FULL_VERSION=${PYTHON_VERSION}.0
 ENV PYTHON_DIR=${EMG_LOCAL_BASE_DIR}/python/${PYTHON_VERSION}
 ARG PYTHON_BIN_DIR=${PYTHON_DIR}/bin
 ARG PYTHON_SRC_DIR=${PYTHON_DIR}/src
@@ -53,7 +53,7 @@ RUN ./configure \
     --enable-loadable-sqlite-extensions \
     --with-ensurepip=install \
     --enable-profiling \
-    --with-system-expat \
+  #  --with-system-expat \
     --with-computed-gotos \
     --with-pydebug \
     --with-trace-refs \
@@ -106,11 +106,11 @@ ENV OPENSSL_34_LIB_DIR=${OPENSSL_34_DIR}/lib64
 ENV OPENSSL_34_SRC_DIR=/usr/local/src/openssl/${OPENSSL_34_VERSION}
 
 ##################################################################
-#                  Python 3.10
+#                  Python 3.13
 ##################################################################
 ENV REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
-ENV PYTHON_VERSION=3.10
-ENV PYTHON_FULL_VERSION=${PYTHON_VERSION}.19
+ENV PYTHON_VERSION=3.13
+ENV PYTHON_FULL_VERSION=${PYTHON_VERSION}.9
 ENV PYTHON_DIR=${EMG_LOCAL_BASE_DIR}/python/${PYTHON_VERSION}
 ARG PYTHON_BIN_DIR=${PYTHON_DIR}/bin
 ARG PYTHON_SRC_DIR=${PYTHON_DIR}/src

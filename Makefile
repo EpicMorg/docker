@@ -694,6 +694,7 @@ ecosystem-debian-bullseye-python-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/python/3.11  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/python/3.12  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/python/3.13  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/python/3.14  && pwd && make build && make deploy
 	@make clean
 
 ecosystem-debian-bullseye-dotnet-images:
@@ -790,6 +791,7 @@ ecosystem-debian-bookworm-python-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/python/3.11  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/python/3.12  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/python/3.13  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/python/3.14  && pwd && make build && make deploy
 	@make clean
 
 ecosystem-debian-bookworm-dotnet-images:
@@ -885,6 +887,7 @@ ecosystem-debian-trixie-python-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/python/3.11  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/python/3.12  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/python/3.13  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/python/3.14  && pwd && make build && make deploy
 	@make clean
 
 ecosystem-debian-trixie-dotnet-images:
@@ -978,6 +981,7 @@ ecosystem-debian-sid-python-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/python/3.11  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/python/3.12  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/python/3.13  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/python/3.14  && pwd && make build && make deploy
 	@make clean
 
 ecosystem-debian-sid-dotnet-images:

@@ -1,4 +1,4 @@
-FROM docker.io/epicmorg/debian:bookworm-develop  as builder
+FROM docker.io/epicmorg/debian:sid-develop  as builder
 
 ##################################################################
 #                   Build
@@ -23,9 +23,8 @@ RUN apt update && apt install -y \
 # /etc/ld.so.conf.d/
 ARG LD_CONF_DIR=/etc/ld.so.conf.d/
 
-ENV REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
-ENV PYTHON_VERSION=3.10
-ENV PYTHON_FULL_VERSION=${PYTHON_VERSION}.19
+ENV PYTHON_VERSION=3.14
+ENV PYTHON_FULL_VERSION=${PYTHON_VERSION}.0
 ENV PYTHON_DIR=${EMG_LOCAL_BASE_DIR}/python/${PYTHON_VERSION}
 ARG PYTHON_BIN_DIR=${PYTHON_DIR}/bin
 ARG PYTHON_SRC_DIR=${PYTHON_DIR}/src
@@ -53,7 +52,7 @@ RUN ./configure \
     --enable-loadable-sqlite-extensions \
     --with-ensurepip=install \
     --enable-profiling \
-    --with-system-expat \
+  #  --with-system-expat \
     --with-computed-gotos \
     --with-pydebug \
     --with-trace-refs \
@@ -80,14 +79,7 @@ RUN python${PYTHON_VERSION} -c "import ssl; print(ssl.OPENSSL_VERSION)"
 ##################################################################
 ##################################################################
 ##################################################################
-FROM docker.io/epicmorg/debian:bookworm
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    python3-dev \
-    libc6 \
-    libgcc-s1 \
-    libstdc++6 \
-    && rm -rf /var/lib/apt/lists/*
+FROM docker.io/epicmorg/debian:sid
 
 RUN apt-get remove -y python3-pip
 
@@ -106,11 +98,10 @@ ENV OPENSSL_34_LIB_DIR=${OPENSSL_34_DIR}/lib64
 ENV OPENSSL_34_SRC_DIR=/usr/local/src/openssl/${OPENSSL_34_VERSION}
 
 ##################################################################
-#                  Python 3.10
+#                  Python 3.13
 ##################################################################
-ENV REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
-ENV PYTHON_VERSION=3.10
-ENV PYTHON_FULL_VERSION=${PYTHON_VERSION}.19
+ENV PYTHON_VERSION=3.13
+ENV PYTHON_FULL_VERSION=${PYTHON_VERSION}.9
 ENV PYTHON_DIR=${EMG_LOCAL_BASE_DIR}/python/${PYTHON_VERSION}
 ARG PYTHON_BIN_DIR=${PYTHON_DIR}/bin
 ARG PYTHON_SRC_DIR=${PYTHON_DIR}/src
