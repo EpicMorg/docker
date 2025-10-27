@@ -70,7 +70,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     git-cvs \
     git-doc \
     git-email \
-    git-mediawiki \
+#    git-mediawiki \
     git-crypt \
     git-lfs \
     git-ftp \
@@ -108,7 +108,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     pbzip2 \
     plzip \
     p7zip-full \
-    p7zip-rar \
+#    p7zip-rar \
     rsync \
     rar \
     screenfetch \
@@ -133,8 +133,8 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     python3-all \
     rclone \
     logrotate \
-    subversion-tools \
-    pev
+#    pev \
+    subversion-tools
 
 ##################################################################
 #                   installing fs-tools
