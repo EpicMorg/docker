@@ -17,6 +17,13 @@
   * updated `bitbucket` images
   * updated `confluence` images
   * updated `jira` images
+  * updated `develop` deps:
+    * `openssl`
+    * `libatomic`
+    * `libxml`
+    * `libxslt`
+    * etc
+  * fixed `astra` version `1.7`
 * `aug`:
   * fixed:
     * `python` base images by [@MamonovEvgeniy](https://github.com/MamonovEvgeniy)

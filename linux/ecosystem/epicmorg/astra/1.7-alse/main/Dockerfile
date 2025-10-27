@@ -95,7 +95,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     lsof \
     lynx \
     lzma \
-    lzip \
+#    lzip \
     lzop \
     mc \
     mercurial \
