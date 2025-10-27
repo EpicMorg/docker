@@ -10,6 +10,7 @@
     * added `node` version `25`
   * updated `jdk` images
     * added `jdk` version `25`
+  * updated `7-Zip` to `7z2501`
 * `aug`:
   * fixed:
     * `python` base images by [@MamonovEvgeniy](https://github.com/MamonovEvgeniy)
@@ -155,7 +156,7 @@
 			```
 			/usr/local/share/epicmorg/
 			|-- 7z
-			|   `-- 7z2407
+			|   `-- 7z2501
 			|       |-- History.txt
 			|       |-- License.txt
 			|       |-- MANUAL
@@ -227,7 +228,7 @@
   * fixed `java` images,
   * added `maven`, `gradle`, `kotlin` to compatible `java 8+` images.
   * updated `GOSU` to `1.17`
-  * updated `7z` to `7z2407`
+  * updated `7z` to `7z2501`
   * updated `LazyGIT` to `0.40.2`
   * updated `p4` to `23.2` in base images
   * updated `perforce` iamges - `p4` and `p4p` to `r23.1` and `r23.2`
