@@ -90,6 +90,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     libxml2-utils \
     lbzip2 \
     libsvn-java \
+    libatomic1 \
     locales \
     lsb-release \
     lsof \
