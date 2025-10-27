@@ -37,7 +37,7 @@ clean:
 	docker volume prune -f
 	docker system prune -af
 	buildah rm -a
-	buildah rmi -a
+	buildah rmi -af
 
 pip:
 	pip3 install --break-system-packages --no-cache-dir kaniko-wrapper buildah-wrapper

@@ -11,6 +11,9 @@
   * updated `jdk` images
     * added `jdk` version `25`
   * updated `7-Zip` to `7z2501`
+  * added new `atlassian-sdk` images
+    * added `8.2.9` version
+    * added `9.1.1` version
 * `aug`:
   * fixed:
     * `python` base images by [@MamonovEvgeniy](https://github.com/MamonovEvgeniy)

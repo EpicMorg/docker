@@ -1,0 +1,25 @@
+
+services:
+  app:
+    image: "epicmorg/atlassian-sdk:9.1.1"
+    build:
+      context: .
+  app-jdk8:
+    image: "epicmorg/atlassian-sdk:9.1.1-jdk8"
+    build:
+      context: .
+  app-jdk11:
+    image: "epicmorg/atlassian-sdk:9.1.1-jdk11"
+    build:
+      context: .
+      dockerfile: Dockerfile.jdk11
+  app-jdk17:
+    image: "epicmorg/atlassian-sdk:9.1.1-jdk17"
+    build:
+      context: .
+      dockerfile: Dockerfile.jdk17
+  app-jdk21:
+    image: "epicmorg/atlassian-sdk:9.1.1-jdk21"
+    build:
+      context: .
+      dockerfile: Dockerfile.jdk21

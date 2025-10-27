@@ -827,8 +827,6 @@ ecosystem-debian-bookworm-jdk-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk/jdk24    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk/jdk25    && pwd && make build && make deploy
 	@make clean
-	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/atlassian-sdk  && pwd && make build && make deploy
-	@make clean
 
 ecosystem-debian-bookworm-nodejs-images: 
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/current        && pwd && make build && make deploy
@@ -1549,6 +1547,11 @@ ecosystem-perforce-proxy-images:
 	cd `pwd`/linuxecosystem/perforce/p4p/r23.2    && pwd && make build && make deploy
 	cd `pwd`/linuxecosystem/perforce/p4p/r24.2    && pwd && make build && make deploy
 	@make clean
+
+
+ecosystem-atlassian-sdk-images:
+	cd `pwd`/linux/ecosystem/atlassian/sdk/8.2.9                && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/sdk/9.1.1                && pwd && make build && make deploy
 
 ecosystem-bitbucket-1-images:
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/1/1.0.3                && pwd && make build && make deploy
