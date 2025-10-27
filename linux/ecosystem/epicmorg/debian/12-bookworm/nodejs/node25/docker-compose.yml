@@ -1,0 +1,10 @@
+services:
+  app:
+    image: "epicmorg/debian:bookworm-nodejs25"
+    build:
+      context: .
+  app-develop:
+    image: "epicmorg/debian:bookworm-develop-nodejs25"
+    build:
+      context: .
+      dockerfile: ./Dockerfile.develop

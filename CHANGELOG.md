@@ -5,7 +5,9 @@
   * fixed and reworked `mattermost` images!
   * fixed `debian:sid`
   * updated `python` images
-  * added `python` version `3.14`
+    * added `python` version `3.14`
+  * updated `node` images
+    * added `node` version `25`
 * `aug`:
   * fixed:
     * `python` base images by [@MamonovEvgeniy](https://github.com/MamonovEvgeniy)

@@ -12,7 +12,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ENV BuildDocker true
 
 ARG K_NODE_MAJOR_VERSION=22
-ARG K_NODE_VERSION=${K_NODE_MAJOR_VERSION}.6.0
+ARG K_NODE_VERSION=${K_NODE_MAJOR_VERSION}.21.0
 ARG K_NODE_URL=https://nodejs.org/dist/v${K_NODE_VERSION}/node-v${K_NODE_VERSION}-linux-x64.tar.gz
 ARG K_NODE_HEADERS_URL=https://nodejs.org/dist/v${K_NODE_VERSION}/node-v${K_NODE_VERSION}-headers.tar.gz
 

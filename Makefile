@@ -750,6 +750,8 @@ ecosystem-debian-bullseye-nodejs-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/nodejs/node21         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/nodejs/node22         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/nodejs/node23         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/nodejs/node24         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/nodejs/node25         && pwd && make build && make deploy
 	@make clean
 
 ####################################################################################################################
@@ -850,6 +852,8 @@ ecosystem-debian-bookworm-nodejs-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node21         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node22         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node23         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node24         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/nodejs/node25         && pwd && make build && make deploy
 	@make clean
 
 ####################################################################################################################
@@ -944,6 +948,8 @@ ecosystem-debian-trixie-nodejs-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/nodejs/node21         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/nodejs/node22         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/nodejs/node23         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/nodejs/node24         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/nodejs/node25         && pwd && make build && make deploy
 	@make clean
 
 ####################################################################################################################
