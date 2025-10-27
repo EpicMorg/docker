@@ -1,5 +1,0 @@
-services:
-  app:
-    image: "epicmorg/mattermost-enterprise-edition:10.11"
-    build:
-      context: .

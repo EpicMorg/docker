@@ -107,14 +107,10 @@ advanced-images:
 	@echo "===== Building third-party images ====="
 	@echo "======================================="
 	make advanced-cassandra-images
-	make advanced-mattermost-images
 	make advanced-teamcity-server-images
 	make advanced-nextcloud-all-images
 	make advanced-zabbix-images
 	make advanced-vscode-server-images
-
-advanced-mattermost-images:
-	cd `pwd`/linux/advanced/mattermost			&& pwd && make build && make deploy
 
 advanced-nextcloud-all-images:
 	make advanced-nextcloud-all-latest-images
@@ -3363,6 +3359,35 @@ ecosystem-jira-10-images:
 	cd `pwd`/linux/ecosystem/atlassian/jira/10/10.4.1             && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/10/10.5.0             && pwd && make build && make deploy
 	@make clean
+
+
+ecosystem-mattermost-images:
+	make ecosystem-mattermost-images-11
+	@make clean
+	make ecosystem-mattermost-images-10
+	@make clean
+
+ecosystem-mattermost-images-11:
+	cd `pwd`/linux/ecosystem/mattermost/11/11-stable	&& pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/mattermost/11/11.1			&& pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/mattermost/11/11.0			&& pwd && make build && make deploy
+
+ecosystem-mattermost-images-10:
+	cd `pwd`/linux/ecosystem/mattermost/10/10-stable	&& pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/mattermost/10/10.12		&& pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/mattermost/10/10.11		&& pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/mattermost/10/10.10		&& pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/mattermost/10/10.9			&& pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/mattermost/10/10.8			&& pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/mattermost/10/10.7			&& pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/mattermost/10/10.6			&& pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/mattermost/10/10.5			&& pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/mattermost/10/10.4			&& pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/mattermost/10/10.3			&& pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/mattermost/10/10.2			&& pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/mattermost/10/10.1			&& pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/mattermost/10/10.0			&& pwd && make build && make deploy
+
 
 bundle-base-images:
 	@echo "======================================="

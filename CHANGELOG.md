@@ -1,6 +1,8 @@
 # Changelog
 
 ## 2025
+* `sep`-`oct`
+  * fixed and reworked `mattermost` images!
 * `aug`:
   * fixed:
     * `python` base images by [@MamonovEvgeniy](https://github.com/MamonovEvgeniy)
