@@ -3,12 +3,7 @@ services:
     image: "epicmorg/bitbucket:9.6.0"
     build:
       context: .
-  app-jdk17:
-    image: "epicmorg/bitbucket:9.6.0-jdk17"
-    build:
-      context: .
   app-jdk21:
     image: "epicmorg/bitbucket:9.6.0-jdk21"
     build:
       context: .
-      dockerfile: Dockerfile.jdk21

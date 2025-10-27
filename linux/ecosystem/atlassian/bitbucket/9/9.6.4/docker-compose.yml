@@ -1,0 +1,9 @@
+services:
+  app:
+    image: "epicmorg/bitbucket:9.6.4"
+    build:
+      context: .
+  app-jdk21:
+    image: "epicmorg/bitbucket:9.6.4-jdk21"
+    build:
+      context: .

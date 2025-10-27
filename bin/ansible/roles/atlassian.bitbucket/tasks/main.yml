@@ -33,3 +33,10 @@
 
 - name: "Generate images for  Bitbucket 9 (jdk17 + jdk21)"
   import_tasks: atlassian.bitbucket.9.jdk17-21.yml
+
+
+- name: "Generate images for  Bitbucket 9 (jdk21)"
+  import_tasks: atlassian.bitbucket.9.jdk21.yml
+
+- name: "Generate images for  Bitbucket 10 (jdk21)"
+  import_tasks: atlassian.bitbucket.10.jdk21.yml
