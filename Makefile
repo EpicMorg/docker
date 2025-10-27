@@ -2244,7 +2244,7 @@ ecosystem-bitbucket-9-images:
 
 	@make clean
 
-ecosystem-bitbucket-9-images:
+ecosystem-bitbucket-10-images:
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/10/10.0.0-eap3             && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/10/10.0.0                  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/10/10.0.1                  && pwd && make build && make deploy
