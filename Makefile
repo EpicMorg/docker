@@ -2654,6 +2654,12 @@ ecosystem-confluence-8-images:
 	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.5.19                 && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.5.2                  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.5.20                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.5.22                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.5.23                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.5.24                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.5.25                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.5.26                 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.5.27                 && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.5.3                  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.5.4                  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/confluence/8/8.5.5                  && pwd && make build && make deploy
@@ -2689,8 +2695,30 @@ ecosystem-confluence-9-images:
 	cd `pwd`/linux/ecosystem/atlassian/confluence/9/9.2.0                  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/confluence/9/9.2.1                  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/confluence/9/9.2.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/9/9.2.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/9/9.2.4                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/9/9.2.5                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/9/9.2.6                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/9/9.2.7                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/9/9.2.8                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/9/9.2.9                  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/confluence/9/9.3.1                  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/confluence/9/9.3.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/9/9.4.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/9/9.4.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/9/9.5.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/9/9.5.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/9/9.5.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/9/9.5.4                  && pwd && make build && make deploy
+
+	@make clean
+
+ecosystem-confluence-10-images:
+	cd `pwd`/linux/ecosystem/atlassian/confluence/10/10.0.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/10/10.0.3                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/10/10.1.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/10/10.2.0-beta2            && pwd && make build && make deploy
+
 	@make clean
 
 ecosystem-crowd-0-images:

@@ -24,3 +24,6 @@
 
 - name: "Generate images for Confluence 9 (jdk17 + jdk21)"
   import_tasks: atlassian.confluence.9.jdk17-jdk21.yml
+
+- name: "Generate images for Confluence 10 (jdk21)"
+  import_tasks: atlassian.confluence.10.jdk21.yml

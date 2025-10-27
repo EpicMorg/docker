@@ -15,6 +15,7 @@
     * added `8.2.9` version
     * added `9.1.1` version
   * updated `bitbucket` images
+  * updated `confluence` images
 * `aug`:
   * fixed:
     * `python` base images by [@MamonovEvgeniy](https://github.com/MamonovEvgeniy)
