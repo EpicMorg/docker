@@ -723,6 +723,8 @@ ecosystem-debian-bullseye-jdk-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk/jdk21    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk/jdk22    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk/jdk23    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk/jdk24    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/11-bullseye/jdk/jdk25    && pwd && make build && make deploy
 	@make clean
 
 ecosystem-debian-bullseye-nodejs-images: 
@@ -822,6 +824,8 @@ ecosystem-debian-bookworm-jdk-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk/jdk21    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk/jdk22    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk/jdk23    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk/jdk24    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/jdk/jdk25    && pwd && make build && make deploy
 	@make clean
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/atlassian-sdk  && pwd && make build && make deploy
 	@make clean
@@ -918,8 +922,10 @@ ecosystem-debian-trixie-jdk-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/jdk/jdk20    && pwd && make build && make deploy
 	@make clean
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/jdk/jdk21    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/jdk/jdk22    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/jdk/jdk23    && pwd && make build && make deploy
+		cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/jdk/jdk22    && pwd && make build && make deploy
+		cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/jdk/jdk23    && pwd && make build && make deploy
+		cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/jdk/jdk24    && pwd && make build && make deploy
+		cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/jdk/jdk25    && pwd && make build && make deploy
 	@make clean
 
 ecosystem-debian-trixie-nodejs-images: 
@@ -1016,6 +1022,8 @@ ecosystem-debian-sid-jdk-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/jdk/jdk21    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/jdk/jdk22    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/jdk/jdk23    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/jdk/jdk24    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/jdk/jdk25    && pwd && make build && make deploy
 	@make clean
 
 ecosystem-debian-sid-nodejs-images: 
@@ -1044,6 +1052,9 @@ ecosystem-debian-sid-nodejs-images:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/nodejs/node21         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/nodejs/node22         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/nodejs/node23         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/nodejs/node24         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/nodejs/node25         && pwd && make build && make deploy
+
 	@make clean
 
 ####################################################################################################################

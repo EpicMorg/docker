@@ -1,11 +1,11 @@
-FROM docker.io/epicmorg/debian:squeeze
+FROM docker.io/epicmorg/debian:sid
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
-ARG K_JDK_MAJOR_VERSION=17
-ARG K_JDK_FULL_VERSION=jdk-17.0.17
-ARG K_JDK_VERSION=17.0.17
-ARG K_JDK_BUILD_VERSION=10
+ARG K_JDK_MAJOR_VERSION=25
+ARG K_JDK_FULL_VERSION=jdk-25.0.1
+ARG K_JDK_VERSION=25.0.1
+ARG K_JDK_BUILD_VERSION=8
 ARG K_JDK_DIR=${EMG_LOCAL_BASE_DIR}/java/${K_JDK_MAJOR_VERSION}
 ARG K_JDK_URL=https://github.com/adoptium/temurin${K_JDK_MAJOR_VERSION}-binaries/releases/download/${K_JDK_FULL_VERSION}+${K_JDK_BUILD_VERSION}/OpenJDK${K_JDK_MAJOR_VERSION}U-jdk_x64_linux_hotspot_${K_JDK_VERSION}_${K_JDK_BUILD_VERSION}.tar.gz
 ARG K_JDK_TEMP=/tmp/OpenJDK${K_JDK_MAJOR_VERSION}U-jdk_x64_linux_hotspot_${K_JDK_VERSION}_${K_JDK_BUILD_VERSION}.tar.gz
@@ -16,7 +16,7 @@ ENV JDK_HOME=${JAVA_HOME}
 ENV PATH=$PATH:${JAVA_HOME}/bin
 
 ##################################################################
-#                   installing java17
+#                   installing java25
 ##################################################################
 #RUN wget -c \
 #    --user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:128.0) Gecko/20100101 Firefox/128.0" \
@@ -102,7 +102,7 @@ ENV MAVEN_HOME=${MAVEN_ROOT}
 ENV M2_HOME=${MAVEN_ROOT}
 
 ADD ${MAVEN_LINK} /tmp
-RUN 7z x ${MAVEN_TEMP} -o${MAVEN_ROOT}
+RUN 7zz x ${MAVEN_TEMP} -o${MAVEN_ROOT}
 RUN chmod +x -R ${MAVEN_BIN}
 RUN mvn -v
 
@@ -110,7 +110,7 @@ RUN mvn -v
 #                   GRADLE
 ##################################################################
 ADD ${GRADLE_LINK} /tmp
-RUN 7z x ${GRADLE_TEMP} -o${GRADLE_ROOT}
+RUN 7zz x ${GRADLE_TEMP} -o${GRADLE_ROOT}
 RUN chmod +x -R ${GRADLE_BIN}
 RUN gradle -v
 
@@ -118,7 +118,7 @@ RUN gradle -v
 #                   kotlin-compiler
 ##################################################################
 ADD ${KTC_LINK} /tmp
-RUN 7z x ${KTC_TEMP} -o${KTC_ROOT}
+RUN 7zz x ${KTC_TEMP} -o${KTC_ROOT}
 RUN chmod +x -R ${KTC_BIN}
 RUN kotlin -version
 
