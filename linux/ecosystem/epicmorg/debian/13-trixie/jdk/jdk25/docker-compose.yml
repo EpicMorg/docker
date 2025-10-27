@@ -1,0 +1,10 @@
+services:
+  app:
+    image: "epicmorg/debian:trixie-jdk25"
+    build:
+      context: .
+  app-develop:
+    image: "epicmorg/debian:trixie-develop-jdk25"
+    build:
+      context: .
+      dockerfile: ./Dockerfile.develop

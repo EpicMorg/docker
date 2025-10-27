@@ -6,81 +6,224 @@ on:
     - cron: '0 02 * * 2,4,6'
 
 jobs:
-
-  build-images:
-    name: Nextcloud ${{ matrix.version }}
+  build-images-11 :
+    name: Mattermost ${{ matrix.version }}
     runs-on: [ ubuntu-24.04 ]
     strategy:
       matrix:
-        version: [
-#         '9-stable',  '9.11',  '9.10',  '9.9',  '9.8',  '9.7',  '9.6',  '9.5',  '9.4',  '9.3',  '9.2',  '9.1',  '9.0', 
-#         '10-stable', '10.11', '10.10', 
-          '10.9', '10.8', '10.7', '10.6', '10.5', '10.4', '10.3', '10.2', '10.1', '10.0', 
+        version: [ 
+          '11-stable', 
+          '11.1', '11.0', 
         ]
-
     steps:
-    - uses: actions/checkout@v4
-      with: 
-          clean:  true
-          show-progress:  true
-          submodules:  true
-    
-    - name: Log into docker registry
-      uses: nick-fields/retry@v3
-      with:   
+      - uses: actions/checkout@v4
+        with: 
+          clean: true
+          show-progress: true
+          submodules: true
+
+
+      - name: Log into docker registry
+        uses: nick-fields/retry@v3
+        with:
           retry_wait_seconds: 45
           timeout_minutes: 600
           max_attempts: 15
           command: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
-
-    - name: Log into Quay.IO registry
-      uses: nick-fields/retry@v3
-      with:   
+  
+      - name: Log into Quay.IO registry
+        uses: nick-fields/retry@v3
+        with:
           retry_wait_seconds: 45
           timeout_minutes: 600
           max_attempts: 15
           command: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
-
-    - name: Check buildah
-      uses: nick-fields/retry@v3
-      with:   
+  
+      - name: Check buildah
+        uses: nick-fields/retry@v3
+        with:
           retry_wait_seconds: 45
           timeout_minutes: 600
           max_attempts: 15
           command: buildah --version
-
-    - name: Test Make
-      uses: nick-fields/retry@v3
-      with:   
+  
+      - name: Test Make
+        uses: nick-fields/retry@v3
+        with:
           retry_wait_seconds: 45
           timeout_minutes: 600
           max_attempts: 15
           command: make
-
-    - name: Install requirements.txt
-      uses: nick-fields/retry@v3
-      with:   
+  
+      - name: Install requirements.txt
+        uses: nick-fields/retry@v3
+        with:
           retry_wait_seconds: 45
           timeout_minutes: 600
           max_attempts: 15
           command: make pip
 
-    - name: "Build and Deploy Advanced Mattermost Image:"
-      uses: nick-fields/retry@v3
-      with:   
-          retry_wait_seconds: 45
-          timeout_minutes: 600
-          max_attempts: 15
-          command: cd linux/advanced/mattermost/${{ matrix.version }} && pwd && make build && make deploy
+      - name: "Build and Deploy Advanced Mattermost Image:"
+        uses: nick-fields/retry@v3
+        with:   
+            retry_wait_seconds: 45
+            timeout_minutes: 600
+            max_attempts: 15
+            command: cd linux/ecosystem/mattermost/11/${{ matrix.version }} && pwd && make build && make deploy
+
+      - name: Cleanup
+        uses: nick-fields/retry@v3
+        with:   
+            retry_wait_seconds: 45
+            timeout_minutes: 600
+            max_attempts: 15
+            command: make clean
 
 ##################################################################################
+  build-images-10:
+#    needs: build-images-11
+    name: Mattermost ${{ matrix.version }}
+    runs-on: [ ubuntu-24.04 ]
+    strategy:
+      matrix:
+        version: [ 
+          '10-stable', 
+          '10.12', '10.11', '10.10', 
+          '10.9', '10.8', '10.7', '10.6', '10.5',
+          '10.4', '10.3', '10.2', '10.1', '10.0', 
+        ]
+    steps:
+      - uses: actions/checkout@v4
+        with: 
+          clean: true
+          show-progress: true
+          submodules: true
 
-    - name: Cleanup
-      uses: nick-fields/retry@v3
-      with:   
+      - name: Log into docker registry
+        uses: nick-fields/retry@v3
+        with:
           retry_wait_seconds: 45
           timeout_minutes: 600
           max_attempts: 15
-          command: make clean
+          command: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+  
+      - name: Log into Quay.IO registry
+        uses: nick-fields/retry@v3
+        with:
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
+  
+      - name: Check buildah
+        uses: nick-fields/retry@v3
+        with:
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: buildah --version
+  
+      - name: Test Make
+        uses: nick-fields/retry@v3
+        with:
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: make
+  
+      - name: Install requirements.txt
+        uses: nick-fields/retry@v3
+        with:
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: make pip
+
+      - name: "Build and Deploy Advanced Mattermost Image:"
+        uses: nick-fields/retry@v3
+        with:   
+            retry_wait_seconds: 45
+            timeout_minutes: 600
+            max_attempts: 15
+            command: cd linux/ecosystem/mattermost/10/${{ matrix.version }} && pwd && make build && make deploy
+
+      - name: Cleanup
+        uses: nick-fields/retry@v3
+        with:   
+            retry_wait_seconds: 45
+            timeout_minutes: 600
+            max_attempts: 15
+            command: make clean
+
+##################################################################################
+#
+#  build-images-9:
+#    name: Mattermost ${{ matrix.version }}
+#    runs-on: [ ubuntu-24.04 ]
+#    strategy:
+#      matrix:
+#        version: [
+#          '9-stable',
+#          '9.11',  '9.10',
+#          '9.9',  '9.8',  '9.7',  '9.6',  '9.5',
+#          '9.4',  '9.3',  '9.2',  '9.1',  '9.0', 
+#        ]
+#    steps:
+#
+#      - name: Log into docker registry
+#        uses: nick-fields/retry@v3
+#        with:
+#          retry_wait_seconds: 45
+#          timeout_minutes: 600
+#          max_attempts: 15
+#          command: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+#  
+#      - name: Log into Quay.IO registry
+#        uses: nick-fields/retry@v3
+#        with:
+#          retry_wait_seconds: 45
+#          timeout_minutes: 600
+#          max_attempts: 15
+#          command: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
+#  
+#      - name: Check buildah
+#        uses: nick-fields/retry@v3
+#        with:
+#          retry_wait_seconds: 45
+#          timeout_minutes: 600
+#          max_attempts: 15
+#          command: buildah --version
+#  
+#      - name: Test Make
+#        uses: nick-fields/retry@v3
+#        with:
+#          retry_wait_seconds: 45
+#          timeout_minutes: 600
+#          max_attempts: 15
+#          command: make
+#  
+#      - name: Install requirements.txt
+#        uses: nick-fields/retry@v3
+#        with:
+#          retry_wait_seconds: 45
+#          timeout_minutes: 600
+#          max_attempts: 15
+#          command: make pip
+#
+#    - name: "Build and Deploy Advanced Mattermost Image:"
+#      uses: nick-fields/retry@v3
+#      with:   
+#          retry_wait_seconds: 45
+#          timeout_minutes: 600
+#          max_attempts: 15
+#          command: cd linux/ecosystem/mattermost/09/${{ matrix.version }} && pwd && make build && make deploy
+#
+#      - name: Cleanup
+#        uses: nick-fields/retry@v3
+#        with:   
+#            retry_wait_seconds: 45
+#            timeout_minutes: 600
+#            max_attempts: 15
+#            command: make clean
 
 ##################################################################################

@@ -11,7 +11,7 @@ ARG P4_VERSION=r24.2
 ARG P4_BIN_DIR=${EMG_LOCAL_BASE_DIR}/p4/${P4_VERSION}/bin
 ARG P4_DOWNLOAD_URL=https://filehost.perforce.com/perforce/${P4_VERSION}/bin.linux26x86_64/p4
 
-ARG SZ_VERSION=7z2409
+ARG SZ_VERSION=7z2501
 ARG SZ_BIN_DIR=${EMG_LOCAL_BASE_DIR}/7z/${SZ_VERSION}/bin
 ARG SZ_DOWNLOAD_URL=https://www.7-zip.org/a/${SZ_VERSION}-linux-x64.tar.xz
 ARG SZ_TEMP=/tmp/${SZ_VERSION}-linux-x64.tar.xz
@@ -70,7 +70,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     git-cvs \
     git-doc \
     git-email \
-    git-mediawiki \
+#    git-mediawiki \
     git-crypt \
     git-lfs \
     git-ftp \
@@ -108,7 +108,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     pbzip2 \
     plzip \
     p7zip-full \
-    p7zip-rar \
+#    p7zip-rar \
     rsync \
     rar \
     screenfetch \
@@ -133,8 +133,8 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     python3-all \
     rclone \
     logrotate \
-    subversion-tools \
-    pev
+#    pev \
+    subversion-tools
 
 ##################################################################
 #                   installing fs-tools

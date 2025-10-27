@@ -1,0 +1,10 @@
+services:
+  app:
+    image: "epicmorg/debian:bullseye-nodejs25"
+    build:
+      context: .
+  app-develop:
+    image: "epicmorg/debian:bullseye-develop-nodejs25"
+    build:
+      context: .
+      dockerfile: ./Dockerfile.develop
