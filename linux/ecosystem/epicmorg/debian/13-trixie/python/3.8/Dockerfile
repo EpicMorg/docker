@@ -1,4 +1,4 @@
-FROM docker.io/epicmorg/debian:trixie-develop  as builder
+FROM docker.io/epicmorg/debian:trixie-develop AS builder
 
 ##################################################################
 #                   Build
