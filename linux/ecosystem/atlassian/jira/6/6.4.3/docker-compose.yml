@@ -3,12 +3,18 @@ services:
     image: "epicmorg/jira:6.4.3"
     build:
       context: .
+    x-mirrors:
+      - quay.io/epicmorg/jira:6.4.3
   app-jdk7:
     image: "epicmorg/jira:6.4.3-jdk7"
     build:
       context: .
+    x-mirrors:
+      - quay.io/epicmorg/jira:6.4.3-jdk7
   app-jdk8:
     image: "epicmorg/jira:6.4.3-jdk8"
     build:
       context: .
       dockerfile: Dockerfile.jdk8
+    x-mirrors:
+      - quay.io/epicmorg/jira:6.4.3-jdk8

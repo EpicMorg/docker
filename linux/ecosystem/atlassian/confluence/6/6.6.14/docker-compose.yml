@@ -3,7 +3,11 @@ services:
     image: "epicmorg/confluence:6.6.14"
     build:
       context: .
+    x-mirrors:
+      - quay.io/epicmorg/confluence:6.6.14
   app-jdk8:
     image: "epicmorg/confluence:6.6.14-jdk8"
     build:
       context: .
+    x-mirrors:
+      - quay.io/epicmorg/confluence:6.6.14-jdk8

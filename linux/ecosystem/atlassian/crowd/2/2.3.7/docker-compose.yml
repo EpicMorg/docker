@@ -3,12 +3,18 @@ services:
     image: "epicmorg/crowd:2.3.7"
     build:
       context: .
+    x-mirrors:
+      - quay.io/epicmorg/crowd:2.3.7
   app-jdk6:
     image: "epicmorg/crowd:2.3.7-jdk6"
     build:
       context: .
+    x-mirrors:
+      - quay.io/epicmorg/crowd:2.3.7-jdk6
   app-jdk7:
     image: "epicmorg/crowd:2.3.7-jdk7"
     build:
       context: .
       dockerfile: Dockerfile.jdk7
+    x-mirrors:
+      - quay.io/epicmorg/crowd:2.3.7-jdk7

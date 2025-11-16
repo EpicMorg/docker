@@ -1,4 +1,4 @@
-FROM docker.io/epicmorg/debian:bookworm-jdk17
+FROM docker.io/epicmorg/debian:trixie-jdk17
 LABEL maintainer="Atlassian Confluence Server Team; EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 

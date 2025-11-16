@@ -1,4 +1,4 @@
-FROM docker.io/epicmorg/debian:bookworm-jdk6
+FROM docker.io/epicmorg/debian:trixie-jdk6
 LABEL maintainer="Atlassian Crowd Server Team; EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -52,10 +52,11 @@ RUN set -eux; \
     apt-get clean autoclean && apt-get autoremove -y && rm -rf /var/lib/apt/lists/*
     wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -P /tmp ${DOWNLOAD_URL} && \
     mkdir -p ${CROWD_INSTALL_DIR} ${CROWD_DB} /opt/atlassian/support /opt/atlassian/etc && \
-    tar --ignore-zeros -xzf ${TEMP_ARCHIVE} --strip-components=1 --directory "${CROWD_INSTALL_DIR}" && \
+    tar -xzf ${TEMP_ARCHIVE} --strip-components=1 --directory "${CROWD_INSTALL_DIR}" && \
     sed -i -e '2s/^exec/cd "`dirname "$0"`" \&\& exec/' ${CROWD_INSTALL_DIR}/start_crowd.sh && \
-#    sed -i -e 's/-Xms\([0-9]\+[kmg]\) -Xmx\([0-9]\+[kmg]\)/-Xms\${JVM_MINIMUM_MEMORY:=\1} -Xmx\${JVM_MAXIMUM_MEMORY:=\2} \${JVM_SUPPORT_RECOMMENDED_ARGS} -Dcrowd.home=\${CROWD_HOME}/g' ${CROWD_INSTALL_DIR}/apache-tomcat/bin/setenv.sh && \
-#    sed -i -e 's/port="8095"/port="8095" secure="${catalinaConnectorSecure}" scheme="${catalinaConnectorScheme}" proxyName="${catalinaConnectorProxyName}" proxyPort="${catalinaConnectorProxyPort}"/' ${CROWD_INSTALL_DIR}/apache-tomcat/conf/server.xml && \
+    sed -i -e 's#exec "$PRGDIR"/"$EXECUTABLE" start "$@"#exec "$PRGDIR"/"$EXECUTABLE" run "$@"#g' ${CROWD_INSTALL_DIR}/apache-tomcat/bin/startup.sh && \
+    sed -i -e 's/-Xms\([0-9]\+[kmg]\) -Xmx\([0-9]\+[kmg]\)/-Xms\${JVM_MINIMUM_MEMORY:=\1} -Xmx\${JVM_MAXIMUM_MEMORY:=\2} \${JVM_SUPPORT_RECOMMENDED_ARGS} -Dcrowd.home=\${CROWD_HOME}/g' ${CROWD_INSTALL_DIR}/apache-tomcat/bin/setenv.sh && \
+    sed -i -e 's/port="8095"/port="8095" secure="${catalinaConnectorSecure}" scheme="${catalinaConnectorScheme}" proxyName="${catalinaConnectorProxyName}" proxyPort="${catalinaConnectorProxyPort}"/' ${CROWD_INSTALL_DIR}/apache-tomcat/conf/server.xml && \
     apt-get clean -y && \
     apt-get autoremove -y && \
     apt-get autoclean -y && \

@@ -3,12 +3,18 @@ services:
     image: "epicmorg/crowd:4.3.11"
     build:
       context: .
+    x-mirrors:
+      - quay.io/epicmorg/crowd:4.3.11
   app-jdk8:
     image: "epicmorg/crowd:4.3.11-jdk8"
     build:
       context: .
+    x-mirrors:
+      - quay.io/epicmorg/crowd:4.3.11-jdk8
   app-jdk11:
     image: "epicmorg/crowd:4.3.11-jdk11"
     build:
       context: .
       dockerfile: Dockerfile.jdk11
+    x-mirrors:
+      - quay.io/epicmorg/crowd:4.3.11-jdk11

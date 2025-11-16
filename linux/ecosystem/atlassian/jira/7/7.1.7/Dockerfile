@@ -1,4 +1,4 @@
-FROM docker.io/epicmorg/debian:bookworm-jdk8
+FROM docker.io/epicmorg/debian:trixie-jdk8
 LABEL maintainer="Atlassian Jira Server Team; EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -7,6 +7,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 ARG RELEASE=7.1.7
 ARG DOWNLOAD_URL=https://www.atlassian.com/software/jira/downloads/binary/atlassian-jira-software-${RELEASE}-jira-${RELEASE}.tar.gz
+ARG TEMP_ARCHIVE=/tmp/atlassian-jira-software-${RELEASE}-jira-${RELEASE}.tar.gz
 
 ##################################################################
 #                   Setup
@@ -47,7 +48,7 @@ ARG WGET_USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:128.0) Gecko/2
 RUN set -eux; \
     wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -P /tmp ${DOWNLOAD_URL} && \
     mkdir -p  ${JIRA_INSTALL_DIR} && \
-    tar -xzf /tmp/atlassian-jira-software-${RELEASE}-jira-${RELEASE}.tar.gz --strip-components=1 --directory "${JIRA_INSTALL_DIR}" && \
+    tar -xzf ${TEMP_ARCHIVE} --strip-components=1 --directory "${JIRA_INSTALL_DIR}" && \
     chown -R ${RUN_USER}:${RUN_GROUP} ${JIRA_INSTALL_DIR}/ && \
     sed -i -e 's/^JVM_SUPPORT_RECOMMENDED_ARGS=""$/: \${JVM_SUPPORT_RECOMMENDED_ARGS:=""}/g' ${JIRA_INSTALL_DIR}/bin/setenv.sh && \
     sed -i -e 's/^JVM_\(.*\)_MEMORY="\(.*\)"$/: \${JVM_\1_MEMORY:=\2}/g' ${JIRA_INSTALL_DIR}/bin/setenv.sh && \

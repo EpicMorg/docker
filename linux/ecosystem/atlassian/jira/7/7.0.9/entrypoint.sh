@@ -72,6 +72,20 @@ if [ "${CLUSTERED}" == "true" ]; then
     set_cluster_property "ehcache.multicast.hostName" "${EHCACHE_MULTICAST_HOSTNAME}"
 fi
 
+function set_home {
+    echo "Setting up JIRA_HOME.."
+
+    if [ -z "$JIRA_HOME" ]; then
+        echo "Variable JIRA_HOME is empty. Aborting"
+        exit 1
+    fi
+
+    echo "JIRA_HOME is: ${JIRA_HOME}"
+
+    echo "Patchig jira-application.properties"
+    sed -i "s|^jira\.home *=.*|jira.home = ${JIRA_HOME}|" ${JIRA_INSTALL_DIR}/atlassian-jira/WEB-INF/classes/jira-application.properties
+
+}
 
 # Start Jira as the correct user
 if [ "${UID}" -eq 0 ]; then
@@ -82,8 +96,18 @@ if [ "${UID}" -eq 0 ]; then
         chmod -R 700 "${JIRA_HOME}" &&
             chown -R "${RUN_USER}:${RUN_GROUP}" "${JIRA_HOME}"
     fi
+    set_home
     # Now drop privileges
-    exec su -s /bin/bash "${RUN_USER}" -c "$JIRA_INSTALL_DIR/bin/start-jira.sh $@"
+    if [ -f "$JIRA_INSTALL_DIR/bin/start-jira.sh" ]; then
+        exec su -s /bin/bash "${RUN_USER}" -c "$JIRA_INSTALL_DIR/bin/start-jira.sh $@"
+    else
+        exec su -s /bin/bash "${RUN_USER}" -c "$JIRA_INSTALL_DIR/bin/startup.sh $@"
+    fi
 else
-    exec "$JIRA_INSTALL_DIR/bin/start-jira.sh" "$@"
+    set_home
+    if [ -f "$JIRA_INSTALL_DIR/bin/start-jira.sh" ]; then
+        exec "$JIRA_INSTALL_DIR/bin/start-jira.sh" "$@"
+    else
+        exec "$JIRA_INSTALL_DIR/bin/startup.sh" "$@"
+    fi
 fi

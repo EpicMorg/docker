@@ -3,3 +3,5 @@ services:
     image: "epicmorg/testrail:8.1.0.6165"
     build:
       context: .
+    x-mirrors:
+      - quay.io/epicmorg/testrail:8.1.0.6165

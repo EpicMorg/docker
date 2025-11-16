@@ -3,12 +3,18 @@ services:
     image: "epicmorg/confluence:7.13.9"
     build:
       context: .
+    x-mirrors:
+      - quay.io/epicmorg/confluence:7.13.9
   app-jdk8:
     image: "epicmorg/confluence:7.13.9-jdk8"
     build:
       context: .
+    x-mirrors:
+      - quay.io/epicmorg/confluence:7.13.9-jdk8
   app-jdk11:
     image: "epicmorg/confluence:7.13.9-jdk11"
     build:
       context: .
       dockerfile: Dockerfile.jdk11
+    x-mirrors:
+      - quay.io/epicmorg/confluence:7.13.9-jdk11

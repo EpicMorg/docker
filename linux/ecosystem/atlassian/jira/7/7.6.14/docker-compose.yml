@@ -3,7 +3,11 @@ services:
     image: "epicmorg/jira:7.6.14"
     build:
       context: .
+    x-mirrors:
+      - quay.io/epicmorg/jira:7.6.14
   app-jdk8:
     image: "epicmorg/jira:7.6.14-jdk8"
     build:
       context: .
+    x-mirrors:
+      - quay.io/epicmorg/jira:7.6.14-jdk8

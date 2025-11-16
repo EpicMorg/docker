@@ -3,7 +3,11 @@ services:
     image: "epicmorg/crowd:0.3.2"
     build:
       context: .
+    x-mirrors:
+      - quay.io/epicmorg/crowd:0.3.2
   app-jdk6:
     image: "epicmorg/crowd:0.3.2-jdk6"
     build:
       context: .
+    x-mirrors:
+      - quay.io/epicmorg/crowd:0.3.2-jdk6

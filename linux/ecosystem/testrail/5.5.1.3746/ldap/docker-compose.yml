@@ -3,3 +3,5 @@ services:
     image: "epicmorg/testrail:auth-ldap-5.5.1.3746"
     build:
       context: .
+    x-mirrors:
+      - quay.io/epicmorg/testrail:auth-ldap-5.5.1.3746

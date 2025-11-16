@@ -13,7 +13,7 @@ deploy:
 	make deploy-buildah
 
 build-buildah:
-	buildah-wrapper --build --squash
+	buildah-wrapper --build
 
 deploy-buildah:
 	buildah-wrapper --deploy

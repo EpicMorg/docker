@@ -3,3 +3,5 @@ services:
     image: "epicmorg/testrail:auth-ad-6.5.3.1001"
     build:
       context: .
+    x-mirrors:
+      - quay.io/epicmorg/testrail:auth-ad-6.5.3.1001

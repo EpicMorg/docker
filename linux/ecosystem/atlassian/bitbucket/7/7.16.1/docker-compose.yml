@@ -3,12 +3,18 @@ services:
     image: "epicmorg/bitbucket:7.16.1"
     build:
       context: .
+    x-mirrors:
+      - quay.io/epicmorg/bitbucket:7.16.1
   app-jdk8:
     image: "epicmorg/bitbucket:7.16.1-jdk8"
     build:
       context: .
+    x-mirrors:
+      - quay.io/epicmorg/bitbucket:7.16.1-jdk8
   app-jdk11:
     image: "epicmorg/bitbucket:7.16.1-jdk11"
     build:
       context: .
       dockerfile: Dockerfile.jdk11
+    x-mirrors:
+      - quay.io/epicmorg/bitbucket:7.16.1-jdk11

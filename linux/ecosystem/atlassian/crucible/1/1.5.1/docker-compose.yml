@@ -3,7 +3,11 @@ services:
     image: "epicmorg/crucible:1.5.1"
     build:
       context: .
+    x-mirrors:
+      - quay.io/epicmorg/crucible:1.5.1
   app-jdk6:
     image: "epicmorg/crucible:1.5.1-jdk6"
     build:
       context: .
+    x-mirrors:
+      - quay.io/epicmorg/crucible:1.5.1-jdk6
