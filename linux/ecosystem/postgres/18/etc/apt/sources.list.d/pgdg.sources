@@ -1,0 +1,17 @@
+Types: deb
+URIs: http://apt.postgresql.org/pub/repos/apt/
+Suites: trixie-pgdg
+Components: main 18
+Signed-By: /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc
+
+Types: deb
+URIs: http://apt.postgresql.org/pub/repos/apt/
+Suites: trixie-pgdg-snapshot
+Components: main 18
+Signed-By: /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc
+
+Types: deb
+URIs: http://apt.postgresql.org/pub/repos/apt/
+Suites: trixie-pgdg-testing
+Components: main 18
+Signed-By: /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc

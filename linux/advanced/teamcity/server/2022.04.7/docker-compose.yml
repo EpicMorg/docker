@@ -3,3 +3,5 @@ services:
     image: "epicmorg/teamcity-server:2022.04.7"
     build:
       context: .
+    x-mirrors:
+      - quay.io/epicmorg/teamcity-server:2022.04.7

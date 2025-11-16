@@ -369,6 +369,7 @@ advanced-nextcloud-images:
 	cd `pwd`/linux/advanced/nextcloud/pure/29		  && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/nextcloud/pure/30		  && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/nextcloud/pure/31		  && pwd && make build && make deploy
+#	cd `pwd`/linux/advanced/nextcloud/pure/32		  && pwd && make build && make deploy
 	@make clean
 
 advanced-nextcloud-patched-images:
@@ -390,6 +391,7 @@ advanced-nextcloud-patched-images:
 	cd `pwd`/linux/advanced/nextcloud/patched/29		  && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/nextcloud/patched/30		  && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/nextcloud/patched/31		  && pwd && make build && make deploy
+#	cd `pwd`/linux/advanced/nextcloud/patched/32		  && pwd && make build && make deploy
 	@make clean
 
 ####################################################################################################################
@@ -1372,6 +1374,8 @@ ecosystem-qbittorrent-images:
 	cd `pwd`/linux/ecosystem/qbittorrent/5.1.0    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/qbittorrent/5.1.1    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/qbittorrent/5.1.2    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/qbittorrent/5.1.3    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/qbittorrent/5.1.4    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/qbittorrent/testing  && pwd && make build && make deploy
 	@make clean
 
@@ -1409,8 +1413,8 @@ ecosystem-postgres-images:
 	cd `pwd`/linux/ecosystem/postgres/14           && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/postgres/15           && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/postgres/16           && pwd && make build && make deploy
-#	cd `pwd`/linux/ecosystem/postgres/17           && pwd && make build && make deploy
-#	cd `pwd`/linux/ecosystem/postgres/18           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/postgres/17           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/postgres/18           && pwd && make build && make deploy
 	@make clean
 
 ecosystem-teamcity-agent-images:
@@ -2258,6 +2262,9 @@ ecosystem-bitbucket-10-images:
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/10/10.0.0-eap3             && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/10/10.0.0                  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/bitbucket/10/10.0.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/10/10.0.2                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/10/10.1.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/bitbucket/10/10.1.2                  && pwd && make build && make deploy
 
 	@make clean
 
@@ -2724,10 +2731,14 @@ ecosystem-confluence-9-images:
 	@make clean
 
 ecosystem-confluence-10-images:
+	cd `pwd`/linux/ecosystem/atlassian/confluence/10/10.0.1                  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/confluence/10/10.0.2                  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/confluence/10/10.0.3                  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/confluence/10/10.1.0                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/10/10.1.1                  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/10/10.1.2                  && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/confluence/10/10.2.0-beta2            && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/confluence/10/10.2.0            && pwd && make build && make deploy
 
 	@make clean
 
@@ -3482,6 +3493,9 @@ ecosystem-jira-11-images:
 	cd `pwd`/linux/ecosystem/atlassian/jira/11/11.0.1             && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/11/11.1.0             && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/atlassian/jira/11/11.1.1             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/11/11.2.0             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/11/11.2.1             && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/atlassian/jira/11/11.3.0             && pwd && make build && make deploy
 
 	@make clean
 

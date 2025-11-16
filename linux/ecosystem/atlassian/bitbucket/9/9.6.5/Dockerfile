@@ -55,9 +55,10 @@ RUN set -eux; \
 ##################################################################
 #                   Post-Installing Setup
 ##################################################################
-RUN rm -rfv /etc/apt/sources.list.d/launchpad_git-mainline.list && \
-    rm -rfv /etc/apt/sources.list.d/launchpad_git-stable.list && \
-    rm -rfv /etc/apt/sources.list.d/github_git-lfs.list && \
+RUN rm -rfv /etc/apt/sources.list.d/github_git-lfs.sources && \
+    rm -rfv /etc/apt/sources.list.d/github_git-lfs.todo.sources && \
+    rm -rfv /etc/apt/sources.list.d/launchpad_git-mainline.sources && \
+    rm -rfv /etc/apt/sources.list.d/launchpad_git-stable.sources && \
     apt-get update &&  \
     apt-get remove -y \
       git \
@@ -71,7 +72,7 @@ RUN rm -rfv /etc/apt/sources.list.d/launchpad_git-mainline.list && \
       git-lfs \
       git-ftp && \
     apt-get autoremove -y && \
-    apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
+    apt-get install -y --allow-unauthenticated  \
       git \
       git-extras \
       git-flow \

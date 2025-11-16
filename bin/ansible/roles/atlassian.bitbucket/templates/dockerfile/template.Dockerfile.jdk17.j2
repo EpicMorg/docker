@@ -55,9 +55,10 @@ RUN set -eux; \
 ##################################################################
 #                   Post-Installing Setup
 ##################################################################
-RUN rm -rfv /etc/apt/sources.list.d/launchpad_git-mainline.list && \
-    rm -rfv /etc/apt/sources.list.d/launchpad_git-stable.list && \
-    rm -rfv /etc/apt/sources.list.d/github_git-lfs.list && \
+RUN rm -rfv /etc/apt/sources.list.d/github_git-lfs.sources && \
+    rm -rfv /etc/apt/sources.list.d/github_git-lfs.todo.sources && \
+    rm -rfv /etc/apt/sources.list.d/launchpad_git-mainline.sources && \
+    rm -rfv /etc/apt/sources.list.d/launchpad_git-stable.sources && \
     apt-get update &&  \
     apt-get remove -y \
       git \

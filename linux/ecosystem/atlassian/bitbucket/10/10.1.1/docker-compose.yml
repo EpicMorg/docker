@@ -1,0 +1,13 @@
+services:
+  app:
+    image: "epicmorg/bitbucket:10.1.1"
+    build:
+      context: .
+    x-mirrors:
+      - quay.io/epicmorg/bitbucket:10.1.1
+  app-jdk21:
+    image: "epicmorg/bitbucket:10.1.1-jdk21"
+    build:
+      context: .
+    x-mirrors:
+      - quay.io/epicmorg/bitbucket:10.1.1-jdk21

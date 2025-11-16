@@ -1,0 +1,7 @@
+services:
+  app:
+    image: "epicmorg/nextcloud:32-patched"
+    build:
+      context: .
+    x-mirrors:
+      - quay.io/epicmorg/nextcloud:32-patched

@@ -3,3 +3,5 @@ services:
     image: "epicmorg/nextcloud:latest"
     build:
       context: .
+    x-mirrors:
+      - quay.io/epicmorg/nextcloud:latest

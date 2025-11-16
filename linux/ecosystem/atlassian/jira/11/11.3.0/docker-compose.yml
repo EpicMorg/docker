@@ -1,0 +1,13 @@
+services:
+  app:
+    image: "epicmorg/jira:11.3.0"
+    build:
+      context: .
+    x-mirrors:
+      - quay.io/epicmorg/jira:11.3.0
+  app-jdk21:
+    image: "epicmorg/jira:11.3.0-jdk21"
+    build:
+      context: .
+    x-mirrors:
+      - quay.io/epicmorg/jira:11.3.0-jdk21

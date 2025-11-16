@@ -1,0 +1,5 @@
+services:
+  app:
+    image: "epicmorg/gcc:13"
+    build:
+      context: .
