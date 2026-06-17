@@ -1,0 +1,7 @@
+services:
+  app:
+    image: "epicmorg/webtlo:3.8.1"
+    build:
+      context: .
+    x-mirrors:
+      - quay.io/epicmorg/webtlo:3.8.1

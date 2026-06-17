@@ -3646,3 +3646,20 @@ develop:
 	cd `pwd`/linux/ecosystem/epicmorg/debian/12-bookworm/develop    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/13-trixie/develop    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/epicmorg/debian/sid/develop    && pwd && make build && make deploy
+
+advanced-webtlo-images:
+	@echo "======================================="
+	@echo "===== Building webTLO images ====="
+	@echo "======================================="
+	cd `pwd`/linux/advanced/webtlo/latest   && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/webtlo/3.5.6    && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/webtlo/3.6.0    && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/webtlo/3.7.0    && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/webtlo/3.7.1    && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/webtlo/3.7.2    && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/webtlo/3.8.0    && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/webtlo/3.8.1    && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/webtlo/3.8.2    && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/webtlo/4.0.0    && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/webtlo/4.0.1    && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/webtlo/4.1.0    && pwd && make build && make deploy
