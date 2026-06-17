@@ -3,3 +3,5 @@ services:
     image: "epicmorg/webtlo:3.5.6"
     build:
       context: .
+    x-mirrors:
+      - quay.io/epicmorg/webtlo:3.5.6
