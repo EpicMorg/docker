@@ -3,3 +3,7 @@ services:
     image: "epicmorg/debian:bookworm"
     build:
       context: .
+    x-squash: true
+    x-mirrors:
+      - quay.io/epicmorg/debian:bookworm
+      - ghcr.io/epicmorg/debian:bookworm

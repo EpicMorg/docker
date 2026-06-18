@@ -1,0 +1,9 @@
+services:
+  app:
+    image: "epicmorg/debian:bullseye-light"
+    build:
+      context: .
+    x-squash: true
+    x-mirrors:
+      - quay.io/epicmorg/debian:bullseye-light
+      - ghcr.io/epicmorg/debian:bullseye-light

@@ -3,3 +3,7 @@ services:
     image: "epicmorg/debian:buster"
     build:
       context: .
+    x-squash: true
+    x-mirrors:
+      - quay.io/epicmorg/debian:buster
+      - ghcr.io/epicmorg/debian:buster

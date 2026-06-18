@@ -3,3 +3,7 @@ services:
     image: "epicmorg/debian:wheezy-develop"
     build:
       context: .
+    x-squash: true
+    x-mirrors:
+      - quay.io/epicmorg/debian:wheezy-develop
+      - ghcr.io/epicmorg/debian:wheezy-develop

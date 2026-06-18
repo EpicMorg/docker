@@ -1,0 +1,9 @@
+services:
+  app:
+    image: "epicmorg/debian:jessie-light"
+    build:
+      context: .
+    x-squash: true
+    x-mirrors:
+      - quay.io/epicmorg/debian:jessie-light
+      - ghcr.io/epicmorg/debian:jessie-light

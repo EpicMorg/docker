@@ -1,4 +1,4 @@
-FROM docker.io/epicmorg/debian:bookworm-slim
+FROM docker.io/epicmorg/debian:bookworm-light
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
