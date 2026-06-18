@@ -1,4 +1,4 @@
-FROM docker.io/epicmorg/debian:squeeze-slim
+FROM docker.io/epicmorg/debian:squeeze-light
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 

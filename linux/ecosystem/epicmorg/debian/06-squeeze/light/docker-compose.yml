@@ -1,0 +1,9 @@
+services:
+  app:
+    image: "epicmorg/debian:squeeze-light"
+    build:
+      context: .
+    x-squash: true
+    x-mirrors:
+      - quay.io/epicmorg/debian:squeeze-light
+      - ghcr.io/epicmorg/debian:squeeze-light

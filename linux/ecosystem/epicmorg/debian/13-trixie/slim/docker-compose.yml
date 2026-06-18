@@ -1,7 +1,0 @@
-services:
-  app:
-    image: "epicmorg/debian:trixie-slim"
-    build:
-      context: .
-    x-mirrors:
-      - quay.io/epicmorg/debian:trixie-slim

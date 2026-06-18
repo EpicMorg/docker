@@ -1,4 +1,4 @@
-FROM docker.io/epicmorg/debian:buster-slim
+FROM docker.io/epicmorg/debian:buster-light
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 

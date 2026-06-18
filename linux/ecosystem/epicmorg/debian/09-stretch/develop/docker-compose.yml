@@ -3,3 +3,7 @@ services:
     image: "epicmorg/debian:stretch-develop"
     build:
       context: .
+    x-squash: true
+    x-mirrors:
+      - quay.io/epicmorg/debian:stretch-develop
+      - ghcr.io/epicmorg/debian:stretch-develop

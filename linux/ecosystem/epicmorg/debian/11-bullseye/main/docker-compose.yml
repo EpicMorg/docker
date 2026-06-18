@@ -3,3 +3,7 @@ services:
     image: "epicmorg/debian:bullseye"
     build:
       context: .
+    x-squash: true
+    x-mirrors:
+      - quay.io/epicmorg/debian:bullseye
+      - ghcr.io/epicmorg/debian:bullseye

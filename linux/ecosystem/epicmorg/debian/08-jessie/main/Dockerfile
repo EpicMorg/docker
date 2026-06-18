@@ -1,4 +1,4 @@
-FROM docker.io/epicmorg/debian:jessie-slim
+FROM docker.io/epicmorg/debian:jessie-light
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 

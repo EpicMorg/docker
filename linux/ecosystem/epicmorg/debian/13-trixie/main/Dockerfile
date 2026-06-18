@@ -1,4 +1,4 @@
-FROM docker.io/epicmorg/debian:trixie-slim
+FROM docker.io/epicmorg/debian:trixie-light
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
