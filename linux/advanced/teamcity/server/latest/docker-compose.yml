@@ -3,5 +3,7 @@ services:
     image: "epicmorg/teamcity-server:latest"
     build:
       context: .
+    x-squash: true
     x-mirrors:
       - quay.io/epicmorg/teamcity-server:latest
+      - ghcr.io/epicmorg/teamcity-server:latest

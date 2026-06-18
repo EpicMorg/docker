@@ -3,5 +3,7 @@ services:
     image: "epicmorg/webtlo:4.0.1"
     build:
       context: .
+    x-squash: true
     x-mirrors:
       - quay.io/epicmorg/webtlo:4.0.1
+      - ghcr.io/epicmorg/webtlo:4.0.1
