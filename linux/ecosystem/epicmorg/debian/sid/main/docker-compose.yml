@@ -1,9 +1,0 @@
-services:
-  app:
-    image: "epicmorg/debian:sid"
-    build:
-      context: .
-    x-squash: true
-    x-mirrors:
-      - quay.io/epicmorg/debian:sid
-      - ghcr.io/epicmorg/debian:sid

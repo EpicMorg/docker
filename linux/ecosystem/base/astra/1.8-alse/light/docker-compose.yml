@@ -1,0 +1,9 @@
+services:
+  app:
+    image: "epicmorg/astralinux:1.8-light"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/astralinux:1.8-light
+      - ghcr.io/epicmorg/astralinux:1.8-light

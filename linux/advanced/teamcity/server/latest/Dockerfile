@@ -45,7 +45,7 @@ ARG P4_VERSION=r24.1
 ARG P4_BIN_DIR=${EMG_LOCAL_BASE_DIR}/p4/${P4_VERSION}/bin
 ARG P4_DOWNLOAD_URL=https://filehost.perforce.com/perforce/${P4_VERSION}/bin.linux26x86_64/p4
 
-ENV SZ_VERSION=7z2601
+ENV SZ_VERSION=7z2602
 ARG SZ_BIN_DIR=${EMG_LOCAL_BASE_DIR}/7z/${SZ_VERSION}/bin
 ARG SZ_DOWNLOAD_URL=https://www.7-zip.org/a/${SZ_VERSION}-linux-x64.tar.xz
 ARG SZ_TEMP=/tmp/${SZ_VERSION}-linux-x64.tar.xz
@@ -204,7 +204,7 @@ RUN locale-gen
 RUN set -eux; \
     mkdir -p ${P4_BIN_DIR} && \
     aria2c \
-        --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --conf-path="/usr/local/share/epicmorg/aria2/config/aria2.conf" \
         --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
         -d ${P4_BIN_DIR} \
         "${P4_DOWNLOAD_URL}" && \
@@ -229,7 +229,7 @@ ENV PATH="${P4_BIN_DIR}:${PATH}"
 RUN set -eux; \
     mkdir -p ${SZ_BIN_DIR} && \
     aria2c \
-        --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --conf-path="/usr/local/share/epicmorg/aria2/config/aria2.conf" \
         --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
         -d / \
         -o ${SZ_TEMP} \
@@ -253,7 +253,7 @@ RUN echo "=============================================" && \
 RUN set -eux; \
     mkdir -p ${DUMB_INIT_BIN_DIR} && \
     aria2c \
-        --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --conf-path="/usr/local/share/epicmorg/aria2/config/aria2.conf" \
         --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
         -d / \
         -o ${DUMB_INIT_BIN_DIR}/dumb-init \
@@ -267,12 +267,12 @@ RUN echo "=============================================" && \
     echo "============================================="
 
 ##################################################################
-#                    gosu for easy step-down FROM docker.io/root
+#                    gosu
 ##################################################################
 RUN set -eux; \
     mkdir -p ${GOSU_BIN_DIR} && \
     aria2c \
-        --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --conf-path="/usr/local/share/epicmorg/aria2/config/aria2.conf" \
         --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
         -d / \
         -o ${GOSU_BIN_DIR}/gosu \

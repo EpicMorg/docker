@@ -1,9 +1,0 @@
-services:
-  app:
-    image: "epicmorg/debian:trixie-develop"
-    build:
-      context: .
-    x-squash: true
-    x-mirrors:
-      - quay.io/epicmorg/debian:trixie-develop
-      - ghcr.io/epicmorg/debian:trixie-develop
