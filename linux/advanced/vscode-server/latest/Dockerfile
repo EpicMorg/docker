@@ -197,7 +197,7 @@ RUN locale-gen
 RUN set -eux; \
     mkdir -p ${P4_BIN_DIR} && \
     aria2c \
-        --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --conf-path="/usr/local/share/epicmorg/aria2/config/aria2.conf" \
         --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
         -d ${P4_BIN_DIR} \
         "${P4_DOWNLOAD_URL}" && \
@@ -211,7 +211,7 @@ ENV PATH="${P4_BIN_DIR}:${PATH}"
 RUN set -eux; \
     mkdir -p ${SZ_BIN_DIR} && \
     aria2c \
-        --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --conf-path="/usr/local/share/epicmorg/aria2/config/aria2.conf" \
         --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
         -d / \
         -o ${SZ_TEMP} \
@@ -235,7 +235,7 @@ RUN echo "=============================================" && \
 RUN set -eux; \
     mkdir -p ${DUMB_INIT_BIN_DIR} && \
     aria2c \
-        --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --conf-path="/usr/local/share/epicmorg/aria2/config/aria2.conf" \
         --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
         -d / \
         -o ${DUMB_INIT_BIN_DIR}/dumb-init \
@@ -249,12 +249,12 @@ RUN echo "=============================================" && \
     echo "============================================="
 
 ##################################################################
-#                    gosu for easy step-down FROM docker.io/root
+#                    gosu
 ##################################################################
 RUN set -eux; \
     mkdir -p ${GOSU_BIN_DIR} && \
     aria2c \
-        --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --conf-path="/usr/local/share/epicmorg/aria2/config/aria2.conf" \
         --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
         -d / \
         -o ${GOSU_BIN_DIR}/gosu \

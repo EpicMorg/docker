@@ -1,0 +1,9 @@
+services:
+  app:
+    image: "epicmorg/debian:buster-develop"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/debian:buster-develop
+      - ghcr.io/epicmorg/debian:buster-develop

@@ -1,0 +1,10 @@
+services:
+  app:
+    image: "epicmorg/debian:wheezy"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/debian:wheezy
+      - ghcr.io/epicmorg/debian:wheezy
+

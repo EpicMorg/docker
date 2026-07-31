@@ -1,0 +1,9 @@
+services:
+  app:
+    image: "epicmorg/debian:bookworm"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/debian:bookworm
+      - ghcr.io/epicmorg/debian:bookworm

@@ -1,0 +1,9 @@
+services:
+  app:
+    image: "epicmorg/astralinux:1.7-rootfs"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/astralinux:1.7-rootfs
+      - ghcr.io/epicmorg/astralinux:1.7-rootfs

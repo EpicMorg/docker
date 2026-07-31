@@ -1,3 +1,4 @@
 [submodule "linux/experimental/redash/redash-repo"]
 	path = linux/experimental/redash/redash-repo
 	url = https://github.com/getredash/redash.git
+    branch = "master"

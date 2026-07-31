@@ -1,0 +1,9 @@
+services:
+  app:
+    image: "epicmorg/debian:jessie-develop"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/debian:jessie-develop
+      - ghcr.io/epicmorg/debian:jessie-develop
