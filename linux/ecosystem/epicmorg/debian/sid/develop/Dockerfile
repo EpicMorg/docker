@@ -1,6 +1,7 @@
 FROM docker.io/epicmorg/debian:sid
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
+LABEL org.opencontainers.image.title="EpicMorg Debian (Develop)"
 
 ##################################################################
 #                   ARGuments
