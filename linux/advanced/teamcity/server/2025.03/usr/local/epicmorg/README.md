@@ -6,11 +6,11 @@ Some child images could install to this folder custom compilled products. Exampl
 All directories that contains binaryes (`<bin\sbin>`) will be added to `$PATH`.
 
 # Structure
-pattern: `/usr/local/epicmorg/<program-name>/<version>/<..some data and files..>`
+pattern: `/usr/local/share/epicmorg/<program-name>/<version>/<..some data and files..>`
 
 example:
 ```
-/usr/local/epicmorg/
+/usr/local/share/epicmorg/
 |-- 7z
 |   `-- 7z2501
 |       |-- History.txt

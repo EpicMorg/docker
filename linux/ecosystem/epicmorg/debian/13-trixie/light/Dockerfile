@@ -3,8 +3,8 @@ LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 LABEL org.opencontainers.image.vendor="EpicMorg DevTeam, developer@epicm.org"
 LABEL org.opencontainers.image.authors="STAM, kasthack, Aleks-Z"
 LABEL org.opencontainers.image.source="https://github.com/EpicMorg/docker"
-LABEL org.opencontainers.image.title="EpicMorg Debian (light)"
-LABEL org.opencontainers.image.description="Debian Trixie light base by EpicMorg"
+LABEL org.opencontainers.image.title="EpicMorg Debian (Light)"
+LABEL org.opencontainers.image.description="Debian Trixie base by EpicMorg"
 LABEL org.opencontainers.image.licenses="MIT"
 LABEL org.opencontainers.image.documentation="https://github.com/EpicMorg/docker"
 LABEL org.opencontainers.image.url="https://github.com/EpicMorg/docker"
@@ -70,6 +70,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     unrar-free \
     unzip \
     wget \
+    aria2 \
     zip
 
 #RUN apt-key adv --keyserver keyserver.ubuntu.com --refresh-keys
@@ -89,7 +90,7 @@ ENV EMG_LOCAL_BASE_DIR=/usr/local/share/epicmorg
 ENV EMG_WELCOME_MESSAGE=true
 ENV EMG_DONATION_MESSAGE=true
 RUN mkdir -p ${EMG_LOCAL_BASE_DIR}
-COPY usr/local/epicmorg ${EMG_LOCAL_BASE_DIR}
+COPY usr/local/share/epicmorg ${EMG_LOCAL_BASE_DIR}
 RUN chmod +x ${EMG_LOCAL_BASE_DIR}/welcome.sh && \
     echo '[ ! -z "$TERM" -a -x ${EMG_LOCAL_BASE_DIR}/welcome.sh -a -x ${EMG_LOCAL_BASE_DIR}/welcome.sh ] && ${EMG_LOCAL_BASE_DIR}/welcome.sh' >> /etc/bash.bashrc
 
