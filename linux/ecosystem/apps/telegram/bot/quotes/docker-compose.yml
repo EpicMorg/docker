@@ -1,5 +1,9 @@
 services:
   app:
     image: "epicmorg/telegram:bot-quotes"
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/telegram:bot-quotes
+      - ghcr.io/epicmorg/telegram:bot-quotes
     build:
       context: .
