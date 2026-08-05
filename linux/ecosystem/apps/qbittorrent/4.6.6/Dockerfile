@@ -1,4 +1,4 @@
-FROM docker.io/epicmorg/debian:bookworm
+FROM docker.io/epicmorg/debian:trixie
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 

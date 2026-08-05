@@ -1,4 +1,4 @@
-FROM docker.io/epicmorg/debian:trixie-jdk6
+FROM docker.io/epicmorg/jdk:6
 LABEL maintainer="Atlassian Fisheye Server Team; EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 

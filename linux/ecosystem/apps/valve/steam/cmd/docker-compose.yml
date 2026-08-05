@@ -1,0 +1,9 @@
+services:
+  app:
+    image: "epicmorg/steam:cmd"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/steam:cmd
+      - ghcr.io/epicmorg/steam:cmd

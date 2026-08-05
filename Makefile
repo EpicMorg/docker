@@ -508,6 +508,21 @@ ecosystem-debian-sid-images:
 ####################################################################################################################
  
 
+ecosystem-gcc-images:
+#	cd `pwd`/linux/ecosystem/apps/gcc/16       && pwd && make build && make deploy
+#	cd `pwd`/linux/ecosystem/apps/gcc/15       && pwd && make build && make deploy
+#	cd `pwd`/linux/ecosystem/apps/gcc/14       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/gcc/13       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/gcc/12       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/gcc/11       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/gcc/10       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/gcc/09       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/gcc/08       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/gcc/07       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/gcc/06       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/gcc/05       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/gcc/04       && pwd && make build && make deploy
+
 testrail-prod:
 	cd `pwd`/linux/ecosystem/apps/testrail/5.7.1.4028/main       && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/testrail/5.7.1.4028/ad           && pwd && make build && make deploy
