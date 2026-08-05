@@ -5,7 +5,7 @@
 ##################################################################
 ##################################################################
 ##################################################################
-FROM docker.io/epicmorg/debian:bookworm-develop AS build
+FROM docker.io/epicmorg/debian:trixie-develop AS build
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -294,7 +294,7 @@ RUN rm -rfv ${NGINX_CONF_DIR}/nginx.conf && \
 ##################################################################
 ##################################################################
 ##################################################################
-FROM docker.io/epicmorg/debian:bookworm
+FROM docker.io/epicmorg/debian:trixie
 
 ENV NGINX_VERSION=1.26
 ENV NGINX_VERSION_FULL=${NGINX_VERSION}.3

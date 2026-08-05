@@ -7,7 +7,7 @@ RUN ["/mattermost/bin/mattermost", "version"]
 ##################################################################
 #                   Patch official Mattermost image
 ##################################################################
-FROM docker.io/epicmorg/debian:trixie-python-2.7 AS edit
+FROM docker.io/epicmorg/python:2.7 AS edit
 
 WORKDIR /tmp
 

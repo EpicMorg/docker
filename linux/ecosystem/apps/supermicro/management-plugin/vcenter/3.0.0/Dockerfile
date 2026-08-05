@@ -1,4 +1,4 @@
-FROM docker.io/epicmorg/debian:trixie-jdk8
+FROM docker.io/epicmorg/jdk:8
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 

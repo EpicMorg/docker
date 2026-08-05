@@ -1,4 +1,4 @@
-FROM docker.io/epicmorg/debian:trixie-jdk17
+FROM docker.io/epicmorg/jdk:17
 LABEL maintainer="Atlassian Jira Server Team; EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 

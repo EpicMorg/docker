@@ -1,4 +1,4 @@
-FROM docker.io/epicmorg/debian:bookworm-develop-jdk21
+FROM docker.io/epicmorg/debian:trixie-develop-jdk21
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 

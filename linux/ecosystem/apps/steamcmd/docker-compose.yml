@@ -1,5 +1,0 @@
-services:
-  app:
-    image: "epicmorg/games:steamcmd"
-    build:
-      context: .

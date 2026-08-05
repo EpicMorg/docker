@@ -1,4 +1,4 @@
-FROM docker.io/epicmorg/debian:trixie-jdk21
+FROM docker.io/epicmorg/jdk:21
 ARG DEBIAN_FRONTEND=noninteractive
 
 ##################################################################
