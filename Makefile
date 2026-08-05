@@ -556,6 +556,23 @@ testrail-prod:
 	cd `pwd`/linux/ecosystem/apps/testrail/9.0.0.1057/ldap         && pwd && make build && make deploy
 	@make clean
 
+ecosystem-jdk-images:
+	cd `pwd`/linux/ecosystem/apps/java/jdk/jdk26    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/java/jdk/jdk25    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/java/jdk/jdk24    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/java/jdk/jdk23    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/java/jdk/jdk22    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/java/jdk/jdk21    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/java/jdk/jdk20    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/java/jdk/jdk19    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/java/jdk/jdk18    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/java/jdk/jdk17    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/java/jdk/jdk16    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/java/jdk/jdk11    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/java/jdk/jdk8    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/java/jdk/jdk7    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/java/jdk/jdk6    && pwd && make build && make deploy
+	@make clean
 
 ecosystem-apache2-images:
 	cd `pwd`/linux/ecosystem/apps/apache2/php5.6         && pwd && make build && make deploy
