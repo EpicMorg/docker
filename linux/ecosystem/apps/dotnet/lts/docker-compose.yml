@@ -1,0 +1,9 @@
+services:
+  app:
+    image: "epicmorg/dotnet:lts"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/dotnet:lts
+      - ghcr.io/epicmorg/dotnet:lts

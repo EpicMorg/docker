@@ -1,0 +1,9 @@
+services:
+  app:
+    image: "epicmorg/dotnet:6"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/dotnet:6
+      - ghcr.io/epicmorg/dotnet:6
