@@ -3,3 +3,7 @@ services:
     image: "epicmorg/gcc:13"
     build:
       context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/gcc:13
+      - ghcr.io/epicmorg/gcc:13

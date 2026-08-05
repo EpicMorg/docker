@@ -1,15 +1,10 @@
-FROM docker.io/epicmorg/debian:trixie AS temp
-
-RUN set -eux; \     
-    echo "============================================="
-
 FROM docker.io/epicmorg/gcc:15 AS builder
 
 # /etc/ld.so.conf.d/
 ARG LD_CONF_DIR=/etc/ld.so.conf.d/
 
 ARG GCC_MAJOR_VERSION=15
-ARG GCC_MINOR_VERSION=2.0
+ARG GCC_MINOR_VERSION=3.0
 ENV GCC_VERSION=${GCC_MAJOR_VERSION}.${GCC_MINOR_VERSION}
 ENV GCC_INSTALL_DIR=${EMG_LOCAL_BASE_DIR}/gcc/${GCC_MAJOR_VERSION}
 ARG GCC_DOWNLOAD_URL=https://ftp.gnu.org/gnu/gcc/gcc-${GCC_VERSION}/gcc-${GCC_VERSION}.tar.xz
@@ -22,13 +17,6 @@ RUN set -eux; \
     gcc --version && \
     g++ --version && \
     echo "============================================="
-
-COPY --from=temp /usr/local/share/epicmorg/aria2 /usr/local/share/epicmorg/aria2
-COPY --from=temp /usr/local/share/epicmorg/user-agents /usr/local/share/epicmorg/user-agents
-RUN tree -L 2 /usr/local/share/epicmorg/ && \
-    apt update && \
-    apt install -y --no-install-recommends \
-        aria2
 
 RUN set -eux; \
     mkdir -p ${GCC_INSTALL_DIR} && \
@@ -75,8 +63,11 @@ RUN set -eux; \
 ##################################################################
 FROM docker.io/epicmorg/debian:trixie-develop
 
+LABEL org.opencontainers.image.title="EpicMorg GCC"
+LABEL org.opencontainers.image.description="GCC compiler by EpicMorg"
+
 ARG GCC_MAJIOR_VERSION=15
-ARG GCC_MINOR_VERSION=2.0
+ARG GCC_MINOR_VERSION=3.0
 ENV GCC_VERSION=${GCC_MAJIOR_VERSION}.${GCC_MINOR_VERSION}
 ENV GCC_INSTALL_DIR=${EMG_LOCAL_BASE_DIR}/gcc/${GCC_MAJIOR_VERSION}
 
@@ -95,3 +86,5 @@ RUN set -eux; \
     gcc --version && \
     g++ --version && \
     echo "============================================="
+
+WORKDIR ${GCC_INSTALL_DIR}
