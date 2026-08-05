@@ -509,9 +509,9 @@ ecosystem-debian-sid-images:
  
 
 ecosystem-gcc-images:
-#	cd `pwd`/linux/ecosystem/apps/gcc/16       && pwd && make build && make deploy
-#	cd `pwd`/linux/ecosystem/apps/gcc/15       && pwd && make build && make deploy
-#	cd `pwd`/linux/ecosystem/apps/gcc/14       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/gcc/16       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/gcc/15       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/gcc/14       && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/gcc/13       && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/gcc/12       && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/gcc/11       && pwd && make build && make deploy
@@ -522,6 +522,18 @@ ecosystem-gcc-images:
 	cd `pwd`/linux/ecosystem/apps/gcc/06       && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/gcc/05       && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/gcc/04       && pwd && make build && make deploy
+
+ecosystem-dotnet-images:
+	cd `pwd`/linux/ecosystem/apps/dotnet/preview    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/dotnet/sts        && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/dotnet/lts        && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/dotnet/dotnet10   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/dotnet/dotnet9    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/dotnet/dotnet8    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/dotnet/dotnet7    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/dotnet/dotnet6    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/dotnet/dotnet5    && pwd && make build && make deploy
+	@make clean
 
 testrail-prod:
 	cd `pwd`/linux/ecosystem/apps/testrail/5.7.1.4028/main       && pwd && make build && make deploy

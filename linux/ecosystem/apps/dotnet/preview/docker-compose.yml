@@ -1,0 +1,9 @@
+services:
+  app:
+    image: "epicmorg/dotnet:preview"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/dotnet:preview
+      - ghcr.io/epicmorg/dotnet:preview
