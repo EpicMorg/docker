@@ -1,0 +1,9 @@
+services:
+  app:
+    image: "epicmorg/jdk:20"
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/jdk:20
+      - ghcr.io/epicmorg/jdk:20
+    build:
+      context: .

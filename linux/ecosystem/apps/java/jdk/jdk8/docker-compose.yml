@@ -1,0 +1,9 @@
+services:
+  app:
+    image: "epicmorg/jdk:8"
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/jdk:8
+      - ghcr.io/epicmorg/jdk:8
+    build:
+      context: .
