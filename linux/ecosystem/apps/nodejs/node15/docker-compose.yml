@@ -1,0 +1,10 @@
+services:
+  app:
+    image: "epicmorg/nodejs:15"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/nodejs:15
+      - ghcr.io/epicmorg/nodejs:15
+

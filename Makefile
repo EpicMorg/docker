@@ -507,26 +507,35 @@ ecosystem-debian-sid-images:
 
 ####################################################################################################################
  
-
 ecosystem-gcc-images:
 	cd `pwd`/linux/ecosystem/apps/gcc/16       && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/ecosystem/apps/gcc/15       && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/gcc/14       && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/ecosystem/apps/gcc/13       && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/gcc/12       && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/ecosystem/apps/gcc/11       && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/gcc/10       && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/ecosystem/apps/gcc/09       && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/gcc/08       && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/ecosystem/apps/gcc/07       && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/gcc/06       && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/ecosystem/apps/gcc/05       && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/gcc/04       && pwd && make build && make deploy
+	@make clean
 
+####################################################################################################################
+ 
 ecosystem-dotnet-images:
 	cd `pwd`/linux/ecosystem/apps/dotnet/preview    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/dotnet/sts        && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/dotnet/lts        && pwd && make build && make deploy
+#	cd `pwd`/linux/ecosystem/apps/dotnet/dotnet11   && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/dotnet/dotnet10   && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/dotnet/dotnet9    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/dotnet/dotnet8    && pwd && make build && make deploy
@@ -535,6 +544,73 @@ ecosystem-dotnet-images:
 	cd `pwd`/linux/ecosystem/apps/dotnet/dotnet5    && pwd && make build && make deploy
 	@make clean
 
+####################################################################################################################
+ 
+ecosystem-nodejs-images: 
+	cd `pwd`/linux/ecosystem/apps/nodejs/node26         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nodejs/node25         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nodejs/node24         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nodejs/node23         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nodejs/node22         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nodejs/node21         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nodejs/node20         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nodejs/node19         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nodejs/node18         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nodejs/node17         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nodejs/node16         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nodejs/node15         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nodejs/node14         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nodejs/node13         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nodejs/node12         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nodejs/node11         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nodejs/node10         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nodejs/node9          && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nodejs/node8          && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nodejs/node7          && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nodejs/node6          && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nodejs/node5          && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nodejs/node4          && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nodejs/node0.12       && pwd && make build && make deploy
+	@make clean
+
+####################################################################################################################
+ 
+ecosystem-jdk-images:
+	cd `pwd`/linux/ecosystem/apps/java/jdk/jdk26    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/java/jdk/jdk25    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/java/jdk/jdk24    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/java/jdk/jdk23    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/java/jdk/jdk22    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/java/jdk/jdk21    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/java/jdk/jdk20    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/java/jdk/jdk19    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/java/jdk/jdk18    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/java/jdk/jdk17    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/java/jdk/jdk16    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/java/jdk/jdk11    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/java/jdk/jdk8    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/java/jdk/jdk7    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/java/jdk/jdk6    && pwd && make build && make deploy
+	@make clean
+
+####################################################################################################################
+ 
+ecosystem-apache2-images:
+	cd `pwd`/linux/ecosystem/apps/apache2/php5.6         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/apache2/php7.0         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/apache2/php7.1         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/apache2/php7.2         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/apache2/php7.3         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/apache2/php7.4         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/apache2/php8.0         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/apache2/php8.1         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/apache2/php8.2         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/apache2/php8.3         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/apache2/php8.4         && pwd && make build && make deploy
+	@make clean
+
+####################################################################################################################
+ 
 testrail-prod:
 	cd `pwd`/linux/ecosystem/apps/testrail/5.7.1.4028/main       && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/testrail/5.7.1.4028/ad           && pwd && make build && make deploy
@@ -568,37 +644,6 @@ testrail-prod:
 	cd `pwd`/linux/ecosystem/apps/testrail/9.0.0.1057/ldap         && pwd && make build && make deploy
 	@make clean
 
-ecosystem-jdk-images:
-	cd `pwd`/linux/ecosystem/apps/java/jdk/jdk26    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/apps/java/jdk/jdk25    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/apps/java/jdk/jdk24    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/apps/java/jdk/jdk23    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/apps/java/jdk/jdk22    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/apps/java/jdk/jdk21    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/apps/java/jdk/jdk20    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/apps/java/jdk/jdk19    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/apps/java/jdk/jdk18    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/apps/java/jdk/jdk17    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/apps/java/jdk/jdk16    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/apps/java/jdk/jdk11    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/apps/java/jdk/jdk8    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/apps/java/jdk/jdk7    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/apps/java/jdk/jdk6    && pwd && make build && make deploy
-	@make clean
-
-ecosystem-apache2-images:
-	cd `pwd`/linux/ecosystem/apps/apache2/php5.6         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/apps/apache2/php7.0         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/apps/apache2/php7.1         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/apps/apache2/php7.2         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/apps/apache2/php7.3         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/apps/apache2/php7.4         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/apps/apache2/php8.0         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/apps/apache2/php8.1         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/apps/apache2/php8.2         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/apps/apache2/php8.3         && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/apps/apache2/php8.4         && pwd && make build && make deploy
-	@make clean
 
 ecosystem-testrail-images:
 	cd `pwd`/linux/ecosystem/apps/testrail/5.4.1.3669/main       && pwd && make build && make deploy
@@ -3000,8 +3045,8 @@ bundle-base-images:
 	@echo "======================================="
 	@echo "===== Building  EpicMorg   images ====="
 	@echo "======================================="
-#	make advanced-pyhton-images
 	make ecosystem-debian-images
+	make ecosystem-debian-eol-images
 
 bundle-teamcity:
 	@echo "======================================="
@@ -3132,3 +3177,13 @@ advanced-webtlo-images:
 	cd `pwd`/linux/advanced/webtlo/4.0.0    && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/webtlo/4.0.1    && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/webtlo/4.1.0    && pwd && make build && make deploy
+
+
+####################################################################################################################
+
+bundle-2026-images:
+	make bundle-base-images
+	make ecosystem-nodejs-images
+	make ecosystem-dotnet-images
+	make ecosystem-jdk-images
+	make ecosystem-gcc-images
