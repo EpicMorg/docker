@@ -1,12 +1,12 @@
-FROM docker.io/epicmorg/gcc:6 AS builder
+FROM docker.io/epicmorg/gcc:16 AS builder
 
 # /etc/ld.so.conf.d/
 ARG LD_CONF_DIR=/etc/ld.so.conf.d/
 
-ARG GCC_MAJIOR_VERSION=6
-ARG GCC_MINOR_VERSION=5.0
-ENV GCC_VERSION=${GCC_MAJIOR_VERSION}.${GCC_MINOR_VERSION}
-ENV GCC_INSTALL_DIR=${EMG_LOCAL_BASE_DIR}/gcc/${GCC_MAJIOR_VERSION}
+ARG GCC_MAJOR_VERSION=16
+ARG GCC_MINOR_VERSION=1.0
+ENV GCC_VERSION=${GCC_MAJOR_VERSION}.${GCC_MINOR_VERSION}
+ENV GCC_INSTALL_DIR=${EMG_LOCAL_BASE_DIR}/gcc/${GCC_MAJOR_VERSION}
 ARG GCC_DOWNLOAD_URL=https://ftp.gnu.org/gnu/gcc/gcc-${GCC_VERSION}/gcc-${GCC_VERSION}.tar.xz
 ARG DOWNLOAD_URL=${GCC_DOWNLOAD_URL}
 ARG GCC_TEMP=/tmp/gcc-${GCC_VERSION}.tar.xz
@@ -18,16 +18,20 @@ RUN set -eux; \
     g++ --version && \
     echo "============================================="
 
-RUN set -eux; \
+RUN set -eux;\
+    # Vanilla GCC with Debian Multiarch
+    if [ ! -d /usr/lib64 ]; then ln -s /usr/lib/x86_64-linux-gnu /usr/lib64; fi; \
+    if [ ! -d /lib64 ]; then ln -s /lib/x86_64-linux-gnu /lib64; fi; \
+    \
     mkdir -p ${GCC_INSTALL_DIR} && \
     aria2c \
-        --conf-path="/usr/local/share/epicmorg/aria2/config/aria2.conf" \
+        --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
         --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
         -d /tmp \
         "${DOWNLOAD_URL}" && \
     tar -xf ${GCC_TEMP} -C /tmp && \
     cd ${GCC_TEMP_SRC} && \
-    ./contrib/download_prerequisites  && \
+    ./contrib/download_prerequisites && \
     mkdir -p /tmp/gcc-build && \
     cd /tmp/gcc-build && \
     ${GCC_TEMP_SRC}/configure \
@@ -35,7 +39,6 @@ RUN set -eux; \
         --enable-languages=c,c++ \
         --disable-multilib \
         --disable-bootstrap \
-        --disable-libsanitizer \
         --enable-checking=release && \
     make -j$(nproc) && \
     make install && \
@@ -67,10 +70,10 @@ FROM docker.io/epicmorg/debian:trixie-develop
 LABEL org.opencontainers.image.title="EpicMorg GCC"
 LABEL org.opencontainers.image.description="GCC compiler by EpicMorg"
 
-ARG GCC_MAJIOR_VERSION=6
-ARG GCC_MINOR_VERSION=5.0
-ENV GCC_VERSION=${GCC_MAJIOR_VERSION}.${GCC_MINOR_VERSION}
-ENV GCC_INSTALL_DIR=${EMG_LOCAL_BASE_DIR}/gcc/${GCC_MAJIOR_VERSION}
+ARG GCC_MAJOR_VERSION=16
+ARG GCC_MINOR_VERSION=1.0
+ENV GCC_VERSION=${GCC_MAJOR_VERSION}.${GCC_MINOR_VERSION}
+ENV GCC_INSTALL_DIR=${EMG_LOCAL_BASE_DIR}/gcc/${GCC_MAJOR_VERSION}
 
 COPY --from=builder ${GCC_INSTALL_DIR} ${GCC_INSTALL_DIR}
 

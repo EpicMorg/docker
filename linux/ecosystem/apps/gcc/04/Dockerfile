@@ -1,31 +1,15 @@
 FROM docker.io/epicmorg/gcc:4 AS builder
 
-##################################################################
-#                    Shared wget args
-##################################################################
-ARG WGET_ARGS="--continue \
-  --quiet \
-  --no-check-certificate \
-  --retry-connrefused \
-  --tries=15 \
-  --timeout=30 \
-  --waitretry=15 \
-  --dns-timeout=30 \
-  --connect-timeout=30 \
-  --read-timeout=30 \
-  --no-clobber"
-
-ARG WGET_USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:128.0) Gecko/20100101 Firefox/128.0"
-
 # /etc/ld.so.conf.d/
 ARG LD_CONF_DIR=/etc/ld.so.conf.d/
 
-ARG GCC_MAJIOR_VERSION=4
+ARG GCC_MAJOR_VERSION=4
 ARG GCC_MINOR_VERSION=9.4
-ENV GCC_VERSION=${GCC_MAJIOR_VERSION}.${GCC_MINOR_VERSION}
-ENV GCC_INSTALL_DIR=${EMG_LOCAL_BASE_DIR}/gcc/${GCC_MAJIOR_VERSION}
+ENV GCC_VERSION=${GCC_MAJOR_VERSION}.${GCC_MINOR_VERSION}
+ENV GCC_INSTALL_DIR=${EMG_LOCAL_BASE_DIR}/gcc/${GCC_MAJOR_VERSION}
 ARG GCC_DOWNLOAD_URL=https://ftp.gnu.org/gnu/gcc/gcc-${GCC_VERSION}/gcc-${GCC_VERSION}.tar.gz
-ARG GCC_TEMP=/tmp/gcc.tar.xz
+ARG DOWNLOAD_URL=${GCC_DOWNLOAD_URL}
+ARG GCC_TEMP=/tmp/gcc-${GCC_VERSION}.tar.gz
 ARG GCC_TEMP_SRC=/tmp/gcc-${GCC_VERSION}
 
 RUN set -eux; \     
@@ -41,7 +25,7 @@ RUN set -eux; \
         --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
         -d /tmp \
         "${DOWNLOAD_URL}" && \
-    tar -xzf ${GCC_TEMP} -C /tmp && \
+    tar -xf ${GCC_TEMP} -C /tmp && \
     cd ${GCC_TEMP_SRC} && \
     # oh shit, modern glibc removed ucontext struct, need to patch gcc 4.9.4 to use ucontext_t instead
     # https://github.com/suaefar/ryzen-test/issues/6
@@ -50,8 +34,10 @@ RUN set -eux; \
     echo "--- Patching gcc-4.9.4 for modern glibc (ucontext_t) ---" && \
     find ./libgcc -type f -name "*unwind.h" -exec sed -i 's/struct ucontext/ucontext_t/g' {} + && \
     find ./libgcc -type f -name "*-support.h" -exec sed -i 's/struct ucontext/ucontext_t/g' {} + && \
-    ./contrib/download_prerequisites && \
-    ./configure \
+    ./contrib/download_prerequisites  && \
+    mkdir -p /tmp/gcc-build && \
+    cd /tmp/gcc-build && \
+    ${GCC_TEMP_SRC}/configure \
         --prefix=${GCC_INSTALL_DIR} \
         --enable-languages=c,c++ \
         --disable-multilib \
@@ -60,7 +46,7 @@ RUN set -eux; \
         --enable-checking=release && \
     make -j$(nproc) && \
     make install && \
-    rm -rf ${GCC_TEMP} ${GCC_TEMP_SRC}
+    rm -rf ${GCC_TEMP} ${GCC_TEMP_SRC} /tmp/gcc-build
 
 #RUN set -eux; \
 #    echo "# EpicMorg GCC ${GCC_MAJIOR_VERSION} support" > ${LD_CONF_DIR}/epicmorg-gcc-${GCC_MAJIOR_VERSION}.conf && \
@@ -85,6 +71,9 @@ RUN set -eux; \
 ##################################################################
 FROM docker.io/epicmorg/debian:trixie-develop
 
+LABEL org.opencontainers.image.title="EpicMorg GCC"
+LABEL org.opencontainers.image.description="GCC compiler by EpicMorg"
+
 ARG GCC_MAJIOR_VERSION=4
 ARG GCC_MINOR_VERSION=9.4
 ENV GCC_VERSION=${GCC_MAJIOR_VERSION}.${GCC_MINOR_VERSION}
@@ -105,3 +94,5 @@ RUN set -eux; \
     gcc --version && \
     g++ --version && \
     echo "============================================="
+
+WORKDIR ${GCC_INSTALL_DIR}
