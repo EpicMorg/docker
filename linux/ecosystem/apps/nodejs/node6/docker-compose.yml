@@ -1,0 +1,9 @@
+services:
+  app:
+    image: "epicmorg/nodejs:6"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+        - quay.io/epicmorg/nodejs:6
+        - ghcr.io/epicmorg/nodejs:6

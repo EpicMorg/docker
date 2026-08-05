@@ -1,0 +1,9 @@
+services:
+  app:
+    image: "epicmorg/nodejs:21"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/nodejs:21
+      - ghcr.io/epicmorg/nodejs:21

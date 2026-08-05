@@ -1,0 +1,9 @@
+services:
+  app:
+    image: "epicmorg/debian:trixies5"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/nodejs:5
+      - ghcr.io/epicmorg/nodejs:5
