@@ -1,0 +1,13 @@
+services:
+  app:
+    image: "epicmorg/python:dev"
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/python:dev
+      - ghcr.io/epicmorg/python:dev
+      # temprorary tag, 3.16 have active development stage, so we can use it as a dev tag too
+      - quay.io/epicmorg/python:3.16
+      - ghcr.io/epicmorg/python:3.16
+      - docker.io/epicmorg/python:3.16
+    build:
+      context: .

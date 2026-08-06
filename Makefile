@@ -593,6 +593,44 @@ ecosystem-jdk-images:
 	cd `pwd`/linux/ecosystem/apps/java/jdk/jdk6    && pwd && make build && make deploy
 	@make clean
 
+ecosystem-python-images:
+	make ecosystem-supported-python-images
+	make ecosystem-eol-python-images
+#	make ecosystem-museum-images
+
+ecosystem-museum-python-images:
+	cd `pwd`/linux/ecosystem/apps/python/2.6            && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/python/3.0            && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/python/3.1            && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/python/3.2            && pwd && make build && make deploy
+	@make -s clean
+	cd `pwd`/linux/ecosystem/apps/python/3.3            && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/python/3.4            && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/python/3.5            && pwd && make build && make deploy
+	@make -s clean
+	cd `pwd`/linux/ecosystem/apps/python/3.6            && pwd && make build && make deploy
+	@make -s clean
+
+ecosystem-eol-python-images:
+	cd `pwd`/linux/ecosystem/apps/python/2.7            && pwd && make build && make deploy
+	@make -s clean
+	cd `pwd`/linux/ecosystem/apps/python/3.7            && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/python/3.8            && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/python/3.9            && pwd && make build && make deploy
+	@make -s clean
+
+ecosystem-supported-python-images:
+	cd `pwd`/linux/ecosystem/apps/python/3.10           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/python/3.11           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/python/3.12           && pwd && make build && make deploy
+	@make -s clean
+	cd `pwd`/linux/ecosystem/apps/python/3.13           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/python/3.14           && pwd && make build && make deploy
+	@make -s clean
+	cd `pwd`/linux/ecosystem/apps/python/3.15           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/python/dev           && pwd && make build && make deploy
+	@make -s clean
+
 ####################################################################################################################
  
 ecosystem-apache2-images:
@@ -3180,10 +3218,3 @@ advanced-webtlo-images:
 
 
 ####################################################################################################################
-
-bundle-2026-images:
-	make bundle-base-images
-	make ecosystem-nodejs-images
-	make ecosystem-dotnet-images
-	make ecosystem-jdk-images
-	make ecosystem-gcc-images

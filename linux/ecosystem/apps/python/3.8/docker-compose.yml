@@ -1,0 +1,9 @@
+services:
+  app:
+    image: "epicmorg/python:3.8"
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/python:3.8
+      - ghcr.io/epicmorg/python:3.8
+    build:
+      context: .
