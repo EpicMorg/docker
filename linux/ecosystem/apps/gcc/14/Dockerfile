@@ -1,13 +1,4 @@
 FROM docker.io/epicmorg/gcc:14 AS builder
-
-
-COPY --from=temp /usr/local/share/epicmorg/aria2 /usr/local/share/epicmorg/aria2
-COPY --from=temp /usr/local/share/epicmorg/user-agents /usr/local/share/epicmorg/user-agents
-RUN tree -L 2 /usr/local/share/epicmorg/ && \
-    apt update && \
-    apt install -y --no-install-recommends \
-        aria2
-
 LABEL org.opencontainers.image.title="EpicMorg GCC"
 LABEL org.opencontainers.image.description="GCC compiler by EpicMorg"
 
@@ -73,7 +64,6 @@ RUN set -eux; \
 ##################################################################
 ##################################################################
 FROM docker.io/epicmorg/debian:trixie-develop
-
 LABEL org.opencontainers.image.title="EpicMorg GCC"
 LABEL org.opencontainers.image.description="GCC compiler by EpicMorg"
 
