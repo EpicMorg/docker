@@ -70,7 +70,6 @@ RUN set -eux; \
 ##################################################################
 ##################################################################
 FROM docker.io/epicmorg/debian:trixie-develop
-
 LABEL org.opencontainers.image.title="EpicMorg GCC"
 LABEL org.opencontainers.image.description="GCC compiler by EpicMorg"
 
