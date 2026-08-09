@@ -1,0 +1,91 @@
+#!/bin/sh
+# php-ext-install - build + install + enable a bundled PHP extension
+#                   from the source tree shipped inside this image.
+#
+# Based on docker-library/php's docker-php-ext-install (MIT),
+# https://github.com/docker-library/php
+# Modified for EpicMorg:
+#   - sources live permanently under $(php-config --prefix)/src (no extract/delete)
+#   - enabling goes through php-ext-enable -> mods-available -> php-enmod
+#   - Alpine/apk branches removed
+#
+# For PECL extensions use `pecl install <ext>` followed by `php-ext-enable <ext>`.
+set -e
+
+: "${CFLAGS:=$PHP_CFLAGS}"
+: "${CPPFLAGS:=$PHP_CPPFLAGS}"
+: "${LDFLAGS:=$PHP_LDFLAGS}"
+export CFLAGS CPPFLAGS LDFLAGS
+
+srcDir="$(php-config --prefix)/src"
+extSrc="${srcDir}/ext"
+
+usage() {
+	echo "usage: $0 [-jN] [--ini-name file.ini] ext-name [ext-name ...]"
+	echo "   ie: $0 ldap"
+	echo "       $0 -j5 snmp pspell"
+	echo
+	echo 'if custom ./configure arguments are necessary, see php-ext-configure'
+	echo
+	echo 'Possible values for ext-name:'
+	if [ -d "$extSrc" ]; then
+		find "$extSrc" -mindepth 2 -maxdepth 2 -type f -name 'config.m4' \
+			| xargs -r -n1 dirname | xargs -r -n1 basename | sort | xargs
+	fi
+	echo
+	echo 'Some of the above are already compiled into PHP; check "php -m".'
+}
+
+if [ ! -d "$extSrc" ]; then
+	echo "error: no PHP source tree at ${extSrc}" >&2
+	exit 1
+fi
+
+j=1
+iniName=
+while [ "$#" -gt 0 ]; do
+	case "$1" in
+		-j*)        j="${1#-j}"; shift ;;
+		--jobs)     j="$2"; shift 2 ;;
+		--ini-name) iniName="$2"; shift 2 ;;
+		-h|--help|'-?') usage; exit 0 ;;
+		--)         shift; break ;;
+		-*)         echo "error: unknown flag: $1" >&2; usage >&2; exit 1 ;;
+		*)          break ;;
+	esac
+done
+: "${j:=1}"
+
+if [ "$#" -eq 0 ]; then
+	usage >&2
+	exit 1
+fi
+
+# validate everything up front so we fail before doing any work
+for ext; do
+	if [ ! -d "${extSrc}/${ext}" ]; then
+		echo "error: ${extSrc}/${ext} does not exist" >&2
+		usage >&2
+		exit 1
+	fi
+done
+
+for ext; do
+	cd "${extSrc}/${ext}"
+
+	[ -e Makefile ] || php-ext-configure "$ext"
+
+	make -j"$j"
+
+	# strip unless this is a debug build of PHP
+	if ! php -n -d 'display_errors=stderr' -r 'exit(ZEND_DEBUG_BUILD ? 0 : 1);' > /dev/null; then
+		find modules -maxdepth 1 -name '*.so' -exec sh -euc 'strip --strip-all "$@" || :' -- '{}' +
+	fi
+
+	make -j"$j" install
+
+	find modules -maxdepth 1 -name '*.so' -exec basename '{}' '.so' ';' \
+		| xargs -r php-ext-enable ${iniName:+--ini-name "$iniName"}
+
+	make -j"$j" clean
+done
