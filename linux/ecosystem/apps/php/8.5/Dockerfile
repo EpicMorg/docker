@@ -114,6 +114,8 @@ ENV PHP_LDFLAGS="-Wl,-O1 -pie"
 # PHP 7.4+ locates OpenSSL through pkg-config, NOT --with-openssl=DIR.
 # Therefore PKG_CONFIG_PATH is what actually pins our baked OpenSSL.
 RUN set -eux; \
+    export CC="${GCC_INSTALL_DIR}/bin/gcc"; \
+    export CXX="${GCC_INSTALL_DIR}/bin/g++"; \
     debMultiarch="$(dpkg-architecture --query DEB_BUILD_MULTIARCH)"; \
     export PKG_CONFIG_PATH="${OPENSSL_35_LIB_DIR}/pkgconfig:${PKG_CONFIG_PATH:-}"; \
     export CFLAGS="${PHP_CFLAGS}"; \
@@ -311,12 +313,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 #                  OpenSSL 3.5
 ##################################################################
 ENV OPENSSL_35_MIN_VERSION=3.5
-ENV OPENSSL_35_VERSION=${OPENSSL_35_MIN_VERSION}.6
+ENV OPENSSL_35_VERSION=${OPENSSL_35_MIN_VERSION}.7
 ENV OPENSSL_35_DIR=${EMG_LOCAL_BASE_DIR}/openssl/${OPENSSL_35_MIN_VERSION}
 ENV OPENSSL_35_BIN_DIR=${OPENSSL_35_DIR}/bin
 ENV OPENSSL_35_INC_DIR=${OPENSSL_35_DIR}/include
 ENV OPENSSL_35_LIB_DIR=${OPENSSL_35_DIR}/lib64
-ENV OPENSSL_35_SRC_DIR=/usr/local/src/openssl/${OPENSSL_35_VERSION}
+ENV OPENSSL_35_SRC_DIR=/usr/local/src/openssl/${OPENSSL_35_MIN_VERSION}
 ENV SSL_CERT_DIR=/etc/ssl/certs
 
 ##################################################################
@@ -353,8 +355,8 @@ ENV PATH="${PHP_BIN_DIR}:${PHP_DIR}/sbin:${PATH}"
 # through update-alternatives.
 RUN set -eux; \
     mkdir -p /usr/local/src/php; \
-    mv ${PHP_SRC_DIR} /usr/local/src/php/${PHP_FULL_VERSION}; \
-    ln -sfv /usr/local/src/php/${PHP_FULL_VERSION} ${PHP_SRC_DIR}; \
+    mv ${PHP_SRC_DIR} /usr/local/src/php/${PHP_VERSION}; \
+    ln -sfv /usr/local/src/php/${PHP_VERSION} ${PHP_SRC_DIR}; \
     rm -rf /tmp/*; \
     update-alternatives --install /usr/bin/php        php        ${PHP_BIN_DIR}/php        1; \
     update-alternatives --install /usr/bin/php-cgi    php-cgi    ${PHP_BIN_DIR}/php-cgi    1; \

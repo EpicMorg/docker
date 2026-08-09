@@ -43,18 +43,29 @@ RUN set -eux; \
         --disable-multilib \
         --disable-bootstrap \
         --disable-libsanitizer \
-        --enable-checking=release && \
+        --enable-checking=release \
+        --enable-multiarch \
+        --with-multiarch-defaults=x86_64-linux-gnu \
+        --enable-default-pie \
+        --enable-shared \
+        --enable-threads=posix \
+        --enable-__cxa_atexit \
+        --with-system-zlib \
+    && \
     make -j$(nproc) && \
     make install && \
     rm -rf ${GCC_TEMP} ${GCC_TEMP_SRC} /tmp/gcc-build
 
-#RUN set -eux; \
-#    echo "# EpicMorg GCC ${GCC_MAJIOR_VERSION} support" > ${LD_CONF_DIR}/epicmorg-gcc-${GCC_MAJIOR_VERSION}.conf && \
-#    echo ${GCC_INSTALL_DIR}/lib >> ${LD_CONF_DIR}/epicmorg-gcc-${GCC_MAJIOR_VERSION}.conf && \
-#    echo ${GCC_INSTALL_DIR}/lib64 >> ${LD_CONF_DIR}/epicmorg-gcc-${GCC_MAJIOR_VERSION}.conf && \
-#    ldconfig
-
 ENV PATH="${GCC_INSTALL_DIR}/bin:${PATH}"
+
+RUN set -eux; \
+    echo "--- include search paths ---"; \
+    echo | gcc -E -Wp,-v - 2>&1 | grep '^ /'; \
+    echo "--- multiarch ---"; \
+    gcc -print-multiarch; \
+    echo "--- multiarch header reachable? ---"; \
+    echo '#include <sys/types.h>' | gcc -E - >/dev/null && echo "OK" || { echo "FAIL"; exit 1; }; \
+    echo '#include <bits/wordsize.h>' | gcc -E - >/dev/null && echo "OK: multiarch works" || { echo "FAIL: multiarch broken"; exit 1; }
 
 RUN set -eux; \     
     echo "=============================================" && \
@@ -80,11 +91,6 @@ ENV GCC_INSTALL_DIR=${EMG_LOCAL_BASE_DIR}/gcc/${GCC_MAJIOR_VERSION}
 
 COPY --from=builder ${GCC_INSTALL_DIR} ${GCC_INSTALL_DIR}
 
-#RUN set -eux; \
-#    echo "# EpicMorg GCC ${GCC_MAJIOR_VERSION} support" > ${LD_CONF_DIR}/epicmorg-gcc-${GCC_MAJIOR_VERSION}.conf && \
-#    echo ${GCC_INSTALL_DIR}/lib >> ${LD_CONF_DIR}/epicmorg-gcc-${GCC_MAJIOR_VERSION}.conf && \
-#    echo ${GCC_INSTALL_DIR}/lib64 >> ${LD_CONF_DIR}/epicmorg-gcc-${GCC_MAJIOR_VERSION}.conf && \
-#    ldconfig
 
 ENV PATH="${GCC_INSTALL_DIR}/bin:${PATH}"
 

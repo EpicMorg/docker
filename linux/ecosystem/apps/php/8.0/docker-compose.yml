@@ -1,0 +1,10 @@
+services:
+  app:
+    image: "epicmorg/php:8.0"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/php:8.0
+      - ghcr.io/epicmorg/php:8.0
+      - docker.io/epicmorg/php:8.0

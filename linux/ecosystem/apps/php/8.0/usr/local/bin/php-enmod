@@ -1,0 +1,72 @@
+#!/bin/sh
+# php-enmod - enable a PHP module by linking mods-available/<mod>.ini
+#             into conf.d/<priority>-<mod>.ini
+#
+# Debian-compatible behaviour, with one deliberate difference:
+# we keep a SINGLE conf.d shared by all SAPIs (cli/fpm/cgi are symlinks to it),
+# so "-s <sapi>" is accepted and ignored. If you need per-SAPI extension sets,
+# use separate containers.
+#
+# Based on the layout conventions of Debian's php-common (GPL) and the
+# docker-library/php helper scripts (MIT), reimplemented for EpicMorg.
+set -e
+
+iniDir="$(php-config --prefix)/etc"
+modsDir="${iniDir}/mods-available"
+confDir="${iniDir}/conf.d"
+
+usage() {
+	echo "usage: $0 [-v VERSION] [-s SAPI] module [module ...]"
+	echo "   ie: $0 redis"
+	echo "       $0 -s fpm opcache"
+	echo
+	echo '  -v, -s : accepted for Debian compatibility, ignored (single shared conf.d)'
+	echo
+	echo 'Available modules:'
+	if [ -d "$modsDir" ]; then
+		find "$modsDir" -maxdepth 1 -name '*.ini' -exec basename '{}' '.ini' ';' | sort | xargs
+	fi
+}
+
+while getopts 'v:s:h' flag 2>/dev/null; do
+	case "$flag" in
+		v|s) : ;;                    # accepted, ignored
+		h)   usage; exit 0 ;;
+		*)   usage >&2; exit 1 ;;
+	esac
+done
+shift $((OPTIND - 1))
+
+if [ "$#" -eq 0 ]; then
+	usage >&2
+	exit 1
+fi
+
+mkdir -p "$modsDir" "$confDir"
+
+rc=0
+for mod; do
+	src="${modsDir}/${mod}.ini"
+
+	if [ ! -f "$src" ]; then
+		echo "error: no such module: ${mod} (${src} not found)" >&2
+		rc=1
+		continue
+	fi
+
+	# Debian convention: the ini may declare its own load order via
+	#   ; priority=NN
+	# Default 20, matching Debian's php-common default.
+	priority="$(sed -n 's/^[[:space:]]*;[[:space:]]*priority[[:space:]]*=[[:space:]]*\([0-9]\{1,\}\).*/\1/p' "$src" | head -n1)"
+	: "${priority:=20}"
+	# normalise to two digits so lexical sort == numeric sort
+	priority="$(printf '%02d' "$priority")"
+
+	# drop any previously enabled link with a different priority
+	find "$confDir" -maxdepth 1 -name "*-${mod}.ini" -delete 2>/dev/null || true
+
+	ln -sfn "../mods-available/${mod}.ini" "${confDir}/${priority}-${mod}.ini"
+	echo "enabled: ${mod} (priority ${priority})"
+done
+
+exit "$rc"
