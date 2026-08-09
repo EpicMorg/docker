@@ -450,14 +450,30 @@ ARG BORINGSSL_TEMP_SRC=/tmp/boringssl
 # PHP's ext/intl compiles with -std=c++11 until PHP 8.1, so anything
 # below 8.1 cannot build against the system ICU.
 # ICU 73.2 is the last branch whose headers stay C++11-clean.
-ENV ICU_MIN_VERSION=73
-ENV ICU_VERSION=${ICU_MIN_VERSION}.2
-ENV ICU_VERSION_U=73_2
-ENV ICU_DIR=${EMG_LOCAL_BASE_DIR}/icu/${ICU_MIN_VERSION}
-ENV ICU_INC_DIR=${ICU_DIR}/include
-ENV ICU_LIB_DIR=${ICU_DIR}/lib
-ENV ICU_SRC_DIR=/usr/local/src/icu/${ICU_MIN_VERSION}
-ARG ICU_URL=https://github.com/unicode-org/icu/releases/download/release-73-2/icu4c-${ICU_VERSION_U}-src.tgz
+ENV ICU_73_MIN_VERSION=73
+ENV ICU_73_VERSION=${ICU_73_MIN_VERSION}.2
+ENV ICU_73_VERSION_U=73_2
+ENV ICU_73_DIR=${EMG_LOCAL_BASE_DIR}/icu/${ICU_73_MIN_VERSION}
+ENV ICU_73_INC_DIR=${ICU_73_DIR}/include
+ENV ICU_73_LIB_DIR=${ICU_73_DIR}/lib
+ENV ICU_73_SRC_DIR=/usr/local/src/icu/${ICU_73_MIN_VERSION}
+ARG ICU_73_URL=https://github.com/unicode-org/icu/releases/download/release-73-2/icu4c-${ICU_73_VERSION_U}-src.tgz
+
+##################################################################
+#                  ICU 67
+##################################################################
+# Debian Trixie ships ICU 76, whose public headers require C++17.
+# PHP's ext/intl compiles with -std=c++11 until PHP 8.1, so anything
+# below 8.1 cannot build against the system ICU.
+# ICU 73.2 is the last branch whose headers stay C++11-clean.
+ENV ICU_67_MIN_VERSION=67
+ENV ICU_67_VERSION=${ICU_67_MIN_VERSION}.1
+ENV ICU_67_VERSION_U=67_1
+ENV ICU_67_DIR=${EMG_LOCAL_BASE_DIR}/icu/${ICU_67_MIN_VERSION}
+ENV ICU_67_INC_DIR=${ICU_67_DIR}/include
+ENV ICU_67_LIB_DIR=${ICU_67_DIR}/lib
+ENV ICU_67_SRC_DIR=/usr/local/src/icu/${ICU_67_MIN_VERSION}
+ARG ICU_67_URL=https://github.com/unicode-org/icu/releases/download/release-67-1/icu4c-${ICU_67_VERSION_U}-src.tgz
 
 ##################################################################
 #           libpq 13 + OpenSSL 1.0.2
@@ -472,7 +488,7 @@ ENV LIBPQ_13_SRC_DIR=/usr/local/src/postgresql/${LIBPQ_13_VERSION}
 ARG LIBPQ_13_URL=https://ftp.postgresql.org/pub/source/v${LIBPQ_13_FULL_VERSION}/postgresql-${LIBPQ_13_FULL_VERSION}.tar.bz2
 
 ##################################################################
-#           libpq 16 + OpenSSL 1.1.1w
+#           libpq 16 + OpenSSL 1.1.1w + OpenSSL 3.x
 ##################################################################
 # Debian's libpq links OpenSSL 3.x. On PHP branches using OpenSSL 1.1.1 the
 # SONAMEs differ (libssl.so.1.1 vs libssl.so.3), so both libraries end up
@@ -487,12 +503,60 @@ ARG LIBPQ_13_URL=https://ftp.postgresql.org/pub/source/v${LIBPQ_13_FULL_VERSION}
 # newest branch that still builds cleanly against OpenSSL 1.1.1.
 ENV LIBPQ_16_VERSION=16
 ENV LIBPQ_16_FULL_VERSION=${LIBPQ_16_VERSION}.14
+ENV LIBPQ_16_SRC_DIR=/usr/local/src/postgresql/${LIBPQ_16_VERSION}
+ARG LIBPQ_16_URL=https://ftp.postgresql.org/pub/source/v${LIBPQ_16_FULL_VERSION}/postgresql-${LIBPQ_16_FULL_VERSION}.tar.bz2
+
 ENV LIBPQ_16_111_DIR=${EMG_LOCAL_BASE_DIR}/libpq/${LIBPQ_16_VERSION}/openssl111
 ENV LIBPQ_16_111_INC_DIR=${LIBPQ_16_111_DIR}/include
 ENV LIBPQ_16_111_LIB_DIR=${LIBPQ_16_111_DIR}/lib
 ENV LIBPQ_16_111_BIN_DIR=${LIBPQ_16_111_DIR}/bin
-ENV LIBPQ_16_SRC_DIR=/usr/local/src/postgresql/${LIBPQ_16_VERSION}
-ARG LIBPQ_16_URL=https://ftp.postgresql.org/pub/source/v${LIBPQ_16_FULL_VERSION}/postgresql-${LIBPQ_16_FULL_VERSION}.tar.bz2
+
+ENV LIBPQ_16_35_DIR=${EMG_LOCAL_BASE_DIR}/libpq/${LIBPQ_16_VERSION}/openssl35
+ENV LIBPQ_16_35_INC_DIR=${LIBPQ_16_35_DIR}/include
+ENV LIBPQ_16_35_LIB_DIR=${LIBPQ_16_35_DIR}/lib
+ENV LIBPQ_16_35_BIN_DIR=${LIBPQ_16_35_DIR}/bin
+
+##################################################################
+#           curl 8.17
+##################################################################
+# Built without ldap / ssh2 / rtmp / gssapi / psl: every one of those links
+# against the SYSTEM OpenSSL and would pull libssl.so.3 back into the process,
+# defeating the point of building curl at all.
+#
+# Trade-off, document it in the consumer README: this curl speaks
+# http/https/ftp only - no ldap://, scp://, sftp://, rtmp://, no Kerberos auth.
+#
+# --enable-option-checking=fatal is NOT curl's default: without it an unknown
+# or renamed flag is silently ignored and you get a curl with ldap inside while
+# believing you disabled it.
+
+ENV CURL_817_VERSION=8.17.0
+ENV CURL_817_VERSION_U=8_17_0
+ENV CURL_817_SRC_DIR=/usr/local/src/curl/${CURL_817_VERSION}
+ARG CURL_817_URL=https://github.com/curl/curl/releases/download/curl-${CURL_817_VERSION_U}/curl-${CURL_817_VERSION}.tar.xz
+
+ENV CURL_817_102_DIR=${EMG_LOCAL_BASE_DIR}/curl/${CURL_817_VERSION}/openssl102
+ENV CURL_817_102_BIN_DIR=${CURL_817_102_DIR}/bin
+ENV CURL_817_102_INC_DIR=${CURL_817_102_DIR}/include
+ENV CURL_817_102_LIB_DIR=${CURL_817_102_DIR}/lib
+
+ENV CURL_817_111_DIR=${EMG_LOCAL_BASE_DIR}/curl/${CURL_817_VERSION}/openssl111
+ENV CURL_817_111_BIN_DIR=${CURL_817_111_DIR}/bin
+ENV CURL_817_111_INC_DIR=${CURL_817_111_DIR}/include
+ENV CURL_817_111_LIB_DIR=${CURL_817_111_DIR}/lib
+
+##################################################################
+#           curl 8.21
+##################################################################
+ENV CURL_821_VERSION=8.21.0
+ENV CURL_821_VERSION_U=8_21_0
+ENV CURL_821_SRC_DIR=/usr/local/src/curl/${CURL_821_VERSION}
+ARG CURL_821_URL=https://github.com/curl/curl/releases/download/curl-${CURL_821_VERSION_U}/curl-${CURL_821_VERSION}.tar.xz
+
+ENV CURL_821_35_DIR=${EMG_LOCAL_BASE_DIR}/curl/${CURL_821_VERSION}/openssl35
+ENV CURL_821_35_BIN_DIR=${CURL_821_35_DIR}/bin
+ENV CURL_821_35_INC_DIR=${CURL_821_35_DIR}/include
+ENV CURL_821_35_LIB_DIR=${CURL_821_35_DIR}/lib
 
 ##################################################################
 #                   installing
@@ -564,6 +628,7 @@ RUN apt-get update && \
     liblua5.1-0-dev \
     libmaxminddb-dev \
     libpam0g-dev \
+    libnghttp2-dev \
     libldap2-dev \
     libavformat-dev \
     libavfilter-dev \
@@ -898,65 +963,6 @@ RUN echo "=============================================" && \
     echo ninja $(ninja --version) && \
     echo "============================================="
 
-
-##################################################################
-#                   ICU 73 library
-##################################################################
-RUN set -eux; \
-    mkdir -p /usr/local/src/icu; \
-    aria2c \
-        --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
-        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
-        -d /tmp -o icu4c.tgz "${ICU_URL}"; \
-    tar -xzf /tmp/icu4c.tgz -C /usr/local/src/icu; \
-    mv /usr/local/src/icu/icu ${ICU_SRC_DIR}; \
-    cd ${ICU_SRC_DIR}/source; \
-    export LDFLAGS="-Wl,-rpath,${ICU_LIB_DIR}";  \
-    ./configure \
-      --prefix=${ICU_DIR} \
-      --libdir=${ICU_LIB_DIR} \
-      --disable-samples \
-      --disable-tests \
-      --disable-static \
-      --enable-shared; \
-    make -j"$(nproc)"; \
-    make install; \
-    rm -f /tmp/icu4c.tgz; \
-    test -f ${ICU_LIB_DIR}/libicuuc.so || { \
-      echo "FATAL: ICU libs not in ${ICU_LIB_DIR}" >&2; ls -la ${ICU_DIR}/ >&2; exit 1; }
-
-##################################################################
-#           libpq 16 + OpenSSL 1.1.1w
-##################################################################
-RUN set -eux; \
-    mkdir -p ${LIBPQ_SRC_DIR}; \
-    aria2c \
-        --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
-        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
-        -d /tmp -o postgresql.tar.bz2 "${LIBPQ_16_URL}"; \
-    tar -xjf /tmp/postgresql.tar.bz2 --strip-components=1 -C ${LIBPQ_16_SRC_DIR}; \
-    cd ${LIBPQ_SRC_DIR}; \
-    export PKG_CONFIG_PATH="${OPENSSL_111_LIB_DIR}/pkgconfig"; \
-    export CPPFLAGS="-I${OPENSSL_111_INC_DIR}"; \
-    export LDFLAGS="-L${OPENSSL_111_LIB_DIR} -Wl,-rpath,${OPENSSL_111_LIB_DIR}"; \
-    ./configure \
-      --prefix=${LIBPQ_16_DIR} \
-      --libdir=${LIBPQ_16_LIB_DIR} \
-      --with-openssl \
-      --without-readline \
-      --without-zlib \
-      --without-icu; \
-    make -C src/interfaces/libpq -j"$(nproc)"; \
-    make -C src/interfaces/libpq install; \
-    make -C src/include install; \
-    make -C src/bin/pg_config install; \
-    rm -f /tmp/postgresql.tar.bz2
-
-RUN set -eu; \
-    ldd ${LIBPQ_16_111_LIB_DIR}/libpq.so | grep -q "${OPENSSL_111_LIB_DIR}/libssl" || { \
-      echo "FATAL: libpq not linked against ${OPENSSL_111_LIB_DIR}" >&2; \
-      ldd ${LIBPQ_16_111_LIB_DIR}/libpq.so >&2; exit 1; }; \
-    echo "OK: libpq -> ${OPENSSL_111_LIB_DIR}"
 
 ##################################################################
 #                   BZIP2 1.0.6 library
@@ -1929,6 +1935,397 @@ RUN set -eux; \
 #     cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_POSITION_INDEPENDENT_CODE=TRUE -DBUILD_SHARED_LIBS=1 -DCMAKE_INSTALL_PREFIX=${BORINGSSL_DIR} .. && \
 #     make -j$(if [ $(nproc) -gt 8 ]; then echo $(( $(nproc) / 2 )); else echo $(nproc); fi) && \
 #     make -j$(nproc) install
+
+##################################################################
+#                   ICU 67 library
+##################################################################
+RUN set -eux; \
+    mkdir -p /usr/local/src/icu; \
+    aria2c \
+        --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -d /tmp -o icu4c.tgz "${ICU_67_URL}"; \
+    tar -xzf /tmp/icu4c.tgz -C /usr/local/src/icu; \
+    mv /usr/local/src/icu/icu ${ICU_67_SRC_DIR}; \
+    cd ${ICU_67_SRC_DIR}/source; \
+    export LDFLAGS="-Wl,-rpath,${ICU_67_LIB_DIR}";  \
+    ./configure \
+      --prefix=${ICU_67_DIR} \
+      --libdir=${ICU_67_LIB_DIR} \
+      --disable-samples \
+      --disable-tests \
+      --disable-static \
+      --enable-shared; \
+    make -j"$(nproc)"; \
+    make install; \
+    rm -f /tmp/icu4c.tgz; \
+    test -f ${ICU_67_LIB_DIR}/libicuuc.so || { \
+      echo "FATAL: ICU libs not in ${ICU_67_LIB_DIR}" >&2; ls -la ${ICU_67_DIR}/ >&2; exit 1; }
+
+##################################################################
+#                   ICU 73 library
+##################################################################
+RUN set -eux; \
+    mkdir -p /usr/local/src/icu; \
+    aria2c \
+        --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -d /tmp -o icu4c.tgz "${ICU_73_URL}"; \
+    tar -xzf /tmp/icu4c.tgz -C /usr/local/src/icu; \
+    mv /usr/local/src/icu/icu ${ICU_73_SRC_DIR}; \
+    cd ${ICU_73_SRC_DIR}/source; \
+    export LDFLAGS="-Wl,-rpath,${ICU_73_LIB_DIR}";  \
+    ./configure \
+      --prefix=${ICU_73_DIR} \
+      --libdir=${ICU_73_LIB_DIR} \
+      --disable-samples \
+      --disable-tests \
+      --disable-static \
+      --enable-shared; \
+    make -j"$(nproc)"; \
+    make install; \
+    rm -f /tmp/icu4c.tgz; \
+    test -f ${ICU_73_LIB_DIR}/libicuuc.so || { \
+      echo "FATAL: ICU libs not in ${ICU_73_LIB_DIR}" >&2; ls -la ${ICU_73_DIR}/ >&2; exit 1; }
+
+##################################################################
+#           libpq 13 + OpenSSL 1.0.2
+##################################################################
+RUN set -eux; \
+    mkdir -p ${LIBPQ_13_SRC_DIR}; \
+    aria2c \
+        --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -d /tmp -o postgresql.tar.bz2 "${LIBPQ_13_URL}"; \
+    tar -xjf /tmp/postgresql.tar.bz2 --strip-components=1 -C ${LIBPQ_13_SRC_DIR}; \
+    cd ${LIBPQ_13_SRC_DIR}; \
+    export PKG_CONFIG_PATH="${OPENSSL_102_LIB_DIR}/pkgconfig"; \
+    export CPPFLAGS="-I${OPENSSL_102_INC_DIR}"; \
+    export LDFLAGS="-L${OPENSSL_102_LIB_DIR} -Wl,-rpath,${OPENSSL_102_LIB_DIR}"; \
+    ./configure \
+      --prefix=${LIBPQ_13_102_DIR} \
+      --libdir=${LIBPQ_13_102_LIB_DIR} \
+      --with-openssl \
+      --without-readline \
+      --without-zlib \
+      --without-icu; \
+    make -C src/interfaces/libpq -j"$(nproc)"; \
+    make -C src/interfaces/libpq install; \
+    make -C src/include install; \
+    make -C src/bin/pg_config install; \
+    rm -f /tmp/postgresql.tar.bz2
+
+RUN set -eu; \
+    ldd ${LIBPQ_13_102_LIB_DIR}/libpq.so | grep -q "${OPENSSL_102_LIB_DIR}/libssl" || { \
+      echo "FATAL: libpq not linked against ${OPENSSL_102_LIB_DIR}" >&2; \
+      ldd ${LIBPQ_13_102_LIB_DIR}/libpq.so >&2; exit 1; }; \
+    echo "OK: libpq -> ${OPENSSL_102_LIB_DIR}"
+
+##################################################################
+#           libpq 16 + OpenSSL 1.1.1w
+##################################################################
+RUN set -eux; \
+    mkdir -p ${LIBPQ_16_SRC_DIR}; \
+    aria2c \
+        --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -d /tmp -o postgresql.tar.bz2 "${LIBPQ_16_URL}"; \
+    tar -xjf /tmp/postgresql.tar.bz2 --strip-components=1 -C ${LIBPQ_16_SRC_DIR}; \
+    cd ${LIBPQ_16_SRC_DIR}; \
+    export PKG_CONFIG_PATH="${OPENSSL_111_LIB_DIR}/pkgconfig"; \
+    export CPPFLAGS="-I${OPENSSL_111_INC_DIR}"; \
+    export LDFLAGS="-L${OPENSSL_111_LIB_DIR} -Wl,-rpath,${OPENSSL_111_LIB_DIR}"; \
+    ./configure \
+      --prefix=${LIBPQ_16_111_DIR} \
+      --libdir=${LIBPQ_16_111_LIB_DIR} \
+      --with-openssl \
+      --without-readline \
+      --without-zlib \
+      --without-icu; \
+    make -C src/interfaces/libpq -j"$(nproc)"; \
+    make -C src/interfaces/libpq install; \
+    make -C src/include install; \
+    make -C src/bin/pg_config install; \
+    rm -f /tmp/postgresql.tar.bz2
+
+RUN set -eu; \
+    ldd ${LIBPQ_16_111_LIB_DIR}/libpq.so | grep -q "${OPENSSL_111_LIB_DIR}/libssl" || { \
+      echo "FATAL: libpq not linked against ${OPENSSL_111_LIB_DIR}" >&2; \
+      ldd ${LIBPQ_16_111_LIB_DIR}/libpq.so >&2; exit 1; }; \
+    echo "OK: libpq -> ${OPENSSL_111_LIB_DIR}"
+
+##################################################################
+#           libpq 16 + OpenSSL 3.5.x
+##################################################################
+RUN set -eux; \
+    mkdir -p ${LIBPQ_16_SRC_DIR}; \
+    aria2c \
+        --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -d /tmp -o postgresql.tar.bz2 "${LIBPQ_16_URL}"; \
+    tar -xjf /tmp/postgresql.tar.bz2 --strip-components=1 -C ${LIBPQ_16_SRC_DIR}; \
+    cd ${LIBPQ_16_SRC_DIR}; \
+    export PKG_CONFIG_PATH="${OPENSSL_35_LIB_DIR}/pkgconfig"; \
+    export CPPFLAGS="-I${OPENSSL_35_INC_DIR}"; \
+    export LDFLAGS="-L${OPENSSL_35_LIB_DIR} -Wl,-rpath,${OPENSSL_35_LIB_DIR}"; \
+    ./configure \
+      --prefix=${LIBPQ_16_35_DIR} \
+      --libdir=${LIBPQ_16_35_LIB_DIR} \
+      --with-openssl \
+      --without-readline \
+      --without-zlib \
+      --without-icu; \
+    make -C src/interfaces/libpq -j"$(nproc)"; \
+    make -C src/interfaces/libpq install; \
+    make -C src/include install; \
+    make -C src/bin/pg_config install; \
+    rm -f /tmp/postgresql.tar.bz2
+
+RUN set -eu; \
+    ldd ${LIBPQ_16_35_LIB_DIR}/libpq.so | grep -q "${OPENSSL_35_LIB_DIR}/libssl" || { \
+      echo "FATAL: libpq not linked against ${OPENSSL_35_LIB_DIR}" >&2; \
+      ldd ${LIBPQ_16_35_LIB_DIR}/libpq.so >&2; exit 1; }; \
+    echo "OK: libpq -> ${OPENSSL_35_LIB_DIR}"
+
+##################################################################
+#           curl 8.17 (linked against our OpenSSL 1.0.2)
+##################################################################
+RUN set -eux; \
+    mkdir -p ${CURL_817_SRC_DIR}; \
+    aria2c \
+        --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -d /tmp -o curl.tar.xz "${CURL_817_URL}"; \
+    tar -xJf /tmp/curl.tar.xz --strip-components=1 -C ${CURL_817_SRC_DIR}; \
+    cd ${CURL_817_SRC_DIR}; \
+    export PKG_CONFIG_PATH="${OPENSSL_102_LIB_DIR}/pkgconfig"; \
+    export CPPFLAGS="-I${OPENSSL_102_INC_DIR}"; \
+    export LDFLAGS="-L${OPENSSL_102_LIB_DIR} -Wl,-rpath,${OPENSSL_102_LIB_DIR} -Wl,-rpath,${CURL_817_102_LIB_DIR}"; \
+    ./configure \
+      --prefix=${CURL_817_102_DIR} \
+      --libdir=${CURL_817_102_LIB_DIR} \
+      --enable-option-checking=fatal \
+      \
+      `# ---- TLS: ours, and only ours ----` \
+      --with-openssl=${OPENSSL_102_DIR} \
+      --without-gnutls \
+      --without-mbedtls \
+      --without-wolfssl \
+      --with-ca-bundle=/etc/ssl/certs/ca-certificates.crt \
+      --with-ca-path=/etc/ssl/certs \
+      \
+      `# ---- keep ----` \
+      --with-zlib \
+      --with-nghttp2 \
+      --enable-versioned-symbols \
+      --enable-shared \
+      --disable-static \
+      \
+      `# ---- drop: each of these links the system OpenSSL ----` \
+      --without-libssh2 \
+      --without-libssh \
+      --without-libpsl \
+      --disable-ldap \
+      --disable-ldaps \
+      --without-gssapi \
+      --disable-gopher \
+      --disable-dict \
+      --disable-telnet \
+      --disable-tftp \
+      --disable-rtsp \
+      --disable-smb \
+      --disable-pop3 \
+      --disable-imap \
+      --disable-smtp \
+    ; \
+    make -j"$(nproc)"; \
+    make install; \
+    rm -f /tmp/curl.tar.xz
+
+RUN set -eu; \
+    so="${CURL_817_102_LIB_DIR}/libcurl.so"; \
+    echo "--- curl NEEDED ---"; \
+    readelf -d "$so" | grep NEEDED; \
+    for bad in libldap liblber libssh2 libssh librtmp libgssapi libpsl; do \
+      if readelf -d "$so" | grep -q "\[${bad}"; then \
+        echo "FATAL: libcurl still links ${bad} - it will drag in the system OpenSSL" >&2; \
+        exit 1; \
+      fi; \
+    done; \
+    if ldd "$so" | grep -q 'not found'; then \
+      echo "FATAL: libcurl has unresolved deps" >&2; ldd "$so" >&2; exit 1; \
+    fi; \
+    ldd "$so" | grep -q "${OPENSSL_102_LIB_DIR}/libssl" || { \
+      echo "FATAL: libcurl not linked against ${OPENSSL_102_LIB_DIR}" >&2; \
+      ldd "$so" >&2; exit 1; }; \
+    backends="$(${CURL_817_102_BIN_DIR}/curl-config --ssl-backends)"; \
+    echo "curl ssl backends: ${backends}"; \
+    case "${backends}" in \
+      *OpenSSL*) ;; \
+      *) echo "FATAL: unexpected TLS backend: ${backends}" >&2; exit 1 ;; \
+    esac; \
+    ${CURL_817_102_BIN_DIR}/curl --version; \
+    echo "OK: libcurl ${CURL_817_VERSION} -> ${OPENSSL_102_LIB_DIR}"
+
+##################################################################
+#           curl 8.17 (linked against our OpenSSL 1.1.1)
+##################################################################
+RUN set -eux; \
+    mkdir -p ${CURL_817_SRC_DIR}; \
+    aria2c \
+        --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -d /tmp -o curl.tar.xz "${CURL_817_URL}"; \
+    tar -xJf /tmp/curl.tar.xz --strip-components=1 -C ${CURL_817_SRC_DIR}; \
+    cd ${CURL_817_SRC_DIR}; \
+    export PKG_CONFIG_PATH="${OPENSSL_111_LIB_DIR}/pkgconfig"; \
+    export CPPFLAGS="-I${OPENSSL_111_INC_DIR}"; \
+    export LDFLAGS="-L${OPENSSL_111_LIB_DIR} -Wl,-rpath,${OPENSSL_111_LIB_DIR} -Wl,-rpath,${CURL_817_111_LIB_DIR}"; \
+    ./configure \
+      --prefix=${CURL_817_111_DIR} \
+      --libdir=${CURL_817_111_LIB_DIR} \
+      --enable-option-checking=fatal \
+      \
+      `# ---- TLS: ours, and only ours ----` \
+      --with-openssl=${OPENSSL_111_DIR} \
+      --without-gnutls \
+      --without-mbedtls \
+      --without-wolfssl \
+      --with-ca-bundle=/etc/ssl/certs/ca-certificates.crt \
+      --with-ca-path=/etc/ssl/certs \
+      \
+      `# ---- keep ----` \
+      --with-zlib \
+      --with-nghttp2 \
+      --enable-versioned-symbols \
+      --enable-shared \
+      --disable-static \
+      \
+      `# ---- drop: each of these links the system OpenSSL ----` \
+      --without-libssh2 \
+      --without-libssh \
+      --without-libpsl \
+      --disable-ldap \
+      --disable-ldaps \
+      --without-gssapi \
+      --disable-gopher \
+      --disable-dict \
+      --disable-telnet \
+      --disable-tftp \
+      --disable-rtsp \
+      --disable-smb \
+      --disable-pop3 \
+      --disable-imap \
+      --disable-smtp \
+    ; \
+    make -j"$(nproc)"; \
+    make install; \
+    rm -f /tmp/curl.tar.xz
+
+RUN set -eu; \
+    so="${CURL_817_111_LIB_DIR}/libcurl.so"; \
+    echo "--- curl NEEDED ---"; \
+    readelf -d "$so" | grep NEEDED; \
+    for bad in libldap liblber libssh2 libssh librtmp libgssapi libpsl; do \
+      if readelf -d "$so" | grep -q "\[${bad}"; then \
+        echo "FATAL: libcurl still links ${bad} - it will drag in the system OpenSSL" >&2; \
+        exit 1; \
+      fi; \
+    done; \
+    if ldd "$so" | grep -q 'not found'; then \
+      echo "FATAL: libcurl has unresolved deps" >&2; ldd "$so" >&2; exit 1; \
+    fi; \
+    ldd "$so" | grep -q "${OPENSSL_111_LIB_DIR}/libssl" || { \
+      echo "FATAL: libcurl not linked against ${OPENSSL_111_LIB_DIR}" >&2; \
+      ldd "$so" >&2; exit 1; }; \
+    backends="$(${CURL_817_111_BIN_DIR}/curl-config --ssl-backends)"; \
+    echo "curl ssl backends: ${backends}"; \
+    case "${backends}" in \
+      *OpenSSL*) ;; \
+      *) echo "FATAL: unexpected TLS backend: ${backends}" >&2; exit 1 ;; \
+    esac; \
+    ${CURL_817_111_BIN_DIR}/curl --version; \
+    echo "OK: libcurl ${CURL_817_VERSION} -> ${OPENSSL_111_LIB_DIR}"
+ 
+##################################################################
+#           curl 8.21 (linked against our OpenSSL 3.5.x)
+##################################################################
+RUN set -eux; \
+    mkdir -p ${CURL_821_SRC_DIR}; \
+    aria2c \
+        --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -d /tmp -o curl.tar.xz "${CURL_821_URL}"; \
+    tar -xJf /tmp/curl.tar.xz --strip-components=1 -C ${CURL_821_SRC_DIR}; \
+    cd ${CURL_821_SRC_DIR}; \
+    export PKG_CONFIG_PATH="${OPENSSL_35_LIB_DIR}/pkgconfig"; \
+    export CPPFLAGS="-I${OPENSSL_35_INC_DIR}"; \
+    export LDFLAGS="-L${OPENSSL_35_LIB_DIR} -Wl,-rpath,${OPENSSL_35_LIB_DIR} -Wl,-rpath,${CURL_821_35_LIB_DIR}"; \
+    ./configure \
+      --prefix=${CURL_821_35_DIR} \
+      --libdir=${CURL_821_35_LIB_DIR} \
+      --enable-option-checking=fatal \
+      \
+      `# ---- TLS: ours, and only ours ----` \
+      --with-openssl=${OPENSSL_35_DIR} \
+      --without-gnutls \
+      --without-mbedtls \
+      --without-wolfssl \
+      --with-ca-bundle=/etc/ssl/certs/ca-certificates.crt \
+      --with-ca-path=/etc/ssl/certs \
+      \
+      `# ---- keep ----` \
+      --with-zlib \
+      --with-nghttp2 \
+      --enable-versioned-symbols \
+      --enable-shared \
+      --disable-static \
+      \
+      `# ---- drop: each of these links the system OpenSSL ----` \
+      --without-libssh2 \
+      --without-libssh \
+      --without-libpsl \
+      --disable-ldap \
+      --disable-ldaps \
+      --without-gssapi \
+      --disable-gopher \
+      --disable-dict \
+      --disable-telnet \
+      --disable-tftp \
+      --disable-rtsp \
+      --disable-smb \
+      --disable-pop3 \
+      --disable-imap \
+      --disable-smtp \
+    ; \
+    make -j"$(nproc)"; \
+    make install; \
+    rm -f /tmp/curl.tar.xz
+
+RUN set -eu; \
+    so="${CURL_821_35_LIB_DIR}/libcurl.so"; \
+    echo "--- curl NEEDED ---"; \
+    readelf -d "$so" | grep NEEDED; \
+    for bad in libldap liblber libssh2 libssh librtmp libgssapi libpsl; do \
+      if readelf -d "$so" | grep -q "\[${bad}"; then \
+        echo "FATAL: libcurl still links ${bad} - it will drag in the system OpenSSL" >&2; \
+        exit 1; \
+      fi; \
+    done; \
+    if ldd "$so" | grep -q 'not found'; then \
+      echo "FATAL: libcurl has unresolved deps" >&2; ldd "$so" >&2; exit 1; \
+    fi; \
+    ldd "$so" | grep -q "${OPENSSL_35_LIB_DIR}/libssl" || { \
+      echo "FATAL: libcurl not linked against ${OPENSSL_35_LIB_DIR}" >&2; \
+      ldd "$so" >&2; exit 1; }; \
+    backends="$(${CURL_821_35_BIN_DIR}/curl-config --ssl-backends)"; \
+    echo "curl ssl backends: ${backends}"; \
+    case "${backends}" in \
+      *OpenSSL*) ;; \
+      *) echo "FATAL: unexpected TLS backend: ${backends}" >&2; exit 1 ;; \
+    esac; \
+    ${CURL_821_35_BIN_DIR}/curl --version; \
+    echo "OK: libcurl ${CURL_821_VERSION} -> ${OPENSSL_35_LIB_DIR}"
 
 ##################################################################
 #                   Version after install

@@ -1,0 +1,51 @@
+#!/bin/sh
+# php-ext-configure - run phpize + ./configure for a bundled extension.
+#
+# Based on docker-library/php's docker-php-ext-configure (MIT),
+# https://github.com/docker-library/php
+# Modified for EpicMorg: sources live permanently under $(php-config --prefix)/src,
+# there is no tarball to extract/delete.
+set -e
+
+# prefer user supplied flags, but default to the ones PHP itself was built with
+: "${CFLAGS:=$PHP_CFLAGS}"
+: "${CPPFLAGS:=$PHP_CPPFLAGS}"
+: "${LDFLAGS:=$PHP_LDFLAGS}"
+export CFLAGS CPPFLAGS LDFLAGS
+
+srcDir="$(php-config --prefix)/src"
+extSrc="${srcDir}/ext"
+
+usage() {
+	echo "usage: $0 ext-name [configure flags]"
+	echo "   ie: $0 gd --with-jpeg --with-webp"
+	echo
+	echo 'Possible values for ext-name:'
+	if [ -d "$extSrc" ]; then
+		find "$extSrc" -mindepth 2 -maxdepth 2 -type f -name 'config.m4' \
+			| xargs -r -n1 dirname | xargs -r -n1 basename | sort | xargs
+	else
+		echo "  (no source tree at ${extSrc})" >&2
+	fi
+}
+
+ext="$1"
+if [ -z "$ext" ]; then
+	usage >&2
+	exit 1
+fi
+if [ "$ext" = '-h' ] || [ "$ext" = '--help' ]; then
+	usage
+	exit 0
+fi
+shift
+
+if [ ! -d "${extSrc}/${ext}" ]; then
+	echo "error: ${extSrc}/${ext} does not exist" >&2
+	usage >&2
+	exit 1
+fi
+
+cd "${extSrc}/${ext}"
+phpize
+./configure --enable-option-checking=fatal "$@"
