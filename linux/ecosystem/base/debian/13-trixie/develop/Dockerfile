@@ -328,14 +328,14 @@ ARG OPENSSL_111_DOWNLOAD_URL=https://github.com/openssl/openssl/releases/downloa
 ARG OPENSSL_111_TEMP=/tmp/openssl-${OPENSSL_111_VERSION}w.tar.gz
 ARG OPENSSL_111_TEMP_SRC=/tmp/openssl-${OPENSSL_111_VERSION}w
 
-# OpenSSL 3.0
+# OpenSSL 3.0 [LTS]
 ENV OPENSSL_30_MIN_VERSION=3.0
-ENV OPENSSL_30_VERSION=${OPENSSL_30_MIN_VERSION}.20
+ENV OPENSSL_30_VERSION=${OPENSSL_30_MIN_VERSION}.21
 ENV OPENSSL_30_DIR=${EMG_LOCAL_BASE_DIR}/openssl/${OPENSSL_30_MIN_VERSION}
 ENV OPENSSL_30_BIN_DIR=${OPENSSL_30_DIR}/bin
 ENV OPENSSL_30_INC_DIR=${OPENSSL_30_DIR}/include
 ENV OPENSSL_30_LIB_DIR=${OPENSSL_30_DIR}/lib64
-ENV OPENSSL_30_SRC_DIR=/usr/local/src/openssl/${OPENSSL_30_VERSION}
+ENV OPENSSL_30_SRC_DIR=/usr/local/src/openssl/${OPENSSL_30_MIN_VERSION}
 ARG OPENSSL_30_DOWNLOAD_URL=https://github.com/openssl/openssl/releases/download/openssl-${OPENSSL_30_VERSION}/openssl-${OPENSSL_30_VERSION}.tar.gz
 ARG OPENSSL_30_TEMP=/tmp/openssl-${OPENSSL_30_VERSION}.tar.gz
 ARG OPENSSL_30_TEMP_SRC=/tmp/openssl-${OPENSSL_30_VERSION}
@@ -347,7 +347,7 @@ ENV OPENSSL_31_DIR=${EMG_LOCAL_BASE_DIR}/openssl/${OPENSSL_31_MIN_VERSION}
 ENV OPENSSL_31_BIN_DIR=${OPENSSL_31_DIR}/bin
 ENV OPENSSL_31_INC_DIR=${OPENSSL_31_DIR}/include
 ENV OPENSSL_31_LIB_DIR=${OPENSSL_31_DIR}/lib64
-ENV OPENSSL_31_SRC_DIR=/usr/local/src/openssl/${OPENSSL_31_VERSION}
+ENV OPENSSL_31_SRC_DIR=/usr/local/src/openssl/${OPENSSL_31_MIN_VERSION}
 ARG OPENSSL_31_DOWNLOAD_URL=https://github.com/openssl/openssl/releases/download/openssl-${OPENSSL_31_VERSION}/openssl-${OPENSSL_31_VERSION}.tar.gz
 ARG OPENSSL_31_TEMP=/tmp/openssl-${OPENSSL_31_VERSION}.tar.gz
 ARG OPENSSL_31_TEMP_SRC=/tmp/openssl-${OPENSSL_31_VERSION}
@@ -359,7 +359,7 @@ ENV OPENSSL_32_DIR=${EMG_LOCAL_BASE_DIR}/openssl/${OPENSSL_32_MIN_VERSION}
 ENV OPENSSL_32_BIN_DIR=${OPENSSL_32_DIR}/bin
 ENV OPENSSL_32_INC_DIR=${OPENSSL_32_DIR}/include
 ENV OPENSSL_32_LIB_DIR=${OPENSSL_32_DIR}/lib64
-ENV OPENSSL_32_SRC_DIR=/usr/local/src/openssl/${OPENSSL_32_VERSION}
+ENV OPENSSL_32_SRC_DIR=/usr/local/src/openssl/${OPENSSL_32_MIN_VERSION}
 ARG OPENSSL_32_DOWNLOAD_URL=https://github.com/openssl/openssl/releases/download/openssl-${OPENSSL_32_VERSION}/openssl-${OPENSSL_32_VERSION}.tar.gz
 ARG OPENSSL_32_TEMP=/tmp/openssl-${OPENSSL_32_VERSION}.tar.gz
 ARG OPENSSL_32_TEMP_SRC=/tmp/openssl-${OPENSSL_32_VERSION}
@@ -371,55 +371,55 @@ ENV OPENSSL_33_DIR=${EMG_LOCAL_BASE_DIR}/openssl/${OPENSSL_33_MIN_VERSION}
 ENV OPENSSL_33_BIN_DIR=${OPENSSL_33_DIR}/bin
 ENV OPENSSL_33_INC_DIR=${OPENSSL_33_DIR}/include
 ENV OPENSSL_33_LIB_DIR=${OPENSSL_33_DIR}/lib64
-ENV OPENSSL_33_SRC_DIR=/usr/local/src/openssl/${OPENSSL_33_VERSION}
+ENV OPENSSL_33_SRC_DIR=/usr/local/src/openssl/${OPENSSL_33_MIN_VERSION}
 ARG OPENSSL_33_DOWNLOAD_URL=https://github.com/openssl/openssl/releases/download/openssl-${OPENSSL_33_VERSION}/openssl-${OPENSSL_33_VERSION}.tar.gz
 ARG OPENSSL_33_TEMP=/tmp/openssl-${OPENSSL_33_VERSION}.tar.gz
 ARG OPENSSL_33_TEMP_SRC=/tmp/openssl-${OPENSSL_33_VERSION}
 
 # OpenSSL 3.4
 ENV OPENSSL_34_MIN_VERSION=3.4
-ENV OPENSSL_34_VERSION=${OPENSSL_34_MIN_VERSION}.4
+ENV OPENSSL_34_VERSION=${OPENSSL_34_MIN_VERSION}.5
 ENV OPENSSL_34_DIR=${EMG_LOCAL_BASE_DIR}/openssl/${OPENSSL_34_MIN_VERSION}
 ENV OPENSSL_34_BIN_DIR=${OPENSSL_34_DIR}/bin
 ENV OPENSSL_34_INC_DIR=${OPENSSL_34_DIR}/include
 ENV OPENSSL_34_LIB_DIR=${OPENSSL_34_DIR}/lib64
-ENV OPENSSL_34_SRC_DIR=/usr/local/src/openssl/${OPENSSL_34_VERSION}
+ENV OPENSSL_34_SRC_DIR=/usr/local/src/openssl/${OPENSSL_34_MIN_VERSION}
 ARG OPENSSL_34_DOWNLOAD_URL=https://github.com/openssl/openssl/releases/download/openssl-${OPENSSL_34_VERSION}/openssl-${OPENSSL_34_VERSION}.tar.gz
 ARG OPENSSL_34_TEMP=/tmp/openssl-${OPENSSL_34_VERSION}.tar.gz
 ARG OPENSSL_34_TEMP_SRC=/tmp/openssl-${OPENSSL_34_VERSION}
 
-# OpenSSL 3.5
+# OpenSSL 3.5 [LTS]
 ENV OPENSSL_35_MIN_VERSION=3.5
-ENV OPENSSL_35_VERSION=${OPENSSL_35_MIN_VERSION}.6
+ENV OPENSSL_35_VERSION=${OPENSSL_35_MIN_VERSION}.7
 ENV OPENSSL_35_DIR=${EMG_LOCAL_BASE_DIR}/openssl/${OPENSSL_35_MIN_VERSION}
 ENV OPENSSL_35_BIN_DIR=${OPENSSL_35_DIR}/bin
 ENV OPENSSL_35_INC_DIR=${OPENSSL_35_DIR}/include
 ENV OPENSSL_35_LIB_DIR=${OPENSSL_35_DIR}/lib64
-ENV OPENSSL_35_SRC_DIR=/usr/local/src/openssl/${OPENSSL_35_VERSION}
+ENV OPENSSL_35_SRC_DIR=/usr/local/src/openssl/${OPENSSL_35_MIN_VERSION}
 ARG OPENSSL_35_DOWNLOAD_URL=https://github.com/openssl/openssl/releases/download/openssl-${OPENSSL_35_VERSION}/openssl-${OPENSSL_35_VERSION}.tar.gz
 ARG OPENSSL_35_TEMP=/tmp/openssl-${OPENSSL_35_VERSION}.tar.gz
 ARG OPENSSL_35_TEMP_SRC=/tmp/openssl-${OPENSSL_35_VERSION}
 
 # OpenSSL 3.6
 ENV OPENSSL_36_MIN_VERSION=3.6
-ENV OPENSSL_36_VERSION=${OPENSSL_36_MIN_VERSION}.2
+ENV OPENSSL_36_VERSION=${OPENSSL_36_MIN_VERSION}.3
 ENV OPENSSL_36_DIR=${EMG_LOCAL_BASE_DIR}/openssl/${OPENSSL_36_MIN_VERSION}
 ENV OPENSSL_36_BIN_DIR=${OPENSSL_36_DIR}/bin
 ENV OPENSSL_36_INC_DIR=${OPENSSL_36_DIR}/include
 ENV OPENSSL_36_LIB_DIR=${OPENSSL_36_DIR}/lib64
-ENV OPENSSL_36_SRC_DIR=/usr/local/src/openssl/${OPENSSL_36_VERSION}
+ENV OPENSSL_36_SRC_DIR=/usr/local/src/openssl/${OPENSSL_36_MIN_VERSION}
 ARG OPENSSL_36_DOWNLOAD_URL=https://github.com/openssl/openssl/releases/download/openssl-${OPENSSL_36_VERSION}/openssl-${OPENSSL_36_VERSION}.tar.gz
 ARG OPENSSL_36_TEMP=/tmp/openssl-${OPENSSL_36_VERSION}.tar.gz
 ARG OPENSSL_36_TEMP_SRC=/tmp/openssl-${OPENSSL_36_VERSION}
 
 # OpenSSL 4.0
 ENV OPENSSL_40_MIN_VERSION=4.0
-ENV OPENSSL_40_VERSION=${OPENSSL_40_MIN_VERSION}.0
+ENV OPENSSL_40_VERSION=${OPENSSL_40_MIN_VERSION}.1
 ENV OPENSSL_40_DIR=${EMG_LOCAL_BASE_DIR}/openssl/${OPENSSL_40_MIN_VERSION}
 ENV OPENSSL_40_BIN_DIR=${OPENSSL_40_DIR}/bin
 ENV OPENSSL_40_INC_DIR=${OPENSSL_40_DIR}/include
 ENV OPENSSL_40_LIB_DIR=${OPENSSL_40_DIR}/lib64
-ENV OPENSSL_40_SRC_DIR=/usr/local/src/openssl/${OPENSSL_40_VERSION}
+ENV OPENSSL_40_SRC_DIR=/usr/local/src/openssl/${OPENSSL_40_MIN_VERSION}
 ARG OPENSSL_40_DOWNLOAD_URL=https://github.com/openssl/openssl/releases/download/openssl-${OPENSSL_40_VERSION}/openssl-${OPENSSL_40_VERSION}.tar.gz
 ARG OPENSSL_40_TEMP=/tmp/openssl-${OPENSSL_40_VERSION}.tar.gz
 ARG OPENSSL_40_TEMP_SRC=/tmp/openssl-${OPENSSL_40_VERSION}
@@ -442,6 +442,57 @@ ENV BORINGSSL_LIB_DIR=${BORINGSSL_DIR}/lib
 ENV BORINGSSL_SRC_DIR=/usr/local/src/boringssl/${BORINGSSL_VERSION}
 ARG BORINGSSL_DOWNLOAD_URL=https://boringssl.googlesource.com/boringssl
 ARG BORINGSSL_TEMP_SRC=/tmp/boringssl
+
+##################################################################
+#                  ICU 73
+##################################################################
+# Debian Trixie ships ICU 76, whose public headers require C++17.
+# PHP's ext/intl compiles with -std=c++11 until PHP 8.1, so anything
+# below 8.1 cannot build against the system ICU.
+# ICU 73.2 is the last branch whose headers stay C++11-clean.
+ENV ICU_MIN_VERSION=73
+ENV ICU_VERSION=${ICU_MIN_VERSION}.2
+ENV ICU_VERSION_U=73_2
+ENV ICU_DIR=${EMG_LOCAL_BASE_DIR}/icu/${ICU_MIN_VERSION}
+ENV ICU_INC_DIR=${ICU_DIR}/include
+ENV ICU_LIB_DIR=${ICU_DIR}/lib
+ENV ICU_SRC_DIR=/usr/local/src/icu/${ICU_MIN_VERSION}
+ARG ICU_URL=https://github.com/unicode-org/icu/releases/download/release-73-2/icu4c-${ICU_VERSION_U}-src.tgz
+
+##################################################################
+#           libpq 13 + OpenSSL 1.0.2
+##################################################################
+ENV LIBPQ_13_VERSION=13
+ENV LIBPQ_13_FULL_VERSION=${LIBPQ_13_VERSION}.23
+ENV LIBPQ_13_102_DIR=${EMG_LOCAL_BASE_DIR}/libpq/${LIBPQ_13_VERSION}/openssl102
+ENV LIBPQ_13_102_INC_DIR=${LIBPQ_13_102_DIR}/include
+ENV LIBPQ_13_102_LIB_DIR=${LIBPQ_13_102_DIR}/lib
+ENV LIBPQ_13_102_BIN_DIR=${LIBPQ_13_102_DIR}/bin
+ENV LIBPQ_13_SRC_DIR=/usr/local/src/postgresql/${LIBPQ_13_VERSION}
+ARG LIBPQ_13_URL=https://ftp.postgresql.org/pub/source/v${LIBPQ_13_FULL_VERSION}/postgresql-${LIBPQ_13_FULL_VERSION}.tar.bz2
+
+##################################################################
+#           libpq 16 + OpenSSL 1.1.1w
+##################################################################
+# Debian's libpq links OpenSSL 3.x. On PHP branches using OpenSSL 1.1.1 the
+# SONAMEs differ (libssl.so.1.1 vs libssl.so.3), so both libraries end up
+# loaded in the same process. Building libpq against our OpenSSL removes it.
+#
+# Only the client library is built - src/interfaces/libpq plus the headers and
+# pg_config that PHP's configure needs. A full PostgreSQL build would take
+# twenty minutes and pull in dependencies we do not need.
+#
+# Version note: libpq is forward/backward compatible with a wide range of
+# servers, so this is NOT tied to the PHP release date. 16.x is chosen as the
+# newest branch that still builds cleanly against OpenSSL 1.1.1.
+ENV LIBPQ_16_VERSION=16
+ENV LIBPQ_16_FULL_VERSION=${LIBPQ_16_VERSION}.14
+ENV LIBPQ_16_111_DIR=${EMG_LOCAL_BASE_DIR}/libpq/${LIBPQ_16_VERSION}/openssl111
+ENV LIBPQ_16_111_INC_DIR=${LIBPQ_16_111_DIR}/include
+ENV LIBPQ_16_111_LIB_DIR=${LIBPQ_16_111_DIR}/lib
+ENV LIBPQ_16_111_BIN_DIR=${LIBPQ_16_111_DIR}/bin
+ENV LIBPQ_16_SRC_DIR=/usr/local/src/postgresql/${LIBPQ_16_VERSION}
+ARG LIBPQ_16_URL=https://ftp.postgresql.org/pub/source/v${LIBPQ_16_FULL_VERSION}/postgresql-${LIBPQ_16_FULL_VERSION}.tar.bz2
 
 ##################################################################
 #                   installing
@@ -846,6 +897,66 @@ ENV PATH="${NINJA_BIN_DIR}:${PATH}"
 RUN echo "=============================================" && \
     echo ninja $(ninja --version) && \
     echo "============================================="
+
+
+##################################################################
+#                   ICU 73 library
+##################################################################
+RUN set -eux; \
+    mkdir -p /usr/local/src/icu; \
+    aria2c \
+        --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -d /tmp -o icu4c.tgz "${ICU_URL}"; \
+    tar -xzf /tmp/icu4c.tgz -C /usr/local/src/icu; \
+    mv /usr/local/src/icu/icu ${ICU_SRC_DIR}; \
+    cd ${ICU_SRC_DIR}/source; \
+    export LDFLAGS="-Wl,-rpath,${ICU_LIB_DIR}";  \
+    ./configure \
+      --prefix=${ICU_DIR} \
+      --libdir=${ICU_LIB_DIR} \
+      --disable-samples \
+      --disable-tests \
+      --disable-static \
+      --enable-shared; \
+    make -j"$(nproc)"; \
+    make install; \
+    rm -f /tmp/icu4c.tgz; \
+    test -f ${ICU_LIB_DIR}/libicuuc.so || { \
+      echo "FATAL: ICU libs not in ${ICU_LIB_DIR}" >&2; ls -la ${ICU_DIR}/ >&2; exit 1; }
+
+##################################################################
+#           libpq 16 + OpenSSL 1.1.1w
+##################################################################
+RUN set -eux; \
+    mkdir -p ${LIBPQ_SRC_DIR}; \
+    aria2c \
+        --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -d /tmp -o postgresql.tar.bz2 "${LIBPQ_16_URL}"; \
+    tar -xjf /tmp/postgresql.tar.bz2 --strip-components=1 -C ${LIBPQ_16_SRC_DIR}; \
+    cd ${LIBPQ_SRC_DIR}; \
+    export PKG_CONFIG_PATH="${OPENSSL_111_LIB_DIR}/pkgconfig"; \
+    export CPPFLAGS="-I${OPENSSL_111_INC_DIR}"; \
+    export LDFLAGS="-L${OPENSSL_111_LIB_DIR} -Wl,-rpath,${OPENSSL_111_LIB_DIR}"; \
+    ./configure \
+      --prefix=${LIBPQ_16_DIR} \
+      --libdir=${LIBPQ_16_LIB_DIR} \
+      --with-openssl \
+      --without-readline \
+      --without-zlib \
+      --without-icu; \
+    make -C src/interfaces/libpq -j"$(nproc)"; \
+    make -C src/interfaces/libpq install; \
+    make -C src/include install; \
+    make -C src/bin/pg_config install; \
+    rm -f /tmp/postgresql.tar.bz2
+
+RUN set -eu; \
+    ldd ${LIBPQ_16_111_LIB_DIR}/libpq.so | grep -q "${OPENSSL_111_LIB_DIR}/libssl" || { \
+      echo "FATAL: libpq not linked against ${OPENSSL_111_LIB_DIR}" >&2; \
+      ldd ${LIBPQ_16_111_LIB_DIR}/libpq.so >&2; exit 1; }; \
+    echo "OK: libpq -> ${OPENSSL_111_LIB_DIR}"
 
 ##################################################################
 #                   BZIP2 1.0.6 library

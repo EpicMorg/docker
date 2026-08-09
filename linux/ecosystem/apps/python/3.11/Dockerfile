@@ -190,12 +190,12 @@ ARG LD_CONF_DIR=/etc/ld.so.conf.d/
 #                  OpenSSL 3.5
 ##################################################################
 ENV OPENSSL_35_MIN_VERSION=3.5
-ENV OPENSSL_35_VERSION=${OPENSSL_35_MIN_VERSION}.6
+ENV OPENSSL_35_VERSION=${OPENSSL_35_MIN_VERSION}.7
 ENV OPENSSL_35_DIR=${EMG_LOCAL_BASE_DIR}/openssl/${OPENSSL_35_MIN_VERSION}
 ENV OPENSSL_35_BIN_DIR=${OPENSSL_35_DIR}/bin
 ENV OPENSSL_35_INC_DIR=${OPENSSL_35_DIR}/include
 ENV OPENSSL_35_LIB_DIR=${OPENSSL_35_DIR}/lib64
-ENV OPENSSL_35_SRC_DIR=/usr/local/src/openssl/${OPENSSL_35_VERSION}
+ENV OPENSSL_35_SRC_DIR=/usr/local/src/openssl/${OPENSSL_35_MIN_VERSION}
 ENV SSL_CERT_DIR=/etc/ssl/certs
 ENV REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
 
@@ -233,8 +233,8 @@ ENV OPENSSL_ROOT=${OPENSSL_35_DIR}
 ENV PATH="${OPENSSL_35_BIN_DIR}:${PYTHON_BIN_DIR}:${PATH}"
 
 RUN mkdir -p /usr/local/src/python && \
-    mv ${PYTHON_SRC_DIR} /usr/local/src/python/${PYTHON_FULL_VERSION} && \
-    ln -sfv /usr/local/src/python/${PYTHON_FULL_VERSION} ${PYTHON_SRC_DIR} && \
+    mv ${PYTHON_SRC_DIR} /usr/local/src/python/${PYTHON_VERSION} && \
+    ln -sfv /usr/local/src/python/${PYTHON_VERSION} ${PYTHON_SRC_DIR} && \
     rm -rfv /usr/bin/pip3 && \
     rm -rfv /usr/bin/pip && \
     rm -rfv /usr/bin/python && \

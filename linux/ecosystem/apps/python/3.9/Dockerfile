@@ -233,8 +233,8 @@ ENV OPENSSL_ROOT=${OPENSSL_111_DIR}
 ENV PATH="${OPENSSL_111_BIN_DIR}:${PYTHON_BIN_DIR}:${PATH}"
 
 RUN mkdir -p /usr/local/src/python && \
-    mv ${PYTHON_SRC_DIR} /usr/local/src/python/${PYTHON_FULL_VERSION} && \
-    ln -sfv /usr/local/src/python/${PYTHON_FULL_VERSION} ${PYTHON_SRC_DIR} && \
+    mv ${PYTHON_SRC_DIR} /usr/local/src/python/${PYTHON_VERSION} && \
+    ln -sfv /usr/local/src/python/${PYTHON_VERSION} ${PYTHON_SRC_DIR} && \
     rm -rfv /usr/bin/pip3 && \
     rm -rfv /usr/bin/pip && \
     rm -rfv /usr/bin/python && \

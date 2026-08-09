@@ -266,8 +266,8 @@ ENV PATH="${PYTHON_BIN_DIR}:${PATH}"
 
 # Installi ng Python 2.7 and its dependencies into the final image, and cleaning up unnecessary files to reduce image size.
 RUN mkdir -p /usr/local/src/python && \
-    mv ${PYTHON_SRC_DIR} /usr/local/src/python/${PYTHON_FULL_VERSION} && \
-    ln -sfv /usr/local/src/python/${PYTHON_FULL_VERSION} ${PYTHON_SRC_DIR} && \
+    mv ${PYTHON_SRC_DIR} /usr/local/src/python/${PYTHON_VERSION} && \
+    ln -sfv /usr/local/src/python/${PYTHON_VERSION} ${PYTHON_SRC_DIR} && \
     rm -rfv /usr/bin/pip3 && \
     rm -rfv /usr/bin/pip2 && \
     rm -rfv /usr/bin/pip && \
