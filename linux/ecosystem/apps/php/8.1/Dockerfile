@@ -388,6 +388,8 @@ RUN set -eux; \
     for sapi in cli fpm cgi; do \
       ln -sfn ${PHP_INI_SCAN_DIR}      ${PHP_INI_DIR}/${sapi}/conf.d; \
       ln -sfn ${PHP_INI_DIR}/php.ini   ${PHP_INI_DIR}/${sapi}/php.ini; \
+      ln -sfn ${PHP_INI_DIR}/php-fpm.conf ${PHP_INI_DIR}/fpm/php-fpm.conf; \
+      ln -sfn ${PHP_INI_DIR}/php-fpm.d    ${PHP_INI_DIR}/fpm/pool.d; \
     done; \
     \
     mkdir -p /etc/php /usr/lib/php; \
@@ -423,7 +425,7 @@ RUN set -eux; \
 # Container-oriented defaults: foreground, logs to stderr, workers recycled,
 # stuck requests killed. Upstream defaults leave the last two off entirely.
 COPY etc/php-fpm.conf     ${PHP_INI_DIR}/php-fpm.conf
-COPY etc/php-fpm.d/www.conf ${PHP_INI_DIR}/php-fpm.d/www.conf
+COPY etc/php-fpm.d/       ${PHP_INI_DIR}/php-fpm.d/
 
 RUN set -eux; \
     mkdir -p /run/php /var/www/html; \

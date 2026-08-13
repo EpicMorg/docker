@@ -1,0 +1,10 @@
+services:
+  app:
+    image: "epicmorg/nginx:1.31"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/nginx:1.31
+      - ghcr.io/epicmorg/nginx:1.31
+      - docker.io/epicmorg/nginx:1.31

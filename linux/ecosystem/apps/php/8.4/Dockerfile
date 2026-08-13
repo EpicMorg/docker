@@ -4,7 +4,7 @@
 #                          Builder
 ##################################################################
 ##################################################################
-FROM docker.io/epicmorg/gcc:15 AS builder
+FROM docker.io/epicmorg/gcc:14 AS builder
 
 # /etc/ld.so.conf.d/
 ARG LD_CONF_DIR=/etc/ld.so.conf.d/

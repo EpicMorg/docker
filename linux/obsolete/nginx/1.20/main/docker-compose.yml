@@ -1,0 +1,8 @@
+services:
+  app:
+    image: "epicmorg/nginx:${NGINX_VERSION}"
+    build:
+      context: .
+      args:
+        NGINX_#version: ${NGINX_VERSION}
+        NGINX_DOWNLOAD_URL: ${NGINX_DOWNLOAD_URL}

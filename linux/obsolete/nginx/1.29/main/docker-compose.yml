@@ -1,0 +1,9 @@
+services:
+  app:
+    image: "epicmorg/nginx:1.29"
+    build:
+      context: .
+  app-latest:
+    image: "epicmorg/nginx:latest"
+    build:
+      context: .

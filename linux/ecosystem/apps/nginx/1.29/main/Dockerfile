@@ -170,6 +170,7 @@ RUN CFLAGS="-Wno-error -fPIC" CXXFLAGS="-fPIC" ./configure \
                      -I${LIBXML2_INC_DIR} \
                      -I${LIBXSLT_INC_DIR} \
                      -I${LUAJIT2OR_INC_DIR} \
+                     -I${LUAJIT2OR_INC_DIR}/luajit-2.1 \
                      -I${LIBGD_INC_DIR} \
                      -I${GPERFTOOLS_INC_DIR} \
                      -I${MM_GEOIP_INC_DIR} \
