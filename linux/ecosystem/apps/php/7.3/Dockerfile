@@ -4,7 +4,7 @@
 #                          Builder
 ##################################################################
 ##################################################################
-FROM docker.io/epicmorg/gcc:11 AS builder
+FROM docker.io/epicmorg/gcc:14 AS builder
 
 # /etc/ld.so.conf.d/
 ARG LD_CONF_DIR=/etc/ld.so.conf.d/
@@ -159,9 +159,7 @@ RUN set -eux; \
     chmod +x /usr/local/bin/freetype-config; \
     freetype-config --ftversion
 
-RUN set -eux; \
-    export CC="${GCC_INSTALL_DIR}/bin/gcc"; \
-    export CXX="${GCC_INSTALL_DIR}/bin/g++"; \
+RUN set -eux; \     
     export ac_cv_func_readdir_r=no; \
     debMultiarch="$(dpkg-architecture --query DEB_BUILD_MULTIARCH)"; \
     export ICU_CFLAGS="-I${ICU_67_INC_DIR}"; \

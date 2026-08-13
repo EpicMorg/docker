@@ -508,26 +508,26 @@ ecosystem-debian-sid-images:
 ####################################################################################################################
  
 ecosystem-gcc-images:
-#	cd `pwd`/linux/ecosystem/apps/gcc/16       && pwd && make build && make deploy
-#	@make clean
-#	cd `pwd`/linux/ecosystem/apps/gcc/15       && pwd && make build && make deploy
-#	cd `pwd`/linux/ecosystem/apps/gcc/14       && pwd && make build && make deploy
-#	@make clean
-#	cd `pwd`/linux/ecosystem/apps/gcc/13       && pwd && make build && make deploy
-#	cd `pwd`/linux/ecosystem/apps/gcc/12       && pwd && make build && make deploy
-#	@make clean
-#	cd `pwd`/linux/ecosystem/apps/gcc/11       && pwd && make build && make deploy
-#	cd `pwd`/linux/ecosystem/apps/gcc/10       && pwd && make build && make deploy
-#	@make clean
-#	cd `pwd`/linux/ecosystem/apps/gcc/09       && pwd && make build && make deploy
-#	cd `pwd`/linux/ecosystem/apps/gcc/08       && pwd && make build && make deploy
-#	@make clean
+	cd `pwd`/linux/ecosystem/apps/gcc/16       && pwd && make build && make deploy
+	@make clean
+	cd `pwd`/linux/ecosystem/apps/gcc/15       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/gcc/14       && pwd && make build && make deploy
+	@make clean
+	cd `pwd`/linux/ecosystem/apps/gcc/13       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/gcc/12       && pwd && make build && make deploy
+	@make clean
+	cd `pwd`/linux/ecosystem/apps/gcc/11       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/gcc/10       && pwd && make build && make deploy
+	@make clean
+	cd `pwd`/linux/ecosystem/apps/gcc/09       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/gcc/08       && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/ecosystem/apps/gcc/07       && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/gcc/06       && pwd && make build && make deploy
-#	@make clean
+	@make clean
 	cd `pwd`/linux/ecosystem/apps/gcc/05       && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/gcc/04       && pwd && make build && make deploy
-#	@make clean
+	@make clean
 
 ####################################################################################################################
  
@@ -603,13 +603,13 @@ ecosystem-museum-python-images:
 	cd `pwd`/linux/ecosystem/apps/python/3.0            && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/python/3.1            && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/python/3.2            && pwd && make build && make deploy
-#	@make -s clean
+	@make -s clean
 	cd `pwd`/linux/ecosystem/apps/python/3.3            && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/python/3.4            && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/python/3.5            && pwd && make build && make deploy
-#	@make -s clean
+	@make -s clean
 	cd `pwd`/linux/ecosystem/apps/python/3.6            && pwd && make build && make deploy
-#	@make -s clean
+	@make -s clean
 
 ecosystem-eol-python-images:
 	cd `pwd`/linux/ecosystem/apps/python/2.7            && pwd && make build && make deploy
@@ -637,8 +637,8 @@ ecosystem-php-images:
 	make ecosystem-supported-php-images
 
 ecosystem-eol-php-images:
-	cd `pwd`/linux/ecosystem/apps/php/5.5            && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/apps/php/5.6            && pwd && make build && make deploy
+#	cd `pwd`/linux/ecosystem/apps/php/5.5            && pwd && make build && make deploy
+#	cd `pwd`/linux/ecosystem/apps/php/5.6            && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/php/7.0            && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/php/7.1            && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/php/7.2            && pwd && make build && make deploy
@@ -652,6 +652,7 @@ ecosystem-supported-php-images:
 	cd `pwd`/linux/ecosystem/apps/php/8.2            && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/php/8.3            && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/php/8.4            && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/php/8.5            && pwd && make build && make deploy
 	@make -s clean
 
 ####################################################################################################################

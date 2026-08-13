@@ -114,8 +114,8 @@ ARG CMAKE_3_16_TEMP=/tmp/cmake-${CMAKE_3_16_VERSION}-linux-x86_64.tar.gz
 
 # flutter source tarball
 ENV FLUTTER_CHANNEL=stable
-ENV FLUTTER_MIN_VERSION=3.44
-ENV FLUTTER_VERSION=${FLUTTER_MIN_VERSION}.1
+ENV FLUTTER_MIN_VERSION=3.47
+ENV FLUTTER_VERSION=${FLUTTER_MIN_VERSION}.0
 ENV FLUTTER_DIR=${EMG_LOCAL_BASE_DIR}/flutter/${FLUTTER_MIN_VERSION}
 ARG FLUTTER_BIN_DIR=${FLUTTER_DIR}/bin
 ARG FLUTTER_DOWNLOAD_URL=https://storage.googleapis.com/flutter_infra_release/releases/${FLUTTER_CHANNEL}/linux/flutter_linux_${FLUTTER_VERSION}-${FLUTTER_CHANNEL}.tar.xz
@@ -130,7 +130,7 @@ ARG NINJA_TEMP=/tmp/ninja-linux.zip
 
 # GO source tarball
 ENV GO_MIN_VERSION=1.26
-ENV GO_VERSION=${GO_MIN_VERSION}.3
+ENV GO_VERSION=${GO_MIN_VERSION}.6
 ENV GO_DIR=${EMG_LOCAL_BASE_DIR}/go/${GO_MIN_VERSION}
 ARG GO_BIN_DIR=${GO_DIR}/bin
 ARG GO_PATH_DIR=${GO_DIR}/gopath
@@ -238,16 +238,22 @@ ARG LIBATOMICOPS_TEMP=/tmp/libatomic_ops-${LIBATOMICOPS_VERSION}.tar.gz
 ARG LIBATOMICOPS_TEMP_SRC=/tmp/libatomic_ops-${LIBATOMICOPS_VERSION}
 
 # libimagequant source
-ENV LIBIMAGEQUANT_VERSION=4.3.4
+# NOTE: pinned to master deliberately. Upstream tagged 4.4.0 with known issues
+# and the fixed 4.5.0 was never tagged. Switch to a tag once one appears.
+ENV LIBIMAGEQUANT_VERSION=4.5.0
 ARG LIBIMAGEQUANT_DOWNLOAD_URL=https://github.com/ImageOptim/libimagequant
-ENV LIBIMAGEQUANT_DIR=${EMG_LOCAL_BASE_DIR}/libimagequant
+ENV LIBIMAGEQUANT_DIR=${EMG_LOCAL_BASE_DIR}/libimagequant/${LIBIMAGEQUANT_VERSION}
+ENV LIBIMAGEQUANT_INC_DIR=${LIBIMAGEQUANT_DIR}/include
+ENV LIBIMAGEQUANT_LIB_DIR=${LIBIMAGEQUANT_DIR}/lib
 ENV LIBIMAGEQUANT_SRC_DIR=/usr/local/src/libimagequant/${LIBIMAGEQUANT_VERSION}
 ARG LIBIMAGEQUANT_TEMP_SRC=/tmp/libimagequant
 
 # libraqm source
-ENV LIBRAQM_VERSION=0.10.3
+ENV LIBRAQM_VERSION=0.11.0
 ARG LIBRAQM_DOWNLOAD_URL=https://github.com/HOST-Oman/libraqm
-ENV LIBRAQM_DIR=${EMG_LOCAL_BASE_DIR}/libraqm
+ENV LIBRAQM_DIR=${EMG_LOCAL_BASE_DIR}/libraqm/${LIBRAQM_VERSION}
+ENV LIBRAQM_INC_DIR=${LIBRAQM_DIR}/include
+ENV LIBRAQM_LIB_DIR=${LIBRAQM_DIR}/lib
 ENV LIBRAQM_SRC_DIR=/usr/local/src/libraqm/${LIBRAQM_VERSION}
 ARG LIBRAQM_TEMP_SRC=/tmp/libraqm
 
@@ -263,7 +269,7 @@ ARG LIBGD_TEMP=/tmp/libgd-${LIBGD_VERSION}.tar.gz
 ARG LIBGD_TEMP_SRC=/tmp/libgd-${LIBGD_VERSION}
 
 # libxml2 source tarball
-ENV LIBXML2_VERSION=2.15.1
+ENV LIBXML2_VERSION=2.15.3
 ENV LIBXML2_DIR=${EMG_LOCAL_BASE_DIR}/libxml2/${LIBXML2_VERSION}
 ENV LIBXML2_BIN_DIR=${LIBXML2_DIR}/bin
 ENV LIBXML2_INC_DIR=${LIBXML2_DIR}/include
@@ -274,7 +280,7 @@ ARG LIBXML2_TEMP=/tmp/libxml2-v${LIBXML2_VERSION}.tar.gz
 ARG LIBXML2_TEMP_SRC=/tmp/libxml2-v${LIBXML2_VERSION}
 
 # libxslt source tarball
-ENV LIBXSLT_VERSION=1.1.43
+ENV LIBXSLT_VERSION=1.1.45
 ENV LIBXSLT_DIR=${EMG_LOCAL_BASE_DIR}/libxslt/${LIBXSLT_VERSION}
 ENV LIBXSLT_BIN_DIR=${LIBXSLT_DIR}/bin
 ENV LIBXSLT_INC_DIR=${LIBXSLT_DIR}/include
@@ -284,7 +290,7 @@ ARG LIBXSLT_DOWNLOAD_URL=https://gitlab.gnome.org/GNOME/libxslt/-/archive/v${LIB
 ARG LIBXSLT_TEMP=/tmp/libxslt-v${LIBXSLT_VERSION}.tar.gz
 ARG LIBXSLT_TEMP_SRC=/tmp/libxslt-v${LIBXSLT_VERSION}
 
-# maxmind geoip
+# maxmind geoip End-Of-Life!
 ENV MM_GEOIP_VERSION=1.6.12
 ENV MM_GEOIP_DIR=${EMG_LOCAL_BASE_DIR}/geoip/${MM_GEOIP_VERSION}
 ENV MM_GEOIP_BIN_DIR=${MM_GEOIP_DIR}/bin
@@ -425,7 +431,7 @@ ARG OPENSSL_40_TEMP=/tmp/openssl-${OPENSSL_40_VERSION}.tar.gz
 ARG OPENSSL_40_TEMP_SRC=/tmp/openssl-${OPENSSL_40_VERSION}
 
 # LibreSSL
-ENV LIBRESSL_VERSION=4.3.1
+ENV LIBRESSL_VERSION=4.3.2
 ENV LIBRESSL_DIR=${EMG_LOCAL_BASE_DIR}/libressl/${LIBRESSL_VERSION}
 ENV LIBRESSL_INC_DIR=${LIBRESSL_DIR}/include
 ENV LIBRESSL_LIB_DIR=${LIBRESSL_DIR}/lib
@@ -700,9 +706,18 @@ RUN set -eux; \
 ENV PATH="$CARGO_HOME/bin:${PATH}"
 
 RUN echo "=============================================" && \
-    echo cargo $(cargo --version) && \
-    echo rustc $(rustc --version) && \
-    echo rustup $(rustup --version) && \
+    rustup update && \
+    echo "=============================================" && \
+    echo "installing cargo-c in quiet mode... please wait" && \
+    cargo install --quiet --color never --message-format short cargo-c && \
+    echo "=============================================" && \
+    echo $(cargo --version) && \
+    echo "=============================================" && \
+    echo $(cargo-cinstall -V) && \
+    echo "=============================================" && \
+    echo $(rustc --version) && \
+    echo "=============================================" && \
+    echo $(rustup --version) && \
     echo "============================================="
 
 ##################################################################
@@ -902,16 +917,16 @@ RUN set -eux; \
     chmod +x ${FLUTTER_BIN_DIR}/flutter && \
     chmod +x ${FLUTTER_BIN_DIR}/internal/shared.sh && \
     chmod +x ${FLUTTER_BIN_DIR}/internal/update_dart_sdk.sh && \
-      echo "clean up" && \
-      rm -rfv /tmp/*
+    echo "clean up" && \
+    rm -rfv /tmp/*
 
 ENV PATH="${FLUTTER_BIN_DIR}:${PATH}"
 
 RUN git config --global --add safe.directory ${FLUTTER_DIR} && \
+    dart --disable-analytics && \
     flutter config --no-analytics && \
     flutter config --no-cli-animations && \
-    flutter precache && \
-    dart --disable-analytics
+    flutter precache
 
 RUN echo "=============================================" && \
     echo dart $(dart --version) && \
@@ -931,8 +946,8 @@ RUN set -eux; \
     tar -xzf ${GO_TEMP} --directory ${GO_DIR} --strip-components=1 && \
     chmod +x ${GO_BIN_DIR}/go && \
     chmod +x ${GO_BIN_DIR}/gofmt && \
-      echo "clean up" && \
-      rm -rfv /tmp/*
+    echo "clean up" && \
+    rm -rfv /tmp/*
 
 ENV GOROOT=${GO_DIR}
 ENV GOPATH=${GO_PATH_DIR}
@@ -954,8 +969,8 @@ RUN set -eux; \
         "${NINJA_DOWNLOAD_URL}" && \
     7zz x ${NINJA_TEMP} -o${NINJA_BIN_DIR} -y  && \
     chmod +x ${NINJA_BIN_DIR}/ninja && \
-      echo "clean up" && \
-      rm -rfv /tmp/*
+    echo "clean up" && \
+    rm -rfv /tmp/*
 
 ENV PATH="${NINJA_BIN_DIR}:${PATH}"
 
@@ -976,13 +991,12 @@ RUN set -eux; \
         "${BZIP2_106_DOWNLOAD_URL}" && \
     tar -xzf ${BZIP2_106_TEMP} -C /tmp && \
     cd ${BZIP2_106_TEMP_SRC} && \
-    make -j$(nproc) PREFIX=${BZIP2_106_INSTALL_DIR} install && \
+    make -j$(nproc) CFLAGS="-fPIC -O2 -D_FILE_OFFSET_BITS=64" PREFIX=${BZIP2_106_INSTALL_DIR} install && \
     gcc -shared -Wl,-soname,libbz2.so.1.0 -o ${BZIP2_106_INSTALL_DIR}/lib/libbz2.so.1.0.6 libbz2.a && \
     ln -sf ${BZIP2_106_INSTALL_DIR}/lib/libbz2.so.1.0.6 ${BZIP2_106_INSTALL_DIR}/lib/libbz2.so.1.0 && \
     ln -sf ${BZIP2_106_INSTALL_DIR}/lib/libbz2.so.1.0.6 ${BZIP2_106_INSTALL_DIR}/lib/libbz2.so && \
-    ldconfig && \
-      echo "clean up" && \
-      rm -rfv /tmp/*
+    echo "clean up" && \
+    rm -rfv /tmp/*
 
 ##################################################################
 #                   BZIP2 1.0.8 library
@@ -996,13 +1010,12 @@ RUN set -eux; \
         "${BZIP2_108_DOWNLOAD_URL}" && \
     tar -xzf ${BZIP2_108_TEMP} -C /tmp && \
     cd ${BZIP2_108_TEMP_SRC} && \
-    make -j$(nproc) PREFIX=${BZIP2_108_INSTALL_DIR} install && \
+    make -j$(nproc) CFLAGS="-fPIC -O2 -D_FILE_OFFSET_BITS=64" PREFIX=${BZIP2_108_INSTALL_DIR} install && \
     gcc -shared -Wl,-soname,libbz2.so.1.0 -o ${BZIP2_108_INSTALL_DIR}/lib/libbz2.so.1.0.8 libbz2.a && \
     ln -sf ${BZIP2_108_INSTALL_DIR}/lib/libbz2.so.1.0.8 ${BZIP2_108_INSTALL_DIR}/lib/libbz2.so.1.0 && \
     ln -sf ${BZIP2_108_INSTALL_DIR}/lib/libbz2.so.1.0.8 ${BZIP2_108_INSTALL_DIR}/lib/libbz2.so && \
-    ldconfig && \
-      echo "clean up" && \
-      rm -rfv /tmp/*
+    echo "clean up" && \
+    rm -rfv /tmp/*
 
 ##################################################################
 #                   FFI library
@@ -1024,9 +1037,8 @@ RUN set -eux; \
     && \
     make -j$(nproc) && \
     make install && \
-    ldconfig && \
-      echo "clean up" && \
-      rm -rfv /tmp/*
+    echo "clean up" && \
+    rm -rfv /tmp/*
 
 ##################################################################
 #                   ncurses library
@@ -1055,14 +1067,13 @@ RUN mkdir -p ${NCURSES_INSTALL_DIR} && \
         --without-debug \
         --without-ada \
         --enable-widec \
-        --enable-symlinks \ 
+        --enable-symlinks \
         --with-normal \
         && \
     make -j$(nproc) && \
     make install && \
-    ldconfig && \
-      echo "clean up" && \
-      rm -rfv /tmp/*
+    echo "clean up" && \
+    rm -rfv /tmp/*
 
 ##################################################################
 #                   libdb library
@@ -1085,9 +1096,8 @@ RUN set -eux; \
     && \
     make -j$(nproc) && \
     make install && \
-    ldconfig && \
-      echo "clean up" && \
-      rm -rfv /tmp/*
+    echo "clean up" && \
+    rm -rfv /tmp/*
 
 ##################################################################
 #                   ZLIB library
@@ -1104,16 +1114,12 @@ RUN set -eux; \
     ln -sf ${ZLIB_SRC_DIR}  ${ZLIB_DIR}/src && \
     cd ${ZLIB_TEMP_SRC} && \
     ./configure \
-#      --static \
       --prefix=${ZLIB_DIR} \
       && \
     make -j$(nproc) && \
     make -j$(nproc) install && \
-    echo "# ZLIB support" >> ${LD_CONF_DIR}/ZLIB.conf && \
-    echo ${ZLIB_LIB_DIR} >> ${LD_CONF_DIR}/ZLIB.conf && \
-    ldconfig && \
-      echo "clean up" && \
-      rm -rfv /tmp/*
+    echo "clean up" && \
+    rm -rfv /tmp/*
 
 ##################################################################
 #                   ZSTD library
@@ -1134,11 +1140,8 @@ RUN set -eux; \
     cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=${ZSTD_DIR} -DZSTD_BUILD_STATIC=ON -DZSTD_BUILD_SHARED=ON .. && \
     make -j$(nproc) && \
     make -j$(nproc) install && \
-    echo "# ZSTD support" >> ${LD_CONF_DIR}/ZSTD.conf && \
-    echo ${ZSTD_LIB_DIR} >> ${LD_CONF_DIR}/ZSTD.conf && \
-    ldconfig && \
-      echo "clean up" && \
-      rm -rfv /tmp/*
+    echo "clean up" && \
+    rm -rfv /tmp/*
 
 ENV PATH="${ZSTD_BIN_DIR}:${PATH}"
 
@@ -1176,16 +1179,11 @@ RUN set -eux; \
         --enable-pcre2test-libedit \
         --enable-unicode \
         --enable-valgrind \
-#        --enable-fuzz-support \
-#        --enable-diff-fuzz-support \
         && \
     make -j$(nproc) && \
     make -j$(nproc) install && \
-    echo "# PRCE2 support" >> ${LD_CONF_DIR}/PRCE2.conf && \
-    echo ${PCRE_LIB_DIR} >> ${LD_CONF_DIR}/PRCE2.conf && \
-    ldconfig && \
-      echo "clean up" && \
-      rm -rfv /tmp/*
+    echo "clean up" && \
+    rm -rfv /tmp/*
 
 ENV PATH="${PCRE_BIN_DIR}:${PATH}"
 
@@ -1196,20 +1194,19 @@ RUN echo "=============================================" && \
 ##################################################################
 #                   LuaJIT2 OpenResty 2.1
 ##################################################################
+# See https://github.com/openresty/lua-nginx-module/issues/1834
 RUN set -eux; \
     mkdir -p ${LUAJIT2OR_DIR} ${LUAJIT2OR_SRC_DIR} && \
     git clone ${LUAJIT2OR_DOWNLOAD_URL} ${LUAJIT2OR_TEMP_SRC} && \
     cp -rfv ${LUAJIT2OR_TEMP_SRC}/* ${LUAJIT2OR_SRC_DIR} && \
+    ln -sfv ${LUAJIT2OR_INC_DIR}/luajit-2.1/* ${LUAJIT2OR_INC_DIR}/ && \
     ln -sf ${LUAJIT2OR_SRC_DIR} ${LUAJIT2OR_DIR}/src && \
     cd ${LUAJIT2OR_TEMP_SRC} && \
 #    make -j$(nproc) XCFLAGS='-DLUAJIT_ENABLE_GC64' BUILDMODE=static && \
     make -j$(nproc) XCFLAGS='-DLUAJIT_ENABLE_GC64' BUILDMODE=mixed && \
     make -j$(nproc) install PREFIX=${LUAJIT2OR_DIR} && \
-    echo "# LuaJIT2 support" >> ${LD_CONF_DIR}/LuaJIT2.conf && \
-    echo ${LUAJIT2OR_LIB_DIR} >> ${LD_CONF_DIR}/LuaJIT2.conf && \
-    ldconfig && \
-      echo "clean up" && \
-      rm -rfv /tmp/*
+    echo "clean up" && \
+    rm -rfv /tmp/*
 
 ENV PATH="${LUAJIT2OR_BIN_DIR}:${PATH}"
 
@@ -1245,11 +1242,8 @@ RUN set -eux; \
       && \
     make -j$(nproc) && \
     make -j$(nproc) install && \
-    echo "# IP2Location support" >> ${LD_CONF_DIR}/IP2Location.conf && \
-    echo ${IP2LOC_LIB_DIR} >> ${LD_CONF_DIR}/IP2Location.conf && \
-    ldconfig && \
-      echo "clean up" && \
-      rm -rfv /tmp/*
+    echo "clean up" && \
+    rm -rfv /tmp/*
 
 ENV PATH="${IP2LOC_BIN_DIR}:${PATH}"
 
@@ -1265,7 +1259,7 @@ RUN set -eux; \
         "${LIBATOMICOPS_DOWNLOAD_URL}" && \
     tar -xzf ${LIBATOMICOPS_TEMP} --directory /tmp && \
     cp -rfv ${LIBATOMICOPS_TEMP_SRC}/* ${LIBATOMICOPS_SRC_DIR} && \
-    ln -sf ${LIBATOMICOPS_SRC_DIR} ${LIBATOMICOPS_DIR}/src && \
+    ln -sfv ${LIBATOMICOPS_SRC_DIR} ${LIBATOMICOPS_DIR}/src && \
     cd ${LIBATOMICOPS_TEMP_SRC} && \
     ./autogen.sh && \
     ./configure \
@@ -1273,17 +1267,12 @@ RUN set -eux; \
       --disable-silent-rules \
       --enable-shared \
       --enable-static \
-      --enable-assertions \
-      --with-aix-soname=both \
       && \
     make -j$(nproc) && \
     make -j$(nproc) install && \
     ln -sfv ${LIBATOMICOPS_SRC_DIR} ${LIBATOMICOPS_SRC_DIR}/src && \
-    echo "# libatomic_ops support" >> ${LD_CONF_DIR}/libatomic_ops.conf && \
-    echo ${LIBATOMICOPS_LIB_DIR} >> ${LD_CONF_DIR}/libatomic_ops.conf && \
-    ldconfig && \
-      echo "clean up" && \
-      rm -rfv /tmp/*
+    echo "clean up" && \
+    rm -rfv /tmp/*
 
 ##################################################################
 #                   libimagequant
@@ -1296,26 +1285,67 @@ RUN set -eux; \
     cd ${LIBIMAGEQUANT_TEMP_SRC} && \
       cargo build --release && \
     cd ${LIBIMAGEQUANT_TEMP_SRC}/imagequant-sys && \
-      cargo build --release && \
-      make -j$(nproc) && \
-      make -j$(nproc) install && \
+      cargo cinstall \
+          --release \
+          --prefix=${LIBIMAGEQUANT_DIR} \
+          --libdir=${LIBIMAGEQUANT_LIB_DIR} \
+          --includedir=${LIBIMAGEQUANT_INC_DIR} && \
     echo "clean up" && \
     rm -rfv /tmp/*
+
+# Assert: installed into OUR prefix, not /usr/local
+RUN RUN set -eu; \
+    echo "--- libimagequant ---"; \
+    ls -la ${LIBIMAGEQUANT_LIB_DIR}/; \
+    test -f ${LIBIMAGEQUANT_LIB_DIR}/pkgconfig/imagequant.pc \
+      || { echo "FATAL: imagequant.pc missing - libgd will not find it" >&2; exit 1; }; \
+    cat ${LIBIMAGEQUANT_LIB_DIR}/pkgconfig/imagequant.pc; \
+    test -f ${LIBIMAGEQUANT_INC_DIR}/libimagequant.h \
+      || { echo "FATAL: libimagequant.h missing" >&2; exit 1; }; \
+    if [ -f ${LIBIMAGEQUANT_LIB_DIR}/libimagequant.so ]; then \
+      readelf -d ${LIBIMAGEQUANT_LIB_DIR}/libimagequant.so | grep NEEDED; \
+      ldd ${LIBIMAGEQUANT_LIB_DIR}/libimagequant.so | grep -q 'not found' \
+        && { echo "FATAL: unresolved deps" >&2; exit 1; }; \
+      echo "OK: libimagequant (shared) -> ${LIBIMAGEQUANT_DIR}"; \
+    elif [ -f ${LIBIMAGEQUANT_LIB_DIR}/libimagequant.a ]; then \
+      echo "OK: libimagequant (static only) -> ${LIBIMAGEQUANT_DIR}"; \
+    else \
+      echo "FATAL: no libimagequant library at all" >&2; \
+      ls -la ${LIBIMAGEQUANT_DIR}/ >&2; exit 1; \
+    fi
 
 ##################################################################
 #                   libraqm
 ##################################################################
 RUN set -eux; \
     mkdir -p ${LIBRAQM_DIR} ${LIBRAQM_SRC_DIR} && \
-    git clone ${LIBRAQM_DOWNLOAD_URL} ${LIBRAQM_TEMP_SRC} && \
+    git clone --depth 1 --branch v${LIBRAQM_VERSION} ${LIBRAQM_DOWNLOAD_URL} ${LIBRAQM_TEMP_SRC} && \
     cp -rfv ${LIBRAQM_TEMP_SRC}/* ${LIBRAQM_SRC_DIR} && \
-    ln -sf ${LIBRAQM_SRC_DIR} ${LIBRAQM_DIR}/src && \
+    ln -sfv ${LIBRAQM_SRC_DIR} ${LIBRAQM_DIR}/src && \
     cd ${LIBRAQM_TEMP_SRC} && \
-    meson build && \
+    meson setup build \
+      --prefix=${LIBRAQM_DIR} \
+      --libdir=lib \
+      --buildtype=release \
+      -Ddefault_library=shared \
+      -Ddocs=false && \
     ninja -C build && \
     ninja -C build install && \
-      echo "clean up" && \
-      rm -rfv /tmp/*
+    echo "clean up" && \
+    rm -rfv /tmp/*
+
+# Assert: installed into OUR prefix
+RUN set -eu; \
+    echo "--- libraqm ---"; \
+    test -f ${LIBRAQM_LIB_DIR}/libraqm.so || { \
+      echo "FATAL: libraqm.so not in ${LIBRAQM_LIB_DIR}" >&2; \
+      ls -la ${LIBRAQM_DIR}/ >&2; exit 1; }; \
+    test -f ${LIBRAQM_LIB_DIR}/pkgconfig/raqm.pc || { \
+      echo "FATAL: raqm.pc missing - libgd will not find it" >&2; exit 1; }; \
+    readelf -d ${LIBRAQM_LIB_DIR}/libraqm.so | grep NEEDED; \
+    ldd ${LIBRAQM_LIB_DIR}/libraqm.so | grep -q 'not found' && { \
+      echo "FATAL: unresolved deps" >&2; ldd ${LIBRAQM_LIB_DIR}/libraqm.so >&2; exit 1; }; \
+    echo "OK: libraqm -> ${LIBRAQM_DIR}"
 
 ##################################################################
 #                   libgd
@@ -1331,20 +1361,21 @@ RUN set -eux; \
     cp -rfv ${LIBGD_TEMP_SRC}/* ${LIBGD_SRC_DIR} && \
     ln -sf ${LIBGD_SRC_DIR} ${LIBGD_DIR}/src && \
     cd ${LIBGD_TEMP_SRC} && \
+    export PKG_CONFIG_PATH="${LIBRAQM_LIB_DIR}/pkgconfig:${LIBIMAGEQUANT_LIB_DIR}/pkgconfig:${PKG_CONFIG_PATH:-}" && \
+    export LDFLAGS="-L${LIBRAQM_LIB_DIR} -Wl,-rpath,${LIBRAQM_LIB_DIR} -L${LIBIMAGEQUANT_LIB_DIR} -Wl,-rpath,${LIBIMAGEQUANT_LIB_DIR} ${LDFLAGS:-}" && \
     ./bootstrap.sh && \
     ./configure \
       --prefix=${LIBGD_DIR} \
       --disable-silent-rules \
       --enable-static \
       --enable-shared \
-      --with-aix-soname=both \
       --with-libiconv-prefix \
-      --with-zlib=${ZLIB_SRC_DIR} \
+      --with-zlib=${ZLIB_DIR} \
       --with-png --with-freetype \
-      --with-raqm=${LIBRAQM_SRC_DIR} \
+      --with-raqm=${LIBRAQM_DIR} \
       --with-fontconfig \
       --with-jpeg \
-      --with-liq=${LIBIMAGEQUANT_SRC_DIR} \
+      --with-liq=${LIBIMAGEQUANT_DIR} \
       --with-xpm \
       --with-gd \
       --enable-gd-formats \
@@ -1356,17 +1387,30 @@ RUN set -eux; \
       && \
     make -j$(nproc) && \
     make -j$(nproc) install && \
-    echo "# libgd support" >> ${LD_CONF_DIR}/libgd.conf && \
-    echo ${LIBGD_LIB_DIR} >> ${LD_CONF_DIR}/libgd.conf && \
-    ldconfig && \
-      echo "clean up" && \
-      rm -rfv /tmp/*
+    echo "clean up" && \
+    rm -rfv /tmp/*
 
 ENV PATH="${LIBGD_BIN_DIR}:${PATH}" 
+
+RUN set -eu; \
+    echo "--- libgd ---"; \
+    so="${LIBGD_LIB_DIR}/libgd.so"; \
+    readelf -d "$so" | grep NEEDED; \
+    ldd "$so" | grep -q 'not found' && { echo "FATAL: unresolved deps" >&2; ldd "$so" >&2; exit 1; }; \
+    for dep in libraqm libimagequant; do \
+      if readelf -d "$so" | grep -q "${dep}"; then \
+        ldd "$so" | grep "${dep}" | grep -q "${EMG_LOCAL_BASE_DIR}" \
+          || { echo "FATAL: ${dep} resolved outside our prefix" >&2; ldd "$so" | grep "${dep}" >&2; exit 1; }; \
+      fi; \
+    done; \
+    echo "OK: libgd"
 
 ##################################################################
 #                   libxml2
 ##################################################################
+# NOTE: --with-icu is deliberately OFF. It links the system ICU 76, which then
+# leaks into every consumer (nginx, libxslt) and drags libicuuc/libicudata into
+# the process. Nothing here needs ICU-based Unicode normalisation.
 RUN set -eux; \
     mkdir -p ${LIBXML2_DIR} ${LIBXML2_SRC_DIR} && \
     aria2c \
@@ -1378,30 +1422,33 @@ RUN set -eux; \
     cp -rfv ${LIBXML2_TEMP_SRC}/* ${LIBXML2_SRC_DIR} && \
     ln -sf ${LIBXML2_SRC_DIR} ${LIBXML2_DIR}/src && \
     cd ${LIBXML2_TEMP_SRC} && \
+    export PKG_CONFIG_PATH="${ZLIB_LIB_DIR}/pkgconfig:${PKG_CONFIG_PATH:-}" && \
+    export CFLAGS="-fPIC ${CFLAGS:-}" && \
+    export CXXFLAGS="-fPIC ${CXXFLAGS:-}" && \
+    export CPPFLAGS="-I${ZLIB_INC_DIR}" && \
+    export LDFLAGS="-L${ZLIB_LIB_DIR} -Wl,-rpath,${ZLIB_LIB_DIR}" && \
     ./autogen.sh && \
     ./configure \
       --prefix=${LIBXML2_DIR} \
+      --libdir=${LIBXML2_LIB_DIR} \
       --disable-silent-rules \
       --enable-static \
       --enable-shared \
-      --with-aix-soname=both \
+      --without-python \
+      --without-icu \
       --with-c14n \
       --with-catalog \
-      --with-debug \
-      --with-ftp \
       --with-history \
       --with-html \
-      --with-http \
       --with-iconv \
-      --with-readline \
-      --with-http \
-      --with-icu \
       --with-iso8859x \
+      --with-legacy \
+      --with-lzma \
       --with-output \
       --with-pattern \
       --with-push \
-      --with-python \
       --with-reader \
+      --with-readline \
       --with-regexps \
       --with-sax1 \
       --with-schemas \
@@ -1414,26 +1461,38 @@ RUN set -eux; \
       --with-xinclude \
       --with-xpath \
       --with-xptr \
-      --with-xptr-locs \
-      --with-lzma \
-      --with-zlib=${ZLIB_SRC_DIR} \
-      --with-legacy \
-      --with-tls \
-      --with-python-sys-prefix \
+      --with-zlib=${ZLIB_DIR} \
       && \
     make -j$(nproc) && \
     make -j$(nproc) install && \
-    echo "# libxslt support" >> ${LD_CONF_DIR}/libxml2.conf && \
-    echo ${LIBXML2_LIB_DIR} >> ${LD_CONF_DIR}/libxml2.conf && \
-    ldconfig && \
-      echo "clean up" && \
-      rm -rfv /tmp/*
+    echo "clean up" && \
+    rm -rfv /tmp/*
 
-ENV PATH="${LIBXML2_BIN_DIR}:${PATH}" 
+ENV PATH="${LIBXML2_BIN_DIR}:${PATH}"
+
+# Assert: our libxml2 exists, resolves cleanly and does NOT pull system ICU.
+RUN set -eu; \
+    echo "--- libxml2 ---"; \
+    so="${LIBXML2_LIB_DIR}/libxml2.so"; \
+    test -f "$so" || { echo "FATAL: no libxml2.so in ${LIBXML2_LIB_DIR}" >&2; ls -la ${LIBXML2_DIR}/ >&2; exit 1; }; \
+    readelf -d "$so" | grep NEEDED; \
+    ldd "$so" | grep -q 'not found' && { echo "FATAL: unresolved deps" >&2; ldd "$so" >&2; exit 1; }; \
+    if readelf -d "$so" | grep -qi 'libicu'; then \
+      echo "FATAL: libxml2 still links ICU - remove --with-icu" >&2; \
+      readelf -d "$so" | grep -i icu >&2; exit 1; \
+    fi; \
+    ldd "$so" | grep -q "${ZLIB_LIB_DIR}/libz" \
+      || { echo "WARN: zlib not resolved from our prefix"; ldd "$so" | grep -i libz; }; \
+    ${LIBXML2_BIN_DIR}/xml2-config --version; \
+    ${LIBXML2_BIN_DIR}/xml2-config --prefix; \
+    echo "OK: libxml2 -> ${LIBXML2_DIR}"
 
 ##################################################################
 #                   libxslt
 ##################################################################
+# --with-libxml-prefix is what actually pins OUR libxml2. Without it libxslt
+# picks up the system libxml2.so.2 and every consumer ends up loading two
+# different libxml2 into one process.
 RUN set -eux; \
     mkdir -p ${LIBXSLT_DIR} ${LIBXSLT_SRC_DIR} && \
     aria2c \
@@ -1445,29 +1504,59 @@ RUN set -eux; \
     cp -rfv ${LIBXSLT_TEMP_SRC}/* ${LIBXSLT_SRC_DIR} && \
     ln -sf ${LIBXSLT_SRC_DIR} ${LIBXSLT_DIR}/src && \
     cd ${LIBXSLT_TEMP_SRC} && \
+    export PATH="${LIBXML2_BIN_DIR}:${PATH}" && \
+    export PKG_CONFIG_PATH="${LIBXML2_LIB_DIR}/pkgconfig:${ZLIB_LIB_DIR}/pkgconfig:${PKG_CONFIG_PATH:-}" && \
+    export LIBXML_CFLAGS="-I${LIBXML2_INC_DIR}/libxml2 -I${LIBXML2_INC_DIR}" && \
+    export LIBXML_LIBS="-L${LIBXML2_LIB_DIR} -lxml2" && \
+    export CPPFLAGS="-I${LIBXML2_INC_DIR}/libxml2 -I${LIBXML2_INC_DIR} -I${ZLIB_INC_DIR}" && \
+    export CFLAGS="-fPIC ${CFLAGS:-}" && \
+    export CXXFLAGS="-fPIC ${CXXFLAGS:-}" && \
+    export LDFLAGS="-L${LIBXML2_LIB_DIR} -Wl,-rpath,${LIBXML2_LIB_DIR} -L${ZLIB_LIB_DIR} -Wl,-rpath,${ZLIB_LIB_DIR}" && \
     ./autogen.sh && \
     ./configure \
       --prefix=${LIBXSLT_DIR} \
+      --libdir=${LIBXSLT_LIB_DIR} \
       --disable-silent-rules \
       --enable-static \
       --enable-shared \
-      --with-aix-soname=both \
-      --with-python-sys-prefix \
-      --with-crypto \
-      --with-debug \
-      --with-debugger \
-      --with-profiler \
+      --without-python \
+      --without-crypto \
       --with-plugins \
+      --with-profiler \
       && \
     make -j$(nproc) && \
     make -j$(nproc) install && \
-    echo "# libxslt support" >> ${LD_CONF_DIR}/libxslt.conf && \
-    echo ${LIBXSLT_LIB_DIR} >> ${LD_CONF_DIR}/libxslt.conf && \
-    ldconfig && \
-      echo "clean up" && \
-      rm -rfv /tmp/*
+    echo "clean up" && \
+    rm -rfv /tmp/*
 
-ENV PATH="${LIBXSLT_BIN_DIR}:${PATH}" 
+ENV PATH="${LIBXSLT_BIN_DIR}:${PATH}"
+
+# Assert: libxslt links OUR libxml2, not the system one.
+# The SONAMEs differ (ours 2.15 -> libxml2.so.16, Debian's -> libxml2.so.2),
+# so a mismatch means both would be loaded into the same process.
+RUN set -eu; \
+    echo "--- libxslt ---"; \
+    for so in ${LIBXSLT_LIB_DIR}/libxslt.so ${LIBXSLT_LIB_DIR}/libexslt.so; do \
+      test -f "$so" || { echo "FATAL: $so missing" >&2; ls -la ${LIBXSLT_DIR}/ >&2; exit 1; }; \
+      echo "--- $so ---"; \
+      readelf -d "$so" | grep NEEDED; \
+      ldd "$so" | grep -q 'not found' && { echo "FATAL: unresolved deps in $so" >&2; ldd "$so" >&2; exit 1; }; \
+      if ldd "$so" | grep -i 'libxml2' | grep -qv "${LIBXML2_LIB_DIR}"; then \
+        echo "FATAL: $so resolves libxml2 outside ${LIBXML2_LIB_DIR}" >&2; \
+        ldd "$so" | grep -i libxml2 >&2; exit 1; \
+      fi; \
+      if [ "$(ldd "$so" | grep -c -i 'libxml2')" != "1" ]; then \
+        echo "FATAL: more than one libxml2 in $so" >&2; \
+        ldd "$so" | grep -i libxml2 >&2; exit 1; \
+      fi; \
+      if readelf -d "$so" | grep -qi 'libicu'; then \
+        echo "FATAL: $so links ICU via libxml2" >&2; \
+        readelf -d "$so" | grep -i icu >&2; exit 1; \
+      fi; \
+    done; \
+    ${LIBXSLT_BIN_DIR}/xslt-config --version; \
+    ${LIBXSLT_BIN_DIR}/xsltproc --version; \
+    echo "OK: libxslt -> ${LIBXML2_LIB_DIR}"
 
 ##################################################################
 #                   MAxMind GeoIP
@@ -1492,16 +1581,11 @@ RUN set -eux; \
       --disable-silent-rules \
       --enable-shared \
       --enable-static \
-      --enable-assertions \
-      --with-aix-soname=both \
       && \
     make -j$(nproc) && \
     make -j$(nproc) install && \
-    echo "# GeoIP support" >> ${LD_CONF_DIR}/GeoIP.conf && \
-    echo ${MM_GEOIP_LIB_DIR} >> ${LD_CONF_DIR}/GeoIP.conf && \
-    ldconfig && \
-      echo "clean up" && \
-      rm -rfv /tmp/*
+    echo "clean up" && \
+    rm -rfv /tmp/*
 
 ENV PATH="${MM_GEOIP_BIN_DIR}:${PATH}" 
 
@@ -1525,17 +1609,13 @@ RUN set -eux; \
       --enable-shared \
       --enable-static \
       --enable-libunwind \
-      --with-aix-soname=both \
       --enable-large-alloc-report \
       --enable-aggressive-decommit-by-default \
       && \
     make -j$(nproc) && \
     make -j$(nproc) install && \
-    echo "# Google perftools support" >> ${LD_CONF_DIR}/Googleperftools.conf && \
-    echo ${GPERFTOOLS_LIB_DIR} >> ${LD_CONF_DIR}/Googleperftools.conf && \
-    ldconfig && \
-      echo "clean up" && \
-      rm -rfv /tmp/*
+    echo "clean up" && \
+    rm -rfv /tmp/*
 
 ENV PATH="${GPERFTOOLS_BIN_DIR}:${PATH}" 
 
@@ -1568,8 +1648,8 @@ RUN set -eux; \
       && \
     make -j$(nproc) && \
     make -j$(nproc) install && \
-      echo "clean up" && \
-      rm -rfv /tmp/*
+    echo "clean up" && \
+    rm -rfv /tmp/*
 
 ##################################################################
 #                   OpenSSL 1.1.1w
@@ -1600,8 +1680,8 @@ RUN set -eux; \
       && \
     make -j$(nproc) && \
     make -j$(nproc) install && \
-      echo "clean up" && \
-      rm -rfv /tmp/*
+    echo "clean up" && \
+    rm -rfv /tmp/*
 
 ##################################################################
 #                   OpenSSL 3.0
@@ -1624,7 +1704,6 @@ RUN set -eux; \
       enable-ktls \
       enable-ec_nistp_64_gcc_128 \
       enable-egd \
-#     enable-fips \
       enable-ssl-trace\
       enable-trace \
       threads \
@@ -1635,8 +1714,8 @@ RUN set -eux; \
       && \
     make -j$(nproc) && \
     make -j$(nproc) install && \
-      echo "clean up" && \
-      rm -rfv /tmp/*
+    echo "clean up" && \
+    rm -rfv /tmp/*
 
 ##################################################################
 #                   OpenSSL 3.1
@@ -1659,7 +1738,6 @@ RUN set -eux; \
       enable-ktls \
       enable-ec_nistp_64_gcc_128 \
       enable-egd \
-#     enable-fips \
       enable-ssl-trace\
       enable-trace \
       threads \
@@ -1670,8 +1748,8 @@ RUN set -eux; \
       && \
     make -j$(nproc) && \
     make -j$(nproc) install && \
-      echo "clean up" && \
-      rm -rfv /tmp/*
+    echo "clean up" && \
+    rm -rfv /tmp/*
 
 ##################################################################
 #                   OpenSSL 3.2
@@ -1696,7 +1774,6 @@ RUN set -eux; \
       enable-ktls \
       enable-ec_nistp_64_gcc_128 \
       enable-egd \
-#     enable-fips \
       enable-ssl-trace\
       enable-trace \
       threads \
@@ -1707,8 +1784,8 @@ RUN set -eux; \
       && \
     make -j$(nproc) && \
     make -j$(nproc) install && \
-      echo "clean up" && \
-      rm -rfv /tmp/*
+    echo "clean up" && \
+    rm -rfv /tmp/*
 
 ##################################################################
 #                   OpenSSL 3.3
@@ -1733,7 +1810,6 @@ RUN set -eux; \
       enable-ktls \
       enable-ec_nistp_64_gcc_128 \
       enable-egd \
-#     enable-fips \
       enable-ssl-trace\
       enable-trace \
       threads \
@@ -1744,8 +1820,8 @@ RUN set -eux; \
       && \
     make -j$(nproc) && \
     make -j$(nproc) install && \
-      echo "clean up" && \
-      rm -rfv /tmp/*
+    echo "clean up" && \
+    rm -rfv /tmp/*
 
 ##################################################################
 #                   OpenSSL 3.4
@@ -1770,7 +1846,6 @@ RUN set -eux; \
       enable-ktls \
       enable-ec_nistp_64_gcc_128 \
       enable-egd \
-#     enable-fips \
       enable-ssl-trace\
       enable-trace \
       threads \
@@ -1781,8 +1856,8 @@ RUN set -eux; \
       && \
     make -j$(nproc) && \
     make -j$(nproc) install && \
-      echo "clean up" && \
-      rm -rfv /tmp/*
+    echo "clean up" && \
+    rm -rfv /tmp/*
 
 ##################################################################
 #                   OpenSSL 3.5
@@ -1807,7 +1882,6 @@ RUN set -eux; \
       enable-ktls \
       enable-ec_nistp_64_gcc_128 \
       enable-egd \
-#     enable-fips \
       enable-ssl-trace\
       enable-trace \
       threads \
@@ -1818,8 +1892,8 @@ RUN set -eux; \
       && \
     make -j$(nproc) && \
     make -j$(nproc) install && \
-      echo "clean up" && \
-      rm -rfv /tmp/*
+    echo "clean up" && \
+    rm -rfv /tmp/*
 
 ##################################################################
 #                   OpenSSL 3.6
@@ -1844,7 +1918,6 @@ RUN set -eux; \
       enable-ktls \
       enable-ec_nistp_64_gcc_128 \
       enable-egd \
-#     enable-fips \
       enable-ssl-trace\
       enable-trace \
       threads \
@@ -1855,8 +1928,8 @@ RUN set -eux; \
       && \
     make -j$(nproc) && \
     make -j$(nproc) install && \
-      echo "clean up" && \
-      rm -rfv /tmp/*
+    echo "clean up" && \
+    rm -rfv /tmp/*
 
 ##################################################################
 #                   OpenSSL 4.0
@@ -1881,7 +1954,6 @@ RUN set -eux; \
       enable-ktls \
       enable-ec_nistp_64_gcc_128 \
       enable-egd \
-#     enable-fips \
       enable-ssl-trace\
       enable-trace \
       threads \
@@ -1892,8 +1964,8 @@ RUN set -eux; \
       && \
     make -j$(nproc) && \
     make -j$(nproc) install && \
-      echo "clean up" && \
-      rm -rfv /tmp/*
+    echo "clean up" && \
+    rm -rfv /tmp/*
 
 ##################################################################
 #                   LibreSSL
@@ -1917,8 +1989,8 @@ RUN set -eux; \
       && \
     make -j$(nproc) && \
     make -j$(nproc) install && \
-      echo "clean up" && \
-      rm -rfv /tmp/*
+    echo "clean up" && \
+    rm -rfv /tmp/*
 
 # ##################################################################
 # #                   BoringSSL

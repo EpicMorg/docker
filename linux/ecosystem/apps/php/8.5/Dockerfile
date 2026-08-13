@@ -389,6 +389,8 @@ RUN set -eux; \
     for sapi in cli fpm cgi; do \
       ln -sfn ${PHP_INI_SCAN_DIR}      ${PHP_INI_DIR}/${sapi}/conf.d; \
       ln -sfn ${PHP_INI_DIR}/php.ini   ${PHP_INI_DIR}/${sapi}/php.ini; \
+      ln -sfn ${PHP_INI_DIR}/php-fpm.conf ${PHP_INI_DIR}/fpm/php-fpm.conf; \
+      ln -sfn ${PHP_INI_DIR}/php-fpm.d    ${PHP_INI_DIR}/fpm/pool.d; \
     done; \
     \
     mkdir -p /etc/php /usr/lib/php; \

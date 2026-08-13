@@ -57,18 +57,8 @@ RUN apt-get update && \
       grpc \
       uopz && \
     apt-get remove -y \
-      php5.6* \
-      php7.0*  \
-      php7.1*  \
-      php7.2*  \
-      php7.3*  \
-      php7.4*  \
-      php8.0*  \
-      php8.1*  \
-      php8.2*  \
-      php8.3*  && \
-#      php8.4*  && \
-    rm -rfv /etc/php/{5.3,5.4,5.5,5.6,7.0,7.1,7.2,7.3,7.4,8.0,8.1,8.2,8.3,8.5} && \
+      php* && \
+    rm -rfv /etc/php/{5.3,5.4,5.5,5.6,7.0,7.1,7.2,7.3,7.4,8.0,8.1,8.2,8.3,8.4} && \
     php -m && \
     php -v && \
     apt-get clean -y && \
@@ -83,10 +73,9 @@ RUN apt-get update && \
 ##################################################################
 RUN rm -fv /etc/apache2/sites-enabled/000-default.conf
 RUN rm -fv /etc/apache2/apache2.conf
-COPY etc/supervisor /etc/supervisor
-COPY etc/apache2/sites-enabled/localhost.conf /etc/apache2/sites-enabled/localhost.conf
-COPY etc/php/8.4/php-fpm.d/www-socket.conf /etc/php/8.4/php-fpm.d/www-socket.conf
-COPY etc/apache2/apache2.conf /etc/apache2/apache2.conf
+COPY etc/supervisor/ /etc/supervisor/
+COPY etc/apache2/    /etc/apache2/
+COPY etc/php/        /etc/php/
 COPY usr/bin/docker-entrypoint.sh /usr/bin/docker-entrypoint.sh
 
 ##################################################################
@@ -112,7 +101,9 @@ RUN set -eux; \
     chown -Rf www-data:www-data /run/php /var/www; \
     chmod 755 /run/php; \
     chmod +x /usr/bin/docker-entrypoint.sh; \
-    rm -rfv /etc/php/8.4/php-fpm.d/www.conf; \
+    rm -rfv /etc/php/${PHP_VERSION}/php-fpm.d/www.conf; \
+    a2enconf php-fpm ; \
+    a2ensite localhost; \
     apachectl configtest
 
 #Final config
