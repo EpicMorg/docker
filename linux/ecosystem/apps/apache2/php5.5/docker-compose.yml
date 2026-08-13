@@ -1,5 +1,0 @@
-services:
-  app:
-    image: "epicmorg/apache2:php5.5"
-    build:
-      context: .

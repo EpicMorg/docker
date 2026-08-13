@@ -36,7 +36,5 @@ else
   echo "[apache2] Warning: /etc/apache2/envvars not found."
 fi
 
-tail -F /var/log/apache2/* &
-
 echo "[apache2] Starting Apache in the foreground."
-exec apache2 -D FOREGROUND
+exec /usr/sbin/apache2 -D FOREGROUND
