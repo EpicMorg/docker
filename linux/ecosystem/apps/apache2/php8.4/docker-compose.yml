@@ -3,3 +3,8 @@ services:
     image: "epicmorg/apache2:php8.4"
     build:
       context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/apache2:php8.4
+      - ghcr.io/epicmorg/apache2:php8.4
+      - docker.io/epicmorg/apache2:php8.4

@@ -263,6 +263,8 @@ RUN set -eu; \
 ##################################################################
 ##################################################################
 FROM docker.io/epicmorg/debian:trixie
+LABEL org.opencontainers.image.title="EpicMorg PHP"
+LABEL org.opencontainers.image.description="PHP by EpicMorg"
 
 # Pin all php* packages to priority -1 so apt never pulls distro PHP.
 COPY etc/apt/preferences.d /etc/apt/preferences.d
