@@ -49,7 +49,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libargon2-dev \
     libbz2-dev \
     libc-dev \
-    libcurl4-openssl-dev \
     libfreetype6-dev \
     libgdbm-dev \
     libgmp-dev \
@@ -57,7 +56,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libjpeg-dev \
     libonig-dev \
     libpng-dev \
-    libpq-dev \
     libreadline-dev \
     libsodium-dev \
     libsqlite3-dev \
@@ -117,10 +115,10 @@ RUN set -eux; \
     export CC="${GCC_INSTALL_DIR}/bin/gcc"; \
     export CXX="${GCC_INSTALL_DIR}/bin/g++"; \
     debMultiarch="$(dpkg-architecture --query DEB_BUILD_MULTIARCH)"; \
-    export PKG_CONFIG_PATH="${OPENSSL_35_LIB_DIR}/pkgconfig:${PKG_CONFIG_PATH:-}"; \
+    export PKG_CONFIG_PATH="${OPENSSL_35_LIB_DIR}/pkgconfig:${CURL_821_35_LIB_DIR}/pkgconfig:${LIBPQ_16_35_LIB_DIR}/pkgconfig:${PKG_CONFIG_PATH:-}"; \
     export CFLAGS="${PHP_CFLAGS}"; \
-    export CPPFLAGS="-I${OPENSSL_35_INC_DIR} ${PHP_CPPFLAGS}"; \
-    export LDFLAGS="-L${OPENSSL_35_LIB_DIR} -Wl,-rpath,${OPENSSL_35_LIB_DIR} -Wl,-rpath,${PHP_DIR}/lib ${PHP_LDFLAGS}"; \
+    export CPPFLAGS="-I${OPENSSL_35_INC_DIR} -I${CURL_817_111_INC_DIR} ${PHP_CPPFLAGS}"; \
+    export LDFLAGS="-L${OPENSSL_35_LIB_DIR} -L${CURL_821_35_LIB_DIR} -L${LIBPQ_16_35_LIB_DIR} -Wl,-rpath,${OPENSSL_35_LIB_DIR} -Wl,-rpath,${CURL_821_35_LIB_DIR} -Wl,-rpath,${LIBPQ_16_35_LIB_DIR} -Wl,-rpath,${PHP_DIR}/lib ${PHP_LDFLAGS}"; \
     ./configure \
       --prefix=${PHP_DIR} \
       --sysconfdir=${PHP_INI_DIR} \
@@ -147,7 +145,7 @@ RUN set -eux; \
       --with-sodium \
       --with-zlib \
       --with-bz2 \
-      --with-curl \
+      --with-curl=${CURL_821_35_DIR} \
       --with-iconv \
       --with-readline \
       --enable-mbstring \
@@ -156,8 +154,8 @@ RUN set -eux; \
       --enable-mysqlnd \
       --with-mysqli=mysqlnd \
       --with-pdo-mysql=mysqlnd \
-      --with-pgsql \
-      --with-pdo-pgsql \
+      --with-pgsql=${LIBPQ_16_35_DIR} \
+      --with-pdo-pgsql=${LIBPQ_16_35_DIR} \
       --with-sqlite3 \
       --with-pdo-sqlite \
       --enable-dba \
@@ -285,7 +283,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libargon2-dev \
     libbz2-dev \
     libc-dev \
-    libcurl4-openssl-dev \
     libfreetype6-dev \
     libgdbm-dev \
     libgmp-dev \
@@ -293,7 +290,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libjpeg-dev \
     libonig-dev \
     libpng-dev \
-    libpq-dev \
     libreadline-dev \
     libsodium-dev \
     libsqlite3-dev \
@@ -310,6 +306,26 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     zlib1g-dev \
     && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/*
+
+##################################################################
+#           curl 8.21
+##################################################################
+ENV CURL_821_VERSION=8.21.0
+ENV CURL_821_35_DIR=${EMG_LOCAL_BASE_DIR}/curl/${CURL_821_VERSION}/openssl35
+ENV CURL_821_35_BIN_DIR=${CURL_821_35_DIR}/bin
+ENV CURL_821_35_INC_DIR=${CURL_821_35_DIR}/include
+ENV CURL_821_35_LIB_DIR=${CURL_821_35_DIR}/lib
+ENV CURL_821_SRC_DIR=/usr/local/src/curl/${CURL_821_VERSION}
+
+
+##################################################################
+#           libpq 16 + OpenSSL 3.5.x
+##################################################################
+ENV LIBPQ_16_VERSION=16
+ENV LIBPQ_16_35_DIR=${EMG_LOCAL_BASE_DIR}/libpq/${LIBPQ_16_VERSION}/openssl35
+ENV LIBPQ_16_35_INC_DIR=${LIBPQ_16_35_DIR}/include
+ENV LIBPQ_16_35_LIB_DIR=${LIBPQ_16_35_DIR}/lib
+ENV LIBPQ_16_35_BIN_DIR=${LIBPQ_16_35_DIR}/bin
 
 ##################################################################
 #                  OpenSSL 3.5
@@ -350,6 +366,10 @@ ENV PHP_LDFLAGS="-L${PHP_SSL_LIB_DIR} -Wl,-rpath,${PHP_SSL_LIB_DIR} -Wl,-O1 -pie
 COPY --from=builder ${PHP_DIR} ${PHP_DIR}
 COPY --from=builder ${OPENSSL_35_DIR} ${OPENSSL_35_DIR}
 COPY --from=builder ${OPENSSL_35_SRC_DIR} ${OPENSSL_35_SRC_DIR}
+COPY --from=builder ${CURL_821_35_DIR}       ${CURL_821_35_DIR}
+COPY --from=builder ${CURL_821_SRC_DIR}      ${CURL_821_SRC_DIR}
+COPY --from=builder ${LIBPQ_16_35_DIR}       ${LIBPQ_16_35_DIR}
+COPY --from=builder ${LIBPQ_16_SRC_DIR}      ${LIBPQ_16_SRC_DIR}
 
 ENV PATH="${PHP_BIN_DIR}:${PHP_DIR}/sbin:${PATH}"
 
@@ -690,6 +710,13 @@ RUN set -eu; \
       echo "FATAL: php not linked against ${PHP_SSL_LIB_DIR}" >&2; ldd "$php" >&2; exit 1; \
     fi; \
     echo "OK: OpenSSL ${PHP_SSL_VERSION} from ${PHP_SSL_LIB_DIR}"; \
+    echo "--- Checking curl (Final) ---"; \
+    cv="$("$php" -r 'echo curl_version()["ssl_version"];')"; \
+    echo "curl ssl_version = ${cv}"; \
+    case "${cv}" in \
+      "OpenSSL/${PHP_SSL_VERSION}"*) ;; \
+      *) echo "FATAL: curl uses ${cv}, expected OpenSSL/${PHP_SSL_VERSION}" >&2; exit 1 ;; \
+    esac; \
     echo "--- Loaded modules ---"; \
     "$php" -m; \
     echo "extension_dir = $(php-config --extension-dir)"; \
