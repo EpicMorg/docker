@@ -12,8 +12,8 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 #                   Nginx
 ##################################################################
-ENV NGINX_VERSION=1.31
-ENV NGINX_VERSION_FULL=${NGINX_VERSION}.3
+ENV NGINX_VERSION=1.25
+ENV NGINX_VERSION_FULL=${NGINX_VERSION}.5
 ENV NGINX_DIR=${EMG_LOCAL_BASE_DIR}/nginx/${NGINX_VERSION}
 ENV NGINX_CONF_DIR=/etc/nginx
 ENV NGINX_MODULES_DIR=${NGINX_CONF_DIR}/modules
@@ -313,8 +313,8 @@ RUN set -eux; \
 ##################################################################
 FROM docker.io/epicmorg/debian:trixie
 
-ENV NGINX_VERSION=1.31
-ENV NGINX_VERSION_FULL=${NGINX_VERSION}.3
+ENV NGINX_VERSION=1.25
+ENV NGINX_VERSION_FULL=${NGINX_VERSION}.5
 ENV NGINX_DIR=${EMG_LOCAL_BASE_DIR}/nginx/${NGINX_VERSION}
 ENV NGINX_CONF_DIR=/etc/nginx
 ENV NGINX_MODULES_DIR=${NGINX_CONF_DIR}/modules

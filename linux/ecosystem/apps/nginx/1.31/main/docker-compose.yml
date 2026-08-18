@@ -8,3 +8,9 @@ services:
       - quay.io/epicmorg/nginx:1.31
       - ghcr.io/epicmorg/nginx:1.31
       - docker.io/epicmorg/nginx:1.31
+      - quay.io/epicmorg/nginx:latest
+      - ghcr.io/epicmorg/nginx:latest
+      - docker.io/epicmorg/nginx:latest
+      - quay.io/epicmorg/nginx:mainline
+      - ghcr.io/epicmorg/nginx:mainline
+      - docker.io/epicmorg/nginx:mainline
