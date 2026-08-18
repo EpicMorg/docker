@@ -12,8 +12,8 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 #                   Nginx
 ##################################################################
-ENV NGINX_VERSION=1.31
-ENV NGINX_VERSION_FULL=${NGINX_VERSION}.3
+ENV NGINX_VERSION=1.30
+ENV NGINX_VERSION_FULL=${NGINX_VERSION}.4
 ENV NGINX_DIR=${EMG_LOCAL_BASE_DIR}/nginx/${NGINX_VERSION}
 ENV NGINX_CONF_DIR=/etc/nginx
 ENV NGINX_MODULES_DIR=${NGINX_CONF_DIR}/modules
@@ -313,8 +313,8 @@ RUN set -eux; \
 ##################################################################
 FROM docker.io/epicmorg/debian:trixie
 
-ENV NGINX_VERSION=1.31
-ENV NGINX_VERSION_FULL=${NGINX_VERSION}.3
+ENV NGINX_VERSION=1.30
+ENV NGINX_VERSION_FULL=${NGINX_VERSION}.4
 ENV NGINX_DIR=${EMG_LOCAL_BASE_DIR}/nginx/${NGINX_VERSION}
 ENV NGINX_CONF_DIR=/etc/nginx
 ENV NGINX_MODULES_DIR=${NGINX_CONF_DIR}/modules
@@ -391,6 +391,7 @@ ENV LIBATOMICOPS_VERSION=7.8.4
 ENV LIBATOMICOPS_DIR=${EMG_LOCAL_BASE_DIR}/libatomic_ops/${LIBATOMICOPS_VERSION}
 ENV LIBATOMICOPS_INC_DIR=${LIBATOMICOPS_DIR}/include
 ENV LIBATOMICOPS_LIB_DIR=${LIBATOMICOPS_DIR}/lib
+ENV LIBATOMICOPS_SRC_DIR=/usr/local/src/libatomic_ops/${LIBATOMICOPS_VERSION}
 
 # zstd
 ENV ZSTD_VERSION=1.5.7

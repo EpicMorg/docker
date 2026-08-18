@@ -3,3 +3,8 @@ services:
     image: "epicmorg/nginx:1.26"
     build:
       context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/nginx:1.26
+      - ghcr.io/epicmorg/nginx:1.26
+      - docker.io/epicmorg/nginx:1.26

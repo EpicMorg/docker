@@ -1079,9 +1079,13 @@ ecosystem-gitlab-runner-images:
 	cd `pwd`/linux/ecosystem/apps/gitlab/runner/php84         && pwd && make build && make deploy
 
 ecosystem-nginx-images:
-	cd `pwd`/linux/ecosystem/apps/nginx/latest/mainline/main      && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/apps/nginx/latest/mainline/php       && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/apps/nginx/latest/mainline/rtmp-hls  && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.31/main      && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.30/main      && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.29/main      && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.28/main      && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.27/main      && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.26/main      && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.25/main      && pwd && make build && make deploy
 
 advanced-vscode-server-images:
 	cd `pwd`/linux/advanced/vscode-server/latest         && pwd && make build && make deploy

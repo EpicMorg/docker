@@ -3,7 +3,8 @@ services:
     image: "epicmorg/nginx:1.29"
     build:
       context: .
-  app-latest:
-    image: "epicmorg/nginx:latest"
-    build:
-      context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/nginx:1.29
+      - ghcr.io/epicmorg/nginx:1.29
+      - docker.io/epicmorg/nginx:1.29
