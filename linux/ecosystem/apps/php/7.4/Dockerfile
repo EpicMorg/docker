@@ -56,14 +56,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libargon2-dev \
     libbz2-dev \
     libc-dev \
-#    libcurl4-openssl-dev \
     libfreetype6-dev \
     libgdbm-dev \
     libgmp-dev \
     libjpeg-dev \
     libonig-dev \
     libpng-dev \
-#    libpq-dev \
     libreadline-dev \
     libsodium-dev \
     libsqlite3-dev \
@@ -331,7 +329,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libargon2-dev \
     libbz2-dev \
     libc-dev \
-#    libcurl4-openssl-dev \
     libfreetype6-dev \
     libgdbm-dev \
     libgmp-dev \
@@ -340,7 +337,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libmemcached-dev \
     libonig-dev \
     libpng-dev \
-#    libpq-dev \
     libreadline-dev \
     libsodium-dev \
     libsqlite3-dev \
@@ -795,8 +791,6 @@ RUN set -eu; \
     if [ "$(ldd "$php" | grep -c 'libssl')" != "1" ]; then \
        echo "FATAL: more than one libssl in this binary" >&2; \
        ldd "$php" | grep -i ssl >&2; exit 1; \
-#      echo "WARN: more than one libssl in this binary (system libpq/libcurl pull OpenSSL 3)"; \
-#      ldd "$php" | grep -i ssl; \
     fi; \
     echo "--- Checking ICU (Final) ---"; \
     icu="$("$php" -i | sed -n 's/^ICU version => //p')"; \
