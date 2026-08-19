@@ -115,9 +115,10 @@ RUN set -eux; \
     export CC="${GCC_INSTALL_DIR}/bin/gcc"; \
     export CXX="${GCC_INSTALL_DIR}/bin/g++"; \
     debMultiarch="$(dpkg-architecture --query DEB_BUILD_MULTIARCH)"; \
+    export LD_LIBRARY_PATH="${CURL_821_35_LIB_DIR}:${LIBPQ_16_35_LIB_DIR}:${OPENSSL_35_LIB_DIR}:${LD_LIBRARY_PATH:-}"; \
     export PKG_CONFIG_PATH="${OPENSSL_35_LIB_DIR}/pkgconfig:${CURL_821_35_LIB_DIR}/pkgconfig:${LIBPQ_16_35_LIB_DIR}/pkgconfig:${PKG_CONFIG_PATH:-}"; \
     export CFLAGS="${PHP_CFLAGS}"; \
-    export CPPFLAGS="-I${OPENSSL_35_INC_DIR} -I${CURL_817_111_INC_DIR} ${PHP_CPPFLAGS}"; \
+    export CPPFLAGS="-I${OPENSSL_35_INC_DIR} -I${CURL_821_35_INC_DIR} ${PHP_CPPFLAGS}"; \
     export LDFLAGS="-L${OPENSSL_35_LIB_DIR} -L${CURL_821_35_LIB_DIR} -L${LIBPQ_16_35_LIB_DIR} -Wl,-rpath,${OPENSSL_35_LIB_DIR} -Wl,-rpath,${CURL_821_35_LIB_DIR} -Wl,-rpath,${LIBPQ_16_35_LIB_DIR} -Wl,-rpath,${PHP_DIR}/lib ${PHP_LDFLAGS}"; \
     ./configure \
       --prefix=${PHP_DIR} \

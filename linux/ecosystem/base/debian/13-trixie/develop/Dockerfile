@@ -509,18 +509,19 @@ ARG LIBPQ_13_URL=https://ftp.postgresql.org/pub/source/v${LIBPQ_13_FULL_VERSION}
 # newest branch that still builds cleanly against OpenSSL 1.1.1.
 ENV LIBPQ_16_VERSION=16
 ENV LIBPQ_16_FULL_VERSION=${LIBPQ_16_VERSION}.14
-ENV LIBPQ_16_SRC_DIR=/usr/local/src/postgresql/${LIBPQ_16_VERSION}
 ARG LIBPQ_16_URL=https://ftp.postgresql.org/pub/source/v${LIBPQ_16_FULL_VERSION}/postgresql-${LIBPQ_16_FULL_VERSION}.tar.bz2
 
 ENV LIBPQ_16_111_DIR=${EMG_LOCAL_BASE_DIR}/libpq/${LIBPQ_16_VERSION}/openssl111
 ENV LIBPQ_16_111_INC_DIR=${LIBPQ_16_111_DIR}/include
 ENV LIBPQ_16_111_LIB_DIR=${LIBPQ_16_111_DIR}/lib
 ENV LIBPQ_16_111_BIN_DIR=${LIBPQ_16_111_DIR}/bin
+ENV LIBPQ_16_111_SRC_DIR=/usr/local/src/postgresql/${LIBPQ_16_VERSION}/openssl111
 
 ENV LIBPQ_16_35_DIR=${EMG_LOCAL_BASE_DIR}/libpq/${LIBPQ_16_VERSION}/openssl35
 ENV LIBPQ_16_35_INC_DIR=${LIBPQ_16_35_DIR}/include
 ENV LIBPQ_16_35_LIB_DIR=${LIBPQ_16_35_DIR}/lib
 ENV LIBPQ_16_35_BIN_DIR=${LIBPQ_16_35_DIR}/bin
+ENV LIBPQ_16_35_SRC_DIR=/usr/local/src/postgresql/${LIBPQ_16_VERSION}/openssl35
 
 ##################################################################
 #           curl 8.17
@@ -2097,13 +2098,13 @@ RUN set -eu; \
 #           libpq 16 + OpenSSL 1.1.1w
 ##################################################################
 RUN set -eux; \
-    mkdir -p ${LIBPQ_16_SRC_DIR}; \
+    mkdir -p ${LIBPQ_16_111_SRC_DIR}; \
     aria2c \
         --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
         --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
         -d /tmp -o postgresql.tar.bz2 "${LIBPQ_16_URL}"; \
-    tar -xjf /tmp/postgresql.tar.bz2 --strip-components=1 -C ${LIBPQ_16_SRC_DIR}; \
-    cd ${LIBPQ_16_SRC_DIR}; \
+    tar -xjf /tmp/postgresql.tar.bz2 --strip-components=1 -C ${LIBPQ_16_111_SRC_DIR}; \
+    cd ${LIBPQ_16_111_SRC_DIR}; \
     export PKG_CONFIG_PATH="${OPENSSL_111_LIB_DIR}/pkgconfig"; \
     export CPPFLAGS="-I${OPENSSL_111_INC_DIR}"; \
     export LDFLAGS="-L${OPENSSL_111_LIB_DIR} -Wl,-rpath,${OPENSSL_111_LIB_DIR}"; \
@@ -2118,6 +2119,7 @@ RUN set -eux; \
     make -C src/interfaces/libpq install; \
     make -C src/include install; \
     make -C src/bin/pg_config install; \
+    make distclean; \
     rm -f /tmp/postgresql.tar.bz2
 
 RUN set -eu; \
@@ -2130,13 +2132,13 @@ RUN set -eu; \
 #           libpq 16 + OpenSSL 3.5.x
 ##################################################################
 RUN set -eux; \
-    mkdir -p ${LIBPQ_16_SRC_DIR}; \
+    mkdir -p ${LIBPQ_16_35_SRC_DIR}; \
     aria2c \
         --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
         --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
         -d /tmp -o postgresql.tar.bz2 "${LIBPQ_16_URL}"; \
-    tar -xjf /tmp/postgresql.tar.bz2 --strip-components=1 -C ${LIBPQ_16_SRC_DIR}; \
-    cd ${LIBPQ_16_SRC_DIR}; \
+    tar -xjf /tmp/postgresql.tar.bz2 --strip-components=1 -C ${LIBPQ_16_35_SRC_DIR}; \
+    cd ${LIBPQ_16_35_SRC_DIR}; \
     export PKG_CONFIG_PATH="${OPENSSL_35_LIB_DIR}/pkgconfig"; \
     export CPPFLAGS="-I${OPENSSL_35_INC_DIR}"; \
     export LDFLAGS="-L${OPENSSL_35_LIB_DIR} -Wl,-rpath,${OPENSSL_35_LIB_DIR}"; \
@@ -2150,13 +2152,23 @@ RUN set -eux; \
     make -C src/interfaces/libpq -j"$(nproc)"; \
     make -C src/interfaces/libpq install; \
     make -C src/include install; \
-    make -C src/bin/pg_config install; \
+    make -C src/bin/pg_config install; \; \
+    make distclean; \
     rm -f /tmp/postgresql.tar.bz2
 
 RUN set -eu; \
-    ldd ${LIBPQ_16_35_LIB_DIR}/libpq.so | grep -q "${OPENSSL_35_LIB_DIR}/libssl" || { \
-      echo "FATAL: libpq not linked against ${OPENSSL_35_LIB_DIR}" >&2; \
-      ldd ${LIBPQ_16_35_LIB_DIR}/libpq.so >&2; exit 1; }; \
+    so="${LIBPQ_16_35_LIB_DIR}/libpq.so"; \
+    ldd "$so" | grep -q "${OPENSSL_35_LIB_DIR}/libssl" || { \
+      echo "FATAL: libpq not linked against ${OPENSSL_35_LIB_DIR}" >&2; exit 1; }; \
+    if nm -D --undefined-only "$so" | grep -qE 'SSL_get_peer_certificate|ERR_put_error'; then \
+      echo "FATAL: libpq built against OpenSSL 1.x API (removed in 3.0)" >&2; \
+      nm -D --undefined-only "$so" | grep -E 'SSL_get_peer_certificate|ERR_put_error' >&2; \
+      exit 1; \
+    fi; \
+    printf '#include <libpq-fe.h>\nint main(){return PQlibVersion();}\n' > /tmp/t.c; \
+    gcc /tmp/t.c -I${LIBPQ_16_35_INC_DIR} -L${LIBPQ_16_35_LIB_DIR} -lpq -o /tmp/t \
+      || { echo "FATAL: libpq does not link" >&2; exit 1; }; \
+    rm -f /tmp/t /tmp/t.c; \
     echo "OK: libpq -> ${OPENSSL_35_LIB_DIR}"
 
 ##################################################################
