@@ -19,12 +19,22 @@ LABEL donate.crypto.PPC="pQWArPzYoLppNe7ew3QPfto1k1eq66BYUB"
 LABEL donate.crypto.RVN="R9t2LKeLhDSZBKNgUzSDZAossA3UqNvbV3"
 LABEL donate.crypto.ZEC="t1KRMMmwMSZth8vJcd2ZHtPEFKTQ74yVixE"
 LABEL donate.crypto.XMR="884PqZ1gDjWW7fKxtbaeRoBeSh9EGZbkqUyLriWmuKbwLZrAJdYUs4wQxoVfEJoW7LBhdQMP9cFhZQpJr6xvg7esHLdCbb1"
+
 ##################################################################
-#                  adding normal sources list
+#                   prepare system
+##################################################################
+RUN for i in $(seq 1 8); do mkdir -p "/usr/share/man/man${i}"; done
+RUN mkdir -p /etc/apt/keyrings
+
+##################################################################
+#                   sources list
 ##################################################################
 RUN rm -rfv /etc/apt/sources.list
-COPY sources.list /etc/apt/sources.list
+RUN rm -rfv /etc/apt/sources.list.d/*
+RUN rm -rfv /etc/locale.gen
 
+COPY etc/apt /etc/apt
+COPY etc/locale.gen /etc/locale.gen
 COPY usr/local/share/ca-certificates /usr/local/share/ca-certificates
 RUN update-ca-certificates --fresh
 
@@ -35,12 +45,14 @@ RUN apt-get update -y && \
     apt-get dist-upgrade -y && \
     apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
         apt-transport-https \
+        apt-utils \
         curl \
         ca-certificates \
         ghostscript \
         nload \
         htop \
         mc \
+        ffmpeg \
         nano \
         sudo \
         imagemagick \
@@ -50,34 +62,33 @@ RUN apt-get update -y && \
         libsmbclient \
         wget \
         net-tools \
-        iputils-ping
-
-
-##################################################################
-#                  installing php repo + smbclient
-##################################################################
-RUN apt-get update -y &&  \
-    apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
+        iputils-ping \
+        aria2 \
         libsmbclient-dev \
         libmagickwand-dev \
         libmagickcore-dev \
-        libc-client-dev \
         libkrb5-dev \
         libsqlite3-dev \
-        libssl-dev
-
-RUN pecl install inotify && \
-    docker-php-ext-enable inotify
-
-RUN pecl install smbclient && \
-    docker-php-ext-enable smbclient
-
-RUN docker-php-ext-configure imap --with-kerberos --with-imap-ssl && \
-    docker-php-ext-install imap  && \
-    docker-php-ext-enable imap
-
-RUN docker-php-ext-install fileinfo bz2 intl ftp pdo_sqlite && \
-    docker-php-ext-enable fileinfo bz2 intl ftp pdo_sqlite
+        libssl-dev && \
+    pecl channel-update pecl.php.net && \
+    pecl install inotify smbclient && \
+    docker-php-ext-configure imap --with-kerberos --with-imap-ssl && \
+    docker-php-ext-install imap fileinfo bz2 intl ftp pdo_sqlite && \
+    docker-php-ext-enable inotify smbclient imap fileinfo bz2 intl ftp pdo_sqlite && \
+    apt-get remove -y \
+        libsmbclient-dev \
+        libmagickwand-dev \
+        libmagickcore-dev \
+        libkrb5-dev \
+        libsqlite3-dev \
+        libssl-dev && \
+    apt-get clean -y && \
+    apt-get autoclean -y && \
+    rm -rfv /var/lib/apt/lists/* && \
+    rm -rfv /tmp/* && \
+    rm -rfv /var/cache/apt/archives/*.deb && \
+    php -m && \
+    php -v
 
 ##################################################################
 #                  smb fix

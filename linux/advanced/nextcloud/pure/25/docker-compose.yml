@@ -3,5 +3,8 @@ services:
     image: "epicmorg/nextcloud:25"
     build:
       context: .
+    x-squash: true
     x-mirrors:
       - quay.io/epicmorg/nextcloud:25
+      - ghcr.io/epicmorg/nextcloud:25
+      - docker.io/epicmorg/nextcloud:25
