@@ -3,3 +3,8 @@ services:
     image: "epicmorg/pg-upgrade-tool:latest"
     build:
       context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/pg-upgrade-tool:latest
+      - ghcr.io/epicmorg/pg-upgrade-tool:latest
+      - docker.io/epicmorg/pg-upgrade-tool:latest
