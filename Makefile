@@ -124,21 +124,8 @@ advanced-images:
 	make advanced-vscode-server-images
 
 advanced-nextcloud-all-images:
-	make advanced-nextcloud-all-latest-images
 	make advanced-nextcloud-images
 	make advanced-nextcloud-patched-images
-
-advanced-nextcloud-all-latest-images:
-	make advanced-nextcloud-pure-latest-images
-	make advanced-nextcloud-patched-latest-images
-
-advanced-nextcloud-pure-latest-images:
-	cd `pwd`/linux/advanced/nextcloud/pure/latest	  && pwd && make build && make deploy
-	@make clean
-
-advanced-nextcloud-patched-latest-images:
-	cd `pwd`/linux/advanced/nextcloud/patched/latest	  && pwd && make build && make deploy
-	@make clean
 
 advanced-teamcity-server-images:
 	cd `pwd`/linux/advanced/teamcity/server/latest	       && pwd && make build && make deploy
@@ -352,47 +339,49 @@ advanced-zabbix-72-images:
 ####################################################################################################################
 
 advanced-nextcloud-images:
-#	cd `pwd`/linux/advanced/nextcloud/pure/14		  && pwd && make build && make deploy
-#	cd `pwd`/linux/advanced/nextcloud/pure/15		  && pwd && make build && make deploy
-#	cd `pwd`/linux/advanced/nextcloud/pure/16		  && pwd && make build && make deploy
-#	cd `pwd`/linux/advanced/nextcloud/pure/17		  && pwd && make build && make deploy
-#	cd `pwd`/linux/advanced/nextcloud/pure/18		  && pwd && make build && make deploy
-#	cd `pwd`/linux/advanced/nextcloud/pure/19		  && pwd && make build && make deploy
-#	cd `pwd`/linux/advanced/nextcloud/pure/20		  && pwd && make build && make deploy
-#	cd `pwd`/linux/advanced/nextcloud/pure/21		  && pwd && make build && make deploy
-#	cd `pwd`/linux/advanced/nextcloud/pure/22		  && pwd && make build && make deploy
-#	cd `pwd`/linux/advanced/nextcloud/pure/23		  && pwd && make build && make deploy
-#	cd `pwd`/linux/advanced/nextcloud/pure/24		  && pwd && make build && make deploy
-#	cd `pwd`/linux/advanced/nextcloud/pure/25		  && pwd && make build && make deploy
-#	cd `pwd`/linux/advanced/nextcloud/pure/26		  && pwd && make build && make deploy
-#	cd `pwd`/linux/advanced/nextcloud/pure/27		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/pure/14		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/pure/15		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/pure/16		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/pure/17		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/pure/18		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/pure/19		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/pure/20		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/pure/21		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/pure/22		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/pure/23		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/pure/24		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/pure/25		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/pure/26		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/pure/27		  && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/nextcloud/pure/28		  && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/nextcloud/pure/29		  && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/nextcloud/pure/30		  && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/nextcloud/pure/31		  && pwd && make build && make deploy
-#	cd `pwd`/linux/advanced/nextcloud/pure/32		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/pure/32		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/pure/33		  && pwd && make build && make deploy
 	@make clean
 
 advanced-nextcloud-patched-images:
-#	cd `pwd`/linux/advanced/nextcloud/patched/14		  && pwd && make build && make deploy
-#	cd `pwd`/linux/advanced/nextcloud/patched/15		  && pwd && make build && make deploy
-#	cd `pwd`/linux/advanced/nextcloud/patched/16		  && pwd && make build && make deploy
-#	cd `pwd`/linux/advanced/nextcloud/patched/17		  && pwd && make build && make deploy
-#	cd `pwd`/linux/advanced/nextcloud/patched/18		  && pwd && make build && make deploy
-#	cd `pwd`/linux/advanced/nextcloud/patched/19		  && pwd && make build && make deploy
-#	cd `pwd`/linux/advanced/nextcloud/patched/20		  && pwd && make build && make deploy
-#	cd `pwd`/linux/advanced/nextcloud/patched/21		  && pwd && make build && make deploy
-#	cd `pwd`/linux/advanced/nextcloud/patched/22		  && pwd && make build && make deploy
-#	cd `pwd`/linux/advanced/nextcloud/patched/23		  && pwd && make build && make deploy
-#	cd `pwd`/linux/advanced/nextcloud/patched/24		  && pwd && make build && make deploy
-#	cd `pwd`/linux/advanced/nextcloud/patched/25		  && pwd && make build && make deploy
-#	cd `pwd`/linux/advanced/nextcloud/patched/26		  && pwd && make build && make deploy
-#	cd `pwd`/linux/advanced/nextcloud/patched/27		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/patched/14		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/patched/15		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/patched/16		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/patched/17		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/patched/18		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/patched/19		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/patched/20		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/patched/21		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/patched/22		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/patched/23		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/patched/24		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/patched/25		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/patched/26		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/patched/27		  && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/nextcloud/patched/28		  && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/nextcloud/patched/29		  && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/nextcloud/patched/30		  && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/nextcloud/patched/31		  && pwd && make build && make deploy
-#	cd `pwd`/linux/advanced/nextcloud/patched/32		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/patched/32		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/patched/33		  && pwd && make build && make deploy
 	@make clean
 
 ####################################################################################################################
@@ -492,10 +481,10 @@ ecosystem-debian-bookworm-images:
 ####################################################################################################################
 
 ecosystem-debian-trixie-images:
-	cd `pwd`/linux/ecosystem/base/debian/13-trixie/light    && pwd && make build && make deploy
-	cd `pwd`/linux/ecosystem/base/debian/13-trixie/main    && pwd && make build && make deploy
+#	cd `pwd`/linux/ecosystem/base/debian/13-trixie/light    && pwd && make build && make deploy
+#	cd `pwd`/linux/ecosystem/base/debian/13-trixie/main    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/base/debian/13-trixie/develop    && pwd && make build && make deploy
-	@make clean
+#	@make clean
 
 ####################################################################################################################
 
@@ -969,8 +958,31 @@ ecosystem-monero-images:
 	cd `pwd`/linux/ecosystem/apps/monero/monerod    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/monero/p2pool    && pwd && make build && make deploy
 
+ecosystem-pg-upgrade-tool-images:
+	cd `pwd`/linux/ecosystem/apps/pg-upgrade-tool       && pwd && make build && make deploy
+	@make clean
+
+ecosystem-postgres-patroni-images:
+	@echo "======================================="
+	@echo "===== Building ppostgres-patroni images ====="
+	@echo "======================================="
+
+	cd `pwd`/linux/ecosystem/apps/postgres-patroni/9.3          && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/postgres-patroni/9.4          && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/postgres-patroni/9.5          && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/postgres-patroni/9.6          && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/postgres-patroni/10           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/postgres-patroni/11           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/postgres-patroni/12           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/postgres-patroni/13           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/postgres-patroni/14           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/postgres-patroni/15           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/postgres-patroni/16           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/postgres-patroni/17           && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/postgres-patroni/18           && pwd && make build && make deploy
+	@make -s clean
+
 ecosystem-postgres-images:
-	cd `pwd`/linux/ecosystem/apps/postgres/latest       && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/postgres/8.2          && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/postgres/8.3          && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/postgres/8.4          && pwd && make build && make deploy
@@ -978,7 +990,6 @@ ecosystem-postgres-images:
 	cd `pwd`/linux/ecosystem/apps/postgres/9.1          && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/postgres/9.2          && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/postgres/9.3          && pwd && make build && make deploy
-	@make clean
 	cd `pwd`/linux/ecosystem/apps/postgres/9.4          && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/postgres/9.5          && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/postgres/9.6          && pwd && make build && make deploy

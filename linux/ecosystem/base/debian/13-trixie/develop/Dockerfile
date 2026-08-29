@@ -1200,12 +1200,12 @@ RUN set -eux; \
     mkdir -p ${LUAJIT2OR_DIR} ${LUAJIT2OR_SRC_DIR} && \
     git clone ${LUAJIT2OR_DOWNLOAD_URL} ${LUAJIT2OR_TEMP_SRC} && \
     cp -rfv ${LUAJIT2OR_TEMP_SRC}/* ${LUAJIT2OR_SRC_DIR} && \
-    ln -sfv ${LUAJIT2OR_INC_DIR}/luajit-2.1/* ${LUAJIT2OR_INC_DIR}/ && \
     ln -sf ${LUAJIT2OR_SRC_DIR} ${LUAJIT2OR_DIR}/src && \
     cd ${LUAJIT2OR_TEMP_SRC} && \
 #    make -j$(nproc) XCFLAGS='-DLUAJIT_ENABLE_GC64' BUILDMODE=static && \
     make -j$(nproc) XCFLAGS='-DLUAJIT_ENABLE_GC64' BUILDMODE=mixed && \
     make -j$(nproc) install PREFIX=${LUAJIT2OR_DIR} && \
+    ln -sfv ${LUAJIT2OR_INC_DIR}/luajit-2.1/* ${LUAJIT2OR_INC_DIR}/ && \
     echo "clean up" && \
     rm -rfv /tmp/*
 
@@ -2152,7 +2152,7 @@ RUN set -eux; \
     make -C src/interfaces/libpq -j"$(nproc)"; \
     make -C src/interfaces/libpq install; \
     make -C src/include install; \
-    make -C src/bin/pg_config install; \; \
+    make -C src/bin/pg_config install; \
     make distclean; \
     rm -f /tmp/postgresql.tar.bz2
 

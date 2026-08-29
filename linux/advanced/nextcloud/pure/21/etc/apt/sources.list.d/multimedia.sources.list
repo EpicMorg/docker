@@ -1,0 +1,7 @@
+## multimedia
+
+#deb [trusted=yes signed-by=/etc/apt/keyrings/deb-multimedia-keyring.gpg] https://deb-multimedia.org bullseye main non-free
+#deb-src [trusted=yes signed-by=/etc/apt/keyrings/deb-multimedia-keyring.gpg] https://deb-multimedia.org bullseye main non-free
+
+#deb [trusted=yes signed-by=/etc/apt/keyrings/deb-multimedia-keyring.gpg] https://deb-multimedia.org bullseye-backports main non-free
+#deb-src [trusted=yes signed-by=/etc/apt/keyrings/deb-multimedia-keyring.gpg] https://deb-multimedia.org bullseye-backports main non-free
