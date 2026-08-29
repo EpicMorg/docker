@@ -4,7 +4,7 @@ docker run --rm -it \
   -v /path/to/old/pg11_data:/var/lib/postgresql/11/data \
   -v /path/to/new/pg16_data:/var/lib/postgresql/16/data \
   -u postgres \
-  repo.saber3d.net/saber-docker-it-hosted/services/pg-upgrade-tool:11-16
+  epicmorg/pg-upgrade-tool:latest
 ```
 
 # 1. Инициализируем новую пустую базу 16

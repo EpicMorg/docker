@@ -1,5 +1,0 @@
-Types: deb
-URIs: https://repo.saber3d.net/artifactory/apt-packagecloud/timescale/timescaledb/debian/
-Suites: trixie
-Components: main
-Signed-By: /usr/share/timescaledb-common/gpg/apt.timescaledb.gpg

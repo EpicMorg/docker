@@ -1,5 +1,0 @@
-services:
-  app:
-    image: "epicmorg/pg-upgrade-tool:11-16"
-    build:
-      context: .
