@@ -1,0 +1,50 @@
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: IMAP Toolkit Environment
+Upstream-Contact: imap-uw@u.washington.edu
+ http://www.washington.edu/imap/lists/imap-uw.html
+ news:comp.mail.imap
+Source: ftp://ftp.cac.washington.edu/mail
+ Repackaged, excluding non-DFSG RFC files and Binary file
+Files-Excluded:
+ docs/rfc/
+ docs/draft/
+ src/osdep/mac/mtest.sit.hqx
+
+Files: *
+Copyright: 1988-2008, University of Washington
+License: Apache-2.0
+
+Files: src/c-client/rfc822.*
+ src/c-client/misc.*
+ src/c-client/smtp.*
+ src/c-client/imap4r1.c
+ src/mtest/mtest.c
+Copyright: 1988, Stanford University
+  1988-2008, University of Washington
+License: Apache-2.0
+
+Files: debian/*
+Copyright: 2000-2002, Jaldhar H. Vyas <jaldhar@debian.org>
+  2002-2009,2011-2012, Jonas Smedegaard <dr@jones.dk>
+License: GPL-2+
+
+License: Apache-2.0
+ On Debian systems the 'Apache' license version 2.0 is located in
+ '/usr/share/common-licenses/Apache-2.0'.
+
+License: GPL-2+
+ This file is free software; you can redistribute it and/or modify it
+ under the terms of the GNU General Public License as published by the
+ Free Software Foundation; either version 2 of the License, or (at your
+ option) any later version.
+ .
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+Comment:
+ On Debian systems the 'GNU General Public License' version 2 is located
+ in '/usr/share/common-licenses/GPL-2'.
+ .
+ You should have received a copy of the 'GNU General Public License'
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.

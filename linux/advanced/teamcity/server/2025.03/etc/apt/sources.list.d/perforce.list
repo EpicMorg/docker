@@ -1,0 +1,1 @@
+deb [signed-by=/etc/apt/keyrings/perforce.gpg] https://package.perforce.com/apt/ubuntu/ jammy release

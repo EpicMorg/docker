@@ -1,4 +1,4 @@
-FROM docker.io/nextcloud:32
+FROM docker.io/nextcloud:33
 ENV DEBIAN_FRONTEND noninteractive
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 LABEL org.opencontainers.image.vendor="EpicMorg DevTeam, developer@epicm.org"
@@ -34,8 +34,7 @@ RUN rm -rfv /etc/apt/sources.list.d/*
 RUN rm -rfv /etc/locale.gen
 
 COPY etc/apt /etc/apt
-COPY etc/locale.gen /etc/locale.gen
-COPY usr/local/share/ca-certificates /usr/local/share/ca-certificates
+COPY usr /usr
 RUN update-ca-certificates --fresh
 
 ##################################################################
@@ -68,18 +67,19 @@ RUN apt-get update -y && \
         libmagickwand-dev \
         libmagickcore-dev \
         libkrb5-dev \
+        pkg-config \
         libsqlite3-dev \
         libssl-dev && \
     pecl channel-update pecl.php.net && \
-    pecl install inotify smbclient && \
-    docker-php-ext-configure imap --with-kerberos --with-imap-ssl && \
-    docker-php-ext-install imap fileinfo bz2 intl ftp pdo_sqlite && \
+    pecl install inotify smbclient imap && \
+    docker-php-ext-install  fileinfo bz2 intl ftp pdo_sqlite && \
     docker-php-ext-enable inotify smbclient imap fileinfo bz2 intl ftp pdo_sqlite && \
     apt-get remove -y \
         libsmbclient-dev \
         libmagickwand-dev \
         libmagickcore-dev \
         libkrb5-dev \
+        pkg-config \
         libsqlite3-dev \
         libssl-dev && \
     apt-get clean -y && \

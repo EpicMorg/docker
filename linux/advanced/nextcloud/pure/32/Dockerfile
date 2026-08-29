@@ -34,8 +34,7 @@ RUN rm -rfv /etc/apt/sources.list.d/*
 RUN rm -rfv /etc/locale.gen
 
 COPY etc/apt /etc/apt
-COPY etc/locale.gen /etc/locale.gen
-COPY usr/local/share/ca-certificates /usr/local/share/ca-certificates
+COPY usr /usr
 RUN update-ca-certificates --fresh
 
 ##################################################################
@@ -68,6 +67,7 @@ RUN apt-get update -y && \
         libmagickwand-dev \
         libmagickcore-dev \
         libkrb5-dev \
+        pkg-config \
         libsqlite3-dev \
         libssl-dev && \
     pecl channel-update pecl.php.net && \
@@ -80,6 +80,7 @@ RUN apt-get update -y && \
         libmagickwand-dev \
         libmagickcore-dev \
         libkrb5-dev \
+        pkg-config \
         libsqlite3-dev \
         libssl-dev && \
     apt-get clean -y && \
