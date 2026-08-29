@@ -3,3 +3,8 @@ services:
     image: "epicmorg/postgres:13"
     build:
       context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/postgres:13
+      - ghcr.io/epicmorg/postgres:13
+      - docker.io/epicmorg/postgres:13

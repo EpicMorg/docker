@@ -3,3 +3,11 @@ services:
     image: "epicmorg/postgres:18"
     build:
       context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/postgres:18
+      - ghcr.io/epicmorg/postgres:18
+      - docker.io/epicmorg/postgres:18
+      - quay.io/epicmorg/postgres:latest
+      - ghcr.io/epicmorg/postgres:latest
+      - docker.io/epicmorg/postgres:latest
