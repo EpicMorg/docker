@@ -1,0 +1,10 @@
+services:
+  app:
+    image: "epicmorg/postgres-patroni:17"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/postgres-patroni:17
+      - ghcr.io/epicmorg/postgres-patroni:17
+      - docker.io/epicmorg/postgres-patroni:17
