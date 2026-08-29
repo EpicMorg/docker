@@ -1,0 +1,5 @@
+Types: deb
+URIs: https://package.perforce.com/apt/ubuntu/
+Suites: noble
+Components: release
+Signed-By: /etc/apt/keyrings/perforce.gpg

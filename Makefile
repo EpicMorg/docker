@@ -130,6 +130,8 @@ advanced-nextcloud-all-images:
 advanced-teamcity-server-images:
 	cd `pwd`/linux/advanced/teamcity/server/latest	       && pwd && make build && make deploy
 	@make clean
+	cd `pwd`/linux/advanced/teamcity/server/2026.1        && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/advanced/teamcity/server/2025.03        && pwd && make build && make deploy
 	@make clean
 	cd `pwd`/linux/advanced/teamcity/server/2024.12        && pwd && make build && make deploy
@@ -339,49 +341,53 @@ advanced-zabbix-72-images:
 ####################################################################################################################
 
 advanced-nextcloud-images:
-	cd `pwd`/linux/advanced/nextcloud/pure/14		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/nextcloud/pure/15		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/nextcloud/pure/16		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/nextcloud/pure/17		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/nextcloud/pure/18		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/nextcloud/pure/19		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/nextcloud/pure/20		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/nextcloud/pure/21		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/nextcloud/pure/22		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/nextcloud/pure/23		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/nextcloud/pure/24		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/nextcloud/pure/25		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/nextcloud/pure/26		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/nextcloud/pure/27		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/nextcloud/pure/28		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/nextcloud/pure/29		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/nextcloud/pure/30		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/nextcloud/pure/31		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/nextcloud/pure/32		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/pure/latest	  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/pure/34		  && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/nextcloud/pure/33		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/pure/32		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/pure/31		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/pure/30		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/pure/29		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/pure/28		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/pure/27		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/pure/26		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/pure/25		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/pure/24		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/pure/23		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/pure/22		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/pure/21		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/pure/20		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/pure/19		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/pure/18		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/pure/17		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/pure/16		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/pure/15		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/pure/14		  && pwd && make build && make deploy
 	@make clean
 
 advanced-nextcloud-patched-images:
-	cd `pwd`/linux/advanced/nextcloud/patched/14		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/nextcloud/patched/15		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/nextcloud/patched/16		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/nextcloud/patched/17		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/nextcloud/patched/18		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/nextcloud/patched/19		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/nextcloud/patched/20		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/nextcloud/patched/21		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/nextcloud/patched/22		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/nextcloud/patched/23		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/nextcloud/patched/24		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/nextcloud/patched/25		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/nextcloud/patched/26		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/nextcloud/patched/27		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/nextcloud/patched/28		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/nextcloud/patched/29		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/nextcloud/patched/30		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/nextcloud/patched/31		  && pwd && make build && make deploy
-	cd `pwd`/linux/advanced/nextcloud/patched/32		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/patched/latest	  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/patched/34		  && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/nextcloud/patched/33		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/patched/32		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/patched/31		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/patched/30		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/patched/29		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/patched/28		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/patched/27		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/patched/26		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/patched/25		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/patched/24		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/patched/23		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/patched/22		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/patched/21		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/patched/20		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/patched/19		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/patched/18		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/patched/17		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/patched/16		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/patched/15		  && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/nextcloud/patched/14		  && pwd && make build && make deploy
 	@make clean
 
 ####################################################################################################################

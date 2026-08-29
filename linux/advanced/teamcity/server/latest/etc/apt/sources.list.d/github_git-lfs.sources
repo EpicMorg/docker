@@ -1,0 +1,5 @@
+Types: deb deb-src
+URIs: https://packagecloud.io/github/git-lfs/ubuntu/
+Suites: noble
+Components: main
+Signed-By: /etc/apt/keyrings/github_git-lfs-archive-keyring.gpg

@@ -8,6 +8,3 @@ services:
       - quay.io/epicmorg/nextcloud:33
       - ghcr.io/epicmorg/nextcloud:33
       - docker.io/epicmorg/nextcloud:33
-      - quay.io/epicmorg/nextcloud:latest
-      - ghcr.io/epicmorg/nextcloud:latest
-      - docker.io/epicmorg/nextcloud:latest

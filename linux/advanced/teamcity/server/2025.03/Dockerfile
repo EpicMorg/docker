@@ -1,4 +1,5 @@
 FROM docker.io/jetbrains/teamcity-server:2025.03
+
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 LABEL org.opencontainers.image.vendor="EpicMorg DevTeam, developer@epicm.org"
 LABEL org.opencontainers.image.authors="STAM, kasthack, Aleks-Z"
@@ -41,7 +42,7 @@ RUN mkdir -p /etc/apt/keyrings
 ##################################################################
 #                   ARGuments
 ##################################################################
-ARG P4_VERSION=r24.1
+ARG P4_VERSION=r26.1
 ARG P4_BIN_DIR=${EMG_LOCAL_BASE_DIR}/p4/${P4_VERSION}/bin
 ARG P4_DOWNLOAD_URL=https://filehost.perforce.com/perforce/${P4_VERSION}/bin.linux26x86_64/p4
 
@@ -61,21 +62,21 @@ ARG GOSU_DOWNLOAD_URL=https://github.com/tianon/gosu/releases/download/${GOSU_VE
 ##################################################################
 #                   Additional settings
 ##################################################################
-ENV MAVEN_VERSION=3.9.11
+ENV MAVEN_VERSION=3.9.16
 ENV MAVEN_LINK=https://dlcdn.apache.org/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.zip
 ENV MAVEN_ROOT=${EMG_LOCAL_BASE_DIR}/maven/${MAVEN_VERSION}
 ENV MAVEN_PATH=${MAVEN_ROOT}/apache-maven-${MAVEN_VERSION}
 ENV MAVEN_BIN=${MAVEN_PATH}/bin
 ARG MAVEN_TEMP=/tmp/apache-maven-${MAVEN_VERSION}-bin.zip
 
-ENV GRADLE_VERSION=8.14
+ENV GRADLE_VERSION=8.14.5
 ENV GRADLE_LINK=https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-all.zip
 ENV GRADLE_ROOT=${EMG_LOCAL_BASE_DIR}/gradle/${GRADLE_VERSION}
 ENV GRADLE_PATH=${GRADLE_ROOT}/gradle-${GRADLE_VERSION}
 ENV GRADLE_BIN=${GRADLE_PATH}/bin
 ARG GRADLE_TEMP=/tmp/gradle-${GRADLE_VERSION}-all.zip
 
-ENV KTC_VERSION=2.2.0
+ENV KTC_VERSION=2.4.10
 ENV KTC_LINK=https://github.com/JetBrains/kotlin/releases/download/v${KTC_VERSION}/kotlin-compiler-${KTC_VERSION}.zip
 ARG KTC_TEMP=/tmp/kotlin-compiler-${KTC_VERSION}.zip
 ENV KTC_ROOT=${EMG_LOCAL_BASE_DIR}/kotlin/${KTC_VERSION}
@@ -96,22 +97,42 @@ ENV PATH=${PATH}:${MAVEN_BIN}:${GRADLE_BIN}:${KTC_BIN}:${KNPL_BIN}
 #                   update lists
 ##################################################################
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections && \
+    curl -fsSL https://package.perforce.com/perforce.pubkey | apt-key add - && \
+    curl -fsSL https://package.perforce.com/perforce.pubkey | gpg --dearmor  --batch --yes --dearmor -o /etc/apt/keyrings/perforce.gpg && \
     apt-get update
 
 ##################################################################
 #                   sources list
 ##################################################################
 RUN rm -rfv /etc/apt/sources.list
-RUN rm -rfv /etc/apt/sources.list.d/*.sources 
+RUN rm -rfv /etc/apt/sources.list.d/*
 RUN rm -rfv /etc/locale.gen
 
-COPY etc/apt/apt.conf.d/99-no-check-valid-until /etc/apt/apt.conf.d/99-no-check-valid-until
-COPY etc/apt/apt.conf.d/98-allow-unauthenticated /etc/apt/apt.conf.d/98-allow-unauthenticated
-COPY etc/apt/apt.conf.d/97-allow-cert-exp /etc/apt/apt.conf.d/97-allow-cert-exp
-COPY etc/apt/apt.conf.d/96-apt-retries /etc/apt/apt.conf.d/96-apt-retries
-COPY etc/apt/sources.list /etc/apt/sources.list
+COPY etc/apt /etc/apt
 COPY etc/locale.gen /etc/locale.gen
 COPY usr/local/share/ca-certificates /usr/local/share/ca-certificates
+RUN update-ca-certificates --fresh
+
+##################################################################
+#                   git fresh binary
+##################################################################
+RUN gpg --keyserver keyserver.ubuntu.com --recv-keys F911AB184317630C59970973E363C90F8F1B6217 && \
+    gpg --export --output /etc/apt/keyrings/launchpad-git.gpg F911AB184317630C59970973E363C90F8F1B6217 && \
+    curl -fsSL https://packagecloud.io/github/git-lfs/gpgkey | gpg --batch --yes --dearmor -o /etc/apt/keyrings/github_git-lfs-archive-keyring.gpg && \
+    curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | gpg --batch --yes --dearmor -o /etc/apt/keyrings/githubcli-archive-keyring.gpg && \
+    chmod go+r /etc/apt/keyrings/*.gpg && \
+    apt-get update &&  \
+    apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
+    gh \
+    git \
+    git-lfs && \
+    git-lfs install --skip-repo
+
+RUN echo "=============================================" && \
+    echo gh $(gh --version) && \
+    echo git $(git --version) && \
+    echo git-lfs $(git-lfs --version) && \
+    echo "============================================="
 
 RUN apt-get update && \
     apt-get upgrade -y && \
@@ -122,6 +143,7 @@ RUN apt-get update && \
 ##################################################################
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections && \
     apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
+    aria2 \
     apt-transport-https \
     apt-utils \
     aptitude \
@@ -292,7 +314,11 @@ ENV MAVEN_HOME=${MAVEN_ROOT}
 ENV M2_HOME=${MAVEN_ROOT}
 
 RUN set -eux; \
-    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -P /tmp ${MAVEN_LINK} && \
+    aria2c \
+        --conf-path="/usr/local/share/epicmorg/aria2/config/aria2.conf" \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -d /tmp \
+        "${MAVEN_LINK}" && \
     7zz x ${MAVEN_TEMP} -o${MAVEN_ROOT}
 RUN chmod +x -R ${MAVEN_BIN}
 RUN mvn -v
@@ -301,7 +327,11 @@ RUN mvn -v
 #                   GRADLE
 ##################################################################
 RUN set -eux; \
-    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -P /tmp ${GRADLE_LINK} && \
+    aria2c \
+        --conf-path="/usr/local/share/epicmorg/aria2/config/aria2.conf" \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -d /tmp \
+        "${GRADLE_LINK}" && \
     7zz x ${GRADLE_TEMP} -o${GRADLE_ROOT}
 RUN chmod +x -R ${GRADLE_BIN}
 RUN gradle -v
@@ -310,7 +340,11 @@ RUN gradle -v
 #                   kotlin-compiler
 ##################################################################
 RUN set -eux; \
-    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -P /tmp ${KTC_LINK} && \
+    aria2c \
+        --conf-path="/usr/local/share/epicmorg/aria2/config/aria2.conf" \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -d /tmp \
+        "${KTC_LINK}" && \
     7zz x ${KTC_TEMP} -o${KTC_ROOT}
 RUN chmod +x -R ${KTC_BIN}
 RUN kotlin -version
@@ -319,58 +353,13 @@ RUN kotlin -version
 #                   kotlin-native-prebuilt-linux
 ##################################################################
 RUN set -eux; \
-    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -P /tmp ${KNPL_LINK} && \
+    aria2c \
+        --conf-path="/usr/local/share/epicmorg/aria2/config/aria2.conf" \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -d /tmp \
+        "${KNPL_LINK}" && \
     tar -xzf ${KNPL_TEMP} --directory ${KTC_ROOT}
 RUN chmod +x -R ${KNPL_BIN}
-
-##################################################################
-#                   git fresh binary
-##################################################################
-RUN gpg --keyserver keyserver.ubuntu.com --recv-keys A1715D88E1DF1F24 && \
-    gpg --export --output /etc/apt/keyrings/launchpad-git.gpg A1715D88E1DF1F24 && \
-    rm -rfv /etc/apt/sources.list.d/launchpad_git-mainline.list && \
-    rm -rfv /etc/apt/sources.list.d/launchpad_git-stable.list
-COPY etc/apt/sources.list.d/launchpad_git-mainline.list /etc/apt/sources.list.d/launchpad_git-mainline.list
-COPY etc/apt/sources.list.d/launchpad_git-stable.list /etc/apt/sources.list.d/launchpad_git-stable.list
-RUN apt-get update &&  \
-    apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
-    git
-
-RUN echo "=============================================" && \
-    echo git $(git --version) && \
-    echo "============================================="
-
-##################################################################
-#                   git-lfs official binary
-##################################################################
-RUN curl -fsSL https://packagecloud.io/github/git-lfs/gpgkey | gpg --dearmor > /etc/apt/keyrings/github_git-lfs-archive-keyring.gpg && \
-    rm -rfv /etc/apt/sources.list.d/github_git-lfs.list
-COPY etc/apt/sources.list.d/github_git-lfs.list /etc/apt/sources.list.d/github_git-lfs.list
-RUN apt-get update &&  \
-    apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
-    git \
-    git-lfs && \
-    git-lfs install --skip-repo
-
-RUN echo "=============================================" && \
-    echo git $(git --version) && \
-    echo git-lfs $(git-lfs --version) && \
-    echo "============================================="
-
-##################################################################
-#                   gh official binary
-##################################################################
-RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | gpg --batch --yes --dearmor -o /etc/apt/keyrings/githubcli-archive-keyring.gpg && \
-    chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg && \
-    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list && \
-    apt-get update &&  \
-    apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
-    gh
-
-RUN echo "=============================================" && \
-    echo gh $(gh --version) && \
-    echo "============================================="
-
 
 ##################################################################
 #                  Set original user back
