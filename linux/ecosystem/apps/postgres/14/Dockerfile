@@ -23,7 +23,7 @@ ENV LANG=en_US.utf8
 # https://docs.timescale.com/self-hosted/latest/upgrades/upgrade-pg/
 ####################################################################################################################################
 ENV PG_MAJOR=14
-ENV PG_STATS=3.2
+ENV PG_STATS=4.1
 
 COPY etc/apt/sources.list.d/pgdg.sources /etc/apt/sources.list.d/pgdg.sources
 COPY etc/apt/sources.list.d/timescaledb.sources /etc/apt/sources.list.d/timescaledb.sources

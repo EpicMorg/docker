@@ -21,7 +21,7 @@ ENV LANG=en_US.utf8
 # http://apt.postgresql.org/pub/repos/apt/pool/10/p/postgresql-10/
 ####################################################################################################################################
 ENV PG_MAJOR=10
-ENV PG_STATS=3.2
+ENV PG_STATS=4.1
 
 COPY etc/apt/sources.list.d/pgdg.sources /etc/apt/sources.list.d/pgdg.sources
 COPY usr/share/postgresql-common/pgdg/apt.postgresql.org.asc /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc
