@@ -1,0 +1,14 @@
+services:
+  app:
+    image: "epicmorg/jira:11.3.10"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - docker.io/epicmorg/jira:11.3.10
+      - docker.io/epicmorg/jira:11.3.10-jdk21
+      - quay.io/epicmorg/jira:11.3.10
+      - quay.io/epicmorg/jira:11.3.10-jdk21
+      - ghcr.io/epicmorg/jira:11.3.10
+      - ghcr.io/epicmorg/jira:11.3.10-jdk21
+
