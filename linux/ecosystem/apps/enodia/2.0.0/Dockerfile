@@ -56,21 +56,21 @@ RUN set -eux; \
 # they survive container recreation and are easy to bind-mount from the
 # host.
 RUN mkdir -p /opt/enodia /etc/enodia /var/lib/enodia/cve/{bdu,nvd} && \
-    for year in 2002 2003 2004 2005 2006 2007 2008 2009 2010 2011 2012 2013 2014 2015 2016 2017 2018 2019 2020 2021 2022 2023 2024 2025 2026; do 
-      echo "--> Processing nvdcve-2.0-${year}.json.gz" && \
-      aria2c \
-        --conf-path="/usr/local/share/epicmorg/aria2/config/aria2.conf" \
-        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
-        -d /var/lib/enodia/cve/nvd \
-        "https://nvd.nist.gov/feeds/json/cve/2.0/nvdcve-2.0-${year}.json.gz" 
+    for year in 2002 2003 2004 2005 2006 2007 2008 2009 2010 2011 2012 2013 2014 2015 2016 2017 2018 2019 2020 2021 2022 2023 2024 2025 2026; do \
+        echo "--> Processing nvdcve-2.0-${year}.json.gz"; \
+        aria2c \
+            --conf-path="/usr/local/share/epicmorg/aria2/config/aria2.conf" \
+            --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+            -d /var/lib/enodia/cve/nvd \
+            "https://nvd.nist.gov/feeds/json/cve/2.0/nvdcve-2.0-${year}.json.gz" || exit 1; \
     done && \
-    echo "--> Processing nvdcve-2.0-${year}.json.gz" && \
+    echo "--> Processing BDU XML archive" && \
     aria2c \
         --conf-path="/usr/local/share/epicmorg/aria2/config/aria2.conf" \
         --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
         -d /var/lib/enodia/cve/bdu \
-        "https://bdu.fstec.ru/files/documents/vulxml.zip" 
-
+        "https://bdu.fstec.ru/files/documents/vulxml.zip"
+ 
 VOLUME ["/etc/enodia", "/opt/enodia"]
 WORKDIR /opt/enodia
 
