@@ -1,0 +1,13 @@
+services:
+  app:
+    image: "epicmorg/enodia:1.2.1"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/enodia:1.2.1
+      - ghcr.io/epicmorg/enodia:1.2.1
+      - docker.io/epicmorg/enodia:2.1
+      - quay.io/epicmorg/enodia:1
+      - ghcr.io/epicmorg/enodia:1
+      - docker.io/epicmorg/enodia:1
