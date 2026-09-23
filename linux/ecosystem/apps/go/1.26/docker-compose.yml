@@ -1,0 +1,10 @@
+services:
+  app:
+    image: "epicmorg/go:1.26"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/go:1.26
+      - ghcr.io/epicmorg/go:1.26
+      - docker.io/epicmorg/go:1.26
