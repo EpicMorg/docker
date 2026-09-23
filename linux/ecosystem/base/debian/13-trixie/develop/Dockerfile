@@ -1,4 +1,4 @@
-FROM docker.io/epicmorg/debian:trixie
+FROM docker.io/epicmorg/debian::trixie-develop-light
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -7,7 +7,6 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 # /etc/ld.so.conf.d/
 ARG LD_CONF_DIR=/etc/ld.so.conf.d/
-
 
 # llvm-mingw
 ENV LLVM_MINGW_VERSION=20260826
@@ -136,7 +135,7 @@ ARG NINJA_TEMP=/tmp/ninja-linux.zip
 
 # GO source tarball
 ENV GO_MIN_VERSION=1.26
-ENV GO_VERSION=${GO_MIN_VERSION}.6
+ENV GO_VERSION=${GO_MIN_VERSION}.8
 ENV GO_DIR=${EMG_LOCAL_BASE_DIR}/go/${GO_MIN_VERSION}
 ARG GO_BIN_DIR=${GO_DIR}/bin
 ARG GO_PATH_DIR=${GO_DIR}/gopath
@@ -1039,7 +1038,7 @@ ENV GOPATH=${GO_PATH_DIR}
 ENV PATH="${GO_BIN_DIR}:${GO_PATH_BIN_DIR}:${PATH}"
 
 RUN echo "=============================================" && \
-    echo go $(go version) && \
+    echo $(go version) && \
     echo "============================================="
 
 ##################################################################
