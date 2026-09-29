@@ -1,3 +1,0 @@
-Package: python-*
-Pin: release *
-Pin-Priority: -1
