@@ -42,6 +42,8 @@ PRODUCTS = {
     'bitbucket':        (['stash'],                 ['atlassian.bitbucket']),
     'crowd':            (['crowd'],                 ['atlassian.crowd']),
     'fisheye-crucible': (['fisheye'],               ['atlassian.fisheye-crucible']),
+    'bamboo':           (['bamboo'],                ['atlassian.bamboo']),
+    'mesh':             (['mesh'],                  ['atlassian.mesh']),
 }
 
 RELEASE_RE = re.compile(r'^\d+(\.\d+)+[a-z]?$')
@@ -78,10 +80,15 @@ def read_feeds():
                          capture_output=True, text=True, check=True).stdout
     feeds, cur = {}, None
     for line in out.splitlines():
-        m = re.search(r'Start processing HTTP request GET \S+/feeds/(\S+\.json)', line)
+        # feeds come from my.atlassian.com (.../feeds/<kind>/<p>.json) and from the
+        # EpicMorg backup mirror (.../json-backups/<kind>/<p>.json); any other request
+        # line ends the current feed, so its output is not credited to the previous one
+        m = re.search(r'Start processing HTTP request GET (\S+)', line)
         if m:
-            cur = m.group(1)
-            feeds.setdefault(cur, set())
+            f = re.search(r'/(?:feeds|json-backups)/(\w+/[\w.-]+\.json)$', m.group(1))
+            cur = f.group(1) if f else None
+            if cur:
+                feeds.setdefault(cur, set())
         elif cur and RELEASE_RE.match(line.strip()):
             feeds[cur].add(line.strip())
     if not feeds:

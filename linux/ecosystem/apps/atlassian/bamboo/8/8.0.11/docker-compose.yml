@@ -1,0 +1,13 @@
+services:
+  app:
+    image: "epicmorg/bamboo:8.0.11"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - docker.io/epicmorg/bamboo:8.0.11
+      - docker.io/epicmorg/bamboo:8.0.11-jdk11
+      - quay.io/epicmorg/bamboo:8.0.11
+      - quay.io/epicmorg/bamboo:8.0.11-jdk11
+      - ghcr.io/epicmorg/bamboo:8.0.11
+      - ghcr.io/epicmorg/bamboo:8.0.11-jdk11

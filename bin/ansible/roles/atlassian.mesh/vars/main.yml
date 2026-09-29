@@ -1,0 +1,6 @@
+atlassian_root: "{{ playbook_dir }}/../../linux/ecosystem/apps/atlassian"
+# Defaults
+target_directory_mesh_1: "{{ atlassian_root }}/mesh/1"
+target_directory_mesh_2: "{{ atlassian_root }}/mesh/2"
+target_directory_mesh_3: "{{ atlassian_root }}/mesh/3"
+target_directory_mesh_4: "{{ atlassian_root }}/mesh/4"

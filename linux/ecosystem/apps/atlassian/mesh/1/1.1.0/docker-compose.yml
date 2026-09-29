@@ -1,0 +1,29 @@
+services:
+  app:
+    image: "epicmorg/bitbucket-mesh:1.1.0"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - docker.io/epicmorg/bitbucket-mesh:1.1.0
+      - quay.io/epicmorg/bitbucket-mesh:1.1.0
+      - ghcr.io/epicmorg/bitbucket-mesh:1.1.0
+  app-jdk8:
+    image: "epicmorg/bitbucket-mesh:1.1.0-jdk8"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - docker.io/epicmorg/bitbucket-mesh:1.1.0-jdk8
+      - quay.io/epicmorg/bitbucket-mesh:1.1.0-jdk8
+      - ghcr.io/epicmorg/bitbucket-mesh:1.1.0-jdk8
+  app-jdk11:
+    image: "epicmorg/bitbucket-mesh:1.1.0-jdk11"
+    build:
+      context: .
+      dockerfile: Dockerfile.jdk11
+    x-squash: false
+    x-mirrors:
+      - docker.io/epicmorg/bitbucket-mesh:1.1.0-jdk11
+      - quay.io/epicmorg/bitbucket-mesh:1.1.0-jdk11
+      - ghcr.io/epicmorg/bitbucket-mesh:1.1.0-jdk11
