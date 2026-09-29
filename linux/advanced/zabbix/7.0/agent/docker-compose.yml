@@ -3,3 +3,8 @@ services:
     image: "epicmorg/zabbix-agent:7.0"
     build:
       context: .
+    x-squash: false
+    x-mirrors:
+      - docker.io/epicmorg/zabbix-agent:7.0
+      - quay.io/epicmorg/zabbix-agent:7.0
+      - ghcr.io/epicmorg/zabbix-agent:7.0

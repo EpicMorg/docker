@@ -3,3 +3,8 @@ services:
     image: "epicmorg/zabbix-java-gateway:latest"
     build:
       context: .
+    x-squash: false
+    x-mirrors:
+      - docker.io/epicmorg/zabbix-java-gateway:latest
+      - quay.io/epicmorg/zabbix-java-gateway:latest
+      - ghcr.io/epicmorg/zabbix-java-gateway:latest

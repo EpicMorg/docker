@@ -3,3 +3,8 @@ services:
     image: "epicmorg/zabbix-server-mysql:7.0"
     build:
       context: .
+    x-squash: false
+    x-mirrors:
+      - docker.io/epicmorg/zabbix-server-mysql:7.0
+      - quay.io/epicmorg/zabbix-server-mysql:7.0
+      - ghcr.io/epicmorg/zabbix-server-mysql:7.0

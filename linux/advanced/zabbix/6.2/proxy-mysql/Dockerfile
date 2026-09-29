@@ -1,5 +1,5 @@
 FROM docker.io/zabbix/zabbix-proxy-mysql:6.2-ubuntu-latest
-ENV DEBIAN_FRONTEND noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 LABEL org.opencontainers.image.vendor="EpicMorg DevTeam, developer@epicm.org"
 LABEL org.opencontainers.image.authors="STAM, kasthack, Aleks-Z"
@@ -27,6 +27,21 @@ USER root
 ##################################################################
 COPY sources.list /etc/apt/sources.list
 COPY locale.gen /etc/locale.gen
+
+##################################################################
+#        locales postinst workaround (Ubuntu 26.04, uutils)
+##################################################################
+# The base image ships /etc/default/locale as a plain file. locales' postinst
+# then moves it to /etc/locale.conf and runs `ln -sfr` back in the same layer;
+# with uutils coreutils on the overlay-backed buildah agents that ln fails with
+# "Already exists" and dpkg aborts. Do the transition here in two separate
+# layers so the postinst finds the symlink already in place (no-op elsewhere).
+RUN if [ -f /etc/default/locale ] && [ ! -L /etc/default/locale ] && [ ! -e /etc/locale.conf ]; then \
+      cat /etc/default/locale > /etc/locale.conf && rm -f /etc/default/locale; \
+    fi
+RUN if [ -e /etc/locale.conf ] && [ ! -e /etc/default/locale ] && [ ! -L /etc/default/locale ]; then \
+      ln -s ../locale.conf /etc/default/locale; \
+    fi
 
 ##################################################################
 #                   installing utils
