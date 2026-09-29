@@ -1104,6 +1104,92 @@ ecosystem-nginx-images:
 	cd `pwd`/linux/ecosystem/apps/nginx/1.26/main      && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/nginx/1.25/main      && pwd && make build && make deploy
 
+ecosystem-nginx-php-images:
+	cd `pwd`/linux/ecosystem/apps/nginx/1.31/php7.0   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.31/php7.1   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.31/php7.2   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.31/php7.3   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.31/php7.4   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.31/php8.0   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.31/php8.1   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.31/php8.2   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.31/php8.3   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.31/php8.4   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.31/php8.5   && pwd && make build && make deploy
+	@make clean
+	cd `pwd`/linux/ecosystem/apps/nginx/1.30/php7.0   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.30/php7.1   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.30/php7.2   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.30/php7.3   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.30/php7.4   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.30/php8.0   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.30/php8.1   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.30/php8.2   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.30/php8.3   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.30/php8.4   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.30/php8.5   && pwd && make build && make deploy
+	@make clean
+	cd `pwd`/linux/ecosystem/apps/nginx/1.29/php7.0   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.29/php7.1   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.29/php7.2   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.29/php7.3   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.29/php7.4   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.29/php8.0   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.29/php8.1   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.29/php8.2   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.29/php8.3   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.29/php8.4   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.29/php8.5   && pwd && make build && make deploy
+	@make clean
+	cd `pwd`/linux/ecosystem/apps/nginx/1.28/php7.0   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.28/php7.1   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.28/php7.2   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.28/php7.3   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.28/php7.4   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.28/php8.0   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.28/php8.1   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.28/php8.2   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.28/php8.3   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.28/php8.4   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.28/php8.5   && pwd && make build && make deploy
+	@make clean
+	cd `pwd`/linux/ecosystem/apps/nginx/1.27/php7.0   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.27/php7.1   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.27/php7.2   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.27/php7.3   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.27/php7.4   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.27/php8.0   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.27/php8.1   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.27/php8.2   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.27/php8.3   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.27/php8.4   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.27/php8.5   && pwd && make build && make deploy
+	@make clean
+	cd `pwd`/linux/ecosystem/apps/nginx/1.26/php7.0   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.26/php7.1   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.26/php7.2   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.26/php7.3   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.26/php7.4   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.26/php8.0   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.26/php8.1   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.26/php8.2   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.26/php8.3   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.26/php8.4   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.26/php8.5   && pwd && make build && make deploy
+	@make clean
+	cd `pwd`/linux/ecosystem/apps/nginx/1.25/php7.0   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.25/php7.1   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.25/php7.2   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.25/php7.3   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.25/php7.4   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.25/php8.0   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.25/php8.1   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.25/php8.2   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.25/php8.3   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.25/php8.4   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/nginx/1.25/php8.5   && pwd && make build && make deploy
+	@make clean
+
 advanced-vscode-server-images:
 	cd `pwd`/linux/advanced/vscode-server/latest         && pwd && make build && make deploy
 	cd `pwd`/linux/advanced/vscode-server/amxx/1.9       && pwd && make build && make deploy
@@ -3221,6 +3307,7 @@ bundle-web:
 	make ecosystem-php-images
 	make ecosystem-apache2-images
 	make ecosystem-nginx-images
+	make ecosystem-nginx-php-images
 	
 bundle-p4:
 	@echo "======================================="

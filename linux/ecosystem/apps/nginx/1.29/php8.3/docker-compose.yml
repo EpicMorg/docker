@@ -1,0 +1,10 @@
+services:
+  app:
+    image: "epicmorg/nginx:1.29-php8.3"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/nginx:1.29-php8.3
+      - ghcr.io/epicmorg/nginx:1.29-php8.3
+      - docker.io/epicmorg/nginx:1.29-php8.3
