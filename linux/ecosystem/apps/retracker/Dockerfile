@@ -1,17 +1,22 @@
-FROM docker.io/epicmorg/debian:trixie-develop as builder
+##################################################################
+#                   Build retracker with the EpicMorg go toolchain
+##################################################################
+FROM docker.io/epicmorg/go:1.26 AS builder
 
+ARG RETRACKER_VERSION=latest
 
-RUN mkdir /tmp/gopath
+# static binary: the final image needs neither the go toolchain nor a libc match
+RUN set -eux; \
+    export GOBIN=/tmp/retracker-bin CGO_ENABLED=0 GO111MODULE=on && \
+    go install "github.com/vvampirius/retracker@${RETRACKER_VERSION}" && \
+    /tmp/retracker-bin/retracker -v
 
-ENV GOPATH=/tmp/gopath 
-ENV GO111MODULE=on
-
-RUN go install 'github.com/vvampirius/retracker@latest'
-
-RUN /tmp/gopath/bin/retracker -v
-
-FROM docker.io/ epicmorg/debian:bookworm
-
+##################################################################
+#                   Final image
+##################################################################
+FROM docker.io/epicmorg/debian:trixie
+LABEL org.opencontainers.image.title="EpicMorg retracker"
+LABEL org.opencontainers.image.description="Simple HTTP torrent tracker (vvampirius/retracker)"
 
 ENV RETRACKER_FOLDER=${EMG_LOCAL_BASE_DIR}/retracker
 ENV RETRACKER_PORT=80
@@ -24,9 +29,10 @@ ENV PATH="${RETRACKER_FOLDER}:${PATH}"
 
 RUN mkdir -p ${RETRACKER_FOLDER}
 
-COPY --from=builder  /tmp/gopath/bin/retracker ${RETRACKER_FOLDER}
+COPY --from=builder /tmp/retracker-bin/retracker ${RETRACKER_FOLDER}/
 
-RUN retracker -v
+RUN retracker -v && \
+    command -v tini
 
 EXPOSE ${RETRACKER_PORT}
 
@@ -35,4 +41,3 @@ COPY docker-entrypoint.sh /usr/bin/docker-entrypoint.sh
 RUN chmod 755 /usr/bin/docker-entrypoint.sh
 
 ENTRYPOINT ["tini", "-s", "--", "docker-entrypoint.sh"]
-CMD ["docker-entrypoint.sh"]
