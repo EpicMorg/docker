@@ -182,6 +182,7 @@ advanced-zabbix-images:
 	make advanced-zabbix-64-images
 	make advanced-zabbix-70-images
 	make advanced-zabbix-72-images
+	make advanced-zabbix-74-images
 	make advanced-zabbix-trunk-images
 
 advanced-zabbix-trunk-images:
@@ -336,6 +337,19 @@ advanced-zabbix-72-images:
 	cd `pwd`/linux/advanced/zabbix/7.2/snmptraps			&& pwd && make build && make deploy
 	cd `pwd`/linux/advanced/zabbix/7.2/web-mysql			&& pwd && make build && make deploy
 	cd `pwd`/linux/advanced/zabbix/7.2/web-pgsql			&& pwd && make build && make deploy
+	@make clean
+
+advanced-zabbix-74-images:
+	cd `pwd`/linux/advanced/zabbix/7.4/agent		      && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/7.4/agent2 		    && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/7.4/java-gateway   && pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/7.4/proxy-mysql		&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/7.4/proxy-sqlite3	&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/7.4/server-mysql 	&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/7.4/server-pgsql 	&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/7.4/snmptraps			&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/7.4/web-mysql			&& pwd && make build && make deploy
+	cd `pwd`/linux/advanced/zabbix/7.4/web-pgsql			&& pwd && make build && make deploy
 	@make clean
 
 ####################################################################################################################
@@ -3183,13 +3197,29 @@ ecosystem-jira-11-images:
 	@make clean
 
 ecosystem-mattermost-images:
+	make ecosystem-mattermost-images-12
+	@make clean
 	make ecosystem-mattermost-images-11
 	@make clean
 	make ecosystem-mattermost-images-10
 	@make clean
 
+ecosystem-mattermost-images-12:
+	cd `pwd`/linux/ecosystem/apps/mattermost/12/12-stable	&& pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/mattermost/12/12.0			&& pwd && make build && make deploy
+
 ecosystem-mattermost-images-11:
 	cd `pwd`/linux/ecosystem/apps/mattermost/11/11-stable	&& pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/mattermost/11/11.11			&& pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/mattermost/11/11.10			&& pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/mattermost/11/11.9			&& pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/mattermost/11/11.8			&& pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/mattermost/11/11.7			&& pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/mattermost/11/11.6			&& pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/mattermost/11/11.5			&& pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/mattermost/11/11.4			&& pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/mattermost/11/11.3			&& pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/mattermost/11/11.2			&& pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/mattermost/11/11.1			&& pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/mattermost/11/11.0			&& pwd && make build && make deploy
 

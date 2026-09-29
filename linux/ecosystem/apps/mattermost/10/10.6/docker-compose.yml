@@ -3,3 +3,7 @@ services:
    image: "epicmorg/mattermost-enterprise-edition:10.6"
    build:
       context: .
+   x-mirrors:
+      - docker.io/epicmorg/mattermost-enterprise-edition:10.6
+      - quay.io/epicmorg/mattermost-enterprise-edition:10.6
+      - ghcr.io/epicmorg/mattermost-enterprise-edition:10.6
