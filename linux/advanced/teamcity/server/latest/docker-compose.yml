@@ -5,5 +5,6 @@ services:
       context: .
     x-squash: true
     x-mirrors:
+      - docker.io/epicmorg/teamcity-server:latest
       - quay.io/epicmorg/teamcity-server:latest
       - ghcr.io/epicmorg/teamcity-server:latest
