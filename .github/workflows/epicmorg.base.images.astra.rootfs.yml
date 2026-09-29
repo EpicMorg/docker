@@ -5,6 +5,10 @@ on:
   schedule:
     - cron: '0 0 * * 1,3,5'
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
 
   build-alse-images:
@@ -17,14 +21,14 @@ jobs:
           '1.8',
           ]
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
       with: 
           clean:  true
           show-progress:  true
           submodules:  true
     
     - name: Log into docker registry
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -32,15 +36,23 @@ jobs:
           command: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
     - name: Log into Quay.IO registry
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
           max_attempts: 15
           command: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
 
+    - name: Log into GHCR registry
+      uses: nick-fields/retry@v4
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.GITHUB_TOKEN }}" | docker login -u "${{ github.actor }}" --password-stdin ghcr.io
+
     - name: Check buildah
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -48,7 +60,7 @@ jobs:
           command: buildah --version
 
     - name: Test Make
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -56,7 +68,7 @@ jobs:
           command: make
 
     - name: Install requirements.txt
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -65,17 +77,17 @@ jobs:
 
 
     - name: "Build and Deploy Astra ${{ matrix.version }} rootFS Image:"
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
           max_attempts: 15
-          command: cd linux/ecosystem/epicmorg/astra/${{ matrix.version }}-alse/rootfs && pwd && make build && make deploy
+          command: cd linux/ecosystem/base/astra/${{ matrix.version }}-alse/rootfs && pwd && make build && make deploy
 
 ##################################################################################
 
     - name: Cleanup
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600

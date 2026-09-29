@@ -5,6 +5,10 @@ on:
   schedule:
     - cron: '0 03 * * 2,4,6'
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
   build-trunk:
     name: Zabbix Trunk ${{ matrix.image_type }}
@@ -21,14 +25,14 @@ jobs:
         ]
     
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
       with: 
           clean:  true
           show-progress:  true
           submodules:  true
     
     - name: Log into docker registry
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -36,15 +40,23 @@ jobs:
           command: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
     - name: Log into Quay.IO registry
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
           max_attempts: 15
           command: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
 
+    - name: Log into GHCR registry
+      uses: nick-fields/retry@v4
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.GITHUB_TOKEN }}" | docker login -u "${{ github.actor }}" --password-stdin ghcr.io
+
     - name: Check buildah
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -52,7 +64,7 @@ jobs:
           command: buildah --version
 
     - name: Test Make
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -60,7 +72,7 @@ jobs:
           command: make
 
     - name: Install requirements.txt
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -68,7 +80,7 @@ jobs:
           command: make pip
 
     - name: Build and Deploy Zabbix trunk (${{ matrix.image_type }})
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -76,7 +88,7 @@ jobs:
           command: cd linux/advanced/zabbix/trunk/${{ matrix.image_type }} && pwd && make build && make deploy
 
     - name: Cleanup
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -101,14 +113,14 @@ jobs:
         ]
     
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
       with: 
           clean:  true
           show-progress:  true
           submodules:  true
     
     - name: Log into docker registry
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -116,15 +128,23 @@ jobs:
           command: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
     - name: Log into Quay.IO registry
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
           max_attempts: 15
           command: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
 
+    - name: Log into GHCR registry
+      uses: nick-fields/retry@v4
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.GITHUB_TOKEN }}" | docker login -u "${{ github.actor }}" --password-stdin ghcr.io
+
     - name: Check buildah
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -132,7 +152,7 @@ jobs:
           command: buildah --version
 
     - name: Test Make
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -140,7 +160,7 @@ jobs:
           command: make
 
     - name: Install requirements.txt
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -148,15 +168,23 @@ jobs:
           command: make pip
 
     - name: Log into Quay.IO registry
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
           max_attempts: 15
           command: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
 
+    - name: Log into GHCR registry
+      uses: nick-fields/retry@v4
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.GITHUB_TOKEN }}" | docker login -u "${{ github.actor }}" --password-stdin ghcr.io
+
     - name: Build and Deploy Zabbix latest (${{ matrix.image_type }})
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -164,7 +192,95 @@ jobs:
           command: cd linux/advanced/zabbix/latest/${{ matrix.image_type }} && pwd && make build && make deploy
 
     - name: Cleanup
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: make clean
+
+##################################################################
+
+  build-74:
+    name: Zabbix 7.4 (${{ matrix.image_type }})
+    runs-on: [ ubuntu-24.04 ]
+    needs: build-latest
+    strategy:
+      matrix:
+        image_type: [
+          'agent', 'agent2', 
+          'java-gateway', 
+          'proxy-mysql', 'proxy-sqlite3', 
+          'server-mysql', 'server-pgsql',
+          'snmptraps', 
+          'web-mysql', 'web-pgsql'
+        ]
+    
+    steps:
+    - uses: actions/checkout@v7
+      with: 
+          clean:  true
+          show-progress:  true
+          submodules:  true
+    
+    - name: Log into docker registry
+      uses: nick-fields/retry@v4
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
+
+    - name: Log into Quay.IO registry
+      uses: nick-fields/retry@v4
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
+
+    - name: Log into GHCR registry
+      uses: nick-fields/retry@v4
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.GITHUB_TOKEN }}" | docker login -u "${{ github.actor }}" --password-stdin ghcr.io
+
+    - name: Check buildah
+      uses: nick-fields/retry@v4
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: buildah --version
+
+    - name: Test Make
+      uses: nick-fields/retry@v4
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: make
+
+    - name: Install requirements.txt
+      uses: nick-fields/retry@v4
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: make pip
+
+    - name: Zabbix 7.4 (${{ matrix.image_type }})
+      uses: nick-fields/retry@v4
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: cd linux/advanced/zabbix/7.4/${{ matrix.image_type }} && pwd && make build && make deploy
+
+    - name: Cleanup
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -189,14 +305,14 @@ jobs:
         ]
     
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
       with: 
           clean:  true
           show-progress:  true
           submodules:  true
     
     - name: Log into docker registry
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -204,15 +320,23 @@ jobs:
           command: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
     - name: Log into Quay.IO registry
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
           max_attempts: 15
           command: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
 
+    - name: Log into GHCR registry
+      uses: nick-fields/retry@v4
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.GITHUB_TOKEN }}" | docker login -u "${{ github.actor }}" --password-stdin ghcr.io
+
     - name: Check buildah
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -220,7 +344,7 @@ jobs:
           command: buildah --version
 
     - name: Test Make
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -228,7 +352,7 @@ jobs:
           command: make
 
     - name: Install requirements.txt
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -236,7 +360,7 @@ jobs:
           command: make pip
 
     - name: Zabbix 7.2 (${{ matrix.image_type }})
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -244,7 +368,7 @@ jobs:
           command: cd linux/advanced/zabbix/7.2/${{ matrix.image_type }} && pwd && make build && make deploy
 
     - name: Cleanup
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -269,14 +393,14 @@ jobs:
         ]
     
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
       with: 
           clean:  true
           show-progress:  true
           submodules:  true
     
     - name: Log into docker registry
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -284,15 +408,23 @@ jobs:
           command: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
     - name: Log into Quay.IO registry
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
           max_attempts: 15
           command: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
 
+    - name: Log into GHCR registry
+      uses: nick-fields/retry@v4
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.GITHUB_TOKEN }}" | docker login -u "${{ github.actor }}" --password-stdin ghcr.io
+
     - name: Check buildah
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -300,7 +432,7 @@ jobs:
           command: buildah --version
 
     - name: Test Make
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -308,7 +440,7 @@ jobs:
           command: make
 
     - name: Install requirements.txt
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -316,7 +448,7 @@ jobs:
           command: make pip
 
     - name: Zabbix 7.0 (${{ matrix.image_type }})
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -324,7 +456,7 @@ jobs:
           command: cd linux/advanced/zabbix/7.0/${{ matrix.image_type }} && pwd && make build && make deploy
 
     - name: Cleanup
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -349,14 +481,14 @@ jobs:
         ]
     
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
       with: 
           clean:  true
           show-progress:  true
           submodules:  true
     
     - name: Log into docker registry
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -364,15 +496,23 @@ jobs:
           command: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
     - name: Log into Quay.IO registry
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
           max_attempts: 15
           command: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
 
+    - name: Log into GHCR registry
+      uses: nick-fields/retry@v4
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.GITHUB_TOKEN }}" | docker login -u "${{ github.actor }}" --password-stdin ghcr.io
+
     - name: Check buildah
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -380,7 +520,7 @@ jobs:
           command: buildah --version
 
     - name: Test Make
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -388,7 +528,7 @@ jobs:
           command: make
 
     - name: Install requirements.txt
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -396,7 +536,7 @@ jobs:
           command: make pip
 
     - name: Zabbix 6.4 (${{ matrix.image_type }})
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -404,7 +544,7 @@ jobs:
           command: cd linux/advanced/zabbix/6.4/${{ matrix.image_type }} && pwd && make build && make deploy
 
     - name: Cleanup
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -429,14 +569,14 @@ jobs:
         ]
     
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
       with: 
           clean:  true
           show-progress:  true
           submodules:  true
     
     - name: Log into docker registry
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -444,15 +584,23 @@ jobs:
           command: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
     - name: Log into Quay.IO registry
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
           max_attempts: 15
           command: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
 
+    - name: Log into GHCR registry
+      uses: nick-fields/retry@v4
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.GITHUB_TOKEN }}" | docker login -u "${{ github.actor }}" --password-stdin ghcr.io
+
     - name: Check buildah
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -460,7 +608,7 @@ jobs:
           command: buildah --version
 
     - name: Test Make
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -468,7 +616,7 @@ jobs:
           command: make
 
     - name: Install requirements.txt
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -476,7 +624,7 @@ jobs:
           command: make pip
 
     - name: Zabbix 6.2 (${{ matrix.image_type }})
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -484,7 +632,7 @@ jobs:
           command: cd linux/advanced/zabbix/6.2/${{ matrix.image_type }} && pwd && make build && make deploy
 
     - name: Cleanup
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -509,14 +657,14 @@ jobs:
         ]
     
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
       with: 
           clean:  true
           show-progress:  true
           submodules:  true
     
     - name: Log into docker registry
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -524,15 +672,23 @@ jobs:
           command: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
     - name: Log into Quay.IO registry
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
           max_attempts: 15
           command: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
 
+    - name: Log into GHCR registry
+      uses: nick-fields/retry@v4
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.GITHUB_TOKEN }}" | docker login -u "${{ github.actor }}" --password-stdin ghcr.io
+
     - name: Check buildah
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -540,7 +696,7 @@ jobs:
           command: buildah --version
 
     - name: Test Make
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -548,7 +704,7 @@ jobs:
           command: make
 
     - name: Install requirements.txt
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -556,7 +712,7 @@ jobs:
           command: make pip
 
     - name: Zabbix 6.0 (${{ matrix.image_type }})
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -564,7 +720,7 @@ jobs:
           command: cd linux/advanced/zabbix/6.0/${{ matrix.image_type }} && pwd && make build && make deploy
 
     - name: Cleanup
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -589,14 +745,14 @@ jobs:
         ]
     
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
       with: 
           clean:  true
           show-progress:  true
           submodules:  true
     
     - name: Log into docker registry
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -604,15 +760,23 @@ jobs:
           command: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
     - name: Log into Quay.IO registry
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
           max_attempts: 15
           command: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
 
+    - name: Log into GHCR registry
+      uses: nick-fields/retry@v4
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.GITHUB_TOKEN }}" | docker login -u "${{ github.actor }}" --password-stdin ghcr.io
+
     - name: Check buildah
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -620,7 +784,7 @@ jobs:
           command: buildah --version
 
     - name: Test Make
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -628,7 +792,7 @@ jobs:
           command: make
 
     - name: Install requirements.txt
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -636,7 +800,7 @@ jobs:
           command: make pip
 
     - name: Zabbix 5.4 (${{ matrix.image_type }})
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -644,7 +808,7 @@ jobs:
           command: cd linux/advanced/zabbix/5.4/${{ matrix.image_type }} && pwd && make build && make deploy
 
     - name: Cleanup
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -669,14 +833,14 @@ jobs:
         ]
     
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
       with: 
           clean:  true
           show-progress:  true
           submodules:  true
     
     - name: Log into docker registry
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -684,15 +848,23 @@ jobs:
           command: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
     - name: Log into Quay.IO registry
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
           max_attempts: 15
           command: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
 
+    - name: Log into GHCR registry
+      uses: nick-fields/retry@v4
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.GITHUB_TOKEN }}" | docker login -u "${{ github.actor }}" --password-stdin ghcr.io
+
     - name: Check buildah
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -700,7 +872,7 @@ jobs:
           command: buildah --version
 
     - name: Test Make
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -708,7 +880,7 @@ jobs:
           command: make
 
     - name: Install requirements.txt
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -716,7 +888,7 @@ jobs:
           command: make pip
 
     - name: Zabbix 5.2 (${{ matrix.image_type }})
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -724,7 +896,7 @@ jobs:
           command: cd linux/advanced/zabbix/5.2/${{ matrix.image_type }} && pwd && make build && make deploy
 
     - name: Cleanup
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -749,14 +921,14 @@ jobs:
         ]
     
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
       with: 
           clean:  true
           show-progress:  true
           submodules:  true
     
     - name: Log into docker registry
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -764,15 +936,23 @@ jobs:
           command: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
     - name: Log into Quay.IO registry
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
           max_attempts: 15
           command: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
 
+    - name: Log into GHCR registry
+      uses: nick-fields/retry@v4
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.GITHUB_TOKEN }}" | docker login -u "${{ github.actor }}" --password-stdin ghcr.io
+
     - name: Check buildah
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -780,7 +960,7 @@ jobs:
           command: buildah --version
 
     - name: Test Make
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -788,7 +968,7 @@ jobs:
           command: make
 
     - name: Install requirements.txt
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -796,7 +976,7 @@ jobs:
           command: make pip
 
     - name: Zabbix 5.0 (${{ matrix.image_type }})
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -804,7 +984,7 @@ jobs:
           command: cd linux/advanced/zabbix/5.0/${{ matrix.image_type }} && pwd && make build && make deploy
 
     - name: Cleanup
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -829,14 +1009,14 @@ jobs:
         ]
     
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
       with: 
           clean:  true
           show-progress:  true
           submodules:  true
     
     - name: Log into docker registry
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -844,15 +1024,23 @@ jobs:
           command: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
     - name: Log into Quay.IO registry
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
           max_attempts: 15
           command: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
 
+    - name: Log into GHCR registry
+      uses: nick-fields/retry@v4
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.GITHUB_TOKEN }}" | docker login -u "${{ github.actor }}" --password-stdin ghcr.io
+
     - name: Check buildah
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -860,7 +1048,7 @@ jobs:
           command: buildah --version
 
     - name: Test Make
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -868,7 +1056,7 @@ jobs:
           command: make
 
     - name: Install requirements.txt
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -876,7 +1064,7 @@ jobs:
           command: make pip
 
     - name: Zabbix 4.0 (${{ matrix.image_type }})
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -884,7 +1072,7 @@ jobs:
           command: cd linux/advanced/zabbix/4.0/${{ matrix.image_type }} && pwd && make build && make deploy
 
     - name: Cleanup
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -909,14 +1097,14 @@ jobs:
         ]
     
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
       with: 
           clean:  true
           show-progress:  true
           submodules:  true
     
     - name: Log into docker registry
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -924,15 +1112,23 @@ jobs:
           command: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
     - name: Log into Quay.IO registry
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
           max_attempts: 15
           command: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
 
+    - name: Log into GHCR registry
+      uses: nick-fields/retry@v4
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.GITHUB_TOKEN }}" | docker login -u "${{ github.actor }}" --password-stdin ghcr.io
+
     - name: Check buildah
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -940,7 +1136,7 @@ jobs:
           command: buildah --version
 
     - name: Test Make
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -948,7 +1144,7 @@ jobs:
           command: make
 
     - name: Install requirements.txt
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -956,7 +1152,7 @@ jobs:
           command: make pip
 
     - name: Zabbix 3.0 (${{ matrix.image_type }})
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -964,7 +1160,7 @@ jobs:
           command: cd linux/advanced/zabbix/3.0/${{ matrix.image_type }} && pwd && make build && make deploy
 
     - name: Cleanup
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600

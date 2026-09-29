@@ -5,6 +5,10 @@ on:
   schedule:
     - cron:  '0 0 * * 2,4,6'
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
 
   build-torrserver-image:
@@ -12,14 +16,14 @@ jobs:
     runs-on: [ ubuntu-24.04 ]
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
       with: 
           clean:  true
           show-progress:  true
           submodules:  true
     
     - name: Log into docker registry
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -27,15 +31,23 @@ jobs:
           command: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
     - name: Log into Quay.IO registry
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
           max_attempts: 15
           command: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
 
+    - name: Log into GHCR registry
+      uses: nick-fields/retry@v4
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.GITHUB_TOKEN }}" | docker login -u "${{ github.actor }}" --password-stdin ghcr.io
+
     - name: Check buildah
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -43,7 +55,7 @@ jobs:
           command: buildah --version
 
     - name: Test Make
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -51,7 +63,7 @@ jobs:
           command: make
 
     - name: Install requirements.txt
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -59,12 +71,12 @@ jobs:
           command: make pip
 
     - name: Build and Deploy TorrServer
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
           max_attempts: 15
-          command: cd linux/ecosystem/torrserver && make build && make deploy
+          command: cd linux/ecosystem/apps/torrserver && make build && make deploy
 
 ##################################################################################
 
@@ -73,14 +85,14 @@ jobs:
     runs-on: [ ubuntu-24.04 ]
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
       with: 
           clean:  true
           show-progress:  true
           submodules:  true
     
     - name: Log into docker registry
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -88,15 +100,23 @@ jobs:
           command: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
     - name: Log into Quay.IO registry
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
           max_attempts: 15
           command: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
 
+    - name: Log into GHCR registry
+      uses: nick-fields/retry@v4
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.GITHUB_TOKEN }}" | docker login -u "${{ github.actor }}" --password-stdin ghcr.io
+
     - name: Check buildah
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -104,7 +124,7 @@ jobs:
           command: buildah --version
 
     - name: Test Make
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -112,7 +132,7 @@ jobs:
           command: make
 
     - name: Install requirements.txt
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -120,12 +140,12 @@ jobs:
           command: make pip
 
     - name: Build and Deploy Electron Release Server
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
           max_attempts: 15
-          command: cd linux/ecosystem/electron-release-server && make build && make deploy
+          command: cd linux/ecosystem/apps/electron-release-server && make build && make deploy
 
 ##################################################################################
 
@@ -134,14 +154,14 @@ jobs:
     runs-on: [ ubuntu-24.04 ]
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
       with: 
           clean:  true
           show-progress:  true
           submodules:  true
     
     - name: Log into docker registry
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -149,15 +169,23 @@ jobs:
           command: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
     - name: Log into Quay.IO registry
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
           max_attempts: 15
           command: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
 
+    - name: Log into GHCR registry
+      uses: nick-fields/retry@v4
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.GITHUB_TOKEN }}" | docker login -u "${{ github.actor }}" --password-stdin ghcr.io
+
     - name: Check buildah
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -165,7 +193,7 @@ jobs:
           command: buildah --version
 
     - name: Test Make
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -173,7 +201,7 @@ jobs:
           command: make
 
     - name: Install requirements.txt
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -181,12 +209,12 @@ jobs:
           command: make pip
 
     - name: Build and Deploy vk2discord
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
           max_attempts: 15
-          command: cd linux/ecosystem/vk2discord && make build && make deploy
+          command: cd linux/ecosystem/apps/vk2discord && make build && make deploy
 
 ##################################################################################
 
@@ -195,14 +223,26 @@ jobs:
     runs-on: [ ubuntu-24.04 ]
 
     steps:
-    - uses: actions/checkout@v4
+    # trixie-develop (and gcc images built on it) are ~22 GB, a stock runner has ~14 GB free
+    - name: Free disk space
+      uses: jlumbroso/free-disk-space@v2
+      with:
+          android: true
+          dotnet: true
+          haskell: true
+          large-packages: true
+          docker-images: true
+          preinstalled-runtimes: true
+          swap-storage: false
+
+    - uses: actions/checkout@v7
       with: 
           clean:  true
           show-progress:  true
           submodules:  true
     
     - name: Log into docker registry
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -210,15 +250,23 @@ jobs:
           command: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
     - name: Log into Quay.IO registry
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
           max_attempts: 15
           command: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
 
+    - name: Log into GHCR registry
+      uses: nick-fields/retry@v4
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.GITHUB_TOKEN }}" | docker login -u "${{ github.actor }}" --password-stdin ghcr.io
+
     - name: Check buildah
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -226,7 +274,7 @@ jobs:
           command: buildah --version
 
     - name: Test Make
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -234,7 +282,7 @@ jobs:
           command: make
 
     - name: Install requirements.txt
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -242,12 +290,12 @@ jobs:
           command: make pip
 
     - name: Build and Deploy openTracker
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
           max_attempts: 15
-          command: cd linux/ecosystem/opentracker && make build && make deploy
+          command: cd linux/ecosystem/apps/opentracker && make build && make deploy
 
 ##################################################################################
 
@@ -256,14 +304,14 @@ jobs:
     runs-on: [ ubuntu-24.04 ]
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
       with: 
           clean:  true
           show-progress:  true
           submodules:  true
     
     - name: Log into docker registry
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -271,15 +319,23 @@ jobs:
           command: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
     - name: Log into Quay.IO registry
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
           max_attempts: 15
           command: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
 
+    - name: Log into GHCR registry
+      uses: nick-fields/retry@v4
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.GITHUB_TOKEN }}" | docker login -u "${{ github.actor }}" --password-stdin ghcr.io
+
     - name: Check buildah
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -287,7 +343,7 @@ jobs:
           command: buildah --version
 
     - name: Test Make
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -295,7 +351,7 @@ jobs:
           command: make
 
     - name: Install requirements.txt
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -303,13 +359,13 @@ jobs:
           command: make pip
 
     - name: Build and Deploy reTracker
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
           max_attempts: 15
           command: echo "FIX ME"
-#          command: cd linux/ecosystem/retracker && make build && make deploy
+#          command: cd linux/ecosystem/apps/retracker && make build && make deploy
 
 ##################################################################################
 
@@ -318,14 +374,14 @@ jobs:
     runs-on: [ ubuntu-24.04 ]
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
       with: 
           clean:  true
           show-progress:  true
           submodules:  true
     
     - name: Log into docker registry
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -333,15 +389,23 @@ jobs:
           command: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
     - name: Log into Quay.IO registry
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
           max_attempts: 15
           command: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
 
+    - name: Log into GHCR registry
+      uses: nick-fields/retry@v4
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.GITHUB_TOKEN }}" | docker login -u "${{ github.actor }}" --password-stdin ghcr.io
+
     - name: Check buildah
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -349,7 +413,7 @@ jobs:
           command: buildah --version
 
     - name: Test Make
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -357,7 +421,7 @@ jobs:
           command: make
 
     - name: Install requirements.txt
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -365,12 +429,12 @@ jobs:
           command: make pip
 
     - name: Build and Deploy Monero CLI
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
           max_attempts: 15
-          command: cd linux/ecosystem/monero/monerod && make build && make deploy
+          command: cd linux/ecosystem/apps/monero/monerod && make build && make deploy
 
 ##################################################################################
 
@@ -379,14 +443,14 @@ jobs:
     runs-on: [ ubuntu-24.04 ]
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
       with: 
           clean:  true
           show-progress:  true
           submodules:  true
     
     - name: Log into docker registry
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -394,15 +458,23 @@ jobs:
           command: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
     - name: Log into Quay.IO registry
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
           max_attempts: 15
           command: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
 
+    - name: Log into GHCR registry
+      uses: nick-fields/retry@v4
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.GITHUB_TOKEN }}" | docker login -u "${{ github.actor }}" --password-stdin ghcr.io
+
     - name: Check buildah
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -410,7 +482,7 @@ jobs:
           command: buildah --version
 
     - name: Test Make
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -418,7 +490,7 @@ jobs:
           command: make
 
     - name: Install requirements.txt
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -426,12 +498,12 @@ jobs:
           command: make pip
 
     - name: Build and Deploy Monero p2pool
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
           max_attempts: 15
-          command: cd linux/ecosystem/monero/p2pool && make build && make deploy
+          command: cd linux/ecosystem/apps/monero/p2pool && make build && make deploy
 
 ##################################################################################
 
@@ -440,14 +512,26 @@ jobs:
     runs-on: [ ubuntu-24.04 ]
 
     steps:
-    - uses: actions/checkout@v4
+    # trixie-develop (and gcc images built on it) are ~22 GB, a stock runner has ~14 GB free
+    - name: Free disk space
+      uses: jlumbroso/free-disk-space@v2
+      with:
+          android: true
+          dotnet: true
+          haskell: true
+          large-packages: true
+          docker-images: true
+          preinstalled-runtimes: true
+          swap-storage: false
+
+    - uses: actions/checkout@v7
       with: 
           clean:  true
           show-progress:  true
           submodules:  true
     
     - name: Log into docker registry
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -455,15 +539,23 @@ jobs:
           command: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
     - name: Log into Quay.IO registry
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
           max_attempts: 15
           command: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
 
+    - name: Log into GHCR registry
+      uses: nick-fields/retry@v4
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.GITHUB_TOKEN }}" | docker login -u "${{ github.actor }}" --password-stdin ghcr.io
+
     - name: Check buildah
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -471,7 +563,7 @@ jobs:
           command: buildah --version
 
     - name: Test Make
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -479,7 +571,7 @@ jobs:
           command: make
 
     - name: Install requirements.txt
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -487,12 +579,12 @@ jobs:
           command: make pip
 
     - name: Build and Deploy ninjam
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
           max_attempts: 15
-          command: cd linux/ecosystem/ninjam/latest && make build && make deploy
+          command: cd linux/ecosystem/apps/ninjam/latest && make build && make deploy
 
 ##################################################################################
 
@@ -501,14 +593,14 @@ jobs:
     runs-on: [ ubuntu-24.04 ]
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
       with: 
           clean:  true
           show-progress:  true
           submodules:  true
     
     - name: Log into docker registry
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -516,15 +608,23 @@ jobs:
           command: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
     - name: Log into Quay.IO registry
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
           max_attempts: 15
           command: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
 
+    - name: Log into GHCR registry
+      uses: nick-fields/retry@v4
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.GITHUB_TOKEN }}" | docker login -u "${{ github.actor }}" --password-stdin ghcr.io
+
     - name: Check buildah
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -532,7 +632,7 @@ jobs:
           command: buildah --version
 
     - name: Test Make
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -540,7 +640,7 @@ jobs:
           command: make
 
     - name: Install requirements.txt
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -548,11 +648,11 @@ jobs:
           command: make pip
 
     - name: Build and Deploy TelegrabBot Quotes
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
           max_attempts: 15
-          command: cd linux/ecosystem/telegram/bot/quotes && make build && make deploy
+          command: cd linux/ecosystem/apps/telegram/bot/quotes && make build && make deploy
 
 ##################################################################################

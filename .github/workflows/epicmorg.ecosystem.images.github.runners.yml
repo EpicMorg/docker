@@ -5,20 +5,36 @@ on:
   schedule:
     - cron:  '4 5 * * 2,4,6'
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
   build-main-runners:
     name: Build Main Github Runners
     runs-on: [ ubuntu-24.04 ]
 
     steps:
-    - uses: actions/checkout@v4
+    # trixie-develop (and gcc images built on it) are ~22 GB, a stock runner has ~14 GB free
+    - name: Free disk space
+      uses: jlumbroso/free-disk-space@v2
+      with:
+          android: true
+          dotnet: true
+          haskell: true
+          large-packages: true
+          docker-images: true
+          preinstalled-runtimes: true
+          swap-storage: false
+
+    - uses: actions/checkout@v7
       with: 
           clean:  true
           show-progress:  true
           submodules:  true
     
     - name: Log into docker registry
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -27,16 +43,24 @@ jobs:
 
 
     - name: Log into Quay.IO registry
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
           max_attempts: 15
           command: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
 
+    - name: Log into GHCR registry
+      uses: nick-fields/retry@v4
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.GITHUB_TOKEN }}" | docker login -u "${{ github.actor }}" --password-stdin ghcr.io
+
 
     - name: Test Make
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -45,7 +69,7 @@ jobs:
 
 
     - name: Install requirements.txt
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -54,21 +78,21 @@ jobs:
 
 
     - name: Build and Deploy Minimal Github Runner
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
           max_attempts: 15
-          command: cd linux/ecosystem/github/runner/minimal && pwd && make build && make deploy
+          command: cd linux/ecosystem/apps/github/runner/minimal && pwd && make build && make deploy
 
 
     - name: Build and Deploy Main Github Runner
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
           max_attempts: 15
-          command: cd linux/ecosystem/github/runner/latest && pwd && make build && make deploy
+          command: cd linux/ecosystem/apps/github/runner/latest && pwd && make build && make deploy
 
   build-additional-runners:
     name: Build Additional Github Runner
@@ -125,14 +149,26 @@ jobs:
         ]
 
     steps:
-    - uses: actions/checkout@v4
+    # trixie-develop (and gcc images built on it) are ~22 GB, a stock runner has ~14 GB free
+    - name: Free disk space
+      uses: jlumbroso/free-disk-space@v2
+      with:
+          android: true
+          dotnet: true
+          haskell: true
+          large-packages: true
+          docker-images: true
+          preinstalled-runtimes: true
+          swap-storage: false
+
+    - uses: actions/checkout@v7
       with: 
           clean:  true
           show-progress:  true
           submodules:  true
     
     - name: Log into docker registry
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -141,16 +177,24 @@ jobs:
 
 
     - name: Log into Quay.IO registry
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
           max_attempts: 15
           command: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
 
+    - name: Log into GHCR registry
+      uses: nick-fields/retry@v4
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.GITHUB_TOKEN }}" | docker login -u "${{ github.actor }}" --password-stdin ghcr.io
+
 
     - name: Check buildah
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -159,7 +203,7 @@ jobs:
 
 
     - name: Test Make
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -168,7 +212,7 @@ jobs:
 
 
     - name: Install requirements.txt
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -177,16 +221,16 @@ jobs:
 
 
     - name: Build and Deploy Github Runner ${{ matrix.agent_type.type }} ${{ matrix.agent_type.version }}
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
           max_attempts: 15
-          command: cd linux/ecosystem/github/runner/${{ matrix.agent_type.path }} && pwd && make build && make deploy
+          command: cd linux/ecosystem/apps/github/runner/${{ matrix.agent_type.path }} && pwd && make build && make deploy
 
 
     - name: Cleanup
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
