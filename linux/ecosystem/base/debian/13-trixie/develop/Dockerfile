@@ -1,4 +1,4 @@
-FROM docker.io/epicmorg/debian::trixie-develop-light
+FROM docker.io/epicmorg/debian:trixie-develop-light
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -1378,7 +1378,7 @@ RUN set -eux; \
     rm -rfv /tmp/*
 
 # Assert: installed into OUR prefix, not /usr/local
-RUN RUN set -eu; \
+RUN set -eu; \
     echo "--- libimagequant ---"; \
     ls -la ${LIBIMAGEQUANT_LIB_DIR}/; \
     test -f ${LIBIMAGEQUANT_LIB_DIR}/pkgconfig/imagequant.pc \
