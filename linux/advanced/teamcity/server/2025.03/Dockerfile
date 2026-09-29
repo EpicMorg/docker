@@ -1,5 +1,4 @@
 FROM docker.io/jetbrains/teamcity-server:2025.03
-
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 LABEL org.opencontainers.image.vendor="EpicMorg DevTeam, developer@epicm.org"
 LABEL org.opencontainers.image.authors="STAM, kasthack, Aleks-Z"
@@ -94,16 +93,10 @@ RUN mkdir -p ${MAVEN_PATH} ${KTC_PATH} ${KNPL_PATH} ${GRADLE_PATH}
 ENV PATH=${PATH}:${MAVEN_BIN}:${GRADLE_BIN}:${KTC_BIN}:${KNPL_BIN}
 
 ##################################################################
-#                   update lists
-##################################################################
-RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections && \
-    curl -fsSL https://package.perforce.com/perforce.pubkey | apt-key add - && \
-    curl -fsSL https://package.perforce.com/perforce.pubkey | gpg --dearmor  --batch --yes --dearmor -o /etc/apt/keyrings/perforce.gpg && \
-    apt-get update
-
-##################################################################
 #                   sources list
 ##################################################################
+# Drop upstream lists before the first `apt-get update`: old upstream
+# images (focal) ship third-party repos with expired keys.
 RUN rm -rfv /etc/apt/sources.list
 RUN rm -rfv /etc/apt/sources.list.d/*
 RUN rm -rfv /etc/locale.gen
@@ -113,16 +106,30 @@ COPY etc/locale.gen /etc/locale.gen
 COPY usr/local/share/ca-certificates /usr/local/share/ca-certificates
 RUN update-ca-certificates --fresh
 
+# etc/apt ships the lists for noble; old upstream server images are focal/jammy.
+# Point every list at the Ubuntu release of THIS base image.
+RUN . /etc/os-release && \
+    echo "Ubuntu codename: ${VERSION_CODENAME}" && \
+    sed -i "s/noble/${VERSION_CODENAME}/g" /etc/apt/sources.list.d/*.sources && \
+    grep -h "^Suites" /etc/apt/sources.list.d/*.sources
+
 ##################################################################
-#                   git fresh binary
+#                   update lists
 ##################################################################
-RUN gpg --keyserver keyserver.ubuntu.com --recv-keys F911AB184317630C59970973E363C90F8F1B6217 && \
+# keys for every list in etc/apt, before the first `apt-get update`
+RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections && \
+    curl -fsSL https://package.perforce.com/perforce.pubkey | gpg --batch --yes --dearmor -o /etc/apt/keyrings/perforce.gpg && \
+    gpg --keyserver keyserver.ubuntu.com --recv-keys F911AB184317630C59970973E363C90F8F1B6217 && \
     gpg --export --output /etc/apt/keyrings/launchpad-git.gpg F911AB184317630C59970973E363C90F8F1B6217 && \
     curl -fsSL https://packagecloud.io/github/git-lfs/gpgkey | gpg --batch --yes --dearmor -o /etc/apt/keyrings/github_git-lfs-archive-keyring.gpg && \
     curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | gpg --batch --yes --dearmor -o /etc/apt/keyrings/githubcli-archive-keyring.gpg && \
     chmod go+r /etc/apt/keyrings/*.gpg && \
-    apt-get update &&  \
-    apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
+    apt-get update
+
+##################################################################
+#                   git fresh binary
+##################################################################
+RUN apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
     gh \
     git \
     git-lfs && \

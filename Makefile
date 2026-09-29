@@ -130,7 +130,17 @@ advanced-nextcloud-all-images:
 advanced-teamcity-server-images:
 	cd `pwd`/linux/advanced/teamcity/server/latest	       && pwd && make build && make deploy
 	@make clean
+	cd `pwd`/linux/advanced/teamcity/server/2026.2         && pwd && make build && make deploy
+	@make clean
+	cd `pwd`/linux/advanced/teamcity/server/2026.1.4       && pwd && make build && make deploy
+	@make clean
+	cd `pwd`/linux/advanced/teamcity/server/2026.1.1       && pwd && make build && make deploy
+	@make clean
 	cd `pwd`/linux/advanced/teamcity/server/2026.1        && pwd && make build && make deploy
+	@make clean
+	cd `pwd`/linux/advanced/teamcity/server/2025.11.8      && pwd && make build && make deploy
+	@make clean
+	cd `pwd`/linux/advanced/teamcity/server/2025.07.3      && pwd && make build && make deploy
 	@make clean
 	cd `pwd`/linux/advanced/teamcity/server/2025.03        && pwd && make build && make deploy
 	@make clean
