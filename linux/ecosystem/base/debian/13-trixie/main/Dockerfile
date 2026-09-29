@@ -31,6 +31,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     apt-get update && \
     apt-get install -y \
         bzip2 \
+        lbzip2 \
         cmatrix \
         cmatrix-xfont \
         cron \
@@ -87,11 +88,13 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
         p7zip-rar \
         rsync \
         rar \
+        screen \
         screenfetch \
         smbclient \
         subversion \
         telnet \
         tmux \
+        vim \
         tree \
         util-linux \
         uuid-runtime \
