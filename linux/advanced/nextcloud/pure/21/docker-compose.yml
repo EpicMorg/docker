@@ -3,7 +3,7 @@ services:
     image: "epicmorg/nextcloud:21"
     build:
       context: .
-    x-squash: true
+    x-squash: false
     x-mirrors:
       - quay.io/epicmorg/nextcloud:21
       - ghcr.io/epicmorg/nextcloud:21
