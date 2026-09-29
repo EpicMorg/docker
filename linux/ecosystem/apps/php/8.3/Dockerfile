@@ -327,6 +327,7 @@ ENV LIBPQ_16_35_DIR=${EMG_LOCAL_BASE_DIR}/libpq/${LIBPQ_16_VERSION}/openssl35
 ENV LIBPQ_16_35_INC_DIR=${LIBPQ_16_35_DIR}/include
 ENV LIBPQ_16_35_LIB_DIR=${LIBPQ_16_35_DIR}/lib
 ENV LIBPQ_16_35_BIN_DIR=${LIBPQ_16_35_DIR}/bin
+ENV LIBPQ_16_35_SRC_DIR=/usr/local/src/postgresql/${LIBPQ_16_VERSION}/openssl35
 
 ##################################################################
 #                  OpenSSL 3.5
@@ -370,7 +371,7 @@ COPY --from=builder ${OPENSSL_35_SRC_DIR} ${OPENSSL_35_SRC_DIR}
 COPY --from=builder ${CURL_821_35_DIR}       ${CURL_821_35_DIR}
 COPY --from=builder ${CURL_821_SRC_DIR}      ${CURL_821_SRC_DIR}
 COPY --from=builder ${LIBPQ_16_35_DIR}       ${LIBPQ_16_35_DIR}
-COPY --from=builder ${LIBPQ_16_SRC_DIR}      ${LIBPQ_16_SRC_DIR}
+COPY --from=builder ${LIBPQ_16_35_SRC_DIR}   ${LIBPQ_16_35_SRC_DIR}
 
 ENV PATH="${PHP_BIN_DIR}:${PHP_DIR}/sbin:${PATH}"
 
@@ -494,8 +495,8 @@ RUN set -eux; \
     mv /tmp/perforce.so "${extDir}/perforce.so"; \
     php-ext-enable perforce; \
     php -m | grep -qi '^perforce$' || { echo "FATAL: perforce ext not active" >&2; php -m >&2; exit 1; }; \
-    ldd "${extDir}/perforce.so" | grep -i ssl || echo "statically linked (no external ssl)" \
-    php --ri perforce \
+    ldd "${extDir}/perforce.so" | grep -i ssl || echo "statically linked (no external ssl)"; \
+    php --ri perforce; \
     php -r 'if (!class_exists("P4")) { fwrite(STDERR, "FATAL: P4 class missing\n"); exit(1); } $p4 = new P4(); echo get_class($p4), PHP_EOL;'
 
 ##################################################################
