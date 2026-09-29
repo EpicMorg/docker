@@ -49,7 +49,7 @@ RUN set -eux; \
     apt-get update && \
     apt-get upgrade -y && \
     apt-get install -y --no-install-recommends fontconfig python3 python3-jinja2 tini && \
-    apt-get clean autoclean && apt-get autoremove -y && rm -rf /var/lib/apt/lists/*
+    apt-get clean autoclean && apt-get autoremove -y && rm -rf /var/lib/apt/lists/* && \
     wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -P /tmp ${DOWNLOAD_URL} && \
     mkdir -p ${CROWD_INSTALL_DIR} ${CROWD_DB} /opt/atlassian/support /opt/atlassian/etc && \
     tar -xzf ${TEMP_ARCHIVE} --strip-components=1 --directory "${CROWD_INSTALL_DIR}" && \

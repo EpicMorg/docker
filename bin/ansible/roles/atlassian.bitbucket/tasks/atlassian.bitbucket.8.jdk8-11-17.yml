@@ -15,11 +15,10 @@
     force: true
   with_items: "{{ bitbucket_versions }}"
 
-- name: Copy .env with link from template to each version directory
-  template:
-    src: "env/template.bitbucket.4-9.env.j2"
-    dest: "{{ target_directory_bitbucket_8 }}/{{ item }}/.env"
-    force: true
+- name: Remove .env (RELEASE and URLs live in the Dockerfile; .env breaks buildah-wrapper settings)
+  file:
+    path: "{{ target_directory_bitbucket_8 }}/{{ item }}/.env"
+    state: absent
   with_items: "{{ bitbucket_versions }}"
 
 - name: Copy docker-compose.yml from template to each version directory
