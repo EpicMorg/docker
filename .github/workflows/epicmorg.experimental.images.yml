@@ -5,6 +5,10 @@ on:
 #  schedule:
 #    - cron: '0 01 * * 2,4,6'
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
 
   build-images:
@@ -12,14 +16,14 @@ jobs:
     runs-on: [ ubuntu-24.04 ]
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
       with: 
           clean:  true
           show-progress:  true
           submodules:  true
     
     - name: Log into docker registry
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -27,15 +31,23 @@ jobs:
           command: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
     - name: Log into Quay.IO registry
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
           max_attempts: 15
           command: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
 
+    - name: Log into GHCR registry
+      uses: nick-fields/retry@v4
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.GITHUB_TOKEN }}" | docker login -u "${{ github.actor }}" --password-stdin ghcr.io
+
     - name: Check buildah
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -43,7 +55,7 @@ jobs:
           command: buildah --version
 
     - name: Test Make
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -51,7 +63,7 @@ jobs:
           command: make
 
     - name: Install requirements.txt
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -59,7 +71,7 @@ jobs:
           command: make pip
 
     - name: "Build and Deploy Advanced Sentry Image:"
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -67,7 +79,7 @@ jobs:
           command: cd linux/experimental/sentry/latest && pwd && make build && make deploy
 
     - name: "Build and Deploy Advanced Redash Images:"
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -77,7 +89,7 @@ jobs:
 ##################################################################################
 
     - name: Cleanup
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600

@@ -3,55 +3,50 @@ name: EpicMorg Atlassian Jira 10 Images
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
+
+  list-versions:
+    name: List Atlassian Jira 10 versions
+    runs-on: [ ubuntu-24.04 ]
+    outputs:
+      versions: ${{ steps.list.outputs.versions }}
+
+    steps:
+    - uses: actions/checkout@v7
+      with:
+          sparse-checkout: linux/ecosystem/apps/atlassian/jira/10
+
+    # Version dirs are generated (bin/ansible), so the matrix is built from the tree
+    # instead of being enumerated here by hand.
+    - name: List version directories
+      id: list
+      run: |
+        cd linux/ecosystem/apps/atlassian/jira/10
+        versions=$(find . -mindepth 2 -maxdepth 2 -name Dockerfile -printf '%h\n' | sed 's#^\./##' | sort -V | jq -R . | jq -cs .)
+        echo "${versions}"
+        echo "versions=${versions}" >> "$GITHUB_OUTPUT"
 
   build-images:
     name: Atlassian Jira ${{ matrix.version }} Image
     runs-on: [ ubuntu-24.04 ]
+    needs: list-versions
     strategy:
       matrix:
-        version: [
-         '10.0.0',
-         '10.0.1',
-         '10.1.1',
-         '10.1.2',
-         '10.2.0',
-         '10.2.1',
-         '10.3.0',
-         '10.3.1',
-         '10.3.2',
-         '10.3.3',
-         '10.3.4',
-         '10.3.5',
-         '10.3.6',
-         '10.3.7',
-         '10.3.8',
-         '10.3.9',
-         '10.3.10',
-         '10.3.11',
-         '10.3.12',
-         '10.4.0',
-         '10.4.1',
-         '10.5.0',
-         '10.5.1',
-         '10.6.0',
-         '10.6.1',
-         '10.7.0',
-         '10.7.1',
-         '10.7.2',
-         '10.7.3',
-         '10.7.4'
-        ]
+        version: ${{ fromJSON(needs.list-versions.outputs.versions) }}
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
       with: 
           clean:  true
           show-progress:  true
           submodules:  true
     
     - name: Log into docker registry
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -59,15 +54,23 @@ jobs:
           command: echo "${{ secrets.DOCKER_SERVER_KEY }}" | docker login -u "${{ secrets.DOCKER_SERVER_LOGIN }}" --password-stdin
 
     - name: Log into Quay.IO registry
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
           max_attempts: 15
           command: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
 
+    - name: Log into GHCR registry
+      uses: nick-fields/retry@v4
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.GITHUB_TOKEN }}" | docker login -u "${{ github.actor }}" --password-stdin ghcr.io
+
     - name: Check buildah
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -75,7 +78,7 @@ jobs:
           command: buildah --version
 
     - name: Test Make
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -83,7 +86,7 @@ jobs:
           command: make
 
     - name: Install requirements.txt
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -91,17 +94,17 @@ jobs:
           command: make pip
 
     - name: "Build and Deploy Atlassian jira ${{ matrix.version }} Image:"
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
           max_attempts: 15
-          command: cd linux/ecosystem/atlassian/jira/10/${{ matrix.version }}    && pwd && make build && make deploy
+          command: cd linux/ecosystem/apps/atlassian/jira/10/${{ matrix.version }}    && pwd && make build && make deploy
 
 ##################################################################################
 
     - name: Cleanup
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600

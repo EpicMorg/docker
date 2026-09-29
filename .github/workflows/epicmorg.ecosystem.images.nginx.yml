@@ -5,6 +5,10 @@ on:
   schedule:
     - cron: '2 20 * * 1,3,5'
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
   build-nginx-images:
     name: Build nginx ${{ matrix.version }}
@@ -16,14 +20,26 @@ jobs:
         ]
 
     steps:
-    - uses: actions/checkout@v4
+    # trixie-develop (and gcc images built on it) are ~22 GB, a stock runner has ~14 GB free
+    - name: Free disk space
+      uses: jlumbroso/free-disk-space@v2
+      with:
+          android: true
+          dotnet: true
+          haskell: true
+          large-packages: true
+          docker-images: true
+          preinstalled-runtimes: true
+          swap-storage: false
+
+    - uses: actions/checkout@v7
       with: 
           clean:  true
           show-progress:  true
           submodules:  true
     
     - name: Log into docker registry
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -32,16 +48,24 @@ jobs:
 
 
     - name: Log into Quay.IO registry
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
           max_attempts: 15
           command: echo "${{ secrets.QUAY_SERVER_KEY }}" | docker login -u "${{ secrets.QUAY_SERVER_LOGIN }}" --password-stdin "${{ secrets.QUAY_SERVER_URL }}"
 
+    - name: Log into GHCR registry
+      uses: nick-fields/retry@v4
+      with:   
+          retry_wait_seconds: 45
+          timeout_minutes: 600
+          max_attempts: 15
+          command: echo "${{ secrets.GITHUB_TOKEN }}" | docker login -u "${{ github.actor }}" --password-stdin ghcr.io
+
 
     - name: Check buildah
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -50,7 +74,7 @@ jobs:
 
 
     - name: Test Make
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -59,7 +83,7 @@ jobs:
 
 
     - name: Install requirements.txt
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
@@ -68,16 +92,16 @@ jobs:
 
 
     - name: Build and Deploy nginx ${{ matrix.version }} Main Image
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
           max_attempts: 15
-          command: cd linux/ecosystem/nginx/${{ matrix.version }}/main && pwd && make build && make deploy
+          command: cd linux/ecosystem/apps/nginx/${{ matrix.version }}/main && pwd && make build && make deploy
 
 
     - name: Conditional Cleanup
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:   
           retry_wait_seconds: 45
           timeout_minutes: 600
