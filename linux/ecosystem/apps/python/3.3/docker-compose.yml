@@ -1,0 +1,10 @@
+services:
+  app:
+    image: "epicmorg/python:3.3"
+    x-squash: false
+    x-mirrors:
+      - docker.io/epicmorg/python:3.3
+      - quay.io/epicmorg/python:3.3
+      - ghcr.io/epicmorg/python:3.3
+    build:
+      context: .
