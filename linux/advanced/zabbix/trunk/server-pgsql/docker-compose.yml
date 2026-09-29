@@ -3,3 +3,8 @@ services:
     image: "epicmorg/zabbix-server-pgsql:trunk"
     build:
       context: .
+    x-squash: false
+    x-mirrors:
+      - docker.io/epicmorg/zabbix-server-pgsql:trunk
+      - quay.io/epicmorg/zabbix-server-pgsql:trunk
+      - ghcr.io/epicmorg/zabbix-server-pgsql:trunk

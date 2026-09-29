@@ -1,5 +1,5 @@
 FROM docker.io/zabbix/zabbix-server-mysql:ubuntu-trunk
-ENV DEBIAN_FRONTEND noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 LABEL org.opencontainers.image.vendor="EpicMorg DevTeam, developer@epicm.org"
 LABEL org.opencontainers.image.authors="STAM, kasthack, Aleks-Z"
@@ -21,6 +21,28 @@ LABEL donate.crypto.ZEC="t1KRMMmwMSZth8vJcd2ZHtPEFKTQ74yVixE"
 LABEL donate.crypto.XMR="884PqZ1gDjWW7fKxtbaeRoBeSh9EGZbkqUyLriWmuKbwLZrAJdYUs4wQxoVfEJoW7LBhdQMP9cFhZQpJr6xvg7esHLdCbb1"
 
 USER root
+
+##################################################################
+#                  editing sources list
+##################################################################
+COPY sources.list /etc/apt/sources.list
+COPY ubuntu.sources /etc/apt/sources.list.d/ubuntu.sources
+COPY locale.gen /etc/locale.gen
+
+##################################################################
+#        locales postinst workaround (Ubuntu 26.04, uutils)
+##################################################################
+# The base image ships /etc/default/locale as a plain file. locales' postinst
+# then moves it to /etc/locale.conf and runs `ln -sfr` back in the same layer;
+# with uutils coreutils on the overlay-backed buildah agents that ln fails with
+# "Already exists" and dpkg aborts. Do the transition here in two separate
+# layers so the postinst finds the symlink already in place (no-op elsewhere).
+RUN if [ -f /etc/default/locale ] && [ ! -L /etc/default/locale ] && [ ! -e /etc/locale.conf ]; then \
+      cat /etc/default/locale > /etc/locale.conf && rm -f /etc/default/locale; \
+    fi
+RUN if [ -e /etc/locale.conf ] && [ ! -e /etc/default/locale ] && [ ! -L /etc/default/locale ]; then \
+      ln -s ../locale.conf /etc/default/locale; \
+    fi
 
 ##################################################################
 #                   installing utils
@@ -53,7 +75,7 @@ RUN apt-get update -y && \
         nano \
         nmap \
         openssl \
-        pev \
+#        pev \
         php-cli \
         php-curl \
         procps \
@@ -70,7 +92,4 @@ RUN echo "zabbix ALL=(ALL) NOPASSWD: /usr/bin/nmap" > /etc/sudoers.d/zabbix
 COPY usr/local/share/ca-certificates /usr/local/share/ca-certificates
 RUN update-ca-certificates --fresh
 
-COPY usr/local/share/ca-certificates /usr/local/share/ca-certificates
-RUN update-ca-certificates --fresh
 USER zabbix
-

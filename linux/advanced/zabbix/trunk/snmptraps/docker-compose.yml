@@ -3,3 +3,8 @@ services:
     image: "epicmorg/zabbix-snmptraps:trunk"
     build:
       context: .
+    x-squash: false
+    x-mirrors:
+      - docker.io/epicmorg/zabbix-snmptraps:trunk
+      - quay.io/epicmorg/zabbix-snmptraps:trunk
+      - ghcr.io/epicmorg/zabbix-snmptraps:trunk
