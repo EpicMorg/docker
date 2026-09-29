@@ -2,7 +2,7 @@
 
 - name: Read versions from file
   slurp:
-     src: "roles/common/files/versions/jira/4.jdk6.txt"
+     src: "{{ playbook_dir }}/roles/common/files/versions/jira/4.jdk6.txt"
   register: version_output
  
 - name: Set version variable

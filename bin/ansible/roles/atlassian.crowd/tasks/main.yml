@@ -21,3 +21,11 @@
 
 - name: "Generate images for Crowd 6 (jdk17)"
   import_tasks: atlassian.crowd.6.jdk17.yml
+
+- name: "Generate images for Crowd 7 (jdk21)"
+  import_tasks: atlassian.crowd.7.jdk21.yml
+
+- name: "Generate crowd latest"
+  include_tasks: "{{ playbook_dir }}/roles/common/tasks/latest.yml"
+  vars:
+    latest_product: crowd

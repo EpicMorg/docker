@@ -1,0 +1,43 @@
+# Regenerate <product>/latest from the version in versions/<product>/latest.txt
+# (newest release of the `current` feed, written by bin/atlassian-versions-update).
+# The version's own directory must already be generated in this run.
+- name: "Read latest {{ latest_product }} version"
+  slurp:
+    src: "{{ playbook_dir }}/roles/common/files/versions/{{ latest_product }}/latest.txt"
+  register: latest_raw
+
+- name: Set latest version variable
+  set_fact:
+    latest_version: "{{ latest_raw['content'] | b64decode | trim }}"
+
+- name: "Find the generated {{ latest_product }} directory for the latest version"
+  find:
+    paths: "{{ atlassian_root }}/{{ latest_product }}"
+    patterns: "{{ latest_version }}"
+    file_type: directory
+    recurse: true
+    depth: 2
+  register: latest_src
+
+- name: Exactly one source directory must match
+  assert:
+    that: latest_src.matched == 1
+    fail_msg: "{{ latest_product }} {{ latest_version }}: expected 1 generated dir, found {{ latest_src.matched }}"
+
+- name: "Drop the old {{ latest_product }}/latest"
+  file:
+    path: "{{ atlassian_root }}/{{ latest_product }}/latest"
+    state: absent
+
+- name: "Copy {{ latest_version }} to {{ latest_product }}/latest"
+  copy:
+    src: "{{ latest_src.files[0].path }}/"
+    dest: "{{ atlassian_root }}/{{ latest_product }}/latest/"
+    remote_src: true
+    mode: preserve
+
+- name: "Retag {{ latest_product }}/latest images as :latest"
+  replace:
+    path: "{{ atlassian_root }}/{{ latest_product }}/latest/docker-compose.yml"
+    regexp: ':{{ latest_version | regex_escape }}\b'
+    replace: ':latest'

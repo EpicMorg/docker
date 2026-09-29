@@ -1,20 +1,26 @@
 services:
   app:
-    image: "epicmorg/crowd:{{ item }}"
+    image: "epicmorg/crowd:{{ tag | default(item) }}"
     build:
       context: .
     x-mirrors:
-      - quay.io/epicmorg/crowd:{{ item }}
+      - docker.io/epicmorg/crowd:{{ tag | default(item) }}
+      - quay.io/epicmorg/crowd:{{ tag | default(item) }}
+      - ghcr.io/epicmorg/crowd:{{ tag | default(item) }}
   app-jdk6:
-    image: "epicmorg/crowd:{{ item }}-jdk6"
+    image: "epicmorg/crowd:{{ tag | default(item) }}-jdk6"
     build:
       context: .
     x-mirrors:
-      - quay.io/epicmorg/crowd:{{ item }}-jdk6
+      - docker.io/epicmorg/crowd:{{ tag | default(item) }}-jdk6
+      - quay.io/epicmorg/crowd:{{ tag | default(item) }}-jdk6
+      - ghcr.io/epicmorg/crowd:{{ tag | default(item) }}-jdk6
   app-jdk7:
-    image: "epicmorg/crowd:{{ item }}-jdk7"
+    image: "epicmorg/crowd:{{ tag | default(item) }}-jdk7"
     build:
       context: .
       dockerfile: Dockerfile.jdk7
     x-mirrors:
-      - quay.io/epicmorg/crowd:{{ item }}-jdk7
+      - docker.io/epicmorg/crowd:{{ tag | default(item) }}-jdk7
+      - quay.io/epicmorg/crowd:{{ tag | default(item) }}-jdk7
+      - ghcr.io/epicmorg/crowd:{{ tag | default(item) }}-jdk7

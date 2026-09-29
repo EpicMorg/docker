@@ -72,7 +72,7 @@ RUN rm -rfv /etc/apt/sources.list.d/github_git-lfs.sources && \
       git-lfs \
       git-ftp && \
     apt-get autoremove -y && \
-    apt-get install -y --allow-unauthenticated  \
+    apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
       git \
       git-extras \
       git-flow \

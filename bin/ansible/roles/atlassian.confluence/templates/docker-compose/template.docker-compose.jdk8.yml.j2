@@ -1,13 +1,13 @@
 services:
   app:
-    image: "epicmorg/confluence:{{ item }}"
+    image: "epicmorg/confluence:{{ tag | default(item) }}"
     build:
       context: .
+    x-squash: false
     x-mirrors:
-      - quay.io/epicmorg/confluence:{{ item }}
-  app-jdk8:
-    image: "epicmorg/confluence:{{ item }}-jdk8"
-    build:
-      context: .
-    x-mirrors:
-      - quay.io/epicmorg/confluence:{{ item }}-jdk8
+      - docker.io/epicmorg/confluence:{{ tag | default(item) }}
+      - docker.io/epicmorg/confluence:{{ tag | default(item) }}-jdk8
+      - quay.io/epicmorg/confluence:{{ tag | default(item) }}
+      - quay.io/epicmorg/confluence:{{ tag | default(item) }}-jdk8
+      - ghcr.io/epicmorg/confluence:{{ tag | default(item) }}
+      - ghcr.io/epicmorg/confluence:{{ tag | default(item) }}-jdk8

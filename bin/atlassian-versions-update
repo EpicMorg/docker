@@ -1,0 +1,183 @@
+#!/usr/bin/env python3
+"""Refresh bin/ansible version lists from Atlassian feeds.
+
+Versions come from EpicMorg/atlassian-downloader (`--action ListVersions`).
+The binary is taken from $ATLASSIAN_DOWNLOADER, or the latest linux-x64
+release is downloaded into ~/.cache/atlassian-downloader.
+
+Rules:
+  * versions are grouped into lines (major.minor). A new version is appended
+    to the list holding the newest version of its line, if it is newer than
+    everything listed for that line (LTS patches: 10.3.25 -> jira/10.jdk17.txt).
+    A new line of a known major goes to the list holding that major's newest
+    version, if it is newer than everything listed for the major.
+    Old holes are reported, never filled silently;
+  * a version newer than any known major (a new major) is only reported: its
+    JDK set has to be decided by a human, who then creates <major>.<jdk>.txt;
+  * every version lives in exactly one list: duplicates are removed from all
+    but the list imported last in the role's tasks/main.yml (the one whose
+    output wins anyway);
+  * <product>/latest.txt gets the newest version of the `current` feed.
+
+Usage: bin/atlassian-versions-update [--dry-run]
+"""
+import glob
+import io
+import json
+import os
+import re
+import subprocess
+import sys
+import urllib.request
+import zipfile
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ANSIBLE = os.path.join(ROOT, 'bin', 'ansible')
+VERSIONS = os.path.join(ANSIBLE, 'roles', 'common', 'files', 'versions')
+
+# version-list dir -> (feed names, ansible role dirs whose main.yml orders the lists)
+PRODUCTS = {
+    'jira':             (['jira-software', 'jira'], ['atlassian.jira']),
+    'confluence':       (['confluence'],            ['atlassian.confluence']),
+    'bitbucket':        (['stash'],                 ['atlassian.bitbucket']),
+    'crowd':            (['crowd'],                 ['atlassian.crowd']),
+    'fisheye-crucible': (['fisheye'],               ['atlassian.fisheye-crucible']),
+}
+
+RELEASE_RE = re.compile(r'^\d+(\.\d+)+[a-z]?$')
+
+
+def vkey(v):
+    return [(int(n), s) for n, s in re.findall(r'(\d+)([a-z]*)', v)]
+
+
+def line(v):
+    return '.'.join(v.split('.')[:2])
+
+
+def downloader():
+    exe = os.environ.get('ATLASSIAN_DOWNLOADER')
+    if exe:
+        return exe
+    cache = os.path.expanduser('~/.cache/atlassian-downloader')
+    exe = os.path.join(cache, 'atlassian-downloader')
+    if not os.path.exists(exe):
+        api = 'https://api.github.com/repos/EpicMorg/atlassian-downloader/releases/latest'
+        rel = json.load(urllib.request.urlopen(api))
+        url = next(a['browser_download_url'] for a in rel['assets']
+                   if a['name'].endswith('-linux-x64.zip'))
+        print(f'downloading {url}', file=sys.stderr)
+        zipfile.ZipFile(io.BytesIO(urllib.request.urlopen(url).read())).extractall(cache)
+        os.chmod(exe, 0o755)
+    return exe
+
+
+def read_feeds():
+    """{'archived/jira.json': [versions...], ...} parsed from ListVersions output."""
+    out = subprocess.run([downloader(), '--action', 'ListVersions'],
+                         capture_output=True, text=True, check=True).stdout
+    feeds, cur = {}, None
+    for line in out.splitlines():
+        m = re.search(r'Start processing HTTP request GET \S+/feeds/(\S+\.json)', line)
+        if m:
+            cur = m.group(1)
+            feeds.setdefault(cur, set())
+        elif cur and RELEASE_RE.match(line.strip()):
+            feeds[cur].add(line.strip())
+    if not feeds:
+        sys.exit('FATAL: no feeds parsed from atlassian-downloader output')
+    return feeds
+
+
+def list_order(roles):
+    """Version-list files in the order the role imports them."""
+    order = []
+    for role in roles:
+        main = os.path.join(ANSIBLE, 'roles', role, 'tasks', 'main.yml')
+        for m in re.finditer(r'(?m)^\s*import_tasks:\s*(\S+)', open(main).read()):
+            task = open(os.path.join(os.path.dirname(main), m.group(1))).read()
+            for src in re.findall(r'versions/([\w.-]+/[\w.-]+\.txt)', task):
+                path = os.path.join(VERSIONS, src)
+                if path not in order:
+                    order.append(path)
+    return order
+
+
+def read_list(path):
+    return [l.strip() for l in open(path) if l.strip()]
+
+
+def main():
+    dry = '--dry-run' in sys.argv
+    feeds = read_feeds()
+    for product, (feed_names, roles) in PRODUCTS.items():
+        known = set()
+        current = set()
+        for name in feed_names:
+            known |= feeds.get(f'archived/{name}.json', set())
+            current |= feeds.get(f'current/{name}.json', set())
+        known |= current
+
+        order = list_order(roles)
+        lists = {p: read_list(p) for p in order}
+
+        # dedupe: keep a version only in the last list that holds it
+        seen = set()
+        for path in reversed(order):
+            kept = []
+            for v in lists[path]:
+                if v in seen:
+                    print(f'  {product}: dedupe {v} out of {os.path.basename(path)}')
+                    continue
+                seen.add(v)
+                kept.append(v)
+            lists[path] = kept
+
+        # newest listed version and its list, per major and per line
+        head = {}
+        for path in order:
+            for v in lists[path]:
+                for k in (('M', v.split('.')[0]), ('L', line(v))):
+                    if k not in head or vkey(v) > vkey(head[k][0]):
+                        head[k] = (v, path)
+        top_major = max((int(k[1]) for k in head if k[0] == 'M'), default=0)
+
+        added, holes, new_majors = [], [], []
+        for v in sorted(known - seen, key=vkey):
+            major = v.split('.')[0]
+            if ('M', major) not in head:
+                (new_majors if int(major) > top_major else holes).append(v)
+                continue
+            ref = head.get(('L', line(v))) or head[('M', major)]
+            if vkey(v) <= vkey(ref[0]):
+                holes.append(v)
+                continue
+            lists[ref[1]].append(v)
+            head[('L', line(v))] = (v, ref[1])
+            if vkey(v) > vkey(head[('M', major)][0]):
+                head[('M', major)] = (v, ref[1])
+            added.append(f'{v} -> {os.path.basename(ref[1])}')
+
+        print(f'== {product}: +{len(added)}')
+        for a in added:
+            print(f'  + {a}')
+        if new_majors:
+            print(f'  ! new major, create a list for it: {" ".join(new_majors)}')
+        if holes:
+            print(f'  . not added (older than list head): {" ".join(holes)}')
+
+        latest = max(current, key=vkey) if current else None
+        print(f'  latest (current feed): {latest}')
+
+        if dry:
+            continue
+        for path in order:
+            data = '\n'.join(sorted(lists[path], key=vkey)) + '\n'
+            if open(path).read() != data:
+                open(path, 'w').write(data)
+        if latest:
+            open(os.path.join(VERSIONS, product, 'latest.txt'), 'w').write(latest + '\n')
+
+
+if __name__ == '__main__':
+    main()

@@ -12,3 +12,8 @@
 
 - name: "Generate images for Fisheye + Crucible 4 (jdk8)"
   import_tasks: atlassian.fisheye.4.jdk8.yml
+
+- name: "Generate fisheye-crucible latest"
+  include_tasks: "{{ playbook_dir }}/roles/common/tasks/latest.yml"
+  vars:
+    latest_product: fisheye-crucible

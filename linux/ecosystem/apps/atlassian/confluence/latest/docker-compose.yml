@@ -3,12 +3,11 @@ services:
     image: "epicmorg/confluence:latest"
     build:
       context: .
-  app-jdk17:
-    image: "epicmorg/confluence:latest-jdk17"
-    build:
-      context: .
-  app-jdk21:
-    image: "epicmorg/confluence:latest-jdk21"
-    build:
-      context: .
-      dockerfile: Dockerfile.jdk21
+    x-squash: false
+    x-mirrors:
+      - docker.io/epicmorg/confluence:latest
+      - docker.io/epicmorg/confluence:latest-jdk21
+      - quay.io/epicmorg/confluence:latest
+      - quay.io/epicmorg/confluence:latest-jdk21
+      - ghcr.io/epicmorg/confluence:latest
+      - ghcr.io/epicmorg/confluence:latest-jdk21

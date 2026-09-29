@@ -1,6 +1,6 @@
 - name: Read versions from file
   slurp:
-     src: "roles/common/files/versions/confluence/5.jdk7-jdk8.txt"
+     src: "{{ playbook_dir }}/roles/common/files/versions/confluence/5.jdk7-jdk8.txt"
   register: version_output
 
 - name: Set version variable

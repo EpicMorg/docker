@@ -27,3 +27,8 @@
 
 - name: "Generate images for Confluence 10 (jdk21)"
   import_tasks: atlassian.confluence.10.jdk21.yml
+
+- name: "Generate confluence latest"
+  include_tasks: "{{ playbook_dir }}/roles/common/tasks/latest.yml"
+  vars:
+    latest_product: confluence

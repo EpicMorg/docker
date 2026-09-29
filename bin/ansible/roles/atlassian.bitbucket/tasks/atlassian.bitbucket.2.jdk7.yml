@@ -1,6 +1,6 @@
 - name: Read versions from file
   slurp:
-     src: "roles/common/files/versions/bitbucket/2.jdk7.txt"
+     src: "{{ playbook_dir }}/roles/common/files/versions/bitbucket/2.jdk7.txt"
   register: version_output
 
 - name: Set version variable
@@ -15,11 +15,10 @@
     force: true
   with_items: "{{ bitbucket_versions }}"
 
-- name: Copy .env with link from template to each version directory
-  template:
-    src: "env/template.stash.1-3.env.j2"
-    dest: "{{ target_directory_bitbucket_2 }}/{{ item }}/.env"
-    force: true
+- name: Remove .env (single-JDK images carry RELEASE in the Dockerfile)
+  file:
+    path: "{{ target_directory_bitbucket_2 }}/{{ item }}/.env"
+    state: absent
   with_items: "{{ bitbucket_versions }}"
 
 - name: Copy docker-compose.yml from template to each version directory
