@@ -1,6 +1,10 @@
-## Testrail
+## TestRail 6.5.0.1298
 
-* Based on `websites:php7.2` of our ecosystem.
+* Based on `epicmorg/apache2:php7.2` of our ecosystem: Apache2 + PHP 7.2 (php-fpm over a unix socket), run by supervisor.
+* TestRail package: `testrail-6.5.0.1298-ion72.zip` (ionCube loader is part of `epicmorg/php:7.2`).
+* supervisor programs: `php-fpm`, `apache2`, `testrail-task` (TestRail background task as `www-data`, every `TR_DEFAULT_TASK_EXECUTION` seconds, default `60`).
+* On every start the entrypoint re-extracts the TestRail code into `/var/www/testrail`, so a `/var/www` volume always carries the version of the image.
+* Variants with the Active Directory / LDAP authentication script: `epicmorg/testrail:auth-ad-6.5.0.1298`, `epicmorg/testrail:auth-ldap-6.5.0.1298`.
 
 # Compose example
 
@@ -10,26 +14,25 @@ services:
     image: epicmorg/testrail:6.5.0.1298
 #    depends_on:
 #      - mysql
-#      - memcached
     restart: unless-stopped
+    ports:
+      - "80:80"
+    environment:
+      - TR_DEFAULT_TASK_EXECUTION=60
     volumes:
-      - /etc/localtime:/etc/localtime
-      - /etc/timezone:/etc/timezone
-#      - /etc/letsencrypt:/etc/letsencrypt
-      - www:/var/www
-      - apache2:/etc/apache2
-      - php:/etc/php
-    restart: unless-stopped
-#    extra_hosts:
-#      - "example.com:192.168.0.11"
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - config:/var/www/testrail/config
+      - attachments:/opt/testrail/attachments
+      - audit:/opt/testrail/audit
+      - logs:/opt/testrail/logs
+      - reports:/opt/testrail/reports
     tmpfs:
       - /tmp
-      - /var/lib/php/sessions
 volumes:
-  www:
-    external: true
-  apache2:
-    external: true
-  php:
-    external: true
+  config:
+  attachments:
+  audit:
+  logs:
+  reports:
 ```

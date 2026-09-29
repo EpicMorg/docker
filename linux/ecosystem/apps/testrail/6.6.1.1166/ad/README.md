@@ -1,35 +1,39 @@
-## Testrail
+## TestRail 6.6.1.1166 with the Active Directory authentication script
 
-* Based on `websites:php7.2` of our ecosystem.
+* Based on `epicmorg/testrail:6.6.1.1166` (Apache2 + PHP 7.2 via php-fpm, supervisor).
+* Adds the PHP `ldap` extension (built against a baked OpenLDAP 2.6 client library that uses the same OpenSSL as PHP).
+* Adds the TestRail `testrail-auth-ad-1.4` script, unpacked to `/testrail-release/testrail-auth-ad-1.4/`.
+  Set the `AUTH_*` constants in a copy of `auth.php` and mount it as `/var/www/testrail/custom/auth/auth.php`
+  (see the bundled `readme.txt` and the TestRail docs on authentication scripts).
 
 # Compose example
 
 ```yml
 services:
   testrail:
-    image: epicmorg/testrail-ad-:6.6.1.1166
+    image: epicmorg/testrail:auth-ad-6.6.1.1166
 #    depends_on:
 #      - mysql
-#      - memcached
     restart: unless-stopped
+    ports:
+      - "80:80"
+    environment:
+      - TR_DEFAULT_TASK_EXECUTION=60
     volumes:
-      - /etc/localtime:/etc/localtime
-      - /etc/timezone:/etc/timezone
-#      - /etc/letsencrypt:/etc/letsencrypt
-      - www:/var/www
-      - apache2:/etc/apache2
-      - php:/etc/php
-    restart: unless-stopped
-#    extra_hosts:
-#      - "example.com:192.168.0.11"
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - ./auth.php:/var/www/testrail/custom/auth/auth.php:ro
+      - config:/var/www/testrail/config
+      - attachments:/opt/testrail/attachments
+      - audit:/opt/testrail/audit
+      - logs:/opt/testrail/logs
+      - reports:/opt/testrail/reports
     tmpfs:
       - /tmp
-      - /var/lib/php/sessions
 volumes:
-  www:
-    external: true
-  apache2:
-    external: true
-  php:
-    external: true
+  config:
+  attachments:
+  audit:
+  logs:
+  reports:
 ```

@@ -1,0 +1,60 @@
+- name: "Read versions from {{ testrail_list }}"
+  slurp:
+    src: "{{ testrail_versions_dir }}/{{ testrail_list }}"
+  register: version_output
+
+- name: "Set version variable (PHP {{ testrail_php }})"
+  set_fact:
+    testrail_versions: "{{ version_output['content'] | b64decode | trim | split('\n') | map('trim') | reject('equalto', '') | unique | list }}"
+
+- name: "Create version directories (PHP {{ testrail_php }})"
+  file:
+    path: "{{ testrail_root }}/{{ item.0 }}/{{ item.1 }}"
+    state: directory
+    mode: '0755'
+  with_nested:
+    - "{{ testrail_versions }}"
+    - ["main", "ad", "ldap"]
+
+- name: "Remove mod_php-era files (PHP {{ testrail_php }})"
+  file:
+    path: "{{ testrail_root }}/{{ item.0 }}/{{ item.1 }}"
+    state: absent
+  with_nested:
+    - "{{ testrail_versions }}"
+    - "{{ testrail_legacy_files }}"
+
+- name: "Copy main static files (PHP {{ testrail_php }})"
+  copy:
+    src: "main/"
+    dest: "{{ testrail_root }}/{{ item }}/main/"
+    mode: preserve
+  with_items: "{{ testrail_versions }}"
+
+- name: "Render main Dockerfile (PHP {{ testrail_php }})"
+  template:
+    src: "main/Dockerfile.j2"
+    dest: "{{ testrail_root }}/{{ item }}/main/Dockerfile"
+    mode: '0644'
+  with_items: "{{ testrail_versions }}"
+
+- name: "Render main docker-compose.yml (PHP {{ testrail_php }})"
+  template:
+    src: "main/docker-compose.yml.j2"
+    dest: "{{ testrail_root }}/{{ item }}/main/docker-compose.yml"
+    mode: '0644'
+  with_items: "{{ testrail_versions }}"
+
+- name: "Render main README.md (PHP {{ testrail_php }})"
+  template:
+    src: "main/README.md.j2"
+    dest: "{{ testrail_root }}/{{ item }}/main/README.md"
+    mode: '0644'
+  with_items: "{{ testrail_versions }}"
+
+- name: "Generate auth variants (PHP {{ testrail_php }})"
+  include_tasks: testrail.auth.yml
+  loop: "{{ testrail_auth_plugins }}"
+  loop_control:
+    loop_var: auth
+    label: "{{ auth.name }}"

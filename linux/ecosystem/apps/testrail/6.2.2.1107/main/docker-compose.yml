@@ -3,5 +3,8 @@ services:
     image: "epicmorg/testrail:6.2.2.1107"
     build:
       context: .
+    x-squash: false
     x-mirrors:
       - quay.io/epicmorg/testrail:6.2.2.1107
+      - ghcr.io/epicmorg/testrail:6.2.2.1107
+      - docker.io/epicmorg/testrail:6.2.2.1107

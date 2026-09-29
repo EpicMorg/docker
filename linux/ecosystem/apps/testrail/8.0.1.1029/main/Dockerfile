@@ -1,19 +1,108 @@
+##############################################################################
+# Cassandra PHP driver (TestRail >= 7.0 refuses to start without it)
+##############################################################################
+# DataStax/Apache C/C++ driver built against PHP's own OpenSSL (${PHP_SSL_DIR}),
+# real RPATH (-Wl,--disable-new-dtags), so no system libssl/libcrypto gets loaded.
+FROM docker.io/epicmorg/apache2:php8.1 AS cassandra-builder
+ARG DEBIAN_FRONTEND=noninteractive
+
+ENV CASSANDRA_CPP_DRIVER_VERSION=2.17.1
+ENV CASSANDRA_CPP_DRIVER_DIR=${EMG_LOCAL_BASE_DIR}/cassandra-cpp-driver/${CASSANDRA_CPP_DRIVER_VERSION}
+ARG CASSANDRA_CPP_DRIVER_SHA256=e6ab5f5c60a916dd6c0dd9a19a883a4a1ab3d6b4e95cab925a186fecff08344e
+ARG CASSANDRA_CPP_DRIVER_URL=https://github.com/apache/cassandra-cpp-driver/archive/refs/tags/${CASSANDRA_CPP_DRIVER_VERSION}.tar.gz
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+      cmake \
+      libuv1-dev \
+      patchelf && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN set -eux; \
+    mkdir -p /usr/local/src/cassandra-cpp-driver; \
+    cd /usr/local/src/cassandra-cpp-driver; \
+    wget --quiet --tries=15 --retry-connrefused --timeout=30 -O cpp-driver.tar.gz "${CASSANDRA_CPP_DRIVER_URL}"; \
+    echo "${CASSANDRA_CPP_DRIVER_SHA256}  cpp-driver.tar.gz" | sha256sum -c -; \
+    tar -xzf cpp-driver.tar.gz --strip-components=1; \
+    rm -f cpp-driver.tar.gz; \
+    cmake -S . -B build \
+      -DCMAKE_BUILD_TYPE=Release \
+      -DCMAKE_INSTALL_PREFIX="${CASSANDRA_CPP_DRIVER_DIR}" \
+      -DCMAKE_INSTALL_LIBDIR=lib \
+      -DCASS_BUILD_SHARED=ON \
+      -DCASS_BUILD_STATIC=OFF \
+      -DCASS_BUILD_TESTS=OFF \
+      -DCASS_BUILD_EXAMPLES=OFF \
+      -DCASS_BUILD_DOCS=OFF \
+      -DCASS_USE_OPENSSL=ON \
+      -DOPENSSL_ROOT_DIR="${PHP_SSL_DIR}" \
+      -DCASS_USE_ZLIB=ON \
+      -DCASS_USE_KERBEROS=OFF \
+      -DCMAKE_BUILD_WITH_INSTALL_RPATH=ON \
+      -DCMAKE_INSTALL_RPATH="${PHP_SSL_LIB_DIR};${CASSANDRA_CPP_DRIVER_DIR}/lib" \
+      -DCMAKE_SHARED_LINKER_FLAGS="-Wl,--disable-new-dtags"; \
+    cmake --build build -j"$(nproc)"; \
+    cmake --install build; \
+    readelf -d "${CASSANDRA_CPP_DRIVER_DIR}/lib/libcassandra.so" | grep -E 'RPATH|RUNPATH|NEEDED'; \
+    readelf -d "${CASSANDRA_CPP_DRIVER_DIR}/lib/libcassandra.so" | grep -q '(RPATH)' || { echo "FATAL: no RPATH in ${CASSANDRA_CPP_DRIVER_DIR}/lib/libcassandra.so" >&2; exit 1; }; \
+    ! readelf -d "${CASSANDRA_CPP_DRIVER_DIR}/lib/libcassandra.so" | grep -q '(RUNPATH)' || { echo "FATAL: RUNPATH in ${CASSANDRA_CPP_DRIVER_DIR}/lib/libcassandra.so" >&2; exit 1; }; \
+    ! ldd "${CASSANDRA_CPP_DRIVER_DIR}/lib/libcassandra.so" | grep -q 'not found' || { echo "FATAL: ${CASSANDRA_CPP_DRIVER_DIR}/lib/libcassandra.so has unresolved deps" >&2; ldd "${CASSANDRA_CPP_DRIVER_DIR}/lib/libcassandra.so" >&2; exit 1; }; \
+    test "$(ldd "${CASSANDRA_CPP_DRIVER_DIR}/lib/libcassandra.so" | grep -c 'libssl\.so')" = 1 || { echo "FATAL: not exactly one libssl behind ${CASSANDRA_CPP_DRIVER_DIR}/lib/libcassandra.so" >&2; ldd "${CASSANDRA_CPP_DRIVER_DIR}/lib/libcassandra.so" >&2; exit 1; }; \
+    test "$(ldd "${CASSANDRA_CPP_DRIVER_DIR}/lib/libcassandra.so" | grep -c 'libcrypto\.so')" = 1 || { echo "FATAL: not exactly one libcrypto behind ${CASSANDRA_CPP_DRIVER_DIR}/lib/libcassandra.so" >&2; ldd "${CASSANDRA_CPP_DRIVER_DIR}/lib/libcassandra.so" >&2; exit 1; }; \
+    ldd "${CASSANDRA_CPP_DRIVER_DIR}/lib/libcassandra.so" | grep -q "${PHP_SSL_LIB_DIR}/libssl" || { echo "FATAL: ${CASSANDRA_CPP_DRIVER_DIR}/lib/libcassandra.so not linked against ${PHP_SSL_LIB_DIR}" >&2; ldd "${CASSANDRA_CPP_DRIVER_DIR}/lib/libcassandra.so" >&2; exit 1; }
+
+# PHP extension: the DataStax php-driver does not build on PHP 8; he4rt/scylladb-php-driver is its
+# maintained PHP 8 fork (v1.3.x = last line with PHP 8.1), built here against the DataStax C/C++ driver.
+ENV CASSANDRA_PHP_DRIVER_VERSION=v1.3.12
+ARG CASSANDRA_PHP_DRIVER_COMMIT=5d541695004a435d61f93d947cf650d811720cb2
+ARG CASSANDRA_PHP_DRIVER_REPO=https://github.com/he4rt/scylladb-php-driver.git
+
+RUN set -eux; \
+    git clone --quiet --depth 1 --branch "${CASSANDRA_PHP_DRIVER_VERSION}" \
+      --recurse-submodules --shallow-submodules "${CASSANDRA_PHP_DRIVER_REPO}" /usr/local/src/php-cassandra; \
+    cd /usr/local/src/php-cassandra; \
+    test "$(git rev-parse HEAD)" = "${CASSANDRA_PHP_DRIVER_COMMIT}"; \
+    export PKG_CONFIG_PATH="${CASSANDRA_CPP_DRIVER_DIR}/lib/pkgconfig:${PKG_CONFIG_PATH:-}"; \
+    cmake -S . -B build \
+      -DCMAKE_BUILD_TYPE=Release \
+      -DCUSTOM_PHP_CONFIG="$(command -v php-config)" \
+      -DPHP_DEBUG=OFF \
+      -DPHP_THREAD_SAFE=OFF \
+      -DUSE_LIBCASSANDRA=ON \
+      -DENABLE_SANITIZERS=OFF \
+      -DENABLE_LTO=OFF \
+      -DCMAKE_BUILD_WITH_INSTALL_RPATH=ON \
+      -DCMAKE_INSTALL_RPATH="${CASSANDRA_CPP_DRIVER_DIR}/lib;${PHP_SSL_LIB_DIR}" \
+      -DCMAKE_SHARED_LINKER_FLAGS="-Wl,--disable-new-dtags"; \
+    cmake --build build -j"$(nproc)"; \
+    mkdir -p /tmp/cassandra; \
+    cp build/cassandra.so /tmp/cassandra/cassandra.so; \
+    readelf -d "/tmp/cassandra/cassandra.so" | grep -E 'RPATH|RUNPATH|NEEDED'; \
+    readelf -d "/tmp/cassandra/cassandra.so" | grep -q '(RPATH)' || { echo "FATAL: no RPATH in /tmp/cassandra/cassandra.so" >&2; exit 1; }; \
+    ! readelf -d "/tmp/cassandra/cassandra.so" | grep -q '(RUNPATH)' || { echo "FATAL: RUNPATH in /tmp/cassandra/cassandra.so" >&2; exit 1; }; \
+    ! ldd "/tmp/cassandra/cassandra.so" | grep -q 'not found' || { echo "FATAL: /tmp/cassandra/cassandra.so has unresolved deps" >&2; ldd "/tmp/cassandra/cassandra.so" >&2; exit 1; }; \
+    test "$(ldd "/tmp/cassandra/cassandra.so" | grep -c 'libssl\.so')" = 1 || { echo "FATAL: not exactly one libssl behind /tmp/cassandra/cassandra.so" >&2; ldd "/tmp/cassandra/cassandra.so" >&2; exit 1; }; \
+    test "$(ldd "/tmp/cassandra/cassandra.so" | grep -c 'libcrypto\.so')" = 1 || { echo "FATAL: not exactly one libcrypto behind /tmp/cassandra/cassandra.so" >&2; ldd "/tmp/cassandra/cassandra.so" >&2; exit 1; }; \
+    ldd "/tmp/cassandra/cassandra.so" | grep -q "${PHP_SSL_LIB_DIR}/libssl" || { echo "FATAL: /tmp/cassandra/cassandra.so not linked against ${PHP_SSL_LIB_DIR}" >&2; ldd "/tmp/cassandra/cassandra.so" >&2; exit 1; }; \
+    php -d extension=/tmp/cassandra/cassandra.so -m | grep -qix cassandra
+
 FROM docker.io/epicmorg/apache2:php8.1
+LABEL org.opencontainers.image.title="EpicMorg TestRail"
+LABEL org.opencontainers.image.description="TestRail 8.0.1.1029 on Apache2 + PHP 8.1 (fpm) by EpicMorg"
+ARG DEBIAN_FRONTEND=noninteractive
 
 ##############################################################################
 # Testrail Install
 ##############################################################################
-
-
 ENV TESTRAIL_VERSION=8.0.1.1029
-ARG DOWNLOAD_URL=https://secure.testrail.com/downloads/testrail/testrail-${TESTRAIL_VERSION}-ion81.zip
+ENV TESTRAIL_ION=ion81
+ARG DOWNLOAD_URL=https://secure.testrail.com/downloads/testrail/testrail-${TESTRAIL_VERSION}-${TESTRAIL_ION}.zip
 
 ENV TR_DEFAULT_TASK_EXECUTION=60
 
 ENV TESTRAIL_RELEASE_DIR=/testrail-release
 
 ENV TR_WWW_PATH=/var/www/testrail
-ENV TR_CONFIGPATH=${TR_CONFIG_DIR}
 ENV TR_CONFIG_DIR=${TR_WWW_PATH}/config
 ENV TR_CUSTOM_DIR=${TR_WWW_PATH}/custom
 ENV TR_CUSTOM_AUTH_DIR=${TR_CUSTOM_DIR}/auth
@@ -26,10 +115,6 @@ ENV TR_DEFAULT_ATTACHMENT_DIR=${TR_OPT_PATH}/attachments
 
 ENV TR_OPTPATH="/opt/testrail/"
 ENV TR_CONFIGPATH="/var/www/testrail/config/"
-
-ENV OPENSSL_CONF=/etc/ssl/
-
-RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
 ##################################################################
 #                    Shared wget args
@@ -51,33 +136,83 @@ ARG WGET_USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:128.0) Gecko/2
 ##################################################################
 #                   Installing
 ##################################################################
+# The zip stays in TESTRAIL_RELEASE_DIR: the entrypoint re-extracts it on every
+# start, so a /var/www volume always carries the code of this image.
 RUN set -eux; \
-    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -O ${TESTRAIL_RELEASE_DIR}/testrail-${TESTRAIL_VERSION}-ion81.zip ${DOWNLOAD_URL} && \
-    echo "[testrail] Preparing folders" && \
-    mkdir -p ${TR_WWW_PATH} && \
-    mkdir -p ${TR_DEFAULT_ATTACHMENT_DIR} ${TR_DEFAULT_REPORT_DIR} ${TR_DEFAULT_AUDIT_DIR} ${TR_DEFAULT_LOG_DIR} && \
-    echo "[testrail] Downloading and installing" && \
-    chown -R www-data:www-data ${TESTRAIL_RELEASE_DIR} && \
-    unzip -q -o ${TESTRAIL_RELEASE_DIR}/testrail-${TESTRAIL_VERSION}-ion81.zip -d /var/www/ && \
-    chown -R www-data:www-data ${TR_WWW_PATH} && \
-    ls -las ${TR_WWW_PATH} && \
-    chown -R www-data:www-data ${TR_OPT_PATH} && \
-    ls -las ${TR_OPT_PATH}
+    mkdir -p ${TESTRAIL_RELEASE_DIR} ${TR_WWW_PATH}; \
+    mkdir -p ${TR_DEFAULT_ATTACHMENT_DIR} ${TR_DEFAULT_REPORT_DIR} ${TR_DEFAULT_AUDIT_DIR} ${TR_DEFAULT_LOG_DIR}; \
+    echo "[testrail] Downloading ${DOWNLOAD_URL}"; \
+    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -O ${TESTRAIL_RELEASE_DIR}/testrail-${TESTRAIL_VERSION}.zip ${DOWNLOAD_URL}; \
+    unzip -tq ${TESTRAIL_RELEASE_DIR}/testrail-${TESTRAIL_VERSION}.zip; \
+    unzip -q -o ${TESTRAIL_RELEASE_DIR}/testrail-${TESTRAIL_VERSION}.zip -d /var/www/; \
+    test -f ${TR_WWW_PATH}/index.php; \
+    mkdir -p ${TR_CONFIG_DIR} ${TR_CUSTOM_AUTH_DIR}; \
+    chown -R www-data:www-data ${TESTRAIL_RELEASE_DIR} ${TR_WWW_PATH} ${TR_OPT_PATH}; \
+    echo "[testrail] Testrail version is: $(cat ${TR_WWW_PATH}/version.txt 2>/dev/null || echo ${TESTRAIL_VERSION})"
 
-RUN echo "[testrail] Testrail version is: $(cat ${TR_WWW_PATH}/version.txt)"
+##################################################################
+#                   Cassandra PHP driver
+##################################################################
+ENV CASSANDRA_CPP_DRIVER_VERSION=2.17.1
+ENV CASSANDRA_CPP_DRIVER_DIR=${EMG_LOCAL_BASE_DIR}/cassandra-cpp-driver/${CASSANDRA_CPP_DRIVER_VERSION}
 
-COPY apache_testrail.conf ${TESTRAIL_RELEASE_DIR}/apache-conf/000-default.conf
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends libuv1 && \
+    rm -rf /var/lib/apt/lists/*
+
+COPY --from=cassandra-builder ${CASSANDRA_CPP_DRIVER_DIR} ${CASSANDRA_CPP_DRIVER_DIR}
+COPY --from=cassandra-builder /tmp/cassandra/cassandra.so /tmp/cassandra/cassandra.so
+
+RUN set -eux; \
+    so="$(php-config --extension-dir)/cassandra.so"; \
+    mv /tmp/cassandra/cassandra.so "$so"; \
+    rm -rf /tmp/cassandra; \
+    readelf -d "$so" | grep -E 'RPATH|RUNPATH|NEEDED'; \
+    readelf -d "$so" | grep -q '(RPATH)' || { echo "FATAL: no RPATH in $so" >&2; exit 1; }; \
+    ! readelf -d "$so" | grep -q '(RUNPATH)' || { echo "FATAL: RUNPATH in $so" >&2; exit 1; }; \
+    ! ldd "$so" | grep -q 'not found' || { echo "FATAL: $so has unresolved deps" >&2; ldd "$so" >&2; exit 1; }; \
+    test "$(ldd "$so" | grep -c 'libssl\.so')" = 1 || { echo "FATAL: not exactly one libssl behind $so" >&2; ldd "$so" >&2; exit 1; }; \
+    test "$(ldd "$so" | grep -c 'libcrypto\.so')" = 1 || { echo "FATAL: not exactly one libcrypto behind $so" >&2; ldd "$so" >&2; exit 1; }; \
+    ldd "$so" | grep -q "${PHP_SSL_LIB_DIR}/libssl" || { echo "FATAL: $so not linked against ${PHP_SSL_LIB_DIR}" >&2; ldd "$so" >&2; exit 1; }; \
+    php-ext-enable cassandra; \
+    php -m | grep -qix cassandra || { echo "FATAL: cassandra extension not active" >&2; php -m >&2; exit 1; }; \
+    php --ri cassandra
+
+##################################################################
+#                   PHP checks
+##################################################################
+# ionCube loader and the extensions come from the epicmorg/php base image.
+# TestRail is ionCube-encoded for PHP 8.1+ (ion81 package).
+RUN set -eux; \
+    php -v; \
+    php -v | grep -qi 'ionCube' || { echo "FATAL: ionCube loader not active" >&2; exit 1; }; \
+    grep -rqE '^listen *= */run/php/php-fpm.sock' ${PHP_INI_DIR}/php-fpm.d/ \
+      || { echo "FATAL: php-fpm does not listen on /run/php/php-fpm.sock (apache2 base expects the unix socket)" >&2; exit 1; }; \
+    for ext in curl json mbstring mysqli pdo_mysql openssl zip gd xml session zlib; do \
+      php -m | grep -qix "${ext}" || { echo "FATAL: php extension ${ext} missing" >&2; php -m >&2; exit 1; }; \
+    done
+
+##################################################################
+#                   Apache2 + supervisor
+##################################################################
+COPY etc/apache2/    /etc/apache2/
+COPY etc/supervisor/ /etc/supervisor/
+COPY usr/local/bin/testrail-entrypoint.sh /usr/local/bin/testrail-entrypoint.sh
+COPY usr/local/bin/testrail-task.sh       /usr/local/bin/testrail-task.sh
+
+RUN set -eux; \
+    chmod 755 /usr/local/bin/testrail-entrypoint.sh /usr/local/bin/testrail-task.sh; \
+    a2dissite localhost; \
+    a2ensite testrail; \
+    apachectl configtest
 
 #healthcheck. good practice
-HEALTHCHECK --interval=2m --timeout=3s CMD curl -f http://localhost:80/ || exit 1
-
-# Add image configuration and scripts
-COPY docker-entrypoint.sh /usr/bin/docker-entrypoint.sh
-RUN chmod 755 /usr/bin/docker-entrypoint.sh
+HEALTHCHECK --interval=2m --timeout=3s --start-period=30s \
+        CMD curl -fsS -o /dev/null http://localhost/ || exit 1
 
 #Final config
-WORKDIR /var/www/testrail
+WORKDIR ${TR_WWW_PATH}
 EXPOSE 80 443
 
-ENTRYPOINT ["tini", "-s", "--", "docker-entrypoint.sh"]
-CMD ["docker-entrypoint.sh"]
+ENTRYPOINT ["/usr/local/bin/testrail-entrypoint.sh"]
+CMD ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisor/supervisord.conf"]
