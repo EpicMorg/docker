@@ -132,7 +132,7 @@ RUN set -eux; \
     export PKG_CONFIG_PATH="${LIBATOMICOPS_LIB_DIR}/pkgconfig:${ZLIB_LIB_DIR}/pkgconfig:${PCRE_LIB_DIR}/pkgconfig:${OPENSSL_35_LIB_DIR}/pkgconfig:${PKG_CONFIG_PATH:-}" && \
     export CFLAGS="${NGNX_CFLAGS}" && \
     export CPPFLAGS="-I${OPENSSL_35_INC_DIR} ${NGNX_CPPFLAGS}"  && \
-    export LDFLAGS="-L${OPENSSL_35_LIB_DIR} -Wl,-rpath,${OPENSSL_35_LIB_DIR} ${NGNX_LDFLAGS}"  && \
+    export LDFLAGS="-L${OPENSSL_35_LIB_DIR} -Wl,-rpath,${OPENSSL_35_LIB_DIR} ${NGNX_LDFLAGS} -Wl,--disable-new-dtags"  && \
     cd ${NGM_QJS_DIR} && \
         CFLAGS='-fPIC -O2' make libquickjs.a && \
     cd ${NGM_NJS_DIR} && \
@@ -176,6 +176,7 @@ RUN set -eux; \
                     -Wl,-rpath,${ZLIB_LIB_DIR} \
                     -L${PCRE_LIB_DIR} \
                     -Wl,-rpath,${PCRE_LIB_DIR} \
+                    -Wl,--disable-new-dtags \
                     -L/usr/lib/x86_64-linux-gnu \
                     -L/usr/lib \
                     -Wl,-z,relro -Wl,-z,now -lz -fPIC" \
@@ -236,6 +237,7 @@ RUN set -eux; \
                 -Wl,-rpath,${ZLIB_LIB_DIR} \
                 -L${PCRE_LIB_DIR} \
                 -Wl,-rpath,${PCRE_LIB_DIR} \
+                -Wl,--disable-new-dtags \
                 -L/usr/lib/x86_64-linux-gnu \
                 -L/usr/lib \
                 -L${NGM_QJS_DIR} \
@@ -604,6 +606,14 @@ RUN set -eu; \
         echo "FATAL: $(basename $m) links system OpenSSL" >&2; \
         ldd "$m" | grep -E 'lib(ssl|crypto)\.so' >&2; exit 1; \
       fi; \
+    done; \
+    \
+    echo "--- RPATH ---"; \
+    for f in ${NGINX_SBIN_DIR}/nginx ${NGINX_MODULES_DIR}/*.so $(find ${NGINX_MODULES_PERL_DIR} -name '*.so'); do \
+      readelf -d "$f" | grep -q '(RUNPATH)' \
+        && { echo "FATAL: $(basename $f) has RUNPATH, expected RPATH" >&2; exit 1; }; \
+      readelf -d "$f" | grep -q '(RPATH)' \
+        || { echo "FATAL: $(basename $f) has no RPATH" >&2; readelf -d "$f" >&2; exit 1; }; \
     done; \
     \
     echo "--- njs / quickjs ---"; \

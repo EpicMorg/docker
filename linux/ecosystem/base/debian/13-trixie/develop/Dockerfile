@@ -1446,7 +1446,7 @@ RUN set -eux; \
     ln -sf ${LIBGD_SRC_DIR} ${LIBGD_DIR}/src && \
     cd ${LIBGD_TEMP_SRC} && \
     export PKG_CONFIG_PATH="${LIBRAQM_LIB_DIR}/pkgconfig:${LIBIMAGEQUANT_LIB_DIR}/pkgconfig:${PKG_CONFIG_PATH:-}" && \
-    export LDFLAGS="-L${LIBRAQM_LIB_DIR} -Wl,-rpath,${LIBRAQM_LIB_DIR} -L${LIBIMAGEQUANT_LIB_DIR} -Wl,-rpath,${LIBIMAGEQUANT_LIB_DIR} ${LDFLAGS:-}" && \
+    export LDFLAGS="-L${LIBRAQM_LIB_DIR} -Wl,-rpath,${LIBRAQM_LIB_DIR} -L${LIBIMAGEQUANT_LIB_DIR} -Wl,-rpath,${LIBIMAGEQUANT_LIB_DIR} ${LDFLAGS:-} -Wl,--disable-new-dtags" && \
     ./bootstrap.sh && \
     ./configure \
       --prefix=${LIBGD_DIR} \
@@ -1480,6 +1480,8 @@ RUN set -eu; \
     echo "--- libgd ---"; \
     so="${LIBGD_LIB_DIR}/libgd.so"; \
     readelf -d "$so" | grep NEEDED; \
+    readelf -d "$so" | grep -q '(RUNPATH)' && { echo "FATAL: $so has RUNPATH, expected RPATH" >&2; exit 1; }; \
+    readelf -d "$so" | grep -q '(RPATH)' || { echo "FATAL: $so has no RPATH" >&2; readelf -d "$so" >&2; exit 1; }; \
     ldd "$so" | grep -q 'not found' && { echo "FATAL: unresolved deps" >&2; ldd "$so" >&2; exit 1; }; \
     for dep in libraqm libimagequant; do \
       if readelf -d "$so" | grep -q "${dep}"; then \
@@ -1510,7 +1512,7 @@ RUN set -eux; \
     export CFLAGS="-fPIC ${CFLAGS:-}" && \
     export CXXFLAGS="-fPIC ${CXXFLAGS:-}" && \
     export CPPFLAGS="-I${ZLIB_INC_DIR}" && \
-    export LDFLAGS="-L${ZLIB_LIB_DIR} -Wl,-rpath,${ZLIB_LIB_DIR}" && \
+    export LDFLAGS="-L${ZLIB_LIB_DIR} -Wl,-rpath,${ZLIB_LIB_DIR} -Wl,--disable-new-dtags" && \
     ./autogen.sh && \
     ./configure \
       --prefix=${LIBXML2_DIR} \
@@ -1560,6 +1562,8 @@ RUN set -eu; \
     so="${LIBXML2_LIB_DIR}/libxml2.so"; \
     test -f "$so" || { echo "FATAL: no libxml2.so in ${LIBXML2_LIB_DIR}" >&2; ls -la ${LIBXML2_DIR}/ >&2; exit 1; }; \
     readelf -d "$so" | grep NEEDED; \
+    readelf -d "$so" | grep -q '(RUNPATH)' && { echo "FATAL: $so has RUNPATH, expected RPATH" >&2; exit 1; }; \
+    readelf -d "$so" | grep -q '(RPATH)' || { echo "FATAL: $so has no RPATH" >&2; readelf -d "$so" >&2; exit 1; }; \
     ldd "$so" | grep -q 'not found' && { echo "FATAL: unresolved deps" >&2; ldd "$so" >&2; exit 1; }; \
     if readelf -d "$so" | grep -qi 'libicu'; then \
       echo "FATAL: libxml2 still links ICU - remove --with-icu" >&2; \
@@ -1595,7 +1599,7 @@ RUN set -eux; \
     export CPPFLAGS="-I${LIBXML2_INC_DIR}/libxml2 -I${LIBXML2_INC_DIR} -I${ZLIB_INC_DIR}" && \
     export CFLAGS="-fPIC ${CFLAGS:-}" && \
     export CXXFLAGS="-fPIC ${CXXFLAGS:-}" && \
-    export LDFLAGS="-L${LIBXML2_LIB_DIR} -Wl,-rpath,${LIBXML2_LIB_DIR} -L${ZLIB_LIB_DIR} -Wl,-rpath,${ZLIB_LIB_DIR}" && \
+    export LDFLAGS="-L${LIBXML2_LIB_DIR} -Wl,-rpath,${LIBXML2_LIB_DIR} -L${ZLIB_LIB_DIR} -Wl,-rpath,${ZLIB_LIB_DIR} -Wl,--disable-new-dtags" && \
     ./autogen.sh && \
     ./configure \
       --prefix=${LIBXSLT_DIR} \
@@ -1624,6 +1628,8 @@ RUN set -eu; \
       test -f "$so" || { echo "FATAL: $so missing" >&2; ls -la ${LIBXSLT_DIR}/ >&2; exit 1; }; \
       echo "--- $so ---"; \
       readelf -d "$so" | grep NEEDED; \
+      readelf -d "$so" | grep -q '(RUNPATH)' && { echo "FATAL: $so has RUNPATH, expected RPATH" >&2; exit 1; }; \
+      readelf -d "$so" | grep -q '(RPATH)' || { echo "FATAL: $so has no RPATH" >&2; readelf -d "$so" >&2; exit 1; }; \
       ldd "$so" | grep -q 'not found' && { echo "FATAL: unresolved deps in $so" >&2; ldd "$so" >&2; exit 1; }; \
       if ldd "$so" | grep -i 'libxml2' | grep -qv "${LIBXML2_LIB_DIR}"; then \
         echo "FATAL: $so resolves libxml2 outside ${LIBXML2_LIB_DIR}" >&2; \
@@ -1727,6 +1733,9 @@ RUN set -eux; \
       threads \
       sctp \
       shared \
+      -Wl,-rpath,${OPENSSL_102_LIB_DIR} \
+      -Wl,-rpath,${ZLIB_LIB_DIR} \
+      -Wl,--disable-new-dtags \
       --release \
       --prefix=${OPENSSL_102_DIR} \
       && \
@@ -1759,6 +1768,9 @@ RUN set -eux; \
       threads \
       sctp \
       shared \
+      -Wl,-rpath,${OPENSSL_111_LIB_DIR} \
+      -Wl,-rpath,${ZLIB_LIB_DIR} \
+      -Wl,--disable-new-dtags \
       --release \
       --prefix=${OPENSSL_111_DIR} \
       && \
@@ -1793,6 +1805,9 @@ RUN set -eux; \
       threads \
       sctp \
       shared \
+      -Wl,-rpath,${OPENSSL_30_LIB_DIR} \
+      -Wl,-rpath,${ZLIB_LIB_DIR} \
+      -Wl,--disable-new-dtags \
       --release \
       --prefix=${OPENSSL_30_DIR} \
       && \
@@ -1827,6 +1842,9 @@ RUN set -eux; \
       threads \
       sctp \
       shared \
+      -Wl,-rpath,${OPENSSL_31_LIB_DIR} \
+      -Wl,-rpath,${ZLIB_LIB_DIR} \
+      -Wl,--disable-new-dtags \
       --release \
       --prefix=${OPENSSL_31_DIR} \
       && \
@@ -1863,6 +1881,9 @@ RUN set -eux; \
       threads \
       sctp \
       shared \
+      -Wl,-rpath,${OPENSSL_32_LIB_DIR} \
+      -Wl,-rpath,${ZLIB_LIB_DIR} \
+      -Wl,--disable-new-dtags \
       --release \
       --prefix=${OPENSSL_32_DIR} \
       && \
@@ -1899,6 +1920,9 @@ RUN set -eux; \
       threads \
       sctp \
       shared \
+      -Wl,-rpath,${OPENSSL_33_LIB_DIR} \
+      -Wl,-rpath,${ZLIB_LIB_DIR} \
+      -Wl,--disable-new-dtags \
       --release \
       --prefix=${OPENSSL_33_DIR} \
       && \
@@ -1935,6 +1959,9 @@ RUN set -eux; \
       threads \
       sctp \
       shared \
+      -Wl,-rpath,${OPENSSL_34_LIB_DIR} \
+      -Wl,-rpath,${ZLIB_LIB_DIR} \
+      -Wl,--disable-new-dtags \
       --release \
       --prefix=${OPENSSL_34_DIR} \
       && \
@@ -1971,6 +1998,9 @@ RUN set -eux; \
       threads \
       sctp \
       shared \
+      -Wl,-rpath,${OPENSSL_35_LIB_DIR} \
+      -Wl,-rpath,${ZLIB_LIB_DIR} \
+      -Wl,--disable-new-dtags \
       --release \
       --prefix=${OPENSSL_35_DIR} \
       && \
@@ -2007,6 +2037,9 @@ RUN set -eux; \
       threads \
       sctp \
       shared \
+      -Wl,-rpath,${OPENSSL_36_LIB_DIR} \
+      -Wl,-rpath,${ZLIB_LIB_DIR} \
+      -Wl,--disable-new-dtags \
       --release \
       --prefix=${OPENSSL_36_DIR} \
       && \
@@ -2043,6 +2076,9 @@ RUN set -eux; \
       threads \
       sctp \
       shared \
+      -Wl,-rpath,${OPENSSL_40_LIB_DIR} \
+      -Wl,-rpath,${ZLIB_LIB_DIR} \
+      -Wl,--disable-new-dtags \
       --release \
       --prefix=${OPENSSL_40_DIR} \
       && \
@@ -2050,6 +2086,22 @@ RUN set -eux; \
     make -j$(nproc) install && \
     echo "clean up" && \
     rm -rfv /tmp/*
+
+# Assert: every OpenSSL branch is RPATH-baked (not RUNPATH) to its own lib dir,
+# so its CLI and libssl -> libcrypto resolve OUR libs, never the system ones.
+RUN set -eu; \
+    for l in ${OPENSSL_102_LIB_DIR} ${OPENSSL_111_LIB_DIR} ${OPENSSL_30_LIB_DIR} ${OPENSSL_31_LIB_DIR} ${OPENSSL_32_LIB_DIR} ${OPENSSL_33_LIB_DIR} ${OPENSSL_34_LIB_DIR} ${OPENSSL_35_LIB_DIR} ${OPENSSL_36_LIB_DIR} ${OPENSSL_40_LIB_DIR}; do \
+      for so in "$l/libssl.so" "$l/libcrypto.so" "$(dirname "$l")/bin/openssl"; do \
+        ldd "$so" | grep -q 'not found' && { echo "FATAL: unresolved deps in $so" >&2; ldd "$so" >&2; exit 1; }; \
+        readelf -d "$so" | grep -q '(RUNPATH)' && { echo "FATAL: $so has RUNPATH, expected RPATH" >&2; exit 1; }; \
+        readelf -d "$so" | grep -q '(RPATH)' || { echo "FATAL: $so has no RPATH" >&2; readelf -d "$so" >&2; exit 1; }; \
+      done; \
+      if ldd "$(dirname "$l")/bin/openssl" | grep -E 'lib(ssl|crypto)\.so' | grep -qv "$l/"; then \
+        echo "FATAL: $(dirname "$l")/bin/openssl resolves libssl/libcrypto outside $l" >&2; \
+        ldd "$(dirname "$l")/bin/openssl" >&2; exit 1; \
+      fi; \
+      echo "OK: $("$(dirname "$l")/bin/openssl" version) -> $l"; \
+    done
 
 ##################################################################
 #                   LibreSSL
@@ -2104,7 +2156,7 @@ RUN set -eux; \
     tar -xzf /tmp/icu4c.tgz -C /usr/local/src/icu; \
     mv /usr/local/src/icu/icu ${ICU_67_SRC_DIR}; \
     cd ${ICU_67_SRC_DIR}/source; \
-    export LDFLAGS="-Wl,-rpath,${ICU_67_LIB_DIR}";  \
+    export LDFLAGS="-Wl,-rpath,${ICU_67_LIB_DIR} -Wl,--disable-new-dtags";  \
     ./configure \
       --prefix=${ICU_67_DIR} \
       --libdir=${ICU_67_LIB_DIR} \
@@ -2116,7 +2168,12 @@ RUN set -eux; \
     make install; \
     rm -f /tmp/icu4c.tgz; \
     test -f ${ICU_67_LIB_DIR}/libicuuc.so || { \
-      echo "FATAL: ICU libs not in ${ICU_67_LIB_DIR}" >&2; ls -la ${ICU_67_DIR}/ >&2; exit 1; }
+      echo "FATAL: ICU libs not in ${ICU_67_LIB_DIR}" >&2; ls -la ${ICU_67_DIR}/ >&2; exit 1; }; \
+    for so in ${ICU_67_LIB_DIR}/libicu*.so; do \
+      ldd "$so" | grep -q 'not found' && { echo "FATAL: unresolved deps in $so" >&2; ldd "$so" >&2; exit 1; }; \
+      readelf -d "$so" | grep -q '(RUNPATH)' && { echo "FATAL: $so has RUNPATH, expected RPATH" >&2; exit 1; }; \
+      readelf -d "$so" | grep -q '(RPATH)' || { echo "FATAL: $so has no RPATH" >&2; readelf -d "$so" >&2; exit 1; }; \
+    done
 
 ##################################################################
 #                   ICU 73 library
@@ -2130,7 +2187,7 @@ RUN set -eux; \
     tar -xzf /tmp/icu4c.tgz -C /usr/local/src/icu; \
     mv /usr/local/src/icu/icu ${ICU_73_SRC_DIR}; \
     cd ${ICU_73_SRC_DIR}/source; \
-    export LDFLAGS="-Wl,-rpath,${ICU_73_LIB_DIR}";  \
+    export LDFLAGS="-Wl,-rpath,${ICU_73_LIB_DIR} -Wl,--disable-new-dtags";  \
     ./configure \
       --prefix=${ICU_73_DIR} \
       --libdir=${ICU_73_LIB_DIR} \
@@ -2142,7 +2199,12 @@ RUN set -eux; \
     make install; \
     rm -f /tmp/icu4c.tgz; \
     test -f ${ICU_73_LIB_DIR}/libicuuc.so || { \
-      echo "FATAL: ICU libs not in ${ICU_73_LIB_DIR}" >&2; ls -la ${ICU_73_DIR}/ >&2; exit 1; }
+      echo "FATAL: ICU libs not in ${ICU_73_LIB_DIR}" >&2; ls -la ${ICU_73_DIR}/ >&2; exit 1; }; \
+    for so in ${ICU_73_LIB_DIR}/libicu*.so; do \
+      ldd "$so" | grep -q 'not found' && { echo "FATAL: unresolved deps in $so" >&2; ldd "$so" >&2; exit 1; }; \
+      readelf -d "$so" | grep -q '(RUNPATH)' && { echo "FATAL: $so has RUNPATH, expected RPATH" >&2; exit 1; }; \
+      readelf -d "$so" | grep -q '(RPATH)' || { echo "FATAL: $so has no RPATH" >&2; readelf -d "$so" >&2; exit 1; }; \
+    done
 
 ##################################################################
 #           libpq 13 + OpenSSL 1.0.2
@@ -2157,10 +2219,12 @@ RUN set -eux; \
     cd ${LIBPQ_13_SRC_DIR}; \
     export PKG_CONFIG_PATH="${OPENSSL_102_LIB_DIR}/pkgconfig"; \
     export CPPFLAGS="-I${OPENSSL_102_INC_DIR}"; \
-    export LDFLAGS="-L${OPENSSL_102_LIB_DIR} -Wl,-rpath,${OPENSSL_102_LIB_DIR}"; \
+    export LDFLAGS="-L${OPENSSL_102_LIB_DIR} -Wl,-rpath,${OPENSSL_102_LIB_DIR} -Wl,--disable-new-dtags"; \
     ./configure \
       --prefix=${LIBPQ_13_102_DIR} \
       --libdir=${LIBPQ_13_102_LIB_DIR} \
+      `# PG adds its own -Wl,-rpath,...,--enable-new-dtags (RUNPATH); ours comes via LDFLAGS` \
+      --disable-rpath \
       --with-openssl \
       --without-readline \
       --without-zlib \
@@ -2172,6 +2236,8 @@ RUN set -eux; \
     rm -f /tmp/postgresql.tar.bz2
 
 RUN set -eu; \
+    readelf -d "${LIBPQ_13_102_LIB_DIR}/libpq.so" | grep -q '(RUNPATH)' && { echo "FATAL: ${LIBPQ_13_102_LIB_DIR}/libpq.so has RUNPATH, expected RPATH" >&2; exit 1; }; \
+    readelf -d "${LIBPQ_13_102_LIB_DIR}/libpq.so" | grep -q '(RPATH)' || { echo "FATAL: ${LIBPQ_13_102_LIB_DIR}/libpq.so has no RPATH" >&2; readelf -d "${LIBPQ_13_102_LIB_DIR}/libpq.so" >&2; exit 1; }; \
     ldd ${LIBPQ_13_102_LIB_DIR}/libpq.so | grep -q "${OPENSSL_102_LIB_DIR}/libssl" || { \
       echo "FATAL: libpq not linked against ${OPENSSL_102_LIB_DIR}" >&2; \
       ldd ${LIBPQ_13_102_LIB_DIR}/libpq.so >&2; exit 1; }; \
@@ -2190,10 +2256,12 @@ RUN set -eux; \
     cd ${LIBPQ_16_111_SRC_DIR}; \
     export PKG_CONFIG_PATH="${OPENSSL_111_LIB_DIR}/pkgconfig"; \
     export CPPFLAGS="-I${OPENSSL_111_INC_DIR}"; \
-    export LDFLAGS="-L${OPENSSL_111_LIB_DIR} -Wl,-rpath,${OPENSSL_111_LIB_DIR}"; \
+    export LDFLAGS="-L${OPENSSL_111_LIB_DIR} -Wl,-rpath,${OPENSSL_111_LIB_DIR} -Wl,--disable-new-dtags"; \
     ./configure \
       --prefix=${LIBPQ_16_111_DIR} \
       --libdir=${LIBPQ_16_111_LIB_DIR} \
+      `# PG adds its own -Wl,-rpath,...,--enable-new-dtags (RUNPATH); ours comes via LDFLAGS` \
+      --disable-rpath \
       --with-openssl \
       --without-readline \
       --without-zlib \
@@ -2206,6 +2274,8 @@ RUN set -eux; \
     rm -f /tmp/postgresql.tar.bz2
 
 RUN set -eu; \
+    readelf -d "${LIBPQ_16_111_LIB_DIR}/libpq.so" | grep -q '(RUNPATH)' && { echo "FATAL: ${LIBPQ_16_111_LIB_DIR}/libpq.so has RUNPATH, expected RPATH" >&2; exit 1; }; \
+    readelf -d "${LIBPQ_16_111_LIB_DIR}/libpq.so" | grep -q '(RPATH)' || { echo "FATAL: ${LIBPQ_16_111_LIB_DIR}/libpq.so has no RPATH" >&2; readelf -d "${LIBPQ_16_111_LIB_DIR}/libpq.so" >&2; exit 1; }; \
     ldd ${LIBPQ_16_111_LIB_DIR}/libpq.so | grep -q "${OPENSSL_111_LIB_DIR}/libssl" || { \
       echo "FATAL: libpq not linked against ${OPENSSL_111_LIB_DIR}" >&2; \
       ldd ${LIBPQ_16_111_LIB_DIR}/libpq.so >&2; exit 1; }; \
@@ -2224,10 +2294,12 @@ RUN set -eux; \
     cd ${LIBPQ_16_35_SRC_DIR}; \
     export PKG_CONFIG_PATH="${OPENSSL_35_LIB_DIR}/pkgconfig"; \
     export CPPFLAGS="-I${OPENSSL_35_INC_DIR}"; \
-    export LDFLAGS="-L${OPENSSL_35_LIB_DIR} -Wl,-rpath,${OPENSSL_35_LIB_DIR}"; \
+    export LDFLAGS="-L${OPENSSL_35_LIB_DIR} -Wl,-rpath,${OPENSSL_35_LIB_DIR} -Wl,--disable-new-dtags"; \
     ./configure \
       --prefix=${LIBPQ_16_35_DIR} \
       --libdir=${LIBPQ_16_35_LIB_DIR} \
+      `# PG adds its own -Wl,-rpath,...,--enable-new-dtags (RUNPATH); ours comes via LDFLAGS` \
+      --disable-rpath \
       --with-openssl \
       --without-readline \
       --without-zlib \
@@ -2241,6 +2313,8 @@ RUN set -eux; \
 
 RUN set -eu; \
     so="${LIBPQ_16_35_LIB_DIR}/libpq.so"; \
+    readelf -d "$so" | grep -q '(RUNPATH)' && { echo "FATAL: $so has RUNPATH, expected RPATH" >&2; exit 1; }; \
+    readelf -d "$so" | grep -q '(RPATH)' || { echo "FATAL: $so has no RPATH" >&2; readelf -d "$so" >&2; exit 1; }; \
     ldd "$so" | grep -q "${OPENSSL_35_LIB_DIR}/libssl" || { \
       echo "FATAL: libpq not linked against ${OPENSSL_35_LIB_DIR}" >&2; exit 1; }; \
     if nm -D --undefined-only "$so" | grep -qE 'SSL_get_peer_certificate|ERR_put_error'; then \
@@ -2267,7 +2341,7 @@ RUN set -eux; \
     cd ${CURL_817_SRC_DIR}; \
     export PKG_CONFIG_PATH="${OPENSSL_102_LIB_DIR}/pkgconfig"; \
     export CPPFLAGS="-I${OPENSSL_102_INC_DIR}"; \
-    export LDFLAGS="-L${OPENSSL_102_LIB_DIR} -Wl,-rpath,${OPENSSL_102_LIB_DIR} -Wl,-rpath,${CURL_817_102_LIB_DIR}"; \
+    export LDFLAGS="-L${OPENSSL_102_LIB_DIR} -Wl,-rpath,${OPENSSL_102_LIB_DIR} -Wl,-rpath,${CURL_817_102_LIB_DIR} -Wl,--disable-new-dtags"; \
     ./configure \
       --prefix=${CURL_817_102_DIR} \
       --libdir=${CURL_817_102_LIB_DIR} \
@@ -2313,6 +2387,8 @@ RUN set -eu; \
     so="${CURL_817_102_LIB_DIR}/libcurl.so"; \
     echo "--- curl NEEDED ---"; \
     readelf -d "$so" | grep NEEDED; \
+    readelf -d "$so" | grep -q '(RUNPATH)' && { echo "FATAL: $so has RUNPATH, expected RPATH" >&2; exit 1; }; \
+    readelf -d "$so" | grep -q '(RPATH)' || { echo "FATAL: $so has no RPATH" >&2; readelf -d "$so" >&2; exit 1; }; \
     for bad in libldap liblber libssh2 libssh librtmp libgssapi libpsl; do \
       if readelf -d "$so" | grep -q "\[${bad}"; then \
         echo "FATAL: libcurl still links ${bad} - it will drag in the system OpenSSL" >&2; \
@@ -2347,7 +2423,7 @@ RUN set -eux; \
     cd ${CURL_817_SRC_DIR}; \
     export PKG_CONFIG_PATH="${OPENSSL_111_LIB_DIR}/pkgconfig"; \
     export CPPFLAGS="-I${OPENSSL_111_INC_DIR}"; \
-    export LDFLAGS="-L${OPENSSL_111_LIB_DIR} -Wl,-rpath,${OPENSSL_111_LIB_DIR} -Wl,-rpath,${CURL_817_111_LIB_DIR}"; \
+    export LDFLAGS="-L${OPENSSL_111_LIB_DIR} -Wl,-rpath,${OPENSSL_111_LIB_DIR} -Wl,-rpath,${CURL_817_111_LIB_DIR} -Wl,--disable-new-dtags"; \
     ./configure \
       --prefix=${CURL_817_111_DIR} \
       --libdir=${CURL_817_111_LIB_DIR} \
@@ -2393,6 +2469,8 @@ RUN set -eu; \
     so="${CURL_817_111_LIB_DIR}/libcurl.so"; \
     echo "--- curl NEEDED ---"; \
     readelf -d "$so" | grep NEEDED; \
+    readelf -d "$so" | grep -q '(RUNPATH)' && { echo "FATAL: $so has RUNPATH, expected RPATH" >&2; exit 1; }; \
+    readelf -d "$so" | grep -q '(RPATH)' || { echo "FATAL: $so has no RPATH" >&2; readelf -d "$so" >&2; exit 1; }; \
     for bad in libldap liblber libssh2 libssh librtmp libgssapi libpsl; do \
       if readelf -d "$so" | grep -q "\[${bad}"; then \
         echo "FATAL: libcurl still links ${bad} - it will drag in the system OpenSSL" >&2; \
@@ -2427,7 +2505,7 @@ RUN set -eux; \
     cd ${CURL_821_SRC_DIR}; \
     export PKG_CONFIG_PATH="${OPENSSL_35_LIB_DIR}/pkgconfig"; \
     export CPPFLAGS="-I${OPENSSL_35_INC_DIR}"; \
-    export LDFLAGS="-L${OPENSSL_35_LIB_DIR} -Wl,-rpath,${OPENSSL_35_LIB_DIR} -Wl,-rpath,${CURL_821_35_LIB_DIR}"; \
+    export LDFLAGS="-L${OPENSSL_35_LIB_DIR} -Wl,-rpath,${OPENSSL_35_LIB_DIR} -Wl,-rpath,${CURL_821_35_LIB_DIR} -Wl,--disable-new-dtags"; \
     ./configure \
       --prefix=${CURL_821_35_DIR} \
       --libdir=${CURL_821_35_LIB_DIR} \
@@ -2473,6 +2551,8 @@ RUN set -eu; \
     so="${CURL_821_35_LIB_DIR}/libcurl.so"; \
     echo "--- curl NEEDED ---"; \
     readelf -d "$so" | grep NEEDED; \
+    readelf -d "$so" | grep -q '(RUNPATH)' && { echo "FATAL: $so has RUNPATH, expected RPATH" >&2; exit 1; }; \
+    readelf -d "$so" | grep -q '(RPATH)' || { echo "FATAL: $so has no RPATH" >&2; readelf -d "$so" >&2; exit 1; }; \
     for bad in libldap liblber libssh2 libssh librtmp libgssapi libpsl; do \
       if readelf -d "$so" | grep -q "\[${bad}"; then \
         echo "FATAL: libcurl still links ${bad} - it will drag in the system OpenSSL" >&2; \

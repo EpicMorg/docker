@@ -91,7 +91,7 @@ RUN sed -i 's/^#ifndef WINDOW_HAS_FLAGS$/#if !defined(WINDOW_HAS_FLAGS) \&\& !(N
 #   - ac_cv_prog_SVNVERSION=not-found: the builder has svnversion, which prints 'Unversioned directory'
 #     and 3.0's getbuildinfo rule does not quote it -> 'gcc: error: directory": No such file'.
 RUN set -eux; \
-    export LDFLAGS="-L${OPENSSL_102_LIB_DIR} -L${ZLIB_LIB_DIR} -L/usr/lib/x86_64-linux-gnu -Wl,-rpath,${OPENSSL_102_LIB_DIR} -Wl,-rpath,${PYTHON_DIR}/lib -Wl,-rpath,${ZLIB_LIB_DIR}" && \
+    export LDFLAGS="-L${OPENSSL_102_LIB_DIR} -L${ZLIB_LIB_DIR} -L/usr/lib/x86_64-linux-gnu -Wl,-rpath,${OPENSSL_102_LIB_DIR} -Wl,-rpath,${PYTHON_DIR}/lib -Wl,-rpath,${ZLIB_LIB_DIR} -Wl,--disable-new-dtags" && \
     export CPPFLAGS="-I${OPENSSL_102_INC_DIR} -I${ZLIB_INC_DIR} -I/usr/include/x86_64-linux-gnu" && \
     ac_cv_prog_SVNVERSION=not-found ./configure \
     --prefix=${PYTHON_DIR} \
@@ -210,6 +210,15 @@ RUN apt-get update && apt-get install -y \
 ARG LD_CONF_DIR=/etc/ld.so.conf.d/
 
 ##################################################################
+#                  zlib 
+##################################################################
+ENV ZLIB_VERSION=1.3.1
+ENV ZLIB_DIR=${EMG_LOCAL_BASE_DIR}/zlib/${ZLIB_VERSION}
+ENV ZLIB_INC_DIR=${ZLIB_DIR}/include
+ENV ZLIB_LIB_DIR=${ZLIB_DIR}/lib
+ENV ZLIB_SRC_DIR=/usr/local/src/zlib/${ZLIB_VERSION}
+
+##################################################################
 #                  OpenSSL 1.0.2
 ##################################################################
 ENV OPENSSL_102_VERSION=1.0.2
@@ -244,11 +253,13 @@ ENV PY_SSL_LIB_DIR=${OPENSSL_102_LIB_DIR}
 ENV PY_SSL_VERSION=${OPENSSL_102_VERSION}
 ENV PKG_CONFIG_PATH=${PY_SSL_LIB_DIR}/pkgconfig:${PKG_CONFIG_PATH}
 ENV CPPFLAGS="-I${PY_SSL_DIR}/include"
-ENV LDFLAGS="-L${PY_SSL_LIB_DIR} -Wl,-rpath,${PY_SSL_LIB_DIR}"
+ENV LDFLAGS="-L${PY_SSL_LIB_DIR} -Wl,-rpath,${PY_SSL_LIB_DIR} -Wl,--disable-new-dtags"
 
 COPY --from=builder ${PYTHON_DIR} ${PYTHON_DIR}
 COPY --from=builder ${OPENSSL_102_DIR} ${OPENSSL_102_DIR}
 COPY --from=builder ${OPENSSL_102_SRC_DIR} ${OPENSSL_102_SRC_DIR}
+COPY --from=builder ${ZLIB_DIR} ${ZLIB_DIR}
+COPY --from=builder ${ZLIB_SRC_DIR} ${ZLIB_SRC_DIR}
 
 ENV OPENSSL_ROOT=${OPENSSL_102_DIR}
 ENV PATH="${OPENSSL_102_BIN_DIR}:${PYTHON_BIN_DIR}:${PATH}"
@@ -314,6 +325,22 @@ RUN set -eu; \
         echo "FATAL: ${m} not linked against ${PY_SSL_LIB_DIR}" >&2; ldd "$so" >&2; exit 1; \
       fi; \
     done; \
+    echo "--- Checking RPATH (Final) ---"; \
+    for f in "$py" "${PYTHON_DIR}"/lib/libpython*.so.* "${PYTHON_DIR}/lib/python${PYTHON_VERSION}"/lib-dynload/*.so; do \
+      readelf -d "$f" | grep -q '(RUNPATH)' && { echo "FATAL: $f has RUNPATH, expected RPATH" >&2; exit 1; }; \
+      readelf -d "$f" | grep -q '(RPATH)' || { echo "FATAL: $f has no RPATH" >&2; readelf -d "$f" >&2; exit 1; }; \
+    done; \
+    echo "--- Checking zlib linkage (Final) ---"; \
+    zso="$("$py" -c 'import zlib; print(zlib.__file__)')"; \
+    echo "zlib -> ${zso}"; \
+    if ! ldd "$zso" | grep -q "${ZLIB_LIB_DIR}/libz"; then \
+      echo "FATAL: zlib not linked against ${ZLIB_LIB_DIR}" >&2; ldd "$zso" >&2; exit 1; \
+    fi; \
+    libz="$("$py" -c 'import ssl, zlib; print(open("/proc/self/maps").read())' | awk '/libz\.so/ {print $NF}' | sort -u)"; \
+    echo "runtime libz (after import ssl, zlib) = ${libz}"; \
+    if [ -z "${libz}" ] || echo "${libz}" | grep -qv "^${ZLIB_LIB_DIR}/"; then \
+      echo "FATAL: runtime libz not (only) from ${ZLIB_LIB_DIR}" >&2; exit 1; \
+    fi; \
     echo "OK: OpenSSL ${PY_SSL_VERSION} from ${PY_SSL_LIB_DIR}"; \
     echo "============================================="
 
