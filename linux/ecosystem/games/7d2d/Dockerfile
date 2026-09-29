@@ -1,7 +1,7 @@
 ##############################################
 # 7d2d dedicated server
 ##############################################
-FROM docker.io/epicmorg/games:steamcmd
+FROM docker.io/epicmorg/steam:cmd
 LABEL maintainer="Guahos, chipmunkzombie@gmail.com"
 
 #Steam App ID

@@ -3,3 +3,8 @@ services:
     image: "epicmorg/games:cs2"
     build:
       context: .
+    x-squash: false
+    x-mirrors:
+      - docker.io/epicmorg/games:cs2
+      - quay.io/epicmorg/games:cs2
+      - ghcr.io/epicmorg/games:cs2

@@ -3,3 +3,8 @@ services:
     image: "epicmorg/games:7d2d"
     build:
       context: .
+    x-squash: false
+    x-mirrors:
+      - docker.io/epicmorg/games:7d2d
+      - quay.io/epicmorg/games:7d2d
+      - ghcr.io/epicmorg/games:7d2d
