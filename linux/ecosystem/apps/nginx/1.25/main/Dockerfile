@@ -46,6 +46,10 @@ ENV NGM_QJS_VERSION=2026-06-04
 ARG NGM_QJS_DOWNLOAD_URL=https://bellard.org/quickjs/quickjs-${NGM_QJS_VERSION}.tar.xz
 ARG NGM_QJS_DIR=${NGINX_TEMP_SRC}/modules/nginx-njs-quickjs
 
+# mod_zip: pinned. Upstream ec39e9bf8e (2026-09-17) references NGX_HTTP_V3_BUFFERED,
+# which no nginx release defines - breaks every build with --with-http_v3_module.
+ARG NGM_MODZIP_COMMIT=a9f9afa441
+
 # ip2location
 ENV NGM_IP2LOC_VERSION=8.7.0
 ARG NGM_IP2LOC_DOWNLOAD_URL=https://github.com/ip2location/ip2location-nginx
@@ -107,6 +111,7 @@ RUN set -eux; \
     git clone https://github.com/yaoweibin/ngx_http_substitutions_filter_module modules/http-subs-filter && \
     git clone https://github.com/stnoonan/spnego-http-auth-nginx-module modules/spnego-http-auth-nginx-module && \
     git clone https://github.com/evanmiller/mod_zip modules/mod-zip && \
+    git -C modules/mod-zip checkout ${NGM_MODZIP_COMMIT} && \
     git clone https://github.com/alibaba/nginx-http-user-agent modules/nginx-http-user-agent && \
     git clone https://github.com/youzee/nginx-unzip-module modules/nginx-unzip-module && \
     git clone https://github.com/vladbondarenko/ngx_webp modules/ngx-webp && \
@@ -303,6 +308,25 @@ RUN set -eux; \
         && \
         make -j$(nproc) && \
         make -j$(nproc) install
+
+##################################################################
+#        lua-resty-core + lua-resty-lrucache for http-lua
+##################################################################
+# lua-nginx-module refuses to start without resty.core. Both libs are
+# pure Lua and must match lua-nginx-module, which is cloned from master
+# above - so they are taken from master too. Installed into the luajit2
+# prefix, which is copied into the final layer as a whole.
+ARG LUA_RESTY_CORE_URL=https://github.com/openresty/lua-resty-core
+ARG LUA_RESTY_LRUCACHE_URL=https://github.com/openresty/lua-resty-lrucache
+RUN set -eux; \
+    git clone --depth 1 ${LUA_RESTY_CORE_URL} /tmp/lua-resty-core && \
+    git clone --depth 1 ${LUA_RESTY_LRUCACHE_URL} /tmp/lua-resty-lrucache && \
+    for d in /tmp/lua-resty-core /tmp/lua-resty-lrucache; do \
+      make -C "$d" install PREFIX=${LUAJIT2OR_DIR} LUA_LIB_DIR=${LUAJIT2OR_DIR}/share/lua/5.1; \
+    done && \
+    test -f ${LUAJIT2OR_DIR}/share/lua/5.1/resty/core.lua && \
+    test -f ${LUAJIT2OR_DIR}/share/lua/5.1/resty/lrucache.lua && \
+    rm -rf /tmp/lua-resty-core /tmp/lua-resty-lrucache
 
 ##################################################################
 ##################################################################
@@ -518,6 +542,27 @@ RUN mkdir -p \
         ${LIBGD_DIR}/src \
     && \
     ln -sfv ${NGINX_DIR} /usr/share/nginx
+
+##################################################################
+#        Assert http-lua starts (resty.core is resolvable)
+##################################################################
+# luajit2 is built with the default LUA_ROOT (/usr/local), so its default
+# package.path looks in /usr/local/share/lua/5.1 - point that at our prefix.
+RUN set -eu; \
+    mkdir -p /usr/local/share/lua; \
+    ln -sfnv ${LUAJIT2OR_DIR}/share/lua/5.1 /usr/local/share/lua/5.1; \
+    printf '%s\n' \
+      "load_module ${NGINX_MODULES_DIR}/ndk_http_module.so;" \
+      "load_module ${NGINX_MODULES_DIR}/ngx_http_lua_module.so;" \
+      "pid /tmp/lua-test.pid;" \
+      "error_log stderr;" \
+      "events {}" \
+      "http { init_by_lua_block { require 'resty.core'; require 'resty.lrucache' } }" \
+      > /tmp/lua-test.conf; \
+    ${NGINX_SBIN_DIR}/nginx -t -c /tmp/lua-test.conf \
+      || { echo "FATAL: http-lua failed to initialize" >&2; exit 1; }; \
+    rm -f /tmp/lua-test.conf /tmp/lua-test.pid; \
+    echo "OK: http-lua + resty.core"
 
 ##################################################################
 #                   Add nginx to $PATH
