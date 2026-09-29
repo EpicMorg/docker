@@ -1,6 +1,11 @@
-## Testrail
+## TestRail 9.0.0.1057
 
-* Based on `websites:php8.1` of our ecosystem.
+* Based on `epicmorg/apache2:php8.1` of our ecosystem: Apache2 + PHP 8.1 (php-fpm over a unix socket), run by supervisor.
+* TestRail package: `testrail-9.0.0.1057-ion81.zip` (ionCube loader is part of `epicmorg/php:8.1`).
+* Cassandra PHP extension (required by TestRail 7.0+): he4rt/scylladb-php-driver v1.3.12 (PHP 8 fork of the DataStax php-driver) on a baked DataStax/Apache C/C++ driver 2.17.1 (same OpenSSL as PHP). A Cassandra server is still needed, see TestRail docs.
+* supervisor programs: `php-fpm`, `apache2`, `testrail-task` (TestRail background task as `www-data`, every `TR_DEFAULT_TASK_EXECUTION` seconds, default `60`).
+* On every start the entrypoint re-extracts the TestRail code into `/var/www/testrail`, so a `/var/www` volume always carries the version of the image.
+* Variants with the Active Directory / LDAP authentication script: `epicmorg/testrail:auth-ad-9.0.0.1057`, `epicmorg/testrail:auth-ldap-9.0.0.1057`.
 
 # Compose example
 
@@ -10,26 +15,25 @@ services:
     image: epicmorg/testrail:9.0.0.1057
 #    depends_on:
 #      - mysql
-#      - memcached
     restart: unless-stopped
+    ports:
+      - "80:80"
+    environment:
+      - TR_DEFAULT_TASK_EXECUTION=60
     volumes:
-      - /etc/localtime:/etc/localtime
-      - /etc/timezone:/etc/timezone
-#      - /etc/letsencrypt:/etc/letsencrypt
-      - www:/var/www
-      - apache2:/etc/apache2
-      - php:/etc/php
-    restart: unless-stopped
-#    extra_hosts:
-#      - "example.com:192.168.0.11"
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - config:/var/www/testrail/config
+      - attachments:/opt/testrail/attachments
+      - audit:/opt/testrail/audit
+      - logs:/opt/testrail/logs
+      - reports:/opt/testrail/reports
     tmpfs:
       - /tmp
-      - /var/lib/php/sessions
 volumes:
-  www:
-    external: true
-  apache2:
-    external: true
-  php:
-    external: true
+  config:
+  attachments:
+  audit:
+  logs:
+  reports:
 ```

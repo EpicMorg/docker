@@ -1,0 +1,10 @@
+services:
+  app:
+    image: "epicmorg/testrail:auth-{{ auth.name }}-{{ item }}"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/testrail:auth-{{ auth.name }}-{{ item }}
+      - ghcr.io/epicmorg/testrail:auth-{{ auth.name }}-{{ item }}
+      - docker.io/epicmorg/testrail:auth-{{ auth.name }}-{{ item }}

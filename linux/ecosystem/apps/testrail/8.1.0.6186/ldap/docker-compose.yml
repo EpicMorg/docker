@@ -3,5 +3,8 @@ services:
     image: "epicmorg/testrail:auth-ldap-8.1.0.6186"
     build:
       context: .
+    x-squash: false
     x-mirrors:
       - quay.io/epicmorg/testrail:auth-ldap-8.1.0.6186
+      - ghcr.io/epicmorg/testrail:auth-ldap-8.1.0.6186
+      - docker.io/epicmorg/testrail:auth-ldap-8.1.0.6186

@@ -1,2 +1,28 @@
-# Defaults
-target_directory: "/opt/tmp/testrail/"
+# Output is written in place into the repo tree.
+testrail_root: "{{ playbook_dir }}/../../linux/ecosystem/apps/testrail"
+testrail_versions_dir: "{{ playbook_dir }}/roles/common/files/versions/testrail"
+
+# Authentication script variants built FROM the main image.
+# sha256 of the vendor zip (the vendor URL is dead, the Wayback Machine copy is the fallback).
+testrail_auth_plugins:
+  - name: "ad"
+    title: "Active Directory"
+    sha256: "bfaa935d4aaaab18ec62f6c652df4ac11903fc046bc133de7ae9147380d8087b"
+  - name: "ldap"
+    title: "LDAP"
+    sha256: "69e4f9137ed9bd5340e35b99e65d351c3bb3890d0190ebc58a7da31d58956c51"
+
+# Files of the mod_php-era layout, removed on regeneration.
+testrail_legacy_files:
+  - "main/.env"
+  - "main/apache_testrail.conf"
+  - "main/docker-entrypoint.sh"
+  - "ad/docker-entrypoint.sh"
+  - "ldap/docker-entrypoint.sh"
+
+# Versions whose package differs from the line default (testrail_ion in tasks/main.yml).
+# TestRail 6.4 requires PHP >= 7.2 < 7.4 but ships only an ion71 package
+# (ion72 -> 404); ionCube 7.1-encoded files run on the 7.2 loader.
+testrail_ion_override:
+  "6.4.0.1284": "71"
+  "6.4.0.1293": "71"

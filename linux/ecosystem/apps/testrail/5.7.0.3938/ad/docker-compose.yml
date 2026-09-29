@@ -3,5 +3,8 @@ services:
     image: "epicmorg/testrail:auth-ad-5.7.0.3938"
     build:
       context: .
+    x-squash: false
     x-mirrors:
       - quay.io/epicmorg/testrail:auth-ad-5.7.0.3938
+      - ghcr.io/epicmorg/testrail:auth-ad-5.7.0.3938
+      - docker.io/epicmorg/testrail:auth-ad-5.7.0.3938

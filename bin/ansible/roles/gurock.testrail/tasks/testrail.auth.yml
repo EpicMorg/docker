@@ -1,0 +1,27 @@
+- name: "Copy {{ auth.name }} Makefile (PHP {{ testrail_php }})"
+  copy:
+    src: "auth/Makefile"
+    dest: "{{ testrail_root }}/{{ item }}/{{ auth.name }}/Makefile"
+    mode: '0644'
+  with_items: "{{ testrail_versions }}"
+
+- name: "Render {{ auth.name }} Dockerfile (PHP {{ testrail_php }})"
+  template:
+    src: "auth/Dockerfile.j2"
+    dest: "{{ testrail_root }}/{{ item }}/{{ auth.name }}/Dockerfile"
+    mode: '0644'
+  with_items: "{{ testrail_versions }}"
+
+- name: "Render {{ auth.name }} docker-compose.yml (PHP {{ testrail_php }})"
+  template:
+    src: "auth/docker-compose.yml.j2"
+    dest: "{{ testrail_root }}/{{ item }}/{{ auth.name }}/docker-compose.yml"
+    mode: '0644'
+  with_items: "{{ testrail_versions }}"
+
+- name: "Render {{ auth.name }} README.md (PHP {{ testrail_php }})"
+  template:
+    src: "auth/README.md.j2"
+    dest: "{{ testrail_root }}/{{ item }}/{{ auth.name }}/README.md"
+    mode: '0644'
+  with_items: "{{ testrail_versions }}"

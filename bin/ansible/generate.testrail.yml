@@ -2,8 +2,10 @@
   hosts: localhost
   connection: local
   tasks:
-    - name: echo -n > output.log
-      shell: echo -n > output.log
+    # Truncates the log this run writes to (ANSIBLE_LOG_PATH if set, else output.log),
+    # so a run with its own log does not wipe the shared output.log of another run.
+    - name: truncate the current log file
+      shell: echo -n > "{{ lookup('env', 'ANSIBLE_LOG_PATH') | default('output.log', true) }}"
 
 - name: Lets Go!
   hosts: localhost
@@ -13,7 +15,7 @@
       debug:
         msg: "[ Python: {{ ansible_facts['python_version'] }}, OS: {{ ansible_facts['distribution'] }} {{ ansible_facts['distribution_version'] }} ({{ansible_architecture }}), Ansible: {{ ansible_version.full }}]"
 
-- name: Generate Jira images
+- name: Generate TestRail images
   hosts: localhost
   connection: local
   gather_facts: false
