@@ -1,0 +1,77 @@
+# Patched Zabbix images (FROM upstream zabbix/*), own cron -- not part of the build chain.
+# trunk -> latest -> every other release (all discovered from the tree).
+name: Advanced - Zabbix
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 3 * * 2,4,6'   # Tue/Thu/Sat 03:00 UTC
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  list:
+    name: list leaves
+    runs-on: ubuntu-24.04
+    outputs:
+      trunk: ${{ steps.list.outputs.trunk }}
+      latest: ${{ steps.list.outputs.latest }}
+      releases: ${{ steps.list.outputs.releases }}
+    steps:
+    - uses: actions/checkout@v7
+      with:
+        sparse-checkout: |
+          .github/scripts
+          linux/advanced/zabbix
+    - id: list
+      run: |
+        # assignment first, so a failing discovery fails the step (echo "$(...)" would not)
+        emit() { local v; v=$(python3 .github/scripts/leaves.py "${@:2}"); echo "$1=$v" | tee -a "$GITHUB_OUTPUT"; }
+        emit trunk flat linux/advanced/zabbix/trunk --min 1 --max 1
+        emit latest flat linux/advanced/zabbix/latest --min 1 --max 1
+        emit releases flat linux/advanced/zabbix --min 2 --max 2 --exclude '^zabbix/(trunk|latest)/'
+
+  trunk:
+    name: ${{ matrix.leaf.name }}
+    needs: list
+    if: needs.list.outputs.trunk != '[]'
+    strategy:
+      fail-fast: false
+      matrix:
+        leaf: ${{ fromJSON(needs.list.outputs.trunk) }}
+    uses: ./.github/workflows/_build-leaf.yml
+    secrets: inherit
+    with:
+      paths: ${{ matrix.leaf.paths }}
+
+  latest:
+    name: ${{ matrix.leaf.name }}
+    needs: [list, trunk]
+    if: ${{ !cancelled() && needs.list.result == 'success' && needs.trunk.result != 'skipped' && needs.list.outputs.latest != '[]' }}
+    strategy:
+      fail-fast: false
+      matrix:
+        leaf: ${{ fromJSON(needs.list.outputs.latest) }}
+    uses: ./.github/workflows/_build-leaf.yml
+    secrets: inherit
+    with:
+      paths: ${{ matrix.leaf.paths }}
+
+  releases:
+    name: ${{ matrix.leaf.name }}
+    needs: [list, latest]
+    if: ${{ !cancelled() && needs.list.result == 'success' && needs.latest.result != 'skipped' && needs.list.outputs.releases != '[]' }}
+    strategy:
+      fail-fast: false
+      matrix:
+        leaf: ${{ fromJSON(needs.list.outputs.releases) }}
+    uses: ./.github/workflows/_build-leaf.yml
+    secrets: inherit
+    with:
+      paths: ${{ matrix.leaf.paths }}

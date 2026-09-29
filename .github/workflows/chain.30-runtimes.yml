@@ -1,0 +1,160 @@
+# Build chain, stage 30: language runtimes, parallel matrices discovered from the tree.
+# Starts when "Chain 20 - GCC" completes successfully. Every runtime here is FROM base and/or
+# epicmorg/gcc only -- nothing in this stage depends on another runtime.
+name: Chain 30 - Runtimes
+
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows: ['Chain 20 - GCC']
+    types: [completed]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  list:
+    name: list runtimes
+    if: github.event_name != 'workflow_run' || contains(fromJSON('["success","failure"]'), github.event.workflow_run.conclusion)
+    runs-on: ubuntu-24.04
+    outputs:
+      python: ${{ steps.list.outputs.python }}
+      php: ${{ steps.list.outputs.php }}
+      nginx: ${{ steps.list.outputs.nginx }}
+      jdk: ${{ steps.list.outputs.jdk }}
+      nodejs: ${{ steps.list.outputs.nodejs }}
+      dotnet: ${{ steps.list.outputs.dotnet }}
+      go: ${{ steps.list.outputs.go }}
+    steps:
+    - uses: actions/checkout@v7
+      with:
+        sparse-checkout: |
+          .github/scripts
+          linux/ecosystem/apps/python
+          linux/ecosystem/apps/php
+          linux/ecosystem/apps/nginx
+          linux/ecosystem/apps/java/jdk
+          linux/ecosystem/apps/nodejs
+          linux/ecosystem/apps/dotnet
+          linux/ecosystem/apps/go
+    - id: list
+      run: |
+        # assignment first, so a failing discovery fails the step (echo "$(...)" would not)
+        emit() { local v; v=$(python3 .github/scripts/leaves.py "${@:2}"); echo "$1=$v" | tee -a "$GITHUB_OUTPUT"; }
+        emit python flat linux/ecosystem/apps/python --min 1 --max 1
+        emit php flat linux/ecosystem/apps/php --min 1 --max 1
+        emit nginx flat linux/ecosystem/apps/nginx --min 2 --max 2 --include '/main$'
+        emit jdk flat linux/ecosystem/apps/java/jdk --min 1 --max 1
+        emit nodejs flat linux/ecosystem/apps/nodejs --min 1 --max 1
+        emit dotnet flat linux/ecosystem/apps/dotnet --min 1 --max 1
+        emit go flat linux/ecosystem/apps/go --min 1 --max 1
+
+  # FROM epicmorg/gcc:N AS builder -> trixie; incl. museum 2.6 / 3.0-3.6 and dev
+  python:
+    name: ${{ matrix.leaf.name }}
+    needs: list
+    if: needs.list.outputs.python != '[]'
+    strategy:
+      fail-fast: false
+      matrix:
+        leaf: ${{ fromJSON(needs.list.outputs.python) }}
+    uses: ./.github/workflows/_build-leaf.yml
+    secrets: inherit
+    with:
+      paths: ${{ matrix.leaf.paths }}
+      free-disk: true
+      build-attempts: 1
+
+  # FROM epicmorg/gcc:N AS builder -> trixie
+  php:
+    name: ${{ matrix.leaf.name }}
+    needs: list
+    if: needs.list.outputs.php != '[]'
+    strategy:
+      fail-fast: false
+      matrix:
+        leaf: ${{ fromJSON(needs.list.outputs.php) }}
+    uses: ./.github/workflows/_build-leaf.yml
+    secrets: inherit
+    with:
+      paths: ${{ matrix.leaf.paths }}
+      free-disk: true
+      build-attempts: 1
+
+  # nginx/<ver>/main: FROM epicmorg/gcc:14 AS builder -> trixie (nginx+php combos are in chain.40-apps)
+  nginx:
+    name: ${{ matrix.leaf.name }}
+    needs: list
+    if: needs.list.outputs.nginx != '[]'
+    strategy:
+      fail-fast: false
+      matrix:
+        leaf: ${{ fromJSON(needs.list.outputs.nginx) }}
+    uses: ./.github/workflows/_build-leaf.yml
+    secrets: inherit
+    with:
+      paths: ${{ matrix.leaf.paths }}
+      free-disk: true
+
+  # FROM trixie
+  jdk:
+    name: ${{ matrix.leaf.name }}
+    needs: list
+    if: needs.list.outputs.jdk != '[]'
+    strategy:
+      fail-fast: false
+      matrix:
+        leaf: ${{ fromJSON(needs.list.outputs.jdk) }}
+    uses: ./.github/workflows/_build-leaf.yml
+    secrets: inherit
+    with:
+      paths: ${{ matrix.leaf.paths }}
+
+  # FROM trixie
+  nodejs:
+    name: ${{ matrix.leaf.name }}
+    needs: list
+    if: needs.list.outputs.nodejs != '[]'
+    strategy:
+      fail-fast: false
+      matrix:
+        leaf: ${{ fromJSON(needs.list.outputs.nodejs) }}
+    uses: ./.github/workflows/_build-leaf.yml
+    secrets: inherit
+    with:
+      paths: ${{ matrix.leaf.paths }}
+
+  # FROM trixie (one builder stage FROM trixie-develop)
+  dotnet:
+    name: ${{ matrix.leaf.name }}
+    needs: list
+    if: needs.list.outputs.dotnet != '[]'
+    strategy:
+      fail-fast: false
+      matrix:
+        leaf: ${{ fromJSON(needs.list.outputs.dotnet) }}
+    uses: ./.github/workflows/_build-leaf.yml
+    secrets: inherit
+    with:
+      paths: ${{ matrix.leaf.paths }}
+      free-disk: true
+
+  # FROM trixie-develop-light
+  go:
+    name: ${{ matrix.leaf.name }}
+    needs: list
+    if: needs.list.outputs.go != '[]'
+    strategy:
+      fail-fast: false
+      matrix:
+        leaf: ${{ fromJSON(needs.list.outputs.go) }}
+    uses: ./.github/workflows/_build-leaf.yml
+    secrets: inherit
+    with:
+      paths: ${{ matrix.leaf.paths }}
+      free-disk: true

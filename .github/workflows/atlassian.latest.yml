@@ -1,0 +1,47 @@
+# Atlassian `latest` images (newest version per product), own cron -- not part of the build chain.
+# crucible / fisheye / fisheye-crucible latest stay off, as before.
+name: Atlassian - latest
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '5 5 * * 1,3,5'   # Mon/Wed/Fri 05:05 UTC
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  list:
+    name: list leaves
+    runs-on: ubuntu-24.04
+    outputs:
+      latest: ${{ steps.list.outputs.latest }}
+    steps:
+    - uses: actions/checkout@v7
+      with:
+        sparse-checkout: |
+          .github/scripts
+          linux/ecosystem/apps/atlassian
+    - id: list
+      run: |
+        # assignment first, so a failing discovery fails the step (echo "$(...)" would not)
+        emit() { local v; v=$(python3 .github/scripts/leaves.py "${@:2}"); echo "$1=$v" | tee -a "$GITHUB_OUTPUT"; }
+        emit latest flat linux/ecosystem/apps/atlassian --min 2 --max 2 --include '/latest$' --exclude '^atlassian/(crucible|fisheye|fisheye-crucible)/'
+
+  latest:
+    name: ${{ matrix.leaf.name }}
+    needs: list
+    if: needs.list.outputs.latest != '[]'
+    strategy:
+      fail-fast: false
+      matrix:
+        leaf: ${{ fromJSON(needs.list.outputs.latest) }}
+    uses: ./.github/workflows/_build-leaf.yml
+    secrets: inherit
+    with:
+      paths: ${{ matrix.leaf.paths }}

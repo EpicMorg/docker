@@ -1,0 +1,40 @@
+# Debian sid base -- scouting ground (ADR-003): nothing is built FROM it, so it is not part of the chain.
+name: Base - Debian sid
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 1 * * 0'   # same slot as chain.10-base
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  light:
+    name: sid light
+    uses: ./.github/workflows/_build-leaf.yml
+    secrets: inherit
+    with:
+      paths: linux/ecosystem/base/debian/sid/light
+
+  main:
+    name: sid main
+    needs: light
+    uses: ./.github/workflows/_build-leaf.yml
+    secrets: inherit
+    with:
+      paths: linux/ecosystem/base/debian/sid/main
+
+  develop:
+    name: sid develop
+    needs: main
+    uses: ./.github/workflows/_build-leaf.yml
+    secrets: inherit
+    with:
+      paths: linux/ecosystem/base/debian/sid/develop
+      free-disk: true
