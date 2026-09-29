@@ -1,2 +1,3 @@
+atlassian_root: "{{ playbook_dir }}/../../linux/ecosystem/apps/atlassian"
 # Defaults
-target_directory_fisheye_1: "/opt/tmp/fisheye/1"
+target_directory_fisheye_1: "{{ atlassian_root }}/fisheye/1"

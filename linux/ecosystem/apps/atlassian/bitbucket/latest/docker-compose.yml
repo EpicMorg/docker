@@ -3,12 +3,11 @@ services:
     image: "epicmorg/bitbucket:latest"
     build:
       context: .
-  app-jdk17:
-    image: "epicmorg/bitbucket:latest-jdk17"
-    build:
-      context: .
-  app-jdk21:
-    image: "epicmorg/bitbucket:latest-jdk21"
-    build:
-      context: .
-      dockerfile: ./Dockerfile.jdk21
+    x-squash: false
+    x-mirrors:
+      - docker.io/epicmorg/bitbucket:latest
+      - docker.io/epicmorg/bitbucket:latest-jdk21
+      - quay.io/epicmorg/bitbucket:latest
+      - quay.io/epicmorg/bitbucket:latest-jdk21
+      - ghcr.io/epicmorg/bitbucket:latest
+      - ghcr.io/epicmorg/bitbucket:latest-jdk21

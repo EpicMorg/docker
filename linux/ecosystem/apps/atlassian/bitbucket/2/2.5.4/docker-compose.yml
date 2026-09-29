@@ -3,11 +3,11 @@ services:
     image: "epicmorg/bitbucket:2.5.4"
     build:
       context: .
+    x-squash: false
     x-mirrors:
+      - docker.io/epicmorg/bitbucket:2.5.4
+      - docker.io/epicmorg/bitbucket:2.5.4-jdk7
       - quay.io/epicmorg/bitbucket:2.5.4
-  app-jdk7:
-    image: "epicmorg/bitbucket:2.5.4-jdk7"
-    build:
-      context: .
-    x-mirrors:
       - quay.io/epicmorg/bitbucket:2.5.4-jdk7
+      - ghcr.io/epicmorg/bitbucket:2.5.4
+      - ghcr.io/epicmorg/bitbucket:2.5.4-jdk7

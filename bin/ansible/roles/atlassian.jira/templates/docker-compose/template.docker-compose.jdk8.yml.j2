@@ -1,13 +1,13 @@
 services:
   app:
-    image: "epicmorg/jira:{{ item }}"
+    image: "epicmorg/jira:{{ tag | default(item) }}"
     build:
       context: .
+    x-squash: false
     x-mirrors:
-      - quay.io/epicmorg/jira:{{ item }}
-  app-jdk8:
-    image: "epicmorg/jira:{{ item }}-jdk8"
-    build:
-      context: .
-    x-mirrors:
-      - quay.io/epicmorg/jira:{{ item }}-jdk8
+      - docker.io/epicmorg/jira:{{ tag | default(item) }}
+      - docker.io/epicmorg/jira:{{ tag | default(item) }}-jdk8
+      - quay.io/epicmorg/jira:{{ tag | default(item) }}
+      - quay.io/epicmorg/jira:{{ tag | default(item) }}-jdk8
+      - ghcr.io/epicmorg/jira:{{ tag | default(item) }}
+      - ghcr.io/epicmorg/jira:{{ tag | default(item) }}-jdk8

@@ -1,20 +1,26 @@
 services:
   app:
-    image: "epicmorg/jira:{{ item }}"
+    image: "epicmorg/jira:{{ tag | default(item) }}"
     build:
       context: .
     x-mirrors:
-      - quay.io/epicmorg/jira:{{ item }}
+      - docker.io/epicmorg/jira:{{ tag | default(item) }}
+      - quay.io/epicmorg/jira:{{ tag | default(item) }}
+      - ghcr.io/epicmorg/jira:{{ tag | default(item) }}
   app-jdk6:
-    image: "epicmorg/jira:{{ item }}-jdk6"
+    image: "epicmorg/jira:{{ tag | default(item) }}-jdk6"
     build:
       context: .
     x-mirrors:
-      - quay.io/epicmorg/jira:{{ item }}-jdk6
+      - docker.io/epicmorg/jira:{{ tag | default(item) }}-jdk6
+      - quay.io/epicmorg/jira:{{ tag | default(item) }}-jdk6
+      - ghcr.io/epicmorg/jira:{{ tag | default(item) }}-jdk6
   app-jdk7:
-    image: "epicmorg/jira:{{ item }}-jdk7"
+    image: "epicmorg/jira:{{ tag | default(item) }}-jdk7"
     build:
       context: .
       dockerfile: Dockerfile.jdk7
     x-mirrors:
-      - quay.io/epicmorg/jira:{{ item }}-jdk7
+      - docker.io/epicmorg/jira:{{ tag | default(item) }}-jdk7
+      - quay.io/epicmorg/jira:{{ tag | default(item) }}-jdk7
+      - ghcr.io/epicmorg/jira:{{ tag | default(item) }}-jdk7

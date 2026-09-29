@@ -3,7 +3,11 @@ services:
     image: "epicmorg/jira:latest"
     build:
       context: .
-  app-jdk17:
-    image: "epicmorg/jira:latest-jdk17"
-    build:
-      context: .
+    x-squash: false
+    x-mirrors:
+      - docker.io/epicmorg/jira:latest
+      - docker.io/epicmorg/jira:latest-jdk21
+      - quay.io/epicmorg/jira:latest
+      - quay.io/epicmorg/jira:latest-jdk21
+      - ghcr.io/epicmorg/jira:latest
+      - ghcr.io/epicmorg/jira:latest-jdk21

@@ -3,7 +3,11 @@ services:
     image: "epicmorg/crowd:latest"
     build:
       context: .
-  app-jdk17:
-    image: "epicmorg/crowd:latest-jdk17"
-    build:
-      context: .
+    x-squash: false
+    x-mirrors:
+      - docker.io/epicmorg/crowd:latest
+      - docker.io/epicmorg/crowd:latest-jdk21
+      - quay.io/epicmorg/crowd:latest
+      - quay.io/epicmorg/crowd:latest-jdk21
+      - ghcr.io/epicmorg/crowd:latest
+      - ghcr.io/epicmorg/crowd:latest-jdk21

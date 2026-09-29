@@ -11,4 +11,3 @@ services:
       - quay.io/epicmorg/jira:11.3.10-jdk21
       - ghcr.io/epicmorg/jira:11.3.10
       - ghcr.io/epicmorg/jira:11.3.10-jdk21
-

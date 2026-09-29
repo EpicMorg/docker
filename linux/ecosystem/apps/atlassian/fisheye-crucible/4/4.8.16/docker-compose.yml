@@ -3,11 +3,11 @@ services:
     image: "epicmorg/fisheye-crucible:4.8.16"
     build:
       context: .
+    x-squash: false
     x-mirrors:
+      - docker.io/epicmorg/fisheye-crucible:4.8.16
+      - docker.io/epicmorg/fisheye-crucible:4.8.16-jdk8
       - quay.io/epicmorg/fisheye-crucible:4.8.16
-  app-jdk8:
-    image: "epicmorg/fisheye-crucible:4.8.16-jdk8"
-    build:
-      context: .
-    x-mirrors:
       - quay.io/epicmorg/fisheye-crucible:4.8.16-jdk8
+      - ghcr.io/epicmorg/fisheye-crucible:4.8.16
+      - ghcr.io/epicmorg/fisheye-crucible:4.8.16-jdk8

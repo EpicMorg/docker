@@ -4,17 +4,23 @@ services:
     build:
       context: .
     x-mirrors:
+      - docker.io/epicmorg/bitbucket:9.5.1
       - quay.io/epicmorg/bitbucket:9.5.1
+      - ghcr.io/epicmorg/bitbucket:9.5.1
   app-jdk17:
     image: "epicmorg/bitbucket:9.5.1-jdk17"
     build:
       context: .
     x-mirrors:
+      - docker.io/epicmorg/bitbucket:9.5.1-jdk17
       - quay.io/epicmorg/bitbucket:9.5.1-jdk17
+      - ghcr.io/epicmorg/bitbucket:9.5.1-jdk17
   app-jdk21:
     image: "epicmorg/bitbucket:9.5.1-jdk21"
     build:
       context: .
       dockerfile: Dockerfile.jdk21
     x-mirrors:
+      - docker.io/epicmorg/bitbucket:9.5.1-jdk21
       - quay.io/epicmorg/bitbucket:9.5.1-jdk21
+      - ghcr.io/epicmorg/bitbucket:9.5.1-jdk21

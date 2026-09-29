@@ -1,0 +1,13 @@
+services:
+  app:
+    image: "epicmorg/crowd:{{ tag | default(item) }}"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - docker.io/epicmorg/crowd:{{ tag | default(item) }}
+      - docker.io/epicmorg/crowd:{{ tag | default(item) }}-jdk21
+      - quay.io/epicmorg/crowd:{{ tag | default(item) }}
+      - quay.io/epicmorg/crowd:{{ tag | default(item) }}-jdk21
+      - ghcr.io/epicmorg/crowd:{{ tag | default(item) }}
+      - ghcr.io/epicmorg/crowd:{{ tag | default(item) }}-jdk21

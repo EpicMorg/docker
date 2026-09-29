@@ -3,11 +3,11 @@ services:
     image: "epicmorg/confluence:10.1.0"
     build:
       context: .
+    x-squash: false
     x-mirrors:
+      - docker.io/epicmorg/confluence:10.1.0
+      - docker.io/epicmorg/confluence:10.1.0-jdk21
       - quay.io/epicmorg/confluence:10.1.0
-  app-jdk21:
-    image: "epicmorg/confluence:10.1.0-jdk21"
-    build:
-      context: .
-    x-mirrors:
       - quay.io/epicmorg/confluence:10.1.0-jdk21
+      - ghcr.io/epicmorg/confluence:10.1.0
+      - ghcr.io/epicmorg/confluence:10.1.0-jdk21

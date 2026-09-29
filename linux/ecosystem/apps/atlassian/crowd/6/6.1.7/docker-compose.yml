@@ -1,0 +1,13 @@
+services:
+  app:
+    image: "epicmorg/crowd:6.1.7"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - docker.io/epicmorg/crowd:6.1.7
+      - docker.io/epicmorg/crowd:6.1.7-jdk17
+      - quay.io/epicmorg/crowd:6.1.7
+      - quay.io/epicmorg/crowd:6.1.7-jdk17
+      - ghcr.io/epicmorg/crowd:6.1.7
+      - ghcr.io/epicmorg/crowd:6.1.7-jdk17

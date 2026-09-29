@@ -5,17 +5,23 @@ services:
       context: .
       dockerfile: Dockerfile.jdk7
     x-mirrors:
+      - docker.io/epicmorg/fisheye-crucible:3.4.6
       - quay.io/epicmorg/fisheye-crucible:3.4.6
+      - ghcr.io/epicmorg/fisheye-crucible:3.4.6
   app-jdk6:
     image: "epicmorg/fisheye-crucible:3.4.6-jdk6"
     build:
       context: .
     x-mirrors:
+      - docker.io/epicmorg/fisheye-crucible:3.4.6-jdk6
       - quay.io/epicmorg/fisheye-crucible:3.4.6-jdk6
+      - ghcr.io/epicmorg/fisheye-crucible:3.4.6-jdk6
   app-jdk7:
     image: "epicmorg/fisheye-crucible:3.4.6-jdk7"
     build:
       context: .
       dockerfile: Dockerfile.jdk7
     x-mirrors:
+      - docker.io/epicmorg/fisheye-crucible:3.4.6-jdk7
       - quay.io/epicmorg/fisheye-crucible:3.4.6-jdk7
+      - ghcr.io/epicmorg/fisheye-crucible:3.4.6-jdk7

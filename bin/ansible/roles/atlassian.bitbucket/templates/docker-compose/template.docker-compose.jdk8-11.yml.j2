@@ -1,20 +1,26 @@
 services:
   app:
-    image: "epicmorg/bitbucket:{{ item }}"
+    image: "epicmorg/bitbucket:{{ tag | default(item) }}"
     build:
       context: .
     x-mirrors:
-      - quay.io/epicmorg/bitbucket:{{ item }}
+      - docker.io/epicmorg/bitbucket:{{ tag | default(item) }}
+      - quay.io/epicmorg/bitbucket:{{ tag | default(item) }}
+      - ghcr.io/epicmorg/bitbucket:{{ tag | default(item) }}
   app-jdk8:
-    image: "epicmorg/bitbucket:{{ item }}-jdk8"
+    image: "epicmorg/bitbucket:{{ tag | default(item) }}-jdk8"
     build:
       context: .
     x-mirrors:
-      - quay.io/epicmorg/bitbucket:{{ item }}-jdk8
+      - docker.io/epicmorg/bitbucket:{{ tag | default(item) }}-jdk8
+      - quay.io/epicmorg/bitbucket:{{ tag | default(item) }}-jdk8
+      - ghcr.io/epicmorg/bitbucket:{{ tag | default(item) }}-jdk8
   app-jdk11:
-    image: "epicmorg/bitbucket:{{ item }}-jdk11"
+    image: "epicmorg/bitbucket:{{ tag | default(item) }}-jdk11"
     build:
       context: .
       dockerfile: Dockerfile.jdk11
     x-mirrors:
-      - quay.io/epicmorg/bitbucket:{{ item }}-jdk11
+      - docker.io/epicmorg/bitbucket:{{ tag | default(item) }}-jdk11
+      - quay.io/epicmorg/bitbucket:{{ tag | default(item) }}-jdk11
+      - ghcr.io/epicmorg/bitbucket:{{ tag | default(item) }}-jdk11

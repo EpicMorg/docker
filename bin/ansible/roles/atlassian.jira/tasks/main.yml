@@ -37,3 +37,8 @@
 
 - name: "Generate images for Jira 11+ (jdk21)"
   import_tasks: atlassian.jira.11.jdk21.yml
+
+- name: "Generate jira latest"
+  include_tasks: "{{ playbook_dir }}/roles/common/tasks/latest.yml"
+  vars:
+    latest_product: jira

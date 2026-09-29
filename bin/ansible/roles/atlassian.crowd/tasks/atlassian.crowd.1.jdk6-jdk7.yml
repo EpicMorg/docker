@@ -1,6 +1,6 @@
 - name: Read versions from file
   slurp:
-     src: "roles/common/files/versions/crowd/1.jdk6-jdk7.txt"
+     src: "{{ playbook_dir }}/roles/common/files/versions/crowd/1.jdk6-jdk7.txt"
   register: version_output
 
 - name: Set version variable

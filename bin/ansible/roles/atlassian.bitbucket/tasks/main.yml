@@ -40,3 +40,8 @@
 
 - name: "Generate images for  Bitbucket 10 (jdk21)"
   import_tasks: atlassian.bitbucket.10.jdk21.yml
+
+- name: "Generate bitbucket latest"
+  include_tasks: "{{ playbook_dir }}/roles/common/tasks/latest.yml"
+  vars:
+    latest_product: bitbucket
