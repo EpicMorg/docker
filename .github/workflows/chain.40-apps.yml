@@ -63,7 +63,9 @@ jobs:
           linux/ecosystem/apps/ninjam
           linux/ecosystem/apps/telegram
           linux/ecosystem/apps/pg-upgrade-tool
-          linux/ecosystem/apps/valve/steam/cmd
+          linux/ecosystem/apps/valve
+          linux/ecosystem/apps/enodia
+          linux/ecosystem/apps/supermicro
     - id: list
       run: |
         # assignment first, so a failing discovery fails the step (echo "$(...)" would not)
@@ -81,7 +83,7 @@ jobs:
         emit teamcity-agent flat linux/ecosystem/apps/teamcity/agent --min 1 --max 2 --exclude '/minimal$'
         emit github-runner flat linux/ecosystem/apps/github/runner --min 1 --max 2 --exclude '/minimal$'
         emit gitlab-runner flat linux/ecosystem/apps/gitlab/runner --min 1 --max 2 --exclude '/minimal$'
-        emit misc flat linux/ecosystem/apps/torrserver linux/ecosystem/apps/electron-release-server linux/ecosystem/apps/vk2discord linux/ecosystem/apps/opentracker linux/ecosystem/apps/monero linux/ecosystem/apps/ninjam linux/ecosystem/apps/telegram linux/ecosystem/apps/pg-upgrade-tool linux/ecosystem/apps/valve/steam/cmd --min 0 --max 3
+        emit misc flat linux/ecosystem/apps/torrserver linux/ecosystem/apps/electron-release-server linux/ecosystem/apps/vk2discord linux/ecosystem/apps/opentracker linux/ecosystem/apps/monero linux/ecosystem/apps/ninjam linux/ecosystem/apps/telegram linux/ecosystem/apps/pg-upgrade-tool linux/ecosystem/apps/valve linux/ecosystem/apps/enodia linux/ecosystem/apps/supermicro --min 0 --max 3
 
   # nginx/<ver>/php<ver>: FROM epicmorg/nginx:<ver> + epicmorg/php:<ver> (both from chain.30-runtimes)
   nginx-php:
@@ -299,7 +301,7 @@ jobs:
       paths: ${{ matrix.leaf.paths }}
       free-disk: true
 
-  # misc single images: FROM trixie / trixie-develop builder / epicmorg/nodejs
+  # misc single images: FROM trixie / trixie-light / trixie-develop / epicmorg/nodejs / epicmorg/jdk:8
   # (retracker is left out: its old job was a 'FIX ME' no-op)
   misc:
     name: ${{ matrix.leaf.name }}
