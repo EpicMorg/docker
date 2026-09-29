@@ -97,7 +97,7 @@ RUN sed -i 's/^#ifndef WINDOW_HAS_FLAGS$/#if !defined(WINDOW_HAS_FLAGS) \&\& !(N
 #   - setup.py predates Debian multiarch support (2.7.3+): /usr/{lib,include}/x86_64-linux-gnu are passed via
 #     LDFLAGS/CPPFLAGS (after our OpenSSL/zlib dirs) so readline/sqlite3/ffi/bz2/... are found.
 RUN set -eux; \
-    export LDFLAGS="-L${OPENSSL_102_LIB_DIR} -L${ZLIB_LIB_DIR} -L/usr/lib/x86_64-linux-gnu -Wl,-rpath,${OPENSSL_102_LIB_DIR} -Wl,-rpath,${PYTHON_DIR}/lib -Wl,-rpath,${ZLIB_LIB_DIR}" && \
+    export LDFLAGS="-L${OPENSSL_102_LIB_DIR} -L${ZLIB_LIB_DIR} -L/usr/lib/x86_64-linux-gnu -Wl,-rpath,${OPENSSL_102_LIB_DIR} -Wl,-rpath,${PYTHON_DIR}/lib -Wl,-rpath,${ZLIB_LIB_DIR} -Wl,--disable-new-dtags" && \
     export CPPFLAGS="-I${OPENSSL_102_INC_DIR} -I${ZLIB_INC_DIR} -I/usr/include/x86_64-linux-gnu" && \
     ./configure \
       --prefix=${PYTHON_DIR} \
@@ -274,7 +274,7 @@ ENV PY_SSL_LIB_DIR=${OPENSSL_102_LIB_DIR}
 ENV PY_SSL_VERSION=${OPENSSL_102_VERSION}
 ENV PKG_CONFIG_PATH=${PY_SSL_LIB_DIR}/pkgconfig:${PKG_CONFIG_PATH}
 ENV CPPFLAGS="-I${PY_SSL_DIR}/include"
-ENV LDFLAGS="-L${PY_SSL_LIB_DIR} -Wl,-rpath,${PY_SSL_LIB_DIR}"
+ENV LDFLAGS="-L${PY_SSL_LIB_DIR} -Wl,-rpath,${PY_SSL_LIB_DIR} -Wl,--disable-new-dtags"
 
 COPY etc/pip.conf /etc/pip.conf
 COPY --from=builder ${PYTHON_DIR} ${PYTHON_DIR}
@@ -352,6 +352,22 @@ RUN set -eu; \
         echo "FATAL: ${m} not linked against ${PY_SSL_LIB_DIR}" >&2; ldd "$so" >&2; exit 1; \
       fi; \
     done; \
+    echo "--- Checking RPATH (Final) ---"; \
+    for f in "$py" "${PYTHON_DIR}"/lib/libpython*.so.* "${PYTHON_DIR}/lib/python${PYTHON_VERSION}"/lib-dynload/*.so; do \
+      readelf -d "$f" | grep -q '(RUNPATH)' && { echo "FATAL: $f has RUNPATH, expected RPATH" >&2; exit 1; }; \
+      readelf -d "$f" | grep -q '(RPATH)' || { echo "FATAL: $f has no RPATH" >&2; readelf -d "$f" >&2; exit 1; }; \
+    done; \
+    echo "--- Checking zlib linkage (Final) ---"; \
+    zso="$("$py" -c 'import zlib; print(zlib.__file__)')"; \
+    echo "zlib -> ${zso}"; \
+    if ! ldd "$zso" | grep -q "${ZLIB_LIB_DIR}/libz"; then \
+      echo "FATAL: zlib not linked against ${ZLIB_LIB_DIR}" >&2; ldd "$zso" >&2; exit 1; \
+    fi; \
+    libz="$("$py" -c 'import ssl, zlib; print(open("/proc/self/maps").read())' | awk '/libz\.so/ {print $NF}' | sort -u)"; \
+    echo "runtime libz (after import ssl, zlib) = ${libz}"; \
+    if [ -z "${libz}" ] || echo "${libz}" | grep -qv "^${ZLIB_LIB_DIR}/"; then \
+      echo "FATAL: runtime libz not (only) from ${ZLIB_LIB_DIR}" >&2; exit 1; \
+    fi; \
     echo "OK: OpenSSL ${PY_SSL_VERSION} from ${PY_SSL_LIB_DIR}"; \
     echo "============================================="
 

@@ -189,7 +189,7 @@ RUN set -eux; \
     export CFLAGS="${PHP_CFLAGS} ${PHP_GCC14_COMPAT_CFLAGS}"; \
     export CXXFLAGS="${PHP_CFLAGS} -fpermissive -DU_USING_ICU_NAMESPACE=1"; \
     export CPPFLAGS="-I${OPENSSL_102_INC_DIR} -I${ICU_67_INC_DIR} -I${CURL_817_102_INC_DIR} ${PHP_CPPFLAGS}"; \
-    export LDFLAGS="-L${OPENSSL_102_LIB_DIR} -L${ICU_67_LIB_DIR} -L${CURL_817_102_LIB_DIR} -L${LIBPQ_13_102_LIB_DIR} -Wl,-rpath,${OPENSSL_102_LIB_DIR} -Wl,-rpath,${ICU_67_LIB_DIR} -Wl,-rpath,${CURL_817_102_LIB_DIR} -Wl,-rpath,${LIBPQ_13_102_LIB_DIR} -Wl,-rpath,${PHP_DIR}/lib ${PHP_LDFLAGS}"; \
+    export LDFLAGS="-L${OPENSSL_102_LIB_DIR} -L${ICU_67_LIB_DIR} -L${CURL_817_102_LIB_DIR} -L${LIBPQ_13_102_LIB_DIR} -Wl,-rpath,${OPENSSL_102_LIB_DIR} -Wl,-rpath,${ICU_67_LIB_DIR} -Wl,-rpath,${CURL_817_102_LIB_DIR} -Wl,-rpath,${LIBPQ_13_102_LIB_DIR} -Wl,-rpath,${PHP_DIR}/lib ${PHP_LDFLAGS} -Wl,--disable-new-dtags"; \
     ./configure \
       --prefix=${PHP_DIR} \
       --sysconfdir=${PHP_INI_DIR} \
@@ -473,7 +473,7 @@ ENV PKG_CONFIG_PATH=${PHP_SSL_LIB_DIR}/pkgconfig:${ICU_67_LIB_DIR}/pkgconfig:${C
 ENV PHP_GCC14_COMPAT_CFLAGS="-Wno-error=implicit-function-declaration -Wno-error=implicit-int -Wno-error=int-conversion -Wno-error=incompatible-pointer-types -Wno-error=return-mismatch -Wno-error=declaration-missing-parameter-type"
 ENV PHP_CFLAGS="-fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 ${PHP_GCC14_COMPAT_CFLAGS}"
 ENV PHP_CPPFLAGS="-I${PHP_SSL_DIR}/include -I${ICU_67_INC_DIR} -fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64"
-ENV PHP_LDFLAGS="-L${PHP_SSL_LIB_DIR} -L${ICU_67_LIB_DIR} -L${CURL_817_102_LIB_DIR} -L${LIBPQ_13_102_LIB_DIR} -Wl,-rpath,${PHP_SSL_LIB_DIR} -Wl,-rpath,${ICU_67_LIB_DIR} -Wl,-rpath,${CURL_817_102_LIB_DIR} -Wl,-rpath,${LIBPQ_13_102_LIB_DIR} -Wl,-O1 -pie"
+ENV PHP_LDFLAGS="-L${PHP_SSL_LIB_DIR} -L${ICU_67_LIB_DIR} -L${CURL_817_102_LIB_DIR} -L${LIBPQ_13_102_LIB_DIR} -Wl,-rpath,${PHP_SSL_LIB_DIR} -Wl,-rpath,${ICU_67_LIB_DIR} -Wl,-rpath,${CURL_817_102_LIB_DIR} -Wl,-rpath,${LIBPQ_13_102_LIB_DIR} -Wl,-O1 -pie -Wl,--disable-new-dtags"
 
 COPY --from=builder ${PHP_DIR}               ${PHP_DIR}
 COPY --from=builder ${PHP_SRC_DIR}           ${PHP_SRC_DIR}
@@ -840,6 +840,14 @@ RUN set -eu; \
       fi; \
     done; \
     echo "OK: no unresolved deps, one libssl/libcrypto/libxml2 across php, php-cgi, php-fpm and $(ls "${extDir}"/*.so | wc -l) extensions"; \
+    echo "--- Checking RPATH (Final) ---"; \
+    for f in "$php" "${PHP_BIN_DIR}/php-cgi" "${PHP_BIN_DIR}/phpdbg" "${PHP_DIR}/sbin/php-fpm" \
+             "${PHP_DIR}"/lib/libphp*.so "$(php-config --extension-dir)/opcache.so"; do \
+      [ -e "$f" ] || continue; \
+      readelf -d "$f" | grep -q '(RUNPATH)' && { echo "FATAL: $f has RUNPATH, expected RPATH" >&2; exit 1; }; \
+      readelf -d "$f" | grep -q '(RPATH)' || { echo "FATAL: $f has no RPATH" >&2; readelf -d "$f" >&2; exit 1; }; \
+      echo "RPATH ok: $f"; \
+    done; \
     echo "--- Loaded modules ---"; \
     "$php" -m; \
     echo "extension_dir = ${extDir}"; \
