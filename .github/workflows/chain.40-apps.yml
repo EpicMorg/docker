@@ -1,0 +1,316 @@
+# Build chain, stage 40: end applications built FROM our base and runtimes.
+# Starts when "Chain 30 - Runtimes" completes successfully. Order inside the stage is expressed with
+# `needs`; where the parent is a matrix (apache2 -> testrail, postgres -> patroni, ...) the child still
+# runs if some parent legs failed (it then uses the previously published parent tag).
+name: Chain 40 - Apps
+
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows: ['Chain 30 - Runtimes']
+    types: [completed]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  list:
+    name: list leaves
+    if: github.event_name != 'workflow_run' || contains(fromJSON('["success","failure"]'), github.event.workflow_run.conclusion)
+    runs-on: ubuntu-24.04
+    outputs:
+      nginx-php: ${{ steps.list.outputs.nginx-php }}
+      apache2: ${{ steps.list.outputs.apache2 }}
+      testrail: ${{ steps.list.outputs.testrail }}
+      testrail-addons: ${{ steps.list.outputs.testrail-addons }}
+      perforce: ${{ steps.list.outputs.perforce }}
+      postgres: ${{ steps.list.outputs.postgres }}
+      postgres-patroni: ${{ steps.list.outputs.postgres-patroni }}
+      qbittorrent: ${{ steps.list.outputs.qbittorrent }}
+      mattermost: ${{ steps.list.outputs.mattermost }}
+      cassandra: ${{ steps.list.outputs.cassandra }}
+      teamcity-agent: ${{ steps.list.outputs.teamcity-agent }}
+      github-runner: ${{ steps.list.outputs.github-runner }}
+      gitlab-runner: ${{ steps.list.outputs.gitlab-runner }}
+      misc: ${{ steps.list.outputs.misc }}
+    steps:
+    - uses: actions/checkout@v7
+      with:
+        sparse-checkout: |
+          .github/scripts
+          linux/ecosystem/apps/nginx
+          linux/ecosystem/apps/apache2
+          linux/ecosystem/apps/testrail
+          linux/ecosystem/apps/perforce
+          linux/ecosystem/apps/postgres
+          linux/ecosystem/apps/postgres-patroni
+          linux/ecosystem/apps/qbittorrent
+          linux/ecosystem/apps/mattermost
+          linux/ecosystem/apps/cassandra
+          linux/ecosystem/apps/teamcity/agent
+          linux/ecosystem/apps/github/runner
+          linux/ecosystem/apps/gitlab/runner
+          linux/ecosystem/apps/torrserver
+          linux/ecosystem/apps/electron-release-server
+          linux/ecosystem/apps/vk2discord
+          linux/ecosystem/apps/opentracker
+          linux/ecosystem/apps/monero
+          linux/ecosystem/apps/ninjam
+          linux/ecosystem/apps/telegram
+          linux/ecosystem/apps/pg-upgrade-tool
+          linux/ecosystem/apps/valve/steam/cmd
+    - id: list
+      run: |
+        # assignment first, so a failing discovery fails the step (echo "$(...)" would not)
+        emit() { local v; v=$(python3 .github/scripts/leaves.py "${@:2}"); echo "$1=$v" | tee -a "$GITHUB_OUTPUT"; }
+        emit nginx-php flat linux/ecosystem/apps/nginx --min 2 --max 2 --exclude '/main$'
+        emit apache2 flat linux/ecosystem/apps/apache2 --min 1 --max 1
+        emit testrail flat linux/ecosystem/apps/testrail --min 2 --max 2 --include '/main$'
+        emit testrail-addons group linux/ecosystem/apps/testrail '{}/ad' '{}/ldap'
+        emit perforce group linux/ecosystem/apps/perforce 'base/{}' 'p4p/{}'
+        emit postgres flat linux/ecosystem/apps/postgres --min 1 --max 1
+        emit postgres-patroni flat linux/ecosystem/apps/postgres-patroni --min 1 --max 1
+        emit qbittorrent flat linux/ecosystem/apps/qbittorrent --min 1 --max 1
+        emit mattermost flat linux/ecosystem/apps/mattermost --min 2 --max 2
+        emit cassandra flat linux/ecosystem/apps/cassandra --min 1 --max 1
+        emit teamcity-agent flat linux/ecosystem/apps/teamcity/agent --min 1 --max 2 --exclude '/minimal$'
+        emit github-runner flat linux/ecosystem/apps/github/runner --min 1 --max 2 --exclude '/minimal$'
+        emit gitlab-runner flat linux/ecosystem/apps/gitlab/runner --min 1 --max 2 --exclude '/minimal$'
+        emit misc flat linux/ecosystem/apps/torrserver linux/ecosystem/apps/electron-release-server linux/ecosystem/apps/vk2discord linux/ecosystem/apps/opentracker linux/ecosystem/apps/monero linux/ecosystem/apps/ninjam linux/ecosystem/apps/telegram linux/ecosystem/apps/pg-upgrade-tool linux/ecosystem/apps/valve/steam/cmd --min 0 --max 3
+
+  # nginx/<ver>/php<ver>: FROM epicmorg/nginx:<ver> + epicmorg/php:<ver> (both from chain.30-runtimes)
+  nginx-php:
+    name: ${{ matrix.leaf.name }}
+    needs: list
+    if: needs.list.outputs.nginx-php != '[]'
+    strategy:
+      fail-fast: false
+      matrix:
+        leaf: ${{ fromJSON(needs.list.outputs.nginx-php) }}
+    uses: ./.github/workflows/_build-leaf.yml
+    secrets: inherit
+    with:
+      paths: ${{ matrix.leaf.paths }}
+
+  # apache2/php<ver>: FROM epicmorg/php:<ver>
+  apache2:
+    name: ${{ matrix.leaf.name }}
+    needs: list
+    if: needs.list.outputs.apache2 != '[]'
+    strategy:
+      fail-fast: false
+      matrix:
+        leaf: ${{ fromJSON(needs.list.outputs.apache2) }}
+    uses: ./.github/workflows/_build-leaf.yml
+    secrets: inherit
+    with:
+      paths: ${{ matrix.leaf.paths }}
+
+  # testrail/<ver>/main: FROM epicmorg/apache2:php<ver>
+  testrail:
+    name: ${{ matrix.leaf.name }}
+    needs: [list, apache2]
+    if: ${{ !cancelled() && needs.list.result == 'success' && needs.apache2.result != 'skipped' && needs.list.outputs.testrail != '[]' }}
+    strategy:
+      fail-fast: false
+      matrix:
+        leaf: ${{ fromJSON(needs.list.outputs.testrail) }}
+    uses: ./.github/workflows/_build-leaf.yml
+    secrets: inherit
+    with:
+      paths: ${{ matrix.leaf.paths }}
+
+  # testrail/<ver>/{ad,ldap}: FROM epicmorg/testrail:<ver>
+  testrail-addons:
+    name: ${{ matrix.leaf.name }} ad+ldap
+    needs: [list, testrail]
+    if: ${{ !cancelled() && needs.list.result == 'success' && needs.testrail.result != 'skipped' && needs.list.outputs.testrail-addons != '[]' }}
+    strategy:
+      fail-fast: false
+      matrix:
+        leaf: ${{ fromJSON(needs.list.outputs.testrail-addons) }}
+    uses: ./.github/workflows/_build-leaf.yml
+    secrets: inherit
+    with:
+      paths: ${{ matrix.leaf.paths }}
+
+  # perforce base/<ver> (FROM trixie) then p4p/<ver> (FROM epicmorg/perforce:<ver>), in one job per version
+  perforce:
+    name: perforce ${{ matrix.leaf.name }}
+    needs: list
+    if: needs.list.outputs.perforce != '[]'
+    strategy:
+      fail-fast: false
+      matrix:
+        leaf: ${{ fromJSON(needs.list.outputs.perforce) }}
+    uses: ./.github/workflows/_build-leaf.yml
+    secrets: inherit
+    with:
+      paths: ${{ matrix.leaf.paths }}
+
+  # postgres/<ver>: FROM trixie
+  postgres:
+    name: ${{ matrix.leaf.name }}
+    needs: list
+    if: needs.list.outputs.postgres != '[]'
+    strategy:
+      fail-fast: false
+      matrix:
+        leaf: ${{ fromJSON(needs.list.outputs.postgres) }}
+    uses: ./.github/workflows/_build-leaf.yml
+    secrets: inherit
+    with:
+      paths: ${{ matrix.leaf.paths }}
+
+  # postgres-patroni/<ver>: FROM epicmorg/postgres:<ver>
+  postgres-patroni:
+    name: ${{ matrix.leaf.name }}
+    needs: [list, postgres]
+    if: ${{ !cancelled() && needs.list.result == 'success' && needs.postgres.result != 'skipped' && needs.list.outputs.postgres-patroni != '[]' }}
+    strategy:
+      fail-fast: false
+      matrix:
+        leaf: ${{ fromJSON(needs.list.outputs.postgres-patroni) }}
+    uses: ./.github/workflows/_build-leaf.yml
+    secrets: inherit
+    with:
+      paths: ${{ matrix.leaf.paths }}
+
+  # qbittorrent/<ver>: FROM trixie
+  qbittorrent:
+    name: ${{ matrix.leaf.name }}
+    needs: list
+    if: needs.list.outputs.qbittorrent != '[]'
+    strategy:
+      fail-fast: false
+      matrix:
+        leaf: ${{ fromJSON(needs.list.outputs.qbittorrent) }}
+    uses: ./.github/workflows/_build-leaf.yml
+    secrets: inherit
+    with:
+      paths: ${{ matrix.leaf.paths }}
+
+  # mattermost/<major>/<ver>: upstream image + epicmorg/python:2.7 -> trixie
+  mattermost:
+    name: ${{ matrix.leaf.name }}
+    needs: list
+    if: needs.list.outputs.mattermost != '[]'
+    strategy:
+      fail-fast: false
+      matrix:
+        leaf: ${{ fromJSON(needs.list.outputs.mattermost) }}
+    uses: ./.github/workflows/_build-leaf.yml
+    secrets: inherit
+    with:
+      paths: ${{ matrix.leaf.paths }}
+      free-disk: true
+
+  # cassandra/<ver>: epicmorg/python:2.7 builder -> epicmorg/jdk:8
+  cassandra:
+    name: ${{ matrix.leaf.name }}
+    needs: list
+    if: needs.list.outputs.cassandra != '[]'
+    strategy:
+      fail-fast: false
+      matrix:
+        leaf: ${{ fromJSON(needs.list.outputs.cassandra) }}
+    uses: ./.github/workflows/_build-leaf.yml
+    secrets: inherit
+    with:
+      paths: ${{ matrix.leaf.paths }}
+
+  # teamcity/agent/minimal: FROM epicmorg/jdk:21 + trixie-develop
+  teamcity-agent-minimal:
+    name: teamcity/agent/minimal
+    needs: list
+    uses: ./.github/workflows/_build-leaf.yml
+    secrets: inherit
+    with:
+      paths: linux/ecosystem/apps/teamcity/agent/minimal
+      free-disk: true
+
+  # all other agents: FROM epicmorg/teamcity-agent:minimal
+  teamcity-agent:
+    name: ${{ matrix.leaf.name }}
+    needs: [list, teamcity-agent-minimal]
+    if: needs.list.outputs.teamcity-agent != '[]'
+    strategy:
+      fail-fast: false
+      matrix:
+        leaf: ${{ fromJSON(needs.list.outputs.teamcity-agent) }}
+    uses: ./.github/workflows/_build-leaf.yml
+    secrets: inherit
+    with:
+      paths: ${{ matrix.leaf.paths }}
+      free-disk: true
+
+  # github/runner/minimal: FROM trixie-develop
+  github-runner-minimal:
+    name: github/runner/minimal
+    needs: list
+    uses: ./.github/workflows/_build-leaf.yml
+    secrets: inherit
+    with:
+      paths: linux/ecosystem/apps/github/runner/minimal
+      free-disk: true
+
+  # all other GitHub runners: FROM epicmorg/github-runner:minimal
+  github-runner:
+    name: ${{ matrix.leaf.name }}
+    needs: [list, github-runner-minimal]
+    if: needs.list.outputs.github-runner != '[]'
+    strategy:
+      fail-fast: false
+      matrix:
+        leaf: ${{ fromJSON(needs.list.outputs.github-runner) }}
+    uses: ./.github/workflows/_build-leaf.yml
+    secrets: inherit
+    with:
+      paths: ${{ matrix.leaf.paths }}
+      free-disk: true
+
+  # gitlab/runner/minimal: FROM trixie-develop
+  gitlab-runner-minimal:
+    name: gitlab/runner/minimal
+    needs: list
+    uses: ./.github/workflows/_build-leaf.yml
+    secrets: inherit
+    with:
+      paths: linux/ecosystem/apps/gitlab/runner/minimal
+      free-disk: true
+
+  # all other GitLab runners: FROM epicmorg/gitlab-runner:minimal
+  gitlab-runner:
+    name: ${{ matrix.leaf.name }}
+    needs: [list, gitlab-runner-minimal]
+    if: needs.list.outputs.gitlab-runner != '[]'
+    strategy:
+      fail-fast: false
+      matrix:
+        leaf: ${{ fromJSON(needs.list.outputs.gitlab-runner) }}
+    uses: ./.github/workflows/_build-leaf.yml
+    secrets: inherit
+    with:
+      paths: ${{ matrix.leaf.paths }}
+      free-disk: true
+
+  # misc single images: FROM trixie / trixie-develop builder / epicmorg/nodejs
+  # (retracker is left out: its old job was a 'FIX ME' no-op)
+  misc:
+    name: ${{ matrix.leaf.name }}
+    needs: list
+    if: needs.list.outputs.misc != '[]'
+    strategy:
+      fail-fast: false
+      matrix:
+        leaf: ${{ fromJSON(needs.list.outputs.misc) }}
+    uses: ./.github/workflows/_build-leaf.yml
+    secrets: inherit
+    with:
+      paths: ${{ matrix.leaf.paths }}
+      free-disk: true

@@ -1,0 +1,48 @@
+# Astra Linux SE bases. One job per release, built in order inside the job:
+#   rootfs (FROM its own previous rootfs, squashed) -> light -> main -> develop
+# A failure in one release does not touch the others. Not part of the chain.
+name: Base - Astra Linux
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 1 * * 0'   # same slot as chain.10-base
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  list:
+    name: list releases
+    runs-on: ubuntu-24.04
+    outputs:
+      releases: ${{ steps.list.outputs.releases }}
+    steps:
+    - uses: actions/checkout@v7
+      with:
+        sparse-checkout: |
+          .github/scripts
+          linux/ecosystem/base/astra
+    - id: list
+      run: |
+        releases=$(python3 .github/scripts/leaves.py group linux/ecosystem/base/astra '{}/rootfs' '{}/light' '{}/main' '{}/develop')
+        echo "releases=${releases}" | tee -a "$GITHUB_OUTPUT"
+
+  build:
+    name: astra ${{ matrix.leaf.name }}
+    needs: list
+    if: needs.list.outputs.releases != '[]'
+    strategy:
+      fail-fast: false
+      matrix:
+        leaf: ${{ fromJSON(needs.list.outputs.releases) }}
+    uses: ./.github/workflows/_build-leaf.yml
+    secrets: inherit
+    with:
+      paths: ${{ matrix.leaf.paths }}
+      free-disk: true

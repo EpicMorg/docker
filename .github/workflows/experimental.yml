@@ -1,0 +1,31 @@
+# Experimental images (not production). Manual only.
+name: Experimental
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+
+  sentry:
+    name: sentry
+    uses: ./.github/workflows/_build-leaf.yml
+    secrets: inherit
+    with:
+      paths: linux/experimental/sentry/latest
+
+  redash:
+    name: redash
+    uses: ./.github/workflows/_build-leaf.yml
+    secrets: inherit
+    with:
+      paths: linux/experimental/redash
+      submodules: true
+      make-targets: sync patch build deploy
