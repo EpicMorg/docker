@@ -25,7 +25,7 @@ END = '# <<< atlassian targets'
 
 # crucible/fisheye 2+ are symlinks to fisheye-crucible
 CLEAN_EVERY = 10
-PRODUCTS = ['jira', 'confluence', 'bitbucket', 'crowd', 'fisheye', 'crucible', 'fisheye-crucible']
+PRODUCTS = ['jira', 'confluence', 'bitbucket', 'crowd', 'fisheye', 'crucible', 'fisheye-crucible', 'bamboo', 'mesh']
 
 
 def vkey(v):

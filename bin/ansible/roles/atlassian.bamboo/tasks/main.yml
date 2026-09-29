@@ -1,0 +1,31 @@
+- name: "Generate images for Bamboo 6 (jdk8)"
+  import_tasks: atlassian.bamboo.6.jdk8.yml
+
+- name: "Generate images for Bamboo 7 (jdk8)"
+  import_tasks: atlassian.bamboo.7.jdk8.yml
+
+- name: "Generate images for Bamboo 8 (jdk11)"
+  import_tasks: atlassian.bamboo.8.jdk11.yml
+
+- name: "Generate images for Bamboo 9 (jdk11)"
+  import_tasks: atlassian.bamboo.9.jdk11.yml
+
+- name: "Generate images for Bamboo 9 (jdk11 + jdk17)"
+  import_tasks: atlassian.bamboo.9.jdk11-17.yml
+
+- name: "Generate images for Bamboo 10 (jdk17)"
+  import_tasks: atlassian.bamboo.10.jdk17.yml
+
+- name: "Generate images for Bamboo 10 (jdk17 + jdk21)"
+  import_tasks: atlassian.bamboo.10.jdk17-21.yml
+
+- name: "Generate images for Bamboo 11 (jdk17 + jdk21)"
+  import_tasks: atlassian.bamboo.11.jdk17-21.yml
+
+- name: "Generate images for Bamboo 12 (jdk21)"
+  import_tasks: atlassian.bamboo.12.jdk21.yml
+
+- name: "Generate bamboo latest"
+  include_tasks: "{{ playbook_dir }}/roles/common/tasks/latest.yml"
+  vars:
+    latest_product: bamboo
