@@ -1,6 +1,40 @@
-FROM docker.io/epicmorg/debian:trixie-develop-jdk21
+FROM docker.io/epicmorg/jdk:21 AS jdk
+
+FROM docker.io/epicmorg/debian:trixie-develop
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
+
+##################################################################
+#              Java (prebuilt epicmorg/jdk image)
+##################################################################
+# JDK and build tooling are taken as-is from the jdk image, so the agent
+# always runs exactly the java that was built and tested there.
+ENV JAVA_HOME=${EMG_LOCAL_BASE_DIR}/java/21
+ENV JRE_HOME=${JAVA_HOME}
+ENV JDK_HOME=${JAVA_HOME}
+
+COPY --from=jdk ${EMG_LOCAL_BASE_DIR}/java/   ${EMG_LOCAL_BASE_DIR}/java/
+COPY --from=jdk ${EMG_LOCAL_BASE_DIR}/maven/  ${EMG_LOCAL_BASE_DIR}/maven/
+COPY --from=jdk ${EMG_LOCAL_BASE_DIR}/gradle/ ${EMG_LOCAL_BASE_DIR}/gradle/
+COPY --from=jdk ${EMG_LOCAL_BASE_DIR}/kotlin/ ${EMG_LOCAL_BASE_DIR}/kotlin/
+
+# versioned tool paths are resolved from the jdk image itself
+RUN set -eux; \
+    for d in ${EMG_LOCAL_BASE_DIR}/maven/*/apache-maven-*/bin \
+             ${EMG_LOCAL_BASE_DIR}/gradle/*/gradle-*/bin \
+             ${EMG_LOCAL_BASE_DIR}/kotlin/*/kotlinc/bin; do \
+        for b in "$d"/*; do \
+            case "$b" in *.bat) continue ;; esac; \
+            ln -sfv "$b" /usr/local/bin/; \
+        done; \
+    done; \
+    ln -sfv ${JAVA_HOME} /usr/jre; \
+    ln -sfv ${JAVA_HOME} /usr/jdk; \
+    for b in ${JAVA_HOME}/bin/*; do ln -sfv "$b" /usr/local/bin/; done; \
+    java -version; \
+    mvn -v; \
+    gradle -v; \
+    kotlinc -version
 
 ##################################################################
 #              TeamCity Agent setup
