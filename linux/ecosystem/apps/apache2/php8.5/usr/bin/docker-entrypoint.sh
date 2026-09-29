@@ -36,5 +36,12 @@ else
   echo "[apache2] Warning: /etc/apache2/envvars not found."
 fi
 
+echo "[apache2] Waiting for php-fpm socket"
+for i in $(seq 50); do
+  [ -S /run/php/php-fpm.sock ] && break
+  sleep 0.1
+done
+[ -S /run/php/php-fpm.sock ] || echo "[apache2] Warning: fpm socket not ready, starting anyway"
+
 echo "[apache2] Starting Apache in the foreground."
 exec /usr/sbin/apache2 -D FOREGROUND
