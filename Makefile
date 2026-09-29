@@ -656,8 +656,10 @@ ecosystem-php-images:
 	make ecosystem-supported-php-images
 
 ecosystem-eol-php-images:
-#	cd `pwd`/linux/ecosystem/apps/php/5.5            && pwd && make build && make deploy
-#	cd `pwd`/linux/ecosystem/apps/php/5.6            && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/php/5.3            && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/php/5.4            && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/php/5.5            && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/php/5.6            && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/php/7.0            && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/php/7.1            && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/php/7.2            && pwd && make build && make deploy
