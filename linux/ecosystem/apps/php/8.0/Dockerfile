@@ -370,7 +370,7 @@ ENV LIBPQ_16_VERSION=16
 ENV LIBPQ_16_111_DIR=${EMG_LOCAL_BASE_DIR}/libpq/${LIBPQ_16_VERSION}/openssl111
 ENV LIBPQ_16_111_INC_DIR=${LIBPQ_16_111_DIR}/include
 ENV LIBPQ_16_111_LIB_DIR=${LIBPQ_16_111_DIR}/lib
-ENV LIBPQ_16_SRC_DIR=/usr/local/src/postgresql/${LIBPQ_16_VERSION}
+ENV LIBPQ_16_111_SRC_DIR=/usr/local/src/postgresql/${LIBPQ_16_VERSION}/openssl111
 
 ##################################################################
 #                  ICU 73.2
@@ -431,7 +431,7 @@ COPY --from=builder ${ICU_73_SRC_DIR}           ${ICU_73_SRC_DIR}
 COPY --from=builder ${CURL_817_111_DIR}      ${CURL_817_111_DIR}
 COPY --from=builder ${CURL_817_SRC_DIR}      ${CURL_817_SRC_DIR}
 COPY --from=builder ${LIBPQ_16_111_DIR}      ${LIBPQ_16_111_DIR}
-COPY --from=builder ${LIBPQ_16_SRC_DIR}      ${LIBPQ_16_SRC_DIR}
+COPY --from=builder ${LIBPQ_16_111_SRC_DIR}  ${LIBPQ_16_111_SRC_DIR}
 
 # Catch a lib vs lib64 mismatch immediately instead of at the assertion stage.
 RUN set -eux; \
