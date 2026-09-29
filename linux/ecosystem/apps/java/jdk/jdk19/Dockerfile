@@ -65,7 +65,7 @@ ENV MAVEN_PATH=${MAVEN_ROOT}/apache-maven-${MAVEN_VERSION}
 ENV MAVEN_BIN=${MAVEN_PATH}/bin
 ARG MAVEN_TEMP=/tmp/apache-maven-${MAVEN_VERSION}-bin.zip
 
-ENV GRADLE_VERSION=8.14.5
+ENV GRADLE_VERSION=9.5.1
 ENV GRADLE_LINK=https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-all.zip
 ENV GRADLE_ROOT=${EMG_LOCAL_BASE_DIR}/gradle/${GRADLE_VERSION}
 ENV GRADLE_PATH=${GRADLE_ROOT}/gradle-${GRADLE_VERSION}
@@ -101,7 +101,8 @@ RUN set -eux; \
         --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
         -d /tmp \
         "${MAVEN_LINK}" && \
-    7zz x ${MAVEN_TEMP} -o${MAVEN_ROOT}
+    7zz x ${MAVEN_TEMP} -o${MAVEN_ROOT} && \
+    rm -fv ${MAVEN_TEMP}
 RUN chmod +x -R ${MAVEN_BIN}
 RUN mvn -v
 
@@ -114,7 +115,8 @@ RUN set -eux; \
         --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
         -d /tmp \
         "${GRADLE_LINK}" && \
-    7zz x ${GRADLE_TEMP} -o${GRADLE_ROOT}
+    7zz x ${GRADLE_TEMP} -o${GRADLE_ROOT} && \
+    rm -fv ${GRADLE_TEMP}
 RUN chmod +x -R ${GRADLE_BIN}
 RUN gradle -v
 
@@ -127,7 +129,8 @@ RUN set -eux; \
         --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
         -d /tmp \
         "${KTC_LINK}" && \
-    7zz x ${KTC_TEMP} -o${KTC_ROOT}
+    7zz x ${KTC_TEMP} -o${KTC_ROOT} && \
+    rm -fv ${KTC_TEMP}
 RUN chmod +x -R ${KTC_BIN}
 RUN kotlin -version
 
@@ -140,6 +143,7 @@ RUN set -eux; \
         --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
         -d /tmp \
         "${KNPL_LINK}" && \
-    tar -xzf ${KNPL_TEMP} --directory ${KTC_ROOT}
+    tar -xzf ${KNPL_TEMP} --directory ${KTC_ROOT} && \
+    rm -fv ${KNPL_TEMP}
 RUN chmod +x -R ${KNPL_BIN}
 

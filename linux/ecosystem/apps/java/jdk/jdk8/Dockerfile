@@ -6,9 +6,9 @@ LABEL org.opencontainers.image.title="EpicMorg Java"
 LABEL org.opencontainers.image.description="JDK by EpicMorg"
 
 ARG K_JDK_MAJOR_VERSION=8
-ARG K_JDK_FULL_VERSION=jdk8u462
-ARG K_JDK_VERSION=8u462
-ARG K_JDK_BUILD_VERSION=b08
+ARG K_JDK_FULL_VERSION=jdk8u492
+ARG K_JDK_VERSION=8u492
+ARG K_JDK_BUILD_VERSION=b09
 ARG K_JDK_DIR=${EMG_LOCAL_BASE_DIR}/java/${K_JDK_MAJOR_VERSION}
 ARG K_JDK_URL=https://github.com/adoptium/temurin${K_JDK_MAJOR_VERSION}-binaries/releases/download/${K_JDK_FULL_VERSION}-${K_JDK_BUILD_VERSION}/OpenJDK${K_JDK_MAJOR_VERSION}U-jdk_x64_linux_hotspot_${K_JDK_VERSION}${K_JDK_BUILD_VERSION}.tar.gz
 ARG K_JDK_TEMP=/tmp/OpenJDK${K_JDK_MAJOR_VERSION}U-jdk_x64_linux_hotspot_${K_JDK_VERSION}${K_JDK_BUILD_VERSION}.tar.gz
@@ -40,7 +40,7 @@ RUN set -eux; \
     rm -rfv /var/cache/apt/archives/*.deb && \
     rm -rfv /tmp/* 
 
-####################https://services.gradle.org/distributions##############################################
+##################################################################
 #                   Update JavaCA
 ##################################################################
 RUN update-ca-certificates --fresh && \
@@ -100,7 +100,8 @@ RUN set -eux; \
         --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
         -d /tmp \
         "${MAVEN_LINK}" && \
-    7zz x ${MAVEN_TEMP} -o${MAVEN_ROOT}
+    7zz x ${MAVEN_TEMP} -o${MAVEN_ROOT} && \
+    rm -fv ${MAVEN_TEMP}
 RUN chmod +x -R ${MAVEN_BIN}
 RUN mvn -v
 
@@ -113,7 +114,8 @@ RUN set -eux; \
         --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
         -d /tmp \
         "${GRADLE_LINK}" && \
-    7zz x ${GRADLE_TEMP} -o${GRADLE_ROOT}
+    7zz x ${GRADLE_TEMP} -o${GRADLE_ROOT} && \
+    rm -fv ${GRADLE_TEMP}
 RUN chmod +x -R ${GRADLE_BIN}
 RUN gradle -v
 
@@ -126,7 +128,8 @@ RUN set -eux; \
         --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
         -d /tmp \
         "${KTC_LINK}" && \
-    7zz x ${KTC_TEMP} -o${KTC_ROOT}
+    7zz x ${KTC_TEMP} -o${KTC_ROOT} && \
+    rm -fv ${KTC_TEMP}
 RUN chmod +x -R ${KTC_BIN}
 RUN kotlin -version
 
@@ -139,5 +142,6 @@ RUN set -eux; \
         --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
         -d /tmp \
         "${KNPL_LINK}" && \
-    tar -xzf ${KNPL_TEMP} --directory ${KTC_ROOT}
+    tar -xzf ${KNPL_TEMP} --directory ${KTC_ROOT} && \
+    rm -fv ${KNPL_TEMP}
 RUN chmod +x -R ${KNPL_BIN}
