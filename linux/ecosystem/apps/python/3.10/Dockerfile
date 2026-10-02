@@ -72,6 +72,15 @@ ENV PATH="${PYTHON_BIN_DIR}:${PATH}"
 
 WORKDIR ${PYTHON_SRC_DIR}
 
+# distutils' runtime_library_dir_option() emits "-Wl,--enable-new-dtags,-R<dir>" for GNU ld,
+# so extensions built with runtime_library_dirs (e.g. _sqlite3) get RUNPATH instead of RPATH
+# (ADR-055). Flip it to --disable-new-dtags; no-op where this distutils doesn't have the line.
+RUN f=Lib/distutils/unixccompiler.py; \
+    if grep -q -- '--enable-new-dtags' "$f"; then \
+      sed -i 's/--enable-new-dtags/--disable-new-dtags/g' "$f" && \
+      ! grep -q -- '--enable-new-dtags' "$f"; \
+    fi
+
 # --with-openssl-rpath=no: "auto" makes CPython add its own
 # -Wl,--enable-new-dtags,-rpath=... to _ssl/_hashlib (RUNPATH, overrides ours).
 # The OpenSSL rpath already comes from LDFLAGS (as RPATH), for every module.

@@ -86,6 +86,15 @@ ENV PATH="${PYTHON_BIN_DIR}:${PATH}"
 
 WORKDIR ${PYTHON_SRC_DIR}
 
+# distutils' runtime_library_dir_option() emits "-Wl,--enable-new-dtags,-R<dir>" for GNU ld,
+# so extensions built with runtime_library_dirs (e.g. _sqlite3) get RUNPATH instead of RPATH
+# (ADR-055). Flip it to --disable-new-dtags; no-op where this distutils doesn't have the line.
+RUN f=Lib/distutils/unixccompiler.py; \
+    if grep -q -- '--enable-new-dtags' "$f"; then \
+      sed -i 's/--enable-new-dtags/--disable-new-dtags/g' "$f" && \
+      ! grep -q -- '--enable-new-dtags' "$f"; \
+    fi
+
 # ncurses 6 hardcodes NCURSES_OPAQUE=1 (WINDOW is an incomplete type), but Include/py_curses.h of
 # this version forces WINDOW_HAS_FLAGS=1 whenever <ncurses.h> is used -> _curses fails with
 # "dereferencing pointer to incomplete type" on win->_flags. Backport the 3.6 guard.

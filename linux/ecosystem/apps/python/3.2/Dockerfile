@@ -84,6 +84,15 @@ ENV PATH="${PYTHON_BIN_DIR}:${PATH}"
 
 WORKDIR ${PYTHON_SRC_DIR}
 
+# distutils' runtime_library_dir_option() emits "-Wl,--enable-new-dtags,-R<dir>" for GNU ld,
+# so extensions built with runtime_library_dirs (e.g. _sqlite3) get RUNPATH instead of RPATH
+# (ADR-055). Flip it to --disable-new-dtags; no-op where this distutils doesn't have the line.
+RUN f=Lib/distutils/unixccompiler.py; \
+    if grep -q -- '--enable-new-dtags' "$f"; then \
+      sed -i 's/--enable-new-dtags/--disable-new-dtags/g' "$f" && \
+      ! grep -q -- '--enable-new-dtags' "$f"; \
+    fi
+
 # glibc >= 2.41 declares C23 sinpi() in <math.h>; Modules/mathmodule.c has its own static sinpi()
 # -> "static declaration of 'sinpi' follows non-static declaration", math is silently skipped and
 # everything importing it (random, tempfile, ensurepip) breaks. Rename it as upstream did (m_sinpi, 3.7+).
