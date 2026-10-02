@@ -122,6 +122,32 @@ below is therefore built from source in the **develop** layer and consumed via
   untested upstream; branch 13 is used there instead as a contemporary of that
   OpenSSL.
 
+### libzip + libmemcached (7.0–8.0)
+
+| Library      | Version | OpenSSL | PHP     | Prefix                                        |
+| ------------ | ------- | ------- | ------- | --------------------------------------------- |
+| libzip       | `1.11.4`| 1.1.1   | 7.0–8.0 | `${EMG_LOCAL_BASE_DIR}/libzip/1.11.4/openssl111` |
+| libmemcached | `1.1.4` | none    | 7.0–8.0 | `${EMG_LOCAL_BASE_DIR}/libmemcached/1.1.4`     |
+
+Debian's `libzip5` (zip encryption) and `libmemcached` (`libhashkit`,
+`libsasl2`) link the system `libcrypto.so.3`. On the 1.1.1 branches that put
+`libcrypto.so.3` into `php` / `php-fpm` (via ext/zip) and into `memcached.so`,
+next to our `libcrypto.so.1.1` — a library duality. Both are therefore built in
+the builder stage of 7.0–8.0:
+
+* **libzip** against our OpenSSL 1.1.1 (RPATH to it) — `ZipArchive`
+  encryption keeps working. `libzip-dev` is not installed.
+* **libmemcached** is the maintained [awesomized](https://github.com/awesomized/libmemcached)
+  fork (what Debian ships too), built **without SASL** (the system `libsasl2`
+  links `libcrypto.so.3` as well) and with its bundled AES instead of OpenSSL,
+  so it links no `libcrypto` at all. Consequence: **`memcached.use_sasl` /
+  `Memcached::setSaslAuthData()` are unavailable on 7.0–8.0**.
+  `libmemcached-dev` is not installed.
+
+8.1+ keep the Debian libraries: the system `libcrypto.so.3` has the same SONAME
+as our 3.5, and the RPATH of `php` / `memcached.so` makes it resolve to ours.
+5.x ships no `memcached` (see the Dockerfile) and uses PHP's bundled libzip.
+
 ## Compilers
 
 **PHP is built with the SYSTEM compiler (Debian gcc), not with the one from
@@ -384,6 +410,16 @@ Two upstream defaults are dangerous in a container and are overridden:
   `getenv()`, silently breaking anything reading credentials from the
   environment.
 
+* **Unix socket by default** — the `www` pool listens on
+  `/run/php/php-fpm.sock` (`www-data:www-data`, `0660`) on every branch
+  5.3–8.5: Apache / nginx run in the same container as php-fpm (supervisor).
+  If the web server lives in another container, switch to TCP in a pool
+  override (`listen = 9000`, loaded after `www.conf`).
+
+The pool files live in `${PHP_INI_DIR}/php-fpm.d/`, Debian-style
+`${PHP_INI_DIR}/fpm/pool.d` and `${PHP_INI_DIR}/fpm/php-fpm.conf` are symlinks
+to them.
+
 `pm.max_children = 16` is a placeholder. Compute it from the container memory
 limit: `max_children = (memory_limit * 0.8) / worker_rss`.
 
@@ -404,6 +440,11 @@ Every image fails the build unless all of the following hold:
    `libpq` / `libcurl` dragging OpenSSL 3 back in.
 5. **ICU version** — `ext/intl` reports the ICU it was built against.
 6. **curl ssl_version** — `ext/curl` reports our OpenSSL, not the system one.
+4a. **One library per process** — `php`, `php-cgi`, `php-fpm` and every `.so`
+   in the extension dir: no `not found`, exactly one SONAME of `libssl`,
+   `libcrypto`, `libxml2`, `libcurl`, `libpq`, `libicuuc`, `libz` across all of
+   them, and every `libssl` / `libcrypto` resolves under `PHP_SSL_LIB_DIR`
+   (on 3.5 the system copy has the same SONAME, only the path differs).
 7. **Serializers** — `redis` and `memcached` report `igbinary` support.
 8. **Loaders** — `ionCube`, `phpBolt` and `perforce` are present in `php -m`.
 

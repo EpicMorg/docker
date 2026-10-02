@@ -412,6 +412,9 @@ RUN set -eux; \
       ln -sfn ${PHP_INI_DIR}/php.ini   ${PHP_INI_DIR}/${sapi}/php.ini; \
     done; \
     \
+    ln -sfn ${PHP_INI_DIR}/php-fpm.conf ${PHP_INI_DIR}/fpm/php-fpm.conf; \
+    ln -sfn ${PHP_INI_DIR}/php-fpm.d    ${PHP_INI_DIR}/fpm/pool.d; \
+    \
     mkdir -p /etc/php /usr/lib/php; \
     ln -sfn ${PHP_INI_DIR} /etc/php/${PHP_VERSION}; \
     ln -sfn "$extDir"      /usr/lib/php/${api}
@@ -445,7 +448,7 @@ RUN set -eux; \
 # Container-oriented defaults: foreground, logs to stderr, workers recycled,
 # stuck requests killed. Upstream defaults leave the last two off entirely.
 COPY etc/php-fpm.conf     ${PHP_INI_DIR}/php-fpm.conf
-COPY etc/php-fpm.d/www.conf ${PHP_INI_DIR}/php-fpm.d/www.conf
+COPY etc/php-fpm.d/       ${PHP_INI_DIR}/php-fpm.d/
 
 RUN set -eux; \
     mkdir -p /run/php /var/www/html; \
@@ -530,6 +533,11 @@ RUN set -eux; \
 # Built via `pecl download` + explicit ./configure instead of `pecl install`,
 # because pecl's interactive prompts change order between releases and
 # silently produce wrong flags (e.g. --with-libmemcached-dir=no).
+#
+# memcached uses Debian's libmemcached (libhashkit + libsasl2 NEED
+# libcrypto.so.3). The RPATH to PHP_SSL_LIB_DIR makes that libcrypto.so.3
+# resolve to OUR OpenSSL 3.5 even when memcached.so is loaded on its own,
+# instead of the system copy with the same SONAME.
 RUN set -eux; \
     cd /tmp; \
     \
@@ -555,6 +563,7 @@ RUN set -eux; \
     tar -xzf memcached-${PECL_MEMCACHED_VERSION}.tgz; \
     cd memcached-${PECL_MEMCACHED_VERSION}; \
     phpize; \
+    LDFLAGS="-Wl,-rpath,${PHP_SSL_LIB_DIR} -Wl,--disable-new-dtags" \
     ./configure \
       --with-libmemcached-dir=/usr \
       --with-zlib-dir=/usr \
@@ -680,6 +689,12 @@ RUN set -eux; \
 #   1. header version  - "OpenSSL Header Version"  (which headers were used)
 #   2. library version - "OpenSSL Library Version" (which lib is loaded at runtime)
 #   3. linkage         - ldd of the php binary     (resolved from our prefix, no 'not found')
+#   4. php, php-cgi, php-fpm and every .so in the extension dir: no
+#      'not found', ONE SONAME of libssl / libcrypto / libxml2 / libcurl /
+#      libpq / libicuuc / libz across all of them (a second SONAME is a library
+#      duality inside one process, ADR-031), and every libssl / libcrypto
+#      resolves under PHP_SSL_LIB_DIR - on OpenSSL 3.5 the system copy has the
+#      SAME SONAME, so only the path tells them apart.
 # Checks 1 and 2 disagreeing means ABI drift: compiled against system headers, linked to ours.
 RUN set -eu; \
     php="${PHP_BIN_DIR}/php"; \
@@ -717,6 +732,28 @@ RUN set -eu; \
       "OpenSSL/${PHP_SSL_VERSION}"*) ;; \
       *) echo "FATAL: curl uses ${cv}, expected OpenSSL/${PHP_SSL_VERSION}" >&2; exit 1 ;; \
     esac; \
+    echo "--- Checking binaries + extension dir (Final) ---"; \
+    extDir="$(php-config --extension-dir)"; \
+    bins="$php ${PHP_BIN_DIR}/php-cgi ${PHP_DIR}/sbin/php-fpm $(ls "${extDir}"/*.so)"; \
+    for bin in $bins; do \
+      if ldd "$bin" | grep -q 'not found'; then \
+        echo "FATAL: ${bin} has unresolved deps" >&2; ldd "$bin" >&2; exit 1; \
+      fi; \
+    done; \
+    for l in libssl libcrypto libxml2 libcurl libpq libicuuc libz; do \
+      n="$(for bin in $bins; do ldd "$bin" | awk '{print $1}' | grep "^${l}\.so" || true; done | sort -u | wc -l)"; \
+      if [ "$n" -gt 1 ]; then \
+        echo "FATAL: ${n} different ${l} SONAMEs across php + extensions:" >&2; \
+        for bin in $bins; do ldd "$bin" | grep "${l}\.so" | sed "s|^|$(basename "$bin"): |" >&2 || true; done; \
+        exit 1; \
+      fi; \
+    done; \
+    stray="$(for bin in $bins; do ldd "$bin" | awk -v b="$(basename "$bin")" -v d="${PHP_SSL_LIB_DIR}/" '$1 ~ /^lib(ssl|crypto)\.so/ && index($3, d) != 1 {print b ": " $1 " => " $3}'; done)"; \
+    if [ -n "$stray" ]; then \
+      echo "FATAL: libssl/libcrypto resolved outside ${PHP_SSL_LIB_DIR} (system OpenSSL next to ours):" >&2; \
+      echo "$stray" >&2; exit 1; \
+    fi; \
+    echo "OK: no unresolved deps, one libssl/libcrypto/libxml2/libcurl/libpq/libicuuc/libz SONAME, every libssl/libcrypto from ${PHP_SSL_LIB_DIR}, across php, php-cgi, php-fpm and $(ls "${extDir}"/*.so | wc -l) extensions"; \
     echo "--- Checking RPATH (Final) ---"; \
     for f in "$php" "${PHP_BIN_DIR}/php-cgi" "${PHP_BIN_DIR}/phpdbg" "${PHP_DIR}/sbin/php-fpm" \
              "${PHP_DIR}"/lib/libphp*.so "$(php-config --extension-dir)/opcache.so"; do \
@@ -727,7 +764,7 @@ RUN set -eu; \
     done; \
     echo "--- Loaded modules ---"; \
     "$php" -m; \
-    echo "extension_dir = $(php-config --extension-dir)"; \
+    echo "extension_dir = ${extDir}"; \
     echo "============================================="
 
 WORKDIR ${PHP_DIR}
