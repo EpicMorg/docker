@@ -22,6 +22,9 @@ RUN install -m 0755 -d /etc/apt/keyrings && \
       podman \ 
       podman-compose \
       fuse-overlayfs && \
+# podman-compose pulls Debian's python3-typing-extensions; pydantic (wrappers) needs a newer one
+# and pip can't uninstall a Debian package (no RECORD) - install the new one over it first.
+    pip3 install --break-system-packages --no-cache-dir --ignore-installed typing_extensions && \
     pip3 install --break-system-packages --no-cache-dir \
       kaniko-wrapper \
       buildah-wrapper && \
