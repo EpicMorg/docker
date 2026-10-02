@@ -523,6 +523,9 @@ RUN set -eux; \
       ln -sfn ${PHP_INI_DIR}/php.ini   ${PHP_INI_DIR}/${sapi}/php.ini; \
     done; \
     \
+    ln -sfn ${PHP_INI_DIR}/php-fpm.conf ${PHP_INI_DIR}/fpm/php-fpm.conf; \
+    ln -sfn ${PHP_INI_DIR}/php-fpm.d    ${PHP_INI_DIR}/fpm/pool.d; \
+    \
     mkdir -p /etc/php /usr/lib/php; \
     ln -sfn ${PHP_INI_DIR} /etc/php/${PHP_VERSION}; \
     ln -sfn "$extDir"      /usr/lib/php/${api}
@@ -556,7 +559,7 @@ RUN set -eux; \
 # Container-oriented defaults: foreground, logs to stderr, workers recycled,
 # stuck requests killed. Upstream defaults leave the last two off entirely.
 COPY etc/php-fpm.conf       ${PHP_INI_DIR}/php-fpm.conf
-COPY etc/php-fpm.d/www.conf ${PHP_INI_DIR}/php-fpm.d/www.conf
+COPY etc/php-fpm.d/       ${PHP_INI_DIR}/php-fpm.d/
 
 # php-fpm.conf carries an absolute include path; patch it to this version.
 # The .default files are dropped so nobody edits the wrong one later.

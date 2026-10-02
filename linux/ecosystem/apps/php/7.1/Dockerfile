@@ -50,6 +50,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     bison \
     dpkg-dev \
     file \
+    flex \
     g++ \
     gcc \
     gettext \
@@ -70,7 +71,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libxml2-dev \
     libxpm-dev \
     libxslt1-dev \
-    libzip-dev \
     make \
     pkg-config \
     re2c \
@@ -105,6 +105,97 @@ RUN set -eux; \
     mv /usr/include/unicode /usr/include/unicode.disabled; \
     rm -f /usr/lib/x86_64-linux-gnu/libicu*.so \
           /usr/lib/x86_64-linux-gnu/libicu*.a
+
+##################################################################
+#        libzip + libmemcached, baked against OUR OpenSSL
+##################################################################
+# Debian's libzip5 (AES zip encryption) and libmemcached (libhashkit +
+# libsasl2) both link the system libcrypto.so.3. With them, php / php-fpm and
+# memcached.so load libcrypto.so.3 next to our libcrypto.so.1.1 - a library
+# duality inside one process (ADR-031). Both are built here instead:
+#   * libzip       - against OUR OpenSSL (ZipArchive encryption keeps working),
+#                    RPATH to it. The system libzip-dev is NOT installed above.
+#   * libmemcached - the maintained awesomized fork (the 1.0.18 successor, the
+#                    same code Debian ships). SASL off: the system libsasl2
+#                    links libcrypto.so.3 too. ENABLE_OPENSSL_CRYPTO off:
+#                    libhashkit uses its bundled AES for setEncodingKey(), so
+#                    the library links no libcrypto at all.
+# Built with Debian's gcc/g++ (explicit: `c++` on PATH is the image's own
+# gcc 14), so the libstdc++ libmemcached needs is the one the final image ships.
+ENV LIBZIP_VERSION=1.11.4
+ENV LIBZIP_DIR=${EMG_LOCAL_BASE_DIR}/libzip/${LIBZIP_VERSION}/openssl111
+ENV LIBZIP_LIB_DIR=${LIBZIP_DIR}/lib
+ARG LIBZIP_URL=https://github.com/nih-at/libzip/releases/download/v${LIBZIP_VERSION}/libzip-${LIBZIP_VERSION}.tar.xz
+ARG LIBZIP_SHA256=8a247f57d1e3e6f6d11413b12a6f28a9d388de110adc0ec608d893180ed7097b
+
+ENV LIBMEMCACHED_VERSION=1.1.4
+ENV LIBMEMCACHED_DIR=${EMG_LOCAL_BASE_DIR}/libmemcached/${LIBMEMCACHED_VERSION}
+ENV LIBMEMCACHED_LIB_DIR=${LIBMEMCACHED_DIR}/lib
+ARG LIBMEMCACHED_URL=https://github.com/awesomized/libmemcached/archive/refs/tags/${LIBMEMCACHED_VERSION}.tar.gz
+ARG LIBMEMCACHED_SHA256=c477e1f6510e1dc698e84f3717ce690a8f65b94c616ecaa62306cce0f5e3116a
+
+RUN set -eux; \
+    cd /tmp; \
+    aria2c \
+        --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -d /tmp -o libzip.tar.xz "${LIBZIP_URL}"; \
+    echo "${LIBZIP_SHA256} *libzip.tar.xz" | sha256sum -c -; \
+    mkdir libzip; tar -xJf libzip.tar.xz --strip-components=1 -C libzip; \
+    cmake -S libzip -B libzip/build \
+      -DCMAKE_BUILD_TYPE=Release \
+      -DCMAKE_C_COMPILER=/usr/bin/gcc \
+      -DCMAKE_INSTALL_PREFIX=${LIBZIP_DIR} \
+      -DCMAKE_INSTALL_LIBDIR=lib \
+      -DCMAKE_C_FLAGS="-fPIC -O2" \
+      -DCMAKE_SHARED_LINKER_FLAGS="-L${OPENSSL_111_LIB_DIR} -Wl,--disable-new-dtags" \
+      -DCMAKE_INSTALL_RPATH=${OPENSSL_111_LIB_DIR} \
+      -DOPENSSL_ROOT_DIR=${OPENSSL_111_DIR} \
+      -DENABLE_OPENSSL=ON \
+      -DENABLE_GNUTLS=OFF \
+      -DENABLE_MBEDTLS=OFF \
+      -DENABLE_COMMONCRYPTO=OFF \
+      -DENABLE_WINDOWS_CRYPTO=OFF \
+      -DBUILD_TOOLS=OFF \
+      -DBUILD_REGRESS=OFF \
+      -DBUILD_OSSFUZZ=OFF \
+      -DBUILD_EXAMPLES=OFF \
+      -DBUILD_DOC=OFF; \
+    cmake --build libzip/build -j"$(nproc)"; \
+    cmake --install libzip/build; \
+    \
+    aria2c \
+        --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -d /tmp -o libmemcached.tar.gz "${LIBMEMCACHED_URL}"; \
+    echo "${LIBMEMCACHED_SHA256} *libmemcached.tar.gz" | sha256sum -c -; \
+    mkdir libmemcached; tar -xzf libmemcached.tar.gz --strip-components=1 -C libmemcached; \
+    cmake -S libmemcached -B libmemcached/build \
+      -DCMAKE_BUILD_TYPE=Release \
+      -DCMAKE_C_COMPILER=/usr/bin/gcc \
+      -DCMAKE_CXX_COMPILER=/usr/bin/g++ \
+      -DCMAKE_INSTALL_PREFIX=${LIBMEMCACHED_DIR} \
+      -DCMAKE_INSTALL_LIBDIR=lib \
+      -DCMAKE_SHARED_LINKER_FLAGS="-Wl,--disable-new-dtags" \
+      -DENABLE_SASL=OFF \
+      -DENABLE_OPENSSL_CRYPTO=OFF \
+      -DENABLE_MEMASLAP=OFF \
+      -DBUILD_TESTING=OFF \
+      -DBUILD_DOCS=OFF; \
+    cmake --build libmemcached/build -j"$(nproc)"; \
+    cmake --install libmemcached/build; \
+    rm -rf /tmp/libzip* /tmp/libmemcached*; \
+    \
+    readelf -d ${LIBZIP_LIB_DIR}/libzip.so | grep -q "(RPATH).*${OPENSSL_111_LIB_DIR}" || { \
+      echo "FATAL: libzip has no RPATH to ${OPENSSL_111_LIB_DIR}" >&2; readelf -d ${LIBZIP_LIB_DIR}/libzip.so >&2; exit 1; }; \
+    ldd ${LIBZIP_LIB_DIR}/libzip.so | grep -q "${OPENSSL_111_LIB_DIR}/libcrypto.so.1.1" || { \
+      echo "FATAL: libzip not linked against our libcrypto" >&2; ldd ${LIBZIP_LIB_DIR}/libzip.so >&2; exit 1; }; \
+    for l in ${LIBMEMCACHED_LIB_DIR}/libmemcached.so ${LIBMEMCACHED_LIB_DIR}/libhashkit.so; do \
+      if ldd "$l" | grep -E 'lib(ssl|crypto|sasl2)\.so|not found'; then \
+        echo "FATAL: $l links OpenSSL/SASL or has unresolved deps" >&2; exit 1; \
+      fi; \
+    done; \
+    grep -q '#define LIBMEMCACHED_WITH_SASL_SUPPORT 0' ${LIBMEMCACHED_DIR}/include/libmemcached-1.0/configure.h
 
 ##################################################################
 #                    Fetching sources
@@ -162,12 +253,12 @@ RUN set -eux; \
     debMultiarch="$(dpkg-architecture --query DEB_BUILD_MULTIARCH)"; \
     export ICU_CFLAGS="-I${ICU_67_INC_DIR}"; \
     export ICU_LIBS="-L${ICU_67_LIB_DIR} -licui18n -licuuc -licudata -licuio"; \
-    export LD_LIBRARY_PATH="${ICU_67_LIB_DIR}:${CURL_817_111_LIB_DIR}:${LIBPQ_16_111_LIB_DIR}:${OPENSSL_111_LIB_DIR}:${LD_LIBRARY_PATH:-}"; \
-    export PKG_CONFIG_PATH="${OPENSSL_111_LIB_DIR}/pkgconfig:${ICU_67_LIB_DIR}/pkgconfig:${CURL_817_111_LIB_DIR}/pkgconfig:${LIBPQ_16_111_LIB_DIR}/pkgconfig:${PKG_CONFIG_PATH:-}"; \
+    export LD_LIBRARY_PATH="${LIBZIP_LIB_DIR}:${ICU_67_LIB_DIR}:${CURL_817_111_LIB_DIR}:${LIBPQ_16_111_LIB_DIR}:${OPENSSL_111_LIB_DIR}:${LD_LIBRARY_PATH:-}"; \
+    export PKG_CONFIG_PATH="${LIBZIP_LIB_DIR}/pkgconfig:${OPENSSL_111_LIB_DIR}/pkgconfig:${ICU_67_LIB_DIR}/pkgconfig:${CURL_817_111_LIB_DIR}/pkgconfig:${LIBPQ_16_111_LIB_DIR}/pkgconfig:${PKG_CONFIG_PATH:-}"; \
     export CFLAGS="${PHP_CFLAGS} -Wno-error=incompatible-pointer-types"; \
     export CXXFLAGS="${PHP_CFLAGS} -fpermissive"; \
     export CPPFLAGS="-I${OPENSSL_111_INC_DIR} -I${ICU_67_INC_DIR} -I${CURL_817_111_INC_DIR} ${PHP_CPPFLAGS}"; \
-    export LDFLAGS="-L${OPENSSL_111_LIB_DIR} -L${ICU_67_LIB_DIR} -L${CURL_817_111_LIB_DIR} -L${LIBPQ_16_111_LIB_DIR} -Wl,-rpath,${OPENSSL_111_LIB_DIR} -Wl,-rpath,${ICU_67_LIB_DIR} -Wl,-rpath,${CURL_817_111_LIB_DIR} -Wl,-rpath,${LIBPQ_16_111_LIB_DIR} -Wl,-rpath,${PHP_DIR}/lib ${PHP_LDFLAGS} -Wl,--disable-new-dtags"; \
+    export LDFLAGS="-L${OPENSSL_111_LIB_DIR} -L${ICU_67_LIB_DIR} -L${CURL_817_111_LIB_DIR} -L${LIBPQ_16_111_LIB_DIR} -L${LIBZIP_LIB_DIR} -Wl,-rpath,${LIBZIP_LIB_DIR} -Wl,-rpath,${OPENSSL_111_LIB_DIR} -Wl,-rpath,${ICU_67_LIB_DIR} -Wl,-rpath,${CURL_817_111_LIB_DIR} -Wl,-rpath,${LIBPQ_16_111_LIB_DIR} -Wl,-rpath,${PHP_DIR}/lib ${PHP_LDFLAGS} -Wl,--disable-new-dtags"; \
     ./configure \
       --prefix=${PHP_DIR} \
       --sysconfdir=${PHP_INI_DIR} \
@@ -355,7 +446,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libgmp-dev \
     libjpeg-dev \
     libmagickwand-dev \
-    libmemcached-dev \
     libonig-dev \
     libpng-dev \
     libreadline-dev \
@@ -366,7 +456,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libxml2-dev \
     libxpm-dev \
     libxslt1-dev \
-    libzip-dev \
     make \
     pkg-config \
     re2c \
@@ -406,6 +495,18 @@ ENV ICU_67_LIB_DIR=${ICU_67_DIR}/lib
 ENV ICU_67_SRC_DIR=/usr/local/src/icu/${ICU_67_MIN_VERSION}
 
 ##################################################################
+#           libzip + libmemcached (baked in the builder)
+##################################################################
+# See the builder: Debian's libzip5 / libmemcached link the system
+# libcrypto.so.3, which would load next to our OpenSSL 1.1.1.
+ENV LIBZIP_VERSION=1.11.4
+ENV LIBZIP_DIR=${EMG_LOCAL_BASE_DIR}/libzip/${LIBZIP_VERSION}/openssl111
+ENV LIBZIP_LIB_DIR=${LIBZIP_DIR}/lib
+ENV LIBMEMCACHED_VERSION=1.1.4
+ENV LIBMEMCACHED_DIR=${EMG_LOCAL_BASE_DIR}/libmemcached/${LIBMEMCACHED_VERSION}
+ENV LIBMEMCACHED_LIB_DIR=${LIBMEMCACHED_DIR}/lib
+
+##################################################################
 #                  OpenSSL 1.1.1
 ##################################################################
 # NOTE: these must match the layout produced in the develop/gcc image.
@@ -439,7 +540,7 @@ ENV PHP_SSL_HDR_MASK=0x1010
 ENV PHP_SSL_DIR=${OPENSSL_111_DIR}
 ENV PHP_SSL_LIB_DIR=${OPENSSL_111_LIB_DIR}
 ENV PHP_SSL_VERSION=${OPENSSL_111_VERSION}
-ENV PKG_CONFIG_PATH=${PHP_SSL_LIB_DIR}/pkgconfig:${ICU_67_LIB_DIR}/pkgconfig:${CURL_817_111_LIB_DIR}/pkgconfig:${LIBPQ_16_111_LIB_DIR}/pkgconfig:${PKG_CONFIG_PATH}
+ENV PKG_CONFIG_PATH=${PHP_SSL_LIB_DIR}/pkgconfig:${LIBZIP_LIB_DIR}/pkgconfig:${LIBMEMCACHED_LIB_DIR}/pkgconfig:${ICU_67_LIB_DIR}/pkgconfig:${CURL_817_111_LIB_DIR}/pkgconfig:${LIBPQ_16_111_LIB_DIR}/pkgconfig:${PKG_CONFIG_PATH}
 ENV PHP_CFLAGS="-fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64"
 ENV PHP_CPPFLAGS="-I${PHP_SSL_DIR}/include -I${ICU_67_INC_DIR} ${PHP_CFLAGS}"
 ENV PHP_LDFLAGS="-L${PHP_SSL_LIB_DIR} -L${ICU_67_LIB_DIR} -L${CURL_817_111_LIB_DIR} -L${LIBPQ_16_111_LIB_DIR} -Wl,-rpath,${PHP_SSL_LIB_DIR} -Wl,-rpath,${ICU_67_LIB_DIR} -Wl,-rpath,${CURL_817_111_LIB_DIR} -Wl,-rpath,${LIBPQ_16_111_LIB_DIR} -Wl,-O1 -pie -Wl,--disable-new-dtags"
@@ -454,13 +555,17 @@ COPY --from=builder ${CURL_817_111_DIR}      ${CURL_817_111_DIR}
 COPY --from=builder ${CURL_817_SRC_DIR}      ${CURL_817_SRC_DIR}
 COPY --from=builder ${LIBPQ_16_111_DIR}      ${LIBPQ_16_111_DIR}
 COPY --from=builder ${LIBPQ_16_111_SRC_DIR}  ${LIBPQ_16_111_SRC_DIR}
+COPY --from=builder ${LIBZIP_DIR}           ${LIBZIP_DIR}
+COPY --from=builder ${LIBMEMCACHED_DIR}     ${LIBMEMCACHED_DIR}
 
 # Catch a lib vs lib64 mismatch immediately instead of at the assertion stage.
 RUN set -eux; \
     test -f "${OPENSSL_111_LIB_DIR}/libssl.so"     || { echo "FATAL: no libssl.so in ${OPENSSL_111_LIB_DIR}" >&2; exit 1; }; \
     test -f "${ICU_67_LIB_DIR}/libicuuc.so"           || { echo "FATAL: no libicuuc.so in ${ICU_67_LIB_DIR}" >&2; exit 1; }; \
     test -f "${CURL_817_111_LIB_DIR}/libcurl.so"   || { echo "FATAL: no libcurl.so in ${CURL_817_111_LIB_DIR}" >&2; exit 1; }; \
-    test -f "${LIBPQ_16_111_LIB_DIR}/libpq.so"     || { echo "FATAL: no libpq.so in ${LIBPQ_16_111_LIB_DIR}" >&2; exit 1; }
+    test -f "${LIBPQ_16_111_LIB_DIR}/libpq.so"     || { echo "FATAL: no libpq.so in ${LIBPQ_16_111_LIB_DIR}" >&2; exit 1; }; \
+    test -f "${LIBZIP_LIB_DIR}/libzip.so"          || { echo "FATAL: no libzip.so in ${LIBZIP_LIB_DIR}" >&2; exit 1; }; \
+    test -f "${LIBMEMCACHED_LIB_DIR}/libmemcached.so" || { echo "FATAL: no libmemcached.so in ${LIBMEMCACHED_LIB_DIR}" >&2; exit 1; }
 
 
 ENV PATH="${PHP_BIN_DIR}:${PHP_DIR}/sbin:${PATH}"
@@ -503,6 +608,9 @@ RUN set -eux; \
       ln -sfn ${PHP_INI_DIR}/php.ini   ${PHP_INI_DIR}/${sapi}/php.ini; \
     done; \
     \
+    ln -sfn ${PHP_INI_DIR}/php-fpm.conf ${PHP_INI_DIR}/fpm/php-fpm.conf; \
+    ln -sfn ${PHP_INI_DIR}/php-fpm.d    ${PHP_INI_DIR}/fpm/pool.d; \
+    \
     mkdir -p /etc/php /usr/lib/php; \
     ln -sfn ${PHP_INI_DIR} /etc/php/${PHP_VERSION}; \
     ln -sfn "$extDir"      /usr/lib/php/${api}
@@ -536,7 +644,7 @@ RUN set -eux; \
 # Container-oriented defaults: foreground, logs to stderr, workers recycled,
 # stuck requests killed. Upstream defaults leave the last two off entirely.
 COPY etc/php-fpm.conf       ${PHP_INI_DIR}/php-fpm.conf
-COPY etc/php-fpm.d/www.conf ${PHP_INI_DIR}/php-fpm.d/www.conf
+COPY etc/php-fpm.d/       ${PHP_INI_DIR}/php-fpm.d/
 
 # php-fpm.conf carries an absolute include path; patch it to this version.
 # The .default files are dropped so nobody edits the wrong one later.
@@ -621,6 +729,11 @@ RUN set -eux; \
 # instead of `pecl install`, because pecl's interactive prompts change order
 # between releases and silently produce wrong flags
 # (observed: --with-libmemcached-dir=no, --with-system-fastlz).
+#
+# memcached links the libmemcached baked in the builder (no SASL, no
+# OpenSSL): Debian's libmemcached / libsasl2 pull the system libcrypto.so.3.
+# Consequence: memcached.use_sasl / setSaslAuthData() are not available on
+# the OpenSSL 1.1.1 branches (7.0-8.0).
 RUN set -eux; \
     cd /tmp; \
     \
@@ -646,14 +759,15 @@ RUN set -eux; \
     tar -xzf memcached-${PECL_MEMCACHED_VERSION}.tgz; \
     cd memcached-${PECL_MEMCACHED_VERSION}; \
     phpize; \
+    LDFLAGS="-Wl,-rpath,${LIBMEMCACHED_LIB_DIR} -Wl,--disable-new-dtags" \
     ./configure \
-      --with-libmemcached-dir=/usr \
+      --with-libmemcached-dir=${LIBMEMCACHED_DIR} \
       --with-zlib-dir=/usr \
       --enable-memcached-igbinary \
       --enable-memcached-msgpack \
       --enable-memcached-json \
       --enable-memcached-session \
-      --enable-memcached-sasl \
+      --disable-memcached-sasl \
       --disable-memcached-protocol; \
     make -j"$(nproc)"; \
     make install; \
@@ -779,6 +893,12 @@ RUN set -eux; \
 #   2. library version - "OpenSSL Library Version" (which lib is loaded at runtime)
 #   3. linkage         - ldd of the php binary     (resolved from our prefix)
 #   4. ICU version     - ext/intl reports the ICU it was built against
+#   5. php, php-cgi, php-fpm and every .so in the extension dir: no
+#      'not found', ONE SONAME of libssl / libcrypto / libxml2 / libcurl /
+#      libpq / libicuuc / libz across all of them (a second SONAME is a library
+#      duality inside one process, ADR-031), and every libssl / libcrypto
+#      resolves under PHP_SSL_LIB_DIR - on OpenSSL 3.5 the system copy has the
+#      SAME SONAME, so only the path tells them apart.
 # Checks 1 and 2 disagreeing means ABI drift: compiled against system headers,
 # linked to ours.
 RUN set -eu; \
@@ -827,6 +947,28 @@ RUN set -eu; \
       "OpenSSL/${PHP_SSL_VERSION}"*) ;; \
       *) echo "FATAL: curl uses ${cv}, expected OpenSSL/${PHP_SSL_VERSION}" >&2; exit 1 ;; \
     esac; \
+    echo "--- Checking binaries + extension dir (Final) ---"; \
+    extDir="$(php-config --extension-dir)"; \
+    bins="$php ${PHP_BIN_DIR}/php-cgi ${PHP_DIR}/sbin/php-fpm $(ls "${extDir}"/*.so)"; \
+    for bin in $bins; do \
+      if ldd "$bin" | grep -q 'not found'; then \
+        echo "FATAL: ${bin} has unresolved deps" >&2; ldd "$bin" >&2; exit 1; \
+      fi; \
+    done; \
+    for l in libssl libcrypto libxml2 libcurl libpq libicuuc libz; do \
+      n="$(for bin in $bins; do ldd "$bin" | awk '{print $1}' | grep "^${l}\.so" || true; done | sort -u | wc -l)"; \
+      if [ "$n" -gt 1 ]; then \
+        echo "FATAL: ${n} different ${l} SONAMEs across php + extensions:" >&2; \
+        for bin in $bins; do ldd "$bin" | grep "${l}\.so" | sed "s|^|$(basename "$bin"): |" >&2 || true; done; \
+        exit 1; \
+      fi; \
+    done; \
+    stray="$(for bin in $bins; do ldd "$bin" | awk -v b="$(basename "$bin")" -v d="${PHP_SSL_LIB_DIR}/" '$1 ~ /^lib(ssl|crypto)\.so/ && index($3, d) != 1 {print b ": " $1 " => " $3}'; done)"; \
+    if [ -n "$stray" ]; then \
+      echo "FATAL: libssl/libcrypto resolved outside ${PHP_SSL_LIB_DIR} (system OpenSSL next to ours):" >&2; \
+      echo "$stray" >&2; exit 1; \
+    fi; \
+    echo "OK: no unresolved deps, one libssl/libcrypto/libxml2/libcurl/libpq/libicuuc/libz SONAME, every libssl/libcrypto from ${PHP_SSL_LIB_DIR}, across php, php-cgi, php-fpm and $(ls "${extDir}"/*.so | wc -l) extensions"; \
     echo "--- Checking RPATH (Final) ---"; \
     for f in "$php" "${PHP_BIN_DIR}/php-cgi" "${PHP_BIN_DIR}/phpdbg" "${PHP_DIR}/sbin/php-fpm" \
              "${PHP_DIR}"/lib/libphp*.so "$(php-config --extension-dir)/opcache.so"; do \
@@ -837,7 +979,7 @@ RUN set -eu; \
     done; \
     echo "--- Loaded modules ---"; \
     "$php" -m; \
-    echo "extension_dir = $(php-config --extension-dir)"; \
+    echo "extension_dir = ${extDir}"; \
     echo "============================================="
 
 WORKDIR ${PHP_DIR}
