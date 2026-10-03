@@ -4,12 +4,12 @@
 # All node* agents share this file; they differ only in the version.
 # pnpm / yarn come with the nodejs image (installed there as global npm
 # packages, i.e. inside ${NODE_DIR}).
-FROM docker.io/epicmorg/nodejs:22 AS node
+FROM docker.io/epicmorg/nodejs:24 AS node
 
 FROM docker.io/epicmorg/teamcity-agent:minimal
 ARG DEBIAN_FRONTEND=noninteractive
 
-ENV NODE_DIR=${EMG_LOCAL_BASE_DIR}/nodejs/22
+ENV NODE_DIR=${EMG_LOCAL_BASE_DIR}/nodejs/24
 ENV PATH=${NODE_DIR}/bin:${PATH}
 
 RUN groupadd -g 1337 node && \
@@ -23,7 +23,7 @@ RUN set -eu; \
     for b in ${NODE_DIR}/bin/*; do ln -sfn "$b" /usr/local/bin/; done; \
     [ "$(readlink -f "$(command -v node)")" = "${NODE_DIR}/bin/node" ] || { echo "FATAL: node on PATH is not from ${NODE_DIR}" >&2; exit 1; }; \
     [ "$(readlink -f /usr/local/bin/node)" = "${NODE_DIR}/bin/node" ] || { echo "FATAL: /usr/local/bin/node is not from ${NODE_DIR}" >&2; exit 1; }; \
-    case "$(node --version)" in v22.*) ;; *) echo "FATAL: node is $(node --version), expected v22.x" >&2; exit 1 ;; esac; \
+    case "$(node --version)" in v24.*) ;; *) echo "FATAL: node is $(node --version), expected v24.x" >&2; exit 1 ;; esac; \
     echo "node $(node --version)"; \
     echo "npm $(npm --version)"; \
     for t in pnpm yarn; do \

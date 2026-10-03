@@ -3,3 +3,8 @@ services:
     image: "epicmorg/teamcity-agent:node18"
     build:
       context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/teamcity-agent:node18
+      - ghcr.io/epicmorg/teamcity-agent:node18
+      - docker.io/epicmorg/teamcity-agent:node18
