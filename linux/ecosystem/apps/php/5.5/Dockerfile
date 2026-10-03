@@ -30,6 +30,7 @@ ENV SSL_CERT_DIR=/etc/ssl/certs
 
 # Simple check if ENVs inherited from epicmorg/gcc are alive.
 RUN : "${OPENSSL_102_DIR:?empty - check epicmorg/gcc ENV}" \
+      "${ZLIB_LIB_DIR:?empty}" "${ZLIB_INC_DIR:?empty}" "${ZSTD_LIB_DIR:?empty}" \
       "${OPENSSL_102_LIB_DIR:?empty}" "${OPENSSL_102_INC_DIR:?empty}" \
       "${ICU_67_DIR:?empty}" "${ICU_67_LIB_DIR:?empty}" "${ICU_67_INC_DIR:?empty}" \
       "${CURL_817_102_DIR:?empty}" "${CURL_817_102_LIB_DIR:?empty}" \
@@ -174,11 +175,11 @@ RUN set -eux; \
     export ICU_CFLAGS="-I${ICU_67_INC_DIR}"; \
     export ICU_LIBS="-L${ICU_67_LIB_DIR} -licui18n -licuuc -licudata -licuio"; \
     export LD_LIBRARY_PATH="${ICU_67_LIB_DIR}:${CURL_817_102_LIB_DIR}:${LIBPQ_13_102_LIB_DIR}:${OPENSSL_102_LIB_DIR}:${LD_LIBRARY_PATH:-}"; \
-    export PKG_CONFIG_PATH="${OPENSSL_102_LIB_DIR}/pkgconfig:${ICU_67_LIB_DIR}/pkgconfig:${CURL_817_102_LIB_DIR}/pkgconfig:${LIBPQ_13_102_LIB_DIR}/pkgconfig:${PKG_CONFIG_PATH:-}"; \
+    export PKG_CONFIG_PATH="${ZLIB_LIB_DIR}/pkgconfig:${OPENSSL_102_LIB_DIR}/pkgconfig:${ICU_67_LIB_DIR}/pkgconfig:${CURL_817_102_LIB_DIR}/pkgconfig:${LIBPQ_13_102_LIB_DIR}/pkgconfig:${PKG_CONFIG_PATH:-}"; \
     export CFLAGS="${PHP_CFLAGS} ${PHP_GCC14_COMPAT_CFLAGS}"; \
     export CXXFLAGS="${PHP_CFLAGS} -fpermissive -DU_USING_ICU_NAMESPACE=1"; \
-    export CPPFLAGS="-I${OPENSSL_102_INC_DIR} -I${ICU_67_INC_DIR} -I${CURL_817_102_INC_DIR} ${PHP_CPPFLAGS}"; \
-    export LDFLAGS="-L${OPENSSL_102_LIB_DIR} -L${ICU_67_LIB_DIR} -L${CURL_817_102_LIB_DIR} -L${LIBPQ_13_102_LIB_DIR} -Wl,-rpath,${OPENSSL_102_LIB_DIR} -Wl,-rpath,${ICU_67_LIB_DIR} -Wl,-rpath,${CURL_817_102_LIB_DIR} -Wl,-rpath,${LIBPQ_13_102_LIB_DIR} -Wl,-rpath,${PHP_DIR}/lib ${PHP_LDFLAGS} -Wl,--disable-new-dtags"; \
+    export CPPFLAGS="-I${ZLIB_INC_DIR} -I${OPENSSL_102_INC_DIR} -I${ICU_67_INC_DIR} -I${CURL_817_102_INC_DIR} ${PHP_CPPFLAGS}"; \
+    export LDFLAGS="-L${ZLIB_LIB_DIR} -L${ZSTD_LIB_DIR} -Wl,-rpath,${ZLIB_LIB_DIR} -Wl,-rpath,${ZSTD_LIB_DIR} -L${OPENSSL_102_LIB_DIR} -L${ICU_67_LIB_DIR} -L${CURL_817_102_LIB_DIR} -L${LIBPQ_13_102_LIB_DIR} -Wl,-rpath,${OPENSSL_102_LIB_DIR} -Wl,-rpath,${ICU_67_LIB_DIR} -Wl,-rpath,${CURL_817_102_LIB_DIR} -Wl,-rpath,${LIBPQ_13_102_LIB_DIR} -Wl,-rpath,${PHP_DIR}/lib ${PHP_LDFLAGS} -Wl,--disable-new-dtags"; \
     ./configure \
       --prefix=${PHP_DIR} \
       --sysconfdir=${PHP_INI_DIR} \
@@ -391,13 +392,30 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 
 ##################################################################
+#           zlib + zstd (baked in develop, rpath'd from php and from
+#           curl / libpq / OpenSSL / libxml2 - copied so that RPATH is real)
+##################################################################
+# Without these dirs in the final image every RPATH entry to them points
+# nowhere and the loader silently falls back to the system libz / libzstd.
+ENV ZLIB_VERSION=1.3.1
+ENV ZLIB_DIR=${EMG_LOCAL_BASE_DIR}/zlib/${ZLIB_VERSION}
+ENV ZLIB_INC_DIR=${ZLIB_DIR}/include
+ENV ZLIB_LIB_DIR=${ZLIB_DIR}/lib
+ENV ZLIB_SRC_DIR=/usr/local/src/zlib/${ZLIB_VERSION}
+ENV ZSTD_VERSION=1.5.7
+ENV ZSTD_DIR=${EMG_LOCAL_BASE_DIR}/zstd/${ZSTD_VERSION}
+ENV ZSTD_INC_DIR=${ZSTD_DIR}/include
+ENV ZSTD_LIB_DIR=${ZSTD_DIR}/lib
+ENV ZSTD_SRC_DIR=/usr/local/src/zstd/${ZSTD_VERSION}
+
+##################################################################
 #           curl 8.17
 ##################################################################
 ENV CURL_817_VERSION=8.17.0
 ENV CURL_817_102_DIR=${EMG_LOCAL_BASE_DIR}/curl/${CURL_817_VERSION}/openssl102
 ENV CURL_817_102_INC_DIR=${CURL_817_102_DIR}/include
 ENV CURL_817_102_LIB_DIR=${CURL_817_102_DIR}/lib
-ENV CURL_817_SRC_DIR=/usr/local/src/curl/${CURL_817_VERSION}
+ENV CURL_817_102_SRC_DIR=/usr/local/src/curl/${CURL_817_VERSION}/openssl102
 
 ##################################################################
 #           libpq 13 + OpenSSL 1.0.2u
@@ -471,7 +489,11 @@ COPY --from=builder ${OPENSSL_102_SRC_DIR}   ${OPENSSL_102_SRC_DIR}
 COPY --from=builder ${ICU_67_DIR}            ${ICU_67_DIR}
 COPY --from=builder ${ICU_67_SRC_DIR}        ${ICU_67_SRC_DIR}
 COPY --from=builder ${CURL_817_102_DIR}      ${CURL_817_102_DIR}
-COPY --from=builder ${CURL_817_SRC_DIR}      ${CURL_817_SRC_DIR}
+COPY --from=builder ${CURL_817_102_SRC_DIR}      ${CURL_817_102_SRC_DIR}
+COPY --from=builder ${ZLIB_DIR}             ${ZLIB_DIR}
+COPY --from=builder ${ZLIB_SRC_DIR}         ${ZLIB_SRC_DIR}
+COPY --from=builder ${ZSTD_DIR}             ${ZSTD_DIR}
+COPY --from=builder ${ZSTD_SRC_DIR}         ${ZSTD_SRC_DIR}
 COPY --from=builder ${LIBPQ_13_102_DIR}      ${LIBPQ_13_102_DIR}
 COPY --from=builder ${LIBPQ_13_SRC_DIR}      ${LIBPQ_13_SRC_DIR}
 
@@ -759,8 +781,18 @@ RUN set -eux; \
 #   3. linkage         - ldd of the php binary     (resolved from our prefix)
 #   4. ICU version     - ext/intl reports the ICU it was built against
 #   5. php, php-cgi, php-fpm and every .so in the extension dir: no
-#      'not found', and ONE libssl / libcrypto / libxml2 SONAME across all of
-#      them - a second SONAME is a library duality inside one process (ADR-031).
+#      'not found', and ONE libssl / libcrypto / libxml2 / libz / libzstd SONAME
+#      across all of them - a second SONAME is a library duality inside one
+#      process (ADR-031).
+#   6. libz / libzstd as the dynamic loader ACTUALLY maps them (php-cli and
+#      php-cgi: /proc/self/maps after gzcompress(); php-fpm: LD_DEBUG=libs
+#      'calling init' while -m loads every enabled extension): every mapped
+#      copy must live under ZLIB_LIB_DIR / ZSTD_LIB_DIR. Per-.so ldd is NOT
+#      the criterion here: Debian libs and PECL .so (libpng, freetype,
+#      libMagick*, libtiff, ...) say libz.so.1 => /lib/... when ldd'd alone,
+#      but in the process the SONAME is already satisfied by the copy php's
+#      RPATH loaded first, so the process has ONE libz - ours. System libz /
+#      libzstd showing up in the maps is the real duality and is fatal.
 # Checks 1 and 2 disagreeing means ABI drift: compiled against system headers,
 # linked to ours.
 RUN set -eu; \
@@ -817,7 +849,7 @@ RUN set -eu; \
         echo "FATAL: ${bin} has unresolved deps" >&2; ldd "$bin" >&2; exit 1; \
       fi; \
     done; \
-    for l in libssl libcrypto libxml2; do \
+    for l in libssl libcrypto libxml2 libz libzstd; do \
       n="$(for bin in $bins; do ldd "$bin" | awk '{print $1}' | grep "^${l}\.so" || true; done | sort -u | wc -l)"; \
       if [ "$n" -gt 1 ]; then \
         echo "FATAL: ${n} different ${l} SONAMEs across php + extensions:" >&2; \
@@ -825,7 +857,26 @@ RUN set -eu; \
         exit 1; \
       fi; \
     done; \
-    echo "OK: no unresolved deps, one libssl/libcrypto/libxml2 across php, php-cgi, php-fpm and $(ls "${extDir}"/*.so | wc -l) extensions"; \
+    echo "OK: no unresolved deps, one libssl/libcrypto/libxml2/libz/libzstd SONAME across php, php-cgi, php-fpm and $(ls "${extDir}"/*.so | wc -l) extensions"; \
+    echo "--- Checking libz / libzstd actually mapped by the loader (Final) ---"; \
+    printf '%s\n' '<?php gzcompress("x"); curl_version(); echo file_get_contents("/proc/self/maps");' > /tmp/emg-maps.php; \
+    for sapi in cli cgi fpm; do \
+      case "$sapi" in \
+        cli) maps="$("$php" /tmp/emg-maps.php | awk '{print $NF}')" ;; \
+        cgi) [ -x "${PHP_BIN_DIR}/php-cgi" ] || continue; \
+             maps="$("${PHP_BIN_DIR}/php-cgi" -q /tmp/emg-maps.php | awk '{print $NF}')" ;; \
+        fpm) maps="$(LD_DEBUG=libs "${PHP_DIR}/sbin/php-fpm" -m 2>&1 >/dev/null | sed -n 's/.*calling init: //p')" ;; \
+      esac; \
+      for pair in "libz:${ZLIB_LIB_DIR}" "libzstd:${ZSTD_LIB_DIR}"; do \
+        l="${pair%%:*}"; d="${pair#*:}"; \
+        got="$(echo "$maps" | grep "/${l}\.so" | sort -u)"; \
+        [ -n "$got" ] || { echo "FATAL: php-${sapi}: no ${l} mapped at all" >&2; exit 1; }; \
+        bad="$(echo "$got" | grep -v "^${d}/" || true)"; \
+        [ -z "$bad" ] || { echo "FATAL: php-${sapi} maps ${l} outside ${d} (system copy in the process):" >&2; echo "$got" >&2; exit 1; }; \
+        echo "OK: php-${sapi} ${l} -> $(echo $got)"; \
+      done; \
+    done; \
+    rm -f /tmp/emg-maps.php; \
     echo "--- Checking RPATH (Final) ---"; \
     for f in "$php" "${PHP_BIN_DIR}/php-cgi" "${PHP_BIN_DIR}/phpdbg" "${PHP_DIR}/sbin/php-fpm" \
              "${PHP_DIR}"/lib/libphp*.so "$(php-config --extension-dir)/opcache.so"; do \

@@ -1111,9 +1111,31 @@ RUN set -eux; \
 
 ENV PATH="${ZSTD_BIN_DIR}:${PATH}"
 
+# libzstd.so and the zstd CLI (programs link libzstd statically -
+# ZSTD_PROGRAMS_LINK_SHARED=OFF; zlib/lzma/lz4 support OFF by default) need
+# nothing but glibc, so there is nothing to RPATH. Assert exactly that: no
+# RUNPATH, no non-glibc NEEDED - if a future bump starts linking anything,
+# this fails and the block needs -Wl,-rpath + --disable-new-dtags like the rest.
+RUN set -eu; \
+    for f in ${ZSTD_LIB_DIR}/libzstd.so ${ZSTD_BIN_DIR}/zstd; do \
+      readelf -d "$f" | grep -q '(RUNPATH)' && { echo "FATAL: $f has RUNPATH, expected RPATH" >&2; exit 1; }; \
+      ldd "$f" | grep -q 'not found' && { echo "FATAL: $f has unresolved deps" >&2; ldd "$f" >&2; exit 1; }; \
+      extra="$(readelf -d "$f" | sed -n 's/.*(NEEDED).*\[\(.*\)\]/\1/p' | grep -Ev '^(libc|libm|libpthread|ld-linux-x86-64)\.so' || true)"; \
+      [ -z "$extra" ] || { echo "FATAL: $f links non-glibc libs without RPATH: $(echo $extra)" >&2; exit 1; }; \
+      true; \
+    done; \
+    v="$(${ZSTD_BIN_DIR}/zstd -V)"; echo "$v"; \
+    case "$v" in *"v${ZSTD_VERSION}"*) ;; *) echo "FATAL: zstd CLI is not ${ZSTD_VERSION}" >&2; exit 1 ;; esac; \
+    echo "OK: zstd ${ZSTD_VERSION} (no RUNPATH, glibc-only deps)"
+
 ##################################################################
 #                   PRCE2 static library
 ##################################################################
+# pcre2grep links libz + libbz2: OUR zlib with RPATH (not RUNPATH, ADR-055), plus
+# RPATH to PCRE_LIB_DIR for libpcre2-posix / pcre2grep / pcre2test.
+# libbz2 stays the SYSTEM one on purpose: the baked bzip2 1.0.6/1.0.8 libbz2.so
+# is an empty stub (gcc -shared over libbz2.a without --whole-archive exports no
+# BZ2_* symbols), so configure cannot use it ('checking for libbz2... no').
 RUN set -eux; \
     mkdir -p ${PCRE_BIN_DIR} ${PCRE_SRC_DIR} && \
     aria2c \
@@ -1125,6 +1147,8 @@ RUN set -eux; \
     cp -rfv ${PCRE_TEMP_SRC}/* ${PCRE_SRC_DIR} && \
     ln -sf ${PCRE_SRC_DIR} ${PCRE_DIR}/src && \
     cd ${PCRE_TEMP_SRC} && \
+    export CPPFLAGS="-I${ZLIB_INC_DIR} ${CPPFLAGS:-}" && \
+    export LDFLAGS="-L${ZLIB_LIB_DIR} -Wl,-rpath,${ZLIB_LIB_DIR} -Wl,-rpath,${PCRE_LIB_DIR} ${LDFLAGS:-} -Wl,--disable-new-dtags" && \
     ./configure --prefix=${PCRE_DIR} \
         --disable-silent-rules \
         --enable-shared \
@@ -1152,6 +1176,29 @@ RUN set -eux; \
     rm -rfv /tmp/*
 
 ENV PATH="${PCRE_BIN_DIR}:${PATH}"
+
+RUN set -eu; \
+    echo "--- pcre2 ---"; \
+    for f in ${PCRE_LIB_DIR}/libpcre2-*.so ${PCRE_BIN_DIR}/pcre2grep ${PCRE_BIN_DIR}/pcre2test; do \
+      readelf -d "$f" | grep -q '(RUNPATH)' && { echo "FATAL: $f has RUNPATH, expected RPATH" >&2; readelf -d "$f" >&2; exit 1; }; \
+      ldd "$f" | grep -q 'not found' && { echo "FATAL: $f has unresolved deps" >&2; ldd "$f" >&2; exit 1; }; \
+      true; \
+    done; \
+    for f in ${PCRE_LIB_DIR}/libpcre2-posix.so ${PCRE_BIN_DIR}/pcre2grep ${PCRE_BIN_DIR}/pcre2test; do \
+      readelf -d "$f" | grep -q "(RPATH).*${PCRE_LIB_DIR}" || { echo "FATAL: $f has no RPATH to ${PCRE_LIB_DIR}" >&2; readelf -d "$f" >&2; exit 1; }; \
+      ldd "$f" | grep 'libpcre2-' | grep -qv "=> ${PCRE_LIB_DIR}/" && { echo "FATAL: $f resolves libpcre2 outside ${PCRE_LIB_DIR}" >&2; ldd "$f" >&2; exit 1; }; \
+      true; \
+    done; \
+    g="${PCRE_BIN_DIR}/pcre2grep"; \
+    for pair in "libz\.so:${ZLIB_LIB_DIR}"; do \
+      l="${pair%%:*}"; d="${pair#*:}"; \
+      n="$(ldd "$g" | grep -c "$l")"; \
+      [ "$n" = 1 ] || { echo "FATAL: pcre2grep loads $n x $l" >&2; ldd "$g" >&2; exit 1; }; \
+      ldd "$g" | grep "$l" | grep -q "=> ${d}/" || { echo "FATAL: pcre2grep $l not from ${d} (system copy leaked in)" >&2; ldd "$g" >&2; exit 1; }; \
+    done; \
+    n="$(ldd "$g" | grep -c 'libbz2\.so')"; \
+    [ "$n" = 1 ] || { echo "FATAL: pcre2grep loads $n x libbz2" >&2; ldd "$g" >&2; exit 1; }; \
+    echo "OK: pcre2 RPATH, libz -> ${ZLIB_LIB_DIR}, libbz2 -> system (baked libbz2.so is a stub)"
 
 RUN echo "=============================================" && \
     echo pcre2 $(pcre2-config --version) && \
@@ -1316,6 +1363,8 @@ RUN set -eu; \
 ##################################################################
 #                   libgd
 ##################################################################
+# libgd's configure has no --enable-option-checking=fatal: an unknown flag only
+# prints "unrecognized options" and is ignored. That warning is made fatal below.
 RUN set -eux; \
     mkdir -p ${LIBGD_DIR} ${LIBGD_SRC_DIR} && \
     aria2c \
@@ -1331,7 +1380,7 @@ RUN set -eux; \
     export CPPFLAGS="-I${ZLIB_INC_DIR} ${CPPFLAGS:-}" && \
     export LDFLAGS="-L${ZLIB_LIB_DIR} -Wl,-rpath,${ZLIB_LIB_DIR} -L${LIBRAQM_LIB_DIR} -Wl,-rpath,${LIBRAQM_LIB_DIR} -L${LIBIMAGEQUANT_LIB_DIR} -Wl,-rpath,${LIBIMAGEQUANT_LIB_DIR} ${LDFLAGS:-} -Wl,--disable-new-dtags" && \
     ./bootstrap.sh && \
-    ./configure \
+    { ./configure \
       --prefix=${LIBGD_DIR} \
       --disable-silent-rules \
       --enable-static \
@@ -1344,14 +1393,17 @@ RUN set -eux; \
       --with-jpeg \
       --with-liq=${LIBIMAGEQUANT_DIR} \
       --with-xpm \
-      --with-gd \
       --enable-gd-formats \
       --with-tiff \
       --with-webp \
       --with-heif \
       --with-avif \
       --with-x \
-      && \
+      > /tmp/libgd-configure.log 2>&1 || { cat /tmp/libgd-configure.log; exit 1; }; } && \
+    cat /tmp/libgd-configure.log && \
+    if grep -i 'unrecognized option' /tmp/libgd-configure.log; then \
+      echo "FATAL: libgd configure got unrecognized options (see above)" >&2; exit 1; \
+    fi && \
     make -j$(nproc) && \
     make -j$(nproc) install && \
     echo "clean up" && \
@@ -2226,9 +2278,9 @@ RUN set -eux; \
         -d /tmp -o curl.tar.xz "${CURL_817_URL}"; \
     tar -xJf /tmp/curl.tar.xz --strip-components=1 -C ${CURL_817_102_SRC_DIR}; \
     cd ${CURL_817_102_SRC_DIR}; \
-    export PKG_CONFIG_PATH="${OPENSSL_102_LIB_DIR}/pkgconfig:${ZLIB_LIB_DIR}/pkgconfig"; \
-    export CPPFLAGS="-I${OPENSSL_102_INC_DIR} -I${ZLIB_INC_DIR}"; \
-    export LDFLAGS="-L${OPENSSL_102_LIB_DIR} -Wl,-rpath,${OPENSSL_102_LIB_DIR} -L${ZLIB_LIB_DIR} -Wl,-rpath,${ZLIB_LIB_DIR} -Wl,-rpath,${CURL_817_102_LIB_DIR} -Wl,--disable-new-dtags"; \
+    export PKG_CONFIG_PATH="${OPENSSL_102_LIB_DIR}/pkgconfig:${ZLIB_LIB_DIR}/pkgconfig:${ZSTD_LIB_DIR}/pkgconfig"; \
+    export CPPFLAGS="-I${OPENSSL_102_INC_DIR} -I${ZLIB_INC_DIR} -I${ZSTD_INC_DIR}"; \
+    export LDFLAGS="-L${OPENSSL_102_LIB_DIR} -Wl,-rpath,${OPENSSL_102_LIB_DIR} -L${ZLIB_LIB_DIR} -Wl,-rpath,${ZLIB_LIB_DIR} -L${ZSTD_LIB_DIR} -Wl,-rpath,${ZSTD_LIB_DIR} -Wl,-rpath,${CURL_817_102_LIB_DIR} -Wl,--disable-new-dtags"; \
     ./configure \
       --prefix=${CURL_817_102_DIR} \
       --libdir=${CURL_817_102_LIB_DIR} \
@@ -2244,6 +2296,7 @@ RUN set -eux; \
       \
       `# ---- keep ----` \
       --with-zlib=${ZLIB_DIR} \
+      --with-zstd=${ZSTD_DIR} \
       --with-nghttp2 \
       --enable-versioned-symbols \
       --enable-shared \
@@ -2289,10 +2342,13 @@ RUN set -eu; \
       echo "FATAL: libcurl not linked against ${OPENSSL_102_LIB_DIR}" >&2; \
       ldd "$so" >&2; exit 1; }; \
     for f in "$so" "${CURL_817_102_BIN_DIR}/curl"; do \
-      n="$(ldd "$f" | grep -c 'libz\.so')"; \
-      [ "$n" = 1 ] || { echo "FATAL: $f loads $n x libz" >&2; ldd "$f" >&2; exit 1; }; \
-      ldd "$f" | grep 'libz\.so' | grep -q "=> ${ZLIB_LIB_DIR}/" \
-        || { echo "FATAL: $f libz not from ${ZLIB_LIB_DIR} (system zlib leaked in)" >&2; ldd "$f" >&2; exit 1; }; \
+      for pair in "libz:${ZLIB_LIB_DIR}" "libzstd:${ZSTD_LIB_DIR}"; do \
+        l="${pair%%:*}"; d="${pair#*:}"; \
+        n="$(ldd "$f" | grep -c "${l}\.so")"; \
+        [ "$n" = 1 ] || { echo "FATAL: $f loads $n x ${l}" >&2; ldd "$f" >&2; exit 1; }; \
+        ldd "$f" | grep "${l}\.so" | grep -q "=> ${d}/" \
+          || { echo "FATAL: $f ${l} not from ${d} (system copy leaked in)" >&2; ldd "$f" >&2; exit 1; }; \
+      done; \
     done; \
     backends="$(${CURL_817_102_BIN_DIR}/curl-config --ssl-backends)"; \
     echo "curl ssl backends: ${backends}"; \
@@ -2303,6 +2359,8 @@ RUN set -eu; \
     features="$(${CURL_817_102_BIN_DIR}/curl-config --features)"; \
     echo "${features}" | grep -qx 'HTTP2' || { \
       echo "FATAL: libcurl built without HTTP2 (nghttp2): $(echo ${features})" >&2; exit 1; }; \
+    echo "${features}" | grep -qx 'zstd' || { \
+      echo "FATAL: libcurl built without zstd: $(echo ${features})" >&2; exit 1; }; \
     readelf -d "$so" | grep -q '\[libnghttp2\.so' || { \
       echo "FATAL: libcurl does not link libnghttp2" >&2; exit 1; }; \
     ${CURL_817_102_BIN_DIR}/curl --version; \
@@ -2319,9 +2377,9 @@ RUN set -eux; \
         -d /tmp -o curl.tar.xz "${CURL_817_URL}"; \
     tar -xJf /tmp/curl.tar.xz --strip-components=1 -C ${CURL_817_111_SRC_DIR}; \
     cd ${CURL_817_111_SRC_DIR}; \
-    export PKG_CONFIG_PATH="${OPENSSL_111_LIB_DIR}/pkgconfig:${ZLIB_LIB_DIR}/pkgconfig"; \
-    export CPPFLAGS="-I${OPENSSL_111_INC_DIR} -I${ZLIB_INC_DIR}"; \
-    export LDFLAGS="-L${OPENSSL_111_LIB_DIR} -Wl,-rpath,${OPENSSL_111_LIB_DIR} -L${ZLIB_LIB_DIR} -Wl,-rpath,${ZLIB_LIB_DIR} -Wl,-rpath,${CURL_817_111_LIB_DIR} -Wl,--disable-new-dtags"; \
+    export PKG_CONFIG_PATH="${OPENSSL_111_LIB_DIR}/pkgconfig:${ZLIB_LIB_DIR}/pkgconfig:${ZSTD_LIB_DIR}/pkgconfig"; \
+    export CPPFLAGS="-I${OPENSSL_111_INC_DIR} -I${ZLIB_INC_DIR} -I${ZSTD_INC_DIR}"; \
+    export LDFLAGS="-L${OPENSSL_111_LIB_DIR} -Wl,-rpath,${OPENSSL_111_LIB_DIR} -L${ZLIB_LIB_DIR} -Wl,-rpath,${ZLIB_LIB_DIR} -L${ZSTD_LIB_DIR} -Wl,-rpath,${ZSTD_LIB_DIR} -Wl,-rpath,${CURL_817_111_LIB_DIR} -Wl,--disable-new-dtags"; \
     ./configure \
       --prefix=${CURL_817_111_DIR} \
       --libdir=${CURL_817_111_LIB_DIR} \
@@ -2337,6 +2395,7 @@ RUN set -eux; \
       \
       `# ---- keep ----` \
       --with-zlib=${ZLIB_DIR} \
+      --with-zstd=${ZSTD_DIR} \
       --with-nghttp2 \
       --enable-versioned-symbols \
       --enable-shared \
@@ -2382,10 +2441,13 @@ RUN set -eu; \
       echo "FATAL: libcurl not linked against ${OPENSSL_111_LIB_DIR}" >&2; \
       ldd "$so" >&2; exit 1; }; \
     for f in "$so" "${CURL_817_111_BIN_DIR}/curl"; do \
-      n="$(ldd "$f" | grep -c 'libz\.so')"; \
-      [ "$n" = 1 ] || { echo "FATAL: $f loads $n x libz" >&2; ldd "$f" >&2; exit 1; }; \
-      ldd "$f" | grep 'libz\.so' | grep -q "=> ${ZLIB_LIB_DIR}/" \
-        || { echo "FATAL: $f libz not from ${ZLIB_LIB_DIR} (system zlib leaked in)" >&2; ldd "$f" >&2; exit 1; }; \
+      for pair in "libz:${ZLIB_LIB_DIR}" "libzstd:${ZSTD_LIB_DIR}"; do \
+        l="${pair%%:*}"; d="${pair#*:}"; \
+        n="$(ldd "$f" | grep -c "${l}\.so")"; \
+        [ "$n" = 1 ] || { echo "FATAL: $f loads $n x ${l}" >&2; ldd "$f" >&2; exit 1; }; \
+        ldd "$f" | grep "${l}\.so" | grep -q "=> ${d}/" \
+          || { echo "FATAL: $f ${l} not from ${d} (system copy leaked in)" >&2; ldd "$f" >&2; exit 1; }; \
+      done; \
     done; \
     backends="$(${CURL_817_111_BIN_DIR}/curl-config --ssl-backends)"; \
     echo "curl ssl backends: ${backends}"; \
@@ -2396,6 +2458,8 @@ RUN set -eu; \
     features="$(${CURL_817_111_BIN_DIR}/curl-config --features)"; \
     echo "${features}" | grep -qx 'HTTP2' || { \
       echo "FATAL: libcurl built without HTTP2 (nghttp2): $(echo ${features})" >&2; exit 1; }; \
+    echo "${features}" | grep -qx 'zstd' || { \
+      echo "FATAL: libcurl built without zstd: $(echo ${features})" >&2; exit 1; }; \
     readelf -d "$so" | grep -q '\[libnghttp2\.so' || { \
       echo "FATAL: libcurl does not link libnghttp2" >&2; exit 1; }; \
     ${CURL_817_111_BIN_DIR}/curl --version; \
@@ -2412,9 +2476,9 @@ RUN set -eux; \
         -d /tmp -o curl.tar.xz "${CURL_821_URL}"; \
     tar -xJf /tmp/curl.tar.xz --strip-components=1 -C ${CURL_821_35_SRC_DIR}; \
     cd ${CURL_821_35_SRC_DIR}; \
-    export PKG_CONFIG_PATH="${OPENSSL_35_LIB_DIR}/pkgconfig:${ZLIB_LIB_DIR}/pkgconfig"; \
-    export CPPFLAGS="-I${OPENSSL_35_INC_DIR} -I${ZLIB_INC_DIR}"; \
-    export LDFLAGS="-L${OPENSSL_35_LIB_DIR} -Wl,-rpath,${OPENSSL_35_LIB_DIR} -L${ZLIB_LIB_DIR} -Wl,-rpath,${ZLIB_LIB_DIR} -Wl,-rpath,${CURL_821_35_LIB_DIR} -Wl,--disable-new-dtags"; \
+    export PKG_CONFIG_PATH="${OPENSSL_35_LIB_DIR}/pkgconfig:${ZLIB_LIB_DIR}/pkgconfig:${ZSTD_LIB_DIR}/pkgconfig"; \
+    export CPPFLAGS="-I${OPENSSL_35_INC_DIR} -I${ZLIB_INC_DIR} -I${ZSTD_INC_DIR}"; \
+    export LDFLAGS="-L${OPENSSL_35_LIB_DIR} -Wl,-rpath,${OPENSSL_35_LIB_DIR} -L${ZLIB_LIB_DIR} -Wl,-rpath,${ZLIB_LIB_DIR} -L${ZSTD_LIB_DIR} -Wl,-rpath,${ZSTD_LIB_DIR} -Wl,-rpath,${CURL_821_35_LIB_DIR} -Wl,--disable-new-dtags"; \
     ./configure \
       --prefix=${CURL_821_35_DIR} \
       --libdir=${CURL_821_35_LIB_DIR} \
@@ -2430,6 +2494,7 @@ RUN set -eux; \
       \
       `# ---- keep ----` \
       --with-zlib=${ZLIB_DIR} \
+      --with-zstd=${ZSTD_DIR} \
       --with-nghttp2 \
       --enable-versioned-symbols \
       --enable-shared \
@@ -2475,10 +2540,13 @@ RUN set -eu; \
       echo "FATAL: libcurl not linked against ${OPENSSL_35_LIB_DIR}" >&2; \
       ldd "$so" >&2; exit 1; }; \
     for f in "$so" "${CURL_821_35_BIN_DIR}/curl"; do \
-      n="$(ldd "$f" | grep -c 'libz\.so')"; \
-      [ "$n" = 1 ] || { echo "FATAL: $f loads $n x libz" >&2; ldd "$f" >&2; exit 1; }; \
-      ldd "$f" | grep 'libz\.so' | grep -q "=> ${ZLIB_LIB_DIR}/" \
-        || { echo "FATAL: $f libz not from ${ZLIB_LIB_DIR} (system zlib leaked in)" >&2; ldd "$f" >&2; exit 1; }; \
+      for pair in "libz:${ZLIB_LIB_DIR}" "libzstd:${ZSTD_LIB_DIR}"; do \
+        l="${pair%%:*}"; d="${pair#*:}"; \
+        n="$(ldd "$f" | grep -c "${l}\.so")"; \
+        [ "$n" = 1 ] || { echo "FATAL: $f loads $n x ${l}" >&2; ldd "$f" >&2; exit 1; }; \
+        ldd "$f" | grep "${l}\.so" | grep -q "=> ${d}/" \
+          || { echo "FATAL: $f ${l} not from ${d} (system copy leaked in)" >&2; ldd "$f" >&2; exit 1; }; \
+      done; \
     done; \
     backends="$(${CURL_821_35_BIN_DIR}/curl-config --ssl-backends)"; \
     echo "curl ssl backends: ${backends}"; \
@@ -2489,6 +2557,8 @@ RUN set -eu; \
     features="$(${CURL_821_35_BIN_DIR}/curl-config --features)"; \
     echo "${features}" | grep -qx 'HTTP2' || { \
       echo "FATAL: libcurl built without HTTP2 (nghttp2): $(echo ${features})" >&2; exit 1; }; \
+    echo "${features}" | grep -qx 'zstd' || { \
+      echo "FATAL: libcurl built without zstd: $(echo ${features})" >&2; exit 1; }; \
     readelf -d "$so" | grep -q '\[libnghttp2\.so' || { \
       echo "FATAL: libcurl does not link libnghttp2" >&2; exit 1; }; \
     ${CURL_821_35_BIN_DIR}/curl --version; \
