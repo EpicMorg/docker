@@ -11,10 +11,10 @@ https://www.ioncube.com/loaders.php
 
 | PHP  | OpenSSL                          | ICU      | curl     | libpq | SAPI              | Loaders          | Comments                | Status |
 | ---- | -------------------------------- | -------- | -------- | ----- | ----------------- | ---------------- | ----------------------- | ------ |
-| 5.3  | 1.0.2u, End Of Life, 20 Dec 2019 | ?        | `8.17.0` | `13`  | `cli` `fpm` `cgi` | `ionCube`        | End Of Life, 2014-08-14 |        |
-| 5.4  | 1.0.2u, End Of Life, 20 Dec 2019 | ?        | `8.17.0` | `13`  | `cli` `fpm` `cgi` | `ionCube`        | End Of Life, 2015-09-03 |        |
-| 5.5  | 1.0.2u, End Of Life, 20 Dec 2019 | ?        | `8.17.0` | `13`  | `cli` `fpm` `cgi` | `ionCube`        | End Of Life, 2016-07-10 |        |
-| 5.6  | 1.0.2u, End Of Life, 20 Dec 2019 | ?        | `8.17.0` | `13`  | `cli` `fpm` `cgi` | `ionCube`        | End Of Life, 2018-12-31 |        |
+| 5.3  | 1.0.2u, End Of Life, 20 Dec 2019 | `67.1`   | `8.17.0` | `13`  | `cli` `fpm`       | `ionCube`        | End Of Life, 2014-08-14 | Ready ✅ |
+| 5.4  | 1.0.2u, End Of Life, 20 Dec 2019 | `67.1`   | `8.17.0` | `13`  | `cli` `fpm` `cgi` `embed` | `ionCube`        | End Of Life, 2015-09-03 | Ready ✅ |
+| 5.5  | 1.0.2u, End Of Life, 20 Dec 2019 | `67.1`   | `8.17.0` | `13`  | `cli` `fpm` `cgi` `embed` | `ionCube`        | End Of Life, 2016-07-10 | Ready ✅ |
+| 5.6  | 1.0.2u, End Of Life, 20 Dec 2019 | `67.1`   | `8.17.0` | `13`  | `cli` `fpm` `cgi` `phpdbg` `embed` | `ionCube`        | End Of Life, 2018-12-31 | Ready ✅ |
 | 7.0  | 1.1.1w, End Of Life, 11 Sep 2023 | `67.1`   | `8.17.0` | `16`  | `cli` `fpm` `cgi` | `ionCube` `Bolt` | End Of Life, 2019-01-10 | Ready  |
 | 7.1  | 1.1.1w, End Of Life, 11 Sep 2023 | `67.1`   | `8.17.0` | `16`  | `cli` `fpm` `cgi` | `ionCube` `Bolt` | End Of Life, 2019-12-01 | Ready  |
 | 7.2  | 1.1.1w, End Of Life, 11 Sep 2023 | `67.1`   | `8.17.0` | `16`  | `cli` `fpm` `cgi` | `ionCube` `Bolt` | End Of Life, 2020-11-30 | Ready  |

@@ -530,6 +530,13 @@ RUN set -eux; \
     ln -sfn ${PHP_INI_DIR} /etc/php/${PHP_VERSION}; \
     ln -sfn "$extDir"      /usr/lib/php/${api}
 
+# PHP 5.x prints "It is not safe to rely on the system's timezone settings" on every
+# run when date.timezone is empty (7.x+ silently defaults to UTC). Set UTC explicitly;
+# override with your own ini in ${PHP_INI_SCAN_DIR} if needed.
+RUN echo 'date.timezone = UTC' > ${PHP_INI_SCAN_DIR}/00-timezone.ini && \
+    ${PHP_BIN_DIR}/php -r 'exit(date_default_timezone_get() === "UTC" ? 0 : 1);' && \
+    ! ${PHP_BIN_DIR}/php -r 'date("Y");' 2>&1 | grep -qi 'timezone'
+
 ##################################################################
 #           Extension helper scripts
 ##################################################################
