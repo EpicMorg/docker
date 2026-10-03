@@ -7,4 +7,4 @@ services:
     x-mirrors:
       - quay.io/epicmorg/nodejs:15
       - ghcr.io/epicmorg/nodejs:15
-
+      - docker.io/epicmorg/nodejs:15
