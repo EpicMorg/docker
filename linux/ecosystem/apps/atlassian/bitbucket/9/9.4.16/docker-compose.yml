@@ -1,3 +1,4 @@
+# default JDK (Dockerfile) = jdk21; the extra JDK is built from Dockerfile.jdk17
 services:
   app:
     image: "epicmorg/bitbucket:9.4.16"
@@ -11,6 +12,7 @@ services:
     image: "epicmorg/bitbucket:9.4.16-jdk17"
     build:
       context: .
+      dockerfile: Dockerfile.jdk17
     x-mirrors:
       - docker.io/epicmorg/bitbucket:9.4.16-jdk17
       - quay.io/epicmorg/bitbucket:9.4.16-jdk17
@@ -19,7 +21,6 @@ services:
     image: "epicmorg/bitbucket:9.4.16-jdk21"
     build:
       context: .
-      dockerfile: Dockerfile.jdk21
     x-mirrors:
       - docker.io/epicmorg/bitbucket:9.4.16-jdk21
       - quay.io/epicmorg/bitbucket:9.4.16-jdk21

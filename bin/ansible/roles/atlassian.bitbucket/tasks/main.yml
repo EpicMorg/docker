@@ -25,15 +25,11 @@
 - name: "Generate images for  Bitbucket 8 (jdk8 + jdk11 + jdk17)"
   import_tasks: atlassian.bitbucket.8.jdk8-11-17.yml
 
-- name: "Generate images for  Bitbucket 8 (jdk17 default + jdk11)"
-  import_tasks: atlassian.bitbucket.8.jdk17-11.yml
+- name: "Generate images for  Bitbucket 8 (jdk17 default + jdk11 + jdk8)"
+  import_tasks: atlassian.bitbucket.8.jdk17-11-8.yml
 
 - name: "Generate images for  Bitbucket 9 (jdk17)"
   import_tasks: atlassian.bitbucket.9.jdk17.yml
-
-- name: "Generate images for  Bitbucket 9 (jdk17 + jdk21)"
-  import_tasks: atlassian.bitbucket.9.jdk17-21.yml
-
 
 - name: "Generate images for  Bitbucket 9 (jdk21 default + jdk17)"
   import_tasks: atlassian.bitbucket.9.jdk21-17.yml
