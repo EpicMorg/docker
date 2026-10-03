@@ -3,3 +3,7 @@ services:
     image: "epicmorg/vscode-server:nodejs"
     build:
       context: .
+    x-mirrors:
+      - docker.io/epicmorg/vscode-server:nodejs
+      - quay.io/epicmorg/vscode-server:nodejs
+      - ghcr.io/epicmorg/vscode-server:nodejs

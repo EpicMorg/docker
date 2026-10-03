@@ -3,3 +3,7 @@ services:
     image: "epicmorg/gitlab-runner:amxx-sdk-rc"
     build:
       context: .
+    x-mirrors:
+      - docker.io/epicmorg/gitlab-runner:amxx-sdk-rc
+      - quay.io/epicmorg/gitlab-runner:amxx-sdk-rc
+      - ghcr.io/epicmorg/gitlab-runner:amxx-sdk-rc

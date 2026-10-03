@@ -7,3 +7,4 @@ services:
     x-mirrors:
       - quay.io/epicmorg/webtlo:3.5.6
       - ghcr.io/epicmorg/webtlo:3.5.6
+      - docker.io/epicmorg/webtlo:3.5.6

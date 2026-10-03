@@ -3,3 +3,7 @@ services:
     image: "epicmorg/perforce:r24.2"
     build:
       context: .
+    x-mirrors:
+      - docker.io/epicmorg/perforce:r24.2
+      - quay.io/epicmorg/perforce:r24.2
+      - ghcr.io/epicmorg/perforce:r24.2

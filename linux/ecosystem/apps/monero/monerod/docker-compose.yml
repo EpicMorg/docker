@@ -3,4 +3,8 @@ services:
     image: "epicmorg/monero:latest"
     build:
       context: .
+    x-mirrors:
+      - docker.io/epicmorg/monero:latest
+      - quay.io/epicmorg/monero:latest
+      - ghcr.io/epicmorg/monero:latest
 

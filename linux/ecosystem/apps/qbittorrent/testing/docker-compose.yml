@@ -3,7 +3,15 @@ services:
     image: "epicmorg/qbittorrent:5.0.0beta1"
     build:
       context: .
+    x-mirrors:
+      - docker.io/epicmorg/qbittorrent:5.0.0beta1
+      - quay.io/epicmorg/qbittorrent:5.0.0beta1
+      - ghcr.io/epicmorg/qbittorrent:5.0.0beta1
   qbt-libtorrent2:
     image: "epicmorg/qbittorrent:5.0.0beta1-libtorrentRC_2_0"
     build:
       context: .
+    x-mirrors:
+      - docker.io/epicmorg/qbittorrent:5.0.0beta1-libtorrentRC_2_0
+      - quay.io/epicmorg/qbittorrent:5.0.0beta1-libtorrentRC_2_0
+      - ghcr.io/epicmorg/qbittorrent:5.0.0beta1-libtorrentRC_2_0

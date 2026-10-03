@@ -5,7 +5,7 @@
 
 - name: Set version variable
   set_fact:
-    fisheye_versions: "{{ version_output['content'] | b64decode | trim | split('\n') }}"
+    fisheye_versions: "{{ version_output['content'] | b64decode | trim | split('\n') | map('trim') | reject('equalto', '') | list }}"
 
 - name: Create directories for Crowd versions
   file:

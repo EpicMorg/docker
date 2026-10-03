@@ -3,3 +3,7 @@ services:
     image: "epicmorg/redash:latest"
     build:
       context: ./redash-repo
+    x-mirrors:
+      - docker.io/epicmorg/redash:latest
+      - quay.io/epicmorg/redash:latest
+      - ghcr.io/epicmorg/redash:latest

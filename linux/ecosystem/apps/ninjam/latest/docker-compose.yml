@@ -3,3 +3,7 @@ services:
     image: "epicmorg/ninjam:latest"
     build:
       context: .
+    x-mirrors:
+      - docker.io/epicmorg/ninjam:latest
+      - quay.io/epicmorg/ninjam:latest
+      - ghcr.io/epicmorg/ninjam:latest

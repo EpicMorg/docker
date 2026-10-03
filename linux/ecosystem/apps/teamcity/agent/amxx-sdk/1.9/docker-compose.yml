@@ -3,3 +3,7 @@ services:
     image: "epicmorg/teamcity-agent:amxx-sdk"
     build:
       context: .
+    x-mirrors:
+      - docker.io/epicmorg/teamcity-agent:amxx-sdk
+      - quay.io/epicmorg/teamcity-agent:amxx-sdk
+      - ghcr.io/epicmorg/teamcity-agent:amxx-sdk

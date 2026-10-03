@@ -5,7 +5,7 @@
 
 - name: Set version variable
   set_fact:
-    bitbucket_versions: "{{ version_output['content'] | b64decode | trim | split('\n') }}"
+    bitbucket_versions: "{{ version_output['content'] | b64decode | trim | split('\n') | map('trim') | reject('equalto', '') | list }}"
 
 - name: Create directories for Bitbucket versions
   file:

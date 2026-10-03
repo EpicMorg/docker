@@ -3,3 +3,7 @@ services:
     image: "epicmorg/vscode-server:dotnet"
     build:
       context: .
+    x-mirrors:
+      - docker.io/epicmorg/vscode-server:dotnet
+      - quay.io/epicmorg/vscode-server:dotnet
+      - ghcr.io/epicmorg/vscode-server:dotnet

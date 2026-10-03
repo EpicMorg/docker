@@ -7,6 +7,7 @@ services:
     x-mirrors:
       - quay.io/epicmorg/steam:runtime-sdk
       - ghcr.io/epicmorg/steam:runtime-sdk
+      - docker.io/epicmorg/steam:runtime-sdk
 
   app-debug:
     image: "epicmorg/steam:runtime-sdk"
@@ -17,3 +18,4 @@ services:
     x-mirrors:
       - quay.io/epicmorg/steam:runtime-sdk
       - ghcr.io/epicmorg/steam:runtime-sdk
+      - docker.io/epicmorg/steam:runtime-sdk

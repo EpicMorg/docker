@@ -7,3 +7,4 @@ services:
     x-mirrors:
       - quay.io/epicmorg/astralinux:1.8-main
       - ghcr.io/epicmorg/astralinux:1.8-main
+      - docker.io/epicmorg/astralinux:1.8-main

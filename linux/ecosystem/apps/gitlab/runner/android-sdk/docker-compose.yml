@@ -3,3 +3,7 @@ services:
     image: "epicmorg/gitlab-runner:android-sdk"
     build:
       context: .
+    x-mirrors:
+      - docker.io/epicmorg/gitlab-runner:android-sdk
+      - quay.io/epicmorg/gitlab-runner:android-sdk
+      - ghcr.io/epicmorg/gitlab-runner:android-sdk

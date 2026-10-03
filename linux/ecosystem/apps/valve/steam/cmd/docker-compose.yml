@@ -7,3 +7,4 @@ services:
     x-mirrors:
       - quay.io/epicmorg/steam:cmd
       - ghcr.io/epicmorg/steam:cmd
+      - docker.io/epicmorg/steam:cmd

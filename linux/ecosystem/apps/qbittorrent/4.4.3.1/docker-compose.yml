@@ -3,12 +3,24 @@ services:
     image: "epicmorg/qbittorrent:4.4.3.1"
     build:
       context: .
+    x-mirrors:
+      - docker.io/epicmorg/qbittorrent:4.4.3.1
+      - quay.io/epicmorg/qbittorrent:4.4.3.1
+      - ghcr.io/epicmorg/qbittorrent:4.4.3.1
   qbt-libtorrent2:
     image: "epicmorg/qbittorrent:4.4.3.1-libtorrent2.0.7"
     build:
       context: .
+    x-mirrors:
+      - docker.io/epicmorg/qbittorrent:4.4.3.1-libtorrent2.0.7
+      - quay.io/epicmorg/qbittorrent:4.4.3.1-libtorrent2.0.7
+      - ghcr.io/epicmorg/qbittorrent:4.4.3.1-libtorrent2.0.7
   qbt-libtorrent1:
     image: "epicmorg/qbittorrent:4.4.3.1-libtorrent1.2.17"
     build:
       context: .
       dockerfile: ./Dockerfile.libtorrent1
+    x-mirrors:
+      - docker.io/epicmorg/qbittorrent:4.4.3.1-libtorrent1.2.17
+      - quay.io/epicmorg/qbittorrent:4.4.3.1-libtorrent1.2.17
+      - ghcr.io/epicmorg/qbittorrent:4.4.3.1-libtorrent1.2.17

@@ -7,3 +7,4 @@ services:
     x-mirrors:
       - quay.io/epicmorg/debian:trixie-develop
       - ghcr.io/epicmorg/debian:trixie-develop
+      - docker.io/epicmorg/debian:trixie-develop

@@ -3,3 +3,7 @@ services:
     image: "epicmorg/p4p:r22.1"
     build:
       context: .
+    x-mirrors:
+      - docker.io/epicmorg/p4p:r22.1
+      - quay.io/epicmorg/p4p:r22.1
+      - ghcr.io/epicmorg/p4p:r22.1

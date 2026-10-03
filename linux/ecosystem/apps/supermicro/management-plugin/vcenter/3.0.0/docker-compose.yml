@@ -3,3 +3,7 @@ services:
     image: "epicmorg/supermicro-management-plugin:3.0.0.0-0-vcenter"
     build:
       context: .
+    x-mirrors:
+      - docker.io/epicmorg/supermicro-management-plugin:3.0.0.0-0-vcenter
+      - quay.io/epicmorg/supermicro-management-plugin:3.0.0.0-0-vcenter
+      - ghcr.io/epicmorg/supermicro-management-plugin:3.0.0.0-0-vcenter

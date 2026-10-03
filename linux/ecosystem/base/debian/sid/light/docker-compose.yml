@@ -7,3 +7,4 @@ services:
     x-mirrors:
       - quay.io/epicmorg/debian:sid-light
       - ghcr.io/epicmorg/debian:sid-light
+      - docker.io/epicmorg/debian:sid-light

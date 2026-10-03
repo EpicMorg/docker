@@ -3,3 +3,7 @@ services:
     image: "epicmorg/vscode-server:amxx"
     build:
       context: .
+    x-mirrors:
+      - docker.io/epicmorg/vscode-server:amxx
+      - quay.io/epicmorg/vscode-server:amxx
+      - ghcr.io/epicmorg/vscode-server:amxx

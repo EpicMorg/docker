@@ -3,4 +3,8 @@ services:
     image: "epicmorg/monero:p2pool"
     build:
       context: .
+    x-mirrors:
+      - docker.io/epicmorg/monero:p2pool
+      - quay.io/epicmorg/monero:p2pool
+      - ghcr.io/epicmorg/monero:p2pool
 

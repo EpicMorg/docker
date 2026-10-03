@@ -3,3 +3,7 @@ services:
     image: "epicmorg/github-runner:node20"
     build:
       context: .
+    x-mirrors:
+      - docker.io/epicmorg/github-runner:node20
+      - quay.io/epicmorg/github-runner:node20
+      - ghcr.io/epicmorg/github-runner:node20

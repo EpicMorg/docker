@@ -3,3 +3,7 @@ services:
     image: "epicmorg/vscode-server:mono"
     build:
       context: .
+    x-mirrors:
+      - docker.io/epicmorg/vscode-server:mono
+      - quay.io/epicmorg/vscode-server:mono
+      - ghcr.io/epicmorg/vscode-server:mono
