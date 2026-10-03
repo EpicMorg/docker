@@ -1,6 +1,6 @@
 - name: Read versions from file
   slurp:
-     src: "{{ playbook_dir }}/roles/common/files/versions/crowd/3.jdk6-jdk7.txt"
+     src: "{{ playbook_dir }}/roles/common/files/versions/crowd/3.jdk8.txt"
   register: version_output
 
 - name: Set version variable
@@ -15,7 +15,7 @@
     force: true
   with_items: "{{ crowd_versions }}"
 
-- name: Remove .env (RELEASE and URLs live in the Dockerfile; .env breaks buildah-wrapper settings)
+- name: Remove .env (single-JDK images carry RELEASE in the Dockerfile)
   file:
     path: "{{ target_directory_crowd_3 }}/{{ item }}/.env"
     state: absent
@@ -23,22 +23,15 @@
 
 - name: Copy docker-compose.yml from template to each version directory
   template:
-    src: "docker-compose/template.docker-compose.jdk6-7.yml.j2"
+    src: "docker-compose/template.docker-compose.jdk8.yml.j2"
     dest: "{{ target_directory_crowd_3 }}/{{ item }}/docker-compose.yml"
     force: true
   with_items: "{{ crowd_versions }}"
 
 - name: Copy Dockerfile from template to each version directory
   template:
-    src: "dockerfile/template.Dockerfile.jdk6.j2"
+    src: "dockerfile/template.Dockerfile.jdk8.j2"
     dest: "{{ target_directory_crowd_3 }}/{{ item }}/Dockerfile"
-    force: true
-  with_items: "{{ crowd_versions }}"
-
-- name: Copy Dockerfile.jdk7 from template to each version directory
-  template:
-    src: "dockerfile/template.Dockerfile.jdk7.j2"
-    dest: "{{ target_directory_crowd_3 }}/{{ item }}/Dockerfile.jdk7"
     force: true
   with_items: "{{ crowd_versions }}"
 

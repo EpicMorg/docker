@@ -3,24 +3,11 @@ services:
     image: "epicmorg/confluence:7.0.2"
     build:
       context: .
+    x-squash: false
     x-mirrors:
       - docker.io/epicmorg/confluence:7.0.2
-      - quay.io/epicmorg/confluence:7.0.2
-      - ghcr.io/epicmorg/confluence:7.0.2
-  app-jdk8:
-    image: "epicmorg/confluence:7.0.2-jdk8"
-    build:
-      context: .
-    x-mirrors:
       - docker.io/epicmorg/confluence:7.0.2-jdk8
+      - quay.io/epicmorg/confluence:7.0.2
       - quay.io/epicmorg/confluence:7.0.2-jdk8
+      - ghcr.io/epicmorg/confluence:7.0.2
       - ghcr.io/epicmorg/confluence:7.0.2-jdk8
-  app-jdk11:
-    image: "epicmorg/confluence:7.0.2-jdk11"
-    build:
-      context: .
-      dockerfile: Dockerfile.jdk11
-    x-mirrors:
-      - docker.io/epicmorg/confluence:7.0.2-jdk11
-      - quay.io/epicmorg/confluence:7.0.2-jdk11
-      - ghcr.io/epicmorg/confluence:7.0.2-jdk11
