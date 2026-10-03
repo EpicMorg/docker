@@ -1306,7 +1306,8 @@ RUN set -eux; \
     ln -sf ${LIBGD_SRC_DIR} ${LIBGD_DIR}/src && \
     cd ${LIBGD_TEMP_SRC} && \
     export PKG_CONFIG_PATH="${LIBRAQM_LIB_DIR}/pkgconfig:${LIBIMAGEQUANT_LIB_DIR}/pkgconfig:${PKG_CONFIG_PATH:-}" && \
-    export LDFLAGS="-L${LIBRAQM_LIB_DIR} -Wl,-rpath,${LIBRAQM_LIB_DIR} -L${LIBIMAGEQUANT_LIB_DIR} -Wl,-rpath,${LIBIMAGEQUANT_LIB_DIR} ${LDFLAGS:-} -Wl,--disable-new-dtags" && \
+    export CPPFLAGS="-I${ZLIB_INC_DIR} ${CPPFLAGS:-}" && \
+    export LDFLAGS="-L${ZLIB_LIB_DIR} -Wl,-rpath,${ZLIB_LIB_DIR} -L${LIBRAQM_LIB_DIR} -Wl,-rpath,${LIBRAQM_LIB_DIR} -L${LIBIMAGEQUANT_LIB_DIR} -Wl,-rpath,${LIBIMAGEQUANT_LIB_DIR} ${LDFLAGS:-} -Wl,--disable-new-dtags" && \
     ./bootstrap.sh && \
     ./configure \
       --prefix=${LIBGD_DIR} \
@@ -1349,6 +1350,10 @@ RUN set -eu; \
           || { echo "FATAL: ${dep} resolved outside our prefix" >&2; ldd "$so" | grep "${dep}" >&2; exit 1; }; \
       fi; \
     done; \
+    n="$(ldd "$so" | grep -c 'libz\.so')"; \
+    [ "$n" = 1 ] || { echo "FATAL: $so loads $n x libz" >&2; ldd "$so" >&2; exit 1; }; \
+    ldd "$so" | grep 'libz\.so' | grep -q "=> ${ZLIB_LIB_DIR}/" \
+      || { echo "FATAL: libgd libz not from ${ZLIB_LIB_DIR} (system zlib leaked in)" >&2; ldd "$so" >&2; exit 1; }; \
     echo "OK: libgd"
 
 ##################################################################
@@ -2181,9 +2186,9 @@ RUN set -eux; \
         -d /tmp -o curl.tar.xz "${CURL_817_URL}"; \
     tar -xJf /tmp/curl.tar.xz --strip-components=1 -C ${CURL_817_102_SRC_DIR}; \
     cd ${CURL_817_102_SRC_DIR}; \
-    export PKG_CONFIG_PATH="${OPENSSL_102_LIB_DIR}/pkgconfig"; \
-    export CPPFLAGS="-I${OPENSSL_102_INC_DIR}"; \
-    export LDFLAGS="-L${OPENSSL_102_LIB_DIR} -Wl,-rpath,${OPENSSL_102_LIB_DIR} -Wl,-rpath,${CURL_817_102_LIB_DIR} -Wl,--disable-new-dtags"; \
+    export PKG_CONFIG_PATH="${OPENSSL_102_LIB_DIR}/pkgconfig:${ZLIB_LIB_DIR}/pkgconfig"; \
+    export CPPFLAGS="-I${OPENSSL_102_INC_DIR} -I${ZLIB_INC_DIR}"; \
+    export LDFLAGS="-L${OPENSSL_102_LIB_DIR} -Wl,-rpath,${OPENSSL_102_LIB_DIR} -L${ZLIB_LIB_DIR} -Wl,-rpath,${ZLIB_LIB_DIR} -Wl,-rpath,${CURL_817_102_LIB_DIR} -Wl,--disable-new-dtags"; \
     ./configure \
       --prefix=${CURL_817_102_DIR} \
       --libdir=${CURL_817_102_LIB_DIR} \
@@ -2198,7 +2203,7 @@ RUN set -eux; \
       --with-ca-path=/etc/ssl/certs \
       \
       `# ---- keep ----` \
-      --with-zlib \
+      --with-zlib=${ZLIB_DIR} \
       --with-nghttp2 \
       --enable-versioned-symbols \
       --enable-shared \
@@ -2243,6 +2248,12 @@ RUN set -eu; \
     ldd "$so" | grep -q "${OPENSSL_102_LIB_DIR}/libssl" || { \
       echo "FATAL: libcurl not linked against ${OPENSSL_102_LIB_DIR}" >&2; \
       ldd "$so" >&2; exit 1; }; \
+    for f in "$so" "${CURL_817_102_BIN_DIR}/curl"; do \
+      n="$(ldd "$f" | grep -c 'libz\.so')"; \
+      [ "$n" = 1 ] || { echo "FATAL: $f loads $n x libz" >&2; ldd "$f" >&2; exit 1; }; \
+      ldd "$f" | grep 'libz\.so' | grep -q "=> ${ZLIB_LIB_DIR}/" \
+        || { echo "FATAL: $f libz not from ${ZLIB_LIB_DIR} (system zlib leaked in)" >&2; ldd "$f" >&2; exit 1; }; \
+    done; \
     backends="$(${CURL_817_102_BIN_DIR}/curl-config --ssl-backends)"; \
     echo "curl ssl backends: ${backends}"; \
     case "${backends}" in \
@@ -2268,9 +2279,9 @@ RUN set -eux; \
         -d /tmp -o curl.tar.xz "${CURL_817_URL}"; \
     tar -xJf /tmp/curl.tar.xz --strip-components=1 -C ${CURL_817_111_SRC_DIR}; \
     cd ${CURL_817_111_SRC_DIR}; \
-    export PKG_CONFIG_PATH="${OPENSSL_111_LIB_DIR}/pkgconfig"; \
-    export CPPFLAGS="-I${OPENSSL_111_INC_DIR}"; \
-    export LDFLAGS="-L${OPENSSL_111_LIB_DIR} -Wl,-rpath,${OPENSSL_111_LIB_DIR} -Wl,-rpath,${CURL_817_111_LIB_DIR} -Wl,--disable-new-dtags"; \
+    export PKG_CONFIG_PATH="${OPENSSL_111_LIB_DIR}/pkgconfig:${ZLIB_LIB_DIR}/pkgconfig"; \
+    export CPPFLAGS="-I${OPENSSL_111_INC_DIR} -I${ZLIB_INC_DIR}"; \
+    export LDFLAGS="-L${OPENSSL_111_LIB_DIR} -Wl,-rpath,${OPENSSL_111_LIB_DIR} -L${ZLIB_LIB_DIR} -Wl,-rpath,${ZLIB_LIB_DIR} -Wl,-rpath,${CURL_817_111_LIB_DIR} -Wl,--disable-new-dtags"; \
     ./configure \
       --prefix=${CURL_817_111_DIR} \
       --libdir=${CURL_817_111_LIB_DIR} \
@@ -2285,7 +2296,7 @@ RUN set -eux; \
       --with-ca-path=/etc/ssl/certs \
       \
       `# ---- keep ----` \
-      --with-zlib \
+      --with-zlib=${ZLIB_DIR} \
       --with-nghttp2 \
       --enable-versioned-symbols \
       --enable-shared \
@@ -2330,6 +2341,12 @@ RUN set -eu; \
     ldd "$so" | grep -q "${OPENSSL_111_LIB_DIR}/libssl" || { \
       echo "FATAL: libcurl not linked against ${OPENSSL_111_LIB_DIR}" >&2; \
       ldd "$so" >&2; exit 1; }; \
+    for f in "$so" "${CURL_817_111_BIN_DIR}/curl"; do \
+      n="$(ldd "$f" | grep -c 'libz\.so')"; \
+      [ "$n" = 1 ] || { echo "FATAL: $f loads $n x libz" >&2; ldd "$f" >&2; exit 1; }; \
+      ldd "$f" | grep 'libz\.so' | grep -q "=> ${ZLIB_LIB_DIR}/" \
+        || { echo "FATAL: $f libz not from ${ZLIB_LIB_DIR} (system zlib leaked in)" >&2; ldd "$f" >&2; exit 1; }; \
+    done; \
     backends="$(${CURL_817_111_BIN_DIR}/curl-config --ssl-backends)"; \
     echo "curl ssl backends: ${backends}"; \
     case "${backends}" in \
@@ -2355,9 +2372,9 @@ RUN set -eux; \
         -d /tmp -o curl.tar.xz "${CURL_821_URL}"; \
     tar -xJf /tmp/curl.tar.xz --strip-components=1 -C ${CURL_821_35_SRC_DIR}; \
     cd ${CURL_821_35_SRC_DIR}; \
-    export PKG_CONFIG_PATH="${OPENSSL_35_LIB_DIR}/pkgconfig"; \
-    export CPPFLAGS="-I${OPENSSL_35_INC_DIR}"; \
-    export LDFLAGS="-L${OPENSSL_35_LIB_DIR} -Wl,-rpath,${OPENSSL_35_LIB_DIR} -Wl,-rpath,${CURL_821_35_LIB_DIR} -Wl,--disable-new-dtags"; \
+    export PKG_CONFIG_PATH="${OPENSSL_35_LIB_DIR}/pkgconfig:${ZLIB_LIB_DIR}/pkgconfig"; \
+    export CPPFLAGS="-I${OPENSSL_35_INC_DIR} -I${ZLIB_INC_DIR}"; \
+    export LDFLAGS="-L${OPENSSL_35_LIB_DIR} -Wl,-rpath,${OPENSSL_35_LIB_DIR} -L${ZLIB_LIB_DIR} -Wl,-rpath,${ZLIB_LIB_DIR} -Wl,-rpath,${CURL_821_35_LIB_DIR} -Wl,--disable-new-dtags"; \
     ./configure \
       --prefix=${CURL_821_35_DIR} \
       --libdir=${CURL_821_35_LIB_DIR} \
@@ -2372,7 +2389,7 @@ RUN set -eux; \
       --with-ca-path=/etc/ssl/certs \
       \
       `# ---- keep ----` \
-      --with-zlib \
+      --with-zlib=${ZLIB_DIR} \
       --with-nghttp2 \
       --enable-versioned-symbols \
       --enable-shared \
@@ -2417,6 +2434,12 @@ RUN set -eu; \
     ldd "$so" | grep -q "${OPENSSL_35_LIB_DIR}/libssl" || { \
       echo "FATAL: libcurl not linked against ${OPENSSL_35_LIB_DIR}" >&2; \
       ldd "$so" >&2; exit 1; }; \
+    for f in "$so" "${CURL_821_35_BIN_DIR}/curl"; do \
+      n="$(ldd "$f" | grep -c 'libz\.so')"; \
+      [ "$n" = 1 ] || { echo "FATAL: $f loads $n x libz" >&2; ldd "$f" >&2; exit 1; }; \
+      ldd "$f" | grep 'libz\.so' | grep -q "=> ${ZLIB_LIB_DIR}/" \
+        || { echo "FATAL: $f libz not from ${ZLIB_LIB_DIR} (system zlib leaked in)" >&2; ldd "$f" >&2; exit 1; }; \
+    done; \
     backends="$(${CURL_821_35_BIN_DIR}/curl-config --ssl-backends)"; \
     echo "curl ssl backends: ${backends}"; \
     case "${backends}" in \
