@@ -46,9 +46,39 @@ ENV NGM_QJS_VERSION=2026-06-04
 ARG NGM_QJS_DOWNLOAD_URL=https://bellard.org/quickjs/quickjs-${NGM_QJS_VERSION}.tar.xz
 ARG NGM_QJS_DIR=${NGINX_TEMP_SRC}/modules/nginx-njs-quickjs
 
-# mod_zip: pinned. Upstream ec39e9bf8e (2026-09-17) references NGX_HTTP_V3_BUFFERED,
-# which no nginx release defines - breaks every build with --with-http_v3_module.
-ARG NGM_MODZIP_COMMIT=a9f9afa441
+# Third-party modules: every one is pinned (gotchas.json#nginx-unpinned-module-master).
+# Release tag where upstream has one (cloned --depth 1 --branch), otherwise a full
+# commit sha (full clone + checkout). Bump deliberately, never track master.
+ARG NGM_HEADERS_MORE_REF=v0.40
+ARG NGM_AUTH_PAM_REF=v1.5.5
+# lua-nginx-module + lua-resty-core + lua-resty-lrucache are one unit: resty.core
+# refuses to load unless ngx_lua_version matches (0.1.35rc1 requires 0.10.32).
+# OpenResty publishes only rc tags for these. Bump all three together.
+ARG NGM_LUA_REF=v0.10.32rc5
+ARG NGM_LUA_RESTY_CORE_REF=v0.1.35rc1
+ARG NGM_LUA_RESTY_LRUCACHE_REF=v0.15
+ARG NGM_GEOIP2_REF=3.4
+ARG NGM_DAV_EXT_REF=v3.0.0
+ARG NGM_ECHO_REF=v0.65
+ARG NGM_FANCYINDEX_REF=v0.6.0
+ARG NGM_NCHAN_REF=v1.3.8
+ARG NGM_UPLOAD_PROGRESS_REF=v0.9.4
+# subs-filter: last tag v0.6.4 (2014) predates dynamic-module and PCRE2 support - sha.
+ARG NGM_SUBS_FILTER_REF=e12e965ac1837ca709709f9a26f572a54d83430e
+ARG NGM_SPNEGO_REF=v1.1.3
+# mod_zip: sha, not the 1.3.0 tag (2023). Upstream ec39e9bf8e (2026-09-17) references
+# NGX_HTTP_V3_BUFFERED, which no nginx release defines - breaks --with-http_v3_module.
+ARG NGM_MODZIP_REF=a9f9afa441117831cc712a832c98408b3f0416f6
+# user-agent, unzip, webp: no tags upstream - sha (= HEAD, repos are dormant).
+ARG NGM_USER_AGENT_REF=785e76d1dc48ecab8685cad0bf00d1a360c1d8e1
+ARG NGM_UNZIP_REF=03e582a2e99d2dd4bbd7f26d3f3d4a8e4a5d23f4
+ARG NGM_WEBP_REF=0ab83ddf546247c58ed9e01296de443c825e350a
+ARG NGM_XSS_REF=v0.07
+ARG NGM_SET_MISC_REF=v0.34
+ARG NGM_RTMP_REF=v1.2.2
+ARG NGM_NDK_REF=v0.3.4
+ARG NGM_UPSTREAM_FAIR_REF=0.1.3
+ARG NGM_UPSTREAM_CHECK_REF=v0.4.0
 
 # ip2location
 ENV NGM_IP2LOC_VERSION=8.7.0
@@ -99,28 +129,32 @@ WORKDIR ${NGINX_TEMP_SRC}
 RUN set -eux; \
     git clone  --depth 1 --branch ${NGM_NJS_VERSION} ${NGM_NJS_DOWNLOAD_URL} modules/nginx-njs  && \
     git clone  --depth 1 --branch ${NGM_IP2LOC_VERSION} ${NGM_IP2LOC_DOWNLOAD_URL} modules/ip2location-nginx && \
-    git clone https://github.com/openresty/headers-more-nginx-module modules/http-headers-more-filter  && \
-    git clone https://github.com/sto/ngx_http_auth_pam_module modules/http-auth-pam  && \
-    git clone https://github.com/openresty/lua-nginx-module modules/http-lua && \
-    git clone https://github.com/leev/ngx_http_geoip2_module modules/http-geoip2 && \
-    git clone https://github.com/arut/nginx-dav-ext-module modules/http-dav-ext && \
-    git clone https://github.com/openresty/echo-nginx-module modules/http-echo && \
-    git clone https://github.com/aperezdc/ngx-fancyindex modules/http-fancyindex && \
-    git clone https://github.com/slact/nchan modules/nchan && \
-    git clone https://github.com/masterzen/nginx-upload-progress-module modules/http-uploadprogress && \
+    git clone --depth 1 --branch ${NGM_HEADERS_MORE_REF} https://github.com/openresty/headers-more-nginx-module modules/http-headers-more-filter  && \
+    git clone --depth 1 --branch ${NGM_AUTH_PAM_REF} https://github.com/sto/ngx_http_auth_pam_module modules/http-auth-pam  && \
+    git clone --depth 1 --branch ${NGM_LUA_REF} https://github.com/openresty/lua-nginx-module modules/http-lua && \
+    git clone --depth 1 --branch ${NGM_GEOIP2_REF} https://github.com/leev/ngx_http_geoip2_module modules/http-geoip2 && \
+    git clone --depth 1 --branch ${NGM_DAV_EXT_REF} https://github.com/arut/nginx-dav-ext-module modules/http-dav-ext && \
+    git clone --depth 1 --branch ${NGM_ECHO_REF} https://github.com/openresty/echo-nginx-module modules/http-echo && \
+    git clone --depth 1 --branch ${NGM_FANCYINDEX_REF} https://github.com/aperezdc/ngx-fancyindex modules/http-fancyindex && \
+    git clone --depth 1 --branch ${NGM_NCHAN_REF} https://github.com/slact/nchan modules/nchan && \
+    git clone --depth 1 --branch ${NGM_UPLOAD_PROGRESS_REF} https://github.com/masterzen/nginx-upload-progress-module modules/http-uploadprogress && \
     git clone https://github.com/yaoweibin/ngx_http_substitutions_filter_module modules/http-subs-filter && \
-    git clone https://github.com/stnoonan/spnego-http-auth-nginx-module modules/spnego-http-auth-nginx-module && \
+    git -C modules/http-subs-filter checkout ${NGM_SUBS_FILTER_REF} && \
+    git clone --depth 1 --branch ${NGM_SPNEGO_REF} https://github.com/stnoonan/spnego-http-auth-nginx-module modules/spnego-http-auth-nginx-module && \
     git clone https://github.com/evanmiller/mod_zip modules/mod-zip && \
-    git -C modules/mod-zip checkout ${NGM_MODZIP_COMMIT} && \
+    git -C modules/mod-zip checkout ${NGM_MODZIP_REF} && \
     git clone https://github.com/alibaba/nginx-http-user-agent modules/nginx-http-user-agent && \
+    git -C modules/nginx-http-user-agent checkout ${NGM_USER_AGENT_REF} && \
     git clone https://github.com/youzee/nginx-unzip-module modules/nginx-unzip-module && \
+    git -C modules/nginx-unzip-module checkout ${NGM_UNZIP_REF} && \
     git clone https://github.com/vladbondarenko/ngx_webp modules/ngx-webp && \
-    git clone https://github.com/openresty/xss-nginx-module modules/xss-nginx-module && \
-    git clone https://github.com/openresty/set-misc-nginx-module modules/set-misc-nginx-module && \
-    git clone https://github.com/arut/nginx-rtmp-module modules/rtmp && \
-    git clone https://github.com/simplresty/ngx_devel_kit modules/http-ndk && \
-    git clone https://github.com/itoffshore/nginx-upstream-fair modules/http-upstream-fair && \
-    git clone https://github.com/yaoweibin/nginx_upstream_check_module modules/nginx-upstream-check-module && \
+    git -C modules/ngx-webp checkout ${NGM_WEBP_REF} && \
+    git clone --depth 1 --branch ${NGM_XSS_REF} https://github.com/openresty/xss-nginx-module modules/xss-nginx-module && \
+    git clone --depth 1 --branch ${NGM_SET_MISC_REF} https://github.com/openresty/set-misc-nginx-module modules/set-misc-nginx-module && \
+    git clone --depth 1 --branch ${NGM_RTMP_REF} https://github.com/arut/nginx-rtmp-module modules/rtmp && \
+    git clone --depth 1 --branch ${NGM_NDK_REF} https://github.com/simplresty/ngx_devel_kit modules/http-ndk && \
+    git clone --depth 1 --branch ${NGM_UPSTREAM_FAIR_REF} https://github.com/itoffshore/nginx-upstream-fair modules/http-upstream-fair && \
+    git clone --depth 1 --branch ${NGM_UPSTREAM_CHECK_REF} https://github.com/yaoweibin/nginx_upstream_check_module modules/nginx-upstream-check-module && \
     export NGNX_CFLAGS="-fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64" && \
     export NGNX_CPPFLAGS="${NGNX_CFLAGS}" && \
     export NGNX_LDFLAGS="-Wl,-O1 -pie" && \
@@ -315,14 +349,14 @@ RUN set -eux; \
 #        lua-resty-core + lua-resty-lrucache for http-lua
 ##################################################################
 # lua-nginx-module refuses to start without resty.core. Both libs are
-# pure Lua and must match lua-nginx-module, which is cloned from master
-# above - so they are taken from master too. Installed into the luajit2
-# prefix, which is copied into the final layer as a whole.
+# pure Lua and must match lua-nginx-module - pinned together with it
+# (NGM_LUA_REF / NGM_LUA_RESTY_CORE_REF / NGM_LUA_RESTY_LRUCACHE_REF above).
+# Installed into the luajit2 prefix, which is copied into the final layer as a whole.
 ARG LUA_RESTY_CORE_URL=https://github.com/openresty/lua-resty-core
 ARG LUA_RESTY_LRUCACHE_URL=https://github.com/openresty/lua-resty-lrucache
 RUN set -eux; \
-    git clone --depth 1 ${LUA_RESTY_CORE_URL} /tmp/lua-resty-core && \
-    git clone --depth 1 ${LUA_RESTY_LRUCACHE_URL} /tmp/lua-resty-lrucache && \
+    git clone --depth 1 --branch ${NGM_LUA_RESTY_CORE_REF} ${LUA_RESTY_CORE_URL} /tmp/lua-resty-core && \
+    git clone --depth 1 --branch ${NGM_LUA_RESTY_LRUCACHE_REF} ${LUA_RESTY_LRUCACHE_URL} /tmp/lua-resty-lrucache && \
     for d in /tmp/lua-resty-core /tmp/lua-resty-lrucache; do \
       make -C "$d" install PREFIX=${LUAJIT2OR_DIR} LUA_LIB_DIR=${LUAJIT2OR_DIR}/share/lua/5.1; \
     done && \

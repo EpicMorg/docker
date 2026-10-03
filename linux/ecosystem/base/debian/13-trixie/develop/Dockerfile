@@ -2407,6 +2407,11 @@ RUN set -eu; \
       *OpenSSL*) ;; \
       *) echo "FATAL: unexpected TLS backend: ${backends}" >&2; exit 1 ;; \
     esac; \
+    features="$(${CURL_817_102_BIN_DIR}/curl-config --features)"; \
+    echo "${features}" | grep -qx 'HTTP2' || { \
+      echo "FATAL: libcurl built without HTTP2 (nghttp2): $(echo ${features})" >&2; exit 1; }; \
+    readelf -d "$so" | grep -q '\[libnghttp2\.so' || { \
+      echo "FATAL: libcurl does not link libnghttp2" >&2; exit 1; }; \
     ${CURL_817_102_BIN_DIR}/curl --version; \
     echo "OK: libcurl ${CURL_817_VERSION} -> ${OPENSSL_102_LIB_DIR}"
 
@@ -2489,6 +2494,11 @@ RUN set -eu; \
       *OpenSSL*) ;; \
       *) echo "FATAL: unexpected TLS backend: ${backends}" >&2; exit 1 ;; \
     esac; \
+    features="$(${CURL_817_111_BIN_DIR}/curl-config --features)"; \
+    echo "${features}" | grep -qx 'HTTP2' || { \
+      echo "FATAL: libcurl built without HTTP2 (nghttp2): $(echo ${features})" >&2; exit 1; }; \
+    readelf -d "$so" | grep -q '\[libnghttp2\.so' || { \
+      echo "FATAL: libcurl does not link libnghttp2" >&2; exit 1; }; \
     ${CURL_817_111_BIN_DIR}/curl --version; \
     echo "OK: libcurl ${CURL_817_VERSION} -> ${OPENSSL_111_LIB_DIR}"
  
@@ -2571,6 +2581,11 @@ RUN set -eu; \
       *OpenSSL*) ;; \
       *) echo "FATAL: unexpected TLS backend: ${backends}" >&2; exit 1 ;; \
     esac; \
+    features="$(${CURL_821_35_BIN_DIR}/curl-config --features)"; \
+    echo "${features}" | grep -qx 'HTTP2' || { \
+      echo "FATAL: libcurl built without HTTP2 (nghttp2): $(echo ${features})" >&2; exit 1; }; \
+    readelf -d "$so" | grep -q '\[libnghttp2\.so' || { \
+      echo "FATAL: libcurl does not link libnghttp2" >&2; exit 1; }; \
     ${CURL_821_35_BIN_DIR}/curl --version; \
     echo "OK: libcurl ${CURL_821_VERSION} -> ${OPENSSL_35_LIB_DIR}"
 
