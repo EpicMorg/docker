@@ -1,53 +1,30 @@
+FROM docker.io/epicmorg/jdk:17 AS jdk
+
 FROM docker.io/epicmorg/teamcity-agent:minimal
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
-ARG K_JDK_MAJOR_VERSION=17
-ARG K_JDK_FULL_VERSION=jdk-17.0.17
-ARG K_JDK_VERSION=17.0.17
-ARG K_JDK_BUILD_VERSION=10
-ARG K_JDK_DIR=${EMG_LOCAL_BASE_DIR}/java/${K_JDK_MAJOR_VERSION}
-ARG K_JDK_URL=https://github.com/adoptium/temurin${K_JDK_MAJOR_VERSION}-binaries/releases/download/${K_JDK_FULL_VERSION}+${K_JDK_BUILD_VERSION}/OpenJDK${K_JDK_MAJOR_VERSION}U-jdk_x64_linux_hotspot_${K_JDK_VERSION}_${K_JDK_BUILD_VERSION}.tar.gz
-ARG K_JDK_TEMP=/tmp/OpenJDK${K_JDK_MAJOR_VERSION}U-jdk_x64_linux_hotspot_${K_JDK_VERSION}_${K_JDK_BUILD_VERSION}.tar.gz
-
-ENV JAVA_HOME=${K_JDK_DIR}
+##################################################################
+#              Java 17 (prebuilt epicmorg/jdk image)
+##################################################################
+# Same pattern as teamcity-agent:minimal with jdk:21 (ADR-045): the JDK is
+# taken as-is from the jdk image instead of a second Temurin download.
+# Android tooling (AGP / sdkmanager) wants 17, so 17 is the default java here;
+# maven / gradle / kotlin stay as provided by the minimal agent.
+ENV JAVA_HOME=${EMG_LOCAL_BASE_DIR}/java/17
 ENV JRE_HOME=${JAVA_HOME}
 ENV JDK_HOME=${JAVA_HOME}
-ENV PATH=$PATH:${JAVA_HOME}/bin
+ENV PATH=${JAVA_HOME}/bin:${PATH}
 
-##################################################################
-#                    Shared wget args
-##################################################################
-ARG WGET_ARGS="--continue \
-  --quiet \
-  --no-check-certificate \
-  --retry-connrefused \
-  --tries=15 \
-  --timeout=30 \
-  --waitretry=15 \
-  --dns-timeout=30 \
-  --connect-timeout=30 \
-  --read-timeout=30 \
-  --no-clobber"
+COPY --from=jdk ${EMG_LOCAL_BASE_DIR}/java/17/ ${EMG_LOCAL_BASE_DIR}/java/17/
 
-ARG WGET_USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:128.0) Gecko/20100101 Firefox/128.0"
-
-##################################################################
-#                   installing java17
-##################################################################
-ADD ${K_JDK_URL} /tmp
-RUN mkdir -p ${K_JDK_DIR} && \
-    tar -xzf ${K_JDK_TEMP} --strip-components=1 --directory ${K_JDK_DIR} && \
-    ln -sfv ${JAVA_HOME} /usr/jre && \
-    ln -sfv ${JAVA_HOME} /usr/jdk && \
-    java -version && \
-# cleanup
-    apt-get clean -y && \
-    apt-get clean all -y && \
-    apt-get autoclean -y && \
-    rm -rfv /var/lib/apt/lists/* && \
-    rm -rfv /var/cache/apt/archives/*.deb && \
-    rm -rfv /tmp/* 
+RUN set -eu; \
+    ln -sfnv ${JAVA_HOME} /usr/jre; \
+    ln -sfnv ${JAVA_HOME} /usr/jdk; \
+    for b in ${JAVA_HOME}/bin/*; do ln -sfn "$b" /usr/local/bin/; done; \
+    java -version; \
+    java -version 2>&1 | grep -q 'version "17\.' || { echo "FATAL: java is not 17" >&2; exit 1; }; \
+    [ "$(readlink -f "$(command -v java)")" = "${JAVA_HOME}/bin/java" ] || { echo "FATAL: java not from ${JAVA_HOME}" >&2; exit 1; }
 
 ##################################################################
 #                   Android SDK
@@ -56,7 +33,7 @@ ENV ANDROID_HOME=${EMG_LOCAL_BASE_DIR}/android/sdk
 ENV ANDROID_SDK_ROOT=${ANDROID_HOME}
 
 RUN apt-get update && \
-    apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
+    apt-get install -y --no-install-recommends --no-install-suggests \
       android-sdk \
       sdkmanager \
       android-sdk-build-tools \

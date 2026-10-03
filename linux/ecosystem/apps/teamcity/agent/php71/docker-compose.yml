@@ -3,3 +3,8 @@ services:
     image: "epicmorg/teamcity-agent:php7.1"
     build:
       context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/teamcity-agent:php7.1
+      - ghcr.io/epicmorg/teamcity-agent:php7.1
+      - docker.io/epicmorg/teamcity-agent:php7.1

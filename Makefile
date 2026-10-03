@@ -1072,6 +1072,9 @@ ecosystem-teamcity-agent-images:
 	cd `pwd`/linux/ecosystem/apps/teamcity/agent/node21         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/teamcity/agent/node22         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/teamcity/agent/node23         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/teamcity/agent/node24         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/teamcity/agent/node25         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/teamcity/agent/node26         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/teamcity/agent/php56         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/teamcity/agent/php70         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/teamcity/agent/php71         && pwd && make build && make deploy
