@@ -9,7 +9,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 #                   ARGuments
 ##################################################################
-ENV BuildDocker true
+ENV BuildDocker=true
 
 ARG K_NODE_MAJOR_VERSION=22
 ARG K_NODE_VERSION=${K_NODE_MAJOR_VERSION}.21.0

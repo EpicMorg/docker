@@ -104,21 +104,21 @@ RUN set -eux; \
 	gosu --version; \
 	gosu nobody true
 
-ENV CASSANDRA_HOME /opt/cassandra
-ENV CASSANDRA_CONF /etc/cassandra
-ENV CASSANDRA_DATA /var/lib/cassandra
-ENV CASSANDRA_VERSION 3.11.19
-ENV CASSANDRA_SHA512 42d7732c2b81c65a960101d1146603d430de341adcdf8d0ffc649753a340cf64dad696050f2ec01faff5f15e726f4f2a459f0b3ac281569b957f7726f51d43e0
+ENV CASSANDRA_HOME=/opt/cassandra
+ENV CASSANDRA_CONF=/etc/cassandra
+ENV CASSANDRA_DATA=/var/lib/cassandra
+ENV CASSANDRA_VERSION=3.11.19
+ENV CASSANDRA_SHA512=42d7732c2b81c65a960101d1146603d430de341adcdf8d0ffc649753a340cf64dad696050f2ec01faff5f15e726f4f2a459f0b3ac281569b957f7726f51d43e0
 
 ARG CASSANDRA_LUCENE_PLUGIN_DEST=${CASSANDRA_HOME}/lib/
 #ENV CASSANDRA_LUCENE_PLUGIN_VER=3.11.10.0
 #ARG CASSANDRA_LUCENE_PLUGIN_URL=https://github.com/EpicMorg/cassandra-lucene-index/releases/download/${CASSANDRA_LUCENE_PLUGIN_VER}/cassandra-lucene-index-plugin-${CASSANDRA_LUCENE_PLUGIN_VER}.jar
 
-ENV PATH ${CASSANDRA_HOME}/bin:$PATH
+ENV PATH=${CASSANDRA_HOME}/bin:$PATH
 
 # https://cwiki.apache.org/confluence/display/CASSANDRA2/DebianPackaging#DebianPackaging-AddingRepositoryKeys
 # $ docker run --rm buildpack-deps:bullseye-curl bash -c 'wget -qO- https://downloads.apache.org/cassandra/KEYS | gpg --batch --import &> /dev/null && gpg --batch --list-keys --with-fingerprint --with-colons' | awk -F: '$1 == "pub" && $2 == "-" { pub = 1 } pub && $1 == "fpr" { fpr = $10 } $1 == "sub" { pub = 0 } pub && fpr && $1 == "uid" && $2 == "-" { print "#", $10; print "\t" fpr " \\"; pub = 0 }'
-ENV GPG_KEYS \
+ENV GPG_KEYS="\
 # Eric Evans <eevans@sym-link.com>
 	CEC86BB4A0BA9D0F90397CAEF8358FA2F2833C93 \
 # Eric Evans <eevans@sym-link.com>
@@ -144,7 +144,7 @@ ENV GPG_KEYS \
 # Stefan Miklosovic <smiklosovic@apache.org>
 	7464AAD9068241C50BA6A26232F35CB2F546D93E \
 # Berenguer Blasi (Code Signing Key) <bereng@apache.org>
-	CEC5C50B9C629EF0F5AB2706650B72EB14CCD622
+	CEC5C50B9C629EF0F5AB2706650B72EB14CCD622"
 
 RUN set -eux; \
 	savedAptMark="$(apt-mark showmanual)"; \

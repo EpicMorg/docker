@@ -1,5 +1,5 @@
 FROM docker.io/nextcloud:16
-ENV DEBIAN_FRONTEND noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 LABEL org.opencontainers.image.vendor="EpicMorg DevTeam, developer@epicm.org"
 LABEL org.opencontainers.image.authors="STAM, kasthack, Aleks-Z"

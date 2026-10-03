@@ -82,7 +82,7 @@ ENV GOSU_VERSION=1.19
 ARG GOSU_BIN_DIR=${EMG_LOCAL_BASE_DIR}/gosu/${GOSU_VERSION}/bin
 ARG GOSU_DOWNLOAD_URL=https://github.com/tianon/gosu/releases/download/${GOSU_VERSION}/gosu-amd64
 
-ENV BuildDocker true
+ENV BuildDocker=true
 
 ##################################################################
 #                   sources list
