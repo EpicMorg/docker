@@ -25,3 +25,10 @@
     dest: "{{ testrail_root }}/{{ item }}/{{ auth.name }}/README.md"
     mode: '0644'
   with_items: "{{ testrail_versions }}"
+
+- name: "Copy vendored {{ auth.name }} auth plugin zip (PHP {{ testrail_php }})"
+  copy:
+    src: "auth/plugins/testrail-auth-{{ auth.name }}-1.4.zip"
+    dest: "{{ testrail_root }}/{{ item }}/{{ auth.name }}/testrail-auth-{{ auth.name }}-1.4.zip"
+    force: true
+  with_items: "{{ testrail_versions }}"
