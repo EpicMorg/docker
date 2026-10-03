@@ -1,4 +1,4 @@
-FROM docker.io/epicmorg/jdk:6
+FROM docker.io/epicmorg/jdk:8
 LABEL maintainer="Atlassian Crowd Server Team; EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 

@@ -1,6 +1,6 @@
 - name: Read versions from file
   slurp:
-     src: "{{ playbook_dir }}/roles/common/files/versions/bitbucket/8.jdk17.txt"
+     src: "{{ playbook_dir }}/roles/common/files/versions/bitbucket/8.jdk17-11.txt"
   register: version_output
 
 - name: Set version variable
@@ -15,7 +15,7 @@
     force: true
   with_items: "{{ bitbucket_versions }}"
 
-- name: Remove .env (single-JDK images carry RELEASE in the Dockerfile)
+- name: Remove .env (RELEASE and URLs live in the Dockerfile; .env breaks buildah-wrapper settings)
   file:
     path: "{{ target_directory_bitbucket_8 }}/{{ item }}/.env"
     state: absent
@@ -23,15 +23,22 @@
 
 - name: Copy docker-compose.yml from template to each version directory
   template:
-    src: "docker-compose/template.docker-compose.jdk17.yml.j2"
+    src: "docker-compose/template.docker-compose.jdk17-11.yml.j2"
     dest: "{{ target_directory_bitbucket_8 }}/{{ item }}/docker-compose.yml"
     force: true
   with_items: "{{ bitbucket_versions }}"
 
-- name: Copy Dockerfile.jdk17 from template to each version directory
+- name: Copy Dockerfile from template to each version directory
   template:
     src: "dockerfile/template.Dockerfile.jdk17.j2"
     dest: "{{ target_directory_bitbucket_8 }}/{{ item }}/Dockerfile"
+    force: true
+  with_items: "{{ bitbucket_versions }}"
+
+- name: Copy Dockerfile.jdk11 from template to each version directory
+  template:
+    src: "dockerfile/template.Dockerfile.jdk11.j2"
+    dest: "{{ target_directory_bitbucket_8 }}/{{ item }}/Dockerfile.jdk11"
     force: true
   with_items: "{{ bitbucket_versions }}"
 

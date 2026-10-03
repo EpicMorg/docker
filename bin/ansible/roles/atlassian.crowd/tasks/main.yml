@@ -13,8 +13,11 @@
 - name: "Generate images for Crowd 2 (jdk6 + jdk7)"
   import_tasks: atlassian.crowd.2.jdk6-jdk7.yml
 
-- name: "Generate images for Crowd 3 (jdk6 + jdk7)"
-  import_tasks: atlassian.crowd.3.jdk6-jdk7.yml
+- name: "Generate images for Crowd 2 (jdk8)"
+  import_tasks: atlassian.crowd.2.jdk8.yml
+
+- name: "Generate images for Crowd 3 (jdk8)"
+  import_tasks: atlassian.crowd.3.jdk8.yml
 
 - name: "Generate images for Crowd 4 (jdk8 + jdk11)"
   import_tasks: atlassian.crowd.4.jdk8-jdk11.yml
