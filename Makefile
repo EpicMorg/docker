@@ -1086,6 +1086,7 @@ ecosystem-teamcity-agent-images:
 	cd `pwd`/linux/ecosystem/apps/teamcity/agent/php82         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/teamcity/agent/php83         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/teamcity/agent/php84         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/teamcity/agent/php85         && pwd && make build && make deploy
 
 ecosystem-github-runner-images:
 	cd `pwd`/linux/ecosystem/apps/github/runner/minimal         && pwd && make build && make deploy
