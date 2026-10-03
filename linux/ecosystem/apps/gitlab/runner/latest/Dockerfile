@@ -22,9 +22,11 @@ RUN install -m 0755 -d /etc/apt/keyrings && \
       podman \ 
       podman-compose \
       fuse-overlayfs && \
-    pip3 install --break-system-packages --no-cache-dir \
-      kaniko-wrapper \
-      buildah-wrapper && \
+# podman-compose (apt) brings Debian's python3-typing-extensions, which pip can't uninstall
+# (no RECORD) while pydantic needs a newer one: install it over, then the wrappers.
+    pip3 install --no-cache-dir typing-extensions --ignore-installed --no-deps --break-system-packages --root-user-action=ignore && \
+    pip3 install --no-cache-dir kaniko-wrapper --ignore-installed --break-system-packages --force-reinstall --root-user-action=ignore && \
+    pip3 install --no-cache-dir buildah-wrapper --ignore-installed --break-system-packages --force-reinstall --root-user-action=ignore && \
     systemctl disable docker && \
     systemctl disable podman && \
     rm -rf /bin/docker-compose && \
