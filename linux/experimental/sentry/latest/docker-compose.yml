@@ -3,3 +3,7 @@ services:
     image: "epicmorg/sentry:latest"
     build:
       context: .
+    x-mirrors:
+      - docker.io/epicmorg/sentry:latest
+      - quay.io/epicmorg/sentry:latest
+      - ghcr.io/epicmorg/sentry:latest

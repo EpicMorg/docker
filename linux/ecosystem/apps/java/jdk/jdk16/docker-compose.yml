@@ -5,5 +5,6 @@ services:
     x-mirrors:
       - quay.io/epicmorg/jdk:16
       - ghcr.io/epicmorg/jdk:16
+      - docker.io/epicmorg/jdk:16
     build:
       context: .

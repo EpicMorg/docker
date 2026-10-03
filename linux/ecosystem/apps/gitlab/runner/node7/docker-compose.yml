@@ -3,3 +3,7 @@ services:
     image: "epicmorg/gitlab-runner:node7"
     build:
       context: .
+    x-mirrors:
+      - docker.io/epicmorg/gitlab-runner:node7
+      - quay.io/epicmorg/gitlab-runner:node7
+      - ghcr.io/epicmorg/gitlab-runner:node7

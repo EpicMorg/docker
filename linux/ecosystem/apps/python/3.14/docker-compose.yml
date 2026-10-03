@@ -5,5 +5,6 @@ services:
     x-mirrors:
       - quay.io/epicmorg/python:3.14
       - ghcr.io/epicmorg/python:3.14
+      - docker.io/epicmorg/python:3.14
     build:
       context: .

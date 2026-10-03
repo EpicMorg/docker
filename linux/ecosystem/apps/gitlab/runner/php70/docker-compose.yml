@@ -3,3 +3,7 @@ services:
     image: "epicmorg/gitlab-runner:php7.0"
     build:
       context: .
+    x-mirrors:
+      - docker.io/epicmorg/gitlab-runner:php7.0
+      - quay.io/epicmorg/gitlab-runner:php7.0
+      - ghcr.io/epicmorg/gitlab-runner:php7.0

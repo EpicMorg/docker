@@ -5,7 +5,7 @@
 
 - name: Set version variable
   set_fact:
-    jira_versions: "{{ version_output['content'] | b64decode | trim | split('\n') }}"
+    jira_versions: "{{ version_output['content'] | b64decode | trim | split('\n') | map('trim') | reject('equalto', '') | list }}"
 
 - name: Create directories for Jira versions
   file:

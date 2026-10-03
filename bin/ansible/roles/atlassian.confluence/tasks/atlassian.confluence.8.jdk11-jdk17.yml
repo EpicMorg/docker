@@ -5,7 +5,7 @@
 
 - name: Set version variable
   set_fact:
-    confluence_versions: "{{ version_output['content'] | b64decode | trim | split('\n') }}"
+    confluence_versions: "{{ version_output['content'] | b64decode | trim | split('\n') | map('trim') | reject('equalto', '') | list }}"
 
 - name: Create directories for Confluence versions
   file:

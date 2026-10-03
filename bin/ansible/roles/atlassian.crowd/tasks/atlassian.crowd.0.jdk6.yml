@@ -5,7 +5,7 @@
 
 - name: Set version variable
   set_fact:
-    crowd_versions: "{{ version_output['content'] | b64decode | trim | split('\n') }}"
+    crowd_versions: "{{ version_output['content'] | b64decode | trim | split('\n') | map('trim') | reject('equalto', '') | list }}"
 
 - name: Create directories for Crowd versions
   file:

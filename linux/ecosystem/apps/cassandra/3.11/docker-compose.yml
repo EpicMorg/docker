@@ -3,3 +3,7 @@ services:
     image: "epicmorg/cassandra:3.11"
     build:
       context: .
+    x-mirrors:
+      - docker.io/epicmorg/cassandra:3.11
+      - quay.io/epicmorg/cassandra:3.11
+      - ghcr.io/epicmorg/cassandra:3.11

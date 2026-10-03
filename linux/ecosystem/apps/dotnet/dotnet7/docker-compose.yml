@@ -7,3 +7,4 @@ services:
     x-mirrors:
       - quay.io/epicmorg/dotnet:7
       - ghcr.io/epicmorg/dotnet:7
+      - docker.io/epicmorg/dotnet:7

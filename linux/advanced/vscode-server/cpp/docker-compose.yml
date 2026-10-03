@@ -3,3 +3,7 @@ services:
     image: "epicmorg/vscode-server:cpp"
     build:
       context: .
+    x-mirrors:
+      - docker.io/epicmorg/vscode-server:cpp
+      - quay.io/epicmorg/vscode-server:cpp
+      - ghcr.io/epicmorg/vscode-server:cpp

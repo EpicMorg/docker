@@ -7,3 +7,4 @@ services:
     x-mirrors:
       - quay.io/epicmorg/dotnet:lts
       - ghcr.io/epicmorg/dotnet:lts
+      - docker.io/epicmorg/dotnet:lts

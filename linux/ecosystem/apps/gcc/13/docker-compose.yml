@@ -7,3 +7,4 @@ services:
     x-mirrors:
       - quay.io/epicmorg/gcc:13
       - ghcr.io/epicmorg/gcc:13
+      - docker.io/epicmorg/gcc:13

@@ -3,3 +3,7 @@ services:
     image: "epicmorg/gitlab-runner:latest"
     build:
       context: .
+    x-mirrors:
+      - docker.io/epicmorg/gitlab-runner:latest
+      - quay.io/epicmorg/gitlab-runner:latest
+      - ghcr.io/epicmorg/gitlab-runner:latest

@@ -3,3 +3,7 @@ services:
     image: "epicmorg/github-runner:minimal"
     build:
       context: .
+    x-mirrors:
+      - docker.io/epicmorg/github-runner:minimal
+      - quay.io/epicmorg/github-runner:minimal
+      - ghcr.io/epicmorg/github-runner:minimal

@@ -7,3 +7,4 @@ services:
     x-mirrors:
       - quay.io/epicmorg/dotnet:preview
       - ghcr.io/epicmorg/dotnet:preview
+      - docker.io/epicmorg/dotnet:preview
