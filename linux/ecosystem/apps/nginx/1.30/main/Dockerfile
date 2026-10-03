@@ -57,7 +57,8 @@ ARG NGM_AUTH_PAM_REF=v1.5.5
 ARG NGM_LUA_REF=v0.10.32rc5
 ARG NGM_LUA_RESTY_CORE_REF=v0.1.35rc1
 ARG NGM_LUA_RESTY_LRUCACHE_REF=v0.15
-ARG NGM_GEOIP2_REF=3.4
+# geoip2: last tag 3.4 (2022) lacks the segfault fix on a bad auto_reload value (#90) - sha.
+ARG NGM_GEOIP2_REF=445df24ef3781e488cee3dfe8a1e111997fc1dfe
 ARG NGM_DAV_EXT_REF=v3.0.0
 ARG NGM_ECHO_REF=v0.65
 ARG NGM_FANCYINDEX_REF=v0.6.0
@@ -75,7 +76,8 @@ ARG NGM_UNZIP_REF=03e582a2e99d2dd4bbd7f26d3f3d4a8e4a5d23f4
 ARG NGM_WEBP_REF=0ab83ddf546247c58ed9e01296de443c825e350a
 ARG NGM_XSS_REF=v0.07
 ARG NGM_SET_MISC_REF=v0.34
-ARG NGM_RTMP_REF=v1.2.2
+# rtmp: last tag v1.2.2 (2021) lacks the rtmps SSL shutdown fix and clang build fixes - sha.
+ARG NGM_RTMP_REF=6c7719d0ba32e00b563ec70bd43dad11960fa9c4
 ARG NGM_NDK_REF=v0.3.4
 ARG NGM_UPSTREAM_FAIR_REF=0.1.3
 ARG NGM_UPSTREAM_CHECK_REF=v0.4.0
@@ -132,7 +134,8 @@ RUN set -eux; \
     git clone --depth 1 --branch ${NGM_HEADERS_MORE_REF} https://github.com/openresty/headers-more-nginx-module modules/http-headers-more-filter  && \
     git clone --depth 1 --branch ${NGM_AUTH_PAM_REF} https://github.com/sto/ngx_http_auth_pam_module modules/http-auth-pam  && \
     git clone --depth 1 --branch ${NGM_LUA_REF} https://github.com/openresty/lua-nginx-module modules/http-lua && \
-    git clone --depth 1 --branch ${NGM_GEOIP2_REF} https://github.com/leev/ngx_http_geoip2_module modules/http-geoip2 && \
+    git clone https://github.com/leev/ngx_http_geoip2_module modules/http-geoip2 && \
+    git -C modules/http-geoip2 checkout ${NGM_GEOIP2_REF} && \
     git clone --depth 1 --branch ${NGM_DAV_EXT_REF} https://github.com/arut/nginx-dav-ext-module modules/http-dav-ext && \
     git clone --depth 1 --branch ${NGM_ECHO_REF} https://github.com/openresty/echo-nginx-module modules/http-echo && \
     git clone --depth 1 --branch ${NGM_FANCYINDEX_REF} https://github.com/aperezdc/ngx-fancyindex modules/http-fancyindex && \
@@ -151,7 +154,8 @@ RUN set -eux; \
     git -C modules/ngx-webp checkout ${NGM_WEBP_REF} && \
     git clone --depth 1 --branch ${NGM_XSS_REF} https://github.com/openresty/xss-nginx-module modules/xss-nginx-module && \
     git clone --depth 1 --branch ${NGM_SET_MISC_REF} https://github.com/openresty/set-misc-nginx-module modules/set-misc-nginx-module && \
-    git clone --depth 1 --branch ${NGM_RTMP_REF} https://github.com/arut/nginx-rtmp-module modules/rtmp && \
+    git clone https://github.com/arut/nginx-rtmp-module modules/rtmp && \
+    git -C modules/rtmp checkout ${NGM_RTMP_REF} && \
     git clone --depth 1 --branch ${NGM_NDK_REF} https://github.com/simplresty/ngx_devel_kit modules/http-ndk && \
     git clone --depth 1 --branch ${NGM_UPSTREAM_FAIR_REF} https://github.com/itoffshore/nginx-upstream-fair modules/http-upstream-fair && \
     git clone --depth 1 --branch ${NGM_UPSTREAM_CHECK_REF} https://github.com/yaoweibin/nginx_upstream_check_module modules/nginx-upstream-check-module && \
