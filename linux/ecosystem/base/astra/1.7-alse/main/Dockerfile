@@ -7,7 +7,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 RUN echo "Default folder for installation of customized soft is: ${EMG_LOCAL_BASE_DIR}"
 
-ARG P4_VERSION=r24.2
+ENV P4_VERSION=r26.1
 ARG P4_BIN_DIR=${EMG_LOCAL_BASE_DIR}/p4/${P4_VERSION}/bin
 ARG P4_DOWNLOAD_URL=https://filehost.perforce.com/perforce/${P4_VERSION}/bin.linux26x86_64/p4
 
@@ -25,130 +25,128 @@ ARG GOSU_BIN_DIR=${EMG_LOCAL_BASE_DIR}/gosu/${GOSU_VERSION}/bin
 ARG GOSU_DOWNLOAD_URL=https://github.com/tianon/gosu/releases/download/${GOSU_VERSION}/gosu-amd64
 
 ##################################################################
-#                   update lists
-##################################################################
-RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections && \
-    apt-get update
-
-##################################################################
 #                   installing utils
 ##################################################################
+# Same set as debian:trixie. Not in the Astra 1.7 repositories, dropped:
+#   lbzip2 cmatrix cmatrix-xfont clzip git-extras git-mediawiki git-crypt git-ftp iotop lzip nload pbzip2 plzip rar screenfetch rclone pev
+# libzip5 (trixie) -> libzip4 (Astra 1.7).
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections && \
-    apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
-    bzip2 \
-#    cmatrix \
-#    cmatrix-xfont \
-    cron \
-    curl \
-#    clzip \
-    dos2unix \
-    ffmpeg \
-    fontconfig \
-    git \
-#    git-extras \
-    git-flow \
-    git-cvs \
-    git-doc \
-    git-email \
-#    git-mediawiki \
-#    git-crypt \
-    git-lfs \
-#    git-ftp \
-    gnupg \
-    gnupg2 \
-    graphicsmagick \
-    gzip \
-    htop \
-    iftop \
-#    iotop \
-    iperf \
-    iperf3 \
-    iputils-ping \
-    jq \
-    kmod \
-    libxml2-dev \
-    libxml2-utils \
-#    lbzip2 \
-    libsvn-java \
-    locales \
-    lsb-release \
-    lsof \
-    lynx \
-    lzma \
-#    lzip \
-    lzop \
-    mc \
-    mercurial \
-    nano \
-#    nload \
-    nmap \
-    openssl \
-    perl \
-    procps \
-#    pbzip2 \
-#    plzip \
-    p7zip-full \
-    p7zip-rar \
-    rsync \
-#    rar \
-#    screenfetch \
-    smbclient \
-    subversion \
-    telnet \
-    tmux \
-    tree \
-    util-linux \
-    uuid-runtime \
-    unrar \
-    xz-utils \
-    wget \
-    zip \
-    tini \
-    libzip4 \
-    acl \
-    aptitude  \
-    sudo  \
-    cvs \
-    python3-pip \
-    python3-all \
-#    rclone \
-    logrotate \
-    subversion-tools
-#    pev
+    apt-get update && \
+    apt-get install -y \
+        bzip2 \
+        cron \
+        curl \
+        dos2unix \
+        ffmpeg \
+        fontconfig \
+        fontconfig-config \
+        git \
+        git-flow \
+        git-cvs \
+        git-doc \
+        git-email \
+        git-lfs \
+        gnupg \
+        gnupg2 \
+        graphicsmagick \
+        gzip \
+        htop \
+        iftop \
+        iperf \
+        iperf3 \
+        iputils-ping \
+        jq \
+        kmod \
+        libxml2-dev \
+        libxml2-utils \
+        libatomic1 \
+        libsvn-java \
+        locales \
+        lsb-release \
+        lsof \
+        lynx \
+        lzma \
+        lzop \
+        mc \
+        mercurial \
+        nano \
+        nmap \
+        openssl \
+        perl \
+        procps \
+        p7zip-full \
+        p7zip-rar \
+        rsync \
+        screen \
+        smbclient \
+        subversion \
+        telnet \
+        tmux \
+        vim \
+        tree \
+        util-linux \
+        uuid-runtime \
+        unrar \
+        xz-utils \
+        wget \
+        zip \
+        tini \
+        libzip4 \
+        acl \
+        aptitude \
+        sudo \
+        cvs \
+        python3-pip \
+        python3-all \
+        logrotate \
+        subversion-tools
 
 ##################################################################
 #                   installing fs-tools
 ##################################################################
+# Not installable from the Astra 1.7 repositories, dropped: duperemove jmtpfs hfsprogs
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections && \
     apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
-    btrfs-progs \
-    e2fsprogs \
-    f2fs-tools \
-    dosfstools \
-#    hfsutils \
-#    hfsprogs \
-    jfsutils \
-    mdadm \
-    util-linux \
-    cryptsetup \
-    lvm2 \
-    nilfs-tools \
-    ntfs-3g \
-#    reiser4progs \
-    reiserfsprogs \
-    udftools \
-    xfsprogs \
-    xfsdump
+        parted \
+        fuse2fs \
+        e2fsck-static \
+        keyutils \
+        btrfs-progs \
+        e2fsprogs \
+        f2fs-tools \
+        dosfstools \
+        jfsutils \
+        mdadm \
+        util-linux \
+        cryptsetup \
+        lvm2 \
+        nilfs-tools \
+        ntfs-3g \
+        reiserfsprogs \
+        udftools \
+        xfsprogs \
+        xfsdump \
+        zfsutils-linux
 
 ##################################################################
 #                   git fresh binary
 ##################################################################
+# git-core PPA suite = newest Ubuntu whose glibc is not newer than Astra's
+# (bionic for Astra 1.7); a newer suite's git would not install here.
+# Astra pins its own repositories at 900 (/etc/apt/preferences.d/astra.pin.pref),
+# so a vendor repo at the default 500 never wins and git / git-lfs silently stay
+# at Astra's versions. etc/apt/preferences.d/epicmorg-vendor-repos.pref lifts
+# exactly git* (git-core PPA) and git-lfs (packagecloud) above that pin.
+COPY etc/apt/preferences.d/epicmorg-vendor-repos.pref /etc/apt/preferences.d/epicmorg-vendor-repos.pref
 RUN gpg --keyserver keyserver.ubuntu.com --recv-keys F911AB184317630C59970973E363C90F8F1B6217 && \
     gpg --export --output /etc/apt/keyrings/launchpad-git.gpg F911AB184317630C59970973E363C90F8F1B6217 && \
     rm -rfv /etc/apt/sources.list.d/launchpad_git-mainline.list && \
-    rm -rfv /etc/apt/sources.list.d/launchpad_git-stable.list
-COPY etc/apt/sources.list.d/launchpad_git-mainline.list /etc/apt/sources.list.d/launchpad_git-mainline.list
-COPY etc/apt/sources.list.d/launchpad_git-stable.list /etc/apt/sources.list.d/launchpad_git-stable.list
+    rm -rfv /etc/apt/sources.list.d/launchpad_git-stable.list && \
+    rm -rfv /etc/apt/sources.list.d/launchpad_git-mainline.sources && \
+    rm -rfv /etc/apt/sources.list.d/launchpad_git-stable.sources
+
+COPY etc/apt/sources.list.d/launchpad_git-mainline.sources /etc/apt/sources.list.d/launchpad_git-mainline.sources
+COPY etc/apt/sources.list.d/launchpad_git-stable.sources /etc/apt/sources.list.d/launchpad_git-stable.sources
 RUN apt-get update &&  \
     apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
     git
@@ -161,8 +159,10 @@ RUN echo "=============================================" && \
 #                   git-lfs official binary
 ##################################################################
 RUN curl -fsSL https://packagecloud.io/github/git-lfs/gpgkey | gpg --dearmor > /etc/apt/keyrings/github_git-lfs-archive-keyring.gpg && \
-    rm -rfv /etc/apt/sources.list.d/github_git-lfs.list
-COPY etc/apt/sources.list.d/github_git-lfs.list /etc/apt/sources.list.d/github_git-lfs.list
+    rm -rfv /etc/apt/sources.list.d/github_git-lfs.list && \
+    rm -rfv /etc/apt/sources.list.d/github_git-lfs.sources
+
+COPY etc/apt/sources.list.d/github_git-lfs.sources /etc/apt/sources.list.d/github_git-lfs.sources
 RUN apt-get update &&  \
     apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
     git \
@@ -179,8 +179,11 @@ RUN echo "=============================================" && \
 ##################################################################
 RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | gpg --batch --yes --dearmor -o /etc/apt/keyrings/githubcli-archive-keyring.gpg && \
     chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg && \
-    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list && \
-    apt-get update &&  \
+    rm -rfv /etc/apt/sources.list.d/github-cli.list && \
+    rm -rfv /etc/apt/sources.list.d/github-cli.sources
+
+COPY etc/apt/sources.list.d/github-cli.sources /etc/apt/sources.list.d/github-cli.sources
+RUN apt-get update &&  \
     apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
     gh
 
@@ -264,3 +267,36 @@ RUN echo "=============================================" && \
     echo gosu $(gosu --version) && \
     echo "============================================="
 
+##################################################################
+#                   Assertions
+##################################################################
+# Fatal: the downloaded tools actually run on this glibc and the
+# vendor-repo binaries (git PPA, git-lfs, gh) are the ones on PATH.
+RUN set -eu; \
+    for b in p4 7zz dumb-init gosu git git-lfs gh; do \
+      command -v "$b" >/dev/null || { echo "FATAL: $b not on PATH" >&2; exit 1; }; \
+    done; \
+    p4 -V | tail -n 2; \
+    gosu --version; \
+    dumb-init --version; \
+    git --version; \
+    git lfs version; \
+    v="$(dpkg-query -W -f='${Version}' git)"; \
+    case "$v" in *ppa*) ;; *) echo "FATAL: git $v is not from the git-core PPA" >&2; exit 1 ;; esac; \
+    v="$(dpkg-query -W -f='${Version}' git-lfs)"; \
+    case "$v" in *astra*) echo "FATAL: git-lfs $v is Astra's, not packagecloud's" >&2; exit 1 ;; esac; \
+    gh --version | head -n 1; \
+    echo "OK: main assertions"
+
+##################################################################
+#                   Version after install
+##################################################################
+RUN echo "=============================================" && \
+    echo $(lsb_release -d) && \
+    echo "Astra: $(cat /etc/astra_version)" && \
+    echo "Debian base: $(cat /etc/debian_version)" && \
+    echo "============================================="
+
+##################################################################
+#                   other   customisations
+##################################################################

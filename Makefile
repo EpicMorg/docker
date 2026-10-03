@@ -533,6 +533,30 @@ ecosystem-debian-sid-images:
 	@make clean
 
 ####################################################################################################################
+
+####################################################################################################################
+#                                            ASTRA LINUX IMAGES
+####################################################################################################################
+
+ecosystem-astralinux-images:
+	make ecosystem-astralinux-1.8-images
+	make ecosystem-astralinux-1.7-images
+
+ecosystem-astralinux-1.8-images:
+	cd `pwd`/linux/ecosystem/base/astra/1.8-alse/rootfs    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/base/astra/1.8-alse/light    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/base/astra/1.8-alse/main    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/base/astra/1.8-alse/develop-light    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/base/astra/1.8-alse/develop    && pwd && make build && make deploy
+
+ecosystem-astralinux-1.7-images:
+	cd `pwd`/linux/ecosystem/base/astra/1.7-alse/rootfs    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/base/astra/1.7-alse/light    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/base/astra/1.7-alse/main    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/base/astra/1.7-alse/develop-light    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/base/astra/1.7-alse/develop    && pwd && make build && make deploy
+
+####################################################################################################################
  
 ecosystem-gcc-images:
 	cd `pwd`/linux/ecosystem/apps/gcc/16       && pwd && make build && make deploy

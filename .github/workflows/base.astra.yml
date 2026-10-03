@@ -1,5 +1,5 @@
 # Astra Linux SE bases. One job per release, built in order inside the job:
-#   rootfs (FROM its own previous rootfs, squashed) -> light -> main -> develop
+#   rootfs (FROM its own previous rootfs, squashed) -> light -> main -> develop-light -> develop
 # A failure in one release does not touch the others. Not part of the chain.
 name: Base - Astra Linux
 
@@ -30,7 +30,7 @@ jobs:
           linux/ecosystem/base/astra
     - id: list
       run: |
-        releases=$(python3 .github/scripts/leaves.py group linux/ecosystem/base/astra '{}/rootfs' '{}/light' '{}/main' '{}/develop')
+        releases=$(python3 .github/scripts/leaves.py group linux/ecosystem/base/astra '{}/rootfs' '{}/light' '{}/main' '{}/develop-light' '{}/develop')
         echo "releases=${releases}" | tee -a "$GITHUB_OUTPUT"
 
   build:

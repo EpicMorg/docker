@@ -14,15 +14,52 @@ A collection of docker images for production use. This repo contains 2 types of 
 | Name | Homepage |
 |:-------------|-------------:|
 | `DockerHub` (Default) | https://hub.docker.com/r/epicmorg |
-| `Quai.io` (Mirror) | https://quay.io/organization/epicmorg | 
-| `Harbor` (Mirror)  | [https://hub.epicm.org/epicmorg](https://hub.epicm.org/account/sign-in?globalSearch=epicmorg) | 
+| `Quay.io` (Mirror) | https://quay.io/organization/epicmorg | 
+| `GHCR` (Mirror) | https://github.com/orgs/EpicMorg/packages | 
 
 ## Docker and Podman support:
 | Docker | Podman |
 |:-------------|-------------:|
-|  `docker pull epicmorg/debian:boowkorm` |  `podman pull epicmorg/debian:boowkorm` |
-|  `docker pull quay.io/epicmorg/debian:boowkorm` |  `podman pull quay.io/epicmorg/debian:boowkorm` |
-|  `docker pull hub.epicm.org/epicmorg/debian:boowkorm` |  `podman pull hub.epicm.org/epicmorg/ debian:boowkorm` |
+|  `docker pull epicmorg/debian:trixie` |  `podman pull epicmorg/debian:trixie` |
+|  `docker pull quay.io/epicmorg/debian:trixie` |  `podman pull quay.io/epicmorg/debian:trixie` |
+|  `docker pull ghcr.io/epicmorg/debian:trixie` |  `podman pull ghcr.io/epicmorg/debian:trixie` |
+
+## Tags, pinning and updates
+
+**Tag model**
+
+| Kind | Tags | Notes |
+|:-----|:-----|:------|
+| Base (Debian) | `epicmorg/debian:<codename>-light`, `epicmorg/debian:<codename>` (= main), `:<codename>-develop-light`, `:<codename>-develop` | Reference base is `trixie`. `develop*` are **build images only**, never a runtime base. |
+| Base (Astra Linux) | `epicmorg/astralinux:<ver>-light`, `:<ver>-main`, `:<ver>-develop-light`, `:<ver>-develop` | `<ver>-rootfs` is the self-built root filesystem. |
+| Museum (Debian 6–12) | `epicmorg/debian:<codename>-light`, `:<codename>`, `:<codename>-develop` | Frozen, vanilla, rebuilt weekly only to stay installable. |
+| Runtimes | `epicmorg/php:<x.y>`, `python:<x.y>`, `nodejs:<x>`, `jdk:<x>`, `gcc:<x>`, `nginx:<x.y>`, `go:<x.y>`, `dotnet…` | Built from source on top of the current reference base. |
+| Applications | product-specific, e.g. `epicmorg/jira:<ver>`, `:<ver>-jdk<N>`, `epicmorg/nginx:<ver>-php<x.y>` | |
+
+* There is **no `latest` tag on base images** (`debian`, `astralinux`) — always name the release you want.
+* Tags are **floating**: images are rebuilt on a schedule (weekly) to pick up security fixes, so `epicmorg/php:8.3` today and next week are different images with the same tag.
+* Docker Hub, Quay and GHCR receive **the same artifact** — the digest is identical on all three.
+
+**Pin by digest for reproducible builds**
+
+If you need a build that never changes under you, pin the digest, not only the tag:
+
+```dockerfile
+FROM docker.io/epicmorg/php:8.3@sha256:<digest>
+```
+
+Get the current digest with any of:
+
+```sh
+docker buildx imagetools inspect epicmorg/php:8.3
+skopeo inspect docker://docker.io/epicmorg/php:8.3 | jq -r .Digest
+```
+
+Renovate / Dependabot can bump pinned digests for you.
+
+**Migrations**
+
+Breaking changes — a new reference Debian release, a dependency branch switch (e.g. OpenSSL), removal of a version or a tag rename — are announced about **one month in advance** in [Issues](https://github.com/EpicMorg/docker/issues) and [CHANGELOG.md](CHANGELOG.md). Images referenced only by a floating tag will follow the change when it lands; if that is not acceptable for you, pin by digest. We do not take responsibility for unpinned downstream builds.
 
 ## Support Document for Docker Image Concepts in Project
 
@@ -68,9 +105,7 @@ A collection of docker images for production use. This repo contains 2 types of 
 > 
 > **At 1st of October 2024 all deprecated tags and images were deleted from Hubs (DockerHub, Quay, etc):**
 
-* `epicmorg/nodejs` - image, migrated to `epicmorg/debian:bookworm-nodejs<version>`. Look at `linux/ecosystem/epicmorg/debian/12-bookworm/nodejs`.
-* `epicmorg/php` - image, migrated to `epicmorg/debian:bookworm-php<version>`. Look at `linux/ecosystem/epicmorg/debian/12-bookworm/php`.
-* `epicmorg/python` - image, migrated to `epicmorg/debian:bookworm-python<version>`. Look at `linux/ecosystem/epicmorg/debian/12-bookworm/python`.
+* `epicmorg/nodejs`, `epicmorg/php`, `epicmorg/python` - **update (2026):** runtimes are back in the global pool `epicmorg/<runtime>:<version>` (built from source on Debian 13 `trixie`); the per-distro tags `epicmorg/debian:<codename>-<runtime><version>` are no longer published. See [Tags, pinning and updates](#tags-pinning-and-updates).
 * `epicmorg/apache2:latest` - ONLY `latest` tag.
 * `epicmorg/nginx:<version>.<build>` - deprecated tags with build-version. at now - all versions are only `<major>.<minor>`. Example: `1.27.1` -> `1.27`.
 * `epicmorg/torrust-index` - deprecated, deleted as abadoned. Sorry.
@@ -78,20 +113,6 @@ A collection of docker images for production use. This repo contains 2 types of 
 * `epicmorg/staytus` - deprecated, deleted as abadoned. Sorry.
 * `epicmorg/freegpt-webui` - deprecated, deleted as abadoned. Sorry.
 * `epicmorg/syspass` - deprecated, deleted as abadoned. Sorry.
-
-> [!IMPORTANT]  
-> **At 1st of May 2025 this images will be\were renamed and old images and tags will be\were deleted from Hubs (DockerHub, Quay, etc):**
-
-* `epicmorg/linux-steamcmd` -> `epicmorg/games:steamcmd` - Base iamge for various games images.
-* `epicmorg/linux-csgo` -> `epicmorg/games:csgo`.
-* `epicmorg/linux-7d2d` -> `epicmorg/games:7d2d`.
-* `epicmorg/win32` -> `epicmorg/windows` - Base `windows` images like a `epicmorg/debian`.
-
-
-> [!IMPORTANT]  
-> **At 1st of May 2025 this images will be\were archived at Hubs (DockerHub, Quay, etc):**
-
-* `epicmorg/astralinux` - I am not shure to support this images.
 
 For more information - look at `Support Document` to replace this tags and images.
 

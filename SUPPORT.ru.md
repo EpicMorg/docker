@@ -1,82 +1,51 @@
 # Документ поддержки концепции образов Docker для проекта
 
-`timestamp: 2024/08/12`
+`timestamp: 2026/10/03`
 
 | Debian | **codename** | **status** |
 |:-------------|:-------------|:-------------|
 | [![GHA](https://img.shields.io/github/actions/workflow/status/EpicMorg/docker/base.sid.yml?label=SID&logo=Debian%20sid%20Images&style=flat-square)](https://github.com/EpicMorg/docker/actions/workflows/base.sid.yml) | `sid` | `unstable` | 
-| [![GHA](https://img.shields.io/github/actions/workflow/status/EpicMorg/docker/chain.10-base.yml?label=13&logo=Debian%2013%20Images&style=flat-square)](https://github.com/EpicMorg/docker/actions/workflows/chain.10-base.yml) | `trixie` | `testing` |
-| [![GHA](https://img.shields.io/github/actions/workflow/status/EpicMorg/docker/base.museum.yml?label=12&logo=Debian%2012%20Images&style=flat-square)](https://github.com/EpicMorg/docker/actions/workflows/base.museum.yml) | **`bookworm`** | **`Stable`**  |
-| [![GHA](https://img.shields.io/github/actions/workflow/status/EpicMorg/docker/base.museum.yml?label=11&logo=Debian%2011%20Images&style=flat-square)](https://github.com/EpicMorg/docker/actions/workflows/base.museum.yml) | **`bullseye`**  | **`LTS`** \ `oldstable`|
-| [![GHA](https://img.shields.io/github/actions/workflow/status/EpicMorg/docker/base.museum.yml?label=10&logo=Debian%20Legacy%20Images&style=flat-square)](https://github.com/EpicMorg/docker/actions/workflows/base.museum.yml) | `buster` | `deprecated`, `oldoldstable `|
-| [![GHA](https://img.shields.io/github/actions/workflow/status/EpicMorg/docker/base.museum.yml?label=9&logo=Debian%20Legacy%20Images&style=flat-square)](https://github.com/EpicMorg/docker/actions/workflows/base.museum.yml) | `stretch` | `deprecated` |
-| [![GHA](https://img.shields.io/github/actions/workflow/status/EpicMorg/docker/base.museum.yml?label=8&logo=Debian%20Legacy%20Images&style=flat-square)](https://github.com/EpicMorg/docker/actions/workflows/base.museum.yml) | `jessie` | `deprecated` |
-| [![GHA](https://img.shields.io/github/actions/workflow/status/EpicMorg/docker/base.museum.yml?label=7&logo=Debian%20Legacy%20Images&style=flat-square)](https://github.com/EpicMorg/docker/actions/workflows/base.museum.yml) | `wheezy` | `deprecated` |
-| [![GHA](https://img.shields.io/github/actions/workflow/status/EpicMorg/docker/base.museum.yml?label=6&logo=Debian%20Legacy%20Images&style=flat-square)](https://github.com/EpicMorg/docker/actions/workflows/base.museum.yml) | `squeeze` | `deprecated` |
+| [![GHA](https://img.shields.io/github/actions/workflow/status/EpicMorg/docker/chain.10-base.yml?label=13&logo=Debian%2013%20Images&style=flat-square)](https://github.com/EpicMorg/docker/actions/workflows/chain.10-base.yml) | **`trixie`** | **`stable`**, reference base |
+| [![GHA](https://img.shields.io/github/actions/workflow/status/EpicMorg/docker/base.museum.yml?label=12&logo=Debian%2012%20Images&style=flat-square)](https://github.com/EpicMorg/docker/actions/workflows/base.museum.yml) | `bookworm` | `oldstable`, museum |
+| [![GHA](https://img.shields.io/github/actions/workflow/status/EpicMorg/docker/base.museum.yml?label=11&logo=Debian%2011%20Images&style=flat-square)](https://github.com/EpicMorg/docker/actions/workflows/base.museum.yml) | `bullseye` | `LTS`, museum |
+| [![GHA](https://img.shields.io/github/actions/workflow/status/EpicMorg/docker/base.museum.yml?label=10&logo=Debian%20Legacy%20Images&style=flat-square)](https://github.com/EpicMorg/docker/actions/workflows/base.museum.yml) | `buster` | museum |
+| [![GHA](https://img.shields.io/github/actions/workflow/status/EpicMorg/docker/base.museum.yml?label=9&logo=Debian%20Legacy%20Images&style=flat-square)](https://github.com/EpicMorg/docker/actions/workflows/base.museum.yml) | `stretch` | museum |
+| [![GHA](https://img.shields.io/github/actions/workflow/status/EpicMorg/docker/base.museum.yml?label=8&logo=Debian%20Legacy%20Images&style=flat-square)](https://github.com/EpicMorg/docker/actions/workflows/base.museum.yml) | `jessie` | museum |
+| [![GHA](https://img.shields.io/github/actions/workflow/status/EpicMorg/docker/base.museum.yml?label=7&logo=Debian%20Legacy%20Images&style=flat-square)](https://github.com/EpicMorg/docker/actions/workflows/base.museum.yml) | `wheezy` | museum |
+| [![GHA](https://img.shields.io/github/actions/workflow/status/EpicMorg/docker/base.museum.yml?label=6&logo=Debian%20Legacy%20Images&style=flat-square)](https://github.com/EpicMorg/docker/actions/workflows/base.museum.yml) | `squeeze` | museum |
 
 
 ## Введение
 
-Репозиторий `epicmorg/docker` содержит коллекцию `образов Docker`, организованных по версиям `Debian` и используемых для создания как базовых, так и конечных образов продуктов. Основная цель данной концепции — `обеспечить упорядоченность и актуальность образов в зависимости от их использования и статуса`. В этом документе описан текущий подход к организации образов и планируемые изменения для улучшения управления версиями и поддержки.
+`epicmorg/docker` — коллекция OCI-образов на общей слоёной базе: **база → рантайм → приложение**.
+Здесь описано, как устроены образы и какие версии поддерживаются.
+Теги, пиннинг по digest и анонсы миграций описаны в [README](README.md#tags-pinning-and-updates).
 
-### Организация образов
+### Базовые образы (`linux/ecosystem/base`)
 
-##### Базовые образы
+Для каждого поддерживаемого релиза дистрибутива один и тот же набор:
 
-В директории `linux/ecosystem/epicmorg/debian` расположены образы `Docker`, основанные на различных версиях Debian (с `6` по `12`). Все базовые образы могут быть классифицированы на следующие категории:
+1. **`light`** — наш облегчённый слой поверх вендорского образа (`debian:<codename>-slim`, `rootfs` у Astra): настройки APT, корневые сертификаты, локали, базовые каталоги. Сжат в один слой.
+2. **`main`** (тег без суффикса, например `debian:trixie`) — `light` + базовые утилиты (`mc`, `wget`, `htop`, …). Рантайм-база для всего остального.
+3. **`develop-light`** — `main` + тулчейн сборки и `-dev` пакеты.
+4. **`develop`** — `develop-light` + библиотеки, которые мы собираем из исходников и кладём в `/usr/local/share/epicmorg` (несколько веток OpenSSL, ICU, curl, libpq, libxml2, …). **Только среда сборки, не база для рантайма.**
 
-1. **Образ `slim`**:
-   - Наследуется от официальных образов Debian (версии 6-12).
-   - Содержит минимальный набор правок: добавление папок, корневых сертификатов и настройка APT.
+Эталонная база — **Debian 13 `trixie`**. Astra Linux 1.7 / 1.8 устроены так же (main у них с тегом `<ver>-main`). `sid` — разведка следующего релиза Debian, регрессии там ожидаемы.
 
-2. **Образ `main`**:
-   - Наследуется от образа `slim`.
-   - Включает базовый набор программного обеспечения (например, `mc`, `wget`, `htop`).
-   - Предназначен как основной образ для создания более сложных финальных образов, таких как Nginx.
+### Рантаймы (`linux/ecosystem/apps`)
 
-3. **Образ `develop`**:
-   - Наследуется от образа `main`.
-   - Включает инструменты для сборки и разработки (например, `ninja`, `make`, `cmake`).
+Рантаймы живут в **глобальном пуле**, не привязанном к тегу дистрибутива: `epicmorg/php:<x.y>`, `python:<x.y>`, `nodejs:<x>`, `jdk:<x>`, `gcc:<x>`, `nginx:<x.y>`, `go:<x.y>`, `dotnet…`.
+PHP, Python и nginx собираются из исходников в стадии-сборщике на `gcc` и копируются на `main`; их зависимости вшиты через RPATH в `/usr/local/share/epicmorg`, поэтому системные библиотеки не подмешиваются. Каждая сборка выполняет фатальные проверки (версии библиотек, линковка, ровно одна копия каждой библиотеки).
 
-4. **Образы `nodejs`**:
-   - Включают версии Node.js (с 0.4 до последней).
-   - Наследуются от образа `main`.
-   - Содержат Node.js, npm, npmx, yarn и заголовочные файлы, установленные из tar-архивов.
+### Приложения
 
-5. **Образы `jdk`**:
-   - Включают версии JDK (с 6 по 21).
-   - Имеют два тега:
-     - Основной тег: наследуется от `main`.
-     - Девелоперский тег: наследуется от `develop`.
+Образы конечных продуктов (`apache2`, `nginx-php`, `testrail`, стек Atlassian, `mattermost`, агенты TeamCity, …) наследуются от рантайма или от `main`. В `linux/advanced` лежат доработанные форки апстримных образов (`zabbix`, `nextcloud`, `teamcity-server`, …).
 
-##### Конечные образы
+### Музей: Debian 6–12
 
-В директории `linux/ecosystem` находятся образы для конечных продуктов (например, `apache2`, `nginx`, `jira`). Эти образы обычно наследуются от соответствующих базовых образов.
+Старые релизы Debian заморожены в `linux/obsolete`: только ванильные `light` / `main` / `develop`, без рантаймов. Они пересобираются раз в неделю только чтобы оставаться устанавливаемыми; ничего нового в них не добавляется.
 
-#### Изменение подхода к разработке
+### Обновления
 
-Для улучшения управления образами и обеспечения актуальности предлагается следующий подход:
-
-1. **Поддержка базовых образов**:
-   - Все существующие базовые образы (`slim`, `main`, `develop`, `nodejs`, `jdk`) сохранятся без изменений для каждой версии Debian.
-   - Базовые образы будут пересобираться периодически, чтобы учесть обновления и бекпорты.
-
-2. **Введение концепции `upstream` и `deprecated`**:
-   - **`Upstream`**: Актуальные конечные образы будут наследоваться от базовых образов для последней стабильной версии Debian. В данный момент это Debian 12. При выходе новой стабильной версии Debian, конечные образы будут переведены на новую версию.
-   - **`Deprecated`**: Для устаревших версий базовых образов будут доступны только сами базовые образы. Конечные образы не будут обновляться для устаревших версий.
-
-3. **Управление версиями**:
-   - Актуальные образы будут пересобираться на основе последней `стабильной` версии `Debian`.
-   - В актуальные образы входят ветки `current` (`стабильная`, или же `12`) как основная, а так же `LTS` но облегченная (`11`) - буду собираться только базовые образы.
-   - Прошлая `LTS` ветка перестает поддерживаться, когда назначается новая.
-   - При выпуске новой версии `Debian` (например, `13`), все конечные образы будут обновлены и переведены на новую версию `Debian`, если она станет стабильной.
-
-4. **Периодическое обновление образов**:
-   - `Все версии` базовых образов, включая `устаревшие`, будут периодически пересобираться для включения обновлений и бекпортов.
-
-5. **Добавление новых базовых образов**:
-   - Начиная с текущей `версии` апстрима (`12`), в нее будут постепенно добавлены дополнительные базовые образы, такие как `PHP` и `Python` и др. Эти новые базовые образы не будут бекпортированы в предыдущие устаревшие версии. Однако при переходе апстрима на новую версию (например, `13`), новые базовые образы также будут перенесены в нее и останутся в предыдущей версии (например, `12`).
-
-#### Заключение
-
-Этот подход позволит лучше управлять версиями и поддерживать актуальность образов в репозитории. Переход на концепцию upstream и deprecated поможет сосредоточиться на поддержке актуальных версий продуктов и обеспечит более стабильное и предсказуемое окружение для конечных пользователей. Введение новых базовых образов дополнительно расширит функциональность и гибкость доступных Docker-образов.
+* Образы пересобираются по расписанию (раз в неделю) одной цепочкой: база → gcc → рантаймы → приложения. Поэтому теги «плавающие» — для воспроизводимости пиньтесь по digest.
+* Когда эталоном становится новый релиз Debian, рантаймы и приложения переезжают на него, а предыдущий релиз уходит в музей. Такие миграции анонсируются примерно за месяц.
