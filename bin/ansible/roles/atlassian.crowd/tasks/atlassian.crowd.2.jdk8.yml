@@ -30,7 +30,7 @@
 
 - name: Copy Dockerfile from template to each version directory
   template:
-    src: "dockerfile/template.Dockerfile.jdk8.nosed.j2"
+    src: "dockerfile/template.Dockerfile.jdk8.sed.j2"
     dest: "{{ target_directory_crowd_2 }}/{{ item }}/Dockerfile"
     force: true
   with_items: "{{ crowd_versions }}"

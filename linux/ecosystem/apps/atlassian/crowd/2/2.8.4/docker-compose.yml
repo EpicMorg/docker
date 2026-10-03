@@ -24,3 +24,12 @@ services:
       - docker.io/epicmorg/crowd:2.8.4-jdk7
       - quay.io/epicmorg/crowd:2.8.4-jdk7
       - ghcr.io/epicmorg/crowd:2.8.4-jdk7
+  app-jdk8:
+    image: "epicmorg/crowd:2.8.4-jdk8"
+    build:
+      context: .
+      dockerfile: Dockerfile.jdk8
+    x-mirrors:
+      - docker.io/epicmorg/crowd:2.8.4-jdk8
+      - quay.io/epicmorg/crowd:2.8.4-jdk8
+      - ghcr.io/epicmorg/crowd:2.8.4-jdk8

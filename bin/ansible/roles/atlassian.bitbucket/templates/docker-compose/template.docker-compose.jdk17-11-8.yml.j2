@@ -1,0 +1,36 @@
+# default JDK (Dockerfile) = jdk17; the extra JDKs are built from Dockerfile.jdk11 and Dockerfile.jdk8
+services:
+  app:
+    image: "epicmorg/bitbucket:{{ tag | default(item) }}"
+    build:
+      context: .
+    x-mirrors:
+      - docker.io/epicmorg/bitbucket:{{ tag | default(item) }}
+      - quay.io/epicmorg/bitbucket:{{ tag | default(item) }}
+      - ghcr.io/epicmorg/bitbucket:{{ tag | default(item) }}
+  app-jdk8:
+    image: "epicmorg/bitbucket:{{ tag | default(item) }}-jdk8"
+    build:
+      context: .
+      dockerfile: Dockerfile.jdk8
+    x-mirrors:
+      - docker.io/epicmorg/bitbucket:{{ tag | default(item) }}-jdk8
+      - quay.io/epicmorg/bitbucket:{{ tag | default(item) }}-jdk8
+      - ghcr.io/epicmorg/bitbucket:{{ tag | default(item) }}-jdk8
+  app-jdk11:
+    image: "epicmorg/bitbucket:{{ tag | default(item) }}-jdk11"
+    build:
+      context: .
+      dockerfile: Dockerfile.jdk11
+    x-mirrors:
+      - docker.io/epicmorg/bitbucket:{{ tag | default(item) }}-jdk11
+      - quay.io/epicmorg/bitbucket:{{ tag | default(item) }}-jdk11
+      - ghcr.io/epicmorg/bitbucket:{{ tag | default(item) }}-jdk11
+  app-jdk17:
+    image: "epicmorg/bitbucket:{{ tag | default(item) }}-jdk17"
+    build:
+      context: .
+    x-mirrors:
+      - docker.io/epicmorg/bitbucket:{{ tag | default(item) }}-jdk17
+      - quay.io/epicmorg/bitbucket:{{ tag | default(item) }}-jdk17
+      - ghcr.io/epicmorg/bitbucket:{{ tag | default(item) }}-jdk17
