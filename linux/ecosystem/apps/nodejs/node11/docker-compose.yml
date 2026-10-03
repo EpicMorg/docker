@@ -5,6 +5,6 @@ services:
       context: .
     x-squash: false
     x-mirrors:
-        - quay.io/epicmorg/nodejs:11
-        - ghcr.io/epicmorg/nodejs:11
-
+      - quay.io/epicmorg/nodejs:11
+      - ghcr.io/epicmorg/nodejs:11
+      - docker.io/epicmorg/nodejs:11
