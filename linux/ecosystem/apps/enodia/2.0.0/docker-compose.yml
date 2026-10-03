@@ -8,9 +8,3 @@ services:
       - quay.io/epicmorg/enodia:2.0.0
       - ghcr.io/epicmorg/enodia:2.0.0
       - docker.io/epicmorg/enodia:2.0.0
-      - quay.io/epicmorg/enodia:2
-      - ghcr.io/epicmorg/enodia:2
-      - docker.io/epicmorg/enodia:2
-      - quay.io/epicmorg/enodia:latest
-      - ghcr.io/epicmorg/enodia:latest
-      - docker.io/epicmorg/enodia:latest

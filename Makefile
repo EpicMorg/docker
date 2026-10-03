@@ -984,6 +984,15 @@ ecosystem-qbittorrent-images:
 	cd `pwd`/linux/ecosystem/apps/qbittorrent/testing  && pwd && make build && make deploy
 	@make clean
 
+ecosystem-enodia-images:
+	cd `pwd`/linux/ecosystem/apps/enodia/2.1.0    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/enodia/2.0.0    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/enodia/1.2.1    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/enodia/1.2.0    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/enodia/1.1.1    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/enodia/1.1.0    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/enodia/1.0.0    && pwd && make build && make deploy
+
 ecosystem-retracker-images: 
 	cd `pwd`/linux/ecosystem/apps/retracker    && pwd && make build && make deploy
 
