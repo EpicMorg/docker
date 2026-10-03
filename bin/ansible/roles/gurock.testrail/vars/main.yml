@@ -3,7 +3,7 @@ testrail_root: "{{ playbook_dir }}/../../linux/ecosystem/apps/testrail"
 testrail_versions_dir: "{{ playbook_dir }}/roles/common/files/versions/testrail"
 
 # Authentication script variants built FROM the main image.
-# sha256 of the vendor zip (the vendor URL is dead, the Wayback Machine copy is the fallback).
+# sha256 of the vendored zip (files/auth/plugins; the vendor URL media.gurock.com is dead).
 testrail_auth_plugins:
   - name: "ad"
     title: "Active Directory"

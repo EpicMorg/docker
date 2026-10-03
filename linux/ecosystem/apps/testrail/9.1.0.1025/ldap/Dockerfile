@@ -82,20 +82,13 @@ ENV TESTRAIL_PLUGIN_FULLNAME=testrail-auth-${TESTRAIL_PLUGIN_NAME}-${TESTRAIL_PL
 ENV TESTRAIL_PLUGIN_FILE=${TESTRAIL_PLUGIN_FULLNAME}.zip
 ENV TESTRAIL_PLUGIN_DIR=${TESTRAIL_RELEASE_DIR}/${TESTRAIL_PLUGIN_FULLNAME}
 ARG TESTRAIL_PLUGIN_SHA256=69e4f9137ed9bd5340e35b99e65d351c3bb3890d0190ebc58a7da31d58956c51
-# Version 1.4 was only ever published at media.gurock.com (never vendored in this repo);
-# github.com/gurock/testrail-auth holds older 2014 scripts without ldap_escape(), so it is
-# not used. The vendor URL is dead (503); the Wayback Machine copy is the fallback, pinned by sha256.
-ARG TESTRAIL_PLUGIN_URLS="https://media.gurock.com/gk-media/downloads/${TESTRAIL_PLUGIN_FILE} https://web.archive.org/web/2023id_/https://media.gurock.com/gk-media/downloads/${TESTRAIL_PLUGIN_FILE}"
+# The vendor zip (media.gurock.com, dead) is vendored in the generator
+# (bin/ansible/roles/gurock.testrail/files/auth/plugins) and copied next to this
+# Dockerfile on generation; still pinned by sha256.
+COPY ${TESTRAIL_PLUGIN_FILE} ${TESTRAIL_RELEASE_DIR}/
 
 RUN set -eux; \
     cd ${TESTRAIL_RELEASE_DIR}; \
-    for url in ${TESTRAIL_PLUGIN_URLS}; do \
-      rm -f "${TESTRAIL_PLUGIN_FILE}"; \
-      wget --quiet --no-check-certificate --tries=5 --timeout=30 -O "${TESTRAIL_PLUGIN_FILE}" "$url" \
-        && echo "${TESTRAIL_PLUGIN_SHA256}  ${TESTRAIL_PLUGIN_FILE}" | sha256sum -c - \
-        && break; \
-      echo "[testrail] ${url} failed, trying next"; \
-    done; \
     echo "${TESTRAIL_PLUGIN_SHA256}  ${TESTRAIL_PLUGIN_FILE}" | sha256sum -c -; \
     unzip -q -o "${TESTRAIL_PLUGIN_FILE}" -x '__MACOSX/*' -d ${TESTRAIL_RELEASE_DIR}; \
     test -f "${TESTRAIL_PLUGIN_DIR}/auth.php"; \
