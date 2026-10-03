@@ -1078,7 +1078,10 @@ RUN set -eux; \
     tar -xzf ${BZIP2_106_TEMP} -C /tmp && \
     cd ${BZIP2_106_TEMP_SRC} && \
     make -j$(nproc) CFLAGS="-fPIC -O2 -D_FILE_OFFSET_BITS=64" PREFIX=${BZIP2_106_INSTALL_DIR} install && \
-    gcc -shared -Wl,-soname,libbz2.so.1.0 -o ${BZIP2_106_INSTALL_DIR}/lib/libbz2.so.1.0.6 libbz2.a && \
+    gcc -shared -Wl,-soname,libbz2.so.1.0 -o ${BZIP2_106_INSTALL_DIR}/lib/libbz2.so.1.0.6 \
+        -Wl,--whole-archive libbz2.a -Wl,--no-whole-archive && \
+    nm -D --defined-only ${BZIP2_106_INSTALL_DIR}/lib/libbz2.so.1.0.6 | grep -q " BZ2_bzCompress$" \
+      || { echo "FATAL: libbz2.so.1.0.6 exports no BZ2_* symbols" >&2; exit 1; } && \
     ln -sf ${BZIP2_106_INSTALL_DIR}/lib/libbz2.so.1.0.6 ${BZIP2_106_INSTALL_DIR}/lib/libbz2.so.1.0 && \
     ln -sf ${BZIP2_106_INSTALL_DIR}/lib/libbz2.so.1.0.6 ${BZIP2_106_INSTALL_DIR}/lib/libbz2.so && \
     echo "clean up" && \
@@ -1097,7 +1100,10 @@ RUN set -eux; \
     tar -xzf ${BZIP2_108_TEMP} -C /tmp && \
     cd ${BZIP2_108_TEMP_SRC} && \
     make -j$(nproc) CFLAGS="-fPIC -O2 -D_FILE_OFFSET_BITS=64" PREFIX=${BZIP2_108_INSTALL_DIR} install && \
-    gcc -shared -Wl,-soname,libbz2.so.1.0 -o ${BZIP2_108_INSTALL_DIR}/lib/libbz2.so.1.0.8 libbz2.a && \
+    gcc -shared -Wl,-soname,libbz2.so.1.0 -o ${BZIP2_108_INSTALL_DIR}/lib/libbz2.so.1.0.8 \
+        -Wl,--whole-archive libbz2.a -Wl,--no-whole-archive && \
+    nm -D --defined-only ${BZIP2_108_INSTALL_DIR}/lib/libbz2.so.1.0.8 | grep -q " BZ2_bzCompress$" \
+      || { echo "FATAL: libbz2.so.1.0.8 exports no BZ2_* symbols" >&2; exit 1; } && \
     ln -sf ${BZIP2_108_INSTALL_DIR}/lib/libbz2.so.1.0.8 ${BZIP2_108_INSTALL_DIR}/lib/libbz2.so.1.0 && \
     ln -sf ${BZIP2_108_INSTALL_DIR}/lib/libbz2.so.1.0.8 ${BZIP2_108_INSTALL_DIR}/lib/libbz2.so && \
     echo "clean up" && \
@@ -1253,9 +1259,8 @@ RUN set -eu; \
 ##################################################################
 # pcre2grep links libz + libbz2: OUR zlib with RPATH (not RUNPATH, ADR-055), plus
 # RPATH to PCRE_LIB_DIR for libpcre2-posix / pcre2grep / pcre2test.
-# libbz2 stays the SYSTEM one on purpose: the baked bzip2 1.0.6/1.0.8 libbz2.so
-# is an empty stub (gcc -shared over libbz2.a without --whole-archive exports no
-# BZ2_* symbols), so configure cannot use it ('checking for libbz2... no').
+# libbz2 stays the SYSTEM one: pcre2grep is a build-time tool only (nothing ships
+# it). The baked bzip2 libbz2.so is a real shared lib now (--whole-archive).
 RUN set -eux; \
     mkdir -p ${PCRE_BIN_DIR} ${PCRE_SRC_DIR} && \
     aria2c \
