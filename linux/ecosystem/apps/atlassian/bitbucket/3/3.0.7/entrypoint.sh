@@ -4,8 +4,13 @@ set -euo pipefail
 # Set recommended umask of "u=,g=w,o=rwx" (0027)
 umask 0027
 
-export JAVA_HOME=$(readlink -f /usr/bin/javac | sed "s:/bin/javac::")
-export JRE_HOME="$JAVA_HOME/jre"
+# JAVA_HOME comes from the epicmorg/jdk base image (there is no /usr/bin/javac there);
+# fall back to the java on PATH. JDK 8 keeps a jre/ subdir, newer JDKs don't.
+if [ -z "${JAVA_HOME:-}" ] || [ ! -x "${JAVA_HOME}/bin/java" ]; then
+    JAVA_HOME=$(dirname "$(dirname "$(readlink -f "$(command -v java)")")")
+fi
+export JAVA_HOME
+if [ -x "${JAVA_HOME}/jre/bin/java" ]; then export JRE_HOME="${JAVA_HOME}/jre"; else export JRE_HOME="${JAVA_HOME}"; fi
 export JAVA_BINARY="$JRE_HOME/bin/java"
 export JAVA_VERSION=$("$JAVA_BINARY" -version 2>&1 | awk -F '"' '/version/ {print $2}')
 
