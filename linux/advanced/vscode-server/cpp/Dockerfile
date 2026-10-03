@@ -9,7 +9,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 #                   ARGuments
 ##################################################################
-ENV BuildDocker true
+ENV BuildDocker=true
 
 # steam runtime sdk
 ENV STEAM_RUNTIME_SDK_DIR=${EMG_LOCAL_BASE_DIR}/valve/steam/runtime-sdk/latest

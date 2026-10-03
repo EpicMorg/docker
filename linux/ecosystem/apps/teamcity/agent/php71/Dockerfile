@@ -5,7 +5,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 #                   ARGuments
 ##################################################################
-ENV BuildDocker true
+ENV BuildDocker=true
 
 ARG BUILDS_DIR=/builds
 ARG SRC_DIR=${BUILDS_DIR}/src

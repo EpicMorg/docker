@@ -8,7 +8,7 @@ LABEL maintainer="Guahos, chipmunkzombie@gmail.com"
 ARG STEAM_APP_ID=294420
 
 #Environmental variables
-ENV LD_LIBRARY_PATH ${VALVE_STEAMCMD_FOLDER}/linux64/
+ENV LD_LIBRARY_PATH=${VALVE_STEAMCMD_FOLDER}/linux64/
 
 #Vols & dirs
 WORKDIR ${VALVE_GAME_FOLDER}
