@@ -322,10 +322,13 @@ jobs:
       free-disk: true
 
   # games/*: FROM epicmorg/steam:cmd (built in misc above). Lowest priority - runs last.
+  # DISABLED by owner 2026-10-04: games are parked until the Q4 block (together with windows/).
+  # To re-enable, restore the condition:
+  #   ${{ !cancelled() && needs.list.result == 'success' && needs.misc.result != 'skipped' && needs.list.outputs.games != '[]' }}
   games:
     name: ${{ matrix.leaf.name }}
     needs: [list, misc]
-    if: ${{ !cancelled() && needs.list.result == 'success' && needs.misc.result != 'skipped' && needs.list.outputs.games != '[]' }}
+    if: false
     strategy:
       fail-fast: false
       matrix:
