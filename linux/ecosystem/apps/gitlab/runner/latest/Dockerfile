@@ -5,21 +5,29 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 #        OCI setup: Buildah, Podman, Kaniko, Docker
 ##################################################################
-# https://docs.docker.com/build/architecture/#install-buildx
+# Docker CE repo for the base's own codename (trixie): keyring file + deb822 .sources.
+# https://docs.docker.com/engine/install/debian/
 RUN install -m 0755 -d /etc/apt/keyrings && \
     curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc && \
     chmod a+r /etc/apt/keyrings/docker.asc && \
-    echo  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian bookworm stable nightly" | tee /etc/apt/sources.list.d/docker.list > /dev/null  && \
+    . /etc/os-release && \
+    printf '%s\n' \
+      "Types: deb" \
+      "URIs: https://download.docker.com/linux/debian" \
+      "Suites: ${VERSION_CODENAME}" \
+      "Components: stable" \
+      "Architectures: $(dpkg --print-architecture)" \
+      "Signed-By: /etc/apt/keyrings/docker.asc" \
+      > /etc/apt/sources.list.d/docker.sources && \
     apt-get update && \
-    apt-get install -y --no-install-recommends --allow-unauthenticated \
+    apt-get install -y --no-install-recommends \
       docker-ce \
       docker-ce-cli \
       containerd.io \
       docker-buildx-plugin \
       docker-compose-plugin \
-      containerd.io \
-      buildah \ 
-      podman \ 
+      buildah \
+      podman \
       podman-compose \
       fuse-overlayfs && \
 # podman-compose (apt) brings Debian's python3-typing-extensions, which pip can't uninstall
@@ -29,23 +37,19 @@ RUN install -m 0755 -d /etc/apt/keyrings && \
     pip3 install --no-cache-dir buildah-wrapper --ignore-installed --break-system-packages --force-reinstall --root-user-action=ignore && \
     systemctl disable docker && \
     systemctl disable podman && \
-    rm -rf /bin/docker-compose && \
-    rm -rf /sbin/docker-compose && \
-    rm -rf /usr/bin/docker-compose && \
-    rm -rf /usr/sbin/docker-compose && \
-    rm -rf /usr/local/bin/docker-compose && \
-    rm -rf /usr/local/sbin/docker-compose && \
-    export  DOCKER_COMPOSE_VERSION=`curl --silent https://api.github.com/repos/docker/compose/releases/latest | jq .name -r` && \
-    echo "Latest compose is: ${DOCKER_COMPOSE_VERSION}" && \
-    curl -SL https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-Linux-x86_64 -o /usr/local/bin/docker-compose && \
-    chmod +x /usr/local/bin/docker-compose && \
+# legacy `docker-compose` name -> the compose plugin installed above (same binary,
+# works standalone), instead of a second download resolved via the GitHub API.
+    rm -f /usr/local/bin/docker-compose && \
+    ln -sfv /usr/libexec/docker/cli-plugins/docker-compose /usr/local/bin/docker-compose && \
+    docker --version && \
+    docker-compose version && \
 # cleanup
     apt-get clean -y && \
     apt-get clean all -y && \
     apt-get autoclean -y && \
     rm -rfv /var/lib/apt/lists/* && \
     rm -rfv /var/cache/apt/archives/*.deb && \
-    rm -rfv /tmp/* 
+    rm -rfv /tmp/*  
 
 ##################################################################
 #              OCI post-setup
@@ -91,19 +95,21 @@ RUN echo "=============================================" && \
 ##################################################################
 #                    Mono
 ##################################################################
-RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF && \
-#    echo "deb https://download.mono-project.com/repo/debian stable-buster main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list && \
-#    echo "deb https://download.mono-project.com/repo/debian nightly-buster main" | sudo tee /etc/apt/sources.list.d/mono-official-nightly.list && \
-    echo "deb https://download.mono-project.com/repo/debian preview-buster main" | sudo tee /etc/apt/sources.list.d/mono-official-preview.list && \
-    apt-get update && \
-    apt-get install -y  --allow-unauthenticated \
-    mono-complete \
-    mono-llvm-support \
-    mono-devel \
-    mono-dbg \
-    referenceassemblies-pcl \
-    ca-certificates-mono \
-    mono-xsp4
+# Debian's own mono (trixie: 6.12.0.199, i.e. the final upstream 6.12 line).
+# download.mono-project.com ends at stable-buster/stable-focal (6.12.0.200,
+# built for buster) and is no longer maintained (mono moved to WineHQ, which
+# ships no Debian packages); apt-key is gone in trixie anyway.
+# Not in trixie and dropped: mono-llvm-support, referenceassemblies-pcl
+# (mono-project only), mono-xsp4 (last in bookworm).
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+      mono-complete \
+      mono-devel \
+      mono-dbg \
+      ca-certificates-mono && \
+    mono --version && \
+    apt-get clean -y && \
+    rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*.deb /tmp/*
 
 ##################################################################
 #                   cleaninig up
