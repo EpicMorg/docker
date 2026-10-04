@@ -1,0 +1,60 @@
+# Repository descriptions on Docker Hub / Quay = the root README of each image
+# (bin/readme-sync --map). GHCR has no description API: it shows the static
+# org.opencontainers.image.description label of the image.
+name: Docs - registry descriptions
+
+on:
+  workflow_dispatch:
+    inputs:
+      repos:
+        description: Space-separated repos (epicmorg/php ...); empty = all
+        required: false
+        default: ''
+  push:
+    branches: [master]
+    paths:
+      - '**/README.md'
+      - 'bin/readme-sync'
+      - '.github/scripts/registry-descriptions.py'
+      - '.github/workflows/docs.registry-descriptions.yml'
+  pull_request:
+    paths:
+      - '**/README.md'
+      - '**/docker-compose.yml'
+      - 'bin/readme-sync'
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: readme-sync --check
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          show-progress: false
+      - name: Generated READMEs are up to date
+        run: |
+          bin/readme-sync --check || { echo "::error::run bin/readme-sync and commit the result"; exit 1; }
+      - name: Descriptions (dry run)
+        run: python3 .github/scripts/registry-descriptions.py --dry-run
+
+  publish:
+    name: Publish descriptions
+    needs: check
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          show-progress: false
+      - name: Docker Hub + Quay
+        env:
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKER_SERVER_LOGIN }}
+          DOCKERHUB_TOKEN: ${{ secrets.DOCKER_SERVER_KEY }}
+          QUAY_API_TOKEN: ${{ secrets.QUAY_API_TOKEN }}
+          REPOS: ${{ github.event.inputs.repos }}
+        run: |
+          test -n "$DOCKERHUB_USERNAME" && test -n "$DOCKERHUB_TOKEN" || { echo "::error::DOCKER_SERVER_LOGIN/KEY is empty"; exit 1; }
+          python3 .github/scripts/registry-descriptions.py $REPOS
