@@ -8,5 +8,8 @@ WORKDIR /perforce
 
 EXPOSE 1666
 
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh && \
+    p4p -V | tail -1
+
 ENTRYPOINT ["tini", "-s", "--", "docker-entrypoint.sh"]
-CMD ["docker-entrypoint.sh"]
