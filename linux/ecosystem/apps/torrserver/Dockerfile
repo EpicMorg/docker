@@ -21,7 +21,7 @@ ENV PATH="${TORRSERVER_BIN_DIR}:${PATH}"
 RUN torrServer --version
 
 #healthcheck. good practice
-HEALTHCHECK --interval=2m --timeout=3s CMD curl -f http://localhost:${UI_PORT}/ || exit 1
+HEALTHCHECK --interval=2m --timeout=3s --start-period=2m CMD curl -f http://localhost:${UI_PORT}/ || exit 1
 
 EXPOSE "${UI_PORT}"
 EXPOSE "${UPNP_PORT}"
@@ -31,4 +31,6 @@ VOLUME ["${TORRSERVER_CONF_DIR}"]
 
 WORKDIR ${TORRSERVER_DIR}
 
-ENTRYPOINT ["torrServer", "--port", "${UI_PORT}", "-path", "${TORRSERVER_CONF_DIR}"]
+# exec-form ENTRYPOINT does not expand ${VARS}: go through sh, keep torrServer as PID 1,
+# extra `docker run` arguments are appended
+ENTRYPOINT ["/bin/sh", "-c", "exec torrServer --port \"${UI_PORT}\" --path \"${TORRSERVER_CONF_DIR}\" \"$@\"", "torrServer"]

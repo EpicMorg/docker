@@ -7,7 +7,9 @@ ARG DEBIAN_FRONTEND=noninteractive
 #                   ARGuments
 ##################################################################
 ENV P2POOL_DIR=/p2pool
-ENV P2POOL_VERSION=4.4
+ENV P2POOL_VERSION=4.18.1
+# GitHub release asset digest
+ARG P2POOL_SHA256=eeab5aca0edf4756cb295c5fda5b2d5344208aecbbdcb2ffd8471dfe14e6c2c5
 ENV P2POOL_DOWNLOAD_URL=https://github.com/SChernykh/p2pool/releases/download/v${P2POOL_VERSION}/p2pool-v${P2POOL_VERSION}-linux-x64.tar.gz
 
 ##################################################################
@@ -23,11 +25,13 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-RUN wget -qO-  ${P2POOL_DOWNLOAD_URL} | tar -xvz --strip-components=1 -C /tmp
-
-RUN mv /tmp/p2pool /bin
-
-RUN p2pool --help
+RUN set -eux; \
+    wget -q -O /tmp/p2pool.tar.gz "${P2POOL_DOWNLOAD_URL}"; \
+    echo "${P2POOL_SHA256}  /tmp/p2pool.tar.gz" | sha256sum -c -; \
+    tar -xzf /tmp/p2pool.tar.gz --strip-components=1 -C /tmp p2pool-v${P2POOL_VERSION}-linux-x64/p2pool; \
+    install -m 0755 /tmp/p2pool /usr/local/bin/p2pool; \
+    rm -f /tmp/p2pool /tmp/p2pool.tar.gz; \
+    p2pool --help >/dev/null
 
 # Switch to home directory and install newly built p2pool binary
 WORKDIR ${P2POOL_DIR}
@@ -37,7 +41,8 @@ EXPOSE 3333
 EXPOSE 37889
 EXPOSE 37888
 
-# Start p2pool with required --non-interactive flag and sane defaults that are overridden by user input (if applicable)
+# Start p2pool with sane defaults; arguments given to `docker run` / compose `command`
+# replace CMD entirely, so pass at least --host <monerod> and --wallet <address>.
+# Each flag and its value are separate exec-form words (one string = one argv entry).
 ENTRYPOINT ["p2pool"]
-CMD ["--host p2pool", "--stratum 0.0.0.0:3333", "--p2p 0.0.0.0:37889", "--addpeers 65.21.227.114:37889", "--addpeers node.sethforprivacy.com:37889"]
-
+CMD ["--host", "monerod", "--stratum", "0.0.0.0:3333", "--p2p", "0.0.0.0:37889", "--addpeers", "65.21.227.114:37889,node.sethforprivacy.com:37889"]

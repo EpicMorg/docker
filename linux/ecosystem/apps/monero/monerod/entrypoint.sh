@@ -3,14 +3,16 @@
 # Source is https://github.com/cornfeedhobo/docker-monero/blob/master/entrypoint.sh
 set -e
 
-# Set require --non-interactive flag
-set -- "monerod" "--non-interactive" "$@"
+# --non-interactive is required in a container; keep the blockchain in the
+# declared volume (${MONERO_DATA}) unless the user passes their own --data-dir
+case " $* " in
+    *" --data-dir"*) set -- monerod --non-interactive "$@" ;;
+    *) set -- monerod --non-interactive --data-dir="${MONERO_DATA}" "$@" ;;
+esac
 
 # Configure NUMA if present for improved performance
 if command -v numactl >/dev/null 2>&1; then
-    numa="numactl --interleave=all"
-    set -- "$numa" "$@"
+    set -- numactl --interleave=all "$@"
 fi
-# Start the daemon using fixuid
-# to adjust permissions if needed
+
 exec "$@"

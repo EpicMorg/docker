@@ -8,7 +8,9 @@ ARG DEBIAN_FRONTEND=noninteractive
 ENV MONERO_DIR=/monero
 ENV MONERO_BIN=${MONERO_DIR}/bin
 ENV MONERO_DATA=${MONERO_DIR}/data
-ENV MONERO_VERSION=0.18.3.4
+ENV MONERO_VERSION=0.18.5.1
+# https://www.getmonero.org/downloads/hashes.txt
+ARG MONERO_SHA256=22a7dda7b0cb699fdd6b7674c3b4a4465b337cc98a54983523b759e1e7cc9958
 ENV MONERO_DOWNLOAD_URL=https://downloads.getmonero.org/cli/monero-linux-x64-v${MONERO_VERSION}.tar.bz2
 ENV PATH="${PATH}:${MONERO_BIN}"
 
@@ -18,15 +20,16 @@ ENV PATH="${PATH}:${MONERO_BIN}"
 RUN mkdir ${MONERO_DIR} ${MONERO_BIN} ${MONERO_DATA}
 
 RUN apt-get update && \
-    apt-get install -y \
-    libzmq3-dev
+    apt-get install -y --no-install-recommends \
+    libzmq3-dev && \
+    rm -rf /var/lib/apt/lists/*
 
-RUN echo ${MONERO_BIN}
-RUN wget -qO-  ${MONERO_DOWNLOAD_URL} | tar -xvj --strip-components=1 -C ${MONERO_BIN}
-
-RUN export PATH="${PATH}:${MONERO_BIN}"
-
-RUN monerod --version
+RUN set -eux; \
+    wget -q -O /tmp/monero.tar.bz2 "${MONERO_DOWNLOAD_URL}"; \
+    echo "${MONERO_SHA256}  /tmp/monero.tar.bz2" | sha256sum -c -; \
+    tar -xjf /tmp/monero.tar.bz2 --strip-components=1 -C "${MONERO_BIN}"; \
+    rm -f /tmp/monero.tar.bz2; \
+    monerod --version | grep -q "v${MONERO_VERSION}" || { echo "FATAL: monerod is not ${MONERO_VERSION}" >&2; monerod --version >&2; exit 1; }
 
 # Expose p2p port
 EXPOSE 18080
