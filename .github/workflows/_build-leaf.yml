@@ -93,7 +93,9 @@ jobs:
         max_attempts: 3
         retry_wait_seconds: 30
         timeout_minutes: 5
-        command: echo "$REG_PASS" | docker login -u "$REG_USER" --password-stdin
+        command: |
+          test -n "$REG_USER" && test -n "$REG_PASS" || { echo "::error::DOCKER_SERVER_LOGIN/KEY is empty: org secret not shared with this repo?"; exit 1; }
+          echo "$REG_PASS" | docker login -u "$REG_USER" --password-stdin
 
     - name: Log into quay.io
       uses: nick-fields/retry@v4
@@ -105,7 +107,9 @@ jobs:
         max_attempts: 3
         retry_wait_seconds: 30
         timeout_minutes: 5
-        command: echo "$REG_PASS" | docker login -u "$REG_USER" --password-stdin "$REG_URL"
+        command: |
+          test -n "$REG_USER" && test -n "$REG_PASS" || { echo "::error::QUAY_SERVER_LOGIN/KEY is empty: org secret not shared with this repo?"; exit 1; }
+          echo "$REG_PASS" | docker login -u "$REG_USER" --password-stdin "$REG_URL"
 
     # buildah reads docker's auth file, so `docker login` is enough for buildah-wrapper.
     # GHCR_API: org secret (PAT with write:packages) - GITHUB_TOKEN can't create or write
@@ -119,7 +123,9 @@ jobs:
         max_attempts: 3
         retry_wait_seconds: 30
         timeout_minutes: 5
-        command: echo "$REG_PASS" | docker login -u "$REG_USER" --password-stdin ghcr.io
+        command: |
+          test -n "$REG_USER" && test -n "$REG_PASS" || { echo "::error::GHCR_API is empty: org secret not shared with this repo?"; exit 1; }
+          echo "$REG_PASS" | docker login -u "$REG_USER" --password-stdin ghcr.io
 
     - name: Install build wrappers (make pip)
       uses: nick-fields/retry@v4
