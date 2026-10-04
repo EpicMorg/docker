@@ -107,12 +107,14 @@ jobs:
         timeout_minutes: 5
         command: echo "$REG_PASS" | docker login -u "$REG_USER" --password-stdin "$REG_URL"
 
-    # buildah reads docker's auth file, so `docker login` is enough for buildah-wrapper
+    # buildah reads docker's auth file, so `docker login` is enough for buildah-wrapper.
+    # GHCR_API: org secret (PAT with write:packages) - GITHUB_TOKEN can't create or write
+    # packages the repo was not granted access to, and every epicmorg/* package predates CI.
     - name: Log into ghcr.io
       uses: nick-fields/retry@v4
       env:
         REG_USER: ${{ github.actor }}
-        REG_PASS: ${{ secrets.GITHUB_TOKEN }}
+        REG_PASS: ${{ secrets.GHCR_API }}
       with:
         max_attempts: 3
         retry_wait_seconds: 30
