@@ -137,16 +137,8 @@ RUN git config --global http.sslVerify false
 #    xfsprogs \
 #    xfsdump
 
-##################################################################
-#                   gh official binary
-##################################################################
-RUN wget -c https://cli.github.com/packages/githubcli-archive-keyring.gpg -O /etc/apt/trusted.gpg.d/githubcli-archive-keyring.gpg && \
-    chmod go+r /etc/apt/trusted.gpg.d/githubcli-archive-keyring.gpg && \
-    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/trusted.gpg.d/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list && \
-    apt-get update &&  \
-    apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
-    gh && \
-    gh --version
+# gh is not installed on wheezy: its GnuTLS cannot do the TLS that cli.github.com
+# requires (museum image, vanilla otherwise).
 
 ##################################################################
 #                   Install p4client
