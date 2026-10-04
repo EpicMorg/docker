@@ -1,6 +1,22 @@
-# Compose example
+<!-- hub-description: NINJAM server (ninjamsrv) built from Cockos source, on Debian trixie -->
+# `epicmorg/ninjam`
 
-```ymlservices:
+[NINJAM](https://www.cockos.com/ninjam/) server — online jamming with interval-synchronised audio.
+`ninjamsrv` is built from the Cockos git repository in an `epicmorg/debian:trixie-develop` stage and
+shipped on `epicmorg/debian:trixie`.
+
+## What's inside
+
+* `/app/bin/ninjamsrv` plus `example.cfg`, `license.txt` and `cclicense.txt` from upstream
+* `docker-entrypoint.sh` under `tini`: `ninjamsrv ${NINJAM_CONFIG} -port ${NINJAM_PORT} -setuid ${NINJAM_UID} -archive … -logfile … -pidfile …`
+* volumes: `/app/log` and `/app/archive` (session recordings)
+* the image does **not** contain `config.cfg` — mount your own (start from `example.cfg`), or set
+  `NINJAM_CONFIG=example.cfg`
+
+## Usage
+
+```yml
+services:
   ninjam:
     hostname: ninjam
     container_name: ninjam
@@ -29,7 +45,7 @@ volumes:
     external: true
 ```
 
-# ENV Defaults
+### Environment defaults
 
 ```bash
 ENV NINJAM_CONFIG=config.cfg
@@ -42,7 +58,7 @@ ENV NINJAM_LOG=${NINJAM_DIR}/log
 ENV NINJAM_RUN=${NINJAM_DIR}/run
 ENV NINJAM_LOGFILE=${NINJAM_LOG}/ninjamserver.log
 ENV NINJAM_PID=${NINJAM_RUN}/ninjamserver.pid
-``````
+```
 
 ## What is NINJAM?
 NINJAM is open source (GPL) software to allow people to make real music together via the Internet. Every participant can hear every other participant. Each user can also tweak their personal mix to his or her liking. NINJAM is cross-platform, with clients available for macOS, Linux, and Windows. REAPER (our digital audio workstation software) also includes NINJAM support (ReaNINJAM plug-in).
@@ -107,3 +123,19 @@ On OS X/Linux/FreeBSD (OS X will require you to open a terminal and go to the pr
 On Windows (after opening a command line, and going to the proper directory):
 ninjamsrv configfilename.cfg
 If you need ot change the configuration once the server is running, you can restart it by hitting R (on Windows), or by using the command "killall -HUP ninjamsrv" (on Linux/FreeBSD/OS X).
+
+## Tags
+
+<!-- readme-sync:tags:begin -->
+| Tags | Dockerfile |
+| ---- | ---------- |
+| `latest` | [`.`](./Dockerfile) |
+
+Every tag is pushed to `docker.io`, `quay.io` and `ghcr.io` (`epicmorg/ninjam:<tag>` on each) - same digest everywhere.
+<!-- readme-sync:tags:end -->
+
+## Links
+
+* Source: [EpicMorg/docker](https://github.com/EpicMorg/docker) - issues and PRs welcome
+* Tags float and are rebuilt weekly; pin by digest for reproducible builds: [Tags, pinning and updates](https://github.com/EpicMorg/docker#tags-pinning-and-updates)
+* [CHANGELOG](https://github.com/EpicMorg/docker/blob/master/CHANGELOG.md) - License: MIT

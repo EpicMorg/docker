@@ -1,3 +1,4 @@
+<!-- hub-description: CPython 2.6-3.16 built from source on Debian trixie, own OpenSSL with RPATH -->
 # Version Compablity
 
 ## Status of Python versions
@@ -55,3 +56,31 @@ Only supported versions will be automaticly updated at CI.
 | 3.0    | PEP 361  | end-of-life | 2008-12-03    | 2009-06-27  | Barry Warsaw                         |
 | 2.7    | PEP 373  | end-of-life | 2010-07-03    | 2020-01-01  | Benjamin Peterson                    |
 | 2.6    | PEP 361  | end-of-life | 2008-10-01    | 2013-10-29  | Barry Warsaw                         |
+
+## Tags
+
+<!-- readme-sync:tags:begin -->
+| Tags | Dockerfile |
+| ---- | ---------- |
+| `2.6` | [`2.6`](2.6/Dockerfile) |
+| `2.7` | [`2.7`](2.7/Dockerfile) |
+| `3.0` | [`3.0`](3.0/Dockerfile) |
+| `3.1` | [`3.1`](3.1/Dockerfile) |
+| `3.2` | [`3.2`](3.2/Dockerfile) |
+| `3.3` | [`3.3`](3.3/Dockerfile) |
+| `3.4` | [`3.4`](3.4/Dockerfile) |
+| `3.5` | [`3.5`](3.5/Dockerfile) |
+| `3.6` | [`3.6`](3.6/Dockerfile) |
+| `3.7` | [`3.7`](3.7/Dockerfile) |
+| `3.8` | [`3.8`](3.8/Dockerfile) |
+| `3.9` | [`3.9`](3.9/Dockerfile) |
+| `3.10` | [`3.10`](3.10/Dockerfile) |
+| `3.11` | [`3.11`](3.11/Dockerfile) |
+| `3.12` | [`3.12`](3.12/Dockerfile) |
+| `3.13` | [`3.13`](3.13/Dockerfile) |
+| `3.14` | [`3.14`](3.14/Dockerfile) |
+| `3.15` | [`3.15`](3.15/Dockerfile) |
+| `dev`, `3.16` | [`dev`](dev/Dockerfile) |
+
+Every tag is pushed to `docker.io`, `quay.io` and `ghcr.io` (`epicmorg/python:<tag>` on each) - same digest everywhere.
+<!-- readme-sync:tags:end -->

@@ -1,3 +1,4 @@
+<!-- hub-description: PHP 5.3-8.5 built from source on Debian trixie: NTS, php-fpm, ionCube/phpBolt -->
 # Version Compability
 
 ## Status of PHP versions
@@ -61,8 +62,7 @@ below is therefore built from source in the **develop** layer and consumed via
 | ------ | --------- | ------------------------------------------------------------------- |
 | system 76 | 8.1–8.5 | `ext/intl` compiles as C++17 from 8.1; ICU 74+ headers require C++17 |
 | `73.2` | 7.4, 8.0  | last branch whose headers stay C++11-clean                          |
-| `67.1` | 7.0–7.3   | ICU 68 changed `operator==` return type `UBool` → `bool`            |
-| ?      | 5.x       | not determined yet — see *Known gaps*                               |
+| `67.1` | 5.x, 7.0–7.3 | ICU 68 changed `operator==` return type `UBool` → `bool`            |
 
 * **ICU 68** changed `BreakIterator::operator==` to return `bool`. PHP ≤ 7.3
   overrides it with `UBool`, which C++ rejects as a conflicting return type.
@@ -150,18 +150,10 @@ as our 3.5, and the RPATH of `php` / `memcached.so` makes it resolve to ours.
 
 ## Compilers
 
-**PHP is built with the SYSTEM compiler (Debian gcc), not with the one from
-`epicmorg/gcc:N`.** PHP's autoconf prefers `cc`, which is Debian's gcc; Python's
-`configure` looks for `gcc` first and therefore picks ours. Both behaviours are
-intentional and verified.
-
-Setting `CC` explicitly to `${GCC_INSTALL_DIR}/bin/gcc` is possible but currently
-breaks the build: that compiler is configured without `--enable-multiarch` and
-cannot find headers in `/usr/include/x86_64-linux-gnu` (e.g. `gmp.h`). Fixing it
-requires rebuilding the gcc images with multiarch enabled.
-
-The `GCC` column in older revisions of this file described the base image tag,
-not the compiler actually used. It has been removed to avoid the confusion.
+**PHP is built with the system compiler (Debian `cc`, gcc 14), not with
+`epicmorg/gcc:N`.** PHP's autoconf prefers `cc`; Python's `configure` looks for
+`gcc` first and picks ours. Both are intentional. Do not force `CC=gccNN`: with
+an older image compiler every configure test of the old branches fails.
 
 ## Per-branch build workarounds
 
@@ -180,21 +172,6 @@ newer than the PHP branch being built.
 
 The `php_config.h` patch runs **after** `./configure` because that header is
 generated. A future `make distclean` would regenerate it unpatched.
-
-## Configure flag differences
-
-| Flag | Available from | Note |
-| ---- | -------------- | ---- |
-| `--enable-json` | ≤ 7.4 | json became always-on in 8.0; the flag no longer exists |
-| `--with-sodium` | 7.2+ | libsodium was not bundled before |
-| `--with-password-argon2` | 7.2+ | |
-| `--enable-phpdbg-readline` | 7.2+ | plain `--enable-phpdbg` exists everywhere |
-| `--with-ffi` | 7.4+ | |
-| `--enable-gd` + `--with-jpeg` etc. | 7.4+ | |
-| `--with-gd` + `--with-jpeg-dir=` etc. | ≤ 7.3 | old-style paths |
-| `--with-zip` | 7.4+ | |
-| `--enable-zip --with-libzip` | ≤ 7.3 | |
-| `--enable-opcache` | ≤ 8.4 | removed in 8.5, opcache is always compiled in |
 
 ## PHP module API versions
 
@@ -466,15 +443,31 @@ dependencies, which breaks `libicuuc` → `libicudata` resolution at runtime.
 
 ## Known gaps
 
-* **PHP 5.x is not built yet.** It needs OpenSSL `1.0.2`, an ICU older than 67
-  (boundary not yet determined), and possibly its own `libxml2` — Trixie ships
-  2.14+, whose API changes may be too new. `ext/mysql` (the pre-7.0 procedural
-  API) also only exists there.
-* `cassandra` (DataStax PHP driver) is not built — upstream is abandoned and
-  only ships prebuilt blobs. Needed only by TestRail; add as a separate layer.
-* HTTP/2 support in curl depends on `libnghttp2-dev` being present in the builder
-  stage. Verify it is installed for every branch, otherwise some images get
-  HTTP/2 and others do not.
-* The `gcc` images are configured without `--enable-multiarch`, so their compiler
-  cannot find Debian's multiarch headers. Until that is fixed, PHP is built with
-  the system compiler.
+* `cassandra` (DataStax PHP driver) is not part of this image — upstream is
+  abandoned; it lives in the TestRail layer only.
+* HTTP/2 in our curl depends on `libnghttp2-dev` being present in the builder
+  stage of each branch.
+
+## Tags
+
+<!-- readme-sync:tags:begin -->
+| Tags | Dockerfile |
+| ---- | ---------- |
+| `5.3` | [`5.3`](5.3/Dockerfile) |
+| `5.4` | [`5.4`](5.4/Dockerfile) |
+| `5.5` | [`5.5`](5.5/Dockerfile) |
+| `5.6` | [`5.6`](5.6/Dockerfile) |
+| `7.0` | [`7.0`](7.0/Dockerfile) |
+| `7.1` | [`7.1`](7.1/Dockerfile) |
+| `7.2` | [`7.2`](7.2/Dockerfile) |
+| `7.3` | [`7.3`](7.3/Dockerfile) |
+| `7.4` | [`7.4`](7.4/Dockerfile) |
+| `8.0` | [`8.0`](8.0/Dockerfile) |
+| `8.1` | [`8.1`](8.1/Dockerfile) |
+| `8.2` | [`8.2`](8.2/Dockerfile) |
+| `8.3` | [`8.3`](8.3/Dockerfile) |
+| `8.4` | [`8.4`](8.4/Dockerfile) |
+| `8.5` | [`8.5`](8.5/Dockerfile) |
+
+Every tag is pushed to `docker.io`, `quay.io` and `ghcr.io` (`epicmorg/php:<tag>` on each) - same digest everywhere.
+<!-- readme-sync:tags:end -->
