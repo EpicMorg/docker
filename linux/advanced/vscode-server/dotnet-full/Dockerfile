@@ -9,7 +9,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 #                   ARGuments
 ##################################################################
-ENV BuildDocker true
+ENV BuildDocker=true
 
 ##################################################################
 #                    dotnet setup
@@ -24,10 +24,28 @@ ENV DOTNET_CLI_TELEMETRY_OPTOUT=true
 ENV DOTNET_SKIP_FIRST_TIME_EXPERIENCE=true
 
 ##################################################################
+#                    Shared wget args
+##################################################################
+ARG WGET_ARGS="--continue \
+  --quiet \
+  --no-check-certificate \
+  --retry-connrefused \
+  --tries=15 \
+  --timeout=30 \
+  --waitretry=15 \
+  --dns-timeout=30 \
+  --connect-timeout=30 \
+  --read-timeout=30 \
+  --no-clobber"
+
+ARG WGET_USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:128.0) Gecko/20100101 Firefox/128.0"
+
+##################################################################
 #                   installing dotnet
 ##################################################################
-ADD ${DOTNET_INSTALL_SCRIPT_URL} /tmp
-RUN mkdir -p ${DOTNET_ROOT} && \ 
+RUN set -eux; \
+    mkdir -p ${DOTNET_ROOT} && \ 
+    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -P /tmp ${DOTNET_INSTALL_SCRIPT_URL} && \
     chmod +x /tmp/dotnet-install.sh && \
     /tmp/dotnet-install.sh --verbose --no-path --install-dir ${DOTNET_ROOT} --channel ${DOTNET_CHANNEL} --version latest
 
@@ -48,29 +66,18 @@ RUN echo "=============================================" && \
 ##################################################################
 #                    Mono
 ##################################################################
-RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF && \
-#    echo "deb https://download.mono-project.com/repo/ubuntu stable-focal main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list && \
-#    echo "deb https://download.mono-project.com/repo/ubuntu nightly-focal main" | sudo tee /etc/apt/sources.list.d/mono-official-nightly.list && \
-    echo "deb https://download.mono-project.com/repo/ubuntu preview-focal main" | sudo tee /etc/apt/sources.list.d/mono-official-preview.list && \
-    apt-get update && \
-    apt-get install -y  --allow-unauthenticated \
-    mono-complete \
-    mono-llvm-support \
-    mono-devel \
-    mono-dbg \
-    referenceassemblies-pcl \
-    ca-certificates-mono \
-    mono-xsp4
-
-##################################################################
-#                  Cleanup
-##################################################################
-RUN echo "clean up" && \
+# Ubuntu's own mono (universe). download.mono-project.com is unmaintained
+# (mono moved to WineHQ) and its newest Ubuntu suite is focal; apt-key is
+# deprecated. Not in noble and dropped: mono-llvm-support,
+# referenceassemblies-pcl (mono-project only).
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+      mono-complete \
+      mono-devel \
+      mono-dbg \
+      ca-certificates-mono \
+      mono-xsp4 && \
+    mono --version && \
     apt-get clean -y && \
-    apt-get autoclean -y && \
-    rm -rfv /var/lib/apt/lists/* && \
-    rm -rfv /var/cache/apt/archives/*.deb && \
-    rm -rfv /root/tmp/* && \
-    rm -rfv /tmp/*
+    rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*.deb /tmp/*
 
-RUN updatedb

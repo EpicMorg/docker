@@ -1,0 +1,39 @@
+Types: deb deb-src
+URIs: http://httpredir.debian.org/debian/
+Suites: trixie
+Components: main contrib non-free non-free-firmware
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+Trusted: yes
+Enabled: yes
+
+Types: deb deb-src
+URIs: http://httpredir.debian.org/debian/
+Suites: trixie-updates
+Components: main contrib non-free non-free-firmware
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+Trusted: yes
+Enabled: yes
+
+Types: deb deb-src
+URIs: http://httpredir.debian.org/debian/
+Suites: trixie-proposed-updates
+Components: main contrib non-free non-free-firmware
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+Trusted: yes
+Enabled: yes
+
+Types: deb deb-src
+URIs: http://security.debian.org/debian-security/
+Suites: trixie-security
+Components: main contrib non-free non-free-firmware
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+Trusted: yes
+Enabled: yes
+
+Types: deb deb-src
+URIs: http://httpredir.debian.org/debian-security/
+Suites: trixie-security
+Components: main contrib non-free non-free-firmware
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+Trusted: yes
+Enabled: yes

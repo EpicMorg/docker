@@ -1,0 +1,13 @@
+services:
+  app:
+    image: "epicmorg/confluence:6.6.0"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - docker.io/epicmorg/confluence:6.6.0
+      - docker.io/epicmorg/confluence:6.6.0-jdk8
+      - quay.io/epicmorg/confluence:6.6.0
+      - quay.io/epicmorg/confluence:6.6.0-jdk8
+      - ghcr.io/epicmorg/confluence:6.6.0
+      - ghcr.io/epicmorg/confluence:6.6.0-jdk8

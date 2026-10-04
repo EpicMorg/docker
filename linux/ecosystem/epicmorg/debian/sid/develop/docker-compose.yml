@@ -1,5 +1,0 @@
-services:
-  app:
-    image: "epicmorg/debian:sid-develop"
-    build:
-      context: .

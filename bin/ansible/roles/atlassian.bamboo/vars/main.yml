@@ -1,0 +1,9 @@
+atlassian_root: "{{ playbook_dir }}/../../linux/ecosystem/apps/atlassian"
+# Defaults
+target_directory_bamboo_6: "{{ atlassian_root }}/bamboo/6"
+target_directory_bamboo_7: "{{ atlassian_root }}/bamboo/7"
+target_directory_bamboo_8: "{{ atlassian_root }}/bamboo/8"
+target_directory_bamboo_9: "{{ atlassian_root }}/bamboo/9"
+target_directory_bamboo_10: "{{ atlassian_root }}/bamboo/10"
+target_directory_bamboo_11: "{{ atlassian_root }}/bamboo/11"
+target_directory_bamboo_12: "{{ atlassian_root }}/bamboo/12"

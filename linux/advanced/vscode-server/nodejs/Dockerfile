@@ -9,7 +9,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 #                   ARGuments
 ##################################################################
-ENV BuildDocker true
+ENV BuildDocker=true
 
 ARG K_NODE_MAJOR_VERSION=22
 ARG K_NODE_VERSION=${K_NODE_MAJOR_VERSION}.21.0
@@ -41,15 +41,3 @@ RUN echo "=============================================" && \
     echo pnpm $(pnpm --version) && \
     echo "============================================="
 
-##################################################################
-#                  Cleanup
-##################################################################
-RUN echo "clean up" && \
-    apt-get clean -y && \
-    apt-get autoclean -y && \
-    rm -rfv /var/lib/apt/lists/* && \
-    rm -rfv /var/cache/apt/archives/*.deb && \
-    rm -rfv /root/tmp/* && \
-    rm -rfv /tmp/*
-
-RUN updatedb

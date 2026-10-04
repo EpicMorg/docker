@@ -1,0 +1,58 @@
+# VSCode server images, own cron -- not part of the build chain.
+# latest (FROM upstream code-server) -> cpp -> everything else (FROM epicmorg/vscode-server:latest|cpp).
+name: Advanced - VSCode Server
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * 2,4,6'   # Tue/Thu/Sat 00:00 UTC
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  list:
+    name: list leaves
+    runs-on: ubuntu-24.04
+    outputs:
+      flavours: ${{ steps.list.outputs.flavours }}
+    steps:
+    - uses: actions/checkout@v7
+      with:
+        sparse-checkout: |
+          .github/scripts
+          linux/advanced/vscode-server
+    - id: list
+      run: |
+        # assignment first, so a failing discovery fails the step (echo "$(...)" would not)
+        emit() { local v; v=$(python3 .github/scripts/leaves.py "${@:2}"); echo "$1=$v" | tee -a "$GITHUB_OUTPUT"; }
+        emit flavours flat linux/advanced/vscode-server --min 1 --max 2 --exclude '^vscode-server/(latest|cpp)$'
+
+  main:
+    name: vscode-server latest + cpp
+    uses: ./.github/workflows/_build-leaf.yml
+    secrets: inherit
+    with:
+      paths: |
+        linux/advanced/vscode-server/latest
+        linux/advanced/vscode-server/cpp
+      free-disk: true
+
+  flavours:
+    name: ${{ matrix.leaf.name }}
+    needs: [list, main]
+    if: needs.list.outputs.flavours != '[]'
+    strategy:
+      fail-fast: false
+      matrix:
+        leaf: ${{ fromJSON(needs.list.outputs.flavours) }}
+    uses: ./.github/workflows/_build-leaf.yml
+    secrets: inherit
+    with:
+      paths: ${{ matrix.leaf.paths }}
+      free-disk: true

@@ -1,0 +1,9 @@
+services:
+  app:
+    image: "epicmorg/gitlab-runner:node13"
+    build:
+      context: .
+    x-mirrors:
+      - docker.io/epicmorg/gitlab-runner:node13
+      - quay.io/epicmorg/gitlab-runner:node13
+      - ghcr.io/epicmorg/gitlab-runner:node13

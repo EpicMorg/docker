@@ -1,0 +1,44 @@
+{% set ion = testrail_ion_override[item] | default(testrail_ion) %}
+## TestRail {{ item }}
+
+* Based on `epicmorg/apache2:php{{ testrail_php }}` of our ecosystem: Apache2 + PHP {{ testrail_php }} (php-fpm over a unix socket), run by supervisor.
+* TestRail package: `testrail-{{ item }}-ion{{ ion }}.zip` (ionCube loader is part of `epicmorg/php:{{ testrail_php }}`).
+{% if testrail_cassandra == 'prebuilt' %}
+* Cassandra PHP extension (required by TestRail 7.0+): Gurock's prebuilt DataStax php-driver for PHP {{ testrail_php }} on a baked DataStax/Apache C/C++ driver 2.17.1 (same OpenSSL as PHP). A Cassandra server is still needed, see TestRail docs.
+{% elif testrail_cassandra == 'source' %}
+* Cassandra PHP extension (required by TestRail 7.0+): he4rt/scylladb-php-driver v1.3.12 (PHP 8 fork of the DataStax php-driver) on a baked DataStax/Apache C/C++ driver 2.17.1 (same OpenSSL as PHP). A Cassandra server is still needed, see TestRail docs.
+{% endif %}
+* supervisor programs: `php-fpm`, `apache2`, `testrail-task` (TestRail background task as `www-data`, every `TR_DEFAULT_TASK_EXECUTION` seconds, default `60`).
+* On every start the entrypoint re-extracts the TestRail code into `/var/www/testrail`, so a `/var/www` volume always carries the version of the image.
+* Variants with the Active Directory / LDAP authentication script: `epicmorg/testrail:auth-ad-{{ item }}`, `epicmorg/testrail:auth-ldap-{{ item }}`.
+
+# Compose example
+
+```yml
+services:
+  testrail:
+    image: epicmorg/testrail:{{ item }}
+#    depends_on:
+#      - mysql
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    environment:
+      - TR_DEFAULT_TASK_EXECUTION=60
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - config:/var/www/testrail/config
+      - attachments:/opt/testrail/attachments
+      - audit:/opt/testrail/audit
+      - logs:/opt/testrail/logs
+      - reports:/opt/testrail/reports
+    tmpfs:
+      - /tmp
+volumes:
+  config:
+  attachments:
+  audit:
+  logs:
+  reports:
+```

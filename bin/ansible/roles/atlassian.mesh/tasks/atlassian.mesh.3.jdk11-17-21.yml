@@ -1,0 +1,73 @@
+- name: Read versions from file
+  slurp:
+     src: "{{ playbook_dir }}/roles/common/files/versions/mesh/3.jdk11-17-21.txt"
+  register: version_output
+
+- name: Set version variable
+  set_fact:
+    mesh_versions: "{{ version_output['content'] | b64decode | trim | split('\n') | map('trim') | reject('equalto', '') | list }}"
+
+- name: Create directories for Bitbucket Mesh versions
+  file:
+    path: "{{ target_directory_mesh_3 }}/{{ item }}"
+    state: directory
+    mode: '0755'
+    force: true
+  with_items: "{{ mesh_versions }}"
+
+- name: Remove .env (RELEASE lives in the Dockerfiles; buildah-wrapper rejects unknown .env keys)
+  file:
+    path: "{{ target_directory_mesh_3 }}/{{ item }}/.env"
+    state: absent
+  with_items: "{{ mesh_versions }}"
+
+- name: Copy docker-compose.yml from template to each version directory
+  template:
+    src: "docker-compose/template.docker-compose.jdk11-17-21.yml.j2"
+    dest: "{{ target_directory_mesh_3 }}/{{ item }}/docker-compose.yml"
+    force: true
+  with_items: "{{ mesh_versions }}"
+
+- name: Copy Dockerfile from template to each version directory
+  template:
+    src: "dockerfile/template.Dockerfile.jdk11.j2"
+    dest: "{{ target_directory_mesh_3 }}/{{ item }}/Dockerfile"
+    force: true
+  with_items: "{{ mesh_versions }}"
+
+- name: Copy Dockerfile.jdk17 from template to each version directory
+  template:
+    src: "dockerfile/template.Dockerfile.jdk17.j2"
+    dest: "{{ target_directory_mesh_3 }}/{{ item }}/Dockerfile.jdk17"
+    force: true
+  with_items: "{{ mesh_versions }}"
+
+- name: Copy Dockerfile.jdk21 from template to each version directory
+  template:
+    src: "dockerfile/template.Dockerfile.jdk21.j2"
+    dest: "{{ target_directory_mesh_3 }}/{{ item }}/Dockerfile.jdk21"
+    force: true
+  with_items: "{{ mesh_versions }}"
+
+- name: Copy entrypoint.sh from 'files' directory to each version directory
+  copy:
+    src: "entrypoint.sh"
+    dest: "{{ target_directory_mesh_3 }}/{{ item }}/entrypoint.sh"
+    mode: "0777"
+    force: true
+  with_items: "{{ mesh_versions }}"
+
+- name: Copy Makefile from 'files' directory to each version directory
+  copy:
+    src: "Makefile"
+    dest: "{{ target_directory_mesh_3 }}/{{ item }}/Makefile"
+    force: true
+  with_items: "{{ mesh_versions }}"
+
+- name: Copy mesh-git.sh from 'files' directory to each version directory
+  copy:
+    src: "mesh-git.sh"
+    dest: "{{ target_directory_mesh_3 }}/{{ item }}/mesh-git.sh"
+    mode: "0755"
+    force: true
+  with_items: "{{ mesh_versions }}"

@@ -1,0 +1,9 @@
+# Astra pins its own repositories at 900; lift the vendor repos we add on
+# purpose above that, for exactly the packages we take from them.
+Package: git git-*
+Pin: release o=LP-PPA-git-core
+Pin-Priority: 950
+
+Package: git-lfs
+Pin: origin "packagecloud.io"
+Pin-Priority: 950

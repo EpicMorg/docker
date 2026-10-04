@@ -1,0 +1,48 @@
+# Museum: Debian 6-12 (linux/obsolete/epicmorg/debian), vanilla, three tags each (ADR-002, ADR-053).
+# One job per codename, built in order inside the job: light -> main -> develop.
+# A failed codename does not touch the others. Not part of the chain.
+name: Base - Museum Debian 6-12
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 1 * * 0'   # same slot as chain.10-base
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  list:
+    name: list codenames
+    runs-on: ubuntu-24.04
+    outputs:
+      codenames: ${{ steps.list.outputs.codenames }}
+    steps:
+    - uses: actions/checkout@v7
+      with:
+        sparse-checkout: |
+          .github/scripts
+          linux/obsolete/epicmorg/debian
+    # only the base triple; nothing else under obsolete/ is ever built
+    - id: list
+      run: |
+        codenames=$(python3 .github/scripts/leaves.py group linux/obsolete/epicmorg/debian '{}/light' '{}/main' '{}/develop' --include '^debian/(0[6-9]|1[0-2])-')
+        echo "codenames=${codenames}" | tee -a "$GITHUB_OUTPUT"
+
+  build:
+    name: museum ${{ matrix.leaf.name }}
+    needs: list
+    if: needs.list.outputs.codenames != '[]'
+    strategy:
+      fail-fast: false
+      matrix:
+        leaf: ${{ fromJSON(needs.list.outputs.codenames) }}
+    uses: ./.github/workflows/_build-leaf.yml
+    secrets: inherit
+    with:
+      paths: ${{ matrix.leaf.paths }}

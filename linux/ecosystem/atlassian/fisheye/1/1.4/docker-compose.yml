@@ -1,9 +1,0 @@
-services:
-  app:
-    image: "epicmorg/fisheye:1.4"
-    build:
-      context: .
-  app-jdk6:
-    image: "epicmorg/fisheye:1.4-jdk6"
-    build:
-      context: .

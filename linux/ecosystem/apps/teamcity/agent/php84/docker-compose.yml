@@ -1,0 +1,10 @@
+services:
+  app:
+    image: "epicmorg/teamcity-agent:php8.4"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/teamcity-agent:php8.4
+      - ghcr.io/epicmorg/teamcity-agent:php8.4
+      - docker.io/epicmorg/teamcity-agent:php8.4

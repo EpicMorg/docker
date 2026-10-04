@@ -1,11 +1,11 @@
 - name: Read versions from file
   slurp:
-     src: "roles/common/files/versions/crowd/0.jdk6.init.txt"
+     src: "{{ playbook_dir }}/roles/common/files/versions/crowd/0.jdk6.init.txt"
   register: version_output
 
 - name: Set version variable
   set_fact:
-    crowd_versions: "{{ version_output['content'] | b64decode | trim | split('\n') }}"
+    crowd_versions: "{{ version_output['content'] | b64decode | trim | split('\n') | map('trim') | reject('equalto', '') | list }}"
 
 - name: Create directories for Crowd versions
   file:
@@ -15,11 +15,10 @@
     force: true
   with_items: "{{ crowd_versions }}"
 
-- name: Copy .env with link from template to each version directory
-  template:
-    src: "env/template.env.initial.j2"
-    dest: "{{ target_directory_crowd_0 }}/{{ item }}/.env"
-    force: true
+- name: Remove .env (single-JDK images carry RELEASE in the Dockerfile)
+  file:
+    path: "{{ target_directory_crowd_0 }}/{{ item }}/.env"
+    state: absent
   with_items: "{{ crowd_versions }}"
 
 - name: Copy docker-compose.yml from template to each version directory

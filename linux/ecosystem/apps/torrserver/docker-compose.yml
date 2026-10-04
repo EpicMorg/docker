@@ -1,0 +1,9 @@
+services:
+  app:
+    image: "epicmorg/torrserver:latest"
+    build:
+      context: .
+    x-mirrors:
+      - docker.io/epicmorg/torrserver:latest
+      - quay.io/epicmorg/torrserver:latest
+      - ghcr.io/epicmorg/torrserver:latest

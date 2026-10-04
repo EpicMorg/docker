@@ -1,0 +1,11 @@
+services:
+  app:
+    image: "epicmorg/gcc:9"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/gcc:9
+      - ghcr.io/epicmorg/gcc:9
+      - docker.io/epicmorg/gcc:9
+

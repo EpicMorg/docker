@@ -1,0 +1,7 @@
+Types: deb deb-src
+URIs: https://www.deb-multimedia.org
+Suites: trixie
+Components: main non-free
+Signed-By: /etc/apt/keyrings/deb-multimedia-keyring.gpg
+Trusted: yes
+Enabled: no

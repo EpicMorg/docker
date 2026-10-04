@@ -1,0 +1,10 @@
+services:
+  app:
+    image: "epicmorg/webtlo:3.7.2"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/webtlo:3.7.2
+      - ghcr.io/epicmorg/webtlo:3.7.2
+      - docker.io/epicmorg/webtlo:3.7.2

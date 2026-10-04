@@ -1,5 +1,0 @@
-services:
-  app:
-    image: "epicmorg/postgres:9.4"
-    build:
-      context: .

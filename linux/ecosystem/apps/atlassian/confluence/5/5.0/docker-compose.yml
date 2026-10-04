@@ -1,0 +1,13 @@
+services:
+  app:
+    image: "epicmorg/confluence:5.0"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - docker.io/epicmorg/confluence:5.0
+      - docker.io/epicmorg/confluence:5.0-jdk7
+      - quay.io/epicmorg/confluence:5.0
+      - quay.io/epicmorg/confluence:5.0-jdk7
+      - ghcr.io/epicmorg/confluence:5.0
+      - ghcr.io/epicmorg/confluence:5.0-jdk7

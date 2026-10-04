@@ -1,0 +1,10 @@
+services:
+  app:
+    image: "epicmorg/teamcity-agent:node13"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/teamcity-agent:node13
+      - ghcr.io/epicmorg/teamcity-agent:node13
+      - docker.io/epicmorg/teamcity-agent:node13

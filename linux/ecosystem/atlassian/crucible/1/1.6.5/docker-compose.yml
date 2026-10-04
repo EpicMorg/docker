@@ -1,9 +1,0 @@
-services:
-  app:
-    image: "epicmorg/crucible:1.6.5"
-    build:
-      context: .
-  app-jdk6:
-    image: "epicmorg/crucible:1.6.5-jdk6"
-    build:
-      context: .

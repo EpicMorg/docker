@@ -1,0 +1,10 @@
+services:
+  app:
+    image: "epicmorg/gcc:15"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/gcc:15
+      - ghcr.io/epicmorg/gcc:15
+      - docker.io/epicmorg/gcc:15

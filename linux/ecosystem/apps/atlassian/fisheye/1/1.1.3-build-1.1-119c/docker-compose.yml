@@ -1,0 +1,13 @@
+services:
+  app:
+    image: "epicmorg/fisheye:1.1.3-build-1.1-119c"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - docker.io/epicmorg/fisheye:1.1.3-build-1.1-119c
+      - docker.io/epicmorg/fisheye:1.1.3-build-1.1-119c-jdk6
+      - quay.io/epicmorg/fisheye:1.1.3-build-1.1-119c
+      - quay.io/epicmorg/fisheye:1.1.3-build-1.1-119c-jdk6
+      - ghcr.io/epicmorg/fisheye:1.1.3-build-1.1-119c
+      - ghcr.io/epicmorg/fisheye:1.1.3-build-1.1-119c-jdk6

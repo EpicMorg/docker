@@ -9,7 +9,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 #                   ARGuments
 ##################################################################
-ENV BuildDocker true
+ENV BuildDocker=true
 
 # steam runtime sdk
 ENV STEAM_RUNTIME_SDK_DIR=${EMG_LOCAL_BASE_DIR}/valve/steam/runtime-sdk/latest
@@ -332,15 +332,3 @@ RUN apt-get update && \
 #                   other   customisations
 ##################################################################
 
-##################################################################
-#                  Cleanup
-##################################################################
-RUN echo "clean up" && \
-    apt-get clean -y && \
-    apt-get autoclean -y && \
-    rm -rfv /var/lib/apt/lists/* && \
-    rm -rfv /var/cache/apt/archives/*.deb && \
-    rm -rfv /root/tmp/* && \
-    rm -rfv /tmp/*
-
-RUN updatedb

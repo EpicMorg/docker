@@ -1,9 +1,0 @@
-services:
-  app:
-    image: "epicmorg/crowd:latest"
-    build:
-      context: .
-  app-jdk17:
-    image: "epicmorg/crowd:latest-jdk17"
-    build:
-      context: .

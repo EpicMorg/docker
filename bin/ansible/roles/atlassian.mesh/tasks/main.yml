@@ -1,0 +1,28 @@
+- name: "Generate images for Bitbucket Mesh 1 (jdk8 + jdk11)"
+  import_tasks: atlassian.mesh.1.jdk8-11.yml
+
+- name: "Generate images for Bitbucket Mesh 1 (jdk11)"
+  import_tasks: atlassian.mesh.1.jdk11.yml
+
+- name: "Generate images for Bitbucket Mesh 2 (jdk11)"
+  import_tasks: atlassian.mesh.2.jdk11.yml
+
+- name: "Generate images for Bitbucket Mesh 2 (jdk11 + jdk17)"
+  import_tasks: atlassian.mesh.2.jdk11-17.yml
+
+- name: "Generate images for Bitbucket Mesh 3 (jdk11 + jdk17)"
+  import_tasks: atlassian.mesh.3.jdk11-17.yml
+
+- name: "Generate images for Bitbucket Mesh 3 (jdk11 + jdk17 + jdk21)"
+  import_tasks: atlassian.mesh.3.jdk11-17-21.yml
+
+- name: "Generate images for Bitbucket Mesh 3 (jdk17 + jdk21)"
+  import_tasks: atlassian.mesh.3.jdk17-21.yml
+
+- name: "Generate images for Bitbucket Mesh 4 (jdk21)"
+  import_tasks: atlassian.mesh.4.jdk21.yml
+
+- name: "Generate mesh latest"
+  include_tasks: "{{ playbook_dir }}/roles/common/tasks/latest.yml"
+  vars:
+    latest_product: mesh

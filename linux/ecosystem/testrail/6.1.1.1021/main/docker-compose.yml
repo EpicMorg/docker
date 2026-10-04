@@ -1,5 +1,0 @@
-services:
-  app:
-    image: "epicmorg/testrail:6.1.1.1021"
-    build:
-      context: .

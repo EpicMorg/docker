@@ -1,0 +1,50 @@
+#!/bin/sh
+# php-dismod - disable a PHP module by removing its conf.d symlink.
+#              The ini stays in mods-available so it can be re-enabled.
+#
+# See php-enmod for notes on the shared-conf.d design decision.
+set -e
+
+iniDir="$(php-config --prefix)/etc"
+modsDir="${iniDir}/mods-available"
+confDir="${iniDir}/conf.d"
+
+usage() {
+	echo "usage: $0 [-v VERSION] [-s SAPI] module [module ...]"
+	echo "   ie: $0 xdebug"
+	echo
+	echo '  -v, -s : accepted for Debian compatibility, ignored (single shared conf.d)'
+	echo
+	echo 'Currently enabled:'
+	if [ -d "$confDir" ]; then
+		find "$confDir" -maxdepth 1 -name '*.ini' -exec basename '{}' ';' | sort | xargs
+	fi
+}
+
+while getopts 'v:s:h' flag 2>/dev/null; do
+	case "$flag" in
+		v|s) : ;;
+		h)   usage; exit 0 ;;
+		*)   usage >&2; exit 1 ;;
+	esac
+done
+shift $((OPTIND - 1))
+
+if [ "$#" -eq 0 ]; then
+	usage >&2
+	exit 1
+fi
+
+for mod; do
+	found=''
+	for link in "$confDir"/*-"${mod}".ini "$confDir/${mod}.ini"; do
+		[ -e "$link" ] || [ -L "$link" ] || continue
+		rm -f "$link"
+		found=1
+	done
+	if [ -n "$found" ]; then
+		echo "disabled: ${mod}"
+	else
+		echo "already disabled: ${mod}"
+	fi
+done

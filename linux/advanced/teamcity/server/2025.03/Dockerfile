@@ -3,6 +3,10 @@ LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 LABEL org.opencontainers.image.vendor="EpicMorg DevTeam, developer@epicm.org"
 LABEL org.opencontainers.image.authors="STAM, kasthack, Aleks-Z"
 LABEL org.opencontainers.image.source="https://github.com/EpicMorg/docker"
+LABEL org.opencontainers.image.title="EpicMorg Debian (Light)"
+LABEL org.opencontainers.image.description="Debian Trixie base by EpicMorg"
+LABEL org.opencontainers.image.licenses="MIT"
+LABEL org.opencontainers.image.documentation="https://github.com/EpicMorg/docker"
 LABEL org.opencontainers.image.url="https://github.com/EpicMorg/docker"
 LABEL donate.crypto.TON="EQDvHXRK-K1ZieJhgTD9JZQk7xCnWzRbctYnUkWq1lZq1bUg"
 LABEL donate.crypto.ETH="0x26a8443a694f08cdfec966aa6fd72c45068753ec"
@@ -26,7 +30,7 @@ USER root
 ##################################################################
 ENV EMG_LOCAL_BASE_DIR=/usr/local/share/epicmorg
 RUN mkdir -p ${EMG_LOCAL_BASE_DIR}
-COPY usr/local/epicmorg ${EMG_LOCAL_BASE_DIR}
+COPY usr/local/share/epicmorg ${EMG_LOCAL_BASE_DIR}
 
 ##################################################################
 #                   prepare system
@@ -37,61 +41,41 @@ RUN mkdir -p /etc/apt/keyrings
 ##################################################################
 #                   ARGuments
 ##################################################################
-ARG P4_VERSION=r24.1
+ARG P4_VERSION=r26.1
 ARG P4_BIN_DIR=${EMG_LOCAL_BASE_DIR}/p4/${P4_VERSION}/bin
 ARG P4_DOWNLOAD_URL=https://filehost.perforce.com/perforce/${P4_VERSION}/bin.linux26x86_64/p4
 
-ARG SZ_VERSION=7z2501
+ENV SZ_VERSION=7z2602
 ARG SZ_BIN_DIR=${EMG_LOCAL_BASE_DIR}/7z/${SZ_VERSION}/bin
 ARG SZ_DOWNLOAD_URL=https://www.7-zip.org/a/${SZ_VERSION}-linux-x64.tar.xz
 ARG SZ_TEMP=/tmp/${SZ_VERSION}-linux-x64.tar.xz
-
-ARG LAZYGIT_VERSION=0.42.0
-ARG LAZYGIT_BIN_DIR=${EMG_LOCAL_BASE_DIR}/lazygit/${LAZYGIT_VERSION}/bin
-ARG LAZYGIT_DOWNLOAD_URL=https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz
-ARG LAZYGIT_TEMP=/tmp/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz
-
-ARG LAZYCLI_VERSION=0.1.15
-ARG LAZYCLI_BIN_DIR=${EMG_LOCAL_BASE_DIR}/lazycli/${LAZYCLI_VERSION}/bin
-ARG LAZYCLI_DOWNLOAD_URL=https://github.com/jesseduffield/lazycli/releases/download/v${LAZYCLI_VERSION}/lazycli-linux-x64.tar.gz
-ARG LAZYCLI_TEMP=/tmp/lazycli-linux-x64.tar.gz
-
-ARG LAZYNPM_VERSION=0.1.4
-ARG LAZYNPM_BIN_DIR=${EMG_LOCAL_BASE_DIR}/lazynpm/${LAZYNPM_VERSION}/bin
-ARG LAZYNPM_DOWNLOAD_URL=https://github.com/jesseduffield/lazynpm/releases/download/v${LAZYNPM_VERSION}/lazynpm_${LAZYNPM_VERSION}_Linux_x86_64.tar.gz
-ARG LAZYNPM_TEMP=/tmp/lazynpm_${LAZYNPM_VERSION}_Linux_x86_64.tar.gz
-
-ARG LAZYDOCKER_VERSION=0.23.3
-ARG LAZYDOCKER_BIN_DIR=${EMG_LOCAL_BASE_DIR}/lazydocker/${LAZYDOCKER_VERSION}/bin
-ARG LAZYDOCKER_DOWNLOAD_URL=https://github.com/jesseduffield/lazydocker/releases/download/v${LAZYDOCKER_VERSION}/lazydocker_${LAZYDOCKER_VERSION}_Linux_x86_64.tar.gz
-ARG LAZYDOCKER_TEMP=/tmp/lazydocker_${LAZYDOCKER_VERSION}_Linux_x86_64.tar.gz
 
 ARG DUMB_INIT_VERSION=1.2.5
 ARG DUMB_INIT_BIN_DIR=${EMG_LOCAL_BASE_DIR}/dumb-init/${DUMB_INIT_VERSION}/bin
 ARG DUMB_INIT_DOWNLOAD_URL=https://github.com/Yelp/dumb-init/releases/download/v${DUMB_INIT_VERSION}/dumb-init_${DUMB_INIT_VERSION}_x86_64
 
-ARG GOSU_VERSION=1.17
+ARG GOSU_VERSION=1.19
 ARG GOSU_BIN_DIR=${EMG_LOCAL_BASE_DIR}/gosu/${GOSU_VERSION}/bin
 ARG GOSU_DOWNLOAD_URL=https://github.com/tianon/gosu/releases/download/${GOSU_VERSION}/gosu-amd64
 
 ##################################################################
 #                   Additional settings
 ##################################################################
-ENV MAVEN_VERSION=3.9.11
-ENV MAVEN_LINK=https://dlcdn.apache.org/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.zip
+ENV MAVEN_VERSION=3.9.16
+ENV MAVEN_LINK=https://archive.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.zip
 ENV MAVEN_ROOT=${EMG_LOCAL_BASE_DIR}/maven/${MAVEN_VERSION}
 ENV MAVEN_PATH=${MAVEN_ROOT}/apache-maven-${MAVEN_VERSION}
 ENV MAVEN_BIN=${MAVEN_PATH}/bin
 ARG MAVEN_TEMP=/tmp/apache-maven-${MAVEN_VERSION}-bin.zip
 
-ENV GRADLE_VERSION=8.14
+ENV GRADLE_VERSION=8.14.5
 ENV GRADLE_LINK=https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-all.zip
 ENV GRADLE_ROOT=${EMG_LOCAL_BASE_DIR}/gradle/${GRADLE_VERSION}
 ENV GRADLE_PATH=${GRADLE_ROOT}/gradle-${GRADLE_VERSION}
 ENV GRADLE_BIN=${GRADLE_PATH}/bin
 ARG GRADLE_TEMP=/tmp/gradle-${GRADLE_VERSION}-all.zip
 
-ENV KTC_VERSION=2.2.0
+ENV KTC_VERSION=2.4.10
 ENV KTC_LINK=https://github.com/JetBrains/kotlin/releases/download/v${KTC_VERSION}/kotlin-compiler-${KTC_VERSION}.zip
 ARG KTC_TEMP=/tmp/kotlin-compiler-${KTC_VERSION}.zip
 ENV KTC_ROOT=${EMG_LOCAL_BASE_DIR}/kotlin/${KTC_VERSION}
@@ -109,25 +93,53 @@ RUN mkdir -p ${MAVEN_PATH} ${KTC_PATH} ${KNPL_PATH} ${GRADLE_PATH}
 ENV PATH=${PATH}:${MAVEN_BIN}:${GRADLE_BIN}:${KTC_BIN}:${KNPL_BIN}
 
 ##################################################################
+#                   sources list
+##################################################################
+# Drop upstream lists before the first `apt-get update`: old upstream
+# images (focal) ship third-party repos with expired keys.
+RUN rm -rfv /etc/apt/sources.list
+RUN rm -rfv /etc/apt/sources.list.d/*
+RUN rm -rfv /etc/locale.gen
+
+COPY etc/apt /etc/apt
+COPY etc/locale.gen /etc/locale.gen
+COPY usr/local/share/ca-certificates /usr/local/share/ca-certificates
+RUN update-ca-certificates --fresh
+
+# etc/apt ships the lists for noble; old upstream server images are focal/jammy.
+# Point every list at the Ubuntu release of THIS base image.
+RUN . /etc/os-release && \
+    echo "Ubuntu codename: ${VERSION_CODENAME}" && \
+    sed -i "s/noble/${VERSION_CODENAME}/g" /etc/apt/sources.list.d/*.sources && \
+    grep -h "^Suites" /etc/apt/sources.list.d/*.sources
+
+##################################################################
 #                   update lists
 ##################################################################
+# keys for every list in etc/apt, before the first `apt-get update`
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections && \
+    curl -fsSL https://package.perforce.com/perforce.pubkey | gpg --batch --yes --dearmor -o /etc/apt/keyrings/perforce.gpg && \
+    gpg --keyserver keyserver.ubuntu.com --recv-keys F911AB184317630C59970973E363C90F8F1B6217 && \
+    gpg --export --output /etc/apt/keyrings/launchpad-git.gpg F911AB184317630C59970973E363C90F8F1B6217 && \
+    curl -fsSL https://packagecloud.io/github/git-lfs/gpgkey | gpg --batch --yes --dearmor -o /etc/apt/keyrings/github_git-lfs-archive-keyring.gpg && \
+    curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | gpg --batch --yes --dearmor -o /etc/apt/keyrings/githubcli-archive-keyring.gpg && \
+    chmod go+r /etc/apt/keyrings/*.gpg && \
     apt-get update
 
 ##################################################################
-#                   sources list
+#                   git fresh binary
 ##################################################################
-RUN rm -rfv /etc/apt/sources.list
-RUN rm -rfv /etc/apt/sources.list.d/*.sources 
-RUN rm -rfv /etc/locale.gen
+RUN apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
+    gh \
+    git \
+    git-lfs && \
+    git-lfs install --skip-repo
 
-COPY etc/apt/apt.conf.d/99-no-check-valid-until /etc/apt/apt.conf.d/99-no-check-valid-until
-COPY etc/apt/apt.conf.d/98-allow-unauthenticated /etc/apt/apt.conf.d/98-allow-unauthenticated
-COPY etc/apt/apt.conf.d/97-allow-cert-exp /etc/apt/apt.conf.d/97-allow-cert-exp
-COPY etc/apt/apt.conf.d/96-apt-retries /etc/apt/apt.conf.d/96-apt-retries
-COPY etc/apt/sources.list /etc/apt/sources.list
-COPY etc/locale.gen /etc/locale.gen
-COPY usr/local/share/ca-certificates /usr/local/share/ca-certificates
+RUN echo "=============================================" && \
+    echo gh $(gh --version) && \
+    echo git $(git --version) && \
+    echo git-lfs $(git-lfs --version) && \
+    echo "============================================="
 
 RUN apt-get update && \
     apt-get upgrade -y && \
@@ -138,6 +150,7 @@ RUN apt-get update && \
 ##################################################################
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections && \
     apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
+    aria2 \
     apt-transport-https \
     apt-utils \
     aptitude \
@@ -217,9 +230,15 @@ RUN locale-gen
 ##################################################################
 #                   Install p4client
 ##################################################################
-RUN mkdir -p ${P4_BIN_DIR}
-ADD ${P4_DOWNLOAD_URL} ${P4_BIN_DIR}
-RUN chmod +x ${P4_BIN_DIR}/p4
+RUN set -eux; \
+    mkdir -p ${P4_BIN_DIR} && \
+    aria2c \
+        --conf-path="/usr/local/share/epicmorg/aria2/config/aria2.conf" \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -d ${P4_BIN_DIR} \
+        "${P4_DOWNLOAD_URL}" && \
+    chmod +x ${P4_BIN_DIR}/p4
+
 ENV PATH="${P4_BIN_DIR}:${PATH}"
 
 # Update internal p4 binary to new
@@ -236,13 +255,19 @@ ENV PATH="${P4_BIN_DIR}:${PATH}"
 ##################################################################
 #                   Install 7z official binary
 ##################################################################
-RUN mkdir -p ${SZ_BIN_DIR}
-ADD ${SZ_DOWNLOAD_URL} /tmp
-
-RUN tar -xf ${SZ_TEMP} --directory ${SZ_BIN_DIR} && \
+RUN set -eux; \
+    mkdir -p ${SZ_BIN_DIR} && \
+    aria2c \
+        --conf-path="/usr/local/share/epicmorg/aria2/config/aria2.conf" \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -d / \
+        -o ${SZ_TEMP} \
+        "${SZ_DOWNLOAD_URL}" && \
+    tar -xf ${SZ_TEMP} --directory ${SZ_BIN_DIR} && \
     chmod +x ${SZ_BIN_DIR}/7zz && \
     chmod +x ${SZ_BIN_DIR}/7zzs && \
-    find ${SZ_BIN_DIR} -maxdepth 1 -mindepth 1 ! -name '7zz' ! -name '7zzs' -exec mv {} ${SZ_BIN_DIR}/.. \;
+    find ${SZ_BIN_DIR} -maxdepth 1 -mindepth 1 ! -name '7zz' ! -name '7zzs' -exec mv {} ${SZ_BIN_DIR}/.. \; && \
+    rm -rfv ${SZ_TEMP}
 
 ENV PATH="${SZ_BIN_DIR}:${PATH}"
 
@@ -252,76 +277,16 @@ RUN echo "=============================================" && \
     echo "============================================="
 
 ##################################################################
-#                   Install LazyGit official binary
-##################################################################
-RUN mkdir -p ${LAZYGIT_BIN_DIR}
-ADD ${LAZYGIT_DOWNLOAD_URL} /tmp
-
-RUN tar -xzf ${LAZYGIT_TEMP} --directory ${LAZYGIT_BIN_DIR} && \
-    chmod +x ${LAZYGIT_BIN_DIR}/lazygit && \
-    find ${LAZYGIT_BIN_DIR} -maxdepth 1 -mindepth 1 ! -name 'lazygit' -exec mv {} ${LAZYGIT_BIN_DIR}/.. \;
-
-ENV PATH="${LAZYGIT_BIN_DIR}:${PATH}"
-
-RUN echo "=============================================" && \
-    echo lazygit $(lazygit --version) && \
-    echo "============================================="
-
-##################################################################
-#                   Install LazyCLI official binary
-##################################################################
-RUN mkdir -p ${LAZYCLI_BIN_DIR}
-ADD ${LAZYCLI_DOWNLOAD_URL} /tmp
-
-RUN tar -xzf ${LAZYCLI_TEMP} --directory ${LAZYCLI_BIN_DIR} && \
-    chmod +x ${LAZYCLI_BIN_DIR}/lazycli && \
-    find ${LAZYCLI_BIN_DIR} -maxdepth 1 -mindepth 1 ! -name 'lazycli' -exec mv {} ${LAZYCLI_BIN_DIR}/.. \;
-
-ENV PATH="${LAZYCLI_BIN_DIR}:${PATH}"
-
-RUN echo "=============================================" && \
-    echo lazycli $(lazycli --version) && \
-    echo "============================================="
-
-##################################################################
-#                   Install LazyNPM official binary
-##################################################################
-RUN mkdir -p ${LAZYNPM_BIN_DIR}
-ADD ${LAZYNPM_DOWNLOAD_URL} /tmp
-
-RUN tar -xzf ${LAZYNPM_TEMP} --directory ${LAZYNPM_BIN_DIR} && \
-    chmod +x ${LAZYNPM_BIN_DIR}/lazynpm && \
-    find ${LAZYNPM_BIN_DIR} -maxdepth 1 -mindepth 1 ! -name 'lazynpm' -exec mv {} ${LAZYNPM_BIN_DIR}/.. \;
-
-ENV PATH="${LAZYNPM_BIN_DIR}:${PATH}"
-
-RUN echo "=============================================" && \
-    echo lazynpm $(lazynpm --version) && \
-    echo "============================================="
-
-##################################################################
-#                   Install LazyDocker official binary
-##################################################################
-RUN mkdir -p ${LAZYDOCKER_BIN_DIR}
-ADD ${LAZYDOCKER_DOWNLOAD_URL} /tmp
-
-RUN tar -xzf ${LAZYDOCKER_TEMP} --directory ${LAZYDOCKER_BIN_DIR} && \
-    chmod +x -R ${LAZYDOCKER_BIN_DIR}/lazydocker && \
-    find ${LAZYDOCKER_BIN_DIR} -maxdepth 1 -mindepth 1 ! -name 'lazydocker' -exec mv {} ${LAZYDOCKER_BIN_DIR}/.. \;
-
-ENV PATH="${LAZYDOCKER_BIN_DIR}:${PATH}"
-
-RUN echo "=============================================" && \
-    echo lazydocker $(lazydocker --version) && \
-    echo "============================================="
-
-##################################################################
 #                    dumb init
 ##################################################################
-RUN mkdir -p ${DUMB_INIT_BIN_DIR}
-ADD ${DUMB_INIT_DOWNLOAD_URL} ${DUMB_INIT_BIN_DIR}
-
-RUN mv -fv ${DUMB_INIT_BIN_DIR}/dumb-init_${DUMB_INIT_VERSION}_x86_64 ${DUMB_INIT_BIN_DIR}/dumb-init && \
+RUN set -eux; \
+    mkdir -p ${DUMB_INIT_BIN_DIR} && \
+    aria2c \
+        --conf-path="/usr/local/share/epicmorg/aria2/config/aria2.conf" \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -d / \
+        -o ${DUMB_INIT_BIN_DIR}/dumb-init \
+        "${DUMB_INIT_DOWNLOAD_URL}" && \
     chmod +x ${DUMB_INIT_BIN_DIR}/dumb-init
 
 ENV PATH="${DUMB_INIT_BIN_DIR}:${PATH}"
@@ -331,13 +296,17 @@ RUN echo "=============================================" && \
     echo "============================================="
 
 ##################################################################
-#                    gosu for easy step-down FROM docker.io/root
+#                    gosu
 ##################################################################
-RUN mkdir -p ${GOSU_BIN_DIR}
-ADD ${GOSU_DOWNLOAD_URL} ${GOSU_BIN_DIR}
-
-RUN mv -fv ${GOSU_BIN_DIR}/gosu-amd64  ${GOSU_BIN_DIR}/gosu && \
-    chmod +x -R ${GOSU_BIN_DIR}/gosu
+RUN set -eux; \
+    mkdir -p ${GOSU_BIN_DIR} && \
+    aria2c \
+        --conf-path="/usr/local/share/epicmorg/aria2/config/aria2.conf" \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -d / \
+        -o ${GOSU_BIN_DIR}/gosu \
+        "${GOSU_DOWNLOAD_URL}" && \
+    chmod +x ${GOSU_BIN_DIR}/gosu
 
 ENV PATH="${GOSU_BIN_DIR}:${PATH}"
 
@@ -351,97 +320,53 @@ RUN echo "=============================================" && \
 ENV MAVEN_HOME=${MAVEN_ROOT}
 ENV M2_HOME=${MAVEN_ROOT}
 
-ADD ${MAVEN_LINK} /tmp
-RUN 7zz x ${MAVEN_TEMP} -o${MAVEN_ROOT}
+RUN set -eux; \
+    aria2c \
+        --conf-path="/usr/local/share/epicmorg/aria2/config/aria2.conf" \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -d /tmp \
+        "${MAVEN_LINK}" && \
+    7zz x ${MAVEN_TEMP} -o${MAVEN_ROOT}
 RUN chmod +x -R ${MAVEN_BIN}
 RUN mvn -v
 
 ##################################################################
 #                   GRADLE
 ##################################################################
-ADD ${GRADLE_LINK} /tmp
-RUN 7zz x ${GRADLE_TEMP} -o${GRADLE_ROOT}
+RUN set -eux; \
+    aria2c \
+        --conf-path="/usr/local/share/epicmorg/aria2/config/aria2.conf" \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -d /tmp \
+        "${GRADLE_LINK}" && \
+    7zz x ${GRADLE_TEMP} -o${GRADLE_ROOT}
 RUN chmod +x -R ${GRADLE_BIN}
 RUN gradle -v
 
 ##################################################################
 #                   kotlin-compiler
 ##################################################################
-ADD ${KTC_LINK} /tmp
-RUN 7zz x ${KTC_TEMP} -o${KTC_ROOT}
+RUN set -eux; \
+    aria2c \
+        --conf-path="/usr/local/share/epicmorg/aria2/config/aria2.conf" \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -d /tmp \
+        "${KTC_LINK}" && \
+    7zz x ${KTC_TEMP} -o${KTC_ROOT}
 RUN chmod +x -R ${KTC_BIN}
 RUN kotlin -version
 
 ##################################################################
 #                   kotlin-native-prebuilt-linux
 ##################################################################
-ADD ${KNPL_LINK} /tmp
-RUN tar -xzf ${KNPL_TEMP} --directory ${KTC_ROOT}
+RUN set -eux; \
+    aria2c \
+        --conf-path="/usr/local/share/epicmorg/aria2/config/aria2.conf" \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -d /tmp \
+        "${KNPL_LINK}" && \
+    tar -xzf ${KNPL_TEMP} --directory ${KTC_ROOT}
 RUN chmod +x -R ${KNPL_BIN}
-
-##################################################################
-#                   git fresh binary
-##################################################################
-RUN gpg --keyserver keyserver.ubuntu.com --recv-keys A1715D88E1DF1F24 && \
-    gpg --export --output /etc/apt/keyrings/launchpad-git.gpg A1715D88E1DF1F24 && \
-    rm -rfv /etc/apt/sources.list.d/launchpad_git-mainline.list && \
-    rm -rfv /etc/apt/sources.list.d/launchpad_git-stable.list
-COPY etc/apt/sources.list.d/launchpad_git-mainline.list /etc/apt/sources.list.d/launchpad_git-mainline.list
-COPY etc/apt/sources.list.d/launchpad_git-stable.list /etc/apt/sources.list.d/launchpad_git-stable.list
-RUN apt-get update &&  \
-    apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
-    git
-
-RUN echo "=============================================" && \
-    echo git $(git --version) && \
-    echo "============================================="
-
-##################################################################
-#                   git-lfs official binary
-##################################################################
-RUN curl -fsSL https://packagecloud.io/github/git-lfs/gpgkey | gpg --dearmor > /etc/apt/keyrings/github_git-lfs-archive-keyring.gpg && \
-    rm -rfv /etc/apt/sources.list.d/github_git-lfs.list
-COPY etc/apt/sources.list.d/github_git-lfs.list /etc/apt/sources.list.d/github_git-lfs.list
-RUN apt-get update &&  \
-    apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
-    git \
-    git-lfs && \
-    git-lfs install --skip-repo
-
-RUN echo "=============================================" && \
-    echo git $(git --version) && \
-    echo git-lfs $(git-lfs --version) && \
-    echo "============================================="
-
-##################################################################
-#                   gh official binary
-##################################################################
-RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | gpg --batch --yes --dearmor -o /etc/apt/keyrings/githubcli-archive-keyring.gpg && \
-    chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg && \
-    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list && \
-    apt-get update &&  \
-    apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
-    gh
-
-RUN echo "=============================================" && \
-    echo gh $(gh --version) && \
-    echo "============================================="
-
-##################################################################
-#                  Cleanup
-##################################################################
-RUN echo "clean up" && \
-    apt-get clean -y && \
-    apt-get autoclean -y && \
-    rm -rfv /var/lib/apt/lists/* && \
-    rm -rfv /var/cache/apt/archives/*.deb && \
-    rm -rfv /root/tmp/* && \
-    rm -rfv /tmp/*
-
-##################################################################
-#                  update file db
-##################################################################
-RUN updatedb
 
 ##################################################################
 #                  Set original user back

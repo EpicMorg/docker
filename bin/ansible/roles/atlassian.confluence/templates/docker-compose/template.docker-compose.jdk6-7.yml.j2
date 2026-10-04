@@ -1,14 +1,26 @@
 services:
   app:
-    image: "epicmorg/confluence:{{ item }}"
+    image: "epicmorg/confluence:{{ tag | default(item) }}"
     build:
       context: .
+    x-mirrors:
+      - docker.io/epicmorg/confluence:{{ tag | default(item) }}
+      - quay.io/epicmorg/confluence:{{ tag | default(item) }}
+      - ghcr.io/epicmorg/confluence:{{ tag | default(item) }}
   app-jdk6:
-    image: "epicmorg/confluence:{{ item }}-jdk6"
+    image: "epicmorg/confluence:{{ tag | default(item) }}-jdk6"
     build:
       context: .
+    x-mirrors:
+      - docker.io/epicmorg/confluence:{{ tag | default(item) }}-jdk6
+      - quay.io/epicmorg/confluence:{{ tag | default(item) }}-jdk6
+      - ghcr.io/epicmorg/confluence:{{ tag | default(item) }}-jdk6
   app-jdk7:
-    image: "epicmorg/confluence:{{ item }}-jdk7"
+    image: "epicmorg/confluence:{{ tag | default(item) }}-jdk7"
     build:
       context: .
       dockerfile: Dockerfile.jdk7
+    x-mirrors:
+      - docker.io/epicmorg/confluence:{{ tag | default(item) }}-jdk7
+      - quay.io/epicmorg/confluence:{{ tag | default(item) }}-jdk7
+      - ghcr.io/epicmorg/confluence:{{ tag | default(item) }}-jdk7

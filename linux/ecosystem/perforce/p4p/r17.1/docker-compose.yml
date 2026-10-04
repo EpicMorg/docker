@@ -1,5 +1,0 @@
-services:
-  app:
-    image: "epicmorg/p4p:r17.1"
-    build:
-      context: .

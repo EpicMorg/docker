@@ -1,0 +1,9 @@
+services:
+  app:
+    image: "epicmorg/opentracker:latest"
+    build:
+      context: .
+    x-mirrors:
+      - docker.io/epicmorg/opentracker:latest
+      - quay.io/epicmorg/opentracker:latest
+      - ghcr.io/epicmorg/opentracker:latest

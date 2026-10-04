@@ -1,0 +1,9 @@
+services:
+  app:
+    image: "epicmorg/debian:squeeze-develop"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/debian:squeeze-develop
+      - ghcr.io/epicmorg/debian:squeeze-develop

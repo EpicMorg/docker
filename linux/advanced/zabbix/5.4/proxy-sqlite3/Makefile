@@ -13,16 +13,16 @@ deploy:
 	make deploy-buildah
 
 build-buildah:
-	buildah-wrapper --build --squash
+	buildah-wrapper --build
 
 deploy-buildah:
 	buildah-wrapper --deploy
 
 build-kaniko:
-	kaniko-wrapper --kaniko-image gcr.io/kaniko-project/executor:debug --dry-run
+	kaniko-wrapper --dry-run
 
 deploy-kaniko:
-	kaniko-wrapper --deploy --kaniko-image gcr.io/kaniko-project/executor:debug
+	kaniko-wrapper --deploy
 
 build-compose:
 	docker-compose build --compress --parallel --progress plain

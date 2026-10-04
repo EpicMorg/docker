@@ -9,7 +9,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 #                   ARGuments
 ##################################################################
-ENV BuildDocker true
+ENV BuildDocker=true
 
 ##################################################################
 #        OCI setup: Buildah, Podman, Kaniko, Docker
@@ -32,9 +32,11 @@ RUN install -m 0755 -d /etc/apt/keyrings && \
       podman \ 
       podman-compose \
       fuse-overlayfs && \
-    pip3 install --break-system-packages --no-cache-dir \
-      kaniko-wrapper \
-      buildah-wrapper && \
+# podman-compose (apt) brings Debian's python3-typing-extensions, which pip can't uninstall
+# (no RECORD) while pydantic needs a newer one: install it over, then the wrappers.
+    pip3 install --no-cache-dir typing-extensions --ignore-installed --no-deps --break-system-packages --root-user-action=ignore && \
+    pip3 install --no-cache-dir kaniko-wrapper --ignore-installed --break-system-packages --force-reinstall --root-user-action=ignore && \
+    pip3 install --no-cache-dir buildah-wrapper --ignore-installed --break-system-packages --force-reinstall --root-user-action=ignore && \
     systemctl disable docker && \
     systemctl disable podman && \
     rm -rf /bin/docker-compose && \
@@ -62,18 +64,6 @@ ENV PODMAN_HOST="unix:///var/run/docker.sock"
 
 COPY etc/ /etc/
 
-##################################################################
-#                  Cleanup
-##################################################################
-RUN echo "clean up" && \
-    apt-get clean -y && \
-    apt-get autoclean -y && \
-    rm -rfv /var/lib/apt/lists/* && \
-    rm -rfv /var/cache/apt/archives/*.deb && \
-    rm -rfv /root/tmp/* && \
-    rm -rfv /tmp/*
 
 # A better fix for TW-52939 Dockerfile build fails because of aufs
 VOLUME ["/var/lib/docker", "/var/lib/containers", "/var/tmp", "/var/log/supervisor"]
-
-RUN updatedb

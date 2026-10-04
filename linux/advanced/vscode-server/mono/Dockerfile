@@ -9,34 +9,23 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 #                   ARGuments
 ##################################################################
-ENV BuildDocker true
+ENV BuildDocker=true
 
 ##################################################################
 #                    Mono
 ##################################################################
-RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF && \
-#    echo "deb https://download.mono-project.com/repo/ubuntu stable-focal main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list && \
-#    echo "deb https://download.mono-project.com/repo/ubuntu nightly-focal main" | sudo tee /etc/apt/sources.list.d/mono-official-nightly.list && \
-    echo "deb https://download.mono-project.com/repo/ubuntu preview-focal main" | sudo tee /etc/apt/sources.list.d/mono-official-preview.list && \
-    apt-get update && \
-    apt-get install -y  --allow-unauthenticated \
-    mono-complete \
-    mono-llvm-support \
-    mono-devel \
-    mono-dbg \
-    referenceassemblies-pcl \
-    ca-certificates-mono \
-    mono-xsp4
-
-##################################################################
-#                  Cleanup
-##################################################################
-RUN echo "clean up" && \
+# Ubuntu's own mono (universe). download.mono-project.com is unmaintained
+# (mono moved to WineHQ) and its newest Ubuntu suite is focal; apt-key is
+# deprecated. Not in noble and dropped: mono-llvm-support,
+# referenceassemblies-pcl (mono-project only).
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+      mono-complete \
+      mono-devel \
+      mono-dbg \
+      ca-certificates-mono \
+      mono-xsp4 && \
+    mono --version && \
     apt-get clean -y && \
-    apt-get autoclean -y && \
-    rm -rfv /var/lib/apt/lists/* && \
-    rm -rfv /var/cache/apt/archives/*.deb && \
-    rm -rfv /root/tmp/* && \
-    rm -rfv /tmp/*
+    rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*.deb /tmp/*
 
-RUN updatedb

@@ -1,0 +1,26 @@
+services:
+  app:
+    image: "epicmorg/confluence:8.5.0"
+    build:
+      context: .
+    x-mirrors:
+      - docker.io/epicmorg/confluence:8.5.0
+      - quay.io/epicmorg/confluence:8.5.0
+      - ghcr.io/epicmorg/confluence:8.5.0
+  app-jdk11:
+    image: "epicmorg/confluence:8.5.0-jdk11"
+    build:
+      context: .
+    x-mirrors:
+      - docker.io/epicmorg/confluence:8.5.0-jdk11
+      - quay.io/epicmorg/confluence:8.5.0-jdk11
+      - ghcr.io/epicmorg/confluence:8.5.0-jdk11
+  app-jdk17:
+    image: "epicmorg/confluence:8.5.0-jdk17"
+    build:
+      context: .
+      dockerfile: Dockerfile.jdk17
+    x-mirrors:
+      - docker.io/epicmorg/confluence:8.5.0-jdk17
+      - quay.io/epicmorg/confluence:8.5.0-jdk17
+      - ghcr.io/epicmorg/confluence:8.5.0-jdk17

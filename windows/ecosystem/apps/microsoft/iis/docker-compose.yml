@@ -1,0 +1,9 @@
+services:
+  app:
+    image: "epicmorg/win32-iis:2022-core"
+    build:
+      context: .
+    x-mirrors:
+      - docker.io/epicmorg/win32-iis:2022-core
+      - quay.io/epicmorg/win32-iis:2022-core
+      - ghcr.io/epicmorg/win32-iis:2022-core

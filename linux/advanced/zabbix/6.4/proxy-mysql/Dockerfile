@@ -1,9 +1,13 @@
 FROM docker.io/zabbix/zabbix-proxy-mysql:6.4-ubuntu-latest
-ENV DEBIAN_FRONTEND noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 LABEL org.opencontainers.image.vendor="EpicMorg DevTeam, developer@epicm.org"
 LABEL org.opencontainers.image.authors="STAM, kasthack, Aleks-Z"
 LABEL org.opencontainers.image.source="https://github.com/EpicMorg/docker"
+LABEL org.opencontainers.image.title="EpicMorg Debian (Light)"
+LABEL org.opencontainers.image.description="Debian Trixie base by EpicMorg"
+LABEL org.opencontainers.image.licenses="MIT"
+LABEL org.opencontainers.image.documentation="https://github.com/EpicMorg/docker"
 LABEL org.opencontainers.image.url="https://github.com/EpicMorg/docker"
 LABEL donate.crypto.TON="EQDvHXRK-K1ZieJhgTD9JZQk7xCnWzRbctYnUkWq1lZq1bUg"
 LABEL donate.crypto.ETH="0x26a8443a694f08cdfec966aa6fd72c45068753ec"
@@ -22,7 +26,23 @@ USER root
 #                  editing sources list
 ##################################################################
 COPY sources.list /etc/apt/sources.list
+COPY ubuntu.sources /etc/apt/sources.list.d/ubuntu.sources
 COPY locale.gen /etc/locale.gen
+
+##################################################################
+#        locales postinst workaround (Ubuntu 26.04, uutils)
+##################################################################
+# The base image ships /etc/default/locale as a plain file. locales' postinst
+# then moves it to /etc/locale.conf and runs `ln -sfr` back in the same layer;
+# with uutils coreutils on the overlay-backed buildah agents that ln fails with
+# "Already exists" and dpkg aborts. Do the transition here in two separate
+# layers so the postinst finds the symlink already in place (no-op elsewhere).
+RUN if [ -f /etc/default/locale ] && [ ! -L /etc/default/locale ] && [ ! -e /etc/locale.conf ]; then \
+      cat /etc/default/locale > /etc/locale.conf && rm -f /etc/default/locale; \
+    fi
+RUN if [ -e /etc/locale.conf ] && [ ! -e /etc/default/locale ] && [ ! -L /etc/default/locale ]; then \
+      ln -s ../locale.conf /etc/default/locale; \
+    fi
 
 ##################################################################
 #                   installing utils

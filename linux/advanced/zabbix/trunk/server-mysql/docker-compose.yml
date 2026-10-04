@@ -3,3 +3,8 @@ services:
     image: "epicmorg/zabbix-server-mysql:trunk"
     build:
       context: .
+    x-squash: false
+    x-mirrors:
+      - docker.io/epicmorg/zabbix-server-mysql:trunk
+      - quay.io/epicmorg/zabbix-server-mysql:trunk
+      - ghcr.io/epicmorg/zabbix-server-mysql:trunk

@@ -1,0 +1,102 @@
+#!/bin/sh
+# php-ext-enable - write mods-available/<mod>.ini for an already-built .so
+#                  and enable it via php-enmod.
+#
+# Based on docker-library/php's docker-php-ext-enable (MIT),
+# https://github.com/docker-library/php
+# Modified for EpicMorg: writes into Debian-style mods-available/ instead of
+# straight into conf.d, so php-enmod / php-dismod can manage it afterwards.
+set -e
+
+extDir="$(php -d 'display_errors=stderr' -r 'echo ini_get("extension_dir");')"
+iniDir="$(php-config --prefix)/etc"
+modsDir="${iniDir}/mods-available"
+
+usage() {
+	echo "usage: $0 [--zend] [--priority NN] [--ini-name file.ini] module [module ...]"
+	echo "   ie: $0 redis igbinary"
+	echo "       $0 --zend --priority 10 opcache"
+	echo
+	echo 'Available .so files in the extension dir:'
+	find "$extDir" -maxdepth 1 -type f -name '*.so' -exec basename '{}' '.so' ';' | sort | xargs
+}
+
+# Modules that MUST be loaded as zend_extension rather than extension.
+# Extend this list rather than relying on autodetection - a wrong guess here
+# produces a module that loads but misbehaves, which is worse than a hard error.
+is_zend() {
+	case "$1" in
+		opcache|xdebug|pcov) return 0 ;;
+		ioncube_loader*|ioncube*) return 0 ;;
+		tideways*|blackfire*) return 0 ;;
+		*) return 1 ;;
+	esac
+}
+
+forceZend=
+priority=
+iniName=
+while [ "$#" -gt 0 ]; do
+	case "$1" in
+		--zend)     forceZend=1; shift ;;
+		--priority) priority="$2"; shift 2 ;;
+		--ini-name) iniName="$2"; shift 2 ;;
+		-h|--help)  usage; exit 0 ;;
+		--)         shift; break ;;
+		-*)         echo "error: unknown flag: $1" >&2; usage >&2; exit 1 ;;
+		*)          break ;;
+	esac
+done
+
+if [ "$#" -eq 0 ]; then
+	usage >&2
+	exit 1
+fi
+
+mkdir -p "$modsDir"
+
+for module; do
+	# accept both "redis" and "redis.so", and absolute paths to a .so
+	base="$(basename "$module" .so)"
+	so="${extDir}/${base}.so"
+
+	if [ ! -f "$so" ]; then
+		# allow enabling a .so that lives elsewhere (vendor blobs)
+		if [ -f "$module" ]; then
+			so="$module"
+			base="$(basename "$module" .so)"
+		else
+			echo "error: ${so} does not exist" >&2
+			usage >&2
+			exit 1
+		fi
+	fi
+
+	loadType='extension'
+	if [ -n "$forceZend" ] || is_zend "$base"; then
+		loadType='zend_extension'
+	fi
+
+	# zend extensions load first by convention (Debian uses 10-, PHP docs agree)
+	prio="$priority"
+	if [ -z "$prio" ]; then
+		if [ "$loadType" = 'zend_extension' ]; then prio=10; else prio=20; fi
+	fi
+
+	name="${iniName:-${base}.ini}"
+	target="${modsDir}/${name}"
+
+	# If the .so is not in the standard extension dir, reference it by full path.
+	value="${base}.so"
+	case "$so" in
+		"${extDir}/"*) : ;;
+		*) value="$so" ;;
+	esac
+
+	{
+		echo "; priority=${prio}"
+		echo "${loadType}=${value}"
+	} > "$target"
+
+	php-enmod "$(basename "$name" .ini)"
+done

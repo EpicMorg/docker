@@ -1,0 +1,26 @@
+services:
+  app:
+    image: "epicmorg/jira:8.20.6"
+    build:
+      context: .
+    x-mirrors:
+      - docker.io/epicmorg/jira:8.20.6
+      - quay.io/epicmorg/jira:8.20.6
+      - ghcr.io/epicmorg/jira:8.20.6
+  app-jdk8:
+    image: "epicmorg/jira:8.20.6-jdk8"
+    build:
+      context: .
+    x-mirrors:
+      - docker.io/epicmorg/jira:8.20.6-jdk8
+      - quay.io/epicmorg/jira:8.20.6-jdk8
+      - ghcr.io/epicmorg/jira:8.20.6-jdk8
+  app-jdk11:
+    image: "epicmorg/jira:8.20.6-jdk11"
+    build:
+      context: .
+      dockerfile: Dockerfile.jdk11
+    x-mirrors:
+      - docker.io/epicmorg/jira:8.20.6-jdk11
+      - quay.io/epicmorg/jira:8.20.6-jdk11
+      - ghcr.io/epicmorg/jira:8.20.6-jdk11

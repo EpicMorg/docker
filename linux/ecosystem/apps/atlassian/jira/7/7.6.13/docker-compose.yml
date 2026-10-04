@@ -1,0 +1,13 @@
+services:
+  app:
+    image: "epicmorg/jira:7.6.13"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - docker.io/epicmorg/jira:7.6.13
+      - docker.io/epicmorg/jira:7.6.13-jdk8
+      - quay.io/epicmorg/jira:7.6.13
+      - quay.io/epicmorg/jira:7.6.13-jdk8
+      - ghcr.io/epicmorg/jira:7.6.13
+      - ghcr.io/epicmorg/jira:7.6.13-jdk8

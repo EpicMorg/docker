@@ -1,5 +1,0 @@
-services:
-  app:
-    image: "epicmorg/testrail:auth-ldap-7.4.1.8092"
-    build:
-      context: .

@@ -1,0 +1,21 @@
+services:
+  app:
+    image: "epicmorg/steam:runtime-sdk"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/steam:runtime-sdk
+      - ghcr.io/epicmorg/steam:runtime-sdk
+      - docker.io/epicmorg/steam:runtime-sdk
+
+  app-debug:
+    image: "epicmorg/steam:runtime-sdk-debug"
+    build:
+      context: .
+      dockerfile: Dockerfile.debug
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/steam:runtime-sdk-debug
+      - ghcr.io/epicmorg/steam:runtime-sdk-debug
+      - docker.io/epicmorg/steam:runtime-sdk-debug

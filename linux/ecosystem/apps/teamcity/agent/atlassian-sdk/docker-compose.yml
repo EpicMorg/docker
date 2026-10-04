@@ -1,0 +1,9 @@
+services:
+  app:
+    image: "epicmorg/teamcity-agent:atlassian-sdk"
+    build:
+      context: .
+    x-mirrors:
+      - docker.io/epicmorg/teamcity-agent:atlassian-sdk
+      - quay.io/epicmorg/teamcity-agent:atlassian-sdk
+      - ghcr.io/epicmorg/teamcity-agent:atlassian-sdk

@@ -1,0 +1,10 @@
+services:
+  app:
+    image: "epicmorg/retracker:latest"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - docker.io/epicmorg/retracker:latest
+      - quay.io/epicmorg/retracker:latest
+      - ghcr.io/epicmorg/retracker:latest

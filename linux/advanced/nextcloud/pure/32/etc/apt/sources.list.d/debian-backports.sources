@@ -1,0 +1,7 @@
+Types: deb deb-src
+URIs: http://httpredir.debian.org/debian/
+Suites: trixie-backports
+Components: main contrib non-free non-free-firmware
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+Trusted: yes
+Enabled: yes

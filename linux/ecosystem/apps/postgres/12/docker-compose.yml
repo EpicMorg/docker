@@ -1,0 +1,10 @@
+services:
+  app:
+    image: "epicmorg/postgres:12"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/postgres:12
+      - ghcr.io/epicmorg/postgres:12
+      - docker.io/epicmorg/postgres:12

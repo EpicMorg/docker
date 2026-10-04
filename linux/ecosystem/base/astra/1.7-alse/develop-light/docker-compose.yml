@@ -1,0 +1,10 @@
+services:
+  app:
+    image: "epicmorg/astralinux:1.7-develop-light"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/astralinux:1.7-develop-light
+      - ghcr.io/epicmorg/astralinux:1.7-develop-light
+      - docker.io/epicmorg/astralinux:1.7-develop-light

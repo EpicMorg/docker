@@ -1,2 +1,3 @@
+atlassian_root: "{{ playbook_dir }}/../../linux/ecosystem/apps/atlassian"
 # Defaults
-target_directory_crucible_1: "/opt/tmp/crucible/1"
+target_directory_crucible_1: "{{ atlassian_root }}/crucible/1"

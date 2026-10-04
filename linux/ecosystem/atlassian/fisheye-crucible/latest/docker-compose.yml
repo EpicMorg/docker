@@ -1,5 +1,0 @@
-services:
-  app:
-    image: "epicmorg/fisheye-crucible:latest"
-    build:
-      context: .

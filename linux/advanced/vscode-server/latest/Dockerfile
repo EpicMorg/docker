@@ -7,6 +7,10 @@ LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 LABEL org.opencontainers.image.vendor="EpicMorg DevTeam, developer@epicm.org"
 LABEL org.opencontainers.image.authors="STAM, kasthack, Aleks-Z"
 LABEL org.opencontainers.image.source="https://github.com/EpicMorg/docker"
+LABEL org.opencontainers.image.title="EpicMorg Debian (Light)"
+LABEL org.opencontainers.image.description="Debian Trixie base by EpicMorg"
+LABEL org.opencontainers.image.licenses="MIT"
+LABEL org.opencontainers.image.documentation="https://github.com/EpicMorg/docker"
 LABEL org.opencontainers.image.url="https://github.com/EpicMorg/docker"
 LABEL donate.crypto.TON="EQDvHXRK-K1ZieJhgTD9JZQk7xCnWzRbctYnUkWq1lZq1bUg"
 LABEL donate.crypto.ETH="0x26a8443a694f08cdfec966aa6fd72c45068753ec"
@@ -30,7 +34,11 @@ USER root
 ##################################################################
 ENV EMG_LOCAL_BASE_DIR=/usr/local/share/epicmorg
 RUN mkdir -p ${EMG_LOCAL_BASE_DIR}
-COPY usr/local/epicmorg ${EMG_LOCAL_BASE_DIR}
+COPY usr/local/share/epicmorg ${EMG_LOCAL_BASE_DIR}
+# aria2 config + user-agent list used by the aria2c downloads below: same files as
+# our Debian base (this image is FROM linuxserver/code-server, Ubuntu), single source.
+COPY --from=docker.io/epicmorg/debian:trixie-light ${EMG_LOCAL_BASE_DIR}/aria2 ${EMG_LOCAL_BASE_DIR}/aria2
+COPY --from=docker.io/epicmorg/debian:trixie-light ${EMG_LOCAL_BASE_DIR}/user-agents ${EMG_LOCAL_BASE_DIR}/user-agents
 
 ##################################################################
 #                   prepare system
@@ -74,11 +82,11 @@ ENV DUMB_INIT_VERSION=1.2.5
 ARG DUMB_INIT_BIN_DIR=${EMG_LOCAL_BASE_DIR}/dumb-init/${DUMB_INIT_VERSION}/bin
 ARG DUMB_INIT_DOWNLOAD_URL=https://github.com/Yelp/dumb-init/releases/download/v${DUMB_INIT_VERSION}/dumb-init_${DUMB_INIT_VERSION}_x86_64
 
-ENV GOSU_VERSION=1.17
+ENV GOSU_VERSION=1.19
 ARG GOSU_BIN_DIR=${EMG_LOCAL_BASE_DIR}/gosu/${GOSU_VERSION}/bin
 ARG GOSU_DOWNLOAD_URL=https://github.com/tianon/gosu/releases/download/${GOSU_VERSION}/gosu-amd64
 
-ENV BuildDocker true
+ENV BuildDocker=true
 
 ##################################################################
 #                   sources list
@@ -107,6 +115,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
         apt-transport-https \
         apt-utils \
         aptitude \
+        aria2 \
         bash \
         binutils \
         ca-certificates \
@@ -190,21 +199,33 @@ RUN locale-gen
 ##################################################################
 #                   Install p4client
 ##################################################################
-RUN mkdir -p ${P4_BIN_DIR}
-ADD ${P4_DOWNLOAD_URL} ${P4_BIN_DIR}
-RUN chmod +x ${P4_BIN_DIR}/p4
+RUN set -eux; \
+    mkdir -p ${P4_BIN_DIR} && \
+    aria2c \
+        --conf-path="/usr/local/share/epicmorg/aria2/config/aria2.conf" \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -d ${P4_BIN_DIR} \
+        "${P4_DOWNLOAD_URL}" && \
+    chmod +x ${P4_BIN_DIR}/p4
+
 ENV PATH="${P4_BIN_DIR}:${PATH}"
 
 ##################################################################
 #                   Install 7z official binary
 ##################################################################
-RUN mkdir -p ${SZ_BIN_DIR}
-ADD ${SZ_DOWNLOAD_URL} /tmp
-
-RUN tar -xf ${SZ_TEMP} --directory ${SZ_BIN_DIR} && \
+RUN set -eux; \
+    mkdir -p ${SZ_BIN_DIR} && \
+    aria2c \
+        --conf-path="/usr/local/share/epicmorg/aria2/config/aria2.conf" \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -d / \
+        -o ${SZ_TEMP} \
+        "${SZ_DOWNLOAD_URL}" && \
+    tar -xf ${SZ_TEMP} --directory ${SZ_BIN_DIR} && \
     chmod +x ${SZ_BIN_DIR}/7zz && \
     chmod +x ${SZ_BIN_DIR}/7zzs && \
-    find ${SZ_BIN_DIR} -maxdepth 1 -mindepth 1 ! -name '7zz' ! -name '7zzs' -exec mv {} ${SZ_BIN_DIR}/.. \;
+    find ${SZ_BIN_DIR} -maxdepth 1 -mindepth 1 ! -name '7zz' ! -name '7zzs' -exec mv {} ${SZ_BIN_DIR}/.. \; && \
+    rm -rfv ${SZ_TEMP}
 
 ENV PATH="${SZ_BIN_DIR}:${PATH}"
 
@@ -214,76 +235,16 @@ RUN echo "=============================================" && \
     echo "============================================="
 
 ##################################################################
-#                   Install LazyGit official binary
-##################################################################
-RUN mkdir -p ${LAZYGIT_BIN_DIR}
-ADD ${LAZYGIT_DOWNLOAD_URL} /tmp
-
-RUN tar -xzf ${LAZYGIT_TEMP} --directory ${LAZYGIT_BIN_DIR} && \
-    chmod +x ${LAZYGIT_BIN_DIR}/lazygit && \
-    find ${LAZYGIT_BIN_DIR} -maxdepth 1 -mindepth 1 ! -name 'lazygit' -exec mv {} ${LAZYGIT_BIN_DIR}/.. \;
-
-ENV PATH="${LAZYGIT_BIN_DIR}:${PATH}"
-
-RUN echo "=============================================" && \
-    echo lazygit $(lazygit --version) && \
-    echo "============================================="
-
-##################################################################
-#                   Install LazyCLI official binary
-##################################################################
-RUN mkdir -p ${LAZYCLI_BIN_DIR}
-ADD ${LAZYCLI_DOWNLOAD_URL} /tmp
-
-RUN tar -xzf ${LAZYCLI_TEMP} --directory ${LAZYCLI_BIN_DIR} && \
-    chmod +x ${LAZYCLI_BIN_DIR}/lazycli && \
-    find ${LAZYCLI_BIN_DIR} -maxdepth 1 -mindepth 1 ! -name 'lazycli' -exec mv {} ${LAZYCLI_BIN_DIR}/.. \;
-
-ENV PATH="${LAZYCLI_BIN_DIR}:${PATH}"
-
-RUN echo "=============================================" && \
-    echo lazycli $(lazycli --version) && \
-    echo "============================================="
-
-##################################################################
-#                   Install LazyNPM official binary
-##################################################################
-RUN mkdir -p ${LAZYNPM_BIN_DIR}
-ADD ${LAZYNPM_DOWNLOAD_URL} /tmp
-
-RUN tar -xzf ${LAZYNPM_TEMP} --directory ${LAZYNPM_BIN_DIR} && \
-    chmod +x ${LAZYNPM_BIN_DIR}/lazynpm && \
-    find ${LAZYNPM_BIN_DIR} -maxdepth 1 -mindepth 1 ! -name 'lazynpm' -exec mv {} ${LAZYNPM_BIN_DIR}/.. \;
-
-ENV PATH="${LAZYNPM_BIN_DIR}:${PATH}"
-
-RUN echo "=============================================" && \
-    echo lazynpm $(lazynpm --version) && \
-    echo "============================================="
-
-##################################################################
-#                   Install LazyDocker official binary
-##################################################################
-RUN mkdir -p ${LAZYDOCKER_BIN_DIR}
-ADD ${LAZYDOCKER_DOWNLOAD_URL} /tmp
-
-RUN tar -xzf ${LAZYDOCKER_TEMP} --directory ${LAZYDOCKER_BIN_DIR} && \
-    chmod +x -R ${LAZYDOCKER_BIN_DIR}/lazydocker && \
-    find ${LAZYDOCKER_BIN_DIR} -maxdepth 1 -mindepth 1 ! -name 'lazydocker' -exec mv {} ${LAZYDOCKER_BIN_DIR}/.. \;
-
-ENV PATH="${LAZYDOCKER_BIN_DIR}:${PATH}"
-
-RUN echo "=============================================" && \
-    echo lazydocker $(lazydocker --version) && \
-    echo "============================================="
-
-##################################################################
 #                    dumb init
 ##################################################################
-RUN mkdir -p ${DUMB_INIT_BIN_DIR}
-ADD ${DUMB_INIT_DOWNLOAD_URL} ${DUMB_INIT_BIN_DIR}
-
-RUN mv -fv ${DUMB_INIT_BIN_DIR}/dumb-init_${DUMB_INIT_VERSION}_x86_64 ${DUMB_INIT_BIN_DIR}/dumb-init && \
+RUN set -eux; \
+    mkdir -p ${DUMB_INIT_BIN_DIR} && \
+    aria2c \
+        --conf-path="/usr/local/share/epicmorg/aria2/config/aria2.conf" \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -d / \
+        -o ${DUMB_INIT_BIN_DIR}/dumb-init \
+        "${DUMB_INIT_DOWNLOAD_URL}" && \
     chmod +x ${DUMB_INIT_BIN_DIR}/dumb-init
 
 ENV PATH="${DUMB_INIT_BIN_DIR}:${PATH}"
@@ -293,13 +254,17 @@ RUN echo "=============================================" && \
     echo "============================================="
 
 ##################################################################
-#                    gosu for easy step-down FROM docker.io/root
+#                    gosu
 ##################################################################
-RUN mkdir -p ${GOSU_BIN_DIR}
-ADD ${GOSU_DOWNLOAD_URL} ${GOSU_BIN_DIR}
-
-RUN mv -fv ${GOSU_BIN_DIR}/gosu-amd64  ${GOSU_BIN_DIR}/gosu && \
-    chmod +x -R ${GOSU_BIN_DIR}/gosu
+RUN set -eux; \
+    mkdir -p ${GOSU_BIN_DIR} && \
+    aria2c \
+        --conf-path="/usr/local/share/epicmorg/aria2/config/aria2.conf" \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -d / \
+        -o ${GOSU_BIN_DIR}/gosu \
+        "${GOSU_DOWNLOAD_URL}" && \
+    chmod +x ${GOSU_BIN_DIR}/gosu
 
 ENV PATH="${GOSU_BIN_DIR}:${PATH}"
 
@@ -345,7 +310,8 @@ RUN echo "=============================================" && \
 ##################################################################
 #                   gh official binary
 ##################################################################
-RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | gpg --batch --yes --dearmor -o /etc/apt/keyrings/githubcli-archive-keyring.gpg && \
+# the keyring is already binary (https://github.com/cli/cli/blob/trunk/docs/install_linux.md): no --dearmor
+RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg -o /etc/apt/keyrings/githubcli-archive-keyring.gpg && \
     chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg && \
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list && \
     apt-get update &&  \
@@ -356,18 +322,3 @@ RUN echo "=============================================" && \
     echo gh $(gh --version) && \
     echo "============================================="
 
-##################################################################
-#                  Cleanup
-##################################################################
-RUN echo "clean up" && \
-    apt-get clean -y && \
-    apt-get autoclean -y && \
-    rm -rfv /var/lib/apt/lists/* && \
-    rm -rfv /var/cache/apt/archives/*.deb && \
-    rm -rfv /root/tmp/* && \
-    rm -rfv /tmp/*
-
-##################################################################
-#                  update file db
-##################################################################
-RUN updatedb

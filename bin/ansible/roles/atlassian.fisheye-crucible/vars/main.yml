@@ -1,4 +1,5 @@
+atlassian_root: "{{ playbook_dir }}/../../linux/ecosystem/apps/atlassian"
 # Defaults
-target_directory_fisheye_2: "/opt/tmp/fisheye-crucible/2"
-target_directory_fisheye_3: "/opt/tmp/fisheye-crucible/3"
-target_directory_fisheye_4: "/opt/tmp/fisheye-crucible/4"
+target_directory_fisheye_2: "{{ atlassian_root }}/fisheye-crucible/2"
+target_directory_fisheye_3: "{{ atlassian_root }}/fisheye-crucible/3"
+target_directory_fisheye_4: "{{ atlassian_root }}/fisheye-crucible/4"

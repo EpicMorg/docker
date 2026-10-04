@@ -1,8 +1,9 @@
 # Changelog
 
 ## 2025
-* `sep`-`oct`
+* `sep`-`dec`
   * fixed and reworked `mattermost` images!
+  * added new `qbittorrent` images
   * fixed `debian:sid`
   * updated `python` images
     * added `python` version `3.14`

@@ -1,0 +1,10 @@
+services:
+  app:
+    image: "epicmorg/python:2.6"
+    x-squash: false
+    x-mirrors:
+      - docker.io/epicmorg/python:2.6
+      - quay.io/epicmorg/python:2.6
+      - ghcr.io/epicmorg/python:2.6
+    build:
+      context: .

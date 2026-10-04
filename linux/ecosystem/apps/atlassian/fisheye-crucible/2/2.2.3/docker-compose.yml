@@ -1,0 +1,13 @@
+services:
+  app:
+    image: "epicmorg/fisheye-crucible:2.2.3"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - docker.io/epicmorg/fisheye-crucible:2.2.3
+      - docker.io/epicmorg/fisheye-crucible:2.2.3-jdk6
+      - quay.io/epicmorg/fisheye-crucible:2.2.3
+      - quay.io/epicmorg/fisheye-crucible:2.2.3-jdk6
+      - ghcr.io/epicmorg/fisheye-crucible:2.2.3
+      - ghcr.io/epicmorg/fisheye-crucible:2.2.3-jdk6

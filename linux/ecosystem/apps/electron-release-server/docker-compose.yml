@@ -1,0 +1,10 @@
+services:
+  app:
+    image: "epicmorg/electron-release-server:latest"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - docker.io/epicmorg/electron-release-server:latest
+      - quay.io/epicmorg/electron-release-server:latest
+      - ghcr.io/epicmorg/electron-release-server:latest

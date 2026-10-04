@@ -1,0 +1,9 @@
+services:
+  app:
+    image: "epicmorg/debian:stretch"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/debian:stretch
+      - ghcr.io/epicmorg/debian:stretch

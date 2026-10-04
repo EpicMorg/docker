@@ -1,0 +1,51 @@
+# Build chain, stage 20: gcc toolchains (FROM trixie-develop; each gcc:N bootstraps from its own previous image).
+# Starts when "Chain 10 - Base (Debian 13 trixie)" completes successfully (workflow_run only fires for
+# workflows on the default branch).
+name: Chain 20 - GCC
+
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows: ['Chain 10 - Base (Debian 13 trixie)']
+    types: [completed]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  list:
+    name: list gcc versions
+    if: github.event_name != 'workflow_run' || contains(fromJSON('["success","failure"]'), github.event.workflow_run.conclusion)
+    runs-on: ubuntu-24.04
+    outputs:
+      gcc: ${{ steps.list.outputs.gcc }}
+    steps:
+    - uses: actions/checkout@v7
+      with:
+        sparse-checkout: |
+          .github/scripts
+          linux/ecosystem/apps/gcc
+    - id: list
+      run: |
+        gcc=$(python3 .github/scripts/leaves.py flat linux/ecosystem/apps/gcc --min 1 --max 1)
+        echo "gcc=${gcc}" | tee -a "$GITHUB_OUTPUT"
+
+  gcc:
+    name: ${{ matrix.leaf.name }}
+    needs: list
+    if: needs.list.outputs.gcc != '[]'
+    strategy:
+      fail-fast: false
+      matrix:
+        leaf: ${{ fromJSON(needs.list.outputs.gcc) }}
+    uses: ./.github/workflows/_build-leaf.yml
+    secrets: inherit
+    with:
+      paths: ${{ matrix.leaf.paths }}
+      free-disk: true
+      build-attempts: 1   # hours-long compile, a blind retry would only hit the job timeout

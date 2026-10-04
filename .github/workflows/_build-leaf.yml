@@ -1,0 +1,158 @@
+# Reusable: build and deploy one or more leaf dirs (in the given order) with buildah-wrapper.
+# Every build workflow calls this; the shared steps live only here.
+#
+#   jobs:
+#     foo:
+#       uses: ./.github/workflows/_build-leaf.yml
+#       secrets: inherit
+#       with:
+#         paths: |
+#           linux/ecosystem/base/debian/13-trixie/light
+#         free-disk: true
+#
+# No `concurrency:` here on purpose: in a called workflow `github.workflow` is the
+# caller's name, so a group here would collide with the caller's own group.
+name: _build-leaf
+
+on:
+  workflow_call:
+    inputs:
+      paths:
+        description: Leaf dir(s) relative to the repo root, newline-separated, built in this order.
+        required: true
+        type: string
+      free-disk:
+        description: Run free-disk-space first (anything FROM *-develop / gcc, or big images).
+        required: false
+        type: boolean
+        default: false
+      submodules:
+        description: Check out git submodules (only experimental/redash needs them).
+        required: false
+        type: boolean
+        default: false
+      build-attempts:
+        description: Attempts per leaf for `make build && make deploy` (1 or 2).
+        required: false
+        type: number
+        default: 2
+      make-targets:
+        description: Make targets run in each leaf dir, in order.
+        required: false
+        type: string
+        default: build deploy
+    secrets:
+      DOCKER_SERVER_LOGIN:
+        required: false
+      DOCKER_SERVER_KEY:
+        required: false
+      QUAY_SERVER_LOGIN:
+        required: false
+      QUAY_SERVER_KEY:
+        required: false
+      QUAY_SERVER_URL:
+        required: false
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 350
+
+    steps:
+    # trixie-develop (and gcc images built on it) are ~22 GB, a stock runner has ~14 GB free
+    - name: Free disk space
+      if: inputs.free-disk
+      uses: jlumbroso/free-disk-space@v2
+      with:
+        android: true
+        dotnet: true
+        haskell: true
+        large-packages: true
+        docker-images: true
+        preinstalled-runtimes: true
+        swap-storage: false
+
+    # Sparse (cone) checkout: root files (Makefile, requirements.txt) + the leaf dirs only.
+    - uses: actions/checkout@v7
+      with:
+        sparse-checkout: ${{ inputs.paths }}
+        submodules: ${{ inputs.submodules }}
+        show-progress: false
+
+    - name: Log into docker.io
+      uses: nick-fields/retry@v4
+      env:
+        REG_USER: ${{ secrets.DOCKER_SERVER_LOGIN }}
+        REG_PASS: ${{ secrets.DOCKER_SERVER_KEY }}
+      with:
+        max_attempts: 3
+        retry_wait_seconds: 30
+        timeout_minutes: 5
+        command: echo "$REG_PASS" | docker login -u "$REG_USER" --password-stdin
+
+    - name: Log into quay.io
+      uses: nick-fields/retry@v4
+      env:
+        REG_USER: ${{ secrets.QUAY_SERVER_LOGIN }}
+        REG_PASS: ${{ secrets.QUAY_SERVER_KEY }}
+        REG_URL: ${{ secrets.QUAY_SERVER_URL }}
+      with:
+        max_attempts: 3
+        retry_wait_seconds: 30
+        timeout_minutes: 5
+        command: echo "$REG_PASS" | docker login -u "$REG_USER" --password-stdin "$REG_URL"
+
+    # buildah reads docker's auth file, so `docker login` is enough for buildah-wrapper.
+    # GHCR_API: org secret (PAT with write:packages) - GITHUB_TOKEN can't create or write
+    # packages the repo was not granted access to, and every epicmorg/* package predates CI.
+    - name: Log into ghcr.io
+      uses: nick-fields/retry@v4
+      env:
+        REG_USER: ${{ github.actor }}
+        REG_PASS: ${{ secrets.GHCR_API }}
+      with:
+        max_attempts: 3
+        retry_wait_seconds: 30
+        timeout_minutes: 5
+        command: echo "$REG_PASS" | docker login -u "$REG_USER" --password-stdin ghcr.io
+
+    - name: Install build wrappers (make pip)
+      uses: nick-fields/retry@v4
+      with:
+        max_attempts: 3
+        retry_wait_seconds: 30
+        timeout_minutes: 15
+        command: make pip
+
+    - name: Build and deploy
+      env:
+        LEAVES: ${{ inputs.paths }}
+        ATTEMPTS: ${{ inputs.build-attempts }}
+        TARGETS: ${{ inputs.make-targets }}
+      run: |
+        set -euo pipefail
+        buildah --version
+        # explicit `|| return` -- `set -e` is ignored inside an `until` condition
+        run_leaf() {
+          cd "$1" || return 1
+          for t in $TARGETS; do make "$t" || return 1; done
+        }
+        for leaf in $LEAVES; do
+          echo "::group::${leaf}"
+          attempt=1
+          until (run_leaf "$leaf"); do
+            if [ "$attempt" -ge "$ATTEMPTS" ]; then
+              echo "::error title=build failed::${leaf} (attempt ${attempt}/${ATTEMPTS})"
+              exit 1
+            fi
+            attempt=$((attempt + 1))
+            echo "::warning title=retrying build::${leaf} (attempt ${attempt}/${ATTEMPTS})"
+            sleep 60
+          done
+          echo "::endgroup::"
+        done

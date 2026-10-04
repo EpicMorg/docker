@@ -1,0 +1,10 @@
+services:
+  app:
+    image: "epicmorg/postgres-patroni:9.4"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/postgres-patroni:9.4
+      - ghcr.io/epicmorg/postgres-patroni:9.4
+      - docker.io/epicmorg/postgres-patroni:9.4

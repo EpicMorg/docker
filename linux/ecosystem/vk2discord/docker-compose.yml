@@ -1,5 +1,0 @@
-services:
-  app:
-    image: "epicmorg/vk2discord:latest"
-    build:
-      context: .

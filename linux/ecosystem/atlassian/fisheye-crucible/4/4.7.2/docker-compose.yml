@@ -1,9 +1,0 @@
-services:
-  app:
-    image: "epicmorg/fisheye-crucible:4.7.2"
-    build:
-      context: .
-  app-jdk8:
-    image: "epicmorg/fisheye-crucible:4.7.2-jdk8"
-    build:
-      context: .

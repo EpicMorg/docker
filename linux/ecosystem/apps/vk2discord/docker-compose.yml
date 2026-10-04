@@ -1,0 +1,10 @@
+services:
+  app:
+    image: "epicmorg/vk2discord:latest"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - docker.io/epicmorg/vk2discord:latest
+      - quay.io/epicmorg/vk2discord:latest
+      - ghcr.io/epicmorg/vk2discord:latest

@@ -1,0 +1,9 @@
+services:
+  app:
+   image: "epicmorg/mattermost-enterprise-edition:11.6"
+   build:
+      context: .
+   x-mirrors:
+      - docker.io/epicmorg/mattermost-enterprise-edition:11.6
+      - quay.io/epicmorg/mattermost-enterprise-edition:11.6
+      - ghcr.io/epicmorg/mattermost-enterprise-edition:11.6

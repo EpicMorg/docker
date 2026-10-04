@@ -1,0 +1,26 @@
+services:
+  app:
+    image: "epicmorg/crowd:2.6.2"
+    build:
+      context: .
+    x-mirrors:
+      - docker.io/epicmorg/crowd:2.6.2
+      - quay.io/epicmorg/crowd:2.6.2
+      - ghcr.io/epicmorg/crowd:2.6.2
+  app-jdk6:
+    image: "epicmorg/crowd:2.6.2-jdk6"
+    build:
+      context: .
+    x-mirrors:
+      - docker.io/epicmorg/crowd:2.6.2-jdk6
+      - quay.io/epicmorg/crowd:2.6.2-jdk6
+      - ghcr.io/epicmorg/crowd:2.6.2-jdk6
+  app-jdk7:
+    image: "epicmorg/crowd:2.6.2-jdk7"
+    build:
+      context: .
+      dockerfile: Dockerfile.jdk7
+    x-mirrors:
+      - docker.io/epicmorg/crowd:2.6.2-jdk7
+      - quay.io/epicmorg/crowd:2.6.2-jdk7
+      - ghcr.io/epicmorg/crowd:2.6.2-jdk7

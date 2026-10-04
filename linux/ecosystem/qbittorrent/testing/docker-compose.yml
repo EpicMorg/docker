@@ -1,9 +1,0 @@
-services:
-  qbt:
-    image: "epicmorg/qbittorrent:5.0.0beta1"
-    build:
-      context: .
-  qbt-libtorrent2:
-    image: "epicmorg/qbittorrent:5.0.0beta1-libtorrentRC_2_0"
-    build:
-      context: .

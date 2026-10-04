@@ -1,0 +1,10 @@
+services:
+  app:
+    image: "epicmorg/dotnet:sts"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/dotnet:sts
+      - ghcr.io/epicmorg/dotnet:sts
+      - docker.io/epicmorg/dotnet:sts

@@ -1,0 +1,9 @@
+services:
+  app:
+    image: "epicmorg/github-runner:android-sdk"
+    build:
+      context: .
+    x-mirrors:
+      - docker.io/epicmorg/github-runner:android-sdk
+      - quay.io/epicmorg/github-runner:android-sdk
+      - ghcr.io/epicmorg/github-runner:android-sdk

@@ -1,11 +1,11 @@
 - name: Read versions from file
   slurp:
-     src: "roles/common/files/versions/bitbucket/8.jdk8-11-17.txt"
+     src: "{{ playbook_dir }}/roles/common/files/versions/bitbucket/8.jdk8-11-17.txt"
   register: version_output
 
 - name: Set version variable
   set_fact:
-    bitbucket_versions: "{{ version_output['content'] | b64decode | trim | split('\n') }}"
+    bitbucket_versions: "{{ version_output['content'] | b64decode | trim | split('\n') | map('trim') | reject('equalto', '') | list }}"
 
 - name: Create directories for Bitbucket versions
   file:
@@ -15,11 +15,10 @@
     force: true
   with_items: "{{ bitbucket_versions }}"
 
-- name: Copy .env with link from template to each version directory
-  template:
-    src: "env/template.bitbucket.4-9.env.j2"
-    dest: "{{ target_directory_bitbucket_8 }}/{{ item }}/.env"
-    force: true
+- name: Remove .env (RELEASE and URLs live in the Dockerfile; .env breaks buildah-wrapper settings)
+  file:
+    path: "{{ target_directory_bitbucket_8 }}/{{ item }}/.env"
+    state: absent
   with_items: "{{ bitbucket_versions }}"
 
 - name: Copy docker-compose.yml from template to each version directory

@@ -1,0 +1,13 @@
+services:
+  app:
+    image: "epicmorg/bitbucket:5.0.2"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - docker.io/epicmorg/bitbucket:5.0.2
+      - docker.io/epicmorg/bitbucket:5.0.2-jdk8
+      - quay.io/epicmorg/bitbucket:5.0.2
+      - quay.io/epicmorg/bitbucket:5.0.2-jdk8
+      - ghcr.io/epicmorg/bitbucket:5.0.2
+      - ghcr.io/epicmorg/bitbucket:5.0.2-jdk8

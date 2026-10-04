@@ -1,5 +1,0 @@
-services:
-  app:
-    image: "epicmorg/github-runner:php7.1"
-    build:
-      context: .

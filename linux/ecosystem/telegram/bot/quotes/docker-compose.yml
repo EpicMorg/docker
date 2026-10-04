@@ -1,5 +1,0 @@
-services:
-  app:
-    image: "epicmorg/telegram:bot-quotes"
-    build:
-      context: .

@@ -1,5 +1,0 @@
-services:
-  app:
-    image: "epicmorg/win32-iis:2022-core"
-    build:
-      context: .

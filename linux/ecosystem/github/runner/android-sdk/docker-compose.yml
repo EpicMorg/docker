@@ -1,5 +1,0 @@
-services:
-  app:
-    image: "epicmorg/github-runner:android-sdk"
-    build:
-      context: .

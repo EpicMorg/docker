@@ -1,0 +1,8 @@
+  * Shlibs patch links unconditionally against -lk5crypto - should
+    probably do a check similar to the one in Makefile.gss.
+  * Now that $C/ARCHIVENAME is correctly read in src/imapd/Makefile and
+    src/ipopd/Makefile, check if other parts of 01_shlib.diff is no
+    longer needed.
+  * Check and eliminate all FIXMEs and TODOs within scripts.
+  * Replace 01_shlibs.patch with use of SPECIALS and (for static lib)
+    EXTRASPECIALS

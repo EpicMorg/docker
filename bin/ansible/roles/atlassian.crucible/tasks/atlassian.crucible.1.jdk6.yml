@@ -1,11 +1,11 @@
 - name: Read versions from file
   slurp:
-     src: "roles/common/files/versions/crucible/1.jdk6.txt"
+     src: "{{ playbook_dir }}/roles/common/files/versions/crucible/1.jdk6.txt"
   register: version_output
 
 - name: Set version variable
   set_fact:
-    crucible_versions: "{{ version_output['content'] | b64decode | trim | split('\n') }}"
+    crucible_versions: "{{ version_output['content'] | b64decode | trim | split('\n') | map('trim') | reject('equalto', '') | list }}"
 
 - name: Create directories for Crowd versions
   file:
@@ -15,11 +15,10 @@
     force: true
   with_items: "{{ crucible_versions }}"
 
-- name: Copy .env with link from template to each version directory
-  template:
-    src: "env/template.env.j2"
-    dest: "{{ target_directory_crucible_1 }}/{{ item }}/.env"
-    force: true
+- name: Remove .env (single-JDK images carry RELEASE in the Dockerfile)
+  file:
+    path: "{{ target_directory_crucible_1 }}/{{ item }}/.env"
+    state: absent
   with_items: "{{ crucible_versions }}"
 
 - name: Copy docker-compose.yml from template to each version directory

@@ -1,0 +1,51 @@
+# Build chain, stage 10: Debian 13 trixie base (the reference base everything else is built FROM).
+#   chain.10-base -> chain.20-gcc -> chain.30-runtimes -> chain.40-apps  (workflow_run, on success)
+# Only trixie is here, so sid / Astra / museum failures (base.*.yml, same cron slot) never block the chain.
+name: Chain 10 - Base (Debian 13 trixie)
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 1 * * 0'   # weekly, Sunday 01:00 UTC
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  light:
+    name: trixie light
+    uses: ./.github/workflows/_build-leaf.yml
+    secrets: inherit
+    with:
+      paths: linux/ecosystem/base/debian/13-trixie/light
+
+  main:
+    name: trixie main
+    needs: light
+    uses: ./.github/workflows/_build-leaf.yml
+    secrets: inherit
+    with:
+      paths: linux/ecosystem/base/debian/13-trixie/main
+
+  develop-light:
+    name: trixie develop-light
+    needs: main
+    uses: ./.github/workflows/_build-leaf.yml
+    secrets: inherit
+    with:
+      paths: linux/ecosystem/base/debian/13-trixie/develop-light
+      free-disk: true
+
+  develop:
+    name: trixie develop
+    needs: develop-light
+    uses: ./.github/workflows/_build-leaf.yml
+    secrets: inherit
+    with:
+      paths: linux/ecosystem/base/debian/13-trixie/develop
+      free-disk: true

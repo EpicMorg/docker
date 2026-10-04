@@ -1,0 +1,10 @@
+services:
+  app:
+    image: "epicmorg/debian:trixie-develop-light"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/debian:trixie-develop-light
+      - ghcr.io/epicmorg/debian:trixie-develop-light
+      - docker.io/epicmorg/debian:trixie-develop-light

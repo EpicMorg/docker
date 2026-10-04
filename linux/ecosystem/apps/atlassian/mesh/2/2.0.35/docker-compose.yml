@@ -1,0 +1,13 @@
+services:
+  app:
+    image: "epicmorg/bitbucket-mesh:2.0.35"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - docker.io/epicmorg/bitbucket-mesh:2.0.35
+      - docker.io/epicmorg/bitbucket-mesh:2.0.35-jdk11
+      - quay.io/epicmorg/bitbucket-mesh:2.0.35
+      - quay.io/epicmorg/bitbucket-mesh:2.0.35-jdk11
+      - ghcr.io/epicmorg/bitbucket-mesh:2.0.35
+      - ghcr.io/epicmorg/bitbucket-mesh:2.0.35-jdk11

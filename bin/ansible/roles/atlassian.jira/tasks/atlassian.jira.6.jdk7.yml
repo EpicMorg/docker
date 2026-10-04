@@ -1,11 +1,11 @@
 - name: Read versions from file
   slurp:
-     src: "roles/common/files/versions/jira/6.jdk7.txt"
+     src: "{{ playbook_dir }}/roles/common/files/versions/jira/6.jdk7.txt"
   register: version_output
 
 - name: Set version variable
   set_fact:
-    jira_versions: "{{ version_output['content'] | b64decode | trim | split('\n') }}"
+    jira_versions: "{{ version_output['content'] | b64decode | trim | split('\n') | map('trim') | reject('equalto', '') | list }}"
 
 - name: Create directories for Jira versions
   file:
@@ -15,11 +15,10 @@
     force: true
   with_items: "{{ jira_versions }}"
 
-- name: Copy .env with link from template to each version directory
-  template:
-    src: "env/template.env.legacy.j2"
-    dest: "{{ target_directory_jira_6 }}/{{ item }}/.env"
-    force: true
+- name: Remove .env (single-JDK images carry RELEASE in the Dockerfile)
+  file:
+    path: "{{ target_directory_jira_6 }}/{{ item }}/.env"
+    state: absent
   with_items: "{{ jira_versions }}"
 
 - name: Copy docker-compose.yml from template to each version directory

@@ -1,0 +1,17 @@
+#------------------------------------------------------------------------------#
+#                            OFFICIAL UBUNTU REPOS                             #
+#------------------------------------------------------------------------------#
+
+###### Ubuntu Main Repos
+Types: deb deb-src
+URIs: http://mirror.yandex.ru/ubuntu/
+Suites: noble
+Components: main restricted universe multiverse
+Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
+
+###### Ubuntu Update Repos
+Types: deb deb-src
+URIs: http://ru.archive.ubuntu.com/ubuntu/
+Suites: noble-security noble-updates noble-proposed noble-backports
+Components: main restricted universe multiverse
+Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg

@@ -1,5 +1,0 @@
-services:
-  app:
-    image: "epicmorg/perforce:r20.2"
-    build:
-      context: .

@@ -1,0 +1,10 @@
+services:
+  app:
+    image: "epicmorg/teamcity-agent:android-sdk"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/teamcity-agent:android-sdk
+      - ghcr.io/epicmorg/teamcity-agent:android-sdk
+      - docker.io/epicmorg/teamcity-agent:android-sdk

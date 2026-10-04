@@ -1,0 +1,9 @@
+services:
+  app:
+    image: "epicmorg/github-runner:php8.0"
+    build:
+      context: .
+    x-mirrors:
+      - docker.io/epicmorg/github-runner:php8.0
+      - quay.io/epicmorg/github-runner:php8.0
+      - ghcr.io/epicmorg/github-runner:php8.0

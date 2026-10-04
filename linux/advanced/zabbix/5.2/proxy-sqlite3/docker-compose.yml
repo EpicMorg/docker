@@ -3,3 +3,8 @@ services:
     image: "epicmorg/zabbix-proxy-sqlite3:5.2"
     build:
       context: .
+    x-squash: false
+    x-mirrors:
+      - docker.io/epicmorg/zabbix-proxy-sqlite3:5.2
+      - quay.io/epicmorg/zabbix-proxy-sqlite3:5.2
+      - ghcr.io/epicmorg/zabbix-proxy-sqlite3:5.2

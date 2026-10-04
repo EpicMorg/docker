@@ -4,6 +4,10 @@ LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 LABEL org.opencontainers.image.vendor="EpicMorg DevTeam, developer@epicm.org"
 LABEL org.opencontainers.image.authors="STAM, kasthack, Aleks-Z"
 LABEL org.opencontainers.image.source="https://github.com/EpicMorg/docker"
+LABEL org.opencontainers.image.title="EpicMorg Debian (Light)"
+LABEL org.opencontainers.image.description="Debian Trixie base by EpicMorg"
+LABEL org.opencontainers.image.licenses="MIT"
+LABEL org.opencontainers.image.documentation="https://github.com/EpicMorg/docker"
 LABEL org.opencontainers.image.url="https://github.com/EpicMorg/docker"
 LABEL donate.crypto.TON="EQDvHXRK-K1ZieJhgTD9JZQk7xCnWzRbctYnUkWq1lZq1bUg"
 LABEL donate.crypto.ETH="0x26a8443a694f08cdfec966aa6fd72c45068753ec"
@@ -96,20 +100,5 @@ ARG CAS_LUCENE_PLUGIN_URL=https://repo1.maven.org/maven2/com/stratio/cassandra/c
 
 ADD ${CAS_LUCENE_PLUGIN_URL} ${CAS_LUCENE_PLUGIN_DEST}
 
-##################################################################
-#                  Cleanup
-##################################################################
-RUN echo "clean up" && \
-    apt-get clean -y && \
-    apt-get autoclean -y && \
-    rm -rfv /var/lib/apt/lists/* && \
-    rm -rfv /var/cache/apt/archives/*.deb && \
-    rm -rfv /root/tmp/* && \
-    rm -rfv /tmp/*
-
-##################################################################
-#                  update file db
-##################################################################
-RUN updatedb
 
 USER 1001

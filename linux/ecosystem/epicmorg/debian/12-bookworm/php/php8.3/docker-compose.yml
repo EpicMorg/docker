@@ -1,5 +1,0 @@
-services:
-  app:
-    image: "epicmorg/debian:bookworm-php8.3"
-    build:
-      context: .

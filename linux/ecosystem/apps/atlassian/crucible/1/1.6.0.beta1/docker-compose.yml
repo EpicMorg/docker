@@ -1,0 +1,13 @@
+services:
+  app:
+    image: "epicmorg/crucible:1.6.0.beta1"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - docker.io/epicmorg/crucible:1.6.0.beta1
+      - docker.io/epicmorg/crucible:1.6.0.beta1-jdk6
+      - quay.io/epicmorg/crucible:1.6.0.beta1
+      - quay.io/epicmorg/crucible:1.6.0.beta1-jdk6
+      - ghcr.io/epicmorg/crucible:1.6.0.beta1
+      - ghcr.io/epicmorg/crucible:1.6.0.beta1-jdk6

@@ -1,0 +1,46 @@
+# webTLO images (FROM upstream), own cron -- not part of the build chain.
+name: Advanced - webTLO
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 4 * * 2,4,6'   # Tue/Thu/Sat 04:00 UTC
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  list:
+    name: list leaves
+    runs-on: ubuntu-24.04
+    outputs:
+      webtlo: ${{ steps.list.outputs.webtlo }}
+    steps:
+    - uses: actions/checkout@v7
+      with:
+        sparse-checkout: |
+          .github/scripts
+          linux/advanced/webtlo
+    - id: list
+      run: |
+        # assignment first, so a failing discovery fails the step (echo "$(...)" would not)
+        emit() { local v; v=$(python3 .github/scripts/leaves.py "${@:2}"); echo "$1=$v" | tee -a "$GITHUB_OUTPUT"; }
+        emit webtlo flat linux/advanced/webtlo --min 1 --max 1
+
+  webtlo:
+    name: ${{ matrix.leaf.name }}
+    needs: list
+    if: needs.list.outputs.webtlo != '[]'
+    strategy:
+      fail-fast: false
+      matrix:
+        leaf: ${{ fromJSON(needs.list.outputs.webtlo) }}
+    uses: ./.github/workflows/_build-leaf.yml
+    secrets: inherit
+    with:
+      paths: ${{ matrix.leaf.paths }}

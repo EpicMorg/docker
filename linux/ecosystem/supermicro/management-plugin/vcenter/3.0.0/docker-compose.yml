@@ -1,5 +1,0 @@
-services:
-  app:
-    image: "epicmorg/supermicro-management-plugin:3.0.0.0-0-vcenter"
-    build:
-      context: .

@@ -1,0 +1,9 @@
+services:
+  app:
+    image: "epicmorg/gitlab-runner:atlassian-sdk"
+    build:
+      context: .
+    x-mirrors:
+      - docker.io/epicmorg/gitlab-runner:atlassian-sdk
+      - quay.io/epicmorg/gitlab-runner:atlassian-sdk
+      - ghcr.io/epicmorg/gitlab-runner:atlassian-sdk

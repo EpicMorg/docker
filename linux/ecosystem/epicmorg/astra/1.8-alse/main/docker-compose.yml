@@ -1,5 +1,0 @@
-services:
-  app:
-    image: "epicmorg/astralinux:1.8-main"
-    build:
-      context: .

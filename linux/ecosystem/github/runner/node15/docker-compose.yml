@@ -1,5 +1,0 @@
-services:
-  app:
-    image: "epicmorg/github-runner:node15"
-    build:
-      context: .

@@ -1,0 +1,29 @@
+services:
+  app:
+    image: "epicmorg/bamboo:10.1.1"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - docker.io/epicmorg/bamboo:10.1.1
+      - quay.io/epicmorg/bamboo:10.1.1
+      - ghcr.io/epicmorg/bamboo:10.1.1
+  app-jdk17:
+    image: "epicmorg/bamboo:10.1.1-jdk17"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - docker.io/epicmorg/bamboo:10.1.1-jdk17
+      - quay.io/epicmorg/bamboo:10.1.1-jdk17
+      - ghcr.io/epicmorg/bamboo:10.1.1-jdk17
+  app-jdk21:
+    image: "epicmorg/bamboo:10.1.1-jdk21"
+    build:
+      context: .
+      dockerfile: Dockerfile.jdk21
+    x-squash: false
+    x-mirrors:
+      - docker.io/epicmorg/bamboo:10.1.1-jdk21
+      - quay.io/epicmorg/bamboo:10.1.1-jdk21
+      - ghcr.io/epicmorg/bamboo:10.1.1-jdk21
