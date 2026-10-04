@@ -10,8 +10,8 @@ official release binaries. Derived from sethforprivacy's
 
 | Tag | Content |
 | --- | --- |
-| `latest` | `monerod` and the other Monero CLI tools (release tarball, version in `MONERO_VERSION`) in `/monero/bin` (on `PATH`); entrypoint runs `monerod --non-interactive` (under `numactl --interleave=all` when available); healthcheck on `http://localhost:18081/get_info` |
-| `p2pool` | `p2pool` release binary (version in `P2POOL_VERSION`) in `/bin`; entrypoint `p2pool` |
+| `latest` | `monerod` and the other Monero CLI tools (release tarball, version in `MONERO_VERSION`) in `/monero/bin` (on `PATH`); entrypoint runs `monerod --non-interactive --data-dir=/monero/data` (under `numactl --interleave=all` when available); healthcheck on `http://localhost:18081/get_info` |
+| `p2pool` | `p2pool` release binary (version in `P2POOL_VERSION`, sha256-pinned) in `/usr/local/bin`; entrypoint `p2pool` |
 
 Ports: `monerod` exposes `18080` (p2p) and `18089` (restricted RPC); `p2pool` exposes `3333`
 (stratum), `37888` and `37889` (p2p).
@@ -34,14 +34,13 @@ Every tag is pushed to `docker.io`, `quay.io` and `ghcr.io` (`epicmorg/monero:<t
 The default command starts a node with a restricted RPC on `0.0.0.0:18089`
 (`--rpc-restricted-bind-ip=0.0.0.0 --rpc-restricted-bind-port=18089 --no-igd --no-zmq --enable-dns-blocklist`).
 Arguments passed to the container replace that default command and go straight to `monerod`.
-The image declares `/monero/data` as a volume; point the blockchain there explicitly:
+The entrypoint adds `--data-dir=/monero/data` (the declared volume) unless you pass your own `--data-dir`:
 
 ```sh
 docker run -d --restart unless-stopped --name monerod \
   -p 18080:18080 -p 18089:18089 \
   -v monero-data:/monero/data \
   epicmorg/monero:latest \
-  --data-dir=/monero/data \
   --rpc-restricted-bind-ip=0.0.0.0 --rpc-restricted-bind-port=18089 \
   --no-igd --no-zmq --enable-dns-blocklist
 ```
@@ -50,7 +49,8 @@ Add `--public-node` to advertise the restricted RPC, `--prune-blockchain` for a 
 
 ### p2pool
 
-Always pass your own arguments — at least the node to use and your wallet:
+The default command connects to a node named `monerod` (as in the compose example) but has no wallet,
+so pass your own arguments - they replace the default command - at least the node and your wallet:
 
 ```sh
 docker run -d --restart unless-stopped --name p2pool \
