@@ -70,8 +70,8 @@ RUN update-ca-certificates --fresh && \
 ##################################################################
 #                   Additional settings
 ##################################################################
-ENV MAVEN_VERSION=3.9.11
-ENV MAVEN_LINK=https://dlcdn.apache.org/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.zip
+ENV MAVEN_VERSION=3.9.16
+ENV MAVEN_LINK=https://archive.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.zip
 ENV MAVEN_ROOT=${EMG_LOCAL_BASE_DIR}/maven/${MAVEN_VERSION}
 ENV MAVEN_PATH=${MAVEN_ROOT}/apache-maven-${MAVEN_VERSION}
 ENV MAVEN_BIN=${MAVEN_PATH}/bin
