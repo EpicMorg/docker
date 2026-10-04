@@ -36,18 +36,20 @@ RUN echo "=============================================" && \
 ##################################################################
 #                    Mono
 ##################################################################
-RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF && \
-#    echo "deb https://download.mono-project.com/repo/debian stable-buster main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list && \
-#    echo "deb https://download.mono-project.com/repo/debian nightly-buster main" | sudo tee /etc/apt/sources.list.d/mono-official-nightly.list && \
-    echo "deb https://download.mono-project.com/repo/debian preview-buster main" | sudo tee /etc/apt/sources.list.d/mono-official-preview.list && \
-    apt-get update && \
-    apt-get install -y  --allow-unauthenticated \
-    mono-complete \
-    mono-llvm-support \
-    mono-devel \
-    mono-dbg \
-    referenceassemblies-pcl \
-    ca-certificates-mono \
-    mono-xsp4
+# Debian's own mono (trixie: 6.12.0.199, i.e. the final upstream 6.12 line).
+# download.mono-project.com ends at stable-buster/stable-focal (6.12.0.200,
+# built for buster) and is no longer maintained (mono moved to WineHQ, which
+# ships no Debian packages); apt-key is gone in trixie anyway.
+# Not in trixie and dropped: mono-llvm-support, referenceassemblies-pcl
+# (mono-project only), mono-xsp4 (last in bookworm).
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+      mono-complete \
+      mono-devel \
+      mono-dbg \
+      ca-certificates-mono && \
+    mono --version && \
+    apt-get clean -y && \
+    rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*.deb /tmp/*
 
 
