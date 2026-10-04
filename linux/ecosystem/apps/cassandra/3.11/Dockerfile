@@ -90,17 +90,16 @@ RUN set -eux; \
 	ln -sT "$libjemalloc" /usr/local/lib/libjemalloc.so; \
 	ldconfig
 
+# Upstream's `apt-mark auto '.*' + purge --auto-remove` dance is dropped here and below:
+# it assumes a slim base, on our full trixie base it purges python3 and half the system
+# (python3-samba prerm then fails: py3clean not found).
 # grab gosu
 # https://github.com/tianon/gosu/releases
 RUN set -eux; \
-	savedAptMark="$(apt-mark showmanual)"; \
 	apt-get update; \
 	apt-get install -y --no-install-recommends ca-certificates gnupg wget; \
 	rm -rf /var/lib/apt/lists/*; \
 	dpkgArch="$(dpkg --print-architecture | awk -F- '{ print $NF }')"; \
-	apt-mark auto '.*' > /dev/null; \
-	[ -z "$savedAptMark" ] || apt-mark manual $savedAptMark > /dev/null; \
-	apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
 	gosu --version; \
 	gosu nobody true
 
@@ -147,7 +146,6 @@ ENV GPG_KEYS="\
 	CEC5C50B9C629EF0F5AB2706650B72EB14CCD622"
 
 RUN set -eux; \
-	savedAptMark="$(apt-mark showmanual)"; \
 	apt-get update; \
 	apt-get install -y --no-install-recommends ca-certificates gnupg wget; \
 	rm -rf /var/lib/apt/lists/*; \
@@ -182,9 +180,6 @@ RUN set -eux; \
 	gpg --batch --verify cassandra-bin.tgz.asc cassandra-bin.tgz; \
 	rm -rf "$GNUPGHOME"; \
 	\
-	apt-mark auto '.*' > /dev/null; \
-	[ -z "$savedAptMark" ] || apt-mark manual $savedAptMark > /dev/null; \
-	apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
 	\
 	mkdir -p "${CASSANDRA_HOME}"; \
 	tar --extract --file cassandra-bin.tgz --directory "${CASSANDRA_HOME}" --strip-components 1; \
