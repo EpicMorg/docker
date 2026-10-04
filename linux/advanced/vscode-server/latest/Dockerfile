@@ -35,6 +35,10 @@ USER root
 ENV EMG_LOCAL_BASE_DIR=/usr/local/share/epicmorg
 RUN mkdir -p ${EMG_LOCAL_BASE_DIR}
 COPY usr/local/share/epicmorg ${EMG_LOCAL_BASE_DIR}
+# aria2 config + user-agent list used by the aria2c downloads below: same files as
+# our Debian base (this image is FROM linuxserver/code-server, Ubuntu), single source.
+COPY --from=docker.io/epicmorg/debian:trixie-light ${EMG_LOCAL_BASE_DIR}/aria2 ${EMG_LOCAL_BASE_DIR}/aria2
+COPY --from=docker.io/epicmorg/debian:trixie-light ${EMG_LOCAL_BASE_DIR}/user-agents ${EMG_LOCAL_BASE_DIR}/user-agents
 
 ##################################################################
 #                   prepare system
@@ -111,6 +115,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
         apt-transport-https \
         apt-utils \
         aptitude \
+        aria2 \
         bash \
         binutils \
         ca-certificates \
@@ -305,7 +310,8 @@ RUN echo "=============================================" && \
 ##################################################################
 #                   gh official binary
 ##################################################################
-RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | gpg --batch --yes --dearmor -o /etc/apt/keyrings/githubcli-archive-keyring.gpg && \
+# the keyring is already binary (https://github.com/cli/cli/blob/trunk/docs/install_linux.md): no --dearmor
+RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg -o /etc/apt/keyrings/githubcli-archive-keyring.gpg && \
     chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg && \
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list && \
     apt-get update &&  \
