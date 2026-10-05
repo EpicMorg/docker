@@ -1,0 +1,26 @@
+#!/bin/bash
+# Upgrade the server database to this image's p4d (like pg_upgrade): run a
+# one-off container with the server's volumes and without the entrypoint
+#   docker run --rm -it --entrypoint p4d-upgrade -v ...same volumes... epicmorg/p4d:<new release>
+# Refuses while a p4d runs. Takes an offline checkpoint into ${P4BACKUPS} first
+# (p4d -jc, rotates the journal) unless --no-checkpoint, then runs p4d -xu.
+set -euo pipefail
+# shellcheck source=p4d-common.sh
+. /usr/local/lib/p4d-common.sh
+ckp=1
+for a in "$@"; do case "$a" in --no-checkpoint) ckp=0 ;; *) echo "usage: p4d-upgrade [--no-checkpoint]" >&2; exit 2 ;; esac; done
+
+p4d_running && { echo "[p4d-upgrade] FATAL: a p4d is running in this container - stop the server first" >&2; exit 1; }
+[[ -n "$(ls -A "${P4ROOT}" 2>/dev/null | grep '^db\.' || true)" ]] || { echo "[p4d-upgrade] FATAL: no db.* files in ${P4ROOT} - wrong volume?" >&2; exit 1; }
+p4d_db_args
+echo "[p4d-upgrade] binary: $(p4d -V | grep '^Rev\.')"
+if [[ ${ckp} == 1 ]]; then
+  name="${P4NAME:-p4d}"; name="${name// /_}"
+  dir="${P4BACKUPS}/${name}-pre-upgrade-$(date +%F_%H%M%S)"
+  mkdir -p "${dir}"
+  echo "[p4d-upgrade] offline checkpoint -> ${dir}"
+  p4d "${P4D_DB_ARGS[@]}" -z -jc "${dir}/${name}"
+fi
+echo "[p4d-upgrade] p4d -xu ${P4D_DB_ARGS[*]}"
+p4d "${P4D_DB_ARGS[@]}" -xu
+echo "[p4d-upgrade] done - start the server with this image"

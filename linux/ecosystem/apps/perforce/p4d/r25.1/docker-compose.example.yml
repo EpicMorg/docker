@@ -1,0 +1,28 @@
+services:
+  p4d:
+    image: epicmorg/p4d:r25.1
+    restart: unless-stopped
+    # p4d needs time for `p4 admin stop`: keep this above P4STOP_TIMEOUT
+    stop_grace_period: 3m
+    ports:
+      - "1666:1666"
+    environment:
+      P4NAME: p4main
+      P4DESCRIPTION: Main P4 server
+      P4CASE: "1"              # -C1, case-insensitive server
+      P4CHARSET: utf8          # unicode-mode server
+      P4AUDITLOG: /perforce/logs/auditlog
+      P4ADMIN_USER: root
+      P4ADMIN_PASSWD_FILE: /run/secrets/p4admin
+      P4BACKUP_KEEP: "14"      # p4d-checkpoint keeps the newest 14 backups
+    volumes:
+      - ./root:/perforce/root
+      - ./journals:/perforce/journals
+      - ./logs:/perforce/logs
+      - ./archives:/perforce/archives
+      - ./backups:/perforce/backups
+    secrets:
+      - p4admin
+secrets:
+  p4admin:
+    file: ./p4admin.txt

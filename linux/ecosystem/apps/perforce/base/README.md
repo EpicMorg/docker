@@ -1,4 +1,4 @@
-<!-- hub-description: Perforce Helix Core (P4) server and tools binaries on Debian 13 trixie, r16.2-r24.2 -->
+<!-- hub-description: Perforce Helix Core (P4) server and tools binaries on Debian 13 trixie, r16.2-r26.1 -->
 # `epicmorg/perforce`
 
 Perforce Helix Core binaries for one release per tag, on
@@ -36,6 +36,9 @@ Working directory: `/perforce`. Each binary path is also exported (`P4_BIN`, `P4
 | `r23.2` | [`r23.2`](r23.2/Dockerfile) |
 | `r24.1` | [`r24.1`](r24.1/Dockerfile) |
 | `r24.2` | [`r24.2`](r24.2/Dockerfile) |
+| `r25.1` | [`r25.1`](r25.1/Dockerfile) |
+| `r25.2` | [`r25.2`](r25.2/Dockerfile) |
+| `r26.1` | [`r26.1`](r26.1/Dockerfile) |
 
 Every tag is pushed to `docker.io`, `quay.io` and `ghcr.io` (`epicmorg/perforce:<tag>` on each) - same digest everywhere.
 <!-- readme-sync:tags:end -->
@@ -53,7 +56,7 @@ docker run --rm epicmorg/perforce:r24.2 p4 -V
 
 ## Notes
 
-* Tags are Perforce release names (`r16.2` … `r24.2`); each one downloads that release's binaries.
+* Tags are Perforce release names (`r16.2` … `r26.1`); each one downloads that release's binaries.
 
 ## Links
 

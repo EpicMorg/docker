@@ -1,4 +1,4 @@
-<!-- hub-description: Perforce Helix proxy (p4p) on Debian 13 trixie, one tag per release r16.2-r24.2 -->
+<!-- hub-description: Perforce Helix proxy (p4p) on Debian 13 trixie, one tag per release r16.2-r26.1 -->
 # `epicmorg/p4p`
 
 The Perforce Helix proxy (`p4p`) as a container: built `FROM`
@@ -32,6 +32,9 @@ on Debian 13 `trixie`, runs `p4p` under `tini` and caches file content in front 
 | `r23.2` | [`r23.2`](r23.2/Dockerfile) |
 | `r24.1` | [`r24.1`](r24.1/Dockerfile) |
 | `r24.2` | [`r24.2`](r24.2/Dockerfile) |
+| `r25.1` | [`r25.1`](r25.1/Dockerfile) |
+| `r25.2` | [`r25.2`](r25.2/Dockerfile) |
+| `r26.1` | [`r26.1`](r26.1/Dockerfile) |
 
 Every tag is pushed to `docker.io`, `quay.io` and `ghcr.io` (`epicmorg/p4p:<tag>` on each) - same digest everywhere.
 <!-- readme-sync:tags:end -->

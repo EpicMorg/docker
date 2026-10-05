@@ -1,0 +1,28 @@
+#!/bin/bash
+# Online checkpoint of the running server into ${P4BACKUPS}/<P4NAME|p4d>-<date>/:
+#   docker exec <container> p4d-checkpoint
+# = p4 login (if a password is given) + `p4 admin checkpoint -z <prefix>`; the
+# journal is rotated by the server as usual. Verifies the .md5 written next to the
+# checkpoint. P4BACKUP_KEEP=<n> keeps only the newest n backup directories.
+set -euo pipefail
+# shellcheck source=p4d-common.sh
+. /usr/local/lib/p4d-common.sh
+: "${P4BACKUP_KEEP:=}"
+
+p4d_running || { echo "[p4d-checkpoint] FATAL: p4d is not running here (offline: p4d-upgrade does one, or p4d -jc)" >&2; exit 1; }
+name="${P4NAME:-p4d}"; name="${name// /_}"
+dir="${P4BACKUPS}/${name}-$(date +%F_%H%M%S)"
+mkdir -p "${dir}"
+p4_local
+p4_admin_login
+echo "[p4d-checkpoint] $(date) -> ${dir}"
+"${P4_LOCAL[@]}" admin checkpoint -z "${dir}/${name}"
+md5="$(find "${dir}" -maxdepth 1 -type f -name '*.md5' | head -n1)"
+ckp="$(find "${dir}" -maxdepth 1 -type f -name '*.ckp.*' ! -name '*.md5' | head -n1)"
+[[ -n "${md5}" && -n "${ckp}" ]] || { echo "[p4d-checkpoint] FATAL: no checkpoint/.md5 in ${dir}" >&2; ls -la "${dir}" >&2; exit 11; }
+echo "[p4d-checkpoint] OK: ${ckp} ($(du -h "${ckp}" | cut -f1))"
+if [[ -n "${P4BACKUP_KEEP}" ]]; then
+  find "${P4BACKUPS}" -mindepth 1 -maxdepth 1 -type d -name "${name}-*" | sort | head -n "-${P4BACKUP_KEEP}" | while read -r old; do
+    echo "[p4d-checkpoint] retention: removing ${old}"; rm -rf "${old}"
+  done
+fi
