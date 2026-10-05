@@ -1,5 +1,5 @@
 # Repository descriptions on Docker Hub / Quay = the root README of each image
-# (bin/readme-sync --map). GHCR has no description API: it shows the static
+# (bin/python/readme-sync.py --map). GHCR has no description API: it shows the static
 # org.opencontainers.image.description label of the image.
 name: Docs - registry descriptions
 
@@ -14,14 +14,14 @@ on:
     branches: [master]
     paths:
       - '**/README.md'
-      - 'bin/readme-sync'
+      - 'bin/python/readme-sync.py'
       - '.github/scripts/registry-descriptions.py'
       - '.github/workflows/docs.registry-descriptions.yml'
   pull_request:
     paths:
       - '**/README.md'
       - '**/docker-compose.yml'
-      - 'bin/readme-sync'
+      - 'bin/python/readme-sync.py'
 
 permissions:
   contents: read
@@ -36,7 +36,7 @@ jobs:
           show-progress: false
       - name: Generated READMEs are up to date
         run: |
-          bin/readme-sync --check || { echo "::error::run bin/readme-sync and commit the result"; exit 1; }
+          bin/python/readme-sync.py --check || { echo "::error::run bin/python/readme-sync.py and commit the result"; exit 1; }
       - name: Descriptions (dry run)
         run: python3 .github/scripts/registry-descriptions.py --dry-run
 

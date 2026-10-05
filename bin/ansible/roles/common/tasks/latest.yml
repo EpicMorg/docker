@@ -1,5 +1,5 @@
 # Regenerate <product>/latest from the version in versions/<product>/latest.txt
-# (newest release of the `current` feed, written by bin/atlassian-versions-update).
+# (newest release of the `current` feed, written by bin/python/atlassian-versions-update.py).
 # The version's own directory must already be generated in this run.
 - name: "Read latest {{ latest_product }} version"
   slurp:

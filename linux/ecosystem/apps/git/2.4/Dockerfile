@@ -4,7 +4,7 @@
 ##################################################################
 ##################################################################
 # All git leaves share this file; they differ only in the EMG_GIT_* block
-# below (version + upstream sha256, bumped by bin/git-versions-sync) and in
+# below (version + upstream sha256, bumped by bin/python/git-versions-sync.py) and in
 # the OpenSSL / curl branch.
 FROM docker.io/epicmorg/gcc:14 AS builder
 

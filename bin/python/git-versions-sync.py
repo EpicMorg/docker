@@ -7,7 +7,7 @@ the reference leaf (REFERENCE below); existing leaves only get their version
 lines bumped (EMG_GIT_VERSION / EMG_GIT_FULL_VERSION / EMG_GIT_SHA256 and the
 compose tags) - per-leaf choices such as the OpenSSL / curl branch stay.
 
-Usage: bin/git-versions-sync [--dry-run] [--refresh] [--min 2.0] [--only 2.55,2.54]
+Usage: bin/python/git-versions-sync.py [--dry-run] [--refresh] [--min 2.0] [--only 2.55,2.54]
   --refresh   re-copy the reference Dockerfile into existing leaves too (drops per-leaf edits)
 """
 import os
@@ -16,7 +16,7 @@ import shutil
 import sys
 import urllib.request
 
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 BASE = os.path.join(ROOT, 'linux', 'ecosystem', 'apps', 'git')
 REFERENCE = '2.56'
 SUMS = 'https://mirrors.edge.kernel.org/pub/software/scm/git/sha256sums.asc'

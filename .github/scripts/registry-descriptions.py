@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Push root READMEs as repository descriptions to Docker Hub and Quay.
 
-The repo -> README map comes from `bin/readme-sync --map`. For each repository:
+The repo -> README map comes from `bin/python/readme-sync.py --map`. For each repository:
   * relative Markdown links are rewritten to absolute GitHub URLs (registries
     render the README out of the repo context);
   * Docker Hub: full_description (max 25 000 bytes, cut with a link to GitHub
@@ -59,7 +59,7 @@ def main():
     dry = '--dry-run' in sys.argv
     only = [a for a in sys.argv[1:] if not a.startswith('--')]
     ref = os.environ.get('GITHUB_REF_NAME') or 'master'
-    rows = subprocess.run([os.path.join(ROOT, 'bin', 'readme-sync'), '--map'],
+    rows = subprocess.run([os.path.join(ROOT, 'bin', 'python', 'readme-sync.py'), '--map'],
                           capture_output=True, text=True, check=True).stdout.splitlines()
 
     hub_token = None

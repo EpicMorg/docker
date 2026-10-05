@@ -10,7 +10,7 @@ pinned from then on). The newest branch also carries the floating `latest` tag.
 A new leaf is a copy of the reference leaf; existing leaves only get their
 EMG_GIT_LFS_* lines and compose tags bumped (--refresh re-copies the reference).
 
-Usage: bin/git-lfs-versions-sync [--dry-run] [--refresh] [--only 3.7,3.8]
+Usage: bin/python/git-lfs-versions-sync.py [--dry-run] [--refresh] [--only 3.7,3.8]
 Env: GITHUB_TOKEN (optional, avoids the anonymous API rate limit)
 """
 import hashlib
@@ -21,7 +21,7 @@ import shutil
 import sys
 import urllib.request
 
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 BASE = os.path.join(ROOT, 'linux', 'ecosystem', 'apps', 'git-lfs')
 REFERENCE = '3.8'
 API = 'https://api.github.com/repos/git-lfs/git-lfs/releases?per_page=100&page=%d'

@@ -19,7 +19,7 @@ Rules:
     output wins anyway);
   * <product>/latest.txt gets the newest version of the `current` feed.
 
-Usage: bin/atlassian-versions-update [--dry-run]
+Usage: bin/python/atlassian-versions-update.py [--dry-run]
 """
 import glob
 import io
@@ -31,7 +31,7 @@ import sys
 import urllib.request
 import zipfile
 
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 ANSIBLE = os.path.join(ROOT, 'bin', 'ansible')
 VERSIONS = os.path.join(ANSIBLE, 'roles', 'common', 'files', 'versions')
 

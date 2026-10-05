@@ -118,7 +118,7 @@ docker run --rm -v "$PWD:/work" -w /work docker.io/epicmorg/git:2.56 git log --o
   its own TLS; https still goes through the baked curl + OpenSSL 3.5.
 * Old git versions carry their old bugs and security issues - use them only where a consumer needs that
   exact version (e.g. a tool version range), and prefer the newest branch otherwise.
-* New branches and patch bumps: `bin/git-versions-sync` (reads kernel.org `sha256sums.asc`).
+* New branches and patch bumps: `bin/python/git-versions-sync.py` (reads kernel.org `sha256sums.asc`).
 
 ## Links
 

@@ -2,7 +2,7 @@
 #                 git-lfs (upstream release binary)
 ##################################################################
 # All git-lfs leaves share this file; they differ only in the EMG_GIT_LFS_*
-# block below (bumped by bin/git-lfs-versions-sync). git-lfs is a static Go
+# block below (bumped by bin/python/git-lfs-versions-sync.py). git-lfs is a static Go
 # binary: the upstream release archive is the artifact, nothing is compiled.
 # Consumers (incl. the base image): COPY --from=docker.io/epicmorg/git-lfs:<ver> /emg-export/ /
 FROM docker.io/epicmorg/debian:trixie

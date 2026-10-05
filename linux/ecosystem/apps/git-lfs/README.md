@@ -73,7 +73,7 @@ RUN git lfs install --system --skip-repo && git lfs version
   is pinned from then on. Newer ones are checked against the GitHub asset digest or `sha256sums.asc`.
 * `1.0` has `git lfs init` instead of `install`; old releases do not understand config written by new ones
   (`filter.lfs.process`), so run `git lfs install` (or `init`) with the version you copied.
-* New branches / patch bumps: `bin/git-lfs-versions-sync`.
+* New branches / patch bumps: `bin/python/git-lfs-versions-sync.py`.
 
 ## Links
 
