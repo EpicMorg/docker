@@ -26,6 +26,15 @@ Nothing else is modified: application, entrypoint, ports, volumes and settings a
 | `4.0.0` | [`4.0.0`](4.0.0/Dockerfile) |
 | `4.0.1` | [`4.0.1`](4.0.1/Dockerfile) |
 | `4.1.0` | [`4.1.0`](4.1.0/Dockerfile) |
+| `4.1.1` | [`4.1.1`](4.1.1/Dockerfile) |
+| `4.2.0` | [`4.2.0`](4.2.0/Dockerfile) |
+| `4.3.0` | [`4.3.0`](4.3.0/Dockerfile) |
+| `4.3.1` | [`4.3.1`](4.3.1/Dockerfile) |
+| `4.4.0` | [`4.4.0`](4.4.0/Dockerfile) |
+| `4.4.1` | [`4.4.1`](4.4.1/Dockerfile) |
+| `4.5.0` | [`4.5.0`](4.5.0/Dockerfile) |
+| `4.5.1` | [`4.5.1`](4.5.1/Dockerfile) |
+| `4.6.0` | [`4.6.0`](4.6.0/Dockerfile) |
 | `latest` | [`latest`](latest/Dockerfile) |
 
 Every tag is pushed to `docker.io`, `quay.io` and `ghcr.io` (`epicmorg/webtlo:<tag>` on each) - same digest everywhere.

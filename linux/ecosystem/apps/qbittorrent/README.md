@@ -63,6 +63,11 @@ The exact libtorrent patch version is part of the tag (see the table below).
 | `5.1.2`, `5.1.2-libtorrent2.0.11`, `5.1.2-libtorrent1.2.20` | [`5.1.2`](5.1.2/Dockerfile) |
 | `5.1.3`, `5.1.3-libtorrent2.0.11`, `5.1.3-libtorrent1.2.20` | [`5.1.3`](5.1.3/Dockerfile) |
 | `5.1.4`, `5.1.4-libtorrent2.0.11`, `5.1.4-libtorrent1.2.20` | [`5.1.4`](5.1.4/Dockerfile) |
+| `5.2.0`, `5.2.0-libtorrent2.0.12`, `5.2.0-libtorrent1.2.20` | [`5.2.0`](5.2.0/Dockerfile) |
+| `5.2.1`, `5.2.1-libtorrent2.0.13`, `5.2.1-libtorrent1.2.20` | [`5.2.1`](5.2.1/Dockerfile) |
+| `5.2.2`, `5.2.2-libtorrent2.0.13`, `5.2.2-libtorrent1.2.20` | [`5.2.2`](5.2.2/Dockerfile) |
+| `5.2.3`, `5.2.3-libtorrent2.0.15`, `5.2.3-libtorrent1.2.20` | [`5.2.3`](5.2.3/Dockerfile) |
+| `5.2.4`, `5.2.4-libtorrent2.0.15`, `5.2.4-libtorrent1.2.20` | [`5.2.4`](5.2.4/Dockerfile) |
 | `5.0.0beta1`, `5.0.0beta1-libtorrentRC_2_0` | [`testing`](testing/Dockerfile) |
 
 Every tag is pushed to `docker.io`, `quay.io` and `ghcr.io` (`epicmorg/qbittorrent:<tag>` on each) - same digest everywhere.
