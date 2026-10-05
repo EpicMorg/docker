@@ -20,7 +20,9 @@ file is the repository description on the registries
 
 Atlassian images are owned by bin/ansible and skipped; games are parked.
 
-Usage: bin/python/readme-sync.py [--check] [--map] [--list-kept]
+Usage: bin/python/readme-sync.py [FOLDER ...] [--check] [--map] [--list-kept]
+  FOLDER       only repositories whose root README lies in / under these folders
+               (e.g. linux/ecosystem/apps/qbittorrent); default: the whole tree
   --check      exit 1 if anything would change
   --map        print "repo<TAB>root README<TAB>short description" and exit
   --list-kept  print hand-written leaf READMEs that were left alone
@@ -140,7 +142,14 @@ def leaf_readme(repo, root, d, tags, froms):
 
 def main():
     check, changed, kept = '--check' in sys.argv, [], []
+    only = [os.path.normpath(a) for a in sys.argv[1:] if not a.startswith('--')]
     data = leaves()
+    if only:
+        data = {r: i for r, i in data.items()
+                if any(root_of(i) == f or root_of(i).startswith(f + os.sep) or f.startswith(root_of(i) + os.sep)
+                       for f in only)}
+        if not data:
+            sys.exit('no image repositories under: %s' % ' '.join(only))
     if '--map' in sys.argv:
         for repo in sorted(data):
             rd = os.path.join(root_of(data[repo]), 'README.md')
