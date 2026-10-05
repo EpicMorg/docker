@@ -15,7 +15,7 @@ ENV P4MIGRATE_DOWNLOAD_URL=${P4_CDN_URL}/p4migrate
 ENV P4MONPE_DOWNLOAD_URL=${P4_CDN_URL}/p4mon-prometheus-exporter
 ENV P4P_DOWNLOAD_URL=${P4_CDN_URL}/p4p
 ENV PERFMERGE_DOWNLOAD_URL=${P4_CDN_URL}/perfmerge
-ENV PERFSPLIT_DOWNLOAD_URL=${P4_CDN_URL}/perfsplit
+# r26.1: perfsplit is no longer published on filehost
 
 ENV P4DEBUG=
 ENV P4PROOT=
@@ -33,7 +33,6 @@ ENV P4MIGRATE_BIN=/usr/bin/p4migrate
 ENV P4MONPE_BIN=/usr/bin/p4mon-prometheus-exporter
 ENV P4P_BIN=/usr/bin/p4p
 ENV PERFMERGE_BIN=/usr/bin/perfmerge
-ENV PERFSPLIT_BIN=/usr/bin/perfsplit
 
 ##################################################################
 #                   Install perforce binaries
@@ -46,8 +45,7 @@ RUN rm -rfv \
         ${P4MIGRATE_BIN} \
         ${P4MONPE_BIN} \
         ${P4P_BIN} \
-        ${PERFMERGE_BIN} \
-        ${PERFSPLIT_BIN}
+        ${PERFMERGE_BIN}
 
 RUN wget --no-check-certificate -nv --random-wait --retry-connrefused --continue -P /usr/bin \
         ${P4_DOWNLOAD_URL} \
@@ -57,8 +55,7 @@ RUN wget --no-check-certificate -nv --random-wait --retry-connrefused --continue
         ${P4MIGRATE_DOWNLOAD_URL} \
         ${P4MONPE_DOWNLOAD_URL} \
         ${P4P_DOWNLOAD_URL} \
-        ${PERFMERGE_DOWNLOAD_URL} \
-        ${PERFSPLIT_DOWNLOAD_URL}
+        ${PERFMERGE_DOWNLOAD_URL}
 
 RUN chmod +x \
         ${P4_BIN} \
@@ -68,8 +65,7 @@ RUN chmod +x \
         ${P4MIGRATE_BIN} \
         ${P4MONPE_BIN} \
         ${P4P_BIN} \
-        ${PERFMERGE_BIN} \
-        ${PERFSPLIT_BIN}
+        ${PERFMERGE_BIN}
 
 # RUN echo "##################################################################" && \
 #         ${P4_BIN} -V &&  \
