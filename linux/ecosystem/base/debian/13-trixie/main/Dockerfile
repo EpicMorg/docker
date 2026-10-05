@@ -1,3 +1,9 @@
+# git + git-lfs: newest epicmorg/git and epicmorg/git-lfs (floating toolchain tags,
+# ADR-060). They are themselves built FROM this image - the loop is closed by using
+# the last published release (bootstrap).
+FROM docker.io/epicmorg/git:latest AS git
+FROM docker.io/epicmorg/git-lfs:latest AS git-lfs
+
 FROM docker.io/epicmorg/debian:trixie-light
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
@@ -25,6 +31,47 @@ ARG GOSU_BIN_DIR=${EMG_LOCAL_BASE_DIR}/gosu/${GOSU_VERSION}/bin
 ARG GOSU_DOWNLOAD_URL=https://github.com/tianon/gosu/releases/download/${GOSU_VERSION}/gosu-amd64
 
 ##################################################################
+#        git + git-lfs from epicmorg/git(-lfs) (ADR-060)
+##################################################################
+# /emg-export = git (or git-lfs) + exactly the baked libs it links. Binaries are
+# symlinked into /usr/bin (tools look for /usr/bin/git), and a placeholder deb
+# "provides" git, git-man, git-email, git-cvs, git-doc, git-lfs so apt
+# dependencies (git-extras, git-flow, git-ftp, git-crypt ...) are met without
+# Debian's git; block-git-packages pins Debian's builds out for good.
+COPY --from=git /emg-export/ /
+COPY --from=git-lfs /emg-export/ /
+COPY etc/apt/preferences.d/block-git-packages /etc/apt/preferences.d/block-git-packages
+RUN set -eux; \
+    git_dir="$(find "${EMG_LOCAL_BASE_DIR}/git" -mindepth 1 -maxdepth 1 -type d)"; \
+    lfs_dir="$(find "${EMG_LOCAL_BASE_DIR}/git-lfs" -mindepth 1 -maxdepth 1 -type d)"; \
+    [ "$(echo "$git_dir" | wc -l)" = 1 ] && [ "$(echo "$lfs_dir" | wc -l)" = 1 ]; \
+    for b in "$git_dir"/bin/* "$lfs_dir"/bin/git-lfs; do ln -sfn "$b" "/usr/bin/$(basename "$b")"; done; \
+    gv="$(git --version | awk '{print $3}')"; \
+    lv="$(git-lfs version | sed -E 's#^git-lfs/([0-9.]+).*#\1#')"; \
+    d="$(mktemp -d)"; mkdir -p "$d/DEBIAN"; \
+    printf '%s\n' \
+      "Package: epicmorg-git" \
+      "Version: 1:${gv}-epicmorg" \
+      "Architecture: all" \
+      "Maintainer: EpicMorg DevTeam <developer@epicm.org>" \
+      "Section: vcs" \
+      "Priority: optional" \
+      "Provides: git (= 1:${gv}), git-core (= 1:${gv}), git-man (= 1:${gv}), git-email (= 1:${gv}), git-cvs (= 1:${gv}), git-doc (= 1:${gv}), git-lfs (= ${lv})" \
+      "Conflicts: git, git-core, git-man, git-email, git-cvs, git-doc, git-lfs" \
+      "Replaces: git, git-core, git-man, git-email, git-cvs, git-doc, git-lfs" \
+      "Description: git ${gv} + git-lfs ${lv} from epicmorg/git and epicmorg/git-lfs" \
+      " Placeholder: the binaries live in ${EMG_LOCAL_BASE_DIR} and are symlinked into /usr/bin." \
+      > "$d/DEBIAN/control"; \
+    dpkg-deb --build "$d" /tmp/epicmorg-git.deb; \
+    dpkg -i /tmp/epicmorg-git.deb; \
+    rm -rf "$d" /tmp/epicmorg-git.deb; \
+    git lfs install --system --skip-repo; \
+    echo "=============================================" && \
+    echo git $(git --version) && \
+    echo git-lfs $(git-lfs version) && \
+    echo "============================================="
+
+##################################################################
 #                   installing utils
 ##################################################################
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections && \
@@ -41,14 +88,15 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
         ffmpeg \
         fontconfig \
         fontconfig-config \
-        git \
         git-extras \
+        libexpat1 \
+        libio-socket-ssl-perl \
+        libauthen-sasl-perl \
+        libnet-smtp-ssl-perl \
+        libdbd-sqlite3-perl \
+        man-db \
         git-flow \
-        git-cvs \
-        git-doc \
-        git-email \
         git-crypt \
-        git-lfs \
         git-ftp \
         gnupg \
         gnupg2 \
@@ -146,43 +194,13 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
         zfsutils-linux
 
 ##################################################################
-#                   git fresh binary
+#                   git / git-lfs man pages (man-db)
 ##################################################################
-RUN gpg --keyserver keyserver.ubuntu.com --recv-keys F911AB184317630C59970973E363C90F8F1B6217 && \
-    gpg --export --output /etc/apt/keyrings/launchpad-git.gpg F911AB184317630C59970973E363C90F8F1B6217 && \
-    rm -rfv /etc/apt/sources.list.d/launchpad_git-mainline.list && \
-    rm -rfv /etc/apt/sources.list.d/launchpad_git-stable.list && \
-    rm -rfv /etc/apt/sources.list.d/launchpad_git-mainline.sources && \
-    rm -rfv /etc/apt/sources.list.d/launchpad_git-stable.sources
-
-COPY etc/apt/sources.list.d/launchpad_git-mainline.sources /etc/apt/sources.list.d/launchpad_git-mainline.sources
-COPY etc/apt/sources.list.d/launchpad_git-stable.sources /etc/apt/sources.list.d/launchpad_git-stable.sources
-RUN apt-get update &&  \
-    apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
-    git
-
-RUN echo "=============================================" && \
-    echo git $(git --version) && \
-    echo "============================================="
-
-##################################################################
-#                   git-lfs official binary
-##################################################################
-RUN curl -fsSL https://packagecloud.io/github/git-lfs/gpgkey | gpg --dearmor > /etc/apt/keyrings/github_git-lfs-archive-keyring.gpg && \
-    rm -rfv /etc/apt/sources.list.d/github_git-lfs.list && \
-    rm -rfv /etc/apt/sources.list.d/github_git-lfs.sources
-
-COPY etc/apt/sources.list.d/github_git-lfs.sources /etc/apt/sources.list.d/github_git-lfs.sources
-RUN apt-get update &&  \
-    apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
-    git \
-    git-lfs && \
-    git-lfs install --skip-repo
-
-RUN echo "=============================================" && \
-    echo git $(git --version) && \
-    echo git-lfs $(git-lfs --version) && \
-    echo "============================================="
+RUN set -eux; \
+    for d in "${EMG_LOCAL_BASE_DIR}"/git/*/share/man "${EMG_LOCAL_BASE_DIR}"/git-lfs/*/share/man; do \
+      [ -d "$d" ] && echo "MANDATORY_MANPATH $d" >> /etc/manpath.config; \
+    done; \
+    man -w git
 
 ##################################################################
 #                   gh official binary

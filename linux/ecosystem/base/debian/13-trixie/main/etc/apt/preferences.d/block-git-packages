@@ -1,0 +1,6 @@
+# git and git-lfs come from epicmorg/git + epicmorg/git-lfs (/usr/local/share/epicmorg,
+# symlinked into /usr/bin); the epicmorg-git placeholder package provides these names.
+# Never let apt bring Debian's builds back (ADR-060).
+Package: git git-core git-man git-email git-cvs git-doc git-lfs git-svn git-all git-gui gitk git-daemon-run git-daemon-sysvinit git-mediawiki
+Pin: release *
+Pin-Priority: -1
