@@ -1,0 +1,9 @@
+services:
+  app:
+    image: "epicmorg/p4d:r18.2"
+    build:
+      context: .
+    x-mirrors:
+      - docker.io/epicmorg/p4d:r18.2
+      - quay.io/epicmorg/p4d:r18.2
+      - ghcr.io/epicmorg/p4d:r18.2

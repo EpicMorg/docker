@@ -77,7 +77,7 @@ jobs:
         emit apache2 flat linux/ecosystem/apps/apache2 --min 1 --max 1
         emit testrail flat linux/ecosystem/apps/testrail --min 2 --max 2 --include '/main$'
         emit testrail-addons group linux/ecosystem/apps/testrail '{}/ad' '{}/ldap'
-        emit perforce group linux/ecosystem/apps/perforce 'base/{}' 'p4p/{}'
+        emit perforce group linux/ecosystem/apps/perforce 'base/{}' 'p4p/{}' 'p4d/{}'
         emit postgres flat linux/ecosystem/apps/postgres --min 1 --max 1
         emit postgres-patroni flat linux/ecosystem/apps/postgres-patroni --min 1 --max 1
         emit qbittorrent flat linux/ecosystem/apps/qbittorrent --min 1 --max 1
@@ -145,7 +145,7 @@ jobs:
     with:
       paths: ${{ matrix.leaf.paths }}
 
-  # perforce base/<ver> (FROM trixie) then p4p/<ver> (FROM epicmorg/perforce:<ver>), in one job per version
+  # perforce base/<ver> (FROM trixie) then p4p/<ver> + p4d/<ver> (FROM epicmorg/perforce:<ver>), in one job per version
   perforce:
     name: perforce ${{ matrix.leaf.name }}
     needs: list

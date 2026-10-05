@@ -1,0 +1,21 @@
+services:
+  p4d:
+    image: epicmorg/p4d:r16.2
+    restart: unless-stopped
+    # p4d needs time for `p4 admin stop`: keep this above P4STOP_TIMEOUT
+    stop_grace_period: 3m
+    ports:
+      - "1666:1666"
+    environment:
+      P4NAME: master
+      P4ADMIN_USER: admin
+      P4ADMIN_PASSWD_FILE: /run/secrets/p4admin
+      P4STOP_TIMEOUT: "120"
+    volumes:
+      - ./root:/perforce/root
+      - ./logs:/perforce/logs
+    secrets:
+      - p4admin
+secrets:
+  p4admin:
+    file: ./p4admin.txt
