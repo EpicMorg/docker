@@ -24,7 +24,7 @@ import urllib.request
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 GH = 'https://github.com/EpicMorg/docker'
 HUB_MAX = 25000
-SKIP = {'epicmorg/example'}
+SKIP = {'epicmorg/sentry'}
 LINK = re.compile(r'(\]\()(?!https?://|#|mailto:)([^)\s]+)(\))')
 
 
@@ -61,11 +61,18 @@ def main():
     rows = subprocess.run([os.path.join(ROOT, 'bin', 'python', 'readme-sync.py'), '--map'],
                           capture_output=True, text=True, check=True).stdout.splitlines()
 
-    hub_token = None
-    if not dry and os.environ.get('DOCKERHUB_TOKEN'):
-        hub_token = request('POST', 'https://hub.docker.com/v2/users/login/',
-                            {'username': os.environ['DOCKERHUB_USERNAME'],
-                             'password': os.environ['DOCKERHUB_TOKEN']})['token']
+    hub_auth = None
+    if not os.environ.get('DOCKERHUB_TOKEN') or not os.environ.get('DOCKERHUB_USERNAME'):
+        print('::warning::DOCKERHUB_USERNAME / DOCKERHUB_TOKEN not set - Docker Hub descriptions skipped')
+    elif not dry:
+        user, secret = os.environ['DOCKERHUB_USERNAME'], os.environ['DOCKERHUB_TOKEN']
+        try:   # current API: PAT -> bearer access token
+            hub_auth = 'Bearer ' + request('POST', 'https://hub.docker.com/v2/auth/token',
+                                           {'identifier': user, 'secret': secret})['access_token']
+        except urllib.error.HTTPError as e:
+            print('::warning::hub /v2/auth/token: HTTP %s, trying /v2/users/login' % e.code)
+            hub_auth = 'JWT ' + request('POST', 'https://hub.docker.com/v2/users/login/',
+                                        {'username': user, 'password': secret})['token']
     quay_token = os.environ.get('QUAY_API_TOKEN')
     if not quay_token:
         print('::warning::QUAY_API_TOKEN not set - Quay descriptions skipped')
@@ -84,16 +91,22 @@ def main():
         if dry:
             continue
         try:
-            if hub_token:
+            if hub_auth:
                 request('PATCH', 'https://hub.docker.com/v2/repositories/%s/%s/' % (ns, name),
                         {'full_description': full, 'description': short},
-                        {'Authorization': 'JWT ' + hub_token})
+                        {'Authorization': hub_auth})
+                print('  docker.io: ok')
+        except urllib.error.HTTPError as e:
+            failed += 1
+            print('::error::%s docker.io: HTTP %s %s' % (repo, e.code, e.read()[:300].decode(errors='ignore')))
+        try:
             if quay_token:
                 request('PUT', 'https://quay.io/api/v1/repository/%s/%s' % (ns, name),
                         {'description': text}, {'Authorization': 'Bearer ' + quay_token})
+                print('  quay.io: ok')
         except urllib.error.HTTPError as e:
             failed += 1
-            print('::error::%s: HTTP %s %s' % (repo, e.code, e.read()[:300].decode(errors='ignore')))
+            print('::error::%s quay.io: HTTP %s %s' % (repo, e.code, e.read()[:300].decode(errors='ignore')))
     sys.exit(1 if failed else 0)
 
 
