@@ -122,7 +122,13 @@ RUN apt-get update && \
     linux-libc-dev \
     gcc-multilib \
     g++-multilib \
-    doxygen && \
+    doxygen \
+    libexpat1-dev \
+    gettext \
+    asciidoc \
+    xmlto \
+    docbook-xsl \
+    docbook-xml && \
       echo "clean up" && \
       apt-get clean -y && \
       apt-get autoclean -y && \

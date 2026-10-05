@@ -28,9 +28,10 @@ RUN set -eux; \
     test -n "${EMG_GIT_SSL_DIR}" -a -d "${EMG_GIT_SSL_DIR}"; \
     test -n "${EMG_GIT_CURL_DIR}" -a -x "${EMG_GIT_CURL_DIR}/bin/curl-config"; \
     test -d "${ZLIB_DIR}" -a -d "${PCRE_DIR}" -a -d "${ZSTD_DIR}"; \
-    apt-get update; \
-    apt-get install -y --no-install-recommends libexpat1-dev gettext asciidoc xmlto docbook-xsl docbook-xml; \
-    rm -rf /var/lib/apt/lists/*
+    # build deps (expat headers, gettext, asciidoc/xmlto/docbook for the man pages)
+    # come from trixie-develop-light
+    command -v msgfmt asciidoc xmlto; \
+    test -f /usr/include/expat.h
 
 ##################################################################
 #                    git from source
