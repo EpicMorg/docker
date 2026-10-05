@@ -67,7 +67,6 @@ RUN rm -rfv /etc/apt/sources.list.d/github_git-lfs.sources && \
       git-cvs \
       git-doc \
       git-email \
-      git-mediawiki \
       git-crypt \
       git-lfs \
       git-ftp && \
@@ -79,7 +78,6 @@ RUN rm -rfv /etc/apt/sources.list.d/github_git-lfs.sources && \
       git-cvs \
       git-doc \
       git-email \
-      git-mediawiki \
       git-crypt \
       git-lfs \
       git-ftp

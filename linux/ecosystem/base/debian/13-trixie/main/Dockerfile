@@ -47,7 +47,6 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
         git-cvs \
         git-doc \
         git-email \
-        git-mediawiki \
         git-crypt \
         git-lfs \
         git-ftp \
