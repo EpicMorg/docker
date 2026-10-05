@@ -51,10 +51,10 @@ jobs:
           show-progress: false
       - name: Docker Hub + Quay
         env:
-          DOCKERHUB_USERNAME: ${{ secrets.DOCKER_SERVER_LOGIN }}
-          DOCKERHUB_TOKEN: ${{ secrets.DOCKER_API_TOKEN }}
+          DOCKER_SERVER_LOGIN: ${{ secrets.DOCKER_SERVER_LOGIN }}
+          DOCKER_API_TOKEN: ${{ secrets.DOCKER_API_TOKEN }}
           QUAY_API_TOKEN: ${{ secrets.QUAY_API_TOKEN }}
           REPOS: ${{ github.event.inputs.repos }}
         run: |
-          test -n "$DOCKERHUB_USERNAME" && test -n "$DOCKERHUB_TOKEN" || { echo "::error::DOCKER_SERVER_LOGIN / DOCKER_API_TOKEN is empty (DOCKER_API_TOKEN = Docker Hub PAT with Read, Write, Delete)"; exit 1; }
+          test -n "$DOCKER_SERVER_LOGIN" && test -n "$DOCKER_API_TOKEN" || { echo "::error::DOCKER_SERVER_LOGIN / DOCKER_API_TOKEN is empty (DOCKER_API_TOKEN = Docker Hub PAT with Read, Write, Delete)"; exit 1; }
           python3 .github/scripts/registry-descriptions.py $REPOS

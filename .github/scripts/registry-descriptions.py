@@ -9,8 +9,9 @@ The repo -> README map comes from `bin/python/readme-sync.py --map`. For each re
   * Quay: description (needs an OAuth token of a Quay application with the
     "Administer Repositories" scope - robot credentials can't use the API).
 
-Env: DOCKERHUB_USERNAME, DOCKERHUB_TOKEN (CI: secret DOCKER_API_TOKEN, a PAT with read/write/delete),
-     QUAY_API_TOKEN (optional), GITHUB_REF_NAME (branch for links, default master).
+Env (same names as the org secrets): DOCKER_SERVER_LOGIN, DOCKER_API_TOKEN (Docker Hub PAT with
+     read/write/delete), QUAY_API_TOKEN (Quay OAuth token, "Administer Repositories");
+     GITHUB_REF_NAME (branch for links, default master).
 Usage: registry-descriptions.py [--dry-run] [repo ...]
 """
 import json
@@ -62,10 +63,10 @@ def main():
                           capture_output=True, text=True, check=True).stdout.splitlines()
 
     hub_auth = None
-    if not os.environ.get('DOCKERHUB_TOKEN') or not os.environ.get('DOCKERHUB_USERNAME'):
-        print('::warning::DOCKERHUB_USERNAME / DOCKERHUB_TOKEN not set - Docker Hub descriptions skipped')
+    user, secret = os.environ.get('DOCKER_SERVER_LOGIN'), os.environ.get('DOCKER_API_TOKEN')
+    if not user or not secret:
+        print('::warning::DOCKER_SERVER_LOGIN / DOCKER_API_TOKEN not set - Docker Hub descriptions skipped')
     elif not dry:
-        user, secret = os.environ['DOCKERHUB_USERNAME'], os.environ['DOCKERHUB_TOKEN']
         try:   # current API: PAT -> bearer access token
             hub_auth = 'Bearer ' + request('POST', 'https://hub.docker.com/v2/auth/token',
                                            {'identifier': user, 'secret': secret})['access_token']
