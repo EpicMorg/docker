@@ -1,0 +1,10 @@
+services:
+  app:
+    image: "epicmorg/nginx:1.26-php5.3"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/nginx:1.26-php5.3
+      - ghcr.io/epicmorg/nginx:1.26-php5.3
+      - docker.io/epicmorg/nginx:1.26-php5.3

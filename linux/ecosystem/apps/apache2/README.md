@@ -1,4 +1,4 @@
-<!-- hub-description: Apache2 (mpm_event) + PHP 7.0-8.5 via php-fpm over a unix socket, under supervisord -->
+<!-- hub-description: Apache2 (mpm_event) + PHP 5.3-8.5 via php-fpm over a unix socket, under supervisord -->
 # `epicmorg/apache2`
 
 Debian's Apache2 in front of our [`epicmorg/php`](https://github.com/EpicMorg/docker/tree/master/linux/ecosystem/apps/php)
@@ -8,7 +8,7 @@ images. **No `mod_php`:** PHP runs as `php-fpm`, Apache talks to it through
 
 ## What's inside
 
-* `FROM epicmorg/php:<ver>` - one tag per PHP branch, `php7.0` ... `php8.5`. All
+* `FROM epicmorg/php:<ver>` - one tag per PHP branch, `php5.3` ... `php8.5`. All
   PHP extensions, `ionCube` / `phpBolt` loaders and helper scripts
   (`php-ext-enable`, `phpenmod`, ...) of the PHP image are there.
 * Apache with `mpm_event` (prefork and worker disabled) and `proxy_fcgi`, `ssl`,
@@ -27,6 +27,10 @@ images. **No `mod_php`:** PHP runs as `php-fpm`, Apache talks to it through
 <!-- readme-sync:tags:begin -->
 | Tags | Dockerfile |
 | ---- | ---------- |
+| `php5.3` | [`php5.3`](php5.3/Dockerfile) |
+| `php5.4` | [`php5.4`](php5.4/Dockerfile) |
+| `php5.5` | [`php5.5`](php5.5/Dockerfile) |
+| `php5.6` | [`php5.6`](php5.6/Dockerfile) |
 | `php7.0` | [`php7.0`](php7.0/Dockerfile) |
 | `php7.1` | [`php7.1`](php7.1/Dockerfile) |
 | `php7.2` | [`php7.2`](php7.2/Dockerfile) |

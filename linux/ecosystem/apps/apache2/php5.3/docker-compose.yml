@@ -1,0 +1,10 @@
+services:
+  app:
+    image: "epicmorg/apache2:php5.3"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/apache2:php5.3
+      - ghcr.io/epicmorg/apache2:php5.3
+      - docker.io/epicmorg/apache2:php5.3
