@@ -1,0 +1,10 @@
+services:
+  app:
+    image: "epicmorg/git:2.37"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/git:2.37
+      - ghcr.io/epicmorg/git:2.37
+      - docker.io/epicmorg/git:2.37

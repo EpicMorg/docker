@@ -1,0 +1,10 @@
+services:
+  app:
+    image: "epicmorg/git-lfs:2.8"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/git-lfs:2.8
+      - ghcr.io/epicmorg/git-lfs:2.8
+      - docker.io/epicmorg/git-lfs:2.8

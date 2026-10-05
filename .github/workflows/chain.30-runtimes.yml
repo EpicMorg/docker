@@ -30,6 +30,8 @@ jobs:
       nodejs: ${{ steps.list.outputs.nodejs }}
       dotnet: ${{ steps.list.outputs.dotnet }}
       go: ${{ steps.list.outputs.go }}
+      git: ${{ steps.list.outputs.git }}
+      git-lfs: ${{ steps.list.outputs.git-lfs }}
     steps:
     - uses: actions/checkout@v7
       with:
@@ -42,6 +44,8 @@ jobs:
           linux/ecosystem/apps/nodejs
           linux/ecosystem/apps/dotnet
           linux/ecosystem/apps/go
+          linux/ecosystem/apps/git
+          linux/ecosystem/apps/git-lfs
     - id: list
       run: |
         # assignment first, so a failing discovery fails the step (echo "$(...)" would not)
@@ -53,6 +57,8 @@ jobs:
         emit nodejs flat linux/ecosystem/apps/nodejs --min 1 --max 1
         emit dotnet flat linux/ecosystem/apps/dotnet --min 1 --max 1
         emit go flat linux/ecosystem/apps/go --min 1 --max 1
+        emit git flat linux/ecosystem/apps/git --min 1 --max 1
+        emit git-lfs flat linux/ecosystem/apps/git-lfs --min 1 --max 1
 
   # FROM epicmorg/gcc:N AS builder -> trixie; incl. museum 2.6 / 3.0-3.6 and dev
   python:
@@ -158,3 +164,33 @@ jobs:
     with:
       paths: ${{ matrix.leaf.paths }}
       free-disk: true
+
+  # FROM epicmorg/gcc:14 AS builder -> trixie; every git branch 1.8 .. latest, consumers COPY --from
+  git:
+    name: ${{ matrix.leaf.name }}
+    needs: list
+    if: needs.list.outputs.git != '[]'
+    strategy:
+      fail-fast: false
+      matrix:
+        leaf: ${{ fromJSON(needs.list.outputs.git) }}
+    uses: ./.github/workflows/_build-leaf.yml
+    secrets: inherit
+    with:
+      paths: ${{ matrix.leaf.paths }}
+      free-disk: true
+      build-attempts: 1
+
+  # FROM trixie (its git = epicmorg/git:latest) + one git-lfs release binary; every branch 1.0 .. latest
+  git-lfs:
+    name: ${{ matrix.leaf.name }}
+    needs: list
+    if: needs.list.outputs.git-lfs != '[]'
+    strategy:
+      fail-fast: false
+      matrix:
+        leaf: ${{ fromJSON(needs.list.outputs.git-lfs) }}
+    uses: ./.github/workflows/_build-leaf.yml
+    secrets: inherit
+    with:
+      paths: ${{ matrix.leaf.paths }}

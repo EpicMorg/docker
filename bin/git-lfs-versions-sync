@@ -1,0 +1,128 @@
+#!/usr/bin/env python3
+"""Create / refresh linux/ecosystem/apps/git-lfs/<major.minor> leaves.
+
+One leaf per git-lfs release branch (major.minor >= 1.0; 0.x git-media/hawser
+are skipped), always the newest non-prerelease patch of that branch. sha256:
+the GitHub asset digest, else the release's sha256sums.asc, else computed once
+from the downloaded archive (old releases publish neither - trust on first use,
+pinned from then on). The newest branch also carries the floating `latest` tag.
+
+A new leaf is a copy of the reference leaf; existing leaves only get their
+EMG_GIT_LFS_* lines and compose tags bumped (--refresh re-copies the reference).
+
+Usage: bin/git-lfs-versions-sync [--dry-run] [--refresh] [--only 3.7,3.8]
+Env: GITHUB_TOKEN (optional, avoids the anonymous API rate limit)
+"""
+import hashlib
+import json
+import os
+import re
+import shutil
+import sys
+import urllib.request
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE = os.path.join(ROOT, 'linux', 'ecosystem', 'apps', 'git-lfs')
+REFERENCE = '3.8'
+API = 'https://api.github.com/repos/git-lfs/git-lfs/releases?per_page=100&page=%d'
+
+
+def get(url):
+    req = urllib.request.Request(url)
+    if os.environ.get('GITHUB_TOKEN'):
+        req.add_header('Authorization', 'Bearer ' + os.environ['GITHUB_TOKEN'])
+    return urllib.request.urlopen(req, timeout=120).read()
+
+
+def vkey(v):
+    return [int(x) for x in v.split('.')]
+
+
+def releases():
+    """{major.minor: (full, url, sha256)}"""
+    best = {}
+    page = 1
+    while True:
+        batch = json.loads(get(API % page))
+        if not batch:
+            break
+        for r in batch:
+            if r['prerelease'] or r['draft']:
+                continue
+            full = r['tag_name'].lstrip('v')
+            if not re.fullmatch(r'\d+\.\d+\.\d+', full) or int(full.split('.')[0]) < 1:
+                continue
+            asset = next((a for a in r['assets']
+                          if re.fullmatch(r'git-lfs-linux-amd64-v?%s\.tar\.gz' % re.escape(full), a['name'])), None)
+            if not asset:
+                continue
+            br = '.'.join(full.split('.')[:2])
+            if br not in best or vkey(full) > vkey(best[br][0]):
+                best[br] = (full, asset, r)
+        page += 1
+    out = {}
+    for br, (full, asset, r) in best.items():
+        sha = (asset.get('digest') or '').replace('sha256:', '')
+        if not sha:
+            sums = next((a for a in r['assets'] if a['name'] == 'sha256sums.asc'), None)
+            if sums:
+                m = re.search(r'([0-9a-f]{64})\s+\*?%s' % re.escape(asset['name']),
+                              get(sums['browser_download_url']).decode(errors='ignore'))
+                sha = m.group(1) if m else ''
+        out[br] = (full, asset['browser_download_url'], sha)
+    return out
+
+
+def bump(text, br, full, url, sha):
+    for k, v in (('ENV EMG_GIT_LFS_VERSION', br), ('ENV EMG_GIT_LFS_FULL_VERSION', full),
+                 ('ARG EMG_GIT_LFS_SHA256', sha), ('ARG EMG_GIT_LFS_URL', url)):
+        text = re.sub(r'^(%s=).*$' % k, lambda m: m.group(1) + v, text, flags=re.M)
+    return text
+
+
+def compose(br, latest):
+    tags = [br] + (['latest'] if latest else [])
+    lines = ['services:', '  app:', '    image: "epicmorg/git-lfs:%s"' % br, '    build:', '      context: .',
+             '    x-squash: false', '    x-mirrors:']
+    for t in tags:
+        lines += ['      - %s/epicmorg/git-lfs:%s' % (reg, t) for reg in ('quay.io', 'ghcr.io', 'docker.io')]
+    return '\n'.join(lines) + '\n'
+
+
+def main():
+    dry = '--dry-run' in sys.argv
+    refresh = '--refresh' in sys.argv
+    argv = [a for a in sys.argv if a not in ('--dry-run', '--refresh')]
+    args = dict(zip(argv[1::2], argv[2::2]))
+    only = set(filter(None, args.get('--only', '').split(',')))
+    rel = releases()
+    newest = max(rel, key=vkey)
+    ref = os.path.join(BASE, REFERENCE)
+    for br in sorted(rel, key=vkey, reverse=True):
+        if only and br not in only:
+            continue
+        full, url, sha = rel[br]
+        leaf = os.path.join(BASE, br)
+        new = not os.path.isdir(leaf)
+        if not sha and not dry:
+            sha = hashlib.sha256(get(url)).hexdigest()
+            src = 'computed'
+        else:
+            src = 'published' if sha else 'to compute'
+        print('%-5s %-7s %s sha256 %s%s' % (br, full, 'new ' if new else 'bump', src, ' latest' if br == newest else ''))
+        if dry:
+            continue
+        if new:
+            os.makedirs(leaf)
+            for f in ('Dockerfile', 'Makefile'):
+                shutil.copy(os.path.join(ref, f), leaf)
+        elif refresh and br != REFERENCE:
+            shutil.copy(os.path.join(ref, 'Dockerfile'), leaf)
+        df = os.path.join(leaf, 'Dockerfile')
+        text = bump(open(df).read(), br, full, url, sha)      # read fully before 'w' truncates
+        open(df, 'w').write(text)
+        open(os.path.join(leaf, 'docker-compose.yml'), 'w').write(compose(br, br == newest))
+
+
+if __name__ == '__main__':
+    main()

@@ -1,0 +1,89 @@
+#!/usr/bin/env python3
+"""Create / refresh linux/ecosystem/apps/git/<major.minor> leaves.
+
+One leaf per git release branch (major.minor), always the newest patch of
+that branch, sha256 from kernel.org's sha256sums.asc. A new leaf is a copy of
+the reference leaf (REFERENCE below); existing leaves only get their version
+lines bumped (EMG_GIT_VERSION / EMG_GIT_FULL_VERSION / EMG_GIT_SHA256 and the
+compose tags) - per-leaf choices such as the OpenSSL / curl branch stay.
+
+Usage: bin/git-versions-sync [--dry-run] [--refresh] [--min 2.0] [--only 2.55,2.54]
+  --refresh   re-copy the reference Dockerfile into existing leaves too (drops per-leaf edits)
+"""
+import os
+import re
+import shutil
+import sys
+import urllib.request
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE = os.path.join(ROOT, 'linux', 'ecosystem', 'apps', 'git')
+REFERENCE = '2.56'
+SUMS = 'https://mirrors.edge.kernel.org/pub/software/scm/git/sha256sums.asc'
+
+
+def vkey(v):
+    return [int(x) for x in v.split('.')]
+
+
+def branches():
+    """{major.minor: (full version, sha256)} for every .tar.xz release (no rc)."""
+    out = {}
+    for line in urllib.request.urlopen(SUMS, timeout=60).read().decode().splitlines():
+        m = re.match(r'^([0-9a-f]{64})\s+git-(\d+\.\d+(?:\.\d+)*)\.tar\.xz$', line.strip())
+        if not m:
+            continue
+        sha, full = m.groups()
+        br = '.'.join(full.split('.')[:2])
+        if br not in out or vkey(full) > vkey(out[br][0]):
+            out[br] = (full, sha)
+    return out
+
+
+def bump(text, br, full, sha):
+    text = re.sub(r'^(ENV EMG_GIT_VERSION=).*$', r'\g<1>' + br, text, flags=re.M)
+    text = re.sub(r'^(ENV EMG_GIT_FULL_VERSION=).*$', r'\g<1>' + full, text, flags=re.M)
+    return re.sub(r'^(ARG EMG_GIT_SHA256=).*$', r'\g<1>' + sha, text, flags=re.M)
+
+
+def compose(br, latest):
+    tags = [br] + (['latest'] if latest else [])   # floating latest = newest branch (toolchain repo)
+    lines = ['services:', '  app:', '    image: "epicmorg/git:%s"' % br, '    build:', '      context: .',
+             '    x-squash: false', '    x-mirrors:']
+    for t in tags:
+        lines += ['      - %s/epicmorg/git:%s' % (reg, t) for reg in ('quay.io', 'ghcr.io', 'docker.io')]
+    return '\n'.join(lines) + '\n'
+
+
+def main():
+    dry = '--dry-run' in sys.argv
+    refresh = '--refresh' in sys.argv
+    argv = [a for a in sys.argv if a not in ('--dry-run', '--refresh')]
+    args = dict(zip(argv[1::2], argv[2::2]))
+    low = vkey(args.get('--min', '0.0'))
+    only = set(filter(None, args.get('--only', '').split(',')))
+    ref = os.path.join(BASE, REFERENCE)
+    found = branches()
+    newest = max(found, key=vkey)
+    for br, (full, sha) in sorted(found.items(), key=lambda x: vkey(x[0]), reverse=True):
+        if vkey(br) < low or (only and br not in only):
+            continue
+        leaf = os.path.join(BASE, br)
+        new = not os.path.isdir(leaf)
+        print('%-5s %-9s %s' % (br, full, 'new' if new else 'bump'))
+        if dry:
+            continue
+        if new:
+            os.makedirs(leaf)
+            for f in ('Dockerfile', 'Makefile', 'docker-compose.yml'):
+                shutil.copy(os.path.join(ref, f), leaf)
+        elif refresh and br != REFERENCE:
+            shutil.copy(os.path.join(ref, 'Dockerfile'), leaf)
+        df = os.path.join(leaf, 'Dockerfile')
+        text = bump(open(df).read(), br, full, sha)          # read fully before 'w' truncates
+        open(df, 'w').write(text)
+        open(os.path.join(leaf, 'docker-compose.yml'), 'w').write(compose(br, br == newest))
+
+
+if __name__ == '__main__':
+    main()
