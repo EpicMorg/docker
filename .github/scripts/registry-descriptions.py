@@ -9,7 +9,7 @@ The repo -> README map comes from `bin/python/readme-sync.py --map`. For each re
   * Quay: description (needs an OAuth token of a Quay application with the
     "Administer Repositories" scope - robot credentials can't use the API).
 
-Env: DOCKERHUB_USERNAME, DOCKERHUB_TOKEN (password or PAT with read/write/delete),
+Env: DOCKERHUB_USERNAME, DOCKERHUB_TOKEN (CI: secret DOCKER_API_TOKEN, a PAT with read/write/delete),
      QUAY_API_TOKEN (optional), GITHUB_REF_NAME (branch for links, default master).
 Usage: registry-descriptions.py [--dry-run] [repo ...]
 """
@@ -24,8 +24,7 @@ import urllib.request
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 GH = 'https://github.com/EpicMorg/docker'
 HUB_MAX = 25000
-# not published here (pending owner decision): the image patches the vendor's license-check key
-SKIP = {'epicmorg/mattermost-enterprise-edition'}
+SKIP = {'epicmorg/example'}
 LINK = re.compile(r'(\]\()(?!https?://|#|mailto:)([^)\s]+)(\))')
 
 
