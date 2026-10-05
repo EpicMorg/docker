@@ -8,8 +8,11 @@ on Debian 13 `trixie`, runs `p4p` under `tini` and caches file content in front 
 ## What's inside
 
 * everything from `epicmorg/perforce:<release>` (the Helix binaries of that release);
-* entrypoint that execs `p4p -p ${P4PORT} -r ${P4PCACHE} -t ${P4TARGET} [-R ${P4PROOT}] [-L ${P4LOG}] [-v ${P4DEBUG}] ${P4ARGS} <docker run args>` (fails fast when `P4TARGET` is empty);
-* volumes `/perforce/cache` and `/perforce/logs`, port `1666`.
+* entrypoint that execs `p4p -p ${P4PORT} -r ${P4PCACHE} -t ${P4TARGET} -R ${P4PROOT} [-L ${P4LOG}] [-v ${P4DEBUG}]
+  [-v proxy.monitor.level=${P4MONITOR_LEVEL}] [-v proxy.monitor.interval=${P4MONITOR_INTERVAL}] ${P4ARGS} <docker run args>`
+  (fails fast when `P4TARGET` is empty);
+* volumes `/perforce/cache` (file content), `/perforce/root` (the proxy's own `db.*`, `P4PROOT`) and
+  `/perforce/logs`; port `1666`; monitoring on by default (`P4MONITOR_LEVEL=3`, `P4MONITOR_INTERVAL=10`, empty = off).
 
 ## Tags
 

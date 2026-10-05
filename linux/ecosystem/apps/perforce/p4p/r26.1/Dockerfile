@@ -2,7 +2,14 @@ FROM docker.io/epicmorg/perforce:r26.1
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
+# cache = versioned file content (-r), root = the proxy's own db.* (-R, cache-fault
+# coordination), logs; the base image leaves P4PROOT empty
+ENV P4PROOT=/perforce/root
+# proxy monitoring (p4p -v proxy.monitor.*), empty = off
+ENV P4MONITOR_LEVEL=3
+ENV P4MONITOR_INTERVAL=10
 VOLUME /perforce/cache
+VOLUME /perforce/root
 VOLUME /perforce/logs
 WORKDIR /perforce
 
