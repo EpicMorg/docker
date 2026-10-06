@@ -9,7 +9,7 @@ The repo -> README map comes from `bin/python/readme-sync.py --map`. For each re
   * Quay: description (needs an OAuth token of a Quay application with the
     "Administer Repositories" scope - robot credentials can't use the API).
 
-Env (same names as the org secrets): DOCKER_SERVER_LOGIN, DOCKER_API_TOKEN (Docker Hub PAT with
+Env (same names as the org secrets): DOCKER_SERVER_LOGIN (or DOCKER_API_LOGIN), DOCKER_API_TOKEN (Docker Hub PAT with
      read/write/delete), QUAY_API_TOKEN (Quay OAuth token, "Administer Repositories");
      GITHUB_REF_NAME (branch for links, default master).
 Usage: registry-descriptions.py [--dry-run] [repo ...]
@@ -63,17 +63,27 @@ def main():
                           capture_output=True, text=True, check=True).stdout.splitlines()
 
     hub_auth = None
-    user, secret = os.environ.get('DOCKER_SERVER_LOGIN'), os.environ.get('DOCKER_API_TOKEN')
+    # login for the API token: DOCKER_API_LOGIN (e.g. the organisation name for an organisation
+    # access token, or the PAT owner), else DOCKER_SERVER_LOGIN
+    user = os.environ.get('DOCKER_API_LOGIN') or os.environ.get('DOCKER_SERVER_LOGIN')
+    secret = os.environ.get('DOCKER_API_TOKEN')
+    hub_auth, hub_failed = None, False
     if not user or not secret:
         print('::warning::DOCKER_SERVER_LOGIN / DOCKER_API_TOKEN not set - Docker Hub descriptions skipped')
     elif not dry:
-        try:   # current API: PAT -> bearer access token
+        try:   # current API: PAT / OAT -> bearer access token
             hub_auth = 'Bearer ' + request('POST', 'https://hub.docker.com/v2/auth/token',
                                            {'identifier': user, 'secret': secret})['access_token']
         except urllib.error.HTTPError as e:
-            print('::warning::hub /v2/auth/token: HTTP %s, trying /v2/users/login' % e.code)
-            hub_auth = 'JWT ' + request('POST', 'https://hub.docker.com/v2/users/login/',
-                                        {'username': user, 'password': secret})['token']
+            print('::warning::hub /v2/auth/token as %s: HTTP %s, trying /v2/users/login' % (user, e.code))
+            try:
+                hub_auth = 'JWT ' + request('POST', 'https://hub.docker.com/v2/users/login/',
+                                            {'username': user, 'password': secret})['token']
+            except urllib.error.HTTPError as e2:
+                hub_failed = True
+                print('::error::Docker Hub login as %s failed (HTTP %s): the token does not belong to this login '
+                      '(set DOCKER_API_LOGIN to the token owner / organisation name) - Hub skipped, Quay continues'
+                      % (user, e2.code))
     quay_token = os.environ.get('QUAY_API_TOKEN')
     if not quay_token:
         print('::warning::QUAY_API_TOKEN not set - Quay descriptions skipped')
@@ -108,7 +118,7 @@ def main():
         except urllib.error.HTTPError as e:
             failed += 1
             print('::error::%s quay.io: HTTP %s %s' % (repo, e.code, e.read()[:300].decode(errors='ignore')))
-    sys.exit(1 if failed else 0)
+    sys.exit(1 if failed or hub_failed else 0)
 
 
 if __name__ == '__main__':

@@ -52,6 +52,7 @@ jobs:
       - name: Docker Hub + Quay
         env:
           DOCKER_SERVER_LOGIN: ${{ secrets.DOCKER_SERVER_LOGIN }}
+          DOCKER_API_LOGIN: ${{ secrets.DOCKER_API_LOGIN }}
           DOCKER_API_TOKEN: ${{ secrets.DOCKER_API_TOKEN }}
           QUAY_API_TOKEN: ${{ secrets.QUAY_API_TOKEN }}
           REPOS: ${{ github.event.inputs.repos }}
