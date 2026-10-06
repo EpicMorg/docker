@@ -65,8 +65,13 @@ def main():
     hub_auth = None
     # login for the API token: DOCKER_API_LOGIN (e.g. the organisation name for an organisation
     # access token, or the PAT owner), else DOCKER_SERVER_LOGIN
-    user = os.environ.get('DOCKER_API_LOGIN') or os.environ.get('DOCKER_SERVER_LOGIN')
-    secret = os.environ.get('DOCKER_API_TOKEN')
+    raw_user = os.environ.get('DOCKER_API_LOGIN') or os.environ.get('DOCKER_SERVER_LOGIN') or ''
+    raw_secret = os.environ.get('DOCKER_API_TOKEN') or ''
+    # secrets pasted into the GitHub UI often carry a trailing newline / spaces
+    user, secret = raw_user.strip(), raw_secret.strip()
+    token_info = 'token kind=%s length=%d trimmed=%s, login trimmed=%s' % (
+        'PAT' if secret.startswith('dckr_pat_') else 'org access token' if secret.startswith('dckr_oat_') else 'password/other',
+        len(secret), raw_secret != secret, raw_user != user)
     hub_auth, hub_failed = None, False
     if not user or not secret:
         print('::warning::DOCKER_SERVER_LOGIN / DOCKER_API_TOKEN not set - Docker Hub descriptions skipped')
@@ -81,9 +86,9 @@ def main():
                                             {'username': user, 'password': secret})['token']
             except urllib.error.HTTPError as e2:
                 hub_failed = True
-                print('::error::Docker Hub login as %s failed (HTTP %s): the token does not belong to this login '
-                      '(set DOCKER_API_LOGIN to the token owner / organisation name) - Hub skipped, Quay continues'
-                      % (user, e2.code))
+                print('::error::Docker Hub login as %s failed (HTTP %s; %s): the token does not belong to this '
+                      'login (set DOCKER_API_LOGIN to the token owner / organisation name) - Hub skipped, Quay continues'
+                      % (user, e2.code, token_info))
     quay_token = os.environ.get('QUAY_API_TOKEN')
     if not quay_token:
         print('::warning::QUAY_API_TOKEN not set - Quay descriptions skipped')
