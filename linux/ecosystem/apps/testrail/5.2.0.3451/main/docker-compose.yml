@@ -1,0 +1,10 @@
+services:
+  app:
+    image: "epicmorg/testrail:5.2.0.3451"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/testrail:5.2.0.3451
+      - ghcr.io/epicmorg/testrail:5.2.0.3451
+      - docker.io/epicmorg/testrail:5.2.0.3451

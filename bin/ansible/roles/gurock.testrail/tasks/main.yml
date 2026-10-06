@@ -3,14 +3,26 @@
 # testrail_cassandra: none | prebuilt (Gurock .so, PHP 7.4) | source (PHP 8 fork of the DataStax php-driver).
 # TestRail >= 7.0 does not start without the Cassandra PHP extension.
 
-# No epicmorg/apache2:php5.x image and no dirs for these versions (TestRail 3.0 - 5.4.0).
-#- name: "Generate images for Testrail (PHP 5.5)"
-#  import_tasks: testrail.yml
-#  vars:
-#    testrail_php: "5.5"
-#    testrail_ion: "55"
-#    testrail_cassandra: "none"
-#    testrail_list: "testrail.php55.txt"
+# TestRail 3.1 - 5.3 ship only ion53 packages (ionCube-encoded for PHP 5.3); the PHP
+# line follows each version's own prereq check (app/boot/index.php): < 5.6 -> 5.5,
+# < 5.7 -> 5.6. 3.0.x is gone from the vendor (404); 5.4.x (< 7.1) has ion70 -> 7.0.
+- name: "Generate images for Testrail (PHP 5.5)"
+  import_tasks: testrail.yml
+  vars:
+    testrail_php: "5.5"
+    testrail_ion: "53"
+    testrail_openldap: "{{ testrail_openldap_legacy }}"
+    testrail_cassandra: "none"
+    testrail_list: "testrail.php55.txt"
+
+- name: "Generate images for Testrail (PHP 5.6)"
+  import_tasks: testrail.yml
+  vars:
+    testrail_php: "5.6"
+    testrail_ion: "53"
+    testrail_openldap: "{{ testrail_openldap_legacy }}"
+    testrail_cassandra: "none"
+    testrail_list: "testrail.php56.txt"
 
 - name: "Generate images for Testrail (PHP 7.0)"
   import_tasks: testrail.yml

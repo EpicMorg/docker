@@ -1,0 +1,10 @@
+services:
+  app:
+    image: "epicmorg/testrail:auth-ldap-4.2.0.3312"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/testrail:auth-ldap-4.2.0.3312
+      - ghcr.io/epicmorg/testrail:auth-ldap-4.2.0.3312
+      - docker.io/epicmorg/testrail:auth-ldap-4.2.0.3312

@@ -10,9 +10,11 @@ ARG DEBIAN_FRONTEND=noninteractive
 # OpenSSL (${PHP_SSL_DIR}), so the PHP ldap extension gets its own libldap,
 # baked against the same OpenSSL with a real RPATH (-Wl,--disable-new-dtags):
 # exactly one libssl/libcrypto per process.
-ENV OPENLDAP_VERSION=2.6.15
+{% set ldap = testrail_openldap | default(testrail_openldap_default) %}
+# {{ ldap.note }}
+ENV OPENLDAP_VERSION={{ ldap.version }}
 ENV OPENLDAP_DIR=${EMG_LOCAL_BASE_DIR}/openldap/${OPENLDAP_VERSION}
-ARG OPENLDAP_SHA256=bc91225dbfc50354033b1303bc91d1a7f6ddd1dc32fac950d79c28fe66d6bca8
+ARG OPENLDAP_SHA256={{ ldap.sha256 }}
 ARG OPENLDAP_URL=https://www.openldap.org/software/download/OpenLDAP/openldap-release/openldap-${OPENLDAP_VERSION}.tgz
 
 RUN set -eux; \
@@ -32,6 +34,9 @@ RUN set -eux; \
       --without-cyrus-sasl \
       --with-tls=openssl \
       CPPFLAGS="-I${PHP_SSL_DIR}/include" \
+{% if ldap.cflags | default('') %}
+      CFLAGS="{{ ldap.cflags }}" \
+{% endif %}
       LDFLAGS="-L${PHP_SSL_LIB_DIR} -Wl,-rpath,${PHP_SSL_LIB_DIR} -Wl,-rpath,${OPENLDAP_DIR}/lib -Wl,--disable-new-dtags"; \
     make depend; \
     make -C include -j"$(nproc)"; \

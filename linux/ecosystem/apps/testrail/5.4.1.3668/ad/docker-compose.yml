@@ -1,0 +1,10 @@
+services:
+  app:
+    image: "epicmorg/testrail:auth-ad-5.4.1.3668"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/testrail:auth-ad-5.4.1.3668
+      - ghcr.io/epicmorg/testrail:auth-ad-5.4.1.3668
+      - docker.io/epicmorg/testrail:auth-ad-5.4.1.3668
