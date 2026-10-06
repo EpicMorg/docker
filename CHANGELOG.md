@@ -1,7 +1,13 @@
 # Changelog
 
 ## 2026
-* `oct` — after `v20261004`
+* `oct` — `v20261006`
+  * **new** `epicmorg/p4d` (r16.2–r26.1): Helix server with a graceful `p4 admin stop` on `docker stop`, `p4d-checkpoint` (docker exec) and `p4d-upgrade` (offline `p4d -xu`) helpers; perforce `base` / `p4p` / `p4d` gained r25.1, r25.2, r26.1; `p4p` got its own db volume (`-R`) and proxy monitoring
+  * `apache2:php5.3`–`php5.6` and `nginx:<1.25–1.31>-php5.3`–`php5.6`
+  * `testrail` 3.1–5.4 (PHP 5.5 / 5.6 / 7.0 by each release's own requirement; OpenLDAP 2.4 for the PHP 5 auth variants) — 97 TestRail versions in total
+  * `qbittorrent` 5.2.0–5.2.4, `webtlo` 4.1.1–4.6.0
+  * `gcc` sources from `gcc.gnu.org` (ftp.gnu.org unreachable)
+  * tools moved to `bin/python/` (+ `cascade.py`, a folder-based build runner)
   * **new** `epicmorg/git` — every git release branch `1.8`–`2.56` built from source (kernel.org, sha256): baked `curl` 8.21 + `openssl` 3.5, `RPATH`, man pages, `/emg-export` for `COPY --from`; floating `latest` = newest branch
   * **new** `epicmorg/git-lfs` — every git-lfs branch `1.0`–`3.8` (upstream binaries, sha256-pinned, man pages); `0.x` skipped; floating `latest`
   * `debian:trixie` (and children): `git` + `git-lfs` = latest `epicmorg/git(-lfs)` instead of the Ubuntu git-core PPA / packagecloud; `epicmorg-git` placeholder package + apt pin keep Debian's `git` out; `man-db` + git man pages
