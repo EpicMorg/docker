@@ -2,7 +2,7 @@
 # `epicmorg/gcc`
 
 GNU Compiler Collection, one major version per tag, built from the upstream
-release tarballs (`ftp.gnu.org`) on top of
+release tarballs (`gcc.gnu.org/pub/gcc/releases`) on top of
 [`epicmorg/debian:trixie-develop`](https://github.com/EpicMorg/docker/tree/master/linux/ecosystem/base/debian).
 These images are the build stages for our runtimes (Python, nginx, ...) and a
 ready toolchain for anything that needs an older or newer compiler than Debian's.
