@@ -1,6 +1,6 @@
-FROM docker.io/epicmorg/jdk:21 AS jdk
+FROM ghcr.io/epicmorg/jdk:21 AS jdk
 
-FROM docker.io/epicmorg/debian:trixie-develop
+FROM ghcr.io/epicmorg/debian:trixie-develop
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 

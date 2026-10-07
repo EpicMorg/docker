@@ -1,5 +1,5 @@
 # check=skip=UndefinedVar
-FROM docker.io/epicmorg/gcc:11 AS builder
+FROM ghcr.io/epicmorg/gcc:11 AS builder
 
 # /etc/ld.so.conf.d/
 ARG LD_CONF_DIR=/etc/ld.so.conf.d/
@@ -178,7 +178,7 @@ RUN set -eu; \
 ##################################################################
 ##################################################################
 ##################################################################
-FROM docker.io/epicmorg/debian:trixie
+FROM ghcr.io/epicmorg/debian:trixie
 LABEL org.opencontainers.image.title="EpicMorg Python"
 LABEL org.opencontainers.image.description="Python by EpicMorg"
 

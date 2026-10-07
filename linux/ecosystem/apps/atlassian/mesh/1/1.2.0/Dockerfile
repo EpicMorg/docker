@@ -1,4 +1,4 @@
-FROM docker.io/epicmorg/jdk:8
+FROM ghcr.io/epicmorg/jdk:8
 LABEL org.opencontainers.image.title="EpicMorg Bitbucket Mesh"
 LABEL org.opencontainers.image.description="Atlassian Bitbucket Mesh by EpicMorg"
 ARG DEBIAN_FRONTEND=noninteractive

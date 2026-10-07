@@ -1,6 +1,6 @@
-FROM epicmorg/debian:trixie
-#FROM docker.io/epicmorg/python:3.13
-#FROM docker.io/epicmorg/python:3.11
+FROM ghcr.io/epicmorg/debian:trixie
+#FROM ghcr.io/epicmorg/python:3.13
+#FROM ghcr.io/epicmorg/python:3.11
 
 ENV TELEGRAMBOT_DIR=${EMG_LOCAL_BASE_DIR}/telegram/bot/quotes
 RUN mkdir -p ${TELEGRAMBOT_DIR}

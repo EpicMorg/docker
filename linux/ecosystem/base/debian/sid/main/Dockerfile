@@ -1,4 +1,4 @@
-FROM docker.io/epicmorg/debian:sid-light
+FROM ghcr.io/epicmorg/debian:sid-light
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 

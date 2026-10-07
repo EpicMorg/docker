@@ -60,8 +60,8 @@ Every tag is pushed to `docker.io`, `quay.io` and `ghcr.io` (`epicmorg/git-lfs:<
 ## Usage
 
 ```dockerfile
-FROM docker.io/epicmorg/debian:trixie
-COPY --from=docker.io/epicmorg/git-lfs:2.13 /emg-export/ /
+FROM ghcr.io/epicmorg/debian:trixie
+COPY --from=ghcr.io/epicmorg/git-lfs:2.13 /emg-export/ /
 ENV PATH="/usr/local/share/epicmorg/git-lfs/2.13/bin:${PATH}"
 RUN git lfs install --system --skip-repo && git lfs version
 ```

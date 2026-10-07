@@ -2,6 +2,6 @@
 
 # `epicmorg/vscode-server:nodejs`
 
-Built from: `docker.io/epicmorg/vscode-server:latest`
+Built from: `ghcr.io/epicmorg/vscode-server:latest`
 
 Usage, tags and notes: [`epicmorg/vscode-server`](../README.md).

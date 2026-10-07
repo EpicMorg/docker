@@ -2,6 +2,6 @@
 
 # `epicmorg/php:5.6`
 
-Built from: `docker.io/epicmorg/gcc:14`, `docker.io/epicmorg/debian:trixie`
+Built from: `ghcr.io/epicmorg/gcc:14`, `ghcr.io/epicmorg/debian:trixie`
 
 Usage, tags and notes: [`epicmorg/php`](../README.md).

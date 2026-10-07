@@ -4,9 +4,9 @@
 # All node* agents share this file; they differ only in the version.
 # pnpm / yarn come with the nodejs image (installed there as global npm
 # packages, i.e. inside ${NODE_DIR}).
-FROM docker.io/epicmorg/nodejs:16 AS node
+FROM ghcr.io/epicmorg/nodejs:16 AS node
 
-FROM docker.io/epicmorg/teamcity-agent:minimal
+FROM ghcr.io/epicmorg/teamcity-agent:minimal
 ARG DEBIAN_FRONTEND=noninteractive
 
 ENV NODE_DIR=${EMG_LOCAL_BASE_DIR}/nodejs/16

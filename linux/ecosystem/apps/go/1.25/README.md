@@ -2,6 +2,6 @@
 
 # `epicmorg/go:1.25`
 
-Built from: `docker.io/epicmorg/debian:trixie-develop-light`
+Built from: `ghcr.io/epicmorg/debian:trixie-develop-light`
 
 Usage, tags and notes: [`epicmorg/go`](../README.md).

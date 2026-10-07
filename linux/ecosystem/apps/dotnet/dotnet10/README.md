@@ -2,6 +2,6 @@
 
 # `epicmorg/dotnet:10`
 
-Built from: `docker.io/epicmorg/debian:trixie`
+Built from: `ghcr.io/epicmorg/debian:trixie`
 
 Usage, tags and notes: [`epicmorg/dotnet`](../README.md).

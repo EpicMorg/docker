@@ -1,4 +1,4 @@
-FROM docker.io/epicmorg/testrail:{{ item }}
+FROM ghcr.io/epicmorg/testrail:{{ item }}
 LABEL org.opencontainers.image.title="EpicMorg TestRail ({{ auth.title }} auth)"
 LABEL org.opencontainers.image.description="TestRail {{ item }} with the {{ auth.title }} authentication script on Apache2 + PHP {{ testrail_php }} (fpm) by EpicMorg"
 ARG DEBIAN_FRONTEND=noninteractive

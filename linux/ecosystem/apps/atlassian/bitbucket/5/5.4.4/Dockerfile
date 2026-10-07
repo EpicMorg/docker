@@ -1,4 +1,4 @@
-FROM docker.io/epicmorg/jdk:8
+FROM ghcr.io/epicmorg/jdk:8
 LABEL maintainer="Atlassian Bitbucket Team; EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 

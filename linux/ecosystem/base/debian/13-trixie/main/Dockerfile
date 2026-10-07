@@ -1,10 +1,10 @@
 # git + git-lfs: newest epicmorg/git and epicmorg/git-lfs (floating toolchain tags,
 # ADR-060). They are themselves built FROM this image - the loop is closed by using
 # the last published release (bootstrap).
-FROM docker.io/epicmorg/git:latest AS git
-FROM docker.io/epicmorg/git-lfs:latest AS git-lfs
+FROM ghcr.io/epicmorg/git:latest AS git
+FROM ghcr.io/epicmorg/git-lfs:latest AS git-lfs
 
-FROM docker.io/epicmorg/debian:trixie-light
+FROM ghcr.io/epicmorg/debian:trixie-light
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 

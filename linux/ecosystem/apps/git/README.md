@@ -98,8 +98,8 @@ Copy one git into your image (`/emg-export` = git + exactly the libraries it lin
 are already in the epicmorg Debian bases):
 
 ```dockerfile
-FROM docker.io/epicmorg/debian:trixie
-COPY --from=docker.io/epicmorg/git:2.47 /emg-export/ /
+FROM ghcr.io/epicmorg/debian:trixie
+COPY --from=ghcr.io/epicmorg/git:2.47 /emg-export/ /
 ENV PATH="/usr/local/share/epicmorg/git/2.47/bin:${PATH}"
 RUN git --version
 ```

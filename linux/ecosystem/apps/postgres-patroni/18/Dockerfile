@@ -2,7 +2,7 @@
 # https://github.com/mmartinello/patroni-docker/blob/master/Dockerfile
 
 ARG PG_VERSION=18
-FROM docker.io/epicmorg/postgres:${PG_VERSION}
+FROM ghcr.io/epicmorg/postgres:${PG_VERSION}
 
 ARG DEBIAN_FRONTEND=noninteractive
 ARG PATRONI_VERSION=4.1.*

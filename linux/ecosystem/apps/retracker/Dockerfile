@@ -1,7 +1,7 @@
 ##################################################################
 #                   Build retracker with the EpicMorg go toolchain
 ##################################################################
-FROM docker.io/epicmorg/go:1.26 AS builder
+FROM ghcr.io/epicmorg/go:1.26 AS builder
 
 ARG RETRACKER_VERSION=latest
 
@@ -14,7 +14,7 @@ RUN set -eux; \
 ##################################################################
 #                   Final image
 ##################################################################
-FROM docker.io/epicmorg/debian:trixie
+FROM ghcr.io/epicmorg/debian:trixie
 LABEL org.opencontainers.image.title="EpicMorg retracker"
 LABEL org.opencontainers.image.description="Simple HTTP torrent tracker (vvampirius/retracker)"
 

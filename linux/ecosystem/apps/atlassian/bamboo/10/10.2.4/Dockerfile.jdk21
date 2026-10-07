@@ -1,4 +1,4 @@
-FROM docker.io/epicmorg/jdk:21
+FROM ghcr.io/epicmorg/jdk:21
 LABEL org.opencontainers.image.title="EpicMorg Bamboo"
 LABEL org.opencontainers.image.description="Atlassian Bamboo Server by EpicMorg"
 ARG DEBIAN_FRONTEND=noninteractive

@@ -5,7 +5,7 @@
 ##################################################################
 ##################################################################
 ##################################################################
-FROM docker.io/epicmorg/gcc:14 AS build
+FROM ghcr.io/epicmorg/gcc:14 AS build
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -375,7 +375,7 @@ RUN set -eux; \
 ##################################################################
 ##################################################################
 ##################################################################
-FROM docker.io/epicmorg/debian:trixie
+FROM ghcr.io/epicmorg/debian:trixie
 
 ENV NGINX_VERSION=1.28
 ENV NGINX_VERSION_FULL=${NGINX_VERSION}.3

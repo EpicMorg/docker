@@ -6,7 +6,7 @@
 # All git leaves share this file; they differ only in the EMG_GIT_* block
 # below (version + upstream sha256, bumped by bin/python/git-versions-sync.py) and in
 # the OpenSSL / curl branch.
-FROM docker.io/epicmorg/gcc:14 AS builder
+FROM ghcr.io/epicmorg/gcc:14 AS builder
 
 # NB: never name these GIT_*: git reads GIT_DIR, GIT_PREFIX ... at runtime and
 # its Makefile takes GIT_VERSION from the environment.
@@ -117,7 +117,7 @@ RUN set -eu; \
 #                       Final image
 ##################################################################
 ##################################################################
-FROM docker.io/epicmorg/debian:trixie
+FROM ghcr.io/epicmorg/debian:trixie
 ARG DEBIAN_FRONTEND=noninteractive
 
 ENV EMG_GIT_VERSION=2.48
@@ -131,7 +131,7 @@ LABEL org.opencontainers.image.licenses="MIT"
 
 # git + exactly the baked prefixes it links, installed here and kept as a
 # self-contained tree in /emg-export for consumers (incl. the base image):
-#   COPY --from=docker.io/epicmorg/git:<ver> /emg-export/ /
+#   COPY --from=ghcr.io/epicmorg/git:<ver> /emg-export/ /
 # git-lfs is the base image's (latest epicmorg/git-lfs), not part of the export.
 COPY --from=builder /emg-export/ /
 COPY --from=builder /emg-export/ /emg-export/

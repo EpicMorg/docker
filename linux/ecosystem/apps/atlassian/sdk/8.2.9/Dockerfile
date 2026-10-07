@@ -1,4 +1,4 @@
-FROM docker.io/epicmorg/jdk:8
+FROM ghcr.io/epicmorg/jdk:8
 ARG DEBIAN_FRONTEND=noninteractive
 
 ##################################################################

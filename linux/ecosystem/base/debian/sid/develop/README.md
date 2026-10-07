@@ -2,6 +2,6 @@
 
 # `epicmorg/debian:sid-develop`
 
-Built from: `docker.io/epicmorg/debian:sid`
+Built from: `ghcr.io/epicmorg/debian:sid`
 
 Usage, tags and notes: [`epicmorg/debian`](../../README.md).

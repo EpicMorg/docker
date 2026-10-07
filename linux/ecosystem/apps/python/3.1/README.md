@@ -2,6 +2,6 @@
 
 # `epicmorg/python:3.1`
 
-Built from: `docker.io/epicmorg/gcc:4`, `docker.io/epicmorg/debian:trixie`
+Built from: `ghcr.io/epicmorg/gcc:4`, `ghcr.io/epicmorg/debian:trixie`
 
 Usage, tags and notes: [`epicmorg/python`](../README.md).

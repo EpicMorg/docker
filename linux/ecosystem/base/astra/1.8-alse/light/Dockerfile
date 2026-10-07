@@ -1,4 +1,4 @@
-FROM docker.io/epicmorg/astralinux:1.8-rootfs
+FROM ghcr.io/epicmorg/astralinux:1.8-rootfs
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 LABEL org.opencontainers.image.vendor="EpicMorg DevTeam, developer@epicm.org"
 LABEL org.opencontainers.image.authors="STAM, kasthack, Aleks-Z"

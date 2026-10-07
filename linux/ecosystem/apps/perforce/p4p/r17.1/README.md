@@ -2,6 +2,6 @@
 
 # `epicmorg/p4p:r17.1`
 
-Built from: `docker.io/epicmorg/perforce:r17.1`
+Built from: `ghcr.io/epicmorg/perforce:r17.1`
 
 Usage, tags and notes: [`epicmorg/p4p`](../README.md).

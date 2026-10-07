@@ -1,4 +1,4 @@
-FROM docker.io/epicmorg/gitlab-runner:minimal
+FROM ghcr.io/epicmorg/gitlab-runner:minimal
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 
 ARG K_NODE_MAJOR_VERSION=6

@@ -1,4 +1,4 @@
-FROM docker.io/epicmorg/debian:trixie-develop as builder
+FROM ghcr.io/epicmorg/debian:trixie-develop as builder
 
 RUN git clone https://www-dev.cockos.com/ninjam/ninjam.git /tmp/ninjam && \
     cd /tmp/ninjam/ninjam/server && \
@@ -6,7 +6,7 @@ RUN git clone https://www-dev.cockos.com/ninjam/ninjam.git /tmp/ninjam && \
     dos2unix *.cfg && \
     dos2unix *.txt
 
-FROM docker.io/epicmorg/debian:trixie
+FROM ghcr.io/epicmorg/debian:trixie
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 

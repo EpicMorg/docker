@@ -2,6 +2,6 @@
 
 # `epicmorg/astralinux:1.8-develop-light`
 
-Built from: `docker.io/epicmorg/astralinux:1.8-main`
+Built from: `ghcr.io/epicmorg/astralinux:1.8-main`
 
 Usage, tags and notes: [`epicmorg/astralinux`](../../README.md).

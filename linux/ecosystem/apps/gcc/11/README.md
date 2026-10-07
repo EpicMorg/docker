@@ -2,6 +2,6 @@
 
 # `epicmorg/gcc:11`
 
-Built from: `docker.io/epicmorg/gcc:11`, `docker.io/epicmorg/debian:trixie-develop`
+Built from: `ghcr.io/epicmorg/gcc:11`, `ghcr.io/epicmorg/debian:trixie-develop`
 
 Usage, tags and notes: [`epicmorg/gcc`](../README.md).

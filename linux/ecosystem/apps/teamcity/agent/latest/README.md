@@ -2,6 +2,6 @@
 
 # `epicmorg/teamcity-agent:latest`
 
-Built from: `docker.io/epicmorg/teamcity-agent:minimal`
+Built from: `ghcr.io/epicmorg/teamcity-agent:minimal`
 
 Usage, tags and notes: [`epicmorg/teamcity-agent`](../README.md).

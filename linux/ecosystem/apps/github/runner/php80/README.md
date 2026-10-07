@@ -2,6 +2,6 @@
 
 # `epicmorg/github-runner:php8.0`
 
-Built from: `docker.io/epicmorg/php:8.0`, `docker.io/epicmorg/github-runner:minimal`
+Built from: `ghcr.io/epicmorg/php:8.0`, `ghcr.io/epicmorg/github-runner:minimal`
 
 Usage, tags and notes: [`epicmorg/github-runner`](../README.md).

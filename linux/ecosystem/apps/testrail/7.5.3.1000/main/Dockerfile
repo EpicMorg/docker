@@ -3,7 +3,7 @@
 ##############################################################################
 # DataStax/Apache C/C++ driver built against PHP's own OpenSSL (${PHP_SSL_DIR}),
 # real RPATH (-Wl,--disable-new-dtags), so no system libssl/libcrypto gets loaded.
-FROM docker.io/epicmorg/apache2:php7.4 AS cassandra-builder
+FROM ghcr.io/epicmorg/apache2:php7.4 AS cassandra-builder
 ARG DEBIAN_FRONTEND=noninteractive
 
 ENV CASSANDRA_CPP_DRIVER_VERSION=2.17.1
@@ -70,7 +70,7 @@ RUN set -eux; \
     ldd "/tmp/cassandra/cassandra.so" | grep -q "${PHP_SSL_LIB_DIR}/libssl" || { echo "FATAL: /tmp/cassandra/cassandra.so not linked against ${PHP_SSL_LIB_DIR}" >&2; ldd "/tmp/cassandra/cassandra.so" >&2; exit 1; }; \
     php -d extension=/tmp/cassandra/cassandra.so -m | grep -qix cassandra
 
-FROM docker.io/epicmorg/apache2:php7.4
+FROM ghcr.io/epicmorg/apache2:php7.4
 LABEL org.opencontainers.image.title="EpicMorg TestRail"
 LABEL org.opencontainers.image.description="TestRail 7.5.3.1000 on Apache2 + PHP 7.4 (fpm) by EpicMorg"
 ARG DEBIAN_FRONTEND=noninteractive

@@ -2,6 +2,6 @@
 
 # `epicmorg/debian:trixie`
 
-Built from: `docker.io/epicmorg/git:latest`, `docker.io/epicmorg/git-lfs:latest`, `docker.io/epicmorg/debian:trixie-light`
+Built from: `ghcr.io/epicmorg/git:latest`, `ghcr.io/epicmorg/git-lfs:latest`, `ghcr.io/epicmorg/debian:trixie-light`
 
 Usage, tags and notes: [`epicmorg/debian`](../../README.md).

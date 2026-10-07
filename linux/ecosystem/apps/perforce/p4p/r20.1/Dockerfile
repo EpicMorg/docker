@@ -1,4 +1,4 @@
-FROM docker.io/epicmorg/perforce:r20.1
+FROM ghcr.io/epicmorg/perforce:r20.1
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 

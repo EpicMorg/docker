@@ -1,4 +1,4 @@
-FROM docker.io/epicmorg/nodejs:23
+FROM ghcr.io/epicmorg/nodejs:23
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 

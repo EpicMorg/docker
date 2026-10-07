@@ -2,6 +2,6 @@
 
 # `epicmorg/nextcloud:28-patched`
 
-Built from: `docker.io/epicmorg/nextcloud:28`
+Built from: `ghcr.io/epicmorg/nextcloud:28`
 
 Usage, tags and notes: [`epicmorg/nextcloud`](../../README.md).
