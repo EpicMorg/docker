@@ -127,6 +127,11 @@ jobs:
           test -n "$REG_USER" && test -n "$REG_PASS" || { echo "::error::GHCR_API is empty: org secret not shared with this repo?"; exit 1; }
           echo "$REG_PASS" | docker login -u "$REG_USER" --password-stdin ghcr.io
 
+    # Rootless buildah runs RUN steps with --network=host: `nginx -t` in the assertions binds :80,
+    # which the unprivileged runner user may not do by default (bind() ... 13: Permission denied).
+    - name: Allow binding low ports
+      run: sudo sysctl -w net.ipv4.ip_unprivileged_port_start=0
+
     - name: Install build wrappers (make pip)
       uses: nick-fields/retry@v4
       with:

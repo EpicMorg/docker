@@ -50,6 +50,7 @@ RUN set -eux; \
     wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -P /tmp ${DOWNLOAD_URL} && \
     mkdir -p ${BITBUCKET_INSTALL_DIR} && \
     tar -xzf ${TEMP_ARCHIVE} --strip-components=1 --directory "${BITBUCKET_INSTALL_DIR}" && \
+    rm -fv ${TEMP_ARCHIVE} && \
     chown -R ${RUN_USER}:${RUN_GROUP}        ${BITBUCKET_INSTALL_DIR}
 
 ##################################################################

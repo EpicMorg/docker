@@ -49,6 +49,7 @@ RUN set -eux; \
     wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -P /tmp ${DOWNLOAD_URL} && \
     mkdir -p  ${JIRA_INSTALL_DIR} && \
     tar -xzf ${TEMP_ARCHIVE} --strip-components=1 --directory "${JIRA_INSTALL_DIR}" && \
+    rm -fv ${TEMP_ARCHIVE} && \
     chown -R ${RUN_USER}:${RUN_GROUP} ${JIRA_INSTALL_DIR}/ && \
     sed -i -e 's/^JVM_SUPPORT_RECOMMENDED_ARGS=""$/: \${JVM_SUPPORT_RECOMMENDED_ARGS:=""}/g' ${JIRA_INSTALL_DIR}/bin/setenv.sh && \
     sed -i -e 's/^JVM_\(.*\)_MEMORY="\(.*\)"$/: \${JVM_\1_MEMORY:=\2}/g' ${JIRA_INSTALL_DIR}/bin/setenv.sh && \

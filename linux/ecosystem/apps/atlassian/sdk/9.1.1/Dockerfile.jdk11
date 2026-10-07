@@ -11,11 +11,10 @@ ENV ATLASSIAN_SDK_INSTALL_DIR=${EMG_LOCAL_BASE_DIR}/atlassian/sdk
 ENV ATLASSIAN_SDK_BIN_DIR=${ATLASSIAN_SDK_INSTALL_DIR}/bin
 ENV ATLASSIAN_SDK_PROJECTS_DIR=${ATLASSIAN_SDK_INSTALL_DIR}/projects
 
-# Use bundled maven path instead of system
-ENV MAVEN_PATH=${ATLASSIAN_SDK_INSTALL_DIR}/apache-maven-3.9.8
-ENV MAVEN_LINK=https://dlcdn.apache.org/maven/maven-3/3.9.10/binaries/apache-maven-3.9.8-bin.zip
-ENV MAVEN_VERSION=3.9.10
-ENV MAVEN_BIN=${ATLASSIAN_SDK_INSTALL_DIR}/apache-maven-3.9.8/bin
+# Use the maven bundled in the SDK archive instead of a system one
+ENV MAVEN_VERSION=3.9.8
+ENV MAVEN_PATH=${ATLASSIAN_SDK_INSTALL_DIR}/apache-maven-${MAVEN_VERSION}
+ENV MAVEN_BIN=${MAVEN_PATH}/bin
 ENV MAVEN_HOME=${ATLASSIAN_SDK_INSTALL_DIR}
 ENV MAVEN_ROOT=${ATLASSIAN_SDK_INSTALL_DIR}
 ENV MAVEN_OPTS="-Dmaven.repo.local=${EMG_LOCAL_BASE_DIR}/atlassian/sdk/repository"
@@ -29,9 +28,12 @@ WORKDIR ${ATLASSIAN_SDK_PROJECTS_DIR}
 ##################################################################
 #                   Installing
 ##################################################################
-ADD ${DOWNLOAD_URL} /tmp
+# downloaded and removed in the same RUN: an ADD layer would keep the archive in the image
 RUN mkdir -p ${ATLASSIAN_SDK_PROJECTS_DIR} && \
+    wget -q -O ${TEMP_ARCHIVE} ${DOWNLOAD_URL} && \
     tar -xzf ${TEMP_ARCHIVE} --strip-components=1 --directory "${ATLASSIAN_SDK_INSTALL_DIR}" && \
+    rm -fv ${TEMP_ARCHIVE} && \
+    test -x ${MAVEN_BIN}/mvn && \
     rm -rfv ${ATLASSIAN_SDK_BIN_DIR}/*.bat && \
     chmod +x -R ${ATLASSIAN_SDK_BIN_DIR} && \
     mkdir -p /root/.m2 && \
@@ -51,9 +53,8 @@ RUN echo "=============================================" && \
     mvn -v && \
     echo "=============================================" && \
     atlas-version && \
-    echo "=============================================" && \
-    atlas-update && \
     echo "============================================="
+# no atlas-update: it would replace the pinned SDK with the newest one (and 8.x points to a dead marketplace URL)
 
 ##################################################################
 #                  cleanup
