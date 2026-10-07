@@ -137,14 +137,30 @@ ENV LIBRAQM_LIB_DIR=${LIBRAQM_DIR}/lib
 ##################################################################
 #                   installing
 ##################################################################
-# Runtime libs of nginx modules (same list as ../main) + supervisor,
-# which runs php-fpm and nginx side by side.
+# Debian runtime libs of nginx, its modules and the baked libgd/libraqm/gperftools (same list
+# as ../main; listed explicitly, not taken for granted from debian main) + supervisor, which
+# runs php-fpm and nginx side by side.
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         libunwind8 \
         libmaxminddb0 \
         libxpm4 \
         libavif16 \
+        libzip5 \
+        libwebp7 \
+        libheif1 \
+        libtiff6 \
+        libharfbuzz0b \
+        libfribidi0 \
+        libfreetype6 \
+        libfontconfig1 \
+        libjpeg62-turbo \
+        libpng16-16t64 \
+        libgssapi-krb5-2 \
+        libkrb5-3 \
+        libcom-err2 \
+        libpam0g \
+        libperl5.40 \
         supervisor \
     && \
     echo "clean up" && \
@@ -234,7 +250,7 @@ RUN set -eu; \
 #                   Runtime
 ##################################################################
 # /php-fpm-ping is answered by php-fpm through nginx, so one probe covers both.
-HEALTHCHECK --interval=2m --timeout=3s CMD curl -fsS http://127.0.0.1/php-fpm-ping || exit 1
+HEALTHCHECK --interval=2m --timeout=3s --start-period=10s CMD curl -fsS http://127.0.0.1/php-fpm-ping || exit 1
 
 VOLUME ["${NGINX_CACHE_DIR}"]
 WORKDIR /var/www/

@@ -494,12 +494,29 @@ ENV LIBRAQM_LIB_DIR=${LIBRAQM_DIR}/lib
 ##################################################################
 #                   installing
 ##################################################################
+# Debian runtime libs of nginx, its modules and the baked libgd/libraqm/gperftools:
+# listed explicitly, not taken for granted from debian main (ffmpeg/graphicsmagick pull them today).
 RUN apt-get update && \
     apt-get install -y \
         libunwind8 \
         libmaxminddb0 \
         libxpm4 \
         libavif16 \
+        libzip5 \
+        libwebp7 \
+        libheif1 \
+        libtiff6 \
+        libharfbuzz0b \
+        libfribidi0 \
+        libfreetype6 \
+        libfontconfig1 \
+        libjpeg62-turbo \
+        libpng16-16t64 \
+        libgssapi-krb5-2 \
+        libkrb5-3 \
+        libcom-err2 \
+        libpam0g \
+        libperl5.40 \
     && \
     echo "clean up" && \
     apt-get clean -y && \
