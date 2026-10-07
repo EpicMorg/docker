@@ -114,7 +114,7 @@ jobs:
           test -n "$REG_USER" && test -n "$REG_PASS" || { echo "::error::QUAY_SERVER_LOGIN/KEY is empty: org secret not shared with this repo?"; exit 1; }
           echo "$REG_PASS" | docker login -u "$REG_USER" --password-stdin "$REG_URL"
 
-    # buildah falls back to docker's auth file for quay.io / ghcr.io (docker.io: explicit buildah login above).
+    # buildah falls back to docker's auth file for quay.io (docker.io / ghcr.io: explicit buildah logins).
     # GHCR_API: org secret (PAT with write:packages) - GITHUB_TOKEN can't create or write
     # packages the repo was not granted access to, and every epicmorg/* package predates CI.
     - name: Log into ghcr.io
@@ -129,6 +129,8 @@ jobs:
         command: |
           test -n "$REG_USER" && test -n "$REG_PASS" || { echo "::error::GHCR_API is empty: org secret not shared with this repo?"; exit 1; }
           echo "$REG_PASS" | docker login -u "$REG_USER" --password-stdin ghcr.io
+          # base images are pulled from ghcr.io (ADR-061): authenticated pulls
+          echo "$REG_PASS" | buildah login -u "$REG_USER" --password-stdin ghcr.io
 
     # Rootless buildah runs RUN steps with --network=host: `nginx -t` in the assertions binds :80,
     # which the unprivileged runner user may not do by default (bind() ... 13: Permission denied).
