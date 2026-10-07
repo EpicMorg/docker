@@ -1,4 +1,4 @@
-FROM docker.io/epicmorg/debian:trixie
+FROM ghcr.io/epicmorg/debian:trixie
 
 ARG DEBIAN_FRONTEND=noninteractive
 

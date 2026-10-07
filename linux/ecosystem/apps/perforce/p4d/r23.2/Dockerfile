@@ -1,4 +1,4 @@
-FROM docker.io/epicmorg/perforce:r23.2
+FROM ghcr.io/epicmorg/perforce:r23.2
 LABEL org.opencontainers.image.title="EpicMorg p4d"
 LABEL org.opencontainers.image.description="Perforce Helix server (p4d) with a graceful 'p4 admin stop' on docker stop, checkpoint and db-upgrade helpers, by EpicMorg"
 ARG DEBIAN_FRONTEND=noninteractive

@@ -1,4 +1,4 @@
-FROM docker.io/epicmorg/testrail:4.0.2.3269
+FROM ghcr.io/epicmorg/testrail:4.0.2.3269
 LABEL org.opencontainers.image.title="EpicMorg TestRail (Active Directory auth)"
 LABEL org.opencontainers.image.description="TestRail 4.0.2.3269 with the Active Directory authentication script on Apache2 + PHP 5.5 (fpm) by EpicMorg"
 ARG DEBIAN_FRONTEND=noninteractive

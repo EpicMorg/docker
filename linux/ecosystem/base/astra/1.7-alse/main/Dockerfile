@@ -1,4 +1,4 @@
-FROM docker.io/epicmorg/astralinux:1.7-light
+FROM ghcr.io/epicmorg/astralinux:1.7-light
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 

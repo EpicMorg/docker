@@ -37,7 +37,7 @@ Every tag is pushed to `docker.io`, `quay.io` and `ghcr.io` (`epicmorg/steam:<ta
 `cmd` is a base image — derive your game server from it:
 
 ```dockerfile
-FROM docker.io/epicmorg/steam:cmd
+FROM ghcr.io/epicmorg/steam:cmd
 RUN steamcmd +force_install_dir ${VALVE_GAME_FOLDER} +login anonymous +app_update <app_id> validate +quit
 ```
 

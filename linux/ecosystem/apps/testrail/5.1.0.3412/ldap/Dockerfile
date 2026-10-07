@@ -1,4 +1,4 @@
-FROM docker.io/epicmorg/testrail:5.1.0.3412
+FROM ghcr.io/epicmorg/testrail:5.1.0.3412
 LABEL org.opencontainers.image.title="EpicMorg TestRail (LDAP auth)"
 LABEL org.opencontainers.image.description="TestRail 5.1.0.3412 with the LDAP authentication script on Apache2 + PHP 5.6 (fpm) by EpicMorg"
 ARG DEBIAN_FRONTEND=noninteractive

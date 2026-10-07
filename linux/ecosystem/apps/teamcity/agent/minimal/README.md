@@ -2,6 +2,6 @@
 
 # `epicmorg/teamcity-agent:minimal`
 
-Built from: `docker.io/epicmorg/jdk:21`, `docker.io/epicmorg/debian:trixie-develop`
+Built from: `ghcr.io/epicmorg/jdk:21`, `ghcr.io/epicmorg/debian:trixie-develop`
 
 Usage, tags and notes: [`epicmorg/teamcity-agent`](../README.md).

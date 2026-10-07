@@ -1,4 +1,4 @@
-FROM docker.io/epicmorg/python:2.7  as builder
+FROM ghcr.io/epicmorg/python:2.7  as builder
 
 RUN echo "=============================================" && \
     python${PYTHON_VERSION} --version && \
@@ -18,7 +18,7 @@ RUN echo "=============================================" && \
 ##################################################################
 ##################################################################
 
-FROM docker.io/epicmorg/jdk:8
+FROM ghcr.io/epicmorg/jdk:8
 
 ##################################################################
 #                  Python 2.7

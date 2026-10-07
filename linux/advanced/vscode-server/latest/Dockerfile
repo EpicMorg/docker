@@ -37,8 +37,8 @@ RUN mkdir -p ${EMG_LOCAL_BASE_DIR}
 COPY usr/local/share/epicmorg ${EMG_LOCAL_BASE_DIR}
 # aria2 config + user-agent list used by the aria2c downloads below: same files as
 # our Debian base (this image is FROM linuxserver/code-server, Ubuntu), single source.
-COPY --from=docker.io/epicmorg/debian:trixie-light ${EMG_LOCAL_BASE_DIR}/aria2 ${EMG_LOCAL_BASE_DIR}/aria2
-COPY --from=docker.io/epicmorg/debian:trixie-light ${EMG_LOCAL_BASE_DIR}/user-agents ${EMG_LOCAL_BASE_DIR}/user-agents
+COPY --from=ghcr.io/epicmorg/debian:trixie-light ${EMG_LOCAL_BASE_DIR}/aria2 ${EMG_LOCAL_BASE_DIR}/aria2
+COPY --from=ghcr.io/epicmorg/debian:trixie-light ${EMG_LOCAL_BASE_DIR}/user-agents ${EMG_LOCAL_BASE_DIR}/user-agents
 
 ##################################################################
 #                   prepare system

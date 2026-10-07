@@ -1,4 +1,4 @@
-FROM docker.io/epicmorg/apache2:php5.6
+FROM ghcr.io/epicmorg/apache2:php5.6
 LABEL org.opencontainers.image.title="EpicMorg TestRail"
 LABEL org.opencontainers.image.description="TestRail 5.2.0.3451 on Apache2 + PHP 5.6 (fpm) by EpicMorg"
 ARG DEBIAN_FRONTEND=noninteractive

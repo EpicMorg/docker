@@ -4,14 +4,14 @@
 #        nginx 1.28 - built in ../main, only copied from here
 ##################################################################
 ##################################################################
-FROM docker.io/epicmorg/nginx:1.28 AS nginx
+FROM ghcr.io/epicmorg/nginx:1.28 AS nginx
 
 ##################################################################
 ##################################################################
 #                   Final Layer: PHP 8.0 (fpm) + nginx 1.28
 ##################################################################
 ##################################################################
-FROM docker.io/epicmorg/php:8.0
+FROM ghcr.io/epicmorg/php:8.0
 LABEL org.opencontainers.image.title="EpicMorg nginx + PHP (fpm)"
 LABEL org.opencontainers.image.description="nginx 1.28 + PHP 8.0 (fpm) by EpicMorg"
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"

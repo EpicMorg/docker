@@ -1,4 +1,4 @@
-FROM docker.io/epicmorg/jdk:7
+FROM ghcr.io/epicmorg/jdk:7
 LABEL maintainer="Atlassian Jira Server Team; EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 

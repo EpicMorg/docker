@@ -2,6 +2,6 @@
 
 # `epicmorg/teamcity-agent:php8.0`
 
-Built from: `docker.io/epicmorg/php:8.0`, `docker.io/epicmorg/teamcity-agent:minimal`
+Built from: `ghcr.io/epicmorg/php:8.0`, `ghcr.io/epicmorg/teamcity-agent:minimal`
 
 Usage, tags and notes: [`epicmorg/teamcity-agent`](../README.md).

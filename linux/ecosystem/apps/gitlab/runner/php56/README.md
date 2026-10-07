@@ -2,6 +2,6 @@
 
 # `epicmorg/gitlab-runner:php5.6`
 
-Built from: `docker.io/epicmorg/php:5.6`, `docker.io/epicmorg/gitlab-runner:minimal`
+Built from: `ghcr.io/epicmorg/php:5.6`, `ghcr.io/epicmorg/gitlab-runner:minimal`
 
 Usage, tags and notes: [`epicmorg/gitlab-runner`](../README.md).

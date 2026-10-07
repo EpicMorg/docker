@@ -1,4 +1,4 @@
-FROM docker.io/epicmorg/teamcity-agent:minimal
+FROM ghcr.io/epicmorg/teamcity-agent:minimal
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 

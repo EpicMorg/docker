@@ -1,4 +1,4 @@
-FROM docker.io/epicmorg/gcc:14 AS builder
+FROM ghcr.io/epicmorg/gcc:14 AS builder
 LABEL org.opencontainers.image.title="EpicMorg GCC"
 LABEL org.opencontainers.image.description="GCC compiler by EpicMorg"
 
@@ -77,7 +77,7 @@ RUN set -eux; \
 ##################################################################
 ##################################################################
 ##################################################################
-FROM docker.io/epicmorg/debian:trixie-develop
+FROM ghcr.io/epicmorg/debian:trixie-develop
 LABEL org.opencontainers.image.title="EpicMorg GCC"
 LABEL org.opencontainers.image.description="GCC compiler by EpicMorg"
 

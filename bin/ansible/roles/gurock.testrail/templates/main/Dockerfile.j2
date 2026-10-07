@@ -14,7 +14,7 @@
 ##############################################################################
 # DataStax/Apache C/C++ driver built against PHP's own OpenSSL (${PHP_SSL_DIR}),
 # real RPATH (-Wl,--disable-new-dtags), so no system libssl/libcrypto gets loaded.
-FROM docker.io/epicmorg/apache2:php{{ testrail_php }} AS cassandra-builder
+FROM ghcr.io/epicmorg/apache2:php{{ testrail_php }} AS cassandra-builder
 ARG DEBIAN_FRONTEND=noninteractive
 
 ENV CASSANDRA_CPP_DRIVER_VERSION=2.17.1
@@ -101,7 +101,7 @@ RUN set -eux; \
 {% endif %}
 
 {% endif %}
-FROM docker.io/epicmorg/apache2:php{{ testrail_php }}
+FROM ghcr.io/epicmorg/apache2:php{{ testrail_php }}
 LABEL org.opencontainers.image.title="EpicMorg TestRail"
 LABEL org.opencontainers.image.description="TestRail {{ item }} on Apache2 + PHP {{ testrail_php }} (fpm) by EpicMorg"
 ARG DEBIAN_FRONTEND=noninteractive

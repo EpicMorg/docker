@@ -4,6 +4,6 @@
 
 Also tagged: `latest`, `mainline`
 
-Built from: `docker.io/epicmorg/gcc:14`, `docker.io/epicmorg/debian:trixie`
+Built from: `ghcr.io/epicmorg/gcc:14`, `ghcr.io/epicmorg/debian:trixie`
 
 Usage, tags and notes: [`epicmorg/nginx`](../../README.md).

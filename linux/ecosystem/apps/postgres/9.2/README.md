@@ -2,6 +2,6 @@
 
 # `epicmorg/postgres:9.2`
 
-Built from: `docker.io/epicmorg/debian:trixie`
+Built from: `ghcr.io/epicmorg/debian:trixie`
 
 Usage, tags and notes: [`epicmorg/postgres`](../README.md).

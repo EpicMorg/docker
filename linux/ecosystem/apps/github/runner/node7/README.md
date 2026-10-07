@@ -2,6 +2,6 @@
 
 # `epicmorg/github-runner:node7`
 
-Built from: `docker.io/epicmorg/github-runner:minimal`
+Built from: `ghcr.io/epicmorg/github-runner:minimal`
 
 Usage, tags and notes: [`epicmorg/github-runner`](../README.md).

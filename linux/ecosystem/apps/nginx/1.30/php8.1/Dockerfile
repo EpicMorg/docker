@@ -4,14 +4,14 @@
 #        nginx 1.30 - built in ../main, only copied from here
 ##################################################################
 ##################################################################
-FROM docker.io/epicmorg/nginx:1.30 AS nginx
+FROM ghcr.io/epicmorg/nginx:1.30 AS nginx
 
 ##################################################################
 ##################################################################
 #                   Final Layer: PHP 8.1 (fpm) + nginx 1.30
 ##################################################################
 ##################################################################
-FROM docker.io/epicmorg/php:8.1
+FROM ghcr.io/epicmorg/php:8.1
 LABEL org.opencontainers.image.title="EpicMorg nginx + PHP (fpm)"
 LABEL org.opencontainers.image.description="nginx 1.30 + PHP 8.1 (fpm) by EpicMorg"
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"

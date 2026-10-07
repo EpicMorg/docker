@@ -1,4 +1,4 @@
-FROM docker.io/epicmorg/php:7.2
+FROM ghcr.io/epicmorg/php:7.2
 LABEL org.opencontainers.image.title="EpicMorg Apache2 + PHP (fpm)"
 LABEL org.opencontainers.image.description="Apache2 + PHP 7.2 (fpm) by EpicMorg"
 LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"

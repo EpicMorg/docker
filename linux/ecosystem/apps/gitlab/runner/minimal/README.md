@@ -2,6 +2,6 @@
 
 # `epicmorg/gitlab-runner:minimal`
 
-Built from: `docker.io/epicmorg/debian:trixie-develop`
+Built from: `ghcr.io/epicmorg/debian:trixie-develop`
 
 Usage, tags and notes: [`epicmorg/gitlab-runner`](../README.md).

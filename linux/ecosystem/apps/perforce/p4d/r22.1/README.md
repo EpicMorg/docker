@@ -2,6 +2,6 @@
 
 # `epicmorg/p4d:r22.1`
 
-Built from: `docker.io/epicmorg/perforce:r22.1`
+Built from: `ghcr.io/epicmorg/perforce:r22.1`
 
 Usage, tags and notes: [`epicmorg/p4d`](../README.md).

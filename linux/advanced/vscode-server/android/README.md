@@ -2,6 +2,6 @@
 
 # `epicmorg/vscode-server:android`
 
-Built from: `docker.io/epicmorg/vscode-server:cpp`
+Built from: `ghcr.io/epicmorg/vscode-server:cpp`
 
 Usage, tags and notes: [`epicmorg/vscode-server`](../README.md).

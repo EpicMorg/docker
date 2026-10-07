@@ -2,6 +2,6 @@
 
 # `epicmorg/gitlab-runner:node12`
 
-Built from: `docker.io/epicmorg/gitlab-runner:minimal`
+Built from: `ghcr.io/epicmorg/gitlab-runner:minimal`
 
 Usage, tags and notes: [`epicmorg/gitlab-runner`](../README.md).

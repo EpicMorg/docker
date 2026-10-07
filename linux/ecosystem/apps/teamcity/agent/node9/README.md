@@ -2,6 +2,6 @@
 
 # `epicmorg/teamcity-agent:node9`
 
-Built from: `docker.io/epicmorg/nodejs:9`, `docker.io/epicmorg/teamcity-agent:minimal`
+Built from: `ghcr.io/epicmorg/nodejs:9`, `ghcr.io/epicmorg/teamcity-agent:minimal`
 
 Usage, tags and notes: [`epicmorg/teamcity-agent`](../README.md).

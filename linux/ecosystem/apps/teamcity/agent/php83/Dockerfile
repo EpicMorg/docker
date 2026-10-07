@@ -5,7 +5,7 @@
 ##################################################################
 # All php* agents share this file; they differ only in the php tag
 # below and in the mirrored ENV block of the final stage.
-FROM docker.io/epicmorg/php:8.3 AS php
+FROM ghcr.io/epicmorg/php:8.3 AS php
 
 # Collect exactly what this PHP needs, derived from the binaries themselves
 # (nothing hardcoded per version):
@@ -72,7 +72,7 @@ RUN set -eu; \
 #                     TeamCity agent + PHP
 ##################################################################
 ##################################################################
-FROM docker.io/epicmorg/teamcity-agent:minimal
+FROM ghcr.io/epicmorg/teamcity-agent:minimal
 ARG DEBIAN_FRONTEND=noninteractive
 
 # Mirrored from the epicmorg/php:8.3 image config (PATH handled below).

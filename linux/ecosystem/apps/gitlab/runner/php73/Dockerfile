@@ -5,7 +5,7 @@
 ##################################################################
 # All php* runners share this file; they differ only in the php tag
 # below and in the mirrored ENV block of the final stage.
-FROM docker.io/epicmorg/php:7.3 AS php
+FROM ghcr.io/epicmorg/php:7.3 AS php
 
 # Collect exactly what this PHP needs, derived from the binaries themselves
 # (nothing hardcoded per version):
@@ -72,7 +72,7 @@ RUN set -eu; \
 #                     GitLab runner + PHP
 ##################################################################
 ##################################################################
-FROM docker.io/epicmorg/gitlab-runner:minimal
+FROM ghcr.io/epicmorg/gitlab-runner:minimal
 ARG DEBIAN_FRONTEND=noninteractive
 
 # Mirrored from the epicmorg/php:7.3 image config (PATH handled below).

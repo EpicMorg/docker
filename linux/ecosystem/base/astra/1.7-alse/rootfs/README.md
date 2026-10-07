@@ -2,6 +2,6 @@
 
 # `epicmorg/astralinux:1.7-rootfs`
 
-Built from: `docker.io/epicmorg/astralinux:1.7-rootfs`
+Built from: `ghcr.io/epicmorg/astralinux:1.7-rootfs`
 
 Usage, tags and notes: [`epicmorg/astralinux`](../../README.md).
