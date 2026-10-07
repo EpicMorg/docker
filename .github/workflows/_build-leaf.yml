@@ -96,6 +96,9 @@ jobs:
         command: |
           test -n "$REG_USER" && test -n "$REG_PASS" || { echo "::error::DOCKER_SERVER_LOGIN/KEY is empty: org secret not shared with this repo?"; exit 1; }
           echo "$REG_PASS" | docker login -u "$REG_USER" --password-stdin
+          # buildah also gets its own login: base-image pulls ran anonymously despite the docker
+          # login above and hit Docker Hub's unauthenticated pull rate limit
+          echo "$REG_PASS" | buildah login -u "$REG_USER" --password-stdin docker.io
 
     - name: Log into quay.io
       uses: nick-fields/retry@v4
@@ -111,7 +114,7 @@ jobs:
           test -n "$REG_USER" && test -n "$REG_PASS" || { echo "::error::QUAY_SERVER_LOGIN/KEY is empty: org secret not shared with this repo?"; exit 1; }
           echo "$REG_PASS" | docker login -u "$REG_USER" --password-stdin "$REG_URL"
 
-    # buildah reads docker's auth file, so `docker login` is enough for buildah-wrapper.
+    # buildah falls back to docker's auth file for quay.io / ghcr.io (docker.io: explicit buildah login above).
     # GHCR_API: org secret (PAT with write:packages) - GITHUB_TOKEN can't create or write
     # packages the repo was not granted access to, and every epicmorg/* package predates CI.
     - name: Log into ghcr.io
