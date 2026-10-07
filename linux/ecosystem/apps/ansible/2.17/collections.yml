@@ -1,0 +1,23 @@
+---
+# Collections as on the ansible host (devops/ansible collections.yml); bump per version dir if needed.
+collections:
+  - name: ansible.posix
+    version: 2.2.0
+  - name: ansible.windows
+    version: 3.6.1
+  - name: community.windows
+    version: 3.2.0
+  - name: chocolatey.chocolatey
+    version: 1.5.3
+  - name: community.crypto
+    version: 2.26.1
+  - name: community.docker
+    version: 5.2.1
+  - name: community.general
+    version: 12.3.0
+  - name: community.hashi_vault
+    version: 7.1.0
+  - name: community.vmware
+    version: 6.2.0
+  - name: vmware.vmware
+    version: 2.8.0

@@ -1,0 +1,13 @@
+services:
+  app:
+    image: "epicmorg/teamcity-agent:ansible-2.17"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/teamcity-agent:ansible-2.17
+      - ghcr.io/epicmorg/teamcity-agent:ansible-2.17
+      - docker.io/epicmorg/teamcity-agent:ansible-2.17
+      - quay.io/epicmorg/teamcity-agent:ansible-2.17.14
+      - ghcr.io/epicmorg/teamcity-agent:ansible-2.17.14
+      - docker.io/epicmorg/teamcity-agent:ansible-2.17.14

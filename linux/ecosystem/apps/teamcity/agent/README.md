@@ -33,6 +33,9 @@ baked OpenSSL, `php -m` identical to the php image) and the node agents fail the
 | `amxx-sdk` | [`amxx-sdk/1.9`](amxx-sdk/1.9/Dockerfile) |
 | `amxx-sdk-rc` | [`amxx-sdk/1.10`](amxx-sdk/1.10/Dockerfile) |
 | `android-sdk` | [`android-sdk`](android-sdk/Dockerfile) |
+| `ansible-2.16`, `ansible-2.16.19` | [`ansible/2.16`](ansible/2.16/Dockerfile) |
+| `ansible-2.17`, `ansible-2.17.14` | [`ansible/2.17`](ansible/2.17/Dockerfile) |
+| `ansible-2.21`, `ansible-2.21.5`, `ansible` | [`ansible/2.21`](ansible/2.21/Dockerfile) |
 | `atlassian-sdk` | [`atlassian-sdk`](atlassian-sdk/Dockerfile) |
 | `latest` | [`latest`](latest/Dockerfile) |
 | `minimal` | [`minimal`](minimal/Dockerfile) |

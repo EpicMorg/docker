@@ -1,0 +1,13 @@
+services:
+  app:
+    image: "epicmorg/ansible:2.17"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/ansible:2.17
+      - ghcr.io/epicmorg/ansible:2.17
+      - docker.io/epicmorg/ansible:2.17
+      - quay.io/epicmorg/ansible:2.17.14
+      - ghcr.io/epicmorg/ansible:2.17.14
+      - docker.io/epicmorg/ansible:2.17.14
