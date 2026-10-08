@@ -31,7 +31,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 ## What's inside
 
 * venv `/usr/local/share/epicmorg/ansible/<major.minor>/venv` with `ansible-core`, `ansible-lint`, `yamllint`, `netaddr`,
-  `jmespath`, `hvac`, `pyvmomi`, `pywinrm` + `pyspnego` (`requirements.txt` in the version folder; every package at its
+  `jmespath`, `hvac`, `pyvmomi`, `pywinrm` + `pyspnego`, `paramiko`, `ansible-pylibssh` (`requirements.txt` in the version folder; every package at its
   newest release for that Python / ansible-core);
 * collections in `/usr/local/share/epicmorg/ansible/<major.minor>/collections` (`ANSIBLE_COLLECTIONS_PATH`,
   `collections.yml`, each at its newest release whose `requires_ansible` accepts the line): `ansible.posix`,

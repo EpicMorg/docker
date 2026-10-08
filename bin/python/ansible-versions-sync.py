@@ -128,9 +128,22 @@ def lint_for(core, py, cap):
     sys.exit('no ansible-lint for ansible-core %s / python %s' % (core, py))
 
 
+def installable(files, py):
+    """A pure-Python wheel / sdist-only release, or a linux x86_64 wheel for this CPython
+    (no compiler, no -dev libraries in the runtime image)."""
+    wheels = [f['filename'] for f in files if f['filename'].endswith('.whl')]
+    if not wheels:
+        return True
+    cp = 'cp' + py.replace('.', '')
+    return any(w.endswith('-none-any.whl')
+               or (('-%s-%s-' % (cp, cp) in w or ('-abi3-' in w and int(re.search(r'-cp(\d+)-abi3-', w).group(1)[1:]) <= int(py.split('.')[1])))
+                   and 'linux' in w and 'x86_64' in w and 'musllinux' not in w)
+               for w in wheels)
+
+
 def newest_for_python(pkg, py, cap=None):
     for v, files in releases(pkg):
-        if (cap is None or v <= Version(cap)) and py in requires_python(files):
+        if (cap is None or v <= Version(cap)) and py in requires_python(files) and installable(files, py):
             return str(v)
     sys.exit('no %s for python %s' % (pkg, py))
 
@@ -268,7 +281,7 @@ RUN set -eu; \\
     for so in $(dirname "$(dirname "$py")")/lib/python{PY}/lib-dynload/*.so; do \\
       ldd "$so" 2>/dev/null | grep -q 'not found' && {{ echo "FATAL: $so has unresolved deps" >&2; ldd "$so" >&2; exit 1; }}; \\
     done; \\
-    ${{EMG_ANSIBLE_DIR}}/venv/bin/python -c 'import ssl, hashlib, ctypes, sqlite3, lzma, bz2, zlib'; \\
+    ${{EMG_ANSIBLE_DIR}}/venv/bin/python -c 'import ssl, hashlib, ctypes, sqlite3, lzma, bz2, zlib, paramiko, pylibsshext'; \\
     ${{EMG_ANSIBLE_DIR}}/venv/bin/python -c 'import ssl; n = ssl.create_default_context().cert_store_stats()["x509_ca"]; assert n > 0, "no CA certificates loaded"'; \\
     ansible --version; \\
     ansible-lint --version; \\
