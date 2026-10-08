@@ -1,0 +1,13 @@
+# Pins in linux/ecosystem/apps/ansible/<major.minor> are owned by bin/python/ansible-versions-sync.py
+# (each folder = one ansible-core line, every package at its newest release for that line's Python).
+# Dependabot (security updates included) must not bump them across lines.
+version: 2
+updates:
+  - package-ecosystem: pip
+    directories:
+      - "/linux/ecosystem/apps/ansible/*"
+    schedule:
+      interval: monthly
+    open-pull-requests-limit: 0
+    ignore:
+      - dependency-name: "*"
