@@ -27,7 +27,7 @@ RUN set -eux; \
     t="$(mktemp -d)"; \
     wget -q -O "$t/lfs.tar.gz" "${EMG_GIT_LFS_URL}"; \
     echo "${EMG_GIT_LFS_SHA256}  $t/lfs.tar.gz" | sha256sum -c -; \
-    tar -xzf "$t/lfs.tar.gz" -C "$t"; \
+    tar -xzf "$t/lfs.tar.gz" -C "$t" --no-same-owner; \
     bin="$(find "$t" -type f -name git-lfs -perm -u+x | head -n1)"; \
     test -n "$bin"; \
     install -D -m 0755 "$bin" "${EMG_GIT_LFS_DIR}/bin/git-lfs"; \

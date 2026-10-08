@@ -48,7 +48,7 @@ RUN set -eux; \
     cd "${EMG_GIT_SRC_DIR}"; \
     wget -q -O git.tar.xz "${EMG_GIT_URL}"; \
     echo "${EMG_GIT_SHA256}  git.tar.xz" | sha256sum -c -; \
-    tar -xJf git.tar.xz --strip-components=1; \
+    tar -xJf git.tar.xz --strip-components=1 --no-same-owner; \
     rm -f git.tar.xz; \
     # Old trees (< 2.34): http.h re-maps CURLUSESSL_TRY when CURLOPT_USE_SSL is not
     # a macro - in modern curl it is an enum, so the "compat" define becomes circular.
