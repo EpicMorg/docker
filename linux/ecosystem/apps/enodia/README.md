@@ -16,7 +16,7 @@ where the fleet has drifted apart. Pipeline: `collect → inventory → evaluate
 * `2.0.0`+: CVE feeds baked in at build time under `/var/lib/enodia/cve` — NVD JSON 2.0 (2002–2026)
   and BDU FSTEC XML — for offline correlation
 
-Alias tags: `latest` and `2` → `2.1.0`, `1` → the newest 1.x; `1.0.0-0` is an alias of `1.0.0`.
+Alias tags: `latest` and `2` → `2.1.1`, `1` → the newest 1.x; `1.0.0-0` is an alias of `1.0.0`.
 
 ## Tags
 
@@ -29,7 +29,8 @@ Alias tags: `latest` and `2` → `2.1.0`, `1` → the newest 1.x; `1.0.0-0` is a
 | `1.2.0` | [`1.2.0`](1.2.0/Dockerfile) |
 | `1.2.1`, `1` | [`1.2.1`](1.2.1/Dockerfile) |
 | `2.0.0` | [`2.0.0`](2.0.0/Dockerfile) |
-| `2.1.0`, `2`, `latest` | [`2.1.0`](2.1.0/Dockerfile) |
+| `2.1.0` | [`2.1.0`](2.1.0/Dockerfile) |
+| `2.1.1`, `2`, `latest` | [`2.1.1`](2.1.1/Dockerfile) |
 
 Every tag is pushed to `docker.io`, `quay.io` and `ghcr.io` (`epicmorg/enodia:<tag>` on each) - same digest everywhere.
 <!-- readme-sync:tags:end -->
