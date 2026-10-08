@@ -48,7 +48,7 @@ RUN set -eu; \
     for so in $(dirname "$(dirname "$py")")/lib/python3.10/lib-dynload/*.so; do \
       ldd "$so" 2>/dev/null | grep -q 'not found' && { echo "FATAL: $so has unresolved deps" >&2; ldd "$so" >&2; exit 1; }; \
     done; \
-    ${EMG_ANSIBLE_DIR}/venv/bin/python -c 'import ssl, hashlib, ctypes, sqlite3, lzma, bz2, zlib'; \
+    ${EMG_ANSIBLE_DIR}/venv/bin/python -c 'import ssl, hashlib, ctypes, sqlite3, lzma, bz2, zlib, paramiko, pylibsshext'; \
     ${EMG_ANSIBLE_DIR}/venv/bin/python -c 'import ssl; n = ssl.create_default_context().cert_store_stats()["x509_ca"]; assert n > 0, "no CA certificates loaded"'; \
     ansible --version; \
     ansible-lint --version; \
