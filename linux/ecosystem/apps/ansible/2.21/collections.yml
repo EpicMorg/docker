@@ -1,0 +1,23 @@
+# Collections installed into the runtime: newest Galaxy release whose requires_ansible accepts 2.21
+# (bin/python/ansible-versions-sync.py).
+collections:
+  - name: ansible.posix
+    version: 2.2.2
+  - name: ansible.windows
+    version: 3.8.0
+  - name: community.windows
+    version: 3.3.0
+  - name: chocolatey.chocolatey
+    version: 1.6.0
+  - name: community.crypto
+    version: 3.5.0
+  - name: community.docker
+    version: 5.4.0
+  - name: community.general
+    version: 13.5.0
+  - name: community.hashi_vault
+    version: 7.1.0
+  - name: community.vmware
+    version: 7.0.0
+  - name: vmware.vmware
+    version: 2.11.0

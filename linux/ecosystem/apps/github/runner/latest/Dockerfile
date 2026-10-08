@@ -55,7 +55,7 @@ RUN install -m 0755 -d /etc/apt/keyrings && \
 #              TeamCity Agent post-setup
 ##################################################################
 ENV BUILDAH_FORMAT=docker
-ENV BUILDAH_ISOLATION=docker
+ENV BUILDAH_ISOLATION=oci
 ENV DOCKER_HOST="unix:///var/run/docker.sock"
 ENV PODMAN_HOST="unix:///var/run/docker.sock"
 

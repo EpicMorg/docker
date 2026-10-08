@@ -32,6 +32,7 @@ jobs:
       go: ${{ steps.list.outputs.go }}
       git: ${{ steps.list.outputs.git }}
       git-lfs: ${{ steps.list.outputs.git-lfs }}
+      ansible: ${{ steps.list.outputs.ansible }}
     steps:
     - uses: actions/checkout@v7
       with:
@@ -46,6 +47,7 @@ jobs:
           linux/ecosystem/apps/go
           linux/ecosystem/apps/git
           linux/ecosystem/apps/git-lfs
+          linux/ecosystem/apps/ansible
     - id: list
       run: |
         # assignment first, so a failing discovery fails the step (echo "$(...)" would not)
@@ -59,6 +61,7 @@ jobs:
         emit go flat linux/ecosystem/apps/go --min 1 --max 1
         emit git flat linux/ecosystem/apps/git --min 1 --max 1
         emit git-lfs flat linux/ecosystem/apps/git-lfs --min 1 --max 1
+        emit ansible flat linux/ecosystem/apps/ansible --min 1 --max 1
 
   # FROM epicmorg/gcc:N AS builder -> trixie; incl. museum 2.6 / 3.0-3.6 and dev
   python:
@@ -190,6 +193,21 @@ jobs:
       fail-fast: false
       matrix:
         leaf: ${{ fromJSON(needs.list.outputs.git-lfs) }}
+    uses: ./.github/workflows/_build-leaf.yml
+    secrets: inherit
+    with:
+      paths: ${{ matrix.leaf.paths }}
+
+  # FROM trixie: venv (ansible-core newest patch of the line + lint tools) + collections, for COPY --from
+  # into teamcity-agent:ansible-<ver> (chain 40)
+  ansible:
+    name: ${{ matrix.leaf.name }}
+    needs: list
+    if: needs.list.outputs.ansible != '[]'
+    strategy:
+      fail-fast: false
+      matrix:
+        leaf: ${{ fromJSON(needs.list.outputs.ansible) }}
     uses: ./.github/workflows/_build-leaf.yml
     secrets: inherit
     with:
