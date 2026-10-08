@@ -1,6 +1,6 @@
 # ansible-core 2.15.13 (newest patch of its line) on Python 3.11; the rest is the lint / deploy toolset,
 # each at its newest release for this Python / ansible-core (bin/python/ansible-versions-sync.py).
-ansible-core==2.15.13
+ansible-core==2.16.19rc1
 ansible-lint==24.12.2
 ansible-compat==24.10.0
 ansible-lint-junit==0.17.8
