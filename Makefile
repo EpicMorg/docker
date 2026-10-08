@@ -1023,6 +1023,7 @@ ecosystem-qbittorrent-images:
 	@make clean
 
 ecosystem-enodia-images:
+	cd `pwd`/linux/ecosystem/apps/enodia/2.1.1    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/enodia/2.1.0    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/enodia/2.0.0    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/enodia/1.2.1    && pwd && make build && make deploy
