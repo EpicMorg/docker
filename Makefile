@@ -599,8 +599,16 @@ ecosystem-dotnet-images:
 ####################################################################################################################
  
 ecosystem-ansible-images:
+	cd `pwd`/linux/ecosystem/apps/ansible/2.11         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/ansible/2.12         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/ansible/2.13         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/ansible/2.14         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/ansible/2.15         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/ansible/2.16         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/ansible/2.17         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/ansible/2.18         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/ansible/2.19         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/ansible/2.20         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/ansible/2.21         && pwd && make build && make deploy
 
 ecosystem-nodejs-images: 
@@ -1089,8 +1097,16 @@ ecosystem-teamcity-agent-images:
 	cd `pwd`/linux/ecosystem/apps/teamcity/agent/amxx-sdk/1.9         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/teamcity/agent/amxx-sdk/1.10         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/teamcity/agent/android-sdk         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/teamcity/agent/ansible/2.11         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/teamcity/agent/ansible/2.12         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/teamcity/agent/ansible/2.13         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/teamcity/agent/ansible/2.14         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/teamcity/agent/ansible/2.15         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/teamcity/agent/ansible/2.16         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/teamcity/agent/ansible/2.17         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/teamcity/agent/ansible/2.18         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/teamcity/agent/ansible/2.19         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/teamcity/agent/ansible/2.20         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/teamcity/agent/ansible/2.21         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/teamcity/agent/atlassian-sdk         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/teamcity/agent/node0.12         && pwd && make build && make deploy

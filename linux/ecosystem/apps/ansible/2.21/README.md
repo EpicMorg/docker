@@ -4,6 +4,6 @@
 
 Also tagged: `2.21.5`, `latest`
 
-Built from: `ghcr.io/epicmorg/debian:trixie`
+Built from: `ghcr.io/epicmorg/python:3.14`
 
 Usage, tags and notes: [`epicmorg/ansible`](../README.md).

@@ -1,6 +1,14 @@
 # Changelog
 
 ## 2026
+* `oct` — next (unreleased)
+  * **new** `epicmorg/ansible:<major.minor>` — every ansible-core line `2.11`–`2.21` (newest patch of each), each on the newest Python it supports (`epicmorg/python` 3.9–3.14), with `ansible-lint` and collections picked per line; `/emg-export` for `COPY --from`; floating `latest` — and `epicmorg/teamcity-agent:ansible-<major.minor>` (floating `ansible`); generator `bin/python/ansible-versions-sync.py`
+  * our base images are pulled from `ghcr.io/epicmorg/*` instead of Docker Hub (CI hit Docker Hub's pull rate limit); publishing still goes to docker.io + quay.io + ghcr.io
+  * `nginx` (main + php): Debian runtime libraries of nginx / modules / libgd / libraqm listed explicitly; nginx+php healthcheck `--start-period=10s`
+  * `jira` / `bitbucket`: the distribution archive no longer stays in the image layer
+  * `atlassian-sdk`: uses the maven bundled in each SDK, no archive layer, no `atlas-update` (it replaced the pinned SDK)
+  * `teamcity-agent:minimal`: a fresh agent takes its default config from `conf_dist`; agents / runners / vscode-server: `BUILDAH_ISOLATION=oci`
+  * CI: low ports allowed for build-time `nginx -t`; `buildah login` to docker.io and ghcr.io; `ansible` job in the runtimes chain
 * `oct` — `v20261006`
   * **new** `epicmorg/p4d` (r16.2–r26.1): Helix server with a graceful `p4 admin stop` on `docker stop`, `p4d-checkpoint` (docker exec) and `p4d-upgrade` (offline `p4d -xu`) helpers; perforce `base` / `p4p` / `p4d` gained r25.1, r25.2, r26.1; `p4p` got its own db volume (`-R`) and proxy monitoring
   * `apache2:php5.3`–`php5.6` and `nginx:<1.25–1.31>-php5.3`–`php5.6`
