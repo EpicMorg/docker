@@ -12,8 +12,8 @@ line on PyPI. Every file of both leaves is generated here:
   a venv on our own epicmorg/python:<ver> (FROM that image).
 * requirements.txt: the toolset of the newest line's requirements.txt (the
   reference), each package at its newest release that installs on that Python;
-  ansible-lint at its newest release that accepts this ansible-core (pins of
-  the reference are the ceiling).
+  ansible-lint at its newest release that accepts this ansible-core, directly
+  and through ansible-compat (pinned too); pins of the reference are the ceiling.
 * collections.yml: the collections of the newest line's collections.yml, each
   at its newest Galaxy release whose requires_ansible accepts the line
   (dropped when none does).
@@ -89,16 +89,42 @@ def core_lines():
     return out
 
 
+def dep_spec(meta, name):
+    """SpecifierSet of `name` in a PyPI release's requires_dist (None: not required)."""
+    for r in meta.get('requires_dist') or []:
+        m = re.match(r'%s\b\s*\(?([^);]*)\)?\s*(;.*)?$' % re.escape(name), r)
+        if m and 'extra ==' not in (m.group(2) or ''):
+            return SpecifierSet(m.group(1).strip())
+    return None
+
+
+def compat_for(spec, core, py):
+    """Newest ansible-compat within spec that installs on py and accepts ansible-core==core."""
+    for v, files in releases('ansible-compat'):
+        if v not in spec or py not in requires_python(files):
+            continue
+        cs = dep_spec(get('https://pypi.org/pypi/ansible-compat/%s/json' % v)['info'], 'ansible-core')
+        if cs is None or core in cs:
+            return str(v)
+    return None
+
+
 def lint_for(core, py, cap):
-    """Newest ansible-lint (<= cap) that installs on py and accepts ansible-core==core."""
+    """(ansible-lint, ansible-compat or None): newest ansible-lint (<= cap) that installs on py
+    and accepts ansible-core==core - directly and through its ansible-compat dependency."""
     for v, files in releases('ansible-lint'):
         if v > Version(cap) or py not in requires_python(files):
             continue
         meta = get('https://pypi.org/pypi/ansible-lint/%s/json' % v)['info']
-        req = [r for r in (meta.get('requires_dist') or []) if re.match(r'ansible-core\b', r) and 'extra ==' not in r]
-        spec = SpecifierSet(re.sub(r'^ansible-core\s*\(?([^);]*)\)?.*$', r'\1', req[0]).strip()) if req else SpecifierSet('')
-        if core in spec:
-            return str(v)
+        spec = dep_spec(meta, 'ansible-core')
+        if spec is not None and core not in spec:
+            continue
+        cspec = dep_spec(meta, 'ansible-compat')
+        if cspec is None:
+            return str(v), None
+        compat = compat_for(cspec, core, py)
+        if compat:
+            return str(v), compat
     sys.exit('no ansible-lint for ansible-core %s / python %s' % (core, py))
 
 
@@ -122,7 +148,12 @@ def requirements(ref_text, core, py):
         if pkg == 'ansible-core':
             out.append('ansible-core==' + core)
         elif pkg == 'ansible-lint':
-            out.append('ansible-lint==' + lint_for(core, py, pin))
+            lint, compat = lint_for(core, py, pin)
+            out.append('ansible-lint==' + lint)
+            if compat:
+                out.append('ansible-compat==' + compat)
+        elif pkg == 'ansible-compat':
+            continue
         else:
             out.append('%s==%s' % (pkg, newest_for_python(pkg, py, cap=pin)))
     return '\n'.join(out) + '\n'
