@@ -14,6 +14,10 @@ ENV EMG_ANSIBLE_PYTHON=${EMG_LOCAL_BASE_DIR}/python/3.13/bin/python3.13
 ENV EMG_ANSIBLE_DIR=${EMG_LOCAL_BASE_DIR}/ansible/${EMG_ANSIBLE_VERSION}
 ENV ANSIBLE_COLLECTIONS_PATH=${EMG_ANSIBLE_DIR}/collections
 ENV ANSIBLE_FORCE_COLOR=0
+# our Python looks for CAs in its own OpenSSL prefix: point it at the system store
+# (update-ca-certificates, private CAs included) - not inherited across COPY --from
+ENV SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
+ENV SSL_CERT_DIR=/etc/ssl/certs
 ENV PATH=${EMG_ANSIBLE_DIR}/venv/bin:${PATH}
 
 COPY --from=ansible /emg-export/ /
@@ -45,6 +49,7 @@ RUN set -eu; \
       ldd "$so" 2>/dev/null | grep -q 'not found' && { echo "FATAL: $so has unresolved deps" >&2; ldd "$so" >&2; exit 1; }; \
     done; \
     ${EMG_ANSIBLE_DIR}/venv/bin/python -c 'import ssl, hashlib, ctypes, sqlite3, lzma, bz2, zlib'; \
+    ${EMG_ANSIBLE_DIR}/venv/bin/python -c 'import ssl; n = ssl.create_default_context().cert_store_stats()["x509_ca"]; assert n > 0, "no CA certificates loaded"'; \
     ansible --version; \
     ansible-lint --version; \
     ansible-galaxy collection list -p ${ANSIBLE_COLLECTIONS_PATH}; \
