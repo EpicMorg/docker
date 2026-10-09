@@ -15,6 +15,11 @@ where the fleet has drifted apart. Pipeline: `collect → inventory → evaluate
   `/opt/enodia` (working directory: `inventory.jsonl`, HTML exports, resolver cache)
 * `2.0.0`+: CVE feeds baked in at build time under `/var/lib/enodia/cve` — NVD JSON 2.0 (2002–2026)
   and BDU FSTEC XML — for offline correlation
+* `2.0.0`+: `/usr/local/bin/enodia-cve-update` — refreshes the CVE databases that image's Enodia
+  version reads into `/var/lib/enodia/cve`: NVD and BDU on `2.0.0`; plus the Debian Security
+  Tracker, vendor OVAL (`ENODIA_OVAL`) and Alpine secdb (`ENODIA_ALPINE`) on `2.1.x`. Unchanged
+  files are skipped (If-Modified-Since), a broken download never replaces a working copy, BDU's
+  certificate isn't verified unless `ENODIA_BDU_INSECURE=0`. Options are in the script's header
 
 Alias tags: `latest` and `2` → `2.1.1`, `1` → the newest 1.x; `1.0.0-0` is an alias of `1.0.0`.
 
@@ -47,6 +52,14 @@ docker run --rm \
 docker run --rm -v /etc/enodia:/etc/enodia:ro -v "$PWD":/opt/enodia \
   epicmorg/enodia:2 collect --config /etc/enodia/config.yaml -o inventory.jsonl
 docker run --rm -v "$PWD":/opt/enodia epicmorg/enodia:2 check --from inventory.jsonl
+```
+
+```sh
+# refresh the CVE databases into a host directory (cron), then point enodia.yaml's cve.*.path there
+docker run --rm --entrypoint enodia-cve-update \
+  -v /var/lib/enodia/cve:/var/lib/enodia/cve \
+  -e ENODIA_OVAL="ubuntu:noble rhel:9" -e ENODIA_ALPINE="v3.22" \
+  epicmorg/enodia:2
 ```
 
 Config format, probes and subcommands: [docs.enodia.sh](https://docs.enodia.sh).

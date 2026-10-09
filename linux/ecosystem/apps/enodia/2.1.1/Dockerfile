@@ -71,6 +71,10 @@ RUN mkdir -p /opt/enodia /etc/enodia /var/lib/enodia/cve/{bdu,nvd} && \
         -d /var/lib/enodia/cve/bdu \
         "https://bdu.fstec.ru/files/documents/vulxml.zip"
  
+# CVE database downloader for this version's cve.*.path sources; see
+# the script's header. Run with --entrypoint enodia-cve-update.
+COPY enodia-cve-update /usr/local/bin/enodia-cve-update
+
 VOLUME ["/etc/enodia", "/opt/enodia"]
 WORKDIR /opt/enodia
 
