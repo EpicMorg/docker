@@ -55,27 +55,15 @@ RUN set -eux; \
 # package here, so both are made explicitly. The volumes just make sure
 # they survive container recreation and are easy to bind-mount from the
 # host.
-RUN mkdir -p /opt/enodia /etc/enodia /var/lib/enodia/cve/{bdu,nvd} && \
-    for year in 2002 2003 2004 2005 2006 2007 2008 2009 2010 2011 2012 2013 2014 2015 2016 2017 2018 2019 2020 2021 2022 2023 2024 2025 2026; do \
-        echo "--> Processing nvdcve-2.0-${year}.json.gz"; \
-        aria2c \
-            --conf-path="/usr/local/share/epicmorg/aria2/config/aria2.conf" \
-            --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
-            -d /var/lib/enodia/cve/nvd \
-            "https://nvd.nist.gov/feeds/json/cve/2.0/nvdcve-2.0-${year}.json.gz" || exit 1; \
-    done && \
-    echo "--> Processing BDU XML archive" && \
-    aria2c \
-        --conf-path="/usr/local/share/epicmorg/aria2/config/aria2.conf" \
-        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
-        -d /var/lib/enodia/cve/bdu \
-        "https://bdu.fstec.ru/files/documents/vulxml.zip"
- 
-# CVE database downloader for this version's cve.*.path sources; see
-# the script's header. Run with --entrypoint enodia-cve-update.
+#
+# /var/lib/enodia/cve holds the CVE databases. They are no longer baked
+# in at build time (they went stale with the image): enodia-cve-update
+# fetches the ones this version reads into it — run it with
+# --entrypoint enodia-cve-update on a mounted volume, e.g. from cron.
+RUN mkdir -p /opt/enodia /etc/enodia /var/lib/enodia/cve
 COPY enodia-cve-update /usr/local/bin/enodia-cve-update
 
-VOLUME ["/etc/enodia", "/opt/enodia"]
+VOLUME ["/etc/enodia", "/opt/enodia", "/var/lib/enodia/cve"]
 WORKDIR /opt/enodia
 
 ENTRYPOINT ["/usr/bin/enodia"]
