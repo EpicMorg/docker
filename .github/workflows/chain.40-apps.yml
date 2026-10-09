@@ -36,7 +36,6 @@ jobs:
       mattermost: ${{ steps.list.outputs.mattermost }}
       cassandra: ${{ steps.list.outputs.cassandra }}
       teamcity-agent: ${{ steps.list.outputs.teamcity-agent }}
-      teamcity-server: ${{ steps.list.outputs.teamcity-server }}
       github-runner: ${{ steps.list.outputs.github-runner }}
       gitlab-runner: ${{ steps.list.outputs.gitlab-runner }}
       misc: ${{ steps.list.outputs.misc }}
@@ -56,7 +55,6 @@ jobs:
           linux/ecosystem/apps/mattermost
           linux/ecosystem/apps/cassandra
           linux/ecosystem/apps/teamcity/agent
-          linux/ecosystem/apps/teamcity/server
           linux/ecosystem/apps/github/runner
           linux/ecosystem/apps/gitlab/runner
           linux/ecosystem/apps/torrserver
@@ -88,7 +86,6 @@ jobs:
         emit mattermost flat linux/ecosystem/apps/mattermost --min 2 --max 2
         emit cassandra flat linux/ecosystem/apps/cassandra --min 1 --max 1
         emit teamcity-agent flat linux/ecosystem/apps/teamcity/agent --min 1 --max 2 --exclude '/minimal$'
-        emit teamcity-server flat linux/ecosystem/apps/teamcity/server --min 1 --max 1
         emit github-runner flat linux/ecosystem/apps/github/runner --min 1 --max 2 --exclude '/minimal$'
         emit gitlab-runner flat linux/ecosystem/apps/gitlab/runner --min 1 --max 2 --exclude '/minimal$'
         emit misc flat linux/ecosystem/apps/torrserver linux/ecosystem/apps/electron-release-server linux/ecosystem/apps/vk2discord linux/ecosystem/apps/opentracker linux/ecosystem/apps/monero linux/ecosystem/apps/ninjam linux/ecosystem/apps/telegram linux/ecosystem/apps/pg-upgrade-tool linux/ecosystem/apps/valve linux/ecosystem/apps/enodia linux/ecosystem/apps/supermicro linux/ecosystem/apps/retracker --min 0 --max 3
@@ -269,21 +266,6 @@ jobs:
       fail-fast: false
       matrix:
         leaf: ${{ fromJSON(needs.list.outputs.teamcity-agent) }}
-    uses: ./.github/workflows/_build-leaf.yml
-    secrets: inherit
-    with:
-      paths: ${{ matrix.leaf.paths }}
-      free-disk: true
-
-  # teamcity/server/<release>: FROM epicmorg/jdk:<N> (chain.30) + COPY --from jetbrains/teamcity-server:<release>
-  teamcity-server:
-    name: ${{ matrix.leaf.name }}
-    needs: list
-    if: needs.list.outputs.teamcity-server != '[]'
-    strategy:
-      fail-fast: false
-      matrix:
-        leaf: ${{ fromJSON(needs.list.outputs.teamcity-server) }}
     uses: ./.github/workflows/_build-leaf.yml
     secrets: inherit
     with:
