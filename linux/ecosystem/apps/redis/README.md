@@ -58,6 +58,10 @@ Config files, ours or bitnami's paths: base config `/etc/redis/redis.conf` or
 `/etc/redis/overrides.conf` or `/opt/bitnami/redis/mounted-etc/overrides.conf` (`REDIS_OVERRIDES_FILE`).
 Not covered: bitnami's sentinel / cluster images.
 
+`library/redis` style works too: `command: redis-server --requirepass ...` (arguments after `redis-server` go to it;
+`--requirepass` / `--aclfile` / `--user` count as a password). Unlike `library/redis`, no password at all needs
+`ALLOW_EMPTY_PASSWORD=yes`, and its `/data` volume (uid 999) is handed to uid 1001 on the first start.
+
 ## Tags
 
 <!-- readme-sync:tags:begin -->

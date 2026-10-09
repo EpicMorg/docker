@@ -81,7 +81,10 @@ if [ -z "$overrides" ]; then
     done
 fi
 
-if [ -z "$REDIS_PASSWORD" ] && [ -z "$REDIS_ACLFILE" ] && ! is_yes "$ALLOW_EMPTY_PASSWORD"; then
+# library/redis style: auth given on the command line (`redis-server --requirepass x`)
+args_auth=no
+for a in "$@"; do case "$a" in --requirepass|--aclfile|--user) args_auth=yes ;; esac; done
+if [ -z "$REDIS_PASSWORD" ] && [ -z "$REDIS_ACLFILE" ] && [ "$args_auth" = no ] && ! is_yes "$ALLOW_EMPTY_PASSWORD"; then
     die "REDIS_PASSWORD is empty. Set it (or REDIS_PASSWORD_FILE / REDIS_ACLFILE), or ALLOW_EMPTY_PASSWORD=yes for development only"
 fi
 if is_yes "$REDIS_TLS_ENABLED"; then
