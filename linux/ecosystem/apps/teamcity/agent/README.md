@@ -154,7 +154,7 @@ RUN php-ext-install -j"$(nproc)" ldap
 * GitHub / GitLab runners with the same set of variants:
   [`epicmorg/github-runner`](https://github.com/EpicMorg/docker/tree/master/linux/ecosystem/apps/github/runner),
   [`epicmorg/gitlab-runner`](https://github.com/EpicMorg/docker/tree/master/linux/ecosystem/apps/gitlab/runner).
-* The server: [`epicmorg/teamcity-server`](https://github.com/EpicMorg/docker/tree/master/linux/advanced/teamcity/server).
+* The server: [`epicmorg/teamcity-server`](https://github.com/EpicMorg/docker/tree/master/linux/ecosystem/apps/teamcity/server).
 
 ## Links
 
