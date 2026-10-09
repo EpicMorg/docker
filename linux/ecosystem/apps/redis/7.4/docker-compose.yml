@@ -1,0 +1,16 @@
+services:
+  app:
+    image: "epicmorg/redis:7.4"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/redis:7.4
+      - ghcr.io/epicmorg/redis:7.4
+      - docker.io/epicmorg/redis:7.4
+      - quay.io/epicmorg/redis:7.4.11
+      - ghcr.io/epicmorg/redis:7.4.11
+      - docker.io/epicmorg/redis:7.4.11
+      - quay.io/epicmorg/redis:7
+      - ghcr.io/epicmorg/redis:7
+      - docker.io/epicmorg/redis:7

@@ -29,6 +29,7 @@ jobs:
       testrail: ${{ steps.list.outputs.testrail }}
       testrail-addons: ${{ steps.list.outputs.testrail-addons }}
       perforce: ${{ steps.list.outputs.perforce }}
+      swarm: ${{ steps.list.outputs.swarm }}
       postgres: ${{ steps.list.outputs.postgres }}
       postgres-patroni: ${{ steps.list.outputs.postgres-patroni }}
       qbittorrent: ${{ steps.list.outputs.qbittorrent }}
@@ -78,6 +79,7 @@ jobs:
         emit testrail flat linux/ecosystem/apps/testrail --min 2 --max 2 --include '/main$'
         emit testrail-addons group linux/ecosystem/apps/testrail '{}/ad' '{}/ldap'
         emit perforce group linux/ecosystem/apps/perforce 'base/{}' 'p4p/{}' 'p4d/{}'
+        emit swarm flat linux/ecosystem/apps/perforce/swarm --min 1 --max 1
         emit postgres flat linux/ecosystem/apps/postgres --min 1 --max 1
         emit postgres-patroni flat linux/ecosystem/apps/postgres-patroni --min 1 --max 1
         emit qbittorrent flat linux/ecosystem/apps/qbittorrent --min 1 --max 1
@@ -158,6 +160,21 @@ jobs:
     secrets: inherit
     with:
       paths: ${{ matrix.leaf.paths }}
+
+  # perforce/swarm/<ver>: FROM epicmorg/apache2:php8.4 + p4 from epicmorg/perforce:<release>
+  swarm:
+    name: ${{ matrix.leaf.name }}
+    needs: [list, apache2, perforce]
+    if: ${{ !cancelled() && needs.list.result == 'success' && needs.list.outputs.swarm != '[]' }}
+    strategy:
+      fail-fast: false
+      matrix:
+        leaf: ${{ fromJSON(needs.list.outputs.swarm) }}
+    uses: ./.github/workflows/_build-leaf.yml
+    secrets: inherit
+    with:
+      paths: ${{ matrix.leaf.paths }}
+      free-disk: true
 
   # postgres/<ver>: FROM trixie
   postgres:

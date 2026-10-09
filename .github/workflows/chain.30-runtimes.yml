@@ -33,6 +33,7 @@ jobs:
       git: ${{ steps.list.outputs.git }}
       git-lfs: ${{ steps.list.outputs.git-lfs }}
       ansible: ${{ steps.list.outputs.ansible }}
+      redis: ${{ steps.list.outputs.redis }}
     steps:
     - uses: actions/checkout@v7
       with:
@@ -48,6 +49,7 @@ jobs:
           linux/ecosystem/apps/git
           linux/ecosystem/apps/git-lfs
           linux/ecosystem/apps/ansible
+          linux/ecosystem/apps/redis
     - id: list
       run: |
         # assignment first, so a failing discovery fails the step (echo "$(...)" would not)
@@ -62,6 +64,7 @@ jobs:
         emit git flat linux/ecosystem/apps/git --min 1 --max 1
         emit git-lfs flat linux/ecosystem/apps/git-lfs --min 1 --max 1
         emit ansible flat linux/ecosystem/apps/ansible --min 1 --max 1
+        emit redis flat linux/ecosystem/apps/redis --min 1 --max 1
 
   # FROM epicmorg/gcc:N AS builder -> trixie; incl. museum 2.6 / 3.0-3.6 and dev
   python:
@@ -212,3 +215,18 @@ jobs:
     secrets: inherit
     with:
       paths: ${{ matrix.leaf.paths }}
+
+  # FROM epicmorg/gcc:14 AS builder -> trixie; every maintained redis line, bitnami/redis-compatible entrypoint
+  redis:
+    name: ${{ matrix.leaf.name }}
+    needs: list
+    if: needs.list.outputs.redis != '[]'
+    strategy:
+      fail-fast: false
+      matrix:
+        leaf: ${{ fromJSON(needs.list.outputs.redis) }}
+    uses: ./.github/workflows/_build-leaf.yml
+    secrets: inherit
+    with:
+      paths: ${{ matrix.leaf.paths }}
+      free-disk: true

@@ -81,7 +81,15 @@ def leaves():
 
 
 def root_of(items):
-    return os.path.commonpath([d for d, _, _ in items])
+    root = os.path.commonpath([d for d, _, _ in items])
+    # a repo with a single version folder so far (e.g. perforce/swarm/2026.3) keeps
+    # its root README one level up when one is there, where the next versions go
+    if len(items) == 1:
+        up = os.path.dirname(root)
+        readme = os.path.join(ROOT, up, 'README.md')
+        if os.path.isfile(readme) and SHORT.search(open(readme).read()):
+            return up
+    return root
 
 
 def tag_table(repo, root, items):
