@@ -437,6 +437,7 @@ ecosystem-images:
 	make ecosystem-postgres-images
 	make ecosystem-ansible-images
 	make ecosystem-redis-images
+	make ecosystem-mongo-images
 	make ecosystem-teamcity-agent-images
 	make ecosystem-gitlab-runner-images
 	make ecosystem-github-runner-images
@@ -599,6 +600,30 @@ ecosystem-dotnet-images:
 
 ####################################################################################################################
  
+ecosystem-mongo-images:
+	cd `pwd`/linux/ecosystem/apps/mongo/1.2   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/mongo/1.4   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/mongo/1.6   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/mongo/1.8   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/mongo/2.0   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/mongo/2.2   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/mongo/2.4   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/mongo/2.6   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/mongo/3.0   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/mongo/3.2   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/mongo/3.4   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/mongo/3.6   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/mongo/4.0   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/mongo/4.1   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/mongo/4.2   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/mongo/4.4   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/mongo/5.0   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/mongo/6.0   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/mongo/7.0   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/mongo/8.0   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/mongo/8.2   && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/mongo/9.0   && pwd && make build && make deploy
+
 ecosystem-redis-images:
 	cd `pwd`/linux/ecosystem/apps/redis/6.2    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/redis/7.2    && pwd && make build && make deploy
