@@ -13,11 +13,11 @@ where the fleet has drifted apart. Pipeline: `collect → inventory → evaluate
 * base: `epicmorg/debian:trixie-light`; runs as root
 * volumes: `/etc/enodia` (config: `enodia.yaml` / `settings.yaml` / `credentials.yaml`) and
   `/opt/enodia` (working directory: `inventory.jsonl`, HTML exports, resolver cache)
-* `2.0.0`+: `/usr/local/bin/enodia-cve-update` — downloads the CVE databases that image's Enodia
-  version reads into `/var/lib/enodia/cve` (a volume); see [CVE databases](#cve-databases). The
-  databases are not baked into the image
+* CVE databases live in `/var/lib/enodia/cve` (a volume) and are not baked into the image: `2.2.0`+
+  fetches them with `enodia cve update`, `2.0.0`–`2.1.1` ship `/usr/local/bin/enodia-cve-update`;
+  see [CVE databases](#cve-databases)
 
-Alias tags: `latest` and `2` → `2.1.1`, `1` → the newest 1.x; `1.0.0-0` is an alias of `1.0.0`.
+Alias tags: `latest` and `2` → `2.2.0`, `1` → the newest 1.x; `1.0.0-0` is an alias of `1.0.0`.
 
 ## Tags
 
@@ -31,7 +31,8 @@ Alias tags: `latest` and `2` → `2.1.1`, `1` → the newest 1.x; `1.0.0-0` is a
 | `1.2.1`, `1` | [`1.2.1`](1.2.1/Dockerfile) |
 | `2.0.0` | [`2.0.0`](2.0.0/Dockerfile) |
 | `2.1.0` | [`2.1.0`](2.1.0/Dockerfile) |
-| `2.1.1`, `2`, `latest` | [`2.1.1`](2.1.1/Dockerfile) |
+| `2.1.1` | [`2.1.1`](2.1.1/Dockerfile) |
+| `2.2.0`, `2`, `latest` | [`2.2.0`](2.2.0/Dockerfile) |
 
 Every tag is pushed to `docker.io`, `quay.io` and `ghcr.io` (`epicmorg/enodia:<tag>` on each) - same digest everywhere.
 <!-- readme-sync:tags:end -->
@@ -54,15 +55,57 @@ Config format, probes and subcommands: [docs.enodia.sh](https://docs.enodia.sh).
 
 ## CVE databases
 
-Enodia `2.0.0`+ can match versions against local CVE databases (`cve.*.path` in `enodia.yaml`) but
-never downloads them itself. Each `2.x` image ships `enodia-cve-update`, which fetches exactly the
-ones its Enodia version reads:
+Enodia `2.0.0`+ matches versions against local CVE databases (`cve.*.path` in `enodia.yaml`).
 
-| Image | Databases |
-| ----- | --------- |
-| `2.0.0` | NVD (JSON 2.0, per year), BDU FSTEC |
-| `2.1.0`, `2.1.1` | the above + Debian Security Tracker, vendor OVAL (`ENODIA_OVAL`), Alpine secdb (`ENODIA_ALPINE`) |
+| Image | Databases | Downloaded by |
+| ----- | --------- | ------------- |
+| `2.0.0` | NVD (JSON 2.0, per year), BDU FSTEC | `enodia-cve-update` |
+| `2.1.0`, `2.1.1` | the above + Debian Security Tracker, vendor OVAL (`ENODIA_OVAL`), Alpine secdb (`ENODIA_ALPINE`) | `enodia-cve-update` |
+| `2.2.0` | the above + MariaDB, Atlassian, PostgreSQL and nginx advisories | `enodia cve update` |
 
+### `2.2.0`+: `enodia cve update`
+
+Enodia downloads every database whose `cve.*.path` the config sets — nothing else; `check`,
+`collect` and `serve` still never download anything. OVAL releases, Alpine branches and PostgreSQL
+majors come from the files already there, from `--from inventory.jsonl` and from
+`--oval`/`--alpine`/`--postgresql`; `--dry-run` lists the plan.
+
+```sh
+# refresh — e.g. nightly from cron; unchanged files cost one request each
+docker run --rm \
+  -v /etc/enodia:/etc/enodia:ro -v /var/lib/enodia/cve:/var/lib/enodia/cve \
+  epicmorg/enodia:2.2.0 cve update --config /etc/enodia/config.yaml --oval ubuntu:noble
+
+# use
+docker run --rm \
+  -v /etc/enodia:/etc/enodia:ro -v /var/lib/enodia/cve:/var/lib/enodia/cve:ro \
+  epicmorg/enodia:2.2.0 check --config /etc/enodia/config.yaml
+```
+
+```yaml
+# enodia.yaml (2.2.0)
+cve:
+  bdu:        {path: /var/lib/enodia/cve/bdu/vulxml.zip}
+  nvd:        {path: /var/lib/enodia/cve/nvd}
+  debian:     {path: /var/lib/enodia/cve/debian.json}
+  oval:       {path: /var/lib/enodia/cve/oval}
+  alpine:     {path: /var/lib/enodia/cve/alpine}
+  mariadb:    {path: /var/lib/enodia/cve/mariadb.md}
+  atlassian:  {path: /var/lib/enodia/cve/atlassian.json}
+  postgresql: {path: /var/lib/enodia/cve/postgresql}
+  nginx:      {path: /var/lib/enodia/cve/nginx.html}
+  update:
+    # bdu.fstec.ru is signed by the Russian Trusted Root CA, absent from the image's trust store:
+    ca_file: /etc/enodia/russian-trusted.pem      # root + Sub CA (PEM, one or many, or DER); or ca_dir
+    # tls_skip_verify: true                       # or verify nothing
+```
+
+Each file is sent If-Modified-Since, downloaded beside the old copy, loaded by Enodia's own parser
+and only then moved over it. Exit code 1 if any file failed; the rest are still updated.
+
+### `2.0.0`–`2.1.1`: `enodia-cve-update`
+
+These images ship `enodia-cve-update`, which fetches exactly the databases its Enodia version reads.
 Run it on a host directory (or a named volume) and give the same directory to `check`/`serve`:
 
 ```sh
@@ -70,12 +113,12 @@ Run it on a host directory (or a named volume) and give the same directory to `c
 docker run --rm --entrypoint enodia-cve-update \
   -v /var/lib/enodia/cve:/var/lib/enodia/cve \
   -e ENODIA_OVAL="ubuntu:noble rhel:9 astra:1.8" -e ENODIA_ALPINE="v3.22" \
-  epicmorg/enodia:2
+  epicmorg/enodia:2.1.1
 
 # use
 docker run --rm \
   -v /etc/enodia:/etc/enodia:ro -v /var/lib/enodia/cve:/var/lib/enodia/cve:ro \
-  epicmorg/enodia:2 check --config /etc/enodia/config.yaml
+  epicmorg/enodia:2.1.1 check --config /etc/enodia/config.yaml
 ```
 
 ```yaml
