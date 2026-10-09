@@ -1,0 +1,16 @@
+services:
+  app:
+    image: "epicmorg/swarm:2026.3"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/swarm:2026.3
+      - ghcr.io/epicmorg/swarm:2026.3
+      - docker.io/epicmorg/swarm:2026.3
+      - quay.io/epicmorg/swarm:2026.3.3030911
+      - ghcr.io/epicmorg/swarm:2026.3.3030911
+      - docker.io/epicmorg/swarm:2026.3.3030911
+      - quay.io/epicmorg/swarm:latest
+      - ghcr.io/epicmorg/swarm:latest
+      - docker.io/epicmorg/swarm:latest

@@ -2,6 +2,9 @@
 
 ## 2026
 * `oct` — next (unreleased)
+  * **new** `epicmorg/redis:<major.minor>` — every maintained Redis line `6.2`–`8.10` (newest patch, redis.io source, sha256) on trixie: TLS on the baked OpenSSL 3.5, jemalloc, `/emg-export`; entrypoint is a drop-in for `bitnami/redis` (same `REDIS_*` / `ALLOW_EMPTY_PASSWORD` variables, `/bitnami/redis/data`, mounted-etc config, uid 1001); floating `<major>` and `latest`; generator `bin/python/redis-versions-sync.py`
+  * **new** `epicmorg/swarm:2026.3` — Helix Swarm (P4 Code Review) from Perforce's filehost tarball on `apache2:php8.4` (php-fpm, Swarm's own P4PHP, LibreOffice previews); drop-in for `perforce/helix-swarm` (same variables and data volume), first-start configuration (user, admin protections, ticket group, config.php, server-side extension) in our entrypoint
+  * `readme-sync`: a repository with one version folder keeps its root README in the parent folder when one is there
   * **new** `epicmorg/ansible:<major.minor>` — every ansible-core line `2.11`–`2.21` (newest patch of each), each on the newest Python it supports (`epicmorg/python` 3.9–3.14), with `ansible-lint` and collections picked per line; `/emg-export` for `COPY --from`; floating `latest` — and `epicmorg/teamcity-agent:ansible-<major.minor>` (floating `ansible`); generator `bin/python/ansible-versions-sync.py`
   * our base images are pulled from `ghcr.io/epicmorg/*` instead of Docker Hub (CI hit Docker Hub's pull rate limit); publishing still goes to docker.io + quay.io + ghcr.io
   * `nginx` (main + php): Debian runtime libraries of nginx / modules / libgd / libraqm listed explicitly; nginx+php healthcheck `--start-period=10s`

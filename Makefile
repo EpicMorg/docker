@@ -436,6 +436,7 @@ ecosystem-images:
 	make ecosystem-ninjam-images
 	make ecosystem-postgres-images
 	make ecosystem-ansible-images
+	make ecosystem-redis-images
 	make ecosystem-teamcity-agent-images
 	make ecosystem-gitlab-runner-images
 	make ecosystem-github-runner-images
@@ -598,6 +599,20 @@ ecosystem-dotnet-images:
 
 ####################################################################################################################
  
+ecosystem-redis-images:
+	cd `pwd`/linux/ecosystem/apps/redis/6.2    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/redis/7.2    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/redis/7.4    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/redis/8.0    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/redis/8.2    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/redis/8.4    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/redis/8.6    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/redis/8.8    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/redis/8.10   && pwd && make build && make deploy
+
+ecosystem-perforce-swarm-images:
+	cd `pwd`/linux/ecosystem/apps/perforce/swarm/2026.3 && pwd && make build && make deploy
+
 ecosystem-ansible-images:
 	cd `pwd`/linux/ecosystem/apps/ansible/2.11         && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/ansible/2.12         && pwd && make build && make deploy
@@ -4691,6 +4706,7 @@ bundle-p4:
 	@echo "======================================="
 	make ecosystem-perforce-base-images
 	make ecosystem-perforce-proxy-images
+	make ecosystem-perforce-swarm-images
  
 bundle-python:
 	@echo "=============================================="

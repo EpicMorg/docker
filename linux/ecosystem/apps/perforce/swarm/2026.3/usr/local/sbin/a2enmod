@@ -1,0 +1,14 @@
+#!/bin/sh
+# configure-swarm.sh (Perforce, Ubuntu path) runs `a2enmod rewrite php<ver> ...`.
+# This image has no mod_php - PHP is php-fpm behind mod_proxy_fcgi - so the
+# php* module names are dropped and the rest goes to Debian's a2enmod.
+# /usr/local/sbin is ahead of /usr/sbin on PATH.
+mods=""
+for m in "$@"; do
+    case "$m" in
+        php*) echo "a2enmod: skipping $m (php runs as php-fpm, conf-enabled/php-fpm.conf)" ;;
+        *) mods="$mods $m" ;;
+    esac
+done
+# shellcheck disable=SC2086
+[ -z "$mods" ] || exec /usr/sbin/a2enmod $mods
