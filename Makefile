@@ -136,33 +136,33 @@ advanced-nextcloud-all-images:
 	make advanced-nextcloud-patched-images
 
 advanced-teamcity-server-images:
-	cd `pwd`/linux/advanced/teamcity/server/latest	       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/teamcity/server/latest	       && pwd && make build && make deploy
 	@make clean
-	cd `pwd`/linux/advanced/teamcity/server/2026.2         && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/teamcity/server/2026.2         && pwd && make build && make deploy
 	@make clean
-	cd `pwd`/linux/advanced/teamcity/server/2026.1.4       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/teamcity/server/2026.1.4       && pwd && make build && make deploy
 	@make clean
-	cd `pwd`/linux/advanced/teamcity/server/2026.1.1       && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/teamcity/server/2026.1.1       && pwd && make build && make deploy
 	@make clean
-	cd `pwd`/linux/advanced/teamcity/server/2026.1        && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/teamcity/server/2026.1        && pwd && make build && make deploy
 	@make clean
-	cd `pwd`/linux/advanced/teamcity/server/2025.11.8      && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/teamcity/server/2025.11.8      && pwd && make build && make deploy
 	@make clean
-	cd `pwd`/linux/advanced/teamcity/server/2025.07.3      && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/teamcity/server/2025.07.3      && pwd && make build && make deploy
 	@make clean
-	cd `pwd`/linux/advanced/teamcity/server/2025.03        && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/teamcity/server/2025.03        && pwd && make build && make deploy
 	@make clean
-	cd `pwd`/linux/advanced/teamcity/server/2024.12        && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/teamcity/server/2024.12        && pwd && make build && make deploy
 	@make clean
-	cd `pwd`/linux/advanced/teamcity/server/2024.07.3      && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/teamcity/server/2024.07.3      && pwd && make build && make deploy
 	@make clean
-	cd `pwd`/linux/advanced/teamcity/server/2024.03.3      && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/teamcity/server/2024.03.3      && pwd && make build && make deploy
 	@make clean
-	cd `pwd`/linux/advanced/teamcity/server/2023.05.6      && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/teamcity/server/2023.05.6      && pwd && make build && make deploy
 	@make clean
-	cd `pwd`/linux/advanced/teamcity/server/2022.10.6      && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/teamcity/server/2022.10.6      && pwd && make build && make deploy
 	@make clean
-	cd `pwd`/linux/advanced/teamcity/server/2022.04.7      && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/teamcity/server/2022.04.7      && pwd && make build && make deploy
 	@make clean
 
 advanced-cassandra-images:
