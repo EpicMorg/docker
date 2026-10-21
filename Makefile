@@ -440,6 +440,7 @@ ecosystem-images:
 	make ecosystem-openldap-images
 	make ecosystem-erlang-images
 	make ecosystem-rabbitmq-images
+	make ecosystem-mysql-images
 	make ecosystem-mongo-images
 	make ecosystem-teamcity-agent-images
 	make ecosystem-gitlab-runner-images
@@ -634,6 +635,14 @@ ecosystem-erlang-images:
 	cd `pwd`/linux/ecosystem/apps/erlang/27    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/erlang/28    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/erlang/29    && pwd && make build && make deploy
+
+ecosystem-mysql-images:
+	cd `pwd`/linux/ecosystem/apps/mysql/5.6    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/mysql/5.7    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/mysql/8.0    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/mysql/8.4    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/mysql/9.7    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/mysql/26.10    && pwd && make build && make deploy
 
 ecosystem-rabbitmq-images:
 	cd `pwd`/linux/ecosystem/apps/rabbitmq/3.9    && pwd && make build && make deploy
