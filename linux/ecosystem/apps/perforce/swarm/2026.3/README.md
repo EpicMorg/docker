@@ -2,7 +2,7 @@
 
 # `epicmorg/swarm:2026.3`
 
-Also tagged: `2026.3.3099467`, `latest`
+Also tagged: `2026.3.3099467`
 
 Built from: `ghcr.io/epicmorg/perforce:r26.1`, `ghcr.io/epicmorg/debian:trixie`, `ghcr.io/epicmorg/apache2:php8.4`
 

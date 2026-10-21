@@ -11,6 +11,3 @@ services:
       - quay.io/epicmorg/swarm:2026.3.3099467
       - ghcr.io/epicmorg/swarm:2026.3.3099467
       - docker.io/epicmorg/swarm:2026.3.3099467
-      - quay.io/epicmorg/swarm:latest
-      - ghcr.io/epicmorg/swarm:latest
-      - docker.io/epicmorg/swarm:latest
