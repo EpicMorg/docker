@@ -438,6 +438,8 @@ ecosystem-images:
 	make ecosystem-ansible-images
 	make ecosystem-redis-images
 	make ecosystem-openldap-images
+	make ecosystem-erlang-images
+	make ecosystem-rabbitmq-images
 	make ecosystem-mongo-images
 	make ecosystem-teamcity-agent-images
 	make ecosystem-gitlab-runner-images
@@ -624,6 +626,26 @@ ecosystem-mongo-images:
 	cd `pwd`/linux/ecosystem/apps/mongo/8.0   && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/mongo/8.2   && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/mongo/9.0   && pwd && make build && make deploy
+
+ecosystem-erlang-images:
+	cd `pwd`/linux/ecosystem/apps/erlang/24    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/erlang/25    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/erlang/26    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/erlang/27    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/erlang/28    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/erlang/29    && pwd && make build && make deploy
+
+ecosystem-rabbitmq-images:
+	cd `pwd`/linux/ecosystem/apps/rabbitmq/3.9    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/rabbitmq/3.10    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/rabbitmq/3.11    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/rabbitmq/3.12    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/rabbitmq/3.13    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/rabbitmq/4.0    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/rabbitmq/4.1    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/rabbitmq/4.2    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/rabbitmq/4.3    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/rabbitmq/4.4    && pwd && make build && make deploy
 
 ecosystem-openldap-images:
 	cd `pwd`/linux/ecosystem/apps/openldap/2.4    && pwd && make build && make deploy

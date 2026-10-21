@@ -8,9 +8,9 @@ services:
       - quay.io/epicmorg/mongo:9.0
       - ghcr.io/epicmorg/mongo:9.0
       - docker.io/epicmorg/mongo:9.0
-      - quay.io/epicmorg/mongo:9.0.2
-      - ghcr.io/epicmorg/mongo:9.0.2
-      - docker.io/epicmorg/mongo:9.0.2
+      - quay.io/epicmorg/mongo:9.0.4
+      - ghcr.io/epicmorg/mongo:9.0.4
+      - docker.io/epicmorg/mongo:9.0.4
       - quay.io/epicmorg/mongo:9
       - ghcr.io/epicmorg/mongo:9
       - docker.io/epicmorg/mongo:9

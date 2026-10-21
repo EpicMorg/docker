@@ -2,6 +2,9 @@
 
 ## 2026
 * `oct` — next (unreleased)
+  * **new** `epicmorg/erlang:<otp>` — Erlang/OTP `24`–`29` from source on trixie (JIT; crypto/ssl on the baked OpenSSL 3.5, 1.1.1 for OTP 24), `/emg-export` for `COPY --from`; job `erlang` in the runtimes chain; generator `bin/python/erlang-versions-sync.py`
+  * **new** `epicmorg/rabbitmq:<major.minor>` — RabbitMQ `3.9`–`4.4` (generic-unix tarballs, GPG-verified) on `epicmorg/erlang` (OTP per line from RabbitMQ's compatibility matrix), management + prometheus on, `-management` tag aliases; entrypoint is a drop-in for `library/rabbitmq` and `bitnami/rabbitmq`; job `rabbitmq` in the apps chain; generator `bin/python/rabbitmq-versions-sync.py`
+  * `mongo`: the build-time smoke test picks random free ports, the first-start temporary `mongod` uses the configured `--port`; 7.0.45, 8.0.34
   * **new** `epicmorg/openldap:<major.minor>` — OpenLDAP `2.4`–`2.7` from source on trixie: TLS on the baked OpenSSL 3.5, Cyrus SASL 2.1.28 built against it (+ GSSAPI from Debian's MIT krb5), all overlays / proxy backends / argon2 / pw-sha2 / pw-pbkdf2 as modules, 2.4 with bdb/hdb for old databases; entrypoint is a drop-in for `bitnami/openldap` (same `LDAP_*` variables, `/bitnami/openldap`, ports 1389/1636, uid 1001); `2` / `latest` = LTS `2.6`; generator `bin/python/openldap-versions-sync.py`; job `openldap` in the runtimes chain
   * `php` 5.5-8.1: PEAR upgraded to `1.10.18` from local, sha256-checked files before any `pecl` call (the bundled PEAR cannot read pecl.php.net's chunked REST responses, so `pecl install` failed); 5.3/5.4 already build their extensions from the pecl tarballs
   * `swarm` **2026.4** (build 3100196, now `latest`); `2026.3` follows Perforce's re-release as build 3099467 (the old deb is gone from their apt pool)

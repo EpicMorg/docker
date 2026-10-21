@@ -66,10 +66,10 @@ bind option or a config file. Users are created with `db.createUser` (2.6+) or `
 | `4.4`, `4.4.31`, `4` | [`4.4`](4.4/Dockerfile) |
 | `5.0`, `5.0.34`, `5` | [`5.0`](5.0/Dockerfile) |
 | `6.0`, `6.0.29`, `6` | [`6.0`](6.0/Dockerfile) |
-| `7.0`, `7.0.43`, `7` | [`7.0`](7.0/Dockerfile) |
-| `8.0`, `8.0.32` | [`8.0`](8.0/Dockerfile) |
+| `7.0`, `7.0.45`, `7` | [`7.0`](7.0/Dockerfile) |
+| `8.0`, `8.0.34` | [`8.0`](8.0/Dockerfile) |
 | `8.2`, `8.2.12`, `8` | [`8.2`](8.2/Dockerfile) |
-| `9.0`, `9.0.2`, `9`, `latest` | [`9.0`](9.0/Dockerfile) |
+| `9.0`, `9.0.4`, `9`, `latest` | [`9.0`](9.0/Dockerfile) |
 
 Every tag is pushed to `docker.io`, `quay.io` and `ghcr.io` (`epicmorg/mongo:<tag>` on each) - same digest everywhere.
 <!-- readme-sync:tags:end -->
