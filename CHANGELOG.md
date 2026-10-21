@@ -2,6 +2,7 @@
 
 ## 2026
 * `oct` — next (unreleased)
+  * php consumers (`teamcity-agent`, `github-runner`, `gitlab-runner` `php*`): mirrored ENV follows the php images again (`PHP_FULL_VERSION` 8.2–8.5, `PEAR_VERSION`, `PHP_PATCHES`) - the ENV-parity check failed after the php security / PEAR updates; new `bin/python/php-env-mirror-sync.py`
   * **new** `epicmorg/erlang:<otp>` — Erlang/OTP `24`–`29` from source on trixie (JIT; crypto/ssl on the baked OpenSSL 3.5, 1.1.1 for OTP 24), `/emg-export` for `COPY --from`; job `erlang` in the runtimes chain; generator `bin/python/erlang-versions-sync.py`
   * **new** `epicmorg/rabbitmq:<major.minor>` — RabbitMQ `3.9`–`4.4` (generic-unix tarballs, GPG-verified) on `epicmorg/erlang` (OTP per line from RabbitMQ's compatibility matrix), management + prometheus on, `-management` tag aliases; entrypoint is a drop-in for `library/rabbitmq` and `bitnami/rabbitmq`; job `rabbitmq` in the apps chain; generator `bin/python/rabbitmq-versions-sync.py`
   * `mongo`: the build-time smoke test picks random free ports, the first-start temporary `mongod` uses the configured `--port`; 7.0.45, 8.0.34
