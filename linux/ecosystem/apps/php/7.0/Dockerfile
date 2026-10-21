@@ -737,6 +737,31 @@ ENV PECL_MEMCACHED_VERSION=3.2.0
 ENV PECL_IMAGICK_VERSION=3.7.0
 ENV PECL_TIMEZONEDB_VERSION=2026.3
 
+# PEAR upgrade BEFORE any pecl call. pecl.php.net serves part of its REST
+# files with Transfer-Encoding: chunked (no Content-Length); the PEAR bundled
+# with this branch cannot decode that ("does not have REST xml available",
+# "No releases available") - fixed in PEAR 1.10.17 (PR #152). `pear upgrade`
+# would use the same broken client, so the packages are fetched with aria2c,
+# sha256-checked and installed from the local files. Archive_Tar 1.6.0.
+ENV PEAR_VERSION=1.10.18
+ARG PEAR_PKGS="PEAR-1.10.18:276db000b4e0a9388c7f5168522174bae4144c8c411a71d480b82ec25ee3bc8b Archive_Tar-1.6.0:f856095f64bb3ffa44f870202ffca8f4e6eceef3cb74674f12be3362faafa7d3 Console_Getopt-1.4.3:54bdfb7c2c958cbd7e1e8f1b964b95c3bfbf3b2779052523011b4ee49d7dfacd Structures_Graph-1.2.0:d8d8996c5d3c68119c00b0724fe20f46ae0aa7795aa71d94e6b0622315e6a9e9 XML_Util-1.4.5:e0f8736cb47ce9dd32814de45425ff03ad55a72ba8bb757e42c456f861feedf6"
+RUN set -eux; \
+    mkdir -p /tmp/pear-pkgs; \
+    cd /tmp/pear-pkgs; \
+    for p in ${PEAR_PKGS}; do \
+      name="${p%%:*}"; sha="${p#*:}"; \
+      aria2c \
+        --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -d /tmp/pear-pkgs -o "${name}.tgz" "https://pear.php.net/get/${name}.tgz"; \
+      echo "${sha} *${name}.tgz" | sha256sum -c -; \
+    done; \
+    pear upgrade --force --nodeps ./*.tgz; \
+    cd /; \
+    rm -rf /tmp/pear-pkgs /tmp/pear; \
+    pear version | grep -qx "PEAR Version: ${PEAR_VERSION}" \
+      || { echo "FATAL: PEAR is not ${PEAR_VERSION}" >&2; pear version >&2; exit 1; }
+
 # Stage 1: serializers first - other extensions detect them at configure time.
 RUN set -eux; \
     pecl channel-update pecl.php.net; \
