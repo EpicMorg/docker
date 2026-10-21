@@ -2,6 +2,7 @@
 
 ## 2026
 * `oct` — next (unreleased)
+  * **new** `epicmorg/mysql:<line>` — MySQL `5.6`, `5.7`, `8.0`, `8.4` (`8`), `9.7` (`9`, `lts`) and Innovation `26.10` (`latest`) from Oracle's generic tarballs (GPG-verified) on trixie; libaio and ncurses ABI 5 baked and wired with `patchelf --force-rpath`; entrypoint is a drop-in for `library/mysql` and takes the `bitnami/mysql` variables (root user, charset, replication, upgrade); job `mysql` in the apps chain; generator `bin/python/mysql-versions-sync.py`
   * php consumers (`teamcity-agent`, `github-runner`, `gitlab-runner` `php*`): mirrored ENV follows the php images again (`PHP_FULL_VERSION` 8.2–8.5, `PEAR_VERSION`, `PHP_PATCHES`) - the ENV-parity check failed after the php security / PEAR updates; new `bin/python/php-env-mirror-sync.py`
   * **new** `epicmorg/erlang:<otp>` — Erlang/OTP `24`–`29` from source on trixie (JIT; crypto/ssl on the baked OpenSSL 3.5, 1.1.1 for OTP 24), `/emg-export` for `COPY --from`; job `erlang` in the runtimes chain; generator `bin/python/erlang-versions-sync.py`
   * **new** `epicmorg/rabbitmq:<major.minor>` — RabbitMQ `3.9`–`4.4` (generic-unix tarballs, GPG-verified) on `epicmorg/erlang` (OTP per line from RabbitMQ's compatibility matrix), management + prometheus on, `-management` tag aliases; entrypoint is a drop-in for `library/rabbitmq` and `bitnami/rabbitmq`; job `rabbitmq` in the apps chain; generator `bin/python/rabbitmq-versions-sync.py`

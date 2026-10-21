@@ -1,0 +1,22 @@
+services:
+  app:
+    image: "epicmorg/mysql:26.10"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/mysql:26.10
+      - ghcr.io/epicmorg/mysql:26.10
+      - docker.io/epicmorg/mysql:26.10
+      - quay.io/epicmorg/mysql:26.10.0
+      - ghcr.io/epicmorg/mysql:26.10.0
+      - docker.io/epicmorg/mysql:26.10.0
+      - quay.io/epicmorg/mysql:26
+      - ghcr.io/epicmorg/mysql:26
+      - docker.io/epicmorg/mysql:26
+      - quay.io/epicmorg/mysql:innovation
+      - ghcr.io/epicmorg/mysql:innovation
+      - docker.io/epicmorg/mysql:innovation
+      - quay.io/epicmorg/mysql:latest
+      - ghcr.io/epicmorg/mysql:latest
+      - docker.io/epicmorg/mysql:latest
