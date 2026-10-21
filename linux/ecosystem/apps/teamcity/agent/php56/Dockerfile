@@ -101,6 +101,7 @@ ENV PECL_TIMEZONEDB_VERSION="2026.3"
 ENV PIE_VERSION="1.4.9"
 ENV PKG_CONFIG_PATH="/usr/local/share/epicmorg/openssl/1.0.2/lib/pkgconfig:/usr/local/share/epicmorg/icu/67/lib/pkgconfig:/usr/local/share/epicmorg/curl/8.17.0/openssl102/lib/pkgconfig:/usr/local/share/epicmorg/libpq/13/openssl102/lib/pkgconfig:"
 ENV SSL_CERT_DIR="/etc/ssl/certs"
+ENV PEAR_VERSION="1.10.18"
 ENV PATH="${COMPOSER_HOME}/vendor/bin:${PHP_DIR}/bin:${PHP_DIR}/sbin:${PATH}"
 
 COPY --from=php /emg-export/ /
