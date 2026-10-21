@@ -139,24 +139,29 @@ RUN set -eu; \
     redis-server --version | grep -q 'malloc=jemalloc' || { echo "FATAL: not built with jemalloc" >&2; exit 1; }; \
     echo "--- smoke test: entrypoint, AUTH, AOF, TLS listener ---"; \
     t="$(mktemp -d)"; \
+    # random free ports: builders with host networking run several redis builds at once
+    port_free() { ! grep -qi "^ *[0-9]*: [0-9A-F]*:$(printf %04X "$1") " /proc/net/tcp /proc/net/tcp6 2>/dev/null; }; \
+    p=0; while [ "$p" = 0 ] || ! port_free "$p"; do p="$(shuf -i 20000-59999 -n 1)"; done; \
+    tp="$p"; while [ "$tp" = "$p" ] || ! port_free "$tp"; do tp="$(shuf -i 20000-59999 -n 1)"; done; \
+    echo "smoke ports: $p, TLS $tp"; \
     openssl req -x509 -newkey rsa:2048 -nodes -days 1 -subj /CN=localhost -keyout "$t/k.pem" -out "$t/c.pem" 2>/dev/null; \
     chown -R redis:root "$t"; \
-    REDIS_DATA_DIR="$t/data" REDIS_PASSWORD=smoke REDIS_PORT_NUMBER=16379 \
-      REDIS_TLS_ENABLED=yes REDIS_TLS_PORT_NUMBER=16380 REDIS_TLS_CERT_FILE="$t/c.pem" REDIS_TLS_KEY_FILE="$t/k.pem" REDIS_TLS_CA_FILE="$t/c.pem" \
+    REDIS_DATA_DIR="$t/data" REDIS_PASSWORD=smoke REDIS_PORT_NUMBER="$p" \
+      REDIS_TLS_ENABLED=yes REDIS_TLS_PORT_NUMBER="$tp" REDIS_TLS_CERT_FILE="$t/c.pem" REDIS_TLS_KEY_FILE="$t/k.pem" REDIS_TLS_CA_FILE="$t/c.pem" \
       REDIS_TLS_AUTH_CLIENTS=no REDIS_DISABLE_COMMANDS=FLUSHALL \
       docker-entrypoint.sh > "$t/log" 2>&1 & \
     pid=$!; \
-    for i in $(seq 1 50); do REDISCLI_AUTH=smoke redis-cli -p 16379 ping 2>/dev/null | grep -q PONG && break; sleep 0.2; done; \
+    for i in $(seq 1 50); do REDISCLI_AUTH=smoke redis-cli -p "$p" ping 2>/dev/null | grep -q PONG && break; sleep 0.2; done; \
     export REDISCLI_AUTH=smoke; \
-    redis-cli -p 16379 ping | grep -qx PONG || { echo "FATAL: no PONG" >&2; cat "$t/log" >&2; exit 1; }; \
-    redis-cli -p 16379 set k v | grep -qx OK; \
-    redis-cli -p 16380 --tls --cacert "$t/c.pem" get k | grep -qx v || { echo "FATAL: TLS port does not answer" >&2; cat "$t/log" >&2; exit 1; }; \
-    redis-cli -p 16379 config get appendonly | tail -1 | grep -qx yes || { echo "FATAL: AOF is off" >&2; exit 1; }; \
-    redis-cli -p 16379 flushall 2>&1 | grep -qi 'unknown command' || { echo "FATAL: REDIS_DISABLE_COMMANDS ignored" >&2; exit 1; }; \
-    env -u REDISCLI_AUTH redis-cli -p 16379 get k 2>&1 | grep -q NOAUTH || { echo "FATAL: no password required" >&2; exit 1; }; \
+    redis-cli -p "$p" ping | grep -qx PONG || { echo "FATAL: no PONG" >&2; cat "$t/log" >&2; exit 1; }; \
+    redis-cli -p "$p" set k v | grep -qx OK; \
+    redis-cli -p "$tp" --tls --cacert "$t/c.pem" get k | grep -qx v || { echo "FATAL: TLS port does not answer" >&2; cat "$t/log" >&2; exit 1; }; \
+    redis-cli -p "$p" config get appendonly | tail -1 | grep -qx yes || { echo "FATAL: AOF is off" >&2; exit 1; }; \
+    redis-cli -p "$p" flushall 2>&1 | grep -qi 'unknown command' || { echo "FATAL: REDIS_DISABLE_COMMANDS ignored" >&2; exit 1; }; \
+    env -u REDISCLI_AUTH redis-cli -p "$p" get k 2>&1 | grep -q NOAUTH || { echo "FATAL: no password required" >&2; exit 1; }; \
     [ "$(stat -c %U "$t/data")" = redis ] || { echo "FATAL: data dir not owned by redis" >&2; exit 1; }; \
     [ "$(stat -c %U /proc/$pid)" = redis ] && grep -q redis-server /proc/$pid/cmdline || { echo "FATAL: redis-server does not run as redis" >&2; exit 1; }; \
-    redis-cli -p 16379 shutdown nosave >/dev/null 2>&1 || true; \
+    redis-cli -p "$p" shutdown nosave >/dev/null 2>&1 || true; \
     sleep 1; \
     unset REDISCLI_AUTH; \
     if docker-entrypoint.sh >/dev/null 2>&1; then echo "FATAL: started without a password and ALLOW_EMPTY_PASSWORD" >&2; exit 1; fi; \
