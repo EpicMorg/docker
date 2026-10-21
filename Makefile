@@ -637,6 +637,7 @@ ecosystem-redis-images:
 
 ecosystem-perforce-swarm-images:
 	cd `pwd`/linux/ecosystem/apps/perforce/swarm/2026.3 && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/perforce/swarm/2026.4 && pwd && make build && make deploy
 
 ecosystem-ansible-images:
 	cd `pwd`/linux/ecosystem/apps/ansible/2.11         && pwd && make build && make deploy
