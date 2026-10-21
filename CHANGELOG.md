@@ -2,6 +2,7 @@
 
 ## 2026
 * `oct` — next (unreleased)
+  * **new** `epicmorg/openldap:<major.minor>` — OpenLDAP `2.4`–`2.7` from source on trixie: TLS on the baked OpenSSL 3.5, Cyrus SASL 2.1.28 built against it (+ GSSAPI from Debian's MIT krb5), all overlays / proxy backends / argon2 / pw-sha2 / pw-pbkdf2 as modules, 2.4 with bdb/hdb for old databases; entrypoint is a drop-in for `bitnami/openldap` (same `LDAP_*` variables, `/bitnami/openldap`, ports 1389/1636, uid 1001); `2` / `latest` = LTS `2.6`; generator `bin/python/openldap-versions-sync.py`; job `openldap` in the runtimes chain
   * `php` 5.5-8.1: PEAR upgraded to `1.10.18` from local, sha256-checked files before any `pecl` call (the bundled PEAR cannot read pecl.php.net's chunked REST responses, so `pecl install` failed); 5.3/5.4 already build their extensions from the pecl tarballs
   * `swarm` **2026.4** (build 3100196, now `latest`); `2026.3` follows Perforce's re-release as build 3099467 (the old deb is gone from their apt pool)
   * `php` security releases of 2026-10-21: `8.5.12`, `8.4.27`, `8.3.36`, `8.2.35`; EOL `7.4.33`, `8.0.30`, `8.1.34` get the official php-src fix for CVE-2026-109618 / CVE-2026-109619 as a patch on the release tarball (same tags, listed in the php README, `PHP_PATCHES` / `org.epicmorg.php.patches`)

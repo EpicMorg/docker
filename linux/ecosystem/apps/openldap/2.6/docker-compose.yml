@@ -1,0 +1,19 @@
+services:
+  app:
+    image: "epicmorg/openldap:2.6"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/openldap:2.6
+      - ghcr.io/epicmorg/openldap:2.6
+      - docker.io/epicmorg/openldap:2.6
+      - quay.io/epicmorg/openldap:2.6.15
+      - ghcr.io/epicmorg/openldap:2.6.15
+      - docker.io/epicmorg/openldap:2.6.15
+      - quay.io/epicmorg/openldap:2
+      - ghcr.io/epicmorg/openldap:2
+      - docker.io/epicmorg/openldap:2
+      - quay.io/epicmorg/openldap:latest
+      - ghcr.io/epicmorg/openldap:latest
+      - docker.io/epicmorg/openldap:latest
