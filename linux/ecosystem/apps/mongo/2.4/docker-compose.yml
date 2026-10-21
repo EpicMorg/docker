@@ -1,0 +1,13 @@
+services:
+  app:
+    image: "epicmorg/mongo:2.4"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/mongo:2.4
+      - ghcr.io/epicmorg/mongo:2.4
+      - docker.io/epicmorg/mongo:2.4
+      - quay.io/epicmorg/mongo:2.4.14
+      - ghcr.io/epicmorg/mongo:2.4.14
+      - docker.io/epicmorg/mongo:2.4.14

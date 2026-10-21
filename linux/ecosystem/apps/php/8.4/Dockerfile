@@ -10,7 +10,7 @@ FROM ghcr.io/epicmorg/gcc:14 AS builder
 ARG LD_CONF_DIR=/etc/ld.so.conf.d/
 
 ENV PHP_VERSION=8.4
-ENV PHP_FULL_VERSION=${PHP_VERSION}.24
+ENV PHP_FULL_VERSION=${PHP_VERSION}.27
 ENV PHP_DIR=${EMG_LOCAL_BASE_DIR}/php/${PHP_VERSION}
 ENV PHP_INI_DIR=${PHP_DIR}/etc
 ENV PHP_INI_SCAN_DIR=${PHP_DIR}/etc/conf.d
@@ -18,8 +18,8 @@ ARG PHP_BIN_DIR=${PHP_DIR}/bin
 ARG PHP_SRC_DIR=${PHP_DIR}/src
 ARG PHP_DOWNLOAD_URL=https://www.php.net/distributions/php-${PHP_FULL_VERSION}.tar.xz
 ARG PHP_TEMP=/tmp/php-${PHP_FULL_VERSION}.tar.xz
-# Upstream sha256 for php-8.4.24.tar.xz - bump together with PHP_FULL_VERSION.
-ARG PHP_SHA256=e127be09a8506f4327c5cfa78a614b00d210714484ec215ce0011b4a03c00731
+# Upstream sha256 for php-8.4.27.tar.xz - bump together with PHP_FULL_VERSION.
+ARG PHP_SHA256=dcf93923b0e38e0d5252b25b796520b5a47761a08b3488b6d0b5d1115764d3f0
 
 ENV SSL_CERT_DIR=/etc/ssl/certs
 
@@ -363,7 +363,7 @@ ENV SSL_CERT_DIR=/etc/ssl/certs
 #                  PHP 8.4
 ##################################################################
 ENV PHP_VERSION=8.4
-ENV PHP_FULL_VERSION=${PHP_VERSION}.24
+ENV PHP_FULL_VERSION=${PHP_VERSION}.27
 ENV PHP_DIR=${EMG_LOCAL_BASE_DIR}/php/${PHP_VERSION}
 ENV PHP_INI_DIR=${PHP_DIR}/etc
 ENV PHP_INI_SCAN_DIR=${PHP_DIR}/etc/conf.d

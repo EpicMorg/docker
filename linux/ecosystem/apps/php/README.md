@@ -155,6 +155,23 @@ as our 3.5, and the RPATH of `php` / `memcached.so` makes it resolve to ours.
 `gcc` first and picks ours. Both are intentional. Do not force `CC=gccNN`: with
 an older image compiler every configure test of the old branches fails.
 
+### Security patches on end-of-life branches
+
+PHP publishes no tarball for an EOL branch, but for some advisories it pushes the fix to a branch of
+`php-src`. Those official patches are applied on top of the last release tarball (`<ver>/tmp/patches/`,
+applied after extraction, any reject is fatal). The tags stay the same (`7.4`, `7.4.33`, ...): the
+version number is unchanged, the image just carries the fix. The image shows what was applied in
+`PHP_PATCHES` (env) and the `org.epicmorg.php.patches` label.
+
+| PHP | Release | Patches | php-src source |
+| --- | ------- | ------- | -------------- |
+| 7.4 | `7.4.33` | CVE-2026-109618, CVE-2026-109619 ([advisory 2026-10-21](https://www.php.net/index.php#2026-10-21-5)) | `PHP-7.4-CVE-2026-109618-109619`, commit `712e60f9edfd` |
+| 8.0 | `8.0.30` | CVE-2026-109618, CVE-2026-109619 | `PHP-8.0-CVE-2026-109618-109619`, commit `82f8f31b16a0` |
+| 8.1 | `8.1.34` | CVE-2026-109618, CVE-2026-109619 | `PHP-8.1-CVE-2026-109618-109619`, commit `1d7dec178a09` |
+
+Only the fix commit is taken ("Avoid state corruption via bailout"), not the branches' version
+bumps or CI changes. Nothing was published for 5.x and 7.0-7.3.
+
 ## Per-branch build workarounds
 
 Applied inside the builder stage. Each one is a symptom of Trixie being far

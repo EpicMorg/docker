@@ -30,6 +30,7 @@ jobs:
       testrail-addons: ${{ steps.list.outputs.testrail-addons }}
       perforce: ${{ steps.list.outputs.perforce }}
       swarm: ${{ steps.list.outputs.swarm }}
+      mongo: ${{ steps.list.outputs.mongo }}
       postgres: ${{ steps.list.outputs.postgres }}
       postgres-patroni: ${{ steps.list.outputs.postgres-patroni }}
       qbittorrent: ${{ steps.list.outputs.qbittorrent }}
@@ -49,6 +50,7 @@ jobs:
           linux/ecosystem/apps/apache2
           linux/ecosystem/apps/testrail
           linux/ecosystem/apps/perforce
+          linux/ecosystem/apps/mongo
           linux/ecosystem/apps/postgres
           linux/ecosystem/apps/postgres-patroni
           linux/ecosystem/apps/qbittorrent
@@ -80,6 +82,7 @@ jobs:
         emit testrail-addons group linux/ecosystem/apps/testrail '{}/ad' '{}/ldap'
         emit perforce group linux/ecosystem/apps/perforce 'base/{}' 'p4p/{}' 'p4d/{}'
         emit swarm flat linux/ecosystem/apps/perforce/swarm --min 1 --max 1
+        emit mongo flat linux/ecosystem/apps/mongo --min 1 --max 1
         emit postgres flat linux/ecosystem/apps/postgres --min 1 --max 1
         emit postgres-patroni flat linux/ecosystem/apps/postgres-patroni --min 1 --max 1
         emit qbittorrent flat linux/ecosystem/apps/qbittorrent --min 1 --max 1
@@ -170,6 +173,21 @@ jobs:
       fail-fast: false
       matrix:
         leaf: ${{ fromJSON(needs.list.outputs.swarm) }}
+    uses: ./.github/workflows/_build-leaf.yml
+    secrets: inherit
+    with:
+      paths: ${{ matrix.leaf.paths }}
+      free-disk: true
+
+  # mongo/<major.minor>: FROM epicmorg/gcc:14 AS builder (baked TLS stacks) -> trixie; vendor binaries
+  mongo:
+    name: ${{ matrix.leaf.name }}
+    needs: list
+    if: needs.list.outputs.mongo != '[]'
+    strategy:
+      fail-fast: false
+      matrix:
+        leaf: ${{ fromJSON(needs.list.outputs.mongo) }}
     uses: ./.github/workflows/_build-leaf.yml
     secrets: inherit
     with:

@@ -11,6 +11,9 @@ ARG LD_CONF_DIR=/etc/ld.so.conf.d/
 
 ENV PHP_VERSION=8.0
 ENV PHP_FULL_VERSION=${PHP_VERSION}.30
+# Security fix on top of the EOL release (no upstream tarball): php-src branch
+# PHP-8.0-CVE-2026-109618-109619, commit 82f8f31b16a0 "Avoid state corruption via bailout".
+ENV PHP_PATCHES="CVE-2026-109618 CVE-2026-109619"
 ENV PHP_DIR=${EMG_LOCAL_BASE_DIR}/php/${PHP_VERSION}
 ENV PHP_INI_DIR=${PHP_DIR}/etc
 ENV PHP_INI_SCAN_DIR=${PHP_DIR}/etc/conf.d
@@ -73,6 +76,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libxpm-dev \
     libxslt1-dev \
     make \
+    patch \
     pkg-config \
     re2c \
     xz-utils \
@@ -212,6 +216,15 @@ RUN set -eux; \
     echo "${PHP_SHA256} *${PHP_TEMP}" | sha256sum -c -; \
     tar -xJf ${PHP_TEMP} --strip-components=1 --directory ${PHP_SRC_DIR}; \
     rm -rfv ${PHP_TEMP}
+
+# PHP_PATCHES: applied in name order, any reject is fatal.
+COPY tmp/patches/ /tmp/php-patches/
+RUN set -eux; \
+    for p in /tmp/php-patches/*.patch; do \
+        patch -d ${PHP_SRC_DIR} -p1 --forward --no-backup-if-mismatch < "$p"; \
+    done; \
+    if find ${PHP_SRC_DIR} -name "*.rej" | grep -q .; then echo "FATAL: patch rejects" >&2; exit 1; fi; \
+    rm -rf /tmp/php-patches
 
 ENV PATH="${PHP_BIN_DIR}:${PATH}"
 
@@ -401,6 +414,7 @@ RUN set -eu; \
 FROM ghcr.io/epicmorg/debian:trixie
 LABEL org.opencontainers.image.title="EpicMorg PHP"
 LABEL org.opencontainers.image.description="PHP by EpicMorg"
+LABEL org.epicmorg.php.patches="CVE-2026-109618 CVE-2026-109619"
 
 # Pin all php* packages to priority -1 so apt never pulls distro PHP.
 COPY etc/apt/preferences.d /etc/apt/preferences.d
@@ -521,6 +535,9 @@ ENV SSL_CERT_DIR=/etc/ssl/certs
 ##################################################################
 ENV PHP_VERSION=8.0
 ENV PHP_FULL_VERSION=${PHP_VERSION}.30
+# Security fix on top of the EOL release (no upstream tarball): php-src branch
+# PHP-8.0-CVE-2026-109618-109619, commit 82f8f31b16a0 "Avoid state corruption via bailout".
+ENV PHP_PATCHES="CVE-2026-109618 CVE-2026-109619"
 ENV PHP_DIR=${EMG_LOCAL_BASE_DIR}/php/${PHP_VERSION}
 ENV PHP_INI_DIR=${PHP_DIR}/etc
 ENV PHP_INI_SCAN_DIR=${PHP_DIR}/etc/conf.d

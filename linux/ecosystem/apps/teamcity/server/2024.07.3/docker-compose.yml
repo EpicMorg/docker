@@ -1,0 +1,10 @@
+services:
+  app:
+    image: "epicmorg/teamcity-server:2024.07.3"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/teamcity-server:2024.07.3
+      - ghcr.io/epicmorg/teamcity-server:2024.07.3
+      - docker.io/epicmorg/teamcity-server:2024.07.3

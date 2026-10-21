@@ -1,0 +1,53 @@
+# TeamCity server images: FROM epicmorg/jdk:<N> + COPY --from jetbrains/teamcity-server:<release>.
+# Own workflow and cron (JetBrains' tags move often) -- not part of the build chain; it also runs
+# after "Chain 30 - Runtimes" so a rebuilt jdk reaches the servers.
+name: Apps - TeamCity Server
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 8 * * 2,4,6'   # Tue/Thu/Sat 08:00 UTC
+  workflow_run:
+    workflows: ['Chain 30 - Runtimes']
+    types: [completed]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  list:
+    name: list leaves
+    if: github.event_name != 'workflow_run' || contains(fromJSON('["success","failure"]'), github.event.workflow_run.conclusion)
+    runs-on: ubuntu-24.04
+    outputs:
+      server: ${{ steps.list.outputs.server }}
+    steps:
+    - uses: actions/checkout@v7
+      with:
+        sparse-checkout: |
+          .github/scripts
+          linux/ecosystem/apps/teamcity/server
+    - id: list
+      run: |
+        # assignment first, so a failing discovery fails the step (echo "$(...)" would not)
+        emit() { local v; v=$(python3 .github/scripts/leaves.py "${@:2}"); echo "$1=$v" | tee -a "$GITHUB_OUTPUT"; }
+        emit server flat linux/ecosystem/apps/teamcity/server --min 1 --max 1
+
+  server:
+    name: ${{ matrix.leaf.name }}
+    needs: list
+    if: needs.list.outputs.server != '[]'
+    strategy:
+      fail-fast: false
+      matrix:
+        leaf: ${{ fromJSON(needs.list.outputs.server) }}
+    uses: ./.github/workflows/_build-leaf.yml
+    secrets: inherit
+    with:
+      paths: ${{ matrix.leaf.paths }}
+      free-disk: true

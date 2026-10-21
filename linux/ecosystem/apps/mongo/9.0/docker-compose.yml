@@ -1,0 +1,19 @@
+services:
+  app:
+    image: "epicmorg/mongo:9.0"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/mongo:9.0
+      - ghcr.io/epicmorg/mongo:9.0
+      - docker.io/epicmorg/mongo:9.0
+      - quay.io/epicmorg/mongo:9.0.2
+      - ghcr.io/epicmorg/mongo:9.0.2
+      - docker.io/epicmorg/mongo:9.0.2
+      - quay.io/epicmorg/mongo:9
+      - ghcr.io/epicmorg/mongo:9
+      - docker.io/epicmorg/mongo:9
+      - quay.io/epicmorg/mongo:latest
+      - ghcr.io/epicmorg/mongo:latest
+      - docker.io/epicmorg/mongo:latest
