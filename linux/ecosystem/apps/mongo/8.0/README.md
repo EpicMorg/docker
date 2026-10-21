@@ -2,7 +2,7 @@
 
 # `epicmorg/mongo:8.0`
 
-Also tagged: `8.0.32`
+Also tagged: `8.0.34`
 
 Built from: `ghcr.io/epicmorg/gcc:14`, `ghcr.io/epicmorg/debian:trixie`
 

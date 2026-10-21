@@ -2,7 +2,7 @@
 
 # `epicmorg/mongo:7.0`
 
-Also tagged: `7.0.43`, `7`
+Also tagged: `7.0.45`, `7`
 
 Built from: `ghcr.io/epicmorg/gcc:14`, `ghcr.io/epicmorg/debian:trixie`
 

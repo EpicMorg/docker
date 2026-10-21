@@ -125,17 +125,22 @@ RUN set -eu; \
     auth="-u root -p smoke --authenticationDatabase admin"; [ "$vnum" -ge 2004 ] || auth="-u root -p smoke"; \
     probe='print("PROBE_" + db.runCommand({listDatabases: 1}).ok)'; \
     t="$(mktemp -d)"; chown mongodb:mongodb "$t"; \
+    # random free ports: builders with host networking run several mongo builds at once
+    port_free() { ! grep -qi "^ *[0-9]*: [0-9A-F]*:$(printf %04X "$1") " /proc/net/tcp /proc/net/tcp6 2>/dev/null; }; \
+    p=0; while [ "$p" = 0 ] || ! port_free "$p"; do p="$(shuf -i 20000-59999 -n 1)"; done; \
+    tp="$p"; while [ "$tp" = "$p" ] || ! port_free "$tp"; do tp="$(shuf -i 20000-59999 -n 1)"; done; \
+    echo "smoke ports: $p, TLS $tp"; \
     MONGO_INITDB_ROOT_USERNAME=root MONGO_INITDB_ROOT_PASSWORD=smoke \
-      docker-entrypoint.sh mongod --dbpath "$t" --port 27999 --smallfiles > "$t.log" 2>&1 & \
+      docker-entrypoint.sh mongod --dbpath "$t" --port "$p" --smallfiles > "$t.log" 2>&1 & \
     shell="$(command -v mongosh || command -v mongo)"; \
     ok=no; for i in $(seq 1 90); do \
-      "$shell" $q --port 27999 $auth --eval "$probe" admin 2>/dev/null | grep -q PROBE_1 && { ok=yes; break; }; \
+      "$shell" $q --port "$p" $auth --eval "$probe" admin 2>/dev/null | grep -q PROBE_1 && { ok=yes; break; }; \
       sleep 1; \
     done; \
     [ "$ok" = yes ] || { echo "FATAL: no authenticated listDatabases" >&2; cat "$t.log" >&2; exit 1; }; \
-    ! "$shell" $q --port 27999 --eval "$probe" admin 2>&1 | grep -q PROBE_1 \
+    ! "$shell" $q --port "$p" --eval "$probe" admin 2>&1 | grep -q PROBE_1 \
       || { echo "FATAL: unauthenticated listDatabases allowed" >&2; exit 1; }; \
-    "$shell" $q --port 27999 $auth --eval 'db.shutdownServer()' admin >/dev/null 2>&1 || true; \
+    "$shell" $q --port "$p" $auth --eval 'db.shutdownServer()' admin >/dev/null 2>&1 || true; \
     sleep 3; \
     rm -rf "$t" "$t.log"; \
     mongod --version 2>&1 | head -3 || true; \

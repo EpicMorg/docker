@@ -8,6 +8,6 @@ services:
       - quay.io/epicmorg/mongo:8.0
       - ghcr.io/epicmorg/mongo:8.0
       - docker.io/epicmorg/mongo:8.0
-      - quay.io/epicmorg/mongo:8.0.32
-      - ghcr.io/epicmorg/mongo:8.0.32
-      - docker.io/epicmorg/mongo:8.0.32
+      - quay.io/epicmorg/mongo:8.0.34
+      - ghcr.io/epicmorg/mongo:8.0.34
+      - docker.io/epicmorg/mongo:8.0.34

@@ -2,7 +2,7 @@
 
 # `epicmorg/mongo:9.0`
 
-Also tagged: `9.0.2`, `9`, `latest`
+Also tagged: `9.0.4`, `9`, `latest`
 
 Built from: `ghcr.io/epicmorg/gcc:14`, `ghcr.io/epicmorg/debian:trixie`
 

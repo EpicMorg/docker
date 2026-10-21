@@ -105,7 +105,8 @@ if [ "$fresh" = yes ] && { [ -n "${MONGO_INITDB_ROOT_USERNAME:-}" ] || [ "$initd
     fi
     [ "${#shell[@]}" -gt 0 ] || die "no mongo shell in the image for the first-start initialisation"
     log "empty dbpath $dbpath: initialising (mongod $version)"
-    port=27017
+    # same port as the real mongod (or the default): nothing else listens on it yet
+    port="$(arg_val --port || echo 27017)"
     tmplog="$(mktemp)"
     # temporary mongod: localhost only, no --auth, same storage flags as the real one
     tmp_args=(--port "$port" --bind_ip 127.0.0.1 --dbpath "$dbpath")
