@@ -12,9 +12,9 @@ FROM ghcr.io/epicmorg/perforce:r26.1 AS p4
 # build: unpacked here (not installed - its Ubuntu PHP dependencies are not
 # wanted), only those files are taken.
 FROM ghcr.io/epicmorg/debian:trixie AS deb
-ARG SWARM_DEB_URL=http://package.perforce.com/apt/ubuntu/pool/release/h/helix-swarm/helix-swarm_2026.3-3030911~noble_amd64.deb
+ARG SWARM_DEB_URL=http://package.perforce.com/apt/ubuntu/pool/release/h/helix-swarm/helix-swarm_2026.3-3099467~noble_amd64.deb
 # SHA256 of that file in http://package.perforce.com/apt/ubuntu/dists/noble/release/binary-amd64/Packages.gz
-ARG SWARM_DEB_SHA256=95934322c08865aced74c868060e3b628d21a42694a78a6357ed93176588311d
+ARG SWARM_DEB_SHA256=bc5d509e94fe9d55261b0c9b0352c193a03731263e359a74c3cc946d2f48faf3
 RUN set -eux; \
     wget -q -O /tmp/swarm.deb "${SWARM_DEB_URL}"; \
     echo "${SWARM_DEB_SHA256}  /tmp/swarm.deb" | sha256sum -c -; \
@@ -40,11 +40,11 @@ LABEL org.opencontainers.image.source="https://github.com/EpicMorg/docker"
 LABEL org.opencontainers.image.licenses="MIT"
 
 ENV SWARM_VERSION=2026.3
-ENV SWARM_BUILD=3030911
+ENV SWARM_BUILD=3099467
 ENV SWARM_RELEASE=r26.3
 ARG SWARM_TGZ_URL=https://filehost.perforce.com/perforce/${SWARM_RELEASE}/bin.multiarch/swarm.tgz
 # https://filehost.perforce.com/perforce/r26.3/bin.multiarch/SHA256SUMS
-ARG SWARM_TGZ_SHA256=01875873e5a6846e8e06d4048cba7fd0dada6c162141491f78d950bff4cb1d29
+ARG SWARM_TGZ_SHA256=67908d3e4a381bff1fb01173e93f33a82dba98bade6b36d62d1b89601e9a5afc
 
 # Same variables and defaults as perforce/helix-swarm (see README)
 ENV P4D_PORT=ssl:perforce:1666
