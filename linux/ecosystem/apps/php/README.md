@@ -172,6 +172,22 @@ version number is unchanged, the image just carries the fix. The image shows wha
 Only the fix commit is taken ("Avoid state corruption via bailout"), not the branches' version
 bumps or CI changes. Nothing was published for 5.x and 7.0-7.3.
 
+### PEAR / PECL
+
+pecl.php.net serves part of its REST metadata with `Transfer-Encoding: chunked` and no `Content-Length`. PEAR
+before `1.10.17` cannot decode that (`does not have REST xml available`, `No releases available`), and
+`pear upgrade` would go through the same broken client. So the PEAR toolchain is replaced from local files before the
+first `pecl` call:
+
+| PHP | Bundled PEAR | What the image does |
+| --- | ------------ | ------------------- |
+| 5.3, 5.4 | 1.9.x | `pecl` is not used for the build: every extension tarball is fetched from `pecl.php.net/get/<pkg>-<ver>.tgz` and built with `phpize` + explicit `./configure` (PEAR 1.10 needs PHP 5.4+, and the old PEAR cannot unpack the current archives anyway) |
+| 5.5 | 1.10.1 | PEAR `1.10.18` + Archive_Tar `1.4.14` (1.6 needs PHP 5.6), Console_Getopt, Structures_Graph, XML_Util - fetched with aria2c, sha256-checked, `pear upgrade --force --nodeps <files>` |
+| 5.6 - 8.1 | 1.10.7 - 1.10.16 | the same with Archive_Tar `1.6.0` |
+| 8.2 - 8.5 | 1.10.18 | as shipped |
+
+The image's `pear` / `pecl` therefore work against pecl.php.net for later `pecl install` too.
+
 ## Per-branch build workarounds
 
 Applied inside the builder stage. Each one is a symptom of Trixie being far
