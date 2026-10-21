@@ -1,0 +1,19 @@
+services:
+  app:
+    image: "epicmorg/rabbitmq:4.0"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/rabbitmq:4.0
+      - ghcr.io/epicmorg/rabbitmq:4.0
+      - docker.io/epicmorg/rabbitmq:4.0
+      - quay.io/epicmorg/rabbitmq:4.0.9
+      - ghcr.io/epicmorg/rabbitmq:4.0.9
+      - docker.io/epicmorg/rabbitmq:4.0.9
+      - quay.io/epicmorg/rabbitmq:4.0-management
+      - ghcr.io/epicmorg/rabbitmq:4.0-management
+      - docker.io/epicmorg/rabbitmq:4.0-management
+      - quay.io/epicmorg/rabbitmq:4.0.9-management
+      - ghcr.io/epicmorg/rabbitmq:4.0.9-management
+      - docker.io/epicmorg/rabbitmq:4.0.9-management

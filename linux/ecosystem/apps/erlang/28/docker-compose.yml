@@ -1,0 +1,13 @@
+services:
+  app:
+    image: "epicmorg/erlang:28"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/erlang:28
+      - ghcr.io/epicmorg/erlang:28
+      - docker.io/epicmorg/erlang:28
+      - quay.io/epicmorg/erlang:28.5.0.8
+      - ghcr.io/epicmorg/erlang:28.5.0.8
+      - docker.io/epicmorg/erlang:28.5.0.8
