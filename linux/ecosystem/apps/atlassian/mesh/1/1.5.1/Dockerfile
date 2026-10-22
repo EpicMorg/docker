@@ -29,28 +29,15 @@ WORKDIR $MESH_HOME
 EXPOSE 7777
 
 ##################################################################
-#                    Shared wget args
-##################################################################
-ARG WGET_ARGS="--continue \
-  --quiet \
-  --no-check-certificate \
-  --retry-connrefused \
-  --tries=15 \
-  --timeout=30 \
-  --waitretry=15 \
-  --dns-timeout=30 \
-  --connect-timeout=30 \
-  --read-timeout=30 \
-  --no-clobber"
-
-ARG WGET_USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:128.0) Gecko/20100101 Firefox/128.0"
-
-##################################################################
 #                   Installing
 ##################################################################
 RUN set -eux; \
-    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -P /tmp ${DOWNLOAD_URL} || \
-    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -O ${TEMP_ARCHIVE} ${DOWNLOAD_URL_MAVEN} && \
+    aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -d / -o ${TEMP_ARCHIVE} ${DOWNLOAD_URL} || { rm -f ${TEMP_ARCHIVE} ${TEMP_ARCHIVE}.aria2; \
+    aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -d / -o ${TEMP_ARCHIVE} ${DOWNLOAD_URL_MAVEN}; } && \
     mkdir -p ${MESH_INSTALL_DIR} ${MESH_HOME} && \
     tar -xzf ${TEMP_ARCHIVE} --strip-components=1 --directory "${MESH_INSTALL_DIR}" && \
     test -x ${MESH_INSTALL_DIR}/bin/start-mesh.sh && \

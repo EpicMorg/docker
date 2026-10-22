@@ -32,23 +32,6 @@ EXPOSE 8085
 EXPOSE 54663
 
 ##################################################################
-#                    Shared wget args
-##################################################################
-ARG WGET_ARGS="--continue \
-  --quiet \
-  --no-check-certificate \
-  --retry-connrefused \
-  --tries=15 \
-  --timeout=30 \
-  --waitretry=15 \
-  --dns-timeout=30 \
-  --connect-timeout=30 \
-  --read-timeout=30 \
-  --no-clobber"
-
-ARG WGET_USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:128.0) Gecko/20100101 Firefox/128.0"
-
-##################################################################
 #                   User
 ##################################################################
 RUN set -eux; \
@@ -61,7 +44,9 @@ RUN set -eux; \
 #                   Installing
 ##################################################################
 RUN set -eux; \
-    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -P /tmp ${DOWNLOAD_URL} && \
+    aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -d / -o ${TEMP_ARCHIVE} ${DOWNLOAD_URL} && \
     mkdir -p ${BAMBOO_INSTALL_DIR} && \
     tar -xzf ${TEMP_ARCHIVE} --strip-components=1 --directory "${BAMBOO_INSTALL_DIR}" && \
     sed -i -e 's/^JVM_SUPPORT_RECOMMENDED_ARGS=""$/: \${JVM_SUPPORT_RECOMMENDED_ARGS:=""}/' ${BAMBOO_INSTALL_DIR}/bin/setenv.sh && \

@@ -24,28 +24,13 @@ ENV DOTNET_CLI_TELEMETRY_OPTOUT=true
 ENV DOTNET_SKIP_FIRST_TIME_EXPERIENCE=true
 
 ##################################################################
-#                    Shared wget args
-##################################################################
-ARG WGET_ARGS="--continue \
-  --quiet \
-  --no-check-certificate \
-  --retry-connrefused \
-  --tries=15 \
-  --timeout=30 \
-  --waitretry=15 \
-  --dns-timeout=30 \
-  --connect-timeout=30 \
-  --read-timeout=30 \
-  --no-clobber"
-
-ARG WGET_USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:128.0) Gecko/20100101 Firefox/128.0"
-
-##################################################################
 #                   installing dotnet
 ##################################################################
 RUN set -eux; \
     mkdir -p ${DOTNET_ROOT} && \ 
-    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -P /tmp ${DOTNET_INSTALL_SCRIPT_URL} && \
+    aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        --check-certificate=true -d /tmp -o dotnet-install.sh ${DOTNET_INSTALL_SCRIPT_URL} && \
     chmod +x /tmp/dotnet-install.sh && \
     /tmp/dotnet-install.sh --verbose --no-path --install-dir ${DOTNET_ROOT} --channel ${DOTNET_CHANNEL} --version latest
 

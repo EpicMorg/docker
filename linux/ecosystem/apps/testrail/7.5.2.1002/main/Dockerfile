@@ -21,7 +21,9 @@ RUN apt-get update && \
 RUN set -eux; \
     mkdir -p /usr/local/src/cassandra-cpp-driver; \
     cd /usr/local/src/cassandra-cpp-driver; \
-    wget --quiet --tries=15 --retry-connrefused --timeout=30 -O cpp-driver.tar.gz "${CASSANDRA_CPP_DRIVER_URL}"; \
+    aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -o cpp-driver.tar.gz "${CASSANDRA_CPP_DRIVER_URL}"; \
     echo "${CASSANDRA_CPP_DRIVER_SHA256}  cpp-driver.tar.gz" | sha256sum -c -; \
     tar -xzf cpp-driver.tar.gz --strip-components=1; \
     rm -f cpp-driver.tar.gz; \
@@ -58,7 +60,9 @@ ARG CASSANDRA_PHP_SO_SHA256=3569361d9a20c35dbd09adb97b4f442602221884f76fd34a5743
 
 RUN set -eux; \
     mkdir -p /tmp/cassandra; \
-    wget --quiet --tries=15 --retry-connrefused --timeout=30 -O /tmp/cassandra/cassandra.so "${CASSANDRA_PHP_SO_URL}"; \
+    aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -d / -o /tmp/cassandra/cassandra.so "${CASSANDRA_PHP_SO_URL}"; \
     echo "${CASSANDRA_PHP_SO_SHA256}  /tmp/cassandra/cassandra.so" | sha256sum -c -; \
     patchelf --force-rpath --set-rpath "${CASSANDRA_CPP_DRIVER_DIR}/lib:${PHP_SSL_LIB_DIR}" /tmp/cassandra/cassandra.so; \
     readelf -d "/tmp/cassandra/cassandra.so" | grep -E 'RPATH|RUNPATH|NEEDED'; \
@@ -101,23 +105,6 @@ ENV TR_OPTPATH="/opt/testrail/"
 ENV TR_CONFIGPATH="/var/www/testrail/config/"
 
 ##################################################################
-#                    Shared wget args
-##################################################################
-ARG WGET_ARGS="--continue \
-  --quiet \
-  --no-check-certificate \
-  --retry-connrefused \
-  --tries=15 \
-  --timeout=30 \
-  --waitretry=15 \
-  --dns-timeout=30 \
-  --connect-timeout=30 \
-  --read-timeout=30 \
-  --no-clobber"
-
-ARG WGET_USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:128.0) Gecko/20100101 Firefox/128.0"
-
-##################################################################
 #                   Installing
 ##################################################################
 # The zip stays in TESTRAIL_RELEASE_DIR: the entrypoint re-extracts it on every
@@ -126,7 +113,9 @@ RUN set -eux; \
     mkdir -p ${TESTRAIL_RELEASE_DIR} ${TR_WWW_PATH}; \
     mkdir -p ${TR_DEFAULT_ATTACHMENT_DIR} ${TR_DEFAULT_REPORT_DIR} ${TR_DEFAULT_AUDIT_DIR} ${TR_DEFAULT_LOG_DIR}; \
     echo "[testrail] Downloading ${DOWNLOAD_URL}"; \
-    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -O ${TESTRAIL_RELEASE_DIR}/testrail-${TESTRAIL_VERSION}.zip ${DOWNLOAD_URL}; \
+    aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -d / -o ${TESTRAIL_RELEASE_DIR}/testrail-${TESTRAIL_VERSION}.zip ${DOWNLOAD_URL}; \
     unzip -tq ${TESTRAIL_RELEASE_DIR}/testrail-${TESTRAIL_VERSION}.zip; \
     unzip -q -o ${TESTRAIL_RELEASE_DIR}/testrail-${TESTRAIL_VERSION}.zip -d /var/www/; \
     test -f ${TR_WWW_PATH}/index.php; \

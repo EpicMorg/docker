@@ -20,18 +20,9 @@ ENV LD_LIBRARY_PATH=/${VALVE_STEAMCMD_FOLDER}/linux64
 ##################################################################
 RUN mkdir -p ${VALVE_STEAMCMD_FOLDER} ${VALVE_GAME_FOLDER} ${VALVE_VOLUME_FOLDER}
 
-RUN wget -c \
-    --user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:128.0) Gecko/20100101 Firefox/128.0" \
-    --no-check-certificate \
-    --retry-connrefused \
-    --tries=15 \
-    --timeout=30 \
-    --waitretry=15 \
-    --dns-timeout=30 \
-    --read-timeout=30 \
-    --progress=dot:giga \
-    --no-clobber \
-    -O ${VALVE_STEAMCMD_TEMP} \
+RUN aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+    --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+    -d / -o ${VALVE_STEAMCMD_TEMP} \
     "${DOWNLOAD_URL}"
 
 RUN dpkg --add-architecture i386 && \

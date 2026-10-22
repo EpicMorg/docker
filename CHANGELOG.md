@@ -2,6 +2,8 @@
 
 ## 2026
 * `oct` — next (unreleased)
+  * `nginx` security releases: `1.30.6`, `1.31.8` (CVE-2026-90439, CVE-2026-15176, CVE-2026-93479, CVE-2026-95101, CVE-2026-97629, CVE-2026-97205); 1.25-1.29 are already at their final patch
+  * downloads go through `aria2c` with the shared `aria2.conf` (retries, timeouts) and a random user agent everywhere: the generated families (git, git-lfs, mongo, mysql, mariadb, redis, erlang, openldap, freeradius, vault, rabbitmq, php PECL / PEAR files), the atlassian / testrail ansible templates and their images (`ARG WGET_ARGS` dropped), perforce, swarm, qbittorrent, monero, postgres, cassandra, steamcmd, the amxx-sdk / atlassian-sdk / docker agents and runners, vscode-server, the apt keyrings and rustup in the base images (unpinned keys and scripts with `--check-certificate=true`); plain `wget -q` without retries lost git builds to a kernel.org hiccup
   * `php` (all lines): `ldap` (with SASL) and `ssh2` built but off, on the line's own OpenSSL (own Cyrus SASL, OpenLDAP client, libssh2 per OpenSSL branch); `php-env-mirror-sync.py` also mirrors `EMG_PHP_*`
   * `php` (all lines): extensions the Debian / sury packages have - `yaml`, `mailparse`, `memcache`, `gnupg` on; `opentelemetry` (8.0+), `xmlrpc`, `pspell`, `enchant` (8.0+) built but off (`php-enmod`); consumers' mirrored ENV synced
   * `rabbitmq`: the Erlang cookie is created / chowned for `rabbitmq` before the node starts and the HEALTHCHECK runs the CLI as `rabbitmq` - an early root CLI call left a root-owned cookie (node died with eacces)

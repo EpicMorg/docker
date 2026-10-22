@@ -39,7 +39,9 @@ RUN set -eux; \
 
 RUN set -eux; \
     mkdir -p /usr/local/src/libaio; cd /usr/local/src/libaio; \
-    wget -q -O aio.tgz "${EMG_LIBAIO_URL}"; \
+    aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -o aio.tgz "${EMG_LIBAIO_URL}"; \
     echo "${EMG_LIBAIO_SHA256}  aio.tgz" | sha256sum -c -; \
     tar -xzf aio.tgz --strip-components=1 --no-same-owner; \
     make -j"$(nproc)" prefix="${EMG_LIBAIO_DIR}" CC=cc; \
@@ -51,7 +53,9 @@ RUN set -eux; \
 RUN set -eux; \
     case "${EMG_MYSQL_VERSION}" in 5.*) ;; *) exit 0 ;; esac; \
     mkdir -p /usr/local/src/ncurses; cd /usr/local/src/ncurses; \
-    wget -q -O nc.tgz "${EMG_NCURSES_URL}"; \
+    aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -o nc.tgz "${EMG_NCURSES_URL}"; \
     echo "${EMG_NCURSES_SHA256}  nc.tgz" | sha256sum -c -; \
     tar -xzf nc.tgz --strip-components=1 --no-same-owner; \
     LDFLAGS="-Wl,-rpath,${EMG_NCURSES5_DIR}/lib -Wl,--disable-new-dtags" \
@@ -75,7 +79,9 @@ RUN set -eux; \
 RUN set -eux; \
     mkdir -p "${EMG_MYSQL_DIR}"; \
     cd /tmp; \
-    wget -q -O "${EMG_MYSQL_TARBALL}" "${EMG_MYSQL_URL}/${EMG_MYSQL_TARBALL}"; \
+    aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -o "${EMG_MYSQL_TARBALL}" "${EMG_MYSQL_URL}/${EMG_MYSQL_TARBALL}"; \
     echo "${EMG_MYSQL_SHA256}  ${EMG_MYSQL_TARBALL}" | sha256sum -c -; \
     tar -xf "${EMG_MYSQL_TARBALL}" -C "${EMG_MYSQL_DIR}" --strip-components=1 --no-same-owner; \
     rm -f "${EMG_MYSQL_TARBALL}"; \

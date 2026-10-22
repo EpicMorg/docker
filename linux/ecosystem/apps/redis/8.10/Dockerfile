@@ -34,7 +34,9 @@ RUN set -eux; \
 RUN set -eux; \
     mkdir -p "${EMG_REDIS_SRC_DIR}"; \
     cd "${EMG_REDIS_SRC_DIR}"; \
-    wget -q -O redis.tar.gz "${EMG_REDIS_URL}"; \
+    aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -o redis.tar.gz "${EMG_REDIS_URL}"; \
     echo "${EMG_REDIS_SHA256}  redis.tar.gz" | sha256sum -c -; \
     tar -xzf redis.tar.gz --strip-components=1 --no-same-owner; \
     rm -f redis.tar.gz; \

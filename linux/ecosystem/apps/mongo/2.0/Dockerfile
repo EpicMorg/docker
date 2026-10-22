@@ -19,7 +19,9 @@ RUN set -eux; \
     apt-get install -y --no-install-recommends patchelf; \
     rm -rf /var/lib/apt/lists/*; \
     mkdir -p "${EMG_MONGO_DIR}" /tmp/mongo; \
-    wget -q -O /tmp/mongo.tgz "${EMG_MONGO_URL}"; \
+    aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -d /tmp -o mongo.tgz "${EMG_MONGO_URL}"; \
     echo "${EMG_MONGO_SHA256}  /tmp/mongo.tgz" | sha256sum -c -; \
     tar -xzf /tmp/mongo.tgz -C /tmp/mongo --strip-components=1 --no-same-owner; \
     cp -a /tmp/mongo/bin "${EMG_MONGO_DIR}/"; \

@@ -26,7 +26,9 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 RUN set -eux; \
-    wget -q -O /tmp/p2pool.tar.gz "${P2POOL_DOWNLOAD_URL}"; \
+    aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -d /tmp -o p2pool.tar.gz "${P2POOL_DOWNLOAD_URL}"; \
     echo "${P2POOL_SHA256}  /tmp/p2pool.tar.gz" | sha256sum -c -; \
     tar -xzf /tmp/p2pool.tar.gz --strip-components=1 -C /tmp p2pool-v${P2POOL_VERSION}-linux-x64/p2pool; \
     install -m 0755 /tmp/p2pool /usr/local/bin/p2pool; \

@@ -161,7 +161,9 @@ RUN apt-get update \
     rm -rfv /tmp/*    
 
 RUN cd /tmp \
-    && wget https://github.com/EnterpriseDB/system_stats/archive/refs/tags/v$PG_STATS.tar.gz \
+    && aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -o v$PG_STATS.tar.gz https://github.com/EnterpriseDB/system_stats/archive/refs/tags/v$PG_STATS.tar.gz \
     && tar -zxvf v$PG_STATS.tar.gz \
     && cd /tmp/system_stats-$PG_STATS \
     && PATH="/usr/lib/postgresql/${PG_MAJOR}/bin:$PATH" make USE_PGXS=1 \

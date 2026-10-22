@@ -26,27 +26,12 @@ WORKDIR $FISHEYE_INST
 EXPOSE 8060
 
 ##################################################################
-#                    Shared wget args
-##################################################################
-ARG WGET_ARGS="--continue \
-  --quiet \
-  --no-check-certificate \
-  --retry-connrefused \
-  --tries=15 \
-  --timeout=30 \
-  --waitretry=15 \
-  --dns-timeout=30 \
-  --connect-timeout=30 \
-  --read-timeout=30 \
-  --no-clobber"
-
-ARG WGET_USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:128.0) Gecko/20100101 Firefox/128.0"
-
-##################################################################
 #                   Installing
 ##################################################################
 RUN set -eux; \
-    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -P /tmp ${DOWNLOAD_URL} && \
+    aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -d / -o ${TEMP_ARCHIVE} ${DOWNLOAD_URL} && \
     mkdir -p  ${FISHEYE_HOME} ${FISHEYE_INST} && \
     7zz x ${TEMP_ARCHIVE} -o/tmp/crucible-temp && \
     mv /tmp/crucible-temp/*/* "${FISHEYE_HOME}" && \

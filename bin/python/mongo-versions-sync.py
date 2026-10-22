@@ -139,7 +139,9 @@ RUN set -eux; \\
     apt-get install -y --no-install-recommends patchelf; \\
     rm -rf /var/lib/apt/lists/*; \\
     mkdir -p "${{EMG_MONGO_DIR}}" /tmp/mongo; \\
-    wget -q -O /tmp/mongo.tgz "${{EMG_MONGO_URL}}"; \\
+    aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \\
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \\
+        -d /tmp -o mongo.tgz "${{EMG_MONGO_URL}}"; \\
     echo "${{EMG_MONGO_SHA256}}  /tmp/mongo.tgz" | sha256sum -c -; \\
     tar -xzf /tmp/mongo.tgz -C /tmp/mongo --strip-components=1 --no-same-owner; \\
     cp -a /tmp/mongo/bin "${{EMG_MONGO_DIR}}/"; \\
@@ -154,7 +156,9 @@ EXTRA_TOOLS = '''
 ARG EMG_MONGO_TOOLS_URL={turl}
 ARG EMG_MONGO_TOOLS_SHA256={tsha}
 RUN set -eux; \\
-    wget -q -O /tmp/tools.tgz "${{EMG_MONGO_TOOLS_URL}}"; \\
+    aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \\
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \\
+        -d /tmp -o tools.tgz "${{EMG_MONGO_TOOLS_URL}}"; \\
     echo "${{EMG_MONGO_TOOLS_SHA256}}  /tmp/tools.tgz" | sha256sum -c -; \\
     mkdir -p /tmp/tools "${{EMG_LOCAL_BASE_DIR}}/mongo-tools/{tver}"; \\
     tar -xzf /tmp/tools.tgz -C /tmp/tools --strip-components=1 --no-same-owner; \\
@@ -167,7 +171,9 @@ EXTRA_MONGOSH = '''
 ARG EMG_MONGOSH_URL={surl}
 ARG EMG_MONGOSH_SHA256={ssha}
 RUN set -eux; \\
-    wget -q -O /tmp/mongosh.tgz "${{EMG_MONGOSH_URL}}"; \\
+    aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \\
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \\
+        -d /tmp -o mongosh.tgz "${{EMG_MONGOSH_URL}}"; \\
     echo "${{EMG_MONGOSH_SHA256}}  /tmp/mongosh.tgz" | sha256sum -c -; \\
     mkdir -p /tmp/mongosh "${{EMG_LOCAL_BASE_DIR}}/mongosh/{sver}"; \\
     tar -xzf /tmp/mongosh.tgz -C /tmp/mongosh --strip-components=1 --no-same-owner; \\
@@ -190,8 +196,12 @@ ARG XENIAL_DEBIAN_URL={xdurl}
 ARG XENIAL_DEBIAN_SHA256={xdsha}
 RUN set -eux; \\
     mkdir -p /usr/local/src/openssl-xenial; cd /usr/local/src/openssl-xenial; \\
-    wget -q -O orig.tgz "${{XENIAL_ORIG_URL}}"; echo "${{XENIAL_ORIG_SHA256}}  orig.tgz" | sha256sum -c -; \\
-    wget -q -O debian.txz "${{XENIAL_DEBIAN_URL}}"; echo "${{XENIAL_DEBIAN_SHA256}}  debian.txz" | sha256sum -c -; \\
+    aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \\
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \\
+        -o orig.tgz "${{XENIAL_ORIG_URL}}"; echo "${{XENIAL_ORIG_SHA256}}  orig.tgz" | sha256sum -c -; \\
+    aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \\
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \\
+        -o debian.txz "${{XENIAL_DEBIAN_URL}}"; echo "${{XENIAL_DEBIAN_SHA256}}  debian.txz" | sha256sum -c -; \\
     tar -xzf orig.tgz --strip-components=1 --no-same-owner; tar -xJf debian.txz --no-same-owner; \\
     while read -r p; do \\
       case "$p" in ''|'#'*) continue ;; esac; \\
@@ -231,7 +241,9 @@ ARG LDAP_SHA256={ldapsha}
 RUN set -eux; \\
     test -f "${{EMG_MONGO_SSL_DIR}}/include/openssl/ssl.h"; test -x "${{EMG_MONGO_CURL_DIR}}/bin/curl-config"; \\
     mkdir -p /usr/local/src/sasl; cd /usr/local/src/sasl; \\
-    wget -q -O sasl.tgz "${{SASL_URL}}"; echo "${{SASL_SHA256}}  sasl.tgz" | sha256sum -c -; \\
+    aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \\
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \\
+        -o sasl.tgz "${{SASL_URL}}"; echo "${{SASL_SHA256}}  sasl.tgz" | sha256sum -c -; \\
     tar -xzf sasl.tgz --strip-components=1 --no-same-owner; \\
     # 2.1.28 misses <time.h> in saslutil.c: an error by gcc 14's defaults
     CFLAGS="-O2 -g0 -Wno-error=implicit-function-declaration" \\
@@ -243,7 +255,9 @@ RUN set -eux; \\
       --with-plugindir="${{EMG_MONGO_SASL_DIR}}/lib/sasl2" --with-configdir="${{EMG_MONGO_SASL_DIR}}/lib/sasl2:/etc/sasl2"; \\
     make -j"$(nproc)"; make install; \\
     mkdir -p /usr/local/src/ldap; cd /usr/local/src/ldap; \\
-    wget -q -O ldap.tgz "${{LDAP_URL}}"; echo "${{LDAP_SHA256}}  ldap.tgz" | sha256sum -c -; \\
+    aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \\
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \\
+        -o ldap.tgz "${{LDAP_URL}}"; echo "${{LDAP_SHA256}}  ldap.tgz" | sha256sum -c -; \\
     tar -xzf ldap.tgz --strip-components=1 --no-same-owner; \\
     CPPFLAGS="-I${{EMG_MONGO_SSL_DIR}}/include -I${{EMG_MONGO_SASL_DIR}}/include" \\
     LDFLAGS="-L${{OPENSSL_111_LIB_DIR}} -L${{EMG_MONGO_SASL_DIR}}/lib -Wl,-rpath,${{OPENSSL_111_LIB_DIR}}:${{EMG_MONGO_SASL_DIR}}/lib:${{EMG_MONGO_LDAP_DIR}}/lib -Wl,--disable-new-dtags" \\

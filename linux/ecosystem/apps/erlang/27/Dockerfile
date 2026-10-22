@@ -36,7 +36,9 @@ RUN set -eux; \
     ssllib="$ssl/lib64"; [ -d "$ssllib" ] || ssllib="$ssl/lib"; \
     mkdir -p "${EMG_ERLANG_SRC_DIR}"; \
     cd "${EMG_ERLANG_SRC_DIR}"; \
-    wget -q -O otp.tar.gz "${EMG_ERLANG_URL}"; \
+    aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -o otp.tar.gz "${EMG_ERLANG_URL}"; \
     echo "${EMG_ERLANG_SHA256}  otp.tar.gz" | sha256sum -c -; \
     tar -xzf otp.tar.gz --strip-components=1 --no-same-owner; \
     rm -f otp.tar.gz; \

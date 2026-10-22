@@ -54,7 +54,9 @@ RUN set -eux; \
     groupadd -r rabbitmq; \
     useradd -r -u 999 -g rabbitmq -d "${RABBITMQ_DATA_DIR}" -s /usr/sbin/nologin rabbitmq; \
     mkdir -p "${EMG_RABBITMQ_DIR}" /opt/bitnami; \
-    curl -fsSL -o /tmp/rabbitmq.tar.xz "${EMG_RABBITMQ_URL}"; \
+    aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -d /tmp -o rabbitmq.tar.xz "${EMG_RABBITMQ_URL}"; \
     echo "${EMG_RABBITMQ_SHA256}  /tmp/rabbitmq.tar.xz" | sha256sum -c -; \
     tar -xJf /tmp/rabbitmq.tar.xz -C "${EMG_RABBITMQ_DIR}" --strip-components=1 --no-same-owner; \
     rm -f /tmp/rabbitmq.tar.xz; \

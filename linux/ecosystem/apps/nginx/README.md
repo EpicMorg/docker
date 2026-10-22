@@ -17,7 +17,7 @@ Two kinds of tags per nginx branch:
 | `<nginx>` (e.g. `1.29`) | plain nginx, `CMD nginx -g 'daemon off;'` |
 | `<nginx>-php<ver>` (e.g. `1.29-php8.3`) | [`epicmorg/php:<ver>`](https://github.com/EpicMorg/docker/tree/master/linux/ecosystem/apps/php) with that nginx copied on top; nginx and `php-fpm` under `supervisord`, talking over `/run/php/php-fpm.sock` |
 
-nginx releases: `1.25.5`, `1.26.3`, `1.27.5`, `1.28.3`, `1.29.8`, `1.30.4`, `1.31.3`.
+nginx releases: `1.25.5`, `1.26.3`, `1.27.5`, `1.28.3`, `1.29.8`, `1.30.6`, `1.31.8`.
 PHP in bundles: `5.3` ... `8.5`.
 
 **Built in:** threads, HTTP/2 and HTTP/3, SSL, `stream` (ssl, realip, preread, geoip),

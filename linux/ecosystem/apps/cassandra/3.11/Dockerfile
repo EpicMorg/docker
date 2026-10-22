@@ -161,7 +161,7 @@ RUN set -eux; \
 # if the version is outdated, we have to pull FROM docker.io/the archive
 			https://archive.apache.org/dist/ \
 		; do \
-			if wget --progress=dot:giga -O "$f" "$distUrl$distFile" && [ -s "$f" ]; then \
+			if aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" -o "$f" "$distUrl$distFile" && [ -s "$f" ]; then \
 				success=1; \
 				break; \
 			fi; \

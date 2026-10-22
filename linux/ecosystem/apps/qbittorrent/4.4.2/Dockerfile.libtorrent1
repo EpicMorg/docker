@@ -23,7 +23,9 @@ RUN mkdir -p ${QBT_DIR}
 ############################# ####################################
 #                   qbittorrent install
 ##################################################################
-RUN wget --no-check-certificate -nv --random-wait --retry-connrefused --continue ${QBT_URL} -O /usr/bin/qbittorrent-nox && \
+RUN aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -d /usr/bin -o qbittorrent-nox ${QBT_URL} && \
     chmod +x /usr/bin/qbittorrent-nox && \
     qbittorrent-nox --version
 

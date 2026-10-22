@@ -47,7 +47,9 @@ RUN rm -rfv \
         ${P4P_BIN} \
         ${PERFMERGE_BIN}
 
-RUN wget --no-check-certificate -nv --random-wait --retry-connrefused --continue -P /usr/bin \
+RUN aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -Z -d /usr/bin \
         ${P4_DOWNLOAD_URL} \
         ${P4BROKER_DOWNLOAD_URL} \
         ${P4D_DOWNLOAD_URL} \

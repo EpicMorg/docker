@@ -158,7 +158,11 @@ RUN echo "=============================================" && \
 ##################################################################
 #                   git-lfs official binary
 ##################################################################
-RUN curl -fsSL https://packagecloud.io/github/git-lfs/gpgkey | gpg --dearmor > /etc/apt/keyrings/github_git-lfs-archive-keyring.gpg && \
+RUN aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        --check-certificate=true -d /tmp -o git-lfs.gpgkey https://packagecloud.io/github/git-lfs/gpgkey && \
+    gpg --dearmor < /tmp/git-lfs.gpgkey > /etc/apt/keyrings/github_git-lfs-archive-keyring.gpg && \
+    rm -f /tmp/git-lfs.gpgkey && \
     rm -rfv /etc/apt/sources.list.d/github_git-lfs.list && \
     rm -rfv /etc/apt/sources.list.d/github_git-lfs.sources
 
@@ -177,7 +181,11 @@ RUN echo "=============================================" && \
 ##################################################################
 #                   gh official binary
 ##################################################################
-RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | gpg --batch --yes --dearmor -o /etc/apt/keyrings/githubcli-archive-keyring.gpg && \
+RUN aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        --check-certificate=true -d /tmp -o githubcli.gpg https://cli.github.com/packages/githubcli-archive-keyring.gpg && \
+    gpg --batch --yes --dearmor -o /etc/apt/keyrings/githubcli-archive-keyring.gpg /tmp/githubcli.gpg && \
+    rm -f /tmp/githubcli.gpg && \
     chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg && \
     rm -rfv /etc/apt/sources.list.d/github-cli.list && \
     rm -rfv /etc/apt/sources.list.d/github-cli.sources
