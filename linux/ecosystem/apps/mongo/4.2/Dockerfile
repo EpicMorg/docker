@@ -19,7 +19,9 @@ RUN set -eux; \
     apt-get install -y --no-install-recommends patchelf; \
     rm -rf /var/lib/apt/lists/*; \
     mkdir -p "${EMG_MONGO_DIR}" /tmp/mongo; \
-    wget -q -O /tmp/mongo.tgz "${EMG_MONGO_URL}"; \
+    aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -d /tmp -o mongo.tgz "${EMG_MONGO_URL}"; \
     echo "${EMG_MONGO_SHA256}  /tmp/mongo.tgz" | sha256sum -c -; \
     tar -xzf /tmp/mongo.tgz -C /tmp/mongo --strip-components=1 --no-same-owner; \
     cp -a /tmp/mongo/bin "${EMG_MONGO_DIR}/"; \
@@ -47,7 +49,9 @@ ARG LDAP_SHA256=bc91225dbfc50354033b1303bc91d1a7f6ddd1dc32fac950d79c28fe66d6bca8
 RUN set -eux; \
     test -f "${EMG_MONGO_SSL_DIR}/include/openssl/ssl.h"; test -x "${EMG_MONGO_CURL_DIR}/bin/curl-config"; \
     mkdir -p /usr/local/src/sasl; cd /usr/local/src/sasl; \
-    wget -q -O sasl.tgz "${SASL_URL}"; echo "${SASL_SHA256}  sasl.tgz" | sha256sum -c -; \
+    aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -o sasl.tgz "${SASL_URL}"; echo "${SASL_SHA256}  sasl.tgz" | sha256sum -c -; \
     tar -xzf sasl.tgz --strip-components=1 --no-same-owner; \
     # 2.1.28 misses <time.h> in saslutil.c: an error by gcc 14's defaults
     CFLAGS="-O2 -g0 -Wno-error=implicit-function-declaration" \
@@ -59,7 +63,9 @@ RUN set -eux; \
       --with-plugindir="${EMG_MONGO_SASL_DIR}/lib/sasl2" --with-configdir="${EMG_MONGO_SASL_DIR}/lib/sasl2:/etc/sasl2"; \
     make -j"$(nproc)"; make install; \
     mkdir -p /usr/local/src/ldap; cd /usr/local/src/ldap; \
-    wget -q -O ldap.tgz "${LDAP_URL}"; echo "${LDAP_SHA256}  ldap.tgz" | sha256sum -c -; \
+    aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -o ldap.tgz "${LDAP_URL}"; echo "${LDAP_SHA256}  ldap.tgz" | sha256sum -c -; \
     tar -xzf ldap.tgz --strip-components=1 --no-same-owner; \
     CPPFLAGS="-I${EMG_MONGO_SSL_DIR}/include -I${EMG_MONGO_SASL_DIR}/include" \
     LDFLAGS="-L${OPENSSL_111_LIB_DIR} -L${EMG_MONGO_SASL_DIR}/lib -Wl,-rpath,${OPENSSL_111_LIB_DIR}:${EMG_MONGO_SASL_DIR}/lib:${EMG_MONGO_LDAP_DIR}/lib -Wl,--disable-new-dtags" \

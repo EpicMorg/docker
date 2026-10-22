@@ -777,7 +777,9 @@ ARG EMG_PHP_SSH2_SHA256=d9ec76cbe34db98eec3539fe2c899d26b0c837cb3eb466a56b0f109c
 RUN set -eux; \
     ssl="${PHP_SSL_DIR}"; ssllib="${PHP_SSL_LIB_DIR}"; \
     test -f "$ssl/include/openssl/ssl.h" -a -d "$ssllib"; \
-    fetch() { curl -fsSL -o "/tmp/$1.tgz" "$2"; echo "$3  /tmp/$1.tgz" | sha256sum -c -; \
+    fetch() { aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -d /tmp -o "$1.tgz" "$2"; echo "$3  /tmp/$1.tgz" | sha256sum -c -; \
       rm -rf "/tmp/$1"; mkdir -p "/tmp/$1"; tar -xzf "/tmp/$1.tgz" -C "/tmp/$1" --strip-components=1; rm -f "/tmp/$1.tgz"; }; \
     fetch sasl "${EMG_PHP_SASL_URL}" "${EMG_PHP_SASL_SHA256}"; \
     (cd /tmp/sasl && CFLAGS="-O2 -g0 -Wno-error=implicit-function-declaration" CPPFLAGS="-I$ssl/include" \
@@ -804,7 +806,9 @@ RUN set -eux; \
     export PKG_CONFIG_PATH="${EMG_PHP_SASL_DIR}/lib/pkgconfig:${EMG_PHP_LDAP_DIR}/lib/pkgconfig:${EMG_PHP_SSH2_DIR}/lib/pkgconfig:${PKG_CONFIG_PATH:-}"; \
     php-ext-configure ldap --with-ldap="${EMG_PHP_LDAP_DIR}" --with-ldap-sasl="${EMG_PHP_SASL_DIR}"; \
     php-ext-install -j"$(nproc)" ldap; php-dismod ldap; \
-    curl -fsSL -o /tmp/ssh2.tgz "https://pecl.php.net/get/ssh2-${PECL_SSH2_VERSION}.tgz"; \
+    aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -d /tmp -o ssh2.tgz "https://pecl.php.net/get/ssh2-${PECL_SSH2_VERSION}.tgz"; \
     mkdir -p /tmp/ssh2; tar -xzf /tmp/ssh2.tgz -C /tmp/ssh2 --strip-components=1; \
     (cd /tmp/ssh2 && phpize && ./configure --with-ssh2="${EMG_PHP_SSH2_DIR}" && make -j"$(nproc)" && make install); \
     rm -rf /tmp/ssh2 /tmp/ssh2.tgz; \

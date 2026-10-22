@@ -7,23 +7,6 @@ LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
 ##################################################################
-#                    Shared wget args
-##################################################################
-ARG WGET_ARGS="--continue \
-  --quiet \
-  --no-check-certificate \
-  --retry-connrefused \
-  --tries=15 \
-  --timeout=30 \
-  --waitretry=15 \
-  --dns-timeout=30 \
-  --connect-timeout=30 \
-  --read-timeout=30 \
-  --no-clobber"
-
-ARG WGET_USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:128.0) Gecko/20100101 Firefox/128.0"
-
-##################################################################
 #                   installing java17
 ##################################################################
 ARG K_JDK_MAJOR_VERSION=17
@@ -108,7 +91,9 @@ ENV MAVEN_HOME=${MAVEN_ROOT}
 ENV M2_HOME=${MAVEN_ROOT}
 
 RUN set -eux; \
-    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -P /tmp ${MAVEN_LINK} && \
+    aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -d / -o ${MAVEN_TEMP} ${MAVEN_LINK} && \
     7zz x ${MAVEN_TEMP} -o${MAVEN_ROOT}
 RUN chmod +x -R ${MAVEN_BIN}
 RUN mvn -v
@@ -117,7 +102,9 @@ RUN mvn -v
 #                   GRADLE
 ##################################################################
 RUN set -eux; \
-    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -P /tmp ${GRADLE_LINK} && \
+    aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -d / -o ${GRADLE_TEMP} ${GRADLE_LINK} && \
     7zz x ${GRADLE_TEMP} -o${GRADLE_ROOT}
 RUN chmod +x -R ${GRADLE_BIN}
 RUN gradle -v
@@ -126,7 +113,9 @@ RUN gradle -v
 #                   kotlin-compiler
 ##################################################################
 RUN set -eux; \
-    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -P /tmp ${KTC_LINK} && \
+    aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -d / -o ${KTC_TEMP} ${KTC_LINK} && \
     7zz x ${KTC_TEMP} -o${KTC_ROOT}
 RUN chmod +x -R ${KTC_BIN}
 RUN kotlin -version
@@ -135,7 +124,9 @@ RUN kotlin -version
 #                   kotlin-native-prebuilt-linux
 ##################################################################
 RUN set -eux; \
-    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -P /tmp ${KNPL_LINK} && \
+    aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -d / -o ${KNPL_TEMP} ${KNPL_LINK} && \
     tar -xzf ${KNPL_TEMP} --directory ${KTC_ROOT}
 RUN chmod +x -R ${KNPL_BIN}
 

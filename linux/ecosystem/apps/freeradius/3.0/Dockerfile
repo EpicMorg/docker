@@ -41,7 +41,9 @@ RUN set -eux; \
 RUN set -eux; \
     mkdir -p /usr/local/src/freeradius; \
     cd /usr/local/src/freeradius; \
-    wget -q -O fr.tgz "${EMG_FREERADIUS_URL}"; \
+    aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -o fr.tgz "${EMG_FREERADIUS_URL}"; \
     echo "${EMG_FREERADIUS_SHA256}  fr.tgz" | sha256sum -c -; \
     tar -xzf fr.tgz --strip-components=1 --no-same-owner; \
     rm -f fr.tgz; \

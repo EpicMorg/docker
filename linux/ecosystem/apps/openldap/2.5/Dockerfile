@@ -40,7 +40,9 @@ RUN set -eux; \
 RUN set -eux; \
     mkdir -p /usr/local/src/sasl; \
     cd /usr/local/src/sasl; \
-    wget -q -O sasl.tgz "${EMG_SASL_URL}"; \
+    aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -o sasl.tgz "${EMG_SASL_URL}"; \
     echo "${EMG_SASL_SHA256}  sasl.tgz" | sha256sum -c -; \
     tar -xzf sasl.tgz --strip-components=1 --no-same-owner; \
     # 2.1.28 misses <time.h> in saslutil.c: an error by gcc 14's defaults
@@ -67,7 +69,9 @@ RUN set -eux; \
 RUN set -eux; \
     mkdir -p /usr/local/src/openldap; \
     cd /usr/local/src/openldap; \
-    wget -q -O openldap.tgz "${EMG_OPENLDAP_URL}"; \
+    aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -o openldap.tgz "${EMG_OPENLDAP_URL}"; \
     echo "${EMG_OPENLDAP_SHA256}  openldap.tgz" | sha256sum -c -; \
     tar -xzf openldap.tgz --strip-components=1 --no-same-owner; \
     rm -f openldap.tgz; \

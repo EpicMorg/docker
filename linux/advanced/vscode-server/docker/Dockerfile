@@ -16,7 +16,9 @@ ENV BuildDocker=true
 ##################################################################
 # https://docs.docker.com/build/architecture/#install-buildx
 RUN install -m 0755 -d /etc/apt/keyrings && \
-    curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc && \
+    aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        --check-certificate=true -d /etc/apt/keyrings -o docker.asc https://download.docker.com/linux/debian/gpg && \
     chmod a+r /etc/apt/keyrings/docker.asc && \
     echo  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian bookworm stable nightly" | tee /etc/apt/sources.list.d/docker.list > /dev/null  && \
     apt-get update && \
@@ -45,9 +47,15 @@ RUN install -m 0755 -d /etc/apt/keyrings && \
     rm -rf /usr/sbin/docker-compose && \
     rm -rf /usr/local/bin/docker-compose && \
     rm -rf /usr/local/sbin/docker-compose && \
-    export  DOCKER_COMPOSE_VERSION=`curl --silent https://api.github.com/repos/docker/compose/releases/latest | jq .name -r` && \
+    aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        --check-certificate=true -d /tmp -o compose-latest.json https://api.github.com/repos/docker/compose/releases/latest && \
+    export DOCKER_COMPOSE_VERSION="$(jq -r .name /tmp/compose-latest.json)" && \
+    rm -f /tmp/compose-latest.json && \
     echo "Latest compose is: ${DOCKER_COMPOSE_VERSION}" && \
-    curl -SL https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-Linux-x86_64 -o /usr/local/bin/docker-compose && \
+    aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        --check-certificate=true -d /usr/local/bin -o docker-compose https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-Linux-x86_64 && \
     chmod +x /usr/local/bin/docker-compose && \
 # cleanup
     apt-get clean -y && \

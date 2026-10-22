@@ -19,7 +19,9 @@ RUN set -eux; \
     apt-get install -y --no-install-recommends patchelf; \
     rm -rf /var/lib/apt/lists/*; \
     mkdir -p "${EMG_MONGO_DIR}" /tmp/mongo; \
-    wget -q -O /tmp/mongo.tgz "${EMG_MONGO_URL}"; \
+    aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -d /tmp -o mongo.tgz "${EMG_MONGO_URL}"; \
     echo "${EMG_MONGO_SHA256}  /tmp/mongo.tgz" | sha256sum -c -; \
     tar -xzf /tmp/mongo.tgz -C /tmp/mongo --strip-components=1 --no-same-owner; \
     cp -a /tmp/mongo/bin "${EMG_MONGO_DIR}/"; \
@@ -42,8 +44,12 @@ ARG XENIAL_DEBIAN_URL=http://archive.ubuntu.com/ubuntu/pool/main/o/openssl/opens
 ARG XENIAL_DEBIAN_SHA256=3287dd2369824dedcff513913a0e7ebaab25d7f99ddb4eb62d8ba653b3683e9c
 RUN set -eux; \
     mkdir -p /usr/local/src/openssl-xenial; cd /usr/local/src/openssl-xenial; \
-    wget -q -O orig.tgz "${XENIAL_ORIG_URL}"; echo "${XENIAL_ORIG_SHA256}  orig.tgz" | sha256sum -c -; \
-    wget -q -O debian.txz "${XENIAL_DEBIAN_URL}"; echo "${XENIAL_DEBIAN_SHA256}  debian.txz" | sha256sum -c -; \
+    aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -o orig.tgz "${XENIAL_ORIG_URL}"; echo "${XENIAL_ORIG_SHA256}  orig.tgz" | sha256sum -c -; \
+    aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -o debian.txz "${XENIAL_DEBIAN_URL}"; echo "${XENIAL_DEBIAN_SHA256}  debian.txz" | sha256sum -c -; \
     tar -xzf orig.tgz --strip-components=1 --no-same-owner; tar -xJf debian.txz --no-same-owner; \
     while read -r p; do \
       case "$p" in ''|'#'*) continue ;; esac; \

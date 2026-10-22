@@ -25,7 +25,9 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 RUN set -eux; \
-    wget -q -O /tmp/monero.tar.bz2 "${MONERO_DOWNLOAD_URL}"; \
+    aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -d /tmp -o monero.tar.bz2 "${MONERO_DOWNLOAD_URL}"; \
     echo "${MONERO_SHA256}  /tmp/monero.tar.bz2" | sha256sum -c -; \
     tar -xjf /tmp/monero.tar.bz2 --strip-components=1 -C "${MONERO_BIN}"; \
     rm -f /tmp/monero.tar.bz2; \

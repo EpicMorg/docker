@@ -26,23 +26,6 @@ ENV CROWD_INSTALL_DIR=/opt/atlassian/crowd
 ENV CROWD_DB=${CROWD_INSTALL_DIR}/database
 
 ##################################################################
-#                    Shared wget args
-##################################################################
-ARG WGET_ARGS="--continue \
-  --quiet \
-  --no-check-certificate \
-  --retry-connrefused \
-  --tries=15 \
-  --timeout=30 \
-  --waitretry=15 \
-  --dns-timeout=30 \
-  --connect-timeout=30 \
-  --read-timeout=30 \
-  --no-clobber"
-
-ARG WGET_USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:128.0) Gecko/20100101 Firefox/128.0"
-
-##################################################################
 #                   Installing
 ##################################################################
 RUN set -eux; \
@@ -50,7 +33,9 @@ RUN set -eux; \
     apt-get upgrade -y && \
     apt-get install -y --no-install-recommends fontconfig python3 python3-jinja2 tini && \
     apt-get clean autoclean && apt-get autoremove -y && rm -rf /var/lib/apt/lists/* && \
-    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -P /tmp ${DOWNLOAD_URL} && \
+    aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -d / -o ${TEMP_ARCHIVE} ${DOWNLOAD_URL} && \
     mkdir -p ${CROWD_INSTALL_DIR} ${CROWD_DB} /opt/atlassian/support /opt/atlassian/etc && \
     tar -xzf ${TEMP_ARCHIVE} --strip-components=1 --directory "${CROWD_INSTALL_DIR}" && \
     sed -i -e 's/-Xms\([0-9]\+[kmg]\) -Xmx\([0-9]\+[kmg]\)/-Xms\${JVM_MINIMUM_MEMORY:=\1} -Xmx\${JVM_MAXIMUM_MEMORY:=\2} \${JVM_SUPPORT_RECOMMENDED_ARGS} -Dcrowd.home=\${CROWD_HOME}/g' ${CROWD_INSTALL_DIR}/apache-tomcat/bin/setenv.sh && \

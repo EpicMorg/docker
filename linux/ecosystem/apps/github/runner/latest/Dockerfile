@@ -8,7 +8,9 @@ ARG DEBIAN_FRONTEND=noninteractive
 # Docker CE repo for the base's own codename (trixie): keyring file + deb822 .sources.
 # https://docs.docker.com/engine/install/debian/
 RUN install -m 0755 -d /etc/apt/keyrings && \
-    curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc && \
+    aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        --check-certificate=true -d /etc/apt/keyrings -o docker.asc https://download.docker.com/linux/debian/gpg && \
     chmod a+r /etc/apt/keyrings/docker.asc && \
     . /etc/os-release && \
     printf '%s\n' \

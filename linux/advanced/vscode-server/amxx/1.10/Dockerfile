@@ -33,9 +33,14 @@ ENV LD_LIBRARY_PATH=${AMXX_BIN_PATH}:${LD_LIBRARY_PATH}
 
 COPY inc.tar /tmp
 
-RUN export AMXX_BASE_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.10/amxmodx-latest-base-linux` && \
+RUN aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -d /tmp -o amxx-latest-base https://www.amxmodx.org/amxxdrop/1.10/amxmodx-latest-base-linux && \
+    export AMXX_BASE_LATEST_VERSION="$(cat /tmp/amxx-latest-base)" && \
     mkdir -p ${AMXX_INSTALL_PATH} && \
-    curl -SL https://www.amxmodx.org/amxxdrop/{$AMXX_VERSION}/{$AMXX_BASE_LATEST_VERSION} -o /tmp/amxx_base_latest.tar.gz && \
+    aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -d /tmp -o amxx_base_latest.tar.gz https://www.amxmodx.org/amxxdrop/${AMXX_VERSION}/${AMXX_BASE_LATEST_VERSION} && \
     cd /tmp && tar -zxf /tmp/amxx_base_latest.tar.gz && cd / && \
     mv -f /tmp/addons/amxmodx/* ${AMXX_INSTALL_PATH} && \
     chmod +x ${AMXX_BIN_PATH}/amxxpc && \

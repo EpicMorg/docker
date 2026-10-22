@@ -19,7 +19,9 @@ RUN set -eux; \
     apt-get install -y --no-install-recommends patchelf; \
     rm -rf /var/lib/apt/lists/*; \
     mkdir -p "${EMG_MONGO_DIR}" /tmp/mongo; \
-    wget -q -O /tmp/mongo.tgz "${EMG_MONGO_URL}"; \
+    aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -d /tmp -o mongo.tgz "${EMG_MONGO_URL}"; \
     echo "${EMG_MONGO_SHA256}  /tmp/mongo.tgz" | sha256sum -c -; \
     tar -xzf /tmp/mongo.tgz -C /tmp/mongo --strip-components=1 --no-same-owner; \
     cp -a /tmp/mongo/bin "${EMG_MONGO_DIR}/"; \
@@ -32,7 +34,9 @@ RUN set -eux; \
 ARG EMG_MONGO_TOOLS_URL=https://fastdl.mongodb.org/tools/db/mongodb-database-tools-debian12-x86_64-100.19.1.tgz
 ARG EMG_MONGO_TOOLS_SHA256=9ba637b2fee9cd5afd83ea93b688a0f6bf3e0e4a614d3b0c55f63fa66ae62e2f
 RUN set -eux; \
-    wget -q -O /tmp/tools.tgz "${EMG_MONGO_TOOLS_URL}"; \
+    aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -d /tmp -o tools.tgz "${EMG_MONGO_TOOLS_URL}"; \
     echo "${EMG_MONGO_TOOLS_SHA256}  /tmp/tools.tgz" | sha256sum -c -; \
     mkdir -p /tmp/tools "${EMG_LOCAL_BASE_DIR}/mongo-tools/100.19.1"; \
     tar -xzf /tmp/tools.tgz -C /tmp/tools --strip-components=1 --no-same-owner; \
@@ -43,7 +47,9 @@ RUN set -eux; \
 ARG EMG_MONGOSH_URL=https://github.com/mongodb-js/mongosh/releases/download/v2.13.0/mongosh-2.13.0-linux-x64.tgz
 ARG EMG_MONGOSH_SHA256=b2089e67641a28aa621476c4d62c69f66b9a41484baba24d8a8b1f5f96e92d0b
 RUN set -eux; \
-    wget -q -O /tmp/mongosh.tgz "${EMG_MONGOSH_URL}"; \
+    aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -d /tmp -o mongosh.tgz "${EMG_MONGOSH_URL}"; \
     echo "${EMG_MONGOSH_SHA256}  /tmp/mongosh.tgz" | sha256sum -c -; \
     mkdir -p /tmp/mongosh "${EMG_LOCAL_BASE_DIR}/mongosh/2.13.0"; \
     tar -xzf /tmp/mongosh.tgz -C /tmp/mongosh --strip-components=1 --no-same-owner; \

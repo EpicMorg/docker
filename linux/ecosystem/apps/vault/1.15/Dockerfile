@@ -17,7 +17,9 @@ RUN set -eux; \
     apt-get update; \
     apt-get install -y --no-install-recommends unzip; \
     rm -rf /var/lib/apt/lists/*; \
-    curl -fsSL -o /tmp/vault.zip "${EMG_VAULT_URL}"; \
+    aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -d /tmp -o vault.zip "${EMG_VAULT_URL}"; \
     echo "${EMG_VAULT_SHA256}  /tmp/vault.zip" | sha256sum -c -; \
     mkdir -p "/emg-export${EMG_VAULT_DIR}/bin"; \
     unzip -o -q /tmp/vault.zip -d "/emg-export${EMG_VAULT_DIR}/bin"; \

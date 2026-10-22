@@ -29,23 +29,6 @@ ENV TR_OPTPATH="/opt/testrail/"
 ENV TR_CONFIGPATH="/var/www/testrail/config/"
 
 ##################################################################
-#                    Shared wget args
-##################################################################
-ARG WGET_ARGS="--continue \
-  --quiet \
-  --no-check-certificate \
-  --retry-connrefused \
-  --tries=15 \
-  --timeout=30 \
-  --waitretry=15 \
-  --dns-timeout=30 \
-  --connect-timeout=30 \
-  --read-timeout=30 \
-  --no-clobber"
-
-ARG WGET_USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:128.0) Gecko/20100101 Firefox/128.0"
-
-##################################################################
 #                   Installing
 ##################################################################
 # The zip stays in TESTRAIL_RELEASE_DIR: the entrypoint re-extracts it on every
@@ -54,7 +37,9 @@ RUN set -eux; \
     mkdir -p ${TESTRAIL_RELEASE_DIR} ${TR_WWW_PATH}; \
     mkdir -p ${TR_DEFAULT_ATTACHMENT_DIR} ${TR_DEFAULT_REPORT_DIR} ${TR_DEFAULT_AUDIT_DIR} ${TR_DEFAULT_LOG_DIR}; \
     echo "[testrail] Downloading ${DOWNLOAD_URL}"; \
-    wget ${WGET_ARGS} --user-agent "${WGET_USER_AGENT}" -O ${TESTRAIL_RELEASE_DIR}/testrail-${TESTRAIL_VERSION}.zip ${DOWNLOAD_URL}; \
+    aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -d / -o ${TESTRAIL_RELEASE_DIR}/testrail-${TESTRAIL_VERSION}.zip ${DOWNLOAD_URL}; \
     unzip -tq ${TESTRAIL_RELEASE_DIR}/testrail-${TESTRAIL_VERSION}.zip; \
     unzip -q -o ${TESTRAIL_RELEASE_DIR}/testrail-${TESTRAIL_VERSION}.zip -d /var/www/; \
     test -f ${TR_WWW_PATH}/index.php; \

@@ -292,7 +292,11 @@ RUN echo "=============================================" && \
 ##################################################################
 #                   git-lfs official binary
 ##################################################################
-RUN curl -fsSL https://packagecloud.io/github/git-lfs/gpgkey | gpg --dearmor > /etc/apt/keyrings/github_git-lfs-archive-keyring.gpg && \
+RUN aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        --check-certificate=true -d /tmp -o git-lfs.gpgkey https://packagecloud.io/github/git-lfs/gpgkey && \
+    gpg --dearmor < /tmp/git-lfs.gpgkey > /etc/apt/keyrings/github_git-lfs-archive-keyring.gpg && \
+    rm -f /tmp/git-lfs.gpgkey && \
     rm -rfv /etc/apt/sources.list.d/github_git-lfs.list
 COPY etc/apt/sources.list.d/github_git-lfs.list /etc/apt/sources.list.d/github_git-lfs.list
 RUN apt-get update &&  \
@@ -311,7 +315,9 @@ RUN echo "=============================================" && \
 #                   gh official binary
 ##################################################################
 # the keyring is already binary (https://github.com/cli/cli/blob/trunk/docs/install_linux.md): no --dearmor
-RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg -o /etc/apt/keyrings/githubcli-archive-keyring.gpg && \
+RUN aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        --check-certificate=true -d /etc/apt/keyrings -o githubcli-archive-keyring.gpg https://cli.github.com/packages/githubcli-archive-keyring.gpg && \
     chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg && \
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list && \
     apt-get update &&  \

@@ -19,7 +19,9 @@ ARG OPENLDAP_URL=https://www.openldap.org/software/download/OpenLDAP/openldap-re
 RUN set -eux; \
     mkdir -p /usr/local/src/openldap; \
     cd /usr/local/src/openldap; \
-    wget --quiet --tries=15 --retry-connrefused --timeout=30 -O openldap.tgz "${OPENLDAP_URL}"; \
+    aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -o openldap.tgz "${OPENLDAP_URL}"; \
     echo "${OPENLDAP_SHA256}  openldap.tgz" | sha256sum -c -; \
     tar -xzf openldap.tgz --strip-components=1; \
     rm -f openldap.tgz; \

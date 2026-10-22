@@ -114,7 +114,11 @@ ENV CARGO_HOME=${EMG_LOCAL_BASE_DIR}/cargo
 ENV RUSTUP_HOME=${EMG_LOCAL_BASE_DIR}/rustup
 ARG CARGO_BIN=${CARGO_HOME}/bin
 
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path --profile complete --default-toolchain stable --verbose
+RUN aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        --check-certificate=true -d /tmp -o rustup-init.sh https://sh.rustup.rs && \
+    sh /tmp/rustup-init.sh -y --no-modify-path --profile complete --default-toolchain stable --verbose && \
+    rm -f /tmp/rustup-init.sh
 
 ENV PATH="$CARGO_HOME/bin:${PATH}"
 

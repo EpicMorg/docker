@@ -25,7 +25,9 @@ LABEL org.opencontainers.image.licenses="MIT"
 # git-lfs, ...): take the single executable named git-lfs wherever it is.
 RUN set -eux; \
     t="$(mktemp -d)"; \
-    wget -q -O "$t/lfs.tar.gz" "${EMG_GIT_LFS_URL}"; \
+    aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -d "$t" -o lfs.tar.gz "${EMG_GIT_LFS_URL}"; \
     echo "${EMG_GIT_LFS_SHA256}  $t/lfs.tar.gz" | sha256sum -c -; \
     tar -xzf "$t/lfs.tar.gz" -C "$t" --no-same-owner; \
     bin="$(find "$t" -type f -name git-lfs -perm -u+x | head -n1)"; \

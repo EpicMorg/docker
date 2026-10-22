@@ -30,7 +30,9 @@ ARG AMXX_RELEASE=1.9.0.5303
 ARG AMXX_BASE_TARBALL=amxmodx-1.9.0-git5303-base-linux.tar.gz
 ARG AMXX_BASE_SHA256=1ed6898ced2c1fcf225c288b94effc19917e987b284e42911587738ee3c93699
 RUN mkdir -p ${AMXX_INSTALL_PATH} && \
-    curl -fSL "https://github.com/alliedmodders/amxmodx/releases/download/${AMXX_RELEASE}/${AMXX_BASE_TARBALL}" -o /tmp/amxx_base_latest.tar.gz && \
+    aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -d /tmp -o amxx_base_latest.tar.gz "https://github.com/alliedmodders/amxmodx/releases/download/${AMXX_RELEASE}/${AMXX_BASE_TARBALL}" && \
     echo "${AMXX_BASE_SHA256}  /tmp/amxx_base_latest.tar.gz" | sha256sum -c - && \
     cd /tmp && tar -zxf /tmp/amxx_base_latest.tar.gz && cd / && \
     mv -f /tmp/addons/amxmodx/* ${AMXX_INSTALL_PATH} && \

@@ -46,7 +46,9 @@ RUN set -eux; \
 RUN set -eux; \
     mkdir -p "${EMG_GIT_SRC_DIR}"; \
     cd "${EMG_GIT_SRC_DIR}"; \
-    wget -q -O git.tar.xz "${EMG_GIT_URL}"; \
+    aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -o git.tar.xz "${EMG_GIT_URL}"; \
     echo "${EMG_GIT_SHA256}  git.tar.xz" | sha256sum -c -; \
     tar -xJf git.tar.xz --strip-components=1 --no-same-owner; \
     rm -f git.tar.xz; \

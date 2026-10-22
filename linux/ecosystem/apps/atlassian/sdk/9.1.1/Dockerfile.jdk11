@@ -30,7 +30,9 @@ WORKDIR ${ATLASSIAN_SDK_PROJECTS_DIR}
 ##################################################################
 # downloaded and removed in the same RUN: an ADD layer would keep the archive in the image
 RUN mkdir -p ${ATLASSIAN_SDK_PROJECTS_DIR} && \
-    wget -q -O ${TEMP_ARCHIVE} ${DOWNLOAD_URL} && \
+    aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -d / -o ${TEMP_ARCHIVE} ${DOWNLOAD_URL} && \
     tar -xzf ${TEMP_ARCHIVE} --strip-components=1 --directory "${ATLASSIAN_SDK_INSTALL_DIR}" && \
     rm -fv ${TEMP_ARCHIVE} && \
     test -x ${MAVEN_BIN}/mvn && \

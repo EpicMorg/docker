@@ -16,7 +16,9 @@ ARG SWARM_DEB_URL=http://package.perforce.com/apt/ubuntu/pool/release/h/helix-sw
 # SHA256 of that file in http://package.perforce.com/apt/ubuntu/dists/noble/release/binary-amd64/Packages.gz
 ARG SWARM_DEB_SHA256=bc5d509e94fe9d55261b0c9b0352c193a03731263e359a74c3cc946d2f48faf3
 RUN set -eux; \
-    wget -q -O /tmp/swarm.deb "${SWARM_DEB_URL}"; \
+    aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -d /tmp -o swarm.deb "${SWARM_DEB_URL}"; \
     echo "${SWARM_DEB_SHA256}  /tmp/swarm.deb" | sha256sum -c -; \
     dpkg-deb -x /tmp/swarm.deb /tmp/deb; \
     mkdir -p /out/etc/cron.d /out/etc/logrotate.d /out/opt/perforce/etc /out/opt/perforce/swarm/sbin; \
@@ -106,7 +108,9 @@ RUN set -eux; \
     adduser --system --ingroup swarm-cron --home /opt/perforce --no-create-home --shell /bin/bash --gecos "Swarm Cron" swarm-cron; \
     ln -sf /opt/perforce/bin/p4 /usr/bin/p4; \
     mkdir -p /opt/perforce/swarm /opt/perforce/etc; \
-    wget -q -O /tmp/swarm.tgz "${SWARM_TGZ_URL}"; \
+    aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -d /tmp -o swarm.tgz "${SWARM_TGZ_URL}"; \
     echo "${SWARM_TGZ_SHA256}  /tmp/swarm.tgz" | sha256sum -c -; \
     tar -xzf /tmp/swarm.tgz -C /opt/perforce/swarm --strip-components=1 --no-same-owner; \
     rm -f /tmp/swarm.tgz; \
