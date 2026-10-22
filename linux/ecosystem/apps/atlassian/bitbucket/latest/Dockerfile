@@ -7,7 +7,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 #                   ARGuments
 ##################################################################
-ARG RELEASE=10.5.0
+ARG RELEASE=10.5.1
 ARG DOWNLOAD_URL=https://www.atlassian.com/software/stash/downloads/binary/atlassian-bitbucket-${RELEASE}.tar.gz
 ARG TEMP_ARCHIVE=/tmp/atlassian-bitbucket-${RELEASE}.tar.gz
 

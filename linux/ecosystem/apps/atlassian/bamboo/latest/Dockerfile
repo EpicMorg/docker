@@ -6,7 +6,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 #                   ARGuments
 ##################################################################
-ARG RELEASE=12.1.11
+ARG RELEASE=12.1.12
 ARG DOWNLOAD_URL=https://www.atlassian.com/software/bamboo/downloads/binary/atlassian-bamboo-${RELEASE}.tar.gz
 ARG TEMP_ARCHIVE=/tmp/atlassian-bamboo-${RELEASE}.tar.gz
 

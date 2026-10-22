@@ -1,11 +1,11 @@
-FROM ghcr.io/epicmorg/jdk:21
+FROM ghcr.io/epicmorg/jdk:25
 LABEL maintainer="Atlassian Confluence Server Team; EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
 ##################################################################
 #                   ARGuments
 ##################################################################
-ARG RELEASE=10.2.18
+ARG RELEASE=11.0.0
 ARG DOWNLOAD_URL=https://www.atlassian.com/software/confluence/downloads/binary/atlassian-confluence-${RELEASE}.tar.gz
 ARG TEMP_ARCHIVE=/tmp/atlassian-confluence-${RELEASE}.tar.gz
 
