@@ -28,7 +28,7 @@ CONSUMERS = ('teamcity/agent/php*', 'github/runner/php*', 'gitlab/runner/php*')
 KNOWN = {'EMG_LOCAL_BASE_DIR': '/usr/local/share/epicmorg'}
 # only the php image's own variables are mirrored; the rest (zlib, icu, openssl,
 # PKG_CONFIG_PATH ...) come from the consumer's base the same way
-OWN = ('PHP_', 'PEAR_', 'PECL_', 'P4PHP_', 'PIE_', 'COMPOSER_')
+OWN = ('PHP_', 'PEAR_', 'PECL_', 'P4PHP_', 'PIE_', 'COMPOSER_', 'EMG_PHP_')
 SKIP = {'PATH'}
 REF = re.compile(r'\$\{([A-Za-z0-9_]+)\}|\$([A-Za-z_][A-Za-z0-9_]*)')
 LINE = re.compile(r'^(ENV|ARG) ([A-Za-z_][A-Za-z0-9_]*)=(.*)$')

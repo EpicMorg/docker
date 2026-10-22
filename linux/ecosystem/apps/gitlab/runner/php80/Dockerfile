@@ -116,6 +116,10 @@ ENV PECL_MEMCACHE_VERSION="8.2"
 ENV PECL_GNUPG_VERSION="1.5.4"
 ENV PECL_OPENTELEMETRY_VERSION="1.1.3"
 ENV PECL_XMLRPC_VERSION="1.0.0RC3"
+ENV EMG_PHP_SASL_DIR="/usr/local/share/epicmorg/cyrus-sasl/2.1.28/openssl111"
+ENV EMG_PHP_LDAP_DIR="/usr/local/share/epicmorg/openldap/2.6.15/openssl111"
+ENV EMG_PHP_SSH2_DIR="/usr/local/share/epicmorg/libssh2/1.11.1/openssl111"
+ENV PECL_SSH2_VERSION="1.5.0"
 ENV PATH="${COMPOSER_HOME}/vendor/bin:${PHP_DIR}/bin:${PHP_DIR}/sbin:${PATH}"
 
 COPY --from=php /emg-export/ /

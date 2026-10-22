@@ -2,6 +2,7 @@
 
 ## 2026
 * `oct` — next (unreleased)
+  * `php` (all lines): `ldap` (with SASL) and `ssh2` built but off, on the line's own OpenSSL (own Cyrus SASL, OpenLDAP client, libssh2 per OpenSSL branch); `php-env-mirror-sync.py` also mirrors `EMG_PHP_*`
   * `php` (all lines): extensions the Debian / sury packages have - `yaml`, `mailparse`, `memcache`, `gnupg` on; `opentelemetry` (8.0+), `xmlrpc`, `pspell`, `enchant` (8.0+) built but off (`php-enmod`); consumers' mirrored ENV synced
   * `rabbitmq`: the Erlang cookie is created / chowned for `rabbitmq` before the node starts and the HEALTHCHECK runs the CLI as `rabbitmq` - an early root CLI call left a root-owned cookie (node died with eacces)
   * `mysql`: the ended Innovation lines `8.1`–`8.3`, `9.0`–`9.6` at their final patch; every Debian runtime library listed explicitly; `openldap`: first start as root on an empty `/data`; `mariadb`: runtime libraries (RocksDB snappy & co.) listed explicitly

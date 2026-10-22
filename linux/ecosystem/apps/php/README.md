@@ -306,13 +306,19 @@ container: `RUN php-enmod pspell`, or a mounted `conf.d/*.ini`.
 | `xmlrpc` | off | PECL `1.0.0RC3` | PECL `1.0.0RC3` | PECL `1.0.0RC3` | core | core | core | core |
 | `pspell` | off | PECL `1.0.1` | core (8.4: PECL `1.0.1`) | core | core | core | core | core |
 | `enchant` | off | core | core | core | - | - | - | - |
+| `ldap` (+SASL) | off | core | core | core | core | core | core | core |
+| `ssh2` | off | `1.5.0` | `1.5.0` | `1.5.0` | `1.4.1` | `1.4.1` | `1.4.1` | `0.13` |
 
 \* no PECL release of `memcache` builds on 8.5 yet (`php_smart_string.h` moved); the upstream commit with the fix is
 pinned by sha256 until one ships.
 
-Not provided: `enchant` before 8.0 (needs enchant 1, gone from trixie). `ldap` and `ssh2` come next (their Debian
-libraries link the system OpenSSL - they get their own libldap / libssh2 per OpenSSL branch). `imap` is postponed
-(UW-IMAP c-client, PECL-only and deprecated from 8.4).
+`ldap` and `ssh2` link this PHP's own OpenSSL, not Debian's (whose libldap / libsasl2 / libssh2 pull the system
+`libssl3`): Cyrus SASL `2.1.28`, the OpenLDAP client libraries (`2.6.15`; `2.4.59` on the 1.0.2 branches) and libssh2
+`1.11.1` are built per OpenSSL branch into `cyrus-sasl/2.1.28/openssl<branch>`, `openldap/<ver>/openssl<branch>`,
+`libssh2/1.11.1/openssl<branch>` under `/usr/local/share/epicmorg` (RPATH, nothing in `ld.so.conf`).
+
+Not provided: `enchant` before 8.0 (needs enchant 1, gone from trixie). `imap` is postponed (UW-IMAP c-client,
+PECL-only and deprecated from 8.4).
 
 ## Proprietary loaders
 
