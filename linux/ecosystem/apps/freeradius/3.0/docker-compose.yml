@@ -1,0 +1,13 @@
+services:
+  app:
+    image: "epicmorg/freeradius:3.0"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/freeradius:3.0
+      - ghcr.io/epicmorg/freeradius:3.0
+      - docker.io/epicmorg/freeradius:3.0
+      - quay.io/epicmorg/freeradius:3.0.28
+      - ghcr.io/epicmorg/freeradius:3.0.28
+      - docker.io/epicmorg/freeradius:3.0.28
