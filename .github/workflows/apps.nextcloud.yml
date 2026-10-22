@@ -1,11 +1,15 @@
 # Nextcloud images, own cron -- not part of the build chain.
 # One job per version: pure/<ver> (FROM upstream nextcloud) then patched/<ver> (FROM epicmorg/nextcloud:<ver>).
-name: Advanced - Nextcloud
+name: Apps - Nextcloud
 
 on:
   workflow_dispatch:
   schedule:
     - cron: '0 2 * * 2,4,6'   # Tue/Thu/Sat 02:00 UTC
+  # on epicmorg/apache2:php* (apps chain)
+  workflow_run:
+    workflows: ['Chain 40 - Apps']
+    types: [completed]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -18,6 +22,7 @@ permissions:
 jobs:
   list:
     name: list leaves
+    if: github.event_name != 'workflow_run' || contains(fromJSON('["success","failure"]'), github.event.workflow_run.conclusion)
     runs-on: ubuntu-24.04
     outputs:
       nextcloud: ${{ steps.list.outputs.nextcloud }}
@@ -26,12 +31,12 @@ jobs:
       with:
         sparse-checkout: |
           .github/scripts
-          linux/advanced/nextcloud
+          linux/ecosystem/apps/nextcloud
     - id: list
       run: |
         # assignment first, so a failing discovery fails the step (echo "$(...)" would not)
         emit() { local v; v=$(python3 .github/scripts/leaves.py "${@:2}"); echo "$1=$v" | tee -a "$GITHUB_OUTPUT"; }
-        emit nextcloud group linux/advanced/nextcloud 'pure/{}' 'patched/{}'
+        emit nextcloud group linux/ecosystem/apps/nextcloud 'pure/{}' 'patched/{}'
 
   nextcloud:
     name: nextcloud ${{ matrix.leaf.name }}
@@ -45,3 +50,4 @@ jobs:
     secrets: inherit
     with:
       paths: ${{ matrix.leaf.paths }}
+      free-disk: true
