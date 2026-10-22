@@ -1,0 +1,16 @@
+services:
+  app:
+    image: "epicmorg/mariadb:5.5"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/mariadb:5.5
+      - ghcr.io/epicmorg/mariadb:5.5
+      - docker.io/epicmorg/mariadb:5.5
+      - quay.io/epicmorg/mariadb:5.5.68
+      - ghcr.io/epicmorg/mariadb:5.5.68
+      - docker.io/epicmorg/mariadb:5.5.68
+      - quay.io/epicmorg/mariadb:5
+      - ghcr.io/epicmorg/mariadb:5
+      - docker.io/epicmorg/mariadb:5
