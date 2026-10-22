@@ -58,6 +58,8 @@ ENV EMG_MONGO_LDAP_DIR=${EMG_LOCAL_BASE_DIR}/openldap/2.6.15/openssl111
 ARG SASL_URL=https://github.com/cyrusimap/cyrus-sasl/releases/download/cyrus-sasl-2.1.28/cyrus-sasl-2.1.28.tar.gz
 ARG SASL_SHA256=7ccfc6abd01ed67c1a0924b353e526f1b766b21f42d4562ee635a8ebfc5bb38c
 ARG LDAP_URL=https://www.openldap.org/software/download/OpenLDAP/openldap-release/openldap-2.6.15.tgz
+# same file from a mirror: aria2c takes it as an alternative, sha256 still decides
+ARG LDAP_URL_ONEANDONE=https://mirror.eu.oneandone.net/software/openldap/openldap-release/openldap-2.6.15.tgz
 ARG LDAP_SHA256=bc91225dbfc50354033b1303bc91d1a7f6ddd1dc32fac950d79c28fe66d6bca8
 RUN set -eux; \
     test -f "${EMG_MONGO_SSL_DIR}/include/openssl/ssl.h"; test -x "${EMG_MONGO_CURL_DIR}/bin/curl-config"; \
@@ -78,7 +80,7 @@ RUN set -eux; \
     mkdir -p /usr/local/src/ldap; cd /usr/local/src/ldap; \
     aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
         --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
-        -o ldap.tgz "${LDAP_URL}"; echo "${LDAP_SHA256}  ldap.tgz" | sha256sum -c -; \
+        -o ldap.tgz "${LDAP_URL}" "${LDAP_URL_ONEANDONE}"; echo "${LDAP_SHA256}  ldap.tgz" | sha256sum -c -; \
     tar -xzf ldap.tgz --strip-components=1 --no-same-owner; \
     CPPFLAGS="-I${EMG_MONGO_SSL_DIR}/include -I${EMG_MONGO_SASL_DIR}/include" \
     LDFLAGS="-L${OPENSSL_111_LIB_DIR} -L${EMG_MONGO_SASL_DIR}/lib -Wl,-rpath,${OPENSSL_111_LIB_DIR}:${EMG_MONGO_SASL_DIR}/lib:${EMG_MONGO_LDAP_DIR}/lib -Wl,--disable-new-dtags" \

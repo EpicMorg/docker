@@ -28,6 +28,9 @@ ARG EMG_LIBAIO_SHA256=2c44d1c5fd0d43752287c9ae1eb9c023f04ef848ea8d4aafa46e9aedb6
 # ncurses ABI 5 (only the clients up to 10.5 link it); GNU tarball, signature by T. Dickey checked once
 ENV EMG_NCURSES5_DIR=${EMG_LOCAL_BASE_DIR}/ncurses/6.6/abi5
 ARG EMG_NCURSES_URL=https://ftp.gnu.org/gnu/ncurses/ncurses-6.6.tar.gz
+# same file from a mirror: aria2c takes it as an alternative, sha256 still decides
+ARG EMG_NCURSES_URL_KERNEL=https://mirrors.kernel.org/gnu/ncurses/ncurses-6.6.tar.gz
+ARG EMG_NCURSES_URL_II=https://invisible-island.net/archives/ncurses/ncurses-6.6.tar.gz
 ARG EMG_NCURSES_SHA256=355b4cbbed880b0381a04c46617b7656e362585d52e9cf84a67e2009b749ff11
 
 RUN set -eux; \
@@ -53,7 +56,7 @@ RUN set -eux; \
     mkdir -p /usr/local/src/ncurses; cd /usr/local/src/ncurses; \
     aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
         --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
-        -o nc.tgz "${EMG_NCURSES_URL}"; \
+        -o nc.tgz "${EMG_NCURSES_URL}" "${EMG_NCURSES_URL_KERNEL}" "${EMG_NCURSES_URL_II}"; \
     echo "${EMG_NCURSES_SHA256}  nc.tgz" | sha256sum -c -; \
     tar -xzf nc.tgz --strip-components=1 --no-same-owner; \
     LDFLAGS="-Wl,-rpath,${EMG_NCURSES5_DIR}/lib -Wl,--disable-new-dtags" \
