@@ -2,6 +2,8 @@
 
 ## 2026
 * `oct` — next (unreleased)
+  * `amxx-sdk` agents / runners (1.9, 1.10): amxmodx.org/amxxdrop is gone (404) - the base package comes from the alliedmodders/amxmodx GitHub releases, pinned with sha256 (1.9.0.5303, 1.10.0.5487)
+  * **new** `epicmorg/mariadb:<line>` — MariaDB `5.5`, `10.0`–`10.6`, `10.11` (`10`), `11.4`, `11.8` (`11`), `12.3` (`12`, `lts`), `13.0` (`13`, `latest`) from the project's bintar tarballs (GPG-verified) on trixie; libaio / ncurses ABI 5 baked, Galera left out; entrypoint is a drop-in for `library/mariadb` (`MARIADB_*` + `MYSQL_*`) with the `bitnami/mariadb` variables and automatic system-table upgrades; job `mariadb` in the apps chain; generator `bin/python/mariadb-versions-sync.py`
   * **new** `epicmorg/mysql:<line>` — MySQL `5.6`, `5.7`, `8.0`, `8.4` (`8`), `9.7` (`9`, `lts`) and Innovation `26.10` (`latest`) from Oracle's generic tarballs (GPG-verified) on trixie; libaio and ncurses ABI 5 baked and wired with `patchelf --force-rpath`; entrypoint is a drop-in for `library/mysql` and takes the `bitnami/mysql` variables (root user, charset, replication, upgrade); job `mysql` in the apps chain; generator `bin/python/mysql-versions-sync.py`
   * php consumers (`teamcity-agent`, `github-runner`, `gitlab-runner` `php*`): mirrored ENV follows the php images again (`PHP_FULL_VERSION` 8.2–8.5, `PEAR_VERSION`, `PHP_PATCHES`) - the ENV-parity check failed after the php security / PEAR updates; new `bin/python/php-env-mirror-sync.py`
   * **new** `epicmorg/erlang:<otp>` — Erlang/OTP `24`–`29` from source on trixie (JIT; crypto/ssl on the baked OpenSSL 3.5, 1.1.1 for OTP 24), `/emg-export` for `COPY --from`; job `erlang` in the runtimes chain; generator `bin/python/erlang-versions-sync.py`

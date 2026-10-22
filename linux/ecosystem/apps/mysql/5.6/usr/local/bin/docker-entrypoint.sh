@@ -111,7 +111,9 @@ if [ "$(id -u)" = 0 ]; then
     sockdir="$(dirname "$socket")"
     mkdir -p "$datadir" "$sockdir"
     [ -d /bitnami/mysql ] && chown mysql:mysql /bitnami/mysql
-    find "$datadir" \! -user mysql -exec chown mysql:mysql '{}' + 2>/dev/null || true
+    # owner AND group: library images use 999:999, our mysql group is not gid 999
+    # (systemd-journal on the base) - the server copies both when rewriting files
+    find "$datadir" \( \! -user mysql -o \! -group mysql \) -exec chown mysql:mysql '{}' + 2>/dev/null || true
     [ "$(stat -c %U "$sockdir")" = mysql ] || [ "$(stat -c %a "$sockdir")" = 1777 ] || chown mysql:mysql "$sockdir"
     if [ -f /opt/bitnami/mysql/conf/my_custom.cnf ]; then
         cp /opt/bitnami/mysql/conf/my_custom.cnf /etc/mysql/conf.d/zz-bitnami-my_custom.cnf
