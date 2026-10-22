@@ -111,8 +111,12 @@ RUN set -eu; \
       for i in $(seq 1 60); do [ -z "$(beams)" ] && return 0; sleep 1; done; \
       echo "rabbitmqctl stop did not stop $node - killing it" >&2; kill $(beams) 2>/dev/null || true; sleep 3; }; \
     user=lib; pass=libpw; \
+    # an early root CLI call (HEALTHCHECK / docker exec before the first boot) leaves a root-owned cookie
+    rabbitmq-diagnostics -q ping >/dev/null 2>&1 || true; \
+    if [ -e "${RABBITMQ_DATA_DIR}/.erlang.cookie" ]; then echo "precondition: cookie created by the root CLI, owner $(stat -c %U "${RABBITMQ_DATA_DIR}/.erlang.cookie")"; fi; \
     run A RABBITMQ_DEFAULT_USER=lib RABBITMQ_DEFAULT_PASS=libpw || { echo "FATAL: library mode: management API does not answer" >&2; exit 1; }; \
     curl -fs -u lib:libpw "http://127.0.0.1:$mp/api/overview" | grep -q "\"rabbitmq_version\":\"${EMG_RABBITMQ_FULL_VERSION}\"" || { echo "FATAL: API reports another version" >&2; exit 1; }; \
+    [ "$(stat -c %U "${RABBITMQ_DATA_DIR}/.erlang.cookie")" = rabbitmq ] || { echo "FATAL: the cookie is not rabbitmq's" >&2; exit 1; }; \
     beam="$(grep -lx 'beam.smp' /proc/[0-9]*/comm 2>/dev/null | head -1)"; \
     [ -n "$beam" ] && [ "$(stat -c %U "${beam%/comm}")" = rabbitmq ] || { echo "FATAL: RabbitMQ does not run as rabbitmq" >&2; exit 1; }; \
     stop; rm -rf "$t/mnesia"; \
@@ -131,8 +135,9 @@ RUN set -eu; \
 VOLUME ["/var/lib/rabbitmq"]
 EXPOSE 4369 5671 5672 15671 15672 15691 15692 25672
 
+# as rabbitmq when the check runs as root (it would otherwise create / read the cookie as root)
 HEALTHCHECK --interval=30s --timeout=10s --start-period=60s \
-        CMD rabbitmq-diagnostics -q ping || exit 1
+        CMD if [ "$(id -u)" = 0 ]; then gosu rabbitmq rabbitmq-diagnostics -q ping; else rabbitmq-diagnostics -q ping; fi || exit 1
 
 STOPSIGNAL SIGTERM
 ENTRYPOINT ["tini", "--", "docker-entrypoint.sh"]
