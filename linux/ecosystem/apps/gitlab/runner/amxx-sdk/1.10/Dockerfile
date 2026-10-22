@@ -24,9 +24,14 @@ ENV LD_LIBRARY_PATH=${AMXX_BIN_PATH}:${LD_LIBRARY_PATH}
 
 COPY inc.tar /tmp
 
-RUN export AMXX_BASE_LATEST_VERSION=`curl -s https://www.amxmodx.org/amxxdrop/1.10/amxmodx-latest-base-linux` && \
-    mkdir -p ${AMXX_INSTALL_PATH} && \
-    curl -SL https://www.amxmodx.org/amxxdrop/{$AMXX_VERSION}/{$AMXX_BASE_LATEST_VERSION} -o /tmp/amxx_base_latest.tar.gz && \
+# amxmodx.org/amxxdrop is gone (404); the builds are GitHub releases of
+# alliedmodders/amxmodx now - pinned, sha256 = the release asset digest
+ARG AMXX_RELEASE=1.10.0.5487
+ARG AMXX_BASE_TARBALL=amxmodx-1.10.0-git5487-base-linux.tar.gz
+ARG AMXX_BASE_SHA256=d82d1d65c907f358c48bdebc07e20084e7e8c4f4d0e95af275e8b43f32815c7e
+RUN mkdir -p ${AMXX_INSTALL_PATH} && \
+    curl -fSL "https://github.com/alliedmodders/amxmodx/releases/download/${AMXX_RELEASE}/${AMXX_BASE_TARBALL}" -o /tmp/amxx_base_latest.tar.gz && \
+    echo "${AMXX_BASE_SHA256}  /tmp/amxx_base_latest.tar.gz" | sha256sum -c - && \
     cd /tmp && tar -zxf /tmp/amxx_base_latest.tar.gz && cd / && \
     mv -f /tmp/addons/amxmodx/* ${AMXX_INSTALL_PATH} && \
     chmod +x ${AMXX_BIN_PATH}/amxxpc && \
