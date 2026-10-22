@@ -66,6 +66,8 @@ XENIAL = ('1.0.2g', 'http://archive.ubuntu.com/ubuntu/pool/main/o/openssl/openss
           'b784b1b3907ce39abf4098702dade6365522a253ad1552e267a9a0e89594aa33',
           'http://archive.ubuntu.com/ubuntu/pool/main/o/openssl/openssl_1.0.2g-1ubuntu4.20.debian.tar.xz',
           '3287dd2369824dedcff513913a0e7ebaab25d7f99ddb4eb62d8ba653b3683e9c')
+OPENLDAP_DIST = 'https://www.openldap.org/software/download/OpenLDAP/openldap-release/'
+OPENLDAP_MIRROR = 'https://mirror.eu.oneandone.net/software/openldap/openldap-release/'
 OPENLDAP = ('2.6.15', 'https://www.openldap.org/software/download/OpenLDAP/openldap-release/openldap-2.6.15.tgz',
             'bc91225dbfc50354033b1303bc91d1a7f6ddd1dc32fac950d79c28fe66d6bca8')
 SASL = ('2.1.28', 'https://github.com/cyrusimap/cyrus-sasl/releases/download/cyrus-sasl-2.1.28/cyrus-sasl-2.1.28.tar.gz',
@@ -237,6 +239,8 @@ ENV EMG_MONGO_LDAP_DIR=${{EMG_LOCAL_BASE_DIR}}/openldap/{ldapver}/openssl111
 ARG SASL_URL={saslurl}
 ARG SASL_SHA256={saslsha}
 ARG LDAP_URL={ldapurl}
+# same file from a mirror: aria2c takes it as an alternative, sha256 still decides
+ARG LDAP_URL_ONEANDONE={ldapurl_m}
 ARG LDAP_SHA256={ldapsha}
 RUN set -eux; \\
     test -f "${{EMG_MONGO_SSL_DIR}}/include/openssl/ssl.h"; test -x "${{EMG_MONGO_CURL_DIR}}/bin/curl-config"; \\
@@ -257,7 +261,7 @@ RUN set -eux; \\
     mkdir -p /usr/local/src/ldap; cd /usr/local/src/ldap; \\
     aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \\
         --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \\
-        -o ldap.tgz "${{LDAP_URL}}"; echo "${{LDAP_SHA256}}  ldap.tgz" | sha256sum -c -; \\
+        -o ldap.tgz "${{LDAP_URL}}" "${{LDAP_URL_ONEANDONE}}"; echo "${{LDAP_SHA256}}  ldap.tgz" | sha256sum -c -; \\
     tar -xzf ldap.tgz --strip-components=1 --no-same-owner; \\
     CPPFLAGS="-I${{EMG_MONGO_SSL_DIR}}/include -I${{EMG_MONGO_SASL_DIR}}/include" \\
     LDFLAGS="-L${{OPENSSL_111_LIB_DIR}} -L${{EMG_MONGO_SASL_DIR}}/lib -Wl,-rpath,${{OPENSSL_111_LIB_DIR}}:${{EMG_MONGO_SASL_DIR}}/lib:${{EMG_MONGO_LDAP_DIR}}/lib -Wl,--disable-new-dtags" \\
@@ -443,7 +447,7 @@ def dockerfile(mm, ver, url, sha):
         s += STACK_102.format(xurl=XENIAL[1], xsha=XENIAL[2], xdurl=XENIAL[3], xdsha=XENIAL[4]) + PATCH.format()
     elif flavour == 'openssl111':
         s += STACK_111.format(saslver=SASL[0], saslurl=SASL[1], saslsha=SASL[2],
-                              ldapver=OPENLDAP[0], ldapurl=OPENLDAP[1], ldapsha=OPENLDAP[2]) + PATCH.format()
+                              ldapver=OPENLDAP[0], ldapurl=OPENLDAP[1], ldapurl_m=OPENLDAP[1].replace(OPENLDAP_DIST, OPENLDAP_MIRROR), ldapsha=OPENLDAP[2]) + PATCH.format()
     s += EXPORT.format()
     debs = {
         'legacy': '',

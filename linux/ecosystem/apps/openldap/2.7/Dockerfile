@@ -14,6 +14,8 @@ ENV EMG_OPENLDAP_DIR=${EMG_LOCAL_BASE_DIR}/openldap/${EMG_OPENLDAP_VERSION}
 # openldap.org publishes sha3-512 (2.5+) / sha1 (2.4); checked by the sync script, pinned here as sha256
 ARG EMG_OPENLDAP_SHA256=253db80f301258ea69cda1184766d57395b836aaabf41157eb0316eb0fac1341
 ARG EMG_OPENLDAP_URL=https://www.openldap.org/software/download/OpenLDAP/openldap-release/openldap-${EMG_OPENLDAP_FULL_VERSION}.tgz
+# same file from a mirror: aria2c takes it as an alternative, sha256 still decides
+ARG EMG_OPENLDAP_URL_ONEANDONE=https://mirror.eu.oneandone.net/software/openldap/openldap-release/openldap-${EMG_OPENLDAP_FULL_VERSION}.tgz
 
 # Cyrus SASL built here against the same OpenSSL: Debian's libsasl2 and its
 # digest-md5 / scram / ntlm plugins link the system libcrypto.so.3 (a second
@@ -71,7 +73,7 @@ RUN set -eux; \
     cd /usr/local/src/openldap; \
     aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
         --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
-        -o openldap.tgz "${EMG_OPENLDAP_URL}"; \
+        -o openldap.tgz "${EMG_OPENLDAP_URL}" "${EMG_OPENLDAP_URL_ONEANDONE}"; \
     echo "${EMG_OPENLDAP_SHA256}  openldap.tgz" | sha256sum -c -; \
     tar -xzf openldap.tgz --strip-components=1 --no-same-owner; \
     rm -f openldap.tgz; \

@@ -20,6 +20,8 @@ ENV PHP_INI_SCAN_DIR=${PHP_DIR}/etc/conf.d
 ARG PHP_BIN_DIR=${PHP_DIR}/bin
 ARG PHP_SRC_DIR=${PHP_DIR}/src
 ARG PHP_DOWNLOAD_URL=https://www.php.net/distributions/php-${PHP_FULL_VERSION}.tar.xz
+# same file from a mirror: aria2c takes it as an alternative, sha256 still decides
+ARG PHP_DOWNLOAD_URL_GH=https://github.com/php/web-php-distributions/raw/master/php-${PHP_FULL_VERSION}.tar.xz
 ARG PHP_TEMP=/tmp/php-${PHP_FULL_VERSION}.tar.xz
 # Upstream sha256 for php-7.4.33.tar.xz - bump together with PHP_FULL_VERSION.
 ARG PHP_SHA256=924846abf93bc613815c55dd3f5809377813ac62a9ec4eb3778675b82a27b927
@@ -212,7 +214,7 @@ RUN set -eux; \
         --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
         -d / \
         -o ${PHP_TEMP} \
-        "${PHP_DOWNLOAD_URL}"; \
+        "${PHP_DOWNLOAD_URL}" "${PHP_DOWNLOAD_URL_GH}"; \
     echo "${PHP_SHA256} *${PHP_TEMP}" | sha256sum -c -; \
     tar -xJf ${PHP_TEMP} --strip-components=1 --directory ${PHP_SRC_DIR}; \
     rm -rfv ${PHP_TEMP}
@@ -889,15 +891,20 @@ ENV PECL_SSH2_VERSION=1.4.1
 ARG EMG_PHP_SASL_URL=https://github.com/cyrusimap/cyrus-sasl/releases/download/cyrus-sasl-2.1.28/cyrus-sasl-2.1.28.tar.gz
 ARG EMG_PHP_SASL_SHA256=7ccfc6abd01ed67c1a0924b353e526f1b766b21f42d4562ee635a8ebfc5bb38c
 ARG EMG_PHP_LDAP_URL=https://www.openldap.org/software/download/OpenLDAP/openldap-release/openldap-2.6.15.tgz
+# same file from a mirror: aria2c takes it as an alternative, sha256 still decides
+ARG EMG_PHP_LDAP_URL_ONEANDONE=https://mirror.eu.oneandone.net/software/openldap/openldap-release/openldap-2.6.15.tgz
 ARG EMG_PHP_LDAP_SHA256=bc91225dbfc50354033b1303bc91d1a7f6ddd1dc32fac950d79c28fe66d6bca8
 ARG EMG_PHP_SSH2_URL=https://github.com/libssh2/libssh2/releases/download/libssh2-1.11.1/libssh2-1.11.1.tar.gz
 ARG EMG_PHP_SSH2_SHA256=d9ec76cbe34db98eec3539fe2c899d26b0c837cb3eb466a56b0f109cabf658f7
+# fetch NAME URL SHA256 [MIRROR...]: mirrors are aria2c alternatives, sha256 decides
 RUN set -eux; \
     ssl="${PHP_SSL_DIR}"; ssllib="${PHP_SSL_LIB_DIR}"; \
     test -f "$ssl/include/openssl/ssl.h" -a -d "$ssllib"; \
-    fetch() { aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+    fetch() { n="$1"; u="$2"; s="$3"; shift 3; \
+      aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
         --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
-        -d /tmp -o "$1.tgz" "$2"; echo "$3  /tmp/$1.tgz" | sha256sum -c -; \
+        -d /tmp -o "$n.tgz" "$u" "$@"; echo "$s  /tmp/$n.tgz" | sha256sum -c -; \
+      set -- "$n"; \
       rm -rf "/tmp/$1"; mkdir -p "/tmp/$1"; tar -xzf "/tmp/$1.tgz" -C "/tmp/$1" --strip-components=1; rm -f "/tmp/$1.tgz"; }; \
     fetch sasl "${EMG_PHP_SASL_URL}" "${EMG_PHP_SASL_SHA256}"; \
     (cd /tmp/sasl && CFLAGS="-O2 -g0 -Wno-error=implicit-function-declaration" CPPFLAGS="-I$ssl/include" \
@@ -907,7 +914,7 @@ RUN set -eux; \
         --without-authdaemond --without-pwcheck --disable-sample --disable-static \
         --with-plugindir="${EMG_PHP_SASL_DIR}/lib/sasl2" --with-configdir="${EMG_PHP_SASL_DIR}/lib/sasl2:/etc/sasl2" \
       && make -j"$(nproc)" && make install); \
-    fetch ldap "${EMG_PHP_LDAP_URL}" "${EMG_PHP_LDAP_SHA256}"; \
+    fetch ldap "${EMG_PHP_LDAP_URL}" "${EMG_PHP_LDAP_SHA256}" "${EMG_PHP_LDAP_URL_ONEANDONE}"; \
     (cd /tmp/ldap && CFLAGS="-O2 -g0 -Wno-error=implicit-function-declaration -Wno-error=implicit-int -Wno-error=incompatible-pointer-types -Wno-error=int-conversion" \
       CPPFLAGS="-I$ssl/include -I${EMG_PHP_SASL_DIR}/include" \
       LDFLAGS="-L$ssllib -L${EMG_PHP_SASL_DIR}/lib -Wl,-rpath,$ssllib:${EMG_PHP_SASL_DIR}/lib:${EMG_PHP_LDAP_DIR}/lib -Wl,--disable-new-dtags" \

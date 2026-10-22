@@ -18,6 +18,9 @@ ENV EMG_MYSQL_VERSION=9.1
 ENV EMG_MYSQL_FULL_VERSION=9.1.0
 ARG EMG_MYSQL_TARBALL=mysql-9.1.0-linux-glibc2.28-x86_64.tar.xz
 ARG EMG_MYSQL_URL=https://cdn.mysql.com/archives/mysql-9.1
+# same tarball from MySQL's archive (also where a current release moves when superseded);
+# aria2c takes it as an alternative, sha256 still decides
+ARG EMG_MYSQL_URL_ARCHIVE=https://downloads.mysql.com/archives/get/p/23/file
 # GPG signature (MySQL Release Engineering) checked by the sync script, pinned here
 ARG EMG_MYSQL_SHA256=6f059725574a60e8d742f22f943b28a05fbbc36e2a3341535e85713f74e2015b
 ENV EMG_MYSQL_DIR=${EMG_LOCAL_BASE_DIR}/mysql/${EMG_MYSQL_VERSION}
@@ -30,6 +33,9 @@ ARG EMG_LIBAIO_SHA256=2c44d1c5fd0d43752287c9ae1eb9c023f04ef848ea8d4aafa46e9aedb6
 # ncurses ABI 5 (only the 5.x clients link it); GNU tarball, signature by T. Dickey checked once
 ENV EMG_NCURSES5_DIR=${EMG_LOCAL_BASE_DIR}/ncurses/6.6/abi5
 ARG EMG_NCURSES_URL=https://ftp.gnu.org/gnu/ncurses/ncurses-6.6.tar.gz
+# same file from a mirror: aria2c takes it as an alternative, sha256 still decides
+ARG EMG_NCURSES_URL_KERNEL=https://mirrors.kernel.org/gnu/ncurses/ncurses-6.6.tar.gz
+ARG EMG_NCURSES_URL_II=https://invisible-island.net/archives/ncurses/ncurses-6.6.tar.gz
 ARG EMG_NCURSES_SHA256=355b4cbbed880b0381a04c46617b7656e362585d52e9cf84a67e2009b749ff11
 
 RUN set -eux; \
@@ -55,7 +61,7 @@ RUN set -eux; \
     mkdir -p /usr/local/src/ncurses; cd /usr/local/src/ncurses; \
     aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
         --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
-        -o nc.tgz "${EMG_NCURSES_URL}"; \
+        -o nc.tgz "${EMG_NCURSES_URL}" "${EMG_NCURSES_URL_KERNEL}" "${EMG_NCURSES_URL_II}"; \
     echo "${EMG_NCURSES_SHA256}  nc.tgz" | sha256sum -c -; \
     tar -xzf nc.tgz --strip-components=1 --no-same-owner; \
     LDFLAGS="-Wl,-rpath,${EMG_NCURSES5_DIR}/lib -Wl,--disable-new-dtags" \
@@ -81,7 +87,7 @@ RUN set -eux; \
     cd /tmp; \
     aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
         --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
-        -o "${EMG_MYSQL_TARBALL}" "${EMG_MYSQL_URL}/${EMG_MYSQL_TARBALL}"; \
+        -o "${EMG_MYSQL_TARBALL}" "${EMG_MYSQL_URL}/${EMG_MYSQL_TARBALL}" "${EMG_MYSQL_URL_ARCHIVE}/${EMG_MYSQL_TARBALL}"; \
     echo "${EMG_MYSQL_SHA256}  ${EMG_MYSQL_TARBALL}" | sha256sum -c -; \
     tar -xf "${EMG_MYSQL_TARBALL}" -C "${EMG_MYSQL_DIR}" --strip-components=1 --no-same-owner; \
     rm -f "${EMG_MYSQL_TARBALL}"; \

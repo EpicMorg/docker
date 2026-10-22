@@ -15,13 +15,15 @@ ENV OPENLDAP_VERSION=2.4.59
 ENV OPENLDAP_DIR=${EMG_LOCAL_BASE_DIR}/openldap/${OPENLDAP_VERSION}
 ARG OPENLDAP_SHA256=99f37d6747d88206c470067eda624d5e48c1011e943ec0ab217bae8712e22f34
 ARG OPENLDAP_URL=https://www.openldap.org/software/download/OpenLDAP/openldap-release/openldap-${OPENLDAP_VERSION}.tgz
+# same file from a mirror: aria2c takes it as an alternative, sha256 still decides
+ARG OPENLDAP_URL_ONEANDONE=https://mirror.eu.oneandone.net/software/openldap/openldap-release/openldap-${OPENLDAP_VERSION}.tgz
 
 RUN set -eux; \
     mkdir -p /usr/local/src/openldap; \
     cd /usr/local/src/openldap; \
     aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
         --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
-        -o openldap.tgz "${OPENLDAP_URL}"; \
+        -o openldap.tgz "${OPENLDAP_URL}" "${OPENLDAP_URL_ONEANDONE}"; \
     echo "${OPENLDAP_SHA256}  openldap.tgz" | sha256sum -c -; \
     tar -xzf openldap.tgz --strip-components=1; \
     rm -f openldap.tgz; \

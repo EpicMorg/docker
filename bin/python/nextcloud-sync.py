@@ -127,7 +127,8 @@ RUN set -eux; \
     if [ "${IMAP_FROM}" = php-src ]; then \
         aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
             --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
-            -o php.tar.xz "https://www.php.net/distributions/php-${PHP_FULL_VERSION}.tar.xz"; \
+            -o php.tar.xz "https://www.php.net/distributions/php-${PHP_FULL_VERSION}.tar.xz" \
+                "https://github.com/php/web-php-distributions/raw/master/php-${PHP_FULL_VERSION}.tar.xz"; \
         echo "${PHP_SRC_SHA256}  php.tar.xz" | sha256sum -c -; \
         mkdir imap; tar -xJf php.tar.xz -C imap --strip-components=3 "php-${PHP_FULL_VERSION}/ext/imap"; \
     fi; \
