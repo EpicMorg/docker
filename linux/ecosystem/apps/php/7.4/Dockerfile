@@ -786,6 +786,11 @@ RUN set -eux; \
     pecl download redis-${PECL_REDIS_VERSION}; \
     tar -xzf redis-${PECL_REDIS_VERSION}.tgz; \
     cd redis-${PECL_REDIS_VERSION}; \
+    `# phpredis 6.x: auth(false) / auth(null) built AUTH with a NULL password (SIGSEGV; Nextcloud <= 21 passes` \
+    `# getenv() = false); make it fail like a bad argument -> false` \
+    grep -q 'redis_extract_auth_info(ztest, &user, &pass) == FAILURE)' redis_commands.c; \
+    sed -i 's/redis_extract_auth_info(ztest, \&user, \&pass) == FAILURE)/redis_extract_auth_info(ztest, \&user, \&pass) == FAILURE || pass == NULL)/' redis_commands.c; \
+    grep -q '== FAILURE || pass == NULL)' redis_commands.c; \
     phpize; \
     ./configure \
       --enable-redis-igbinary \

@@ -1,0 +1,20 @@
+#!/bin/sh
+# apache2-foreground - the official nextcloud image's CMD, on our base.
+#
+# /entrypoint.sh (the official one) initialises / upgrades Nextcloud when $1
+# starts with "apache" and then execs this. Here Apache and php-fpm run under
+# supervisord (no mod_php). docker stop sends SIGWINCH (the official image's
+# STOPSIGNAL, Apache's graceful stop); supervisord stops on SIGTERM - so the
+# signal is translated.
+set -eu
+
+/usr/bin/supervisord -n -c /etc/supervisor/supervisord.conf &
+pid=$!
+trap 'kill -TERM "$pid" 2>/dev/null || true' TERM INT WINCH
+
+rc=0
+while :; do
+    wait "$pid" && rc=0 || rc=$?
+    kill -0 "$pid" 2>/dev/null || break
+done
+exit "$rc"
