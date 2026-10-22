@@ -129,15 +129,19 @@ COPY --from=builder /emg-export/ /emg-export/
 
 ENV PATH="${EMG_MARIADB_DIR}/bin:${PATH}"
 
-# libnuma, perl (mysqldumpslow & co.), the libraries of the cracklib / CONNECT /
-# OQGraph plugins (libcrack2, libodbc2, Judy; none links OpenSSL), tzdata
+# libnuma, perl (mysqldumpslow & co.), tzdata, and every Debian library the
+# server / tools / plugins link - listed explicitly, not left to the base image
+# (RocksDB: snappy, lzo, lz4; CONNECT: libodbc2, libxml2; S3: libcurl; cracklib,
+# OQGraph: Judy; PAM, GSSAPI, LDAP auth plugins)
 # (tz tables on the first start), compressors for initdb.d dumps.
 # mysql = uid 999 as in library/mariadb (gid 999 is systemd-journal on our base,
 # so the group gets a free system gid); /opt/bitnami/mariadb/conf is where
 # bitnami's my_custom.cnf is mounted.
 RUN set -eux; \
     apt-get update; \
-    apt-get install -y --no-install-recommends libnuma1 perl tzdata xz-utils bzip2 zstd libcrack2 libodbc2 libjudydebian1; \
+    apt-get install -y --no-install-recommends libnuma1 perl tzdata xz-utils bzip2 zstd libcrack2 libodbc2 libjudydebian1 \
+      libsnappy1v5 liblzo2-2 liblz4-1 libzstd1 liblzma5 libbz2-1.0 zlib1g libcurl4t64 libxml2 libssl3t64 libgnutls30t64 \
+      libldap2 libsasl2-2 libgssapi-krb5-2 libpam0g libltdl7 libsystemd0 libaudit1 libcap2 libstdc++6 libatomic1; \
     rm -rf /var/lib/apt/lists/*; \
     groupadd -r mysql; \
     useradd -r -u 999 -g mysql -d /var/lib/mysql -s /usr/sbin/nologin mysql; \
