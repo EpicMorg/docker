@@ -288,6 +288,32 @@ release that still lists that PHP version.
   remains the primary mechanism. `pie` is installed on 8.1+ for forward
   compatibility.
 
+### Extensions the Debian / sury packages have (ADR-067)
+
+Added so images built on Debian's or sury's `php*-*` packages can move to these. Built from the pecl.php.net tarball
+with `phpize` (no `pecl` prompts, no PEAR client) or, for core extensions, from this PHP's own source tree
+(`php-ext-install`); none of their libraries links OpenSSL. **On by default** are only the light ones; the others are
+shipped as `.so` with a `mods-available/<ext>.ini` but **off** - turn them on in a downstream layer or on the
+container: `RUN php-enmod pspell`, or a mounted `conf.d/*.ini`.
+
+| Extension | Default | 8.5 | 8.1–8.4 | 8.0 | 7.3–7.4 | 7.1–7.2 | 7.0 | 5.3–5.6 |
+| --------- | ------- | --- | ------- | --- | ------- | ------- | --- | ------- |
+| `yaml` | on | `2.3.0` | `2.3.0` | `2.3.0` | `2.3.0` | `2.3.0` | `2.0.4` | `1.3.2` |
+| `mailparse` | on | `3.2.0` | `3.2.0` | `3.2.0` | `3.2.0` | `3.1.3` | `3.1.3` | `2.1.6` |
+| `memcache` | on | git `ac8e8c5`* | `8.2` | `8.2` | `4.0.5.2` | `4.0.5.2` | `4.0.5.2` | `2.2.7` |
+| `gnupg` | on | `1.5.4` | `1.5.4` | `1.5.4` | `1.5.4` | `1.5.4` | `1.5.4` | `1.5.4` |
+| `opentelemetry` | off | `1.4.2` | `1.4.2` | `1.1.3` | - | - | - | - |
+| `xmlrpc` | off | PECL `1.0.0RC3` | PECL `1.0.0RC3` | PECL `1.0.0RC3` | core | core | core | core |
+| `pspell` | off | PECL `1.0.1` | core (8.4: PECL `1.0.1`) | core | core | core | core | core |
+| `enchant` | off | core | core | core | - | - | - | - |
+
+\* no PECL release of `memcache` builds on 8.5 yet (`php_smart_string.h` moved); the upstream commit with the fix is
+pinned by sha256 until one ships.
+
+Not provided: `enchant` before 8.0 (needs enchant 1, gone from trixie). `ldap` and `ssh2` come next (their Debian
+libraries link the system OpenSSL - they get their own libldap / libssh2 per OpenSSL branch). `imap` is postponed
+(UW-IMAP c-client, PECL-only and deprecated from 8.4).
+
 ## Proprietary loaders
 
 Vendor binaries, no source available.

@@ -109,6 +109,10 @@ ENV PIE_VERSION="1.4.9"
 ENV PKG_CONFIG_PATH="/usr/local/share/epicmorg/openssl/1.1.1/lib/pkgconfig:/usr/local/share/epicmorg/libzip/1.11.4/openssl111/lib/pkgconfig:/usr/local/share/epicmorg/libmemcached/1.1.4/lib/pkgconfig:/usr/local/share/epicmorg/icu/67/lib/pkgconfig:/usr/local/share/epicmorg/curl/8.17.0/openssl111/lib/pkgconfig:/usr/local/share/epicmorg/libpq/16/openssl111/lib/pkgconfig:"
 ENV SSL_CERT_DIR="/etc/ssl/certs"
 ENV PEAR_VERSION="1.10.18"
+ENV PECL_YAML_VERSION="2.3.0"
+ENV PECL_MAILPARSE_VERSION="3.2.0"
+ENV PECL_MEMCACHE_VERSION="4.0.5.2"
+ENV PECL_GNUPG_VERSION="1.5.4"
 ENV PATH="${COMPOSER_HOME}/vendor/bin:${PHP_DIR}/bin:${PHP_DIR}/sbin:${PATH}"
 
 COPY --from=php /emg-export/ /

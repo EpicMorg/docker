@@ -712,6 +712,50 @@ RUN set -eux; \
     \
     rm -rf /tmp/redis-* /tmp/pear
 
+##################################################################
+#     Extensions the Debian / sury packages have (ADR-067)
+##################################################################
+# On: yaml, mailparse, memcache, gnupg. Built but off - `php-enmod <ext>` in a downstream layer or
+# on the container: xmlrpc, pspell. PECL tarballs from pecl.php.net built with
+# phpize (no pecl prompts, no PEAR client), core ones from this PHP's own source
+# tree (php-ext-install); none of the libraries links OpenSSL. Versions: the
+# newest release of each that supports this branch.
+ENV PECL_YAML_VERSION=1.3.2
+ENV PECL_MAILPARSE_VERSION=2.1.6
+ENV PECL_MEMCACHE_VERSION=2.2.7
+ENV PECL_GNUPG_VERSION=1.5.4
+RUN set -eux; \
+    export CFLAGS="${PHP_CFLAGS:-}" CPPFLAGS="${PHP_CPPFLAGS:-}" LDFLAGS="${PHP_LDFLAGS:-}"; \
+    apt-get update; \
+    apt-get install -y --no-install-recommends libyaml-dev libgpgme-dev libpspell-dev; \
+    rm -rf /var/lib/apt/lists/*; \
+    pecl_build() { \
+      pkg="$1"; shift; \
+      aria2c \
+        --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -d /tmp -o "${pkg}.tgz" "https://pecl.php.net/get/${pkg}.tgz"; \
+      mkdir -p "/tmp/${pkg}"; \
+      tar -xzf "/tmp/${pkg}.tgz" -C "/tmp/${pkg}" --strip-components=1; \
+      (cd "/tmp/${pkg}" && phpize && ./configure "$@" && make -j"$(nproc)" && make install); \
+      rm -rf "/tmp/${pkg}" "/tmp/${pkg}.tgz"; \
+    }; \
+    pecl_build yaml-${PECL_YAML_VERSION}; php-ext-enable yaml; \
+    pecl_build mailparse-${PECL_MAILPARSE_VERSION}; php-ext-enable --priority 30 mailparse; \
+    pecl_build memcache-${PECL_MEMCACHE_VERSION}; php-ext-enable memcache; \
+    pecl_build gnupg-${PECL_GNUPG_VERSION}; php-ext-enable gnupg; \
+    php-ext-install -j"$(nproc)" xmlrpc; php-dismod xmlrpc; \
+    php-ext-install -j"$(nproc)" pspell; php-dismod pspell; \
+    extDir="$(php-config --extension-dir)"; \
+    for e in yaml mailparse memcache gnupg; do php -m | grep -qix "$e" || { echo "FATAL: $e not loaded" >&2; exit 1; }; done; \
+    for e in xmlrpc pspell; do \
+      test -f "$extDir/$e.so" || { echo "FATAL: $e.so missing" >&2; exit 1; }; \
+      ! php -m | grep -qix "$e" || { echo "FATAL: $e is on by default" >&2; exit 1; }; \
+      php -d "extension=$e.so" -m 2>&1 | grep -qix "$e" || { echo "FATAL: $e.so does not load" >&2; php -d "extension=$e.so" -m 2>&1 | tail -3 >&2; exit 1; }; \
+      if ldd "$extDir/$e.so" | grep -q 'not found'; then echo "FATAL: $e.so has unresolved deps" >&2; exit 1; fi; \
+    done; \
+    rm -rf /tmp/pear
+
 # Assert the serializers actually got compiled in, not just loaded.
 RUN set -eu; \
     echo "--- PECL serializer support ---"; \
