@@ -442,6 +442,7 @@ ecosystem-images:
 	make ecosystem-rabbitmq-images
 	make ecosystem-mysql-images
 	make ecosystem-mariadb-images
+	make ecosystem-freeradius-images
 	make ecosystem-mongo-images
 	make ecosystem-teamcity-agent-images
 	make ecosystem-gitlab-runner-images
@@ -636,6 +637,10 @@ ecosystem-erlang-images:
 	cd `pwd`/linux/ecosystem/apps/erlang/27    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/erlang/28    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/erlang/29    && pwd && make build && make deploy
+
+ecosystem-freeradius-images:
+	cd `pwd`/linux/ecosystem/apps/freeradius/3.0    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/freeradius/3.2    && pwd && make build && make deploy
 
 ecosystem-mariadb-images:
 	cd `pwd`/linux/ecosystem/apps/mariadb/5.5    && pwd && make build && make deploy

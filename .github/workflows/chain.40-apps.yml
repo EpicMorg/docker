@@ -34,6 +34,7 @@ jobs:
       rabbitmq: ${{ steps.list.outputs.rabbitmq }}
       mysql: ${{ steps.list.outputs.mysql }}
       mariadb: ${{ steps.list.outputs.mariadb }}
+      freeradius: ${{ steps.list.outputs.freeradius }}
       postgres: ${{ steps.list.outputs.postgres }}
       postgres-patroni: ${{ steps.list.outputs.postgres-patroni }}
       qbittorrent: ${{ steps.list.outputs.qbittorrent }}
@@ -57,6 +58,7 @@ jobs:
           linux/ecosystem/apps/rabbitmq
           linux/ecosystem/apps/mysql
           linux/ecosystem/apps/mariadb
+          linux/ecosystem/apps/freeradius
           linux/ecosystem/apps/postgres
           linux/ecosystem/apps/postgres-patroni
           linux/ecosystem/apps/qbittorrent
@@ -92,6 +94,7 @@ jobs:
         emit rabbitmq flat linux/ecosystem/apps/rabbitmq --min 1 --max 1
         emit mysql flat linux/ecosystem/apps/mysql --min 1 --max 1
         emit mariadb flat linux/ecosystem/apps/mariadb --min 1 --max 1
+        emit freeradius flat linux/ecosystem/apps/freeradius --min 1 --max 1
         emit postgres flat linux/ecosystem/apps/postgres --min 1 --max 1
         emit postgres-patroni flat linux/ecosystem/apps/postgres-patroni --min 1 --max 1
         emit qbittorrent flat linux/ecosystem/apps/qbittorrent --min 1 --max 1
@@ -242,6 +245,21 @@ jobs:
       fail-fast: false
       matrix:
         leaf: ${{ fromJSON(needs.list.outputs.mariadb) }}
+    uses: ./.github/workflows/_build-leaf.yml
+    secrets: inherit
+    with:
+      paths: ${{ matrix.leaf.paths }}
+      free-disk: true
+
+  # freeradius/<ver>: FROM epicmorg/gcc:14 AS builder -> trixie (Debian OpenSSL + module libs); freeradius/freeradius-server drop-in
+  freeradius:
+    name: ${{ matrix.leaf.name }}
+    needs: list
+    if: needs.list.outputs.freeradius != '[]'
+    strategy:
+      fail-fast: false
+      matrix:
+        leaf: ${{ fromJSON(needs.list.outputs.freeradius) }}
     uses: ./.github/workflows/_build-leaf.yml
     secrets: inherit
     with:
