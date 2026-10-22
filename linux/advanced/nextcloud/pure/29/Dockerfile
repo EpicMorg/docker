@@ -35,6 +35,9 @@ RUN rm -rfv /etc/locale.gen
 
 COPY etc/apt /etc/apt
 COPY usr /usr
+# aria2 config + user agents for the downloads below (same files as our base images)
+COPY --from=ghcr.io/epicmorg/debian:trixie-light /usr/local/share/epicmorg/aria2 /usr/local/share/epicmorg/aria2
+COPY --from=ghcr.io/epicmorg/debian:trixie-light /usr/local/share/epicmorg/user-agents /usr/local/share/epicmorg/user-agents
 RUN update-ca-certificates --fresh
 
 ##################################################################
@@ -71,8 +74,17 @@ RUN apt-get update -y && \
         pkg-config \
         libsqlite3-dev \
         libssl-dev && \
-    pecl channel-update pecl.php.net && \
-    pecl install inotify smbclient && \
+    # PECL packages from pinned tarballs: pecl.php.net REST is flaky ("No releases available")
+    # and old PEARs cannot read its chunked responses
+    for p in inotify-3.0.1:fbb7240abae502ea8f4b3c68264c6425fb46647402a8f93916482845394ad124 \
+             smbclient-1.2.0dev:b9dd55c0334f5393ae97dfc6248e09380ff38425f865a9ee580577ca645a2575; do \
+        n="${p%%:*}"; \
+        aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+            --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+            -d /tmp -o "$n.tgz" "https://pecl.php.net/get/$n.tgz" && \
+        echo "${p#*:}  /tmp/$n.tgz" | sha256sum -c - && \
+        pecl install "/tmp/$n.tgz" || exit 1; \
+    done && \
     docker-php-ext-configure imap --with-kerberos --with-imap-ssl && \
     docker-php-ext-install imap fileinfo bz2 intl ftp pdo_sqlite && \
     docker-php-ext-enable inotify smbclient imap fileinfo bz2 intl ftp pdo_sqlite && \
