@@ -109,9 +109,8 @@ LDAP_ACCESSLOG_ADMIN_DN="cn=${LDAP_ACCESSLOG_ADMIN_USERNAME},${LDAP_ACCESSLOG_DB
 # ---- root: hand the volume over to slapd, re-exec as it ---------------------
 if [ "$(id -u)" = 0 ]; then
     mkdir -p "$LDAP_DATA_DIR" "$LDAP_ONLINE_CONF_DIR" "$LDAP_RUN_DIR"
-    for d in "$LDAP_VOLUME_DIR" "$LDAP_RUN_DIR"; do
-        [ "$(stat -c %u "$d")" = 1001 ] || chown -R slapd:root "$d"
-    done
+    # everything below the volume (the subdirectories just created are root's)
+    find "$LDAP_VOLUME_DIR" "$LDAP_RUN_DIR" \! -user slapd -exec chown slapd:root '{}' + 2>/dev/null || true
     export LDAP_VOLUME_DIR
     exec gosu slapd "${BASH_SOURCE[0]}" slapd "$@"
 fi
