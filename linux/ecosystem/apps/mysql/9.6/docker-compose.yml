@@ -1,0 +1,13 @@
+services:
+  app:
+    image: "epicmorg/mysql:9.6"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/mysql:9.6
+      - ghcr.io/epicmorg/mysql:9.6
+      - docker.io/epicmorg/mysql:9.6
+      - quay.io/epicmorg/mysql:9.6.0
+      - ghcr.io/epicmorg/mysql:9.6.0
+      - docker.io/epicmorg/mysql:9.6.0

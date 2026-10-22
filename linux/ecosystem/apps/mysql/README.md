@@ -3,7 +3,8 @@
 
 MySQL from Oracle's generic Linux tarballs (GPG signature checked with the MySQL Release Engineering keys) on
 Debian 13 `trixie`, one tag per release line at its newest patch: the legacy `5.6` / `5.7`, `8.0`, the LTS lines
-`8.4` and `9.7`, and the current Innovation release. The entrypoint is a **drop-in for `library/mysql`**
+`8.4` and `9.7`, the current Innovation release, and the ended Innovation releases `8.1` - `8.3`, `9.0` - `9.6` at
+their final patch (their tags are in use). The entrypoint is a **drop-in for `library/mysql`**
 (`MYSQL_ROOT_PASSWORD` & co., `/var/lib/mysql`, `/etc/mysql/conf.d`, `/docker-entrypoint-initdb.d`, uid `999`) and
 understands the **`bitnami/mysql`** variables too (`MYSQL_ROOT_USER`, `ALLOW_EMPTY_PASSWORD`, character set,
 replication, `/bitnami/mysql`, `my_custom.cnf`). MySQL itself is not built from source (CMake + Boost, hours per
@@ -15,7 +16,9 @@ line); what is ours: the base, the libraries trixie lacks, the entrypoint and th
 | ---- | ------- | --- |
 | `26.10` (`26`, `innovation`, `latest`) | glibc2.28 minimal | MySQL's own OpenSSL 3 (`lib/private`) |
 | `9.7` (`9`, `lts`) | glibc2.28 minimal | MySQL's own OpenSSL 3 |
+| `9.0` - `9.6` | glibc2.28 (9.3+ minimal) | MySQL's own OpenSSL 3 |
 | `8.4` (`8`) | glibc2.28 minimal | MySQL's own OpenSSL 3 |
+| `8.1` - `8.3` | glibc2.28 (pruned) | MySQL's own OpenSSL 3 |
 | `8.0` | glibc2.28 (pruned) | MySQL's own OpenSSL 3 |
 | `5.7` (`5`) | glibc2.12 (pruned) | linked in statically |
 | `5.6` | glibc2.12 (pruned) | yaSSL, linked in statically |
@@ -73,7 +76,17 @@ any other command (`mysql`, `mysqldump`, `bash`) runs as is. A mounted `/bitnami
 | `5.6`, `5.6.51` | [`5.6`](5.6/Dockerfile) |
 | `5.7`, `5.7.44`, `5` | [`5.7`](5.7/Dockerfile) |
 | `8.0`, `8.0.46` | [`8.0`](8.0/Dockerfile) |
+| `8.1`, `8.1.0` | [`8.1`](8.1/Dockerfile) |
+| `8.2`, `8.2.0` | [`8.2`](8.2/Dockerfile) |
+| `8.3`, `8.3.0` | [`8.3`](8.3/Dockerfile) |
 | `8.4`, `8.4.13`, `8` | [`8.4`](8.4/Dockerfile) |
+| `9.0`, `9.0.1` | [`9.0`](9.0/Dockerfile) |
+| `9.1`, `9.1.0` | [`9.1`](9.1/Dockerfile) |
+| `9.2`, `9.2.0` | [`9.2`](9.2/Dockerfile) |
+| `9.3`, `9.3.0` | [`9.3`](9.3/Dockerfile) |
+| `9.4`, `9.4.0` | [`9.4`](9.4/Dockerfile) |
+| `9.5`, `9.5.0` | [`9.5`](9.5/Dockerfile) |
+| `9.6`, `9.6.0` | [`9.6`](9.6/Dockerfile) |
 | `9.7`, `9.7.4`, `9`, `lts` | [`9.7`](9.7/Dockerfile) |
 | `26.10`, `26.10.0`, `26`, `innovation`, `latest` | [`26.10`](26.10/Dockerfile) |
 
@@ -107,7 +120,8 @@ secrets:
 
 * 5.6, 5.7 and 8.0 are end-of-life upstream; they are here for data that has to be read or migrated. Upgrade a
   datadir one line at a time (5.6 -> 5.7 -> 8.0 -> 8.4 -> 9.7).
-* An Innovation release is supported until the next one; its tag moves with it, the old line is dropped.
+* An Innovation release is supported until the next one; `latest` / `innovation` move on, the ended line keeps its
+  tag at its final patch (not rebuilt from newer sources - there are none).
 * Licences: MySQL Community Server is GPLv2 (with the FOSS exception); the image recipe is MIT.
 
 Folders are written by `bin/python/mysql-versions-sync.py`.

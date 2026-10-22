@@ -5,6 +5,8 @@ MySQL from Oracle's generic Linux tarballs (vendor binaries, like mongo):
   5.6, 5.7      final releases, glibc2.12 .tar.gz from the archives
   8.0           glibc2.28 .tar.xz (full; pruned in the image)
   8.4, 9.7      LTS lines, glibc2.28 -minimal .tar.xz
+  8.1-8.3, 9.0-9.6  ended Innovation releases at their final patch (archives; the
+                tags are in use - e.g. the private project's former library-based mysql)
   <yy.mm>       the current Innovation release (calendar versions since 2026),
                 found on the downloads page; an older Innovation leaf is reported
                 for removal (Innovation releases are supported until the next one)
@@ -38,7 +40,18 @@ LINES = {
     '5.6': ('archives/mysql-5.6', 'mysql-%s-linux-glibc2.12-x86_64.tar.gz', '5.6.51'),
     '5.7': ('archives/mysql-5.7', 'mysql-%s-linux-glibc2.12-x86_64.tar.gz', '5.7.44'),
     '8.0': ('Downloads/MySQL-8.0', 'mysql-%s-linux-glibc2.28-x86_64.tar.xz', None),
+    # ended Innovation releases (final patch each, archives): kept for the tags people use
+    '8.1': ('archives/mysql-8.1', 'mysql-%s-linux-glibc2.28-x86_64.tar.xz', '8.1.0'),
+    '8.2': ('archives/mysql-8.2', 'mysql-%s-linux-glibc2.28-x86_64.tar.xz', '8.2.0'),
+    '8.3': ('archives/mysql-8.3', 'mysql-%s-linux-glibc2.28-x86_64.tar.xz', '8.3.0'),
     '8.4': ('Downloads/MySQL-8.4', 'mysql-%s-linux-glibc2.28-x86_64-minimal.tar.xz', None),
+    '9.0': ('archives/mysql-9.0', 'mysql-%s-linux-glibc2.28-x86_64.tar.xz', '9.0.1'),
+    '9.1': ('archives/mysql-9.1', 'mysql-%s-linux-glibc2.28-x86_64.tar.xz', '9.1.0'),
+    '9.2': ('archives/mysql-9.2', 'mysql-%s-linux-glibc2.28-x86_64.tar.xz', '9.2.0'),
+    '9.3': ('archives/mysql-9.3', 'mysql-%s-linux-glibc2.28-x86_64-minimal.tar.xz', '9.3.0'),
+    '9.4': ('archives/mysql-9.4', 'mysql-%s-linux-glibc2.28-x86_64-minimal.tar.xz', '9.4.0'),
+    '9.5': ('archives/mysql-9.5', 'mysql-%s-linux-glibc2.28-x86_64-minimal.tar.xz', '9.5.0'),
+    '9.6': ('archives/mysql-9.6', 'mysql-%s-linux-glibc2.28-x86_64-minimal.tar.xz', '9.6.0'),
     '9.7': ('Downloads/MySQL-9.7', 'mysql-%s-linux-glibc2.28-x86_64-minimal.tar.xz', None),
 }
 INNOVATION = ('Downloads/MySQL-%s', 'mysql-%s-linux-glibc2.28-x86_64-minimal.tar.xz')

@@ -127,14 +127,16 @@ COPY --from=builder /emg-export/ /emg-export/
 
 ENV PATH="${EMG_MYSQL_DIR}/bin:${PATH}"
 
-# libnuma (mysqld), perl (5.6 mysql_install_db, mysqldumpslow), tzdata
+# libnuma (mysqld) and the other Debian libraries the binaries link (explicit, not
+# left to the base image), perl (5.6 mysql_install_db, mysqldumpslow), tzdata
 # (tz tables on the first start), compressors for initdb.d dumps.
 # mysql = uid 999 as in library/mysql (gid 999 is systemd-journal on our base,
 # so the group gets a free system gid); /opt/bitnami/mysql/conf is where
 # bitnami's my_custom.cnf is mounted.
 RUN set -eux; \
     apt-get update; \
-    apt-get install -y --no-install-recommends libnuma1 perl tzdata xz-utils bzip2 zstd; \
+    apt-get install -y --no-install-recommends libnuma1 perl tzdata xz-utils bzip2 zstd \
+      libncurses6 libtinfo6 libudev1 libcap2 libkeyutils1 libstdc++6; \
     rm -rf /var/lib/apt/lists/*; \
     groupadd -r mysql; \
     useradd -r -u 999 -g mysql -d /var/lib/mysql -s /usr/sbin/nologin mysql; \
