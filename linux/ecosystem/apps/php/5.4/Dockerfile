@@ -711,6 +711,116 @@ RUN set -eux; \
     pecl_build timezonedb-${PECL_TIMEZONEDB_VERSION}; \
     php-ext-enable --priority 30 timezonedb
 
+##################################################################
+#     Extensions the Debian / sury packages have (ADR-067)
+##################################################################
+# On: yaml, mailparse, memcache, gnupg. Built but off - `php-enmod <ext>` in a downstream layer or
+# on the container: xmlrpc, pspell. PECL tarballs from pecl.php.net built with
+# phpize (no pecl prompts, no PEAR client), core ones from this PHP's own source
+# tree (php-ext-install); none of the libraries links OpenSSL. Versions: the
+# newest release of each that supports this branch.
+ENV PECL_YAML_VERSION=1.3.2
+ENV PECL_MAILPARSE_VERSION=2.1.6
+ENV PECL_MEMCACHE_VERSION=2.2.7
+ENV PECL_GNUPG_VERSION=1.5.4
+RUN set -eux; \
+    export CFLAGS="${PHP_CFLAGS:-}" CPPFLAGS="${PHP_CPPFLAGS:-}" LDFLAGS="${PHP_LDFLAGS:-}"; \
+    apt-get update; \
+    apt-get install -y --no-install-recommends libyaml-dev libgpgme-dev libpspell-dev; \
+    rm -rf /var/lib/apt/lists/*; \
+    pecl_build() { \
+      pkg="$1"; shift; \
+      aria2c \
+        --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
+        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
+        -d /tmp -o "${pkg}.tgz" "https://pecl.php.net/get/${pkg}.tgz"; \
+      mkdir -p "/tmp/${pkg}"; \
+      tar -xzf "/tmp/${pkg}.tgz" -C "/tmp/${pkg}" --strip-components=1; \
+      (cd "/tmp/${pkg}" && phpize && ./configure "$@" && make -j"$(nproc)" && make install); \
+      rm -rf "/tmp/${pkg}" "/tmp/${pkg}.tgz"; \
+    }; \
+    pecl_build yaml-${PECL_YAML_VERSION}; php-ext-enable yaml; \
+    pecl_build mailparse-${PECL_MAILPARSE_VERSION}; php-ext-enable --priority 30 mailparse; \
+    pecl_build memcache-${PECL_MEMCACHE_VERSION}; php-ext-enable memcache; \
+    pecl_build gnupg-${PECL_GNUPG_VERSION}; php-ext-enable gnupg; \
+    php-ext-install -j"$(nproc)" xmlrpc; php-dismod xmlrpc; \
+    php-ext-install -j"$(nproc)" pspell; php-dismod pspell; \
+    extDir="$(php-config --extension-dir)"; \
+    for e in yaml mailparse memcache gnupg; do php -m | grep -qix "$e" || { echo "FATAL: $e not loaded" >&2; exit 1; }; done; \
+    for e in xmlrpc pspell; do \
+      test -f "$extDir/$e.so" || { echo "FATAL: $e.so missing" >&2; exit 1; }; \
+      ! php -m | grep -qix "$e" || { echo "FATAL: $e is on by default" >&2; exit 1; }; \
+      php -d "extension=$e.so" -m 2>&1 | grep -qix "$e" || { echo "FATAL: $e.so does not load" >&2; php -d "extension=$e.so" -m 2>&1 | tail -3 >&2; exit 1; }; \
+      if ldd "$extDir/$e.so" | grep -q 'not found'; then echo "FATAL: $e.so has unresolved deps" >&2; exit 1; fi; \
+    done; \
+    rm -rf /tmp/pear
+
+##################################################################
+#   ldap + ssh2 on this PHP's own OpenSSL (ADR-067, both off)
+##################################################################
+# Debian's libldap / libsasl2 / libssh2 link the system libssl3 - a second
+# OpenSSL in php. Built here against PHP_SSL_DIR (OpenSSL 1.0.2) with a real RPATH:
+# Cyrus SASL 2.1.28, the OpenLDAP 2.4.59 client libraries, libssh2 1.11.1
+# (signature checked once, sha256 pinned). ldap from the source tree, ssh2
+# from PECL; both shipped off - `php-enmod ldap` / `php-enmod ssh2`.
+ENV EMG_PHP_SASL_DIR=${EMG_LOCAL_BASE_DIR}/cyrus-sasl/2.1.28/openssl102
+ENV EMG_PHP_LDAP_DIR=${EMG_LOCAL_BASE_DIR}/openldap/2.4.59/openssl102
+ENV EMG_PHP_SSH2_DIR=${EMG_LOCAL_BASE_DIR}/libssh2/1.11.1/openssl102
+ENV PECL_SSH2_VERSION=0.13
+ARG EMG_PHP_SASL_URL=https://github.com/cyrusimap/cyrus-sasl/releases/download/cyrus-sasl-2.1.28/cyrus-sasl-2.1.28.tar.gz
+ARG EMG_PHP_SASL_SHA256=7ccfc6abd01ed67c1a0924b353e526f1b766b21f42d4562ee635a8ebfc5bb38c
+ARG EMG_PHP_LDAP_URL=https://www.openldap.org/software/download/OpenLDAP/openldap-release/openldap-2.4.59.tgz
+ARG EMG_PHP_LDAP_SHA256=99f37d6747d88206c470067eda624d5e48c1011e943ec0ab217bae8712e22f34
+ARG EMG_PHP_SSH2_URL=https://github.com/libssh2/libssh2/releases/download/libssh2-1.11.1/libssh2-1.11.1.tar.gz
+ARG EMG_PHP_SSH2_SHA256=d9ec76cbe34db98eec3539fe2c899d26b0c837cb3eb466a56b0f109cabf658f7
+RUN set -eux; \
+    ssl="${PHP_SSL_DIR}"; ssllib="${PHP_SSL_LIB_DIR}"; \
+    test -f "$ssl/include/openssl/ssl.h" -a -d "$ssllib"; \
+    fetch() { curl -fsSL -o "/tmp/$1.tgz" "$2"; echo "$3  /tmp/$1.tgz" | sha256sum -c -; \
+      rm -rf "/tmp/$1"; mkdir -p "/tmp/$1"; tar -xzf "/tmp/$1.tgz" -C "/tmp/$1" --strip-components=1; rm -f "/tmp/$1.tgz"; }; \
+    fetch sasl "${EMG_PHP_SASL_URL}" "${EMG_PHP_SASL_SHA256}"; \
+    (cd /tmp/sasl && CFLAGS="-O2 -g0 -Wno-error=implicit-function-declaration" CPPFLAGS="-I$ssl/include" \
+      LDFLAGS="-L$ssllib -Wl,-rpath,$ssllib:${EMG_PHP_SASL_DIR}/lib -Wl,--disable-new-dtags" \
+      ./configure --prefix="${EMG_PHP_SASL_DIR}" --with-openssl="$ssl" \
+        --disable-gssapi --disable-otp --disable-krb4 --disable-sql --disable-ldapdb --without-saslauthd \
+        --without-authdaemond --without-pwcheck --disable-sample --disable-static \
+        --with-plugindir="${EMG_PHP_SASL_DIR}/lib/sasl2" --with-configdir="${EMG_PHP_SASL_DIR}/lib/sasl2:/etc/sasl2" \
+      && make -j"$(nproc)" && make install); \
+    fetch ldap "${EMG_PHP_LDAP_URL}" "${EMG_PHP_LDAP_SHA256}"; \
+    (cd /tmp/ldap && CFLAGS="-O2 -g0 -Wno-error=implicit-function-declaration -Wno-error=implicit-int -Wno-error=incompatible-pointer-types -Wno-error=int-conversion" \
+      CPPFLAGS="-I$ssl/include -I${EMG_PHP_SASL_DIR}/include" \
+      LDFLAGS="-L$ssllib -L${EMG_PHP_SASL_DIR}/lib -Wl,-rpath,$ssllib:${EMG_PHP_SASL_DIR}/lib:${EMG_PHP_LDAP_DIR}/lib -Wl,--disable-new-dtags" \
+      ./configure --prefix="${EMG_PHP_LDAP_DIR}" --disable-slapd --disable-static --with-tls=openssl --with-cyrus-sasl --sysconfdir=/etc \
+      && make -j"$(nproc)" depend && make -j"$(nproc)" && make install); \
+    fetch ssh2lib "${EMG_PHP_SSH2_URL}" "${EMG_PHP_SSH2_SHA256}"; \
+    (cd /tmp/ssh2lib && CFLAGS="-O2 -g0" LDFLAGS="-L$ssllib -Wl,-rpath,$ssllib:${EMG_PHP_SSH2_DIR}/lib -Wl,--disable-new-dtags" \
+      ./configure --prefix="${EMG_PHP_SSH2_DIR}" --with-crypto=openssl --with-libssl-prefix="$ssl" --disable-static --disable-examples-build \
+      && make -j"$(nproc)" && make install); \
+    find "${EMG_PHP_SASL_DIR}" "${EMG_PHP_LDAP_DIR}" "${EMG_PHP_SSH2_DIR}" -name '*.la' -delete; \
+    rm -rf "${EMG_PHP_LDAP_DIR}/share/man" "${EMG_PHP_SSH2_DIR}/share/man" /tmp/sasl /tmp/ldap /tmp/ssh2lib; \
+    rp="$ssllib:${EMG_PHP_SASL_DIR}/lib:${EMG_PHP_LDAP_DIR}/lib:${EMG_PHP_SSH2_DIR}/lib"; \
+    export CFLAGS="${PHP_CFLAGS:-}" CPPFLAGS="${PHP_CPPFLAGS:-}" LDFLAGS="${PHP_LDFLAGS:-} -L${EMG_PHP_LDAP_DIR}/lib -L${EMG_PHP_SASL_DIR}/lib -L${EMG_PHP_SSH2_DIR}/lib -Wl,-rpath,$rp"; \
+    export PKG_CONFIG_PATH="${EMG_PHP_SASL_DIR}/lib/pkgconfig:${EMG_PHP_LDAP_DIR}/lib/pkgconfig:${EMG_PHP_SSH2_DIR}/lib/pkgconfig:${PKG_CONFIG_PATH:-}"; \
+    php-ext-configure ldap --with-ldap="${EMG_PHP_LDAP_DIR}" --with-ldap-sasl="${EMG_PHP_SASL_DIR}"; \
+    php-ext-install -j"$(nproc)" ldap; php-dismod ldap; \
+    curl -fsSL -o /tmp/ssh2.tgz "https://pecl.php.net/get/ssh2-${PECL_SSH2_VERSION}.tgz"; \
+    mkdir -p /tmp/ssh2; tar -xzf /tmp/ssh2.tgz -C /tmp/ssh2 --strip-components=1; \
+    (cd /tmp/ssh2 && phpize && ./configure --with-ssh2="${EMG_PHP_SSH2_DIR}" && make -j"$(nproc)" && make install); \
+    rm -rf /tmp/ssh2 /tmp/ssh2.tgz; \
+    php-ext-enable ssh2; php-dismod ssh2; \
+    extDir="$(php-config --extension-dir)"; \
+    for e in ldap ssh2; do \
+      test -f "$extDir/$e.so" || { echo "FATAL: $e.so missing" >&2; exit 1; }; \
+      ! php -m | grep -qix "$e" || { echo "FATAL: $e is on by default" >&2; exit 1; }; \
+      php -d "extension=$e.so" -m 2>&1 | grep -qix "$e" || { echo "FATAL: $e.so does not load" >&2; php -d "extension=$e.so" -m 2>&1 | tail -3 >&2; exit 1; }; \
+      if ldd "$extDir/$e.so" | grep -q 'not found'; then echo "FATAL: $e.so has unresolved deps" >&2; exit 1; fi; \
+      [ "$(ldd "$extDir/$e.so" | grep -c 'libssl\.so' || true)" -le 1 ] || { echo "FATAL: more than one libssl in $e.so" >&2; ldd "$extDir/$e.so" >&2; exit 1; }; \
+      ! ldd "$extDir/$e.so" | awk '$1 ~ /^lib(ssl|crypto)\.so/ {print $3}' | grep -vq "^$ssllib/" \
+        || { echo "FATAL: $e.so: OpenSSL is not PHP's ($ssllib)" >&2; ldd "$extDir/$e.so" >&2; exit 1; }; \
+    done; \
+    php -d extension=ldap.so -r 'exit(function_exists("ldap_sasl_bind") ? 0 : 1);' || { echo "FATAL: ldap without SASL" >&2; exit 1; }; \
+    php -d extension=ssh2.so -r 'exit(function_exists("ssh2_connect") ? 0 : 1);' || { echo "FATAL: ssh2 broken" >&2; exit 1; }
+
 # Assert the serializers actually got compiled in, not just loaded.
 RUN set -eu; \
     echo "--- PECL serializer support ---"; \
