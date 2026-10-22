@@ -2,6 +2,8 @@
 
 ## 2026
 * `oct` — next (unreleased)
+  * Atlassian releases: `jira` 9.12.40, 10.3.26, 11.3.12 (`latest`); `confluence` 9.2.26, 10.2.19; `bitbucket` 9.4.26, 10.2.8, 10.5.1 (`latest`); `crowd` 6.3.7, 7.0.3, 7.1.7, 7.2.4 (`latest`); `fisheye-crucible` 4.9.15 (`latest`); `bamboo` 10.2.24, 12.1.12 (`latest`)
+  * **new** `confluence` 11 (`11.0.0`, `latest`) on `epicmorg/jdk:25` - Java 25 is the only JDK Atlassian supports for 11.0; workflow `atlassian.confluence.11.yml`
   * downloads with a pinned sha256 also try byte-identical mirrors (aria2c alternatives for the same file, sha256 still decides): `php` tarball (and nextcloud's php-src for imap) from `github.com/php/web-php-distributions`, OpenLDAP (`openldap`, php ldap, mongo, testrail auth) from `mirror.eu.oneandone.net`, ncurses (mysql / mariadb) from `mirrors.kernel.org/gnu` and `invisible-island.net`, MySQL from `downloads.mysql.com/archives` (where a release moves once superseded); php's `fetch` takes extra URIs; generators (mongo, nextcloud, testrail template) carry them
   * `git` (all lines): the source tarball also from `cdn.kernel.org` and `mirrors.mit.edu` (aria2c alternatives for the same file, sha256 unchanged) - `mirrors.edge.kernel.org` timed out on CI runners (2.7, 2.48 failed)
   * `bitbucket` (all tags): git is `epicmorg/git:<line>` pinned per Bitbucket major.minor(.patch) to the newest line Atlassian's "Supported platforms" page lists for it (e.g. 5.16 → 2.19, 7.21.0–8 → 2.35, 7.21.9+ → 2.39, 8.9.21+ → 2.47, 8.19.21+ / 9.4.9+ / 10.x → 2.50; known-bad 2.48, 2.51–2.53 skipped) instead of the base's newest git; table `bitbucket_git` in `bin/ansible/roles/atlassian.bitbucket/vars/main.yml`, a minor missing there fails the generation
