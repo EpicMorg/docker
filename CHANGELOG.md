@@ -2,6 +2,8 @@
 
 ## 2026
 * `oct` — next (unreleased)
+  * `rabbitmq`: the Erlang cookie is created / chowned for `rabbitmq` before the node starts and the HEALTHCHECK runs the CLI as `rabbitmq` - an early root CLI call left a root-owned cookie (node died with eacces)
+  * `mysql`: the ended Innovation lines `8.1`–`8.3`, `9.0`–`9.6` at their final patch; every Debian runtime library listed explicitly; `openldap`: first start as root on an empty `/data`; `mariadb`: runtime libraries (RocksDB snappy & co.) listed explicitly
   * **new** `epicmorg/vault:<major.minor>` — HashiCorp Vault `1.13`–`2.2` (`1` = 1.21, `2` / `latest` = 2.2; Community Edition release binaries, signature-checked SHA256SUMS) on trixie; entrypoint is a drop-in for `hashicorp/vault`; job `vault` in the apps chain; generator `bin/python/vault-versions-sync.py`
   * **new** `epicmorg/freeradius:<major.minor>` — FreeRADIUS `3.0` and `3.2` (`3`, `latest`) from source on trixie (GPG-verified tarballs), SQL / LDAP / REST / Redis / Perl / Python 3 / EAP modules on Debian's OpenSSL; drop-in for `freeradius/freeradius-server` (`/etc/freeradius`, `/etc/raddb`, `freeradius -f`); job `freeradius` in the apps chain; generator `bin/python/freeradius-versions-sync.py`
   * `amxx-sdk` agents / runners (1.9, 1.10): amxmodx.org/amxxdrop is gone (404) - the base package comes from the alliedmodders/amxmodx GitHub releases, pinned with sha256 (1.9.0.5303, 1.10.0.5487)

@@ -1,0 +1,13 @@
+services:
+  app:
+    image: "epicmorg/mysql:8.1"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/mysql:8.1
+      - ghcr.io/epicmorg/mysql:8.1
+      - docker.io/epicmorg/mysql:8.1
+      - quay.io/epicmorg/mysql:8.1.0
+      - ghcr.io/epicmorg/mysql:8.1.0
+      - docker.io/epicmorg/mysql:8.1.0

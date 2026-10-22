@@ -29,6 +29,16 @@ if [[ "${1:-}" == rabbitmq* ]] && [ "$(id -u)" = 0 ]; then
         [ -n "${RABBITMQ_MNESIA_BASE:-}" ] && mkdir -p "$RABBITMQ_MNESIA_BASE" && dirs+=("$RABBITMQ_MNESIA_BASE")
         [ -n "${HOME:-}" ] && [ -d "$HOME" ] && dirs+=("$HOME")
         find "${dirs[@]}" \! -user rabbitmq -exec chown rabbitmq '{}' + 2>/dev/null || true
+        # the cookie must exist and be rabbitmq's before anything else touches it: a root
+        # CLI (an early HEALTHCHECK, docker exec) would create $HOME/.erlang.cookie as
+        # root 0400 and the node could not read it
+        cf="${HOME:-/var/lib/rabbitmq}/.erlang.cookie"
+        if [ ! -e "$cf" ]; then
+            c="${RABBITMQ_ERL_COOKIE:-${RABBITMQ_ERLANG_COOKIE:-}}"
+            [ -n "$c" ] || c="$(head -c 256 /dev/urandom | tr -dc A-Za-z0-9 | head -c 32)"
+            printf '%s' "$c" > "$cf"
+        fi
+        chown rabbitmq:rabbitmq "$cf"; chmod 400 "$cf"
     fi
     exec gosu rabbitmq "${BASH_SOURCE[0]}" "$@"
 fi

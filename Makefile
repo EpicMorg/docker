@@ -676,7 +676,17 @@ ecosystem-mysql-images:
 	cd `pwd`/linux/ecosystem/apps/mysql/5.6    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/mysql/5.7    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/mysql/8.0    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/mysql/8.1    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/mysql/8.2    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/mysql/8.3    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/mysql/8.4    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/mysql/9.0    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/mysql/9.1    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/mysql/9.2    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/mysql/9.3    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/mysql/9.4    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/mysql/9.5    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/mysql/9.6    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/mysql/9.7    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/mysql/26.10    && pwd && make build && make deploy
 

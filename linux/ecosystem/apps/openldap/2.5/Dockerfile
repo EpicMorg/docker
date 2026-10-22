@@ -254,6 +254,13 @@ RUN set -eu; \
     grep -q 'Using persisted data' "$t/log" || { echo "FATAL: second start re-initialised" >&2; cat "$t/log" >&2; exit 1; }; \
     pid="$(cat /var/lib/openldap/run/slapd.pid)"; kill "$pid"; for i in $(seq 1 30); do [ -e "/proc/$pid" ] || break; sleep 0.5; done; \
     if LDAP_VOLUME_DIR="$t/vol2" docker-entrypoint.sh >/dev/null 2>&1; then echo "FATAL: started without LDAP_ADMIN_PASSWORD" >&2; exit 1; fi; \
+    echo "--- first start as root on the image's own empty /data ---"; \
+    LDAP_ADMIN_PASSWORD=smoke LDAP_ROOT=dc=smoke,dc=test LDAP_PORT_NUMBER="$p" LDAP_ENABLE_TLS=no \
+      docker-entrypoint.sh > "$t/data.log" 2>&1 & \
+    up || { echo "FATAL: first start on /data failed" >&2; cat "$t/data.log" >&2; exit 1; }; \
+    [ "$(stat -c %U /data/slapd.d)" = slapd ] && [ "$(stat -c %U /data/data)" = slapd ] || { echo "FATAL: /data subdirectories not owned by slapd" >&2; exit 1; }; \
+    pid="$(cat /var/lib/openldap/run/slapd.pid)"; kill "$pid"; for i in $(seq 1 30); do [ -e "/proc/$pid" ] || break; sleep 0.5; done; \
+    rm -rf /data/data /data/slapd.d; \
     rm -rf "$t" /var/lib/openldap/run/*; \
     slapd -VV 2>&1 | head -1; \
     ldd "$slapd" | grep -E 'libssl|libcrypto|libsasl2'
