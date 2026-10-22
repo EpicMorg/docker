@@ -18,6 +18,9 @@ Rules:
     but the list imported last in the role's tasks/main.yml (the one whose
     output wins anyway);
   * <product>/latest.txt gets the newest version of the `current` feed.
+  * bitbucket: a new major.minor also needs its git pin in
+    roles/atlassian.bitbucket/vars/main.yml (bitbucket_git, from Atlassian's
+    "Supported platforms" page) - the generation fails until it is there.
 
 Usage: bin/python/atlassian-versions-update.py [--dry-run]
 """

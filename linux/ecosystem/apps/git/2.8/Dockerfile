@@ -16,6 +16,9 @@ ENV EMG_GIT_DIR=${EMG_LOCAL_BASE_DIR}/git/${EMG_GIT_VERSION}
 # https://mirrors.edge.kernel.org/pub/software/scm/git/sha256sums.asc
 ARG EMG_GIT_SHA256=7926ebffc1f1977ca90ec85a4a705e3c31bace4af85a3a51aa35d606417b0390
 ARG EMG_GIT_URL=https://mirrors.edge.kernel.org/pub/software/scm/git/git-${EMG_GIT_FULL_VERSION}.tar.xz
+# same file from other mirrors: aria2c takes them as alternatives, sha256 still decides
+ARG EMG_GIT_URL_CDN=https://cdn.kernel.org/pub/software/scm/git/git-${EMG_GIT_FULL_VERSION}.tar.xz
+ARG EMG_GIT_URL_MIT=https://mirrors.mit.edu/kernel/software/scm/git/git-${EMG_GIT_FULL_VERSION}.tar.xz
 ARG EMG_GIT_SRC_DIR=/usr/local/src/git/${EMG_GIT_FULL_VERSION}
 
 # Baked deps from trixie-develop (via gcc:14): OpenSSL / curl branch for this git.
@@ -48,7 +51,7 @@ RUN set -eux; \
     cd "${EMG_GIT_SRC_DIR}"; \
     aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
         --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
-        -o git.tar.xz "${EMG_GIT_URL}"; \
+        -o git.tar.xz "${EMG_GIT_URL}" "${EMG_GIT_URL_CDN}" "${EMG_GIT_URL_MIT}"; \
     echo "${EMG_GIT_SHA256}  git.tar.xz" | sha256sum -c -; \
     tar -xJf git.tar.xz --strip-components=1 --no-same-owner; \
     rm -f git.tar.xz; \
