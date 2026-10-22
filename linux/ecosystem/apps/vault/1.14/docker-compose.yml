@@ -1,0 +1,13 @@
+services:
+  app:
+    image: "epicmorg/vault:1.14"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/vault:1.14
+      - ghcr.io/epicmorg/vault:1.14
+      - docker.io/epicmorg/vault:1.14
+      - quay.io/epicmorg/vault:1.14.10
+      - ghcr.io/epicmorg/vault:1.14.10
+      - docker.io/epicmorg/vault:1.14.10

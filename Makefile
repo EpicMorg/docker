@@ -443,6 +443,7 @@ ecosystem-images:
 	make ecosystem-mysql-images
 	make ecosystem-mariadb-images
 	make ecosystem-freeradius-images
+	make ecosystem-vault-images
 	make ecosystem-mongo-images
 	make ecosystem-teamcity-agent-images
 	make ecosystem-gitlab-runner-images
@@ -637,6 +638,20 @@ ecosystem-erlang-images:
 	cd `pwd`/linux/ecosystem/apps/erlang/27    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/erlang/28    && pwd && make build && make deploy
 	cd `pwd`/linux/ecosystem/apps/erlang/29    && pwd && make build && make deploy
+
+ecosystem-vault-images:
+	cd `pwd`/linux/ecosystem/apps/vault/1.13    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/vault/1.14    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/vault/1.15    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/vault/1.16    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/vault/1.17    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/vault/1.18    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/vault/1.19    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/vault/1.20    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/vault/1.21    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/vault/2.0    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/vault/2.1    && pwd && make build && make deploy
+	cd `pwd`/linux/ecosystem/apps/vault/2.2    && pwd && make build && make deploy
 
 ecosystem-freeradius-images:
 	cd `pwd`/linux/ecosystem/apps/freeradius/3.0    && pwd && make build && make deploy
