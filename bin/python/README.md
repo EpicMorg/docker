@@ -23,9 +23,8 @@ build it. Every script has a full description in its docstring: `bin/python/<scr
 | [`ansible-versions-sync.py`](ansible-versions-sync.py) | `linux/ecosystem/apps/ansible/<major.minor>` + `teamcity/agent/ansible/<major.minor>`: newest `ansible-core` patch per line from PyPI; new lines copy the newest folder; moves `latest` / `ansible` | `bin/python/ansible-versions-sync.py` · `--add 2.18` · `--dry-run` |
 | [`teamcity-server-sync.py`](teamcity-server-sync.py) | `linux/ecosystem/apps/teamcity/server/<release>`: writes every folder's Dockerfile (our `epicmorg/jdk:<N>` + `COPY --from jetbrains/teamcity-server:<release>`) and compose; JDK major per release line from a table | `bin/python/teamcity-server-sync.py` · `--add 2026.3 [--jdk 21]` |
 | [`atlassian-versions-update.py`](atlassian-versions-update.py) | Refreshes the Atlassian version lists in `bin/ansible` from the vendor feeds (via `atlassian-downloader`) | `bin/python/atlassian-versions-update.py --dry-run` |
-
-CI helpers that only workflows use live in [`.github/scripts`](../../.github/scripts)
-(`leaves.py` — matrix discovery, `registry-descriptions.py` — Docker Hub / Quay descriptions).
+| [`leaves.py`](leaves.py) | CI matrix discovery: the leaves (Dockerfile + Makefile) below folders as the JSON `{name, paths}` list the chain workflows build | `bin/python/leaves.py flat linux/ecosystem/apps/git --min 1 --max 1` |
+| [`registry-descriptions.py`](registry-descriptions.py) | Publishes the root READMEs as Docker Hub / Quay repository descriptions (map from `readme-sync.py --map`); workflow `docs.registry-descriptions.yml` | `bin/python/registry-descriptions.py --dry-run` · `REPO...` |
 
 ## Common workflows
 

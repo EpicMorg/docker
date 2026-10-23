@@ -26,12 +26,12 @@ jobs:
     - uses: actions/checkout@v7
       with:
         sparse-checkout: |
-          .github/scripts
+          bin/python
           linux/obsolete/epicmorg/debian
     # only the base triple; nothing else under obsolete/ is ever built
     - id: list
       run: |
-        codenames=$(python3 .github/scripts/leaves.py group linux/obsolete/epicmorg/debian '{}/light' '{}/main' '{}/develop' --include '^debian/(0[6-9]|1[0-2])-')
+        codenames=$(python3 bin/python/leaves.py group linux/obsolete/epicmorg/debian '{}/light' '{}/main' '{}/develop' --include '^debian/(0[6-9]|1[0-2])-')
         echo "codenames=${codenames}" | tee -a "$GITHUB_OUTPUT"
 
   build:

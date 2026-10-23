@@ -26,11 +26,11 @@ jobs:
     - uses: actions/checkout@v7
       with:
         sparse-checkout: |
-          .github/scripts
+          bin/python
           linux/ecosystem/base/astra
     - id: list
       run: |
-        releases=$(python3 .github/scripts/leaves.py group linux/ecosystem/base/astra '{}/rootfs' '{}/light' '{}/main' '{}/develop-light' '{}/develop')
+        releases=$(python3 bin/python/leaves.py group linux/ecosystem/base/astra '{}/rootfs' '{}/light' '{}/main' '{}/develop-light' '{}/develop')
         echo "releases=${releases}" | tee -a "$GITHUB_OUTPUT"
 
   build:

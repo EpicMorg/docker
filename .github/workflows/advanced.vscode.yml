@@ -25,12 +25,12 @@ jobs:
     - uses: actions/checkout@v7
       with:
         sparse-checkout: |
-          .github/scripts
+          bin/python
           linux/advanced/vscode-server
     - id: list
       run: |
         # assignment first, so a failing discovery fails the step (echo "$(...)" would not)
-        emit() { local v; v=$(python3 .github/scripts/leaves.py "${@:2}"); echo "$1=$v" | tee -a "$GITHUB_OUTPUT"; }
+        emit() { local v; v=$(python3 bin/python/leaves.py "${@:2}"); echo "$1=$v" | tee -a "$GITHUB_OUTPUT"; }
         emit flavours flat linux/advanced/vscode-server --min 1 --max 2 --exclude '^vscode-server/(latest|cpp)$'
 
   main:
