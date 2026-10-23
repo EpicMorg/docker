@@ -73,9 +73,11 @@ def main():
         'PAT' if secret.startswith('dckr_pat_') else 'org access token' if secret.startswith('dckr_oat_') else 'password/other',
         len(secret), raw_secret != secret, raw_user != user)
     hub_auth, hub_failed = None, False
-    if not user or not secret:
+    if dry:
+        pass   # the dry run (PR check) only renders the descriptions, no credentials needed
+    elif not user or not secret:
         print('::warning::DOCKER_SERVER_LOGIN / DOCKER_API_TOKEN not set - Docker Hub descriptions skipped')
-    elif not dry:
+    else:
         try:   # current API: PAT / OAT -> bearer access token
             hub_auth = 'Bearer ' + request('POST', 'https://hub.docker.com/v2/auth/token',
                                            {'identifier': user, 'secret': secret})['access_token']
@@ -90,7 +92,7 @@ def main():
                       'login (set DOCKER_API_LOGIN to the token owner / organisation name) - Hub skipped, Quay continues'
                       % (user, e2.code, token_info))
     quay_token = os.environ.get('QUAY_API_TOKEN')
-    if not quay_token:
+    if not quay_token and not dry:
         print('::warning::QUAY_API_TOKEN not set - Quay descriptions skipped')
 
     failed = 0

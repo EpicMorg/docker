@@ -1,3 +1,5 @@
+# git pinned per Mesh major.minor(.patch) (vars/main.yml: mesh_git), see "Git" below
+FROM ghcr.io/epicmorg/git:2.48 AS git
 FROM ghcr.io/epicmorg/jdk:11
 LABEL org.opencontainers.image.title="EpicMorg Bitbucket Mesh"
 LABEL org.opencontainers.image.description="Atlassian Bitbucket Mesh by EpicMorg"
@@ -45,38 +47,54 @@ RUN set -eux; \
     rm -fv ${TEMP_ARCHIVE}
 
 ##################################################################
-#                   Git (Debian's, as in our Bitbucket images)
+#                   Git
 ##################################################################
-RUN rm -rfv /etc/apt/sources.list.d/github_git-lfs.sources && \
-    rm -rfv /etc/apt/sources.list.d/github_git-lfs.todo.sources && \
-    rm -rfv /etc/apt/sources.list.d/launchpad_git-mainline.sources && \
-    rm -rfv /etc/apt/sources.list.d/launchpad_git-stable.sources && \
-    apt-get update &&  \
-    apt-get remove -y \
-      git \
-      git-lfs && \
-    apt-get autoremove -y && \
-    apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests \
-      git \
-      git-lfs
-
-##################################################################
-#                  Git Check
-##################################################################
-RUN git-lfs install --skip-repo --system --force && \
+# Mesh refuses to start with a git it does not support (bounds in its mesh-core jar);
+# 3.4.2 takes git 2.48. The base ships the newest epicmorg/git: swap it for
+# epicmorg/git:2.48 (+ the baked libs it links), drop the other git trees,
+# relink /usr/bin and re-version the epicmorg-git placeholder so apt sees the real version.
+COPY --from=git /emg-export/ /
+RUN set -eux; \
+    pin_dir="${EMG_LOCAL_BASE_DIR}/git/2.48"; \
+    test -x "$pin_dir/bin/git"; \
+    find "${EMG_LOCAL_BASE_DIR}/git" -mindepth 1 -maxdepth 1 -type d ! -path "$pin_dir" -exec rm -rf {} +; \
+    find /usr/bin -maxdepth 1 -type l -lname "${EMG_LOCAL_BASE_DIR}/git/*" -delete; \
+    for b in "$pin_dir"/bin/*; do ln -sfn "$b" "/usr/bin/$(basename "$b")"; done; \
+    elfs="$(find "$pin_dir/bin" "$pin_dir/libexec/git-core" -type f -perm -u+x -exec sh -c 'file -b "$1" | grep -q ELF && echo "$1"' _ {} \;)"; \
+    if for b in $elfs; do ldd "$b"; done | grep -q 'not found'; then echo "FATAL: unresolved git deps" >&2; exit 1; fi; \
+    for b in $elfs; do [ "$(ldd "$b" | grep -c 'libssl\.so')" -le 1 ] || { echo "FATAL: two libssl in $b" >&2; exit 1; }; done; \
+    if readelf -d "$pin_dir/bin/git" | grep -q RUNPATH; then echo "FATAL: RUNPATH in git" >&2; exit 1; fi; \
+    gv="$(git --version | awk '{print $3}')"; \
+    case "$gv" in 2.48|2.48.*) ;; *) echo "FATAL: git $gv is not 2.48" >&2; exit 1;; esac; \
+    lv="$(git-lfs version | sed -E 's#^git-lfs/([0-9.]+).*#\1#')"; \
+    d="$(mktemp -d)"; mkdir -p "$d/DEBIAN"; \
+    printf '%s\n' \
+      "Package: epicmorg-git" \
+      "Version: 1:${gv}-epicmorg" \
+      "Architecture: all" \
+      "Maintainer: EpicMorg DevTeam <developer@epicm.org>" \
+      "Section: vcs" \
+      "Priority: optional" \
+      "Provides: git (= 1:${gv}), git-core (= 1:${gv}), git-man (= 1:${gv}), git-email (= 1:${gv}), git-cvs (= 1:${gv}), git-doc (= 1:${gv}), git-lfs (= ${lv})" \
+      "Conflicts: git, git-core, git-man, git-email, git-cvs, git-doc, git-lfs" \
+      "Replaces: git, git-core, git-man, git-email, git-cvs, git-doc, git-lfs" \
+      "Description: git ${gv} + git-lfs ${lv} from epicmorg/git and epicmorg/git-lfs" \
+      " Placeholder: git pinned for Bitbucket Mesh 3.4.2; binaries live in ${EMG_LOCAL_BASE_DIR}." \
+      > "$d/DEBIAN/control"; \
+    dpkg-deb --build "$d" /tmp/epicmorg-git.deb; \
+    dpkg -i /tmp/epicmorg-git.deb; \
+    rm -rf "$d" /tmp/epicmorg-git.deb; \
+    test "$(dpkg-query -W -f='${Version}' epicmorg-git)" = "1:${gv}-epicmorg"; \
+    git-lfs install --skip-repo --system --force; \
     echo "=============================================" && \
     echo git $(git --version) && \
     echo git-lfs $(git-lfs --version) && \
     echo "============================================="
 
-##################################################################
-#                  Git supported by this Mesh release
-##################################################################
-ENV GIT_PREFIX=/usr/local/share/epicmorg/git
+# the release's own bounds must accept the pinned git (fails when mesh_git is wrong)
 COPY mesh-git.sh /tmp/mesh-git.sh
 RUN bash /tmp/mesh-git.sh && \
     rm -f /tmp/mesh-git.sh
-ENV PATH="${GIT_PREFIX}/bin:${PATH}"
 
 ##################################################################
 #                  cleanup
