@@ -14,7 +14,6 @@ FROM ghcr.io/epicmorg/nginx:1.30 AS nginx
 FROM ghcr.io/epicmorg/php:8.1
 LABEL org.opencontainers.image.title="EpicMorg nginx + PHP (fpm)"
 LABEL org.opencontainers.image.description="nginx 1.30 + PHP 8.1 (fpm) by EpicMorg"
-LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
 ##################################################################

@@ -212,6 +212,8 @@ RUNTIME_DF = '''################################################################
 # Consumers (e.g. teamcity-agent:ansible-<ver>), Debian 13 based:
 #   COPY --from=ghcr.io/epicmorg/ansible:<ver> /emg-export/ /
 FROM {BASE}
+LABEL org.opencontainers.image.title="EpicMorg Ansible"
+LABEL org.opencontainers.image.description="ansible-core (newest patch of each line) + ansible-lint + collections in a venv, for COPY --from"
 ARG DEBIAN_FRONTEND=noninteractive
 
 ENV EMG_ANSIBLE_VERSION={MM}
@@ -296,6 +298,8 @@ AGENT_DF = '''##################################################################
 FROM ghcr.io/epicmorg/ansible:{MM} AS ansible
 
 FROM ghcr.io/epicmorg/teamcity-agent:minimal
+LABEL org.opencontainers.image.title="EpicMorg TeamCity Agent"
+LABEL org.opencontainers.image.description="TeamCity build agents on Debian 13 trixie: JDK 21, docker/buildah, php, node, SDKs"
 ARG DEBIAN_FRONTEND=noninteractive
 
 ENV EMG_ANSIBLE_VERSION={MM}

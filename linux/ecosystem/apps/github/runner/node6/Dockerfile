@@ -1,5 +1,6 @@
 FROM ghcr.io/epicmorg/github-runner:minimal
-LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
+LABEL org.opencontainers.image.title="EpicMorg GitHub Actions runner"
+LABEL org.opencontainers.image.description="GitHub Actions self-hosted runners on Debian 13 trixie: docker/buildah, php, node, .NET, SDKs"
 
 ARG K_NODE_MAJOR_VERSION=6
 ARG K_NODE_VERSION=${K_NODE_MAJOR_VERSION}.17.1

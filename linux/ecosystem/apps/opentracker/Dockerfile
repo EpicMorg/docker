@@ -22,6 +22,8 @@ RUN cd /usr/src/opentracker ; \
       make DESTDIR=/tmp/stage BINDIR="/bin" install
 
 FROM ghcr.io/epicmorg/debian:trixie
+LABEL org.opencontainers.image.title="EpicMorg opentracker"
+LABEL org.opencontainers.image.description="opentracker - fast open BitTorrent tracker (UDP+HTTP), built from source"
 
 ##################################################################
 #                   setup future environment

@@ -2,8 +2,9 @@
 # https://github.com/linuxserver/docker-code-server/pkgs/container/code-server
 ################################################################################
 FROM ghcr.io/epicmorg/vscode-server:cpp
+LABEL org.opencontainers.image.title="EpicMorg VS Code Server"
+LABEL org.opencontainers.image.description="code-server (VS Code in the browser) with dev toolchains: C++/Rust/Go, Android, .NET, node"
 
-LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
 ##################################################################

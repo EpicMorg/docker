@@ -28,11 +28,11 @@ jobs:
     - uses: actions/checkout@v7
       with:
         sparse-checkout: |
-          .github/scripts
+          bin/python
           linux/ecosystem/apps/gcc
     - id: list
       run: |
-        gcc=$(python3 .github/scripts/leaves.py flat linux/ecosystem/apps/gcc --min 1 --max 1)
+        gcc=$(python3 bin/python/leaves.py flat linux/ecosystem/apps/gcc --min 1 --max 1)
         echo "gcc=${gcc}" | tee -a "$GITHUB_OUTPUT"
 
   gcc:

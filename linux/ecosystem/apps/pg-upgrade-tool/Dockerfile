@@ -1,4 +1,6 @@
 FROM ghcr.io/epicmorg/debian:trixie
+LABEL org.opencontainers.image.title="EpicMorg pg-upgrade-tool"
+LABEL org.opencontainers.image.description="pg_upgrade toolbox: PostgreSQL 8.2-18 binaries (with extensions) in one image"
 
 ARG DEBIAN_FRONTEND=noninteractive
 

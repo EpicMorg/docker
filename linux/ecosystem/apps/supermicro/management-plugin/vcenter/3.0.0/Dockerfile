@@ -1,5 +1,6 @@
 FROM ghcr.io/epicmorg/jdk:8
-LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
+LABEL org.opencontainers.image.title="EpicMorg Supermicro management plugin"
+LABEL org.opencontainers.image.description="Supermicro Management Plugin for VMware vCenter 3.0.0 on JDK 8"
 ARG DEBIAN_FRONTEND=noninteractive
 
 ARG SMP_MAJOR_VERSION=3

@@ -1,5 +1,6 @@
 FROM ghcr.io/epicmorg/debian:trixie-develop-light
-LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
+LABEL org.opencontainers.image.title="EpicMorg Go"
+LABEL org.opencontainers.image.description="Go 1.25-1.27 toolchains on epicmorg/debian:trixie-develop-light"
 ARG DEBIAN_FRONTEND=noninteractive
 
 ##################################################################

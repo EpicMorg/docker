@@ -15,7 +15,7 @@ on:
     paths:
       - '**/README.md'
       - 'bin/python/readme-sync.py'
-      - '.github/scripts/registry-descriptions.py'
+      - 'bin/python/registry-descriptions.py'
       - '.github/workflows/docs.registry-descriptions.yml'
   pull_request:
     paths:
@@ -38,7 +38,7 @@ jobs:
         run: |
           bin/python/readme-sync.py --check || { echo "::error::run bin/python/readme-sync.py and commit the result"; exit 1; }
       - name: Descriptions (dry run)
-        run: python3 .github/scripts/registry-descriptions.py --dry-run
+        run: python3 bin/python/registry-descriptions.py --dry-run
 
   publish:
     name: Publish descriptions
@@ -58,4 +58,4 @@ jobs:
           REPOS: ${{ github.event.inputs.repos }}
         run: |
           test -n "$DOCKER_SERVER_LOGIN" && test -n "$DOCKER_API_TOKEN" || { echo "::error::DOCKER_SERVER_LOGIN / DOCKER_API_TOKEN is empty (DOCKER_API_TOKEN = Docker Hub PAT with Read, Write, Delete)"; exit 1; }
-          python3 .github/scripts/registry-descriptions.py $REPOS
+          python3 bin/python/registry-descriptions.py $REPOS

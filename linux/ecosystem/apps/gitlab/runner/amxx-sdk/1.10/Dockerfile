@@ -1,5 +1,6 @@
 FROM ghcr.io/epicmorg/gitlab-runner:minimal
-LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
+LABEL org.opencontainers.image.title="EpicMorg GitLab Runner"
+LABEL org.opencontainers.image.description="GitLab Runner images on Debian 13 trixie: docker/buildah, php, node, .NET, SDKs"
 ARG DEBIAN_FRONTEND=noninteractive
 
 ##################################################################
@@ -24,15 +25,17 @@ ENV LD_LIBRARY_PATH=${AMXX_BIN_PATH}:${LD_LIBRARY_PATH}
 
 COPY inc.tar /tmp
 
-# amxmodx.org/amxxdrop is gone (404); the builds are GitHub releases of
-# alliedmodders/amxmodx now - pinned, sha256 = the release asset digest
+# pinned GitHub release of alliedmodders/amxmodx, sha256 = the release asset digest;
+# amxmodx.org/amxxdrop serves the same file - aria2c takes it as an alternative, sha256 still decides
 ARG AMXX_RELEASE=1.10.0.5487
 ARG AMXX_BASE_TARBALL=amxmodx-1.10.0-git5487-base-linux.tar.gz
 ARG AMXX_BASE_SHA256=d82d1d65c907f358c48bdebc07e20084e7e8c4f4d0e95af275e8b43f32815c7e
+ARG AMXX_DROP_URL=https://www.amxmodx.org/amxxdrop/1.10
 RUN mkdir -p ${AMXX_INSTALL_PATH} && \
     aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
         --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
-        -d /tmp -o amxx_base_latest.tar.gz "https://github.com/alliedmodders/amxmodx/releases/download/${AMXX_RELEASE}/${AMXX_BASE_TARBALL}" && \
+        -d /tmp -o amxx_base_latest.tar.gz "https://github.com/alliedmodders/amxmodx/releases/download/${AMXX_RELEASE}/${AMXX_BASE_TARBALL}" \
+        "${AMXX_DROP_URL}/${AMXX_BASE_TARBALL}" && \
     echo "${AMXX_BASE_SHA256}  /tmp/amxx_base_latest.tar.gz" | sha256sum -c - && \
     cd /tmp && tar -zxf /tmp/amxx_base_latest.tar.gz && cd / && \
     mv -f /tmp/addons/amxmodx/* ${AMXX_INSTALL_PATH} && \

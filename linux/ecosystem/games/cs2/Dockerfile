@@ -1,5 +1,6 @@
 FROM ghcr.io/epicmorg/steam:cmd
-LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
+LABEL org.opencontainers.image.title="EpicMorg Counter-Strike 2 server"
+LABEL org.opencontainers.image.description="Counter-Strike 2 dedicated server (SteamCMD) by EpicMorg"
 ARG DEBIAN_FRONTEND=noninteractive
 
 WORKDIR $VALVE_GAME_FOLDER

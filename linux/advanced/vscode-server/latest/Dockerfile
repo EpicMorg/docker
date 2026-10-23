@@ -3,12 +3,11 @@
 ################################################################################
 FROM ghcr.io/linuxserver/code-server:latest
 
-LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 LABEL org.opencontainers.image.vendor="EpicMorg DevTeam, developer@epicm.org"
 LABEL org.opencontainers.image.authors="STAM, kasthack, Aleks-Z"
 LABEL org.opencontainers.image.source="https://github.com/EpicMorg/docker"
-LABEL org.opencontainers.image.title="EpicMorg Debian (Light)"
-LABEL org.opencontainers.image.description="Debian Trixie base by EpicMorg"
+LABEL org.opencontainers.image.title="EpicMorg VS Code Server"
+LABEL org.opencontainers.image.description="code-server (VS Code in the browser) with dev toolchains: C++/Rust/Go, Android, .NET, node"
 LABEL org.opencontainers.image.licenses="MIT"
 LABEL org.opencontainers.image.documentation="https://github.com/EpicMorg/docker"
 LABEL org.opencontainers.image.url="https://github.com/EpicMorg/docker"

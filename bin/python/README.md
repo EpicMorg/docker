@@ -23,10 +23,9 @@ build it. Every script has a full description in its docstring: `bin/python/<scr
 | [`ansible-versions-sync.py`](ansible-versions-sync.py) | `linux/ecosystem/apps/ansible/<major.minor>` + `teamcity/agent/ansible/<major.minor>`: newest `ansible-core` patch per line from PyPI; new lines copy the newest folder; moves `latest` / `ansible` | `bin/python/ansible-versions-sync.py` · `--add 2.18` · `--dry-run` |
 | [`teamcity-server-sync.py`](teamcity-server-sync.py) | `linux/ecosystem/apps/teamcity/server/<release>`: writes every folder's Dockerfile (our `epicmorg/jdk:<N>` + `COPY --from jetbrains/teamcity-server:<release>`) and compose; JDK major per release line from a table | `bin/python/teamcity-server-sync.py` · `--add 2026.3 [--jdk 21]` |
 | [`atlassian-versions-update.py`](atlassian-versions-update.py) | Refreshes the Atlassian version lists in `bin/ansible` from the vendor feeds (via `atlassian-downloader`) | `bin/python/atlassian-versions-update.py --dry-run` |
-| [`atlassian-makefile-sync.py`](atlassian-makefile-sync.py) | Regenerates the Atlassian targets of the root `Makefile` from the tree | `bin/python/atlassian-makefile-sync.py` · `--check` |
-
-CI helpers that only workflows use live in [`.github/scripts`](../../.github/scripts)
-(`leaves.py` — matrix discovery, `registry-descriptions.py` — Docker Hub / Quay descriptions).
+| [`oci-labels-sync.py`](oci-labels-sync.py) | Static OCI labels: every leaf gets its own `title` / `description` (repo title table + the README hub description) below the final FROM, legacy `maintainer` dropped (a third-party author moves to `authors`); Atlassian leaves come from the `bin/ansible` templates and are only checked; workflow `docs.oci-labels.yml` runs `--check` on PRs | `bin/python/oci-labels-sync.py` · `--check` · `FOLDER...` |
+| [`leaves.py`](leaves.py) | CI matrix discovery: the leaves (Dockerfile + Makefile) below folders as the JSON `{name, paths}` list the chain workflows build | `bin/python/leaves.py flat linux/ecosystem/apps/git --min 1 --max 1` |
+| [`registry-descriptions.py`](registry-descriptions.py) | Publishes the root READMEs as Docker Hub / Quay repository descriptions (map from `readme-sync.py --map`); workflow `docs.registry-descriptions.yml` | `bin/python/registry-descriptions.py --dry-run` · `REPO...` |
 
 ## Common workflows
 
@@ -56,7 +55,6 @@ folder with `--refresh`.
 ```sh
 bin/python/atlassian-versions-update.py      # update the version lists
 make ansible.gen.all                         # regenerate the image folders (bin/ansible)
-bin/python/atlassian-makefile-sync.py        # regenerate the Makefile targets
 ```
 
 **Build a cascade locally** — a leaf is built from the files in the working tree, so run long cascades from
@@ -79,3 +77,8 @@ bin/python/cascade.py --retry /tmp/c/b.txt --status /tmp/c/b-retry.txt
 
 Build order matters: base → `gcc` → runtimes (`php`, `python`, `jdk`, `git`, ...) → applications. The
 weekly CI chain (`chain.10-base` → `chain.20-gcc` → `chain.30-runtimes` → `chain.40-apps`) follows the same order.
+
+The root `Makefile` wraps the same groups (folder lists follow the CI chains, parents first, mattermost
+excluded): `make base`, `make gcc`, `make runtimes`, `make apps`, `make advanced`, `make atlassian`,
+`make games`, `make images` (all but atlassian), `make build P=<folder>` for anything else;
+`DRY=1` only lists the leaves, `NO_DEPLOY=1` skips the push, `CASCADE_ARGS='--stop-on-fail ...'` passes options on.

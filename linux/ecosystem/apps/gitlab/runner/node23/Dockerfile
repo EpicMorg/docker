@@ -1,5 +1,6 @@
 FROM ghcr.io/epicmorg/gitlab-runner:minimal
-LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
+LABEL org.opencontainers.image.title="EpicMorg GitLab Runner"
+LABEL org.opencontainers.image.description="GitLab Runner images on Debian 13 trixie: docker/buildah, php, node, .NET, SDKs"
 ARG DEBIAN_FRONTEND=noninteractive
 
 ARG K_NODE_MAJOR_VERSION=23

@@ -1,5 +1,6 @@
 FROM ghcr.io/epicmorg/nodejs:23
-LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
+LABEL org.opencontainers.image.title="EpicMorg vk2discord"
+LABEL org.opencontainers.image.description="VK2Discord - reposts VK community and user wall posts to Discord via webhooks"
 ARG DEBIAN_FRONTEND=noninteractive
 
 ##################################################################

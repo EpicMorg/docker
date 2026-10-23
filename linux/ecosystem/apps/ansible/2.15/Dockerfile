@@ -7,6 +7,8 @@
 # Consumers (e.g. teamcity-agent:ansible-<ver>), Debian 13 based:
 #   COPY --from=ghcr.io/epicmorg/ansible:<ver> /emg-export/ /
 FROM ghcr.io/epicmorg/python:3.11
+LABEL org.opencontainers.image.title="EpicMorg Ansible"
+LABEL org.opencontainers.image.description="ansible-core (newest patch of each line) + ansible-lint + collections in a venv, for COPY --from"
 ARG DEBIAN_FRONTEND=noninteractive
 
 ENV EMG_ANSIBLE_VERSION=2.15

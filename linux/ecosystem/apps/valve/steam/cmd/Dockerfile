@@ -1,5 +1,6 @@
 FROM ghcr.io/epicmorg/debian:trixie
-LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
+LABEL org.opencontainers.image.title="EpicMorg SteamCMD"
+LABEL org.opencontainers.image.description="SteamCMD base and Steam Runtime SDK build images on Debian trixie"
 ARG DEBIAN_FRONTEND=noninteractive
 
 #ARG DOWNLOAD_URL=http://media.steampowered.com/installer/steamcmd_linux.tar.gz

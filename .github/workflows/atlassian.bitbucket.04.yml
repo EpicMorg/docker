@@ -23,12 +23,12 @@ jobs:
     - uses: actions/checkout@v7
       with:
         sparse-checkout: |
-          .github/scripts
+          bin/python
           linux/ecosystem/apps/atlassian/bitbucket/4
     - id: list
       run: |
         # assignment first, so a failing discovery fails the step (echo "$(...)" would not)
-        emit() { local v; v=$(python3 .github/scripts/leaves.py "${@:2}"); echo "$1=$v" | tee -a "$GITHUB_OUTPUT"; }
+        emit() { local v; v=$(python3 bin/python/leaves.py "${@:2}"); echo "$1=$v" | tee -a "$GITHUB_OUTPUT"; }
         emit versions flat linux/ecosystem/apps/atlassian/bitbucket/4 --min 1 --max 1
 
   versions:

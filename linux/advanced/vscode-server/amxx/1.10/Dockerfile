@@ -2,8 +2,9 @@
 # https://github.com/linuxserver/docker-code-server/pkgs/container/code-server
 ################################################################################
 FROM ghcr.io/epicmorg/vscode-server:latest
+LABEL org.opencontainers.image.title="EpicMorg VS Code Server"
+LABEL org.opencontainers.image.description="code-server (VS Code in the browser) with dev toolchains: C++/Rust/Go, Android, .NET, node"
 
-LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
 ##################################################################
@@ -33,14 +34,18 @@ ENV LD_LIBRARY_PATH=${AMXX_BIN_PATH}:${LD_LIBRARY_PATH}
 
 COPY inc.tar /tmp
 
-RUN aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
-        --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
-        -d /tmp -o amxx-latest-base https://www.amxmodx.org/amxxdrop/1.10/amxmodx-latest-base-linux && \
-    export AMXX_BASE_LATEST_VERSION="$(cat /tmp/amxx-latest-base)" && \
-    mkdir -p ${AMXX_INSTALL_PATH} && \
+# pinned GitHub release of alliedmodders/amxmodx, sha256 = the release asset digest;
+# amxmodx.org/amxxdrop serves the same file - aria2c takes it as an alternative, sha256 still decides
+ARG AMXX_RELEASE=1.10.0.5487
+ARG AMXX_BASE_TARBALL=amxmodx-1.10.0-git5487-base-linux.tar.gz
+ARG AMXX_BASE_SHA256=d82d1d65c907f358c48bdebc07e20084e7e8c4f4d0e95af275e8b43f32815c7e
+ARG AMXX_DROP_URL=https://www.amxmodx.org/amxxdrop/1.10
+RUN mkdir -p ${AMXX_INSTALL_PATH} && \
     aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
         --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
-        -d /tmp -o amxx_base_latest.tar.gz https://www.amxmodx.org/amxxdrop/${AMXX_VERSION}/${AMXX_BASE_LATEST_VERSION} && \
+        -d /tmp -o amxx_base_latest.tar.gz "https://github.com/alliedmodders/amxmodx/releases/download/${AMXX_RELEASE}/${AMXX_BASE_TARBALL}" \
+        "${AMXX_DROP_URL}/${AMXX_BASE_TARBALL}" && \
+    echo "${AMXX_BASE_SHA256}  /tmp/amxx_base_latest.tar.gz" | sha256sum -c - && \
     cd /tmp && tar -zxf /tmp/amxx_base_latest.tar.gz && cd / && \
     mv -f /tmp/addons/amxmodx/* ${AMXX_INSTALL_PATH} && \
     chmod +x ${AMXX_BIN_PATH}/amxxpc && \

@@ -1,4 +1,6 @@
 FROM ghcr.io/epicmorg/debian:trixie
+LABEL org.opencontainers.image.title="EpicMorg Telegram bots"
+LABEL org.opencontainers.image.description="Telegram bot that replies with random quotes from a text file (python-telegram-bot)"
 #FROM ghcr.io/epicmorg/python:3.13
 #FROM ghcr.io/epicmorg/python:3.11
 

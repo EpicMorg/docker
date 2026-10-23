@@ -3,6 +3,8 @@
 
 ARG PG_VERSION=12
 FROM ghcr.io/epicmorg/postgres:${PG_VERSION}
+LABEL org.opencontainers.image.title="EpicMorg PostgreSQL + Patroni"
+LABEL org.opencontainers.image.description="Patroni 4.1 (etcd) HA cluster node on top of epicmorg/postgres 9.3-18"
 
 ARG DEBIAN_FRONTEND=noninteractive
 ARG PATRONI_VERSION=4.1.*
