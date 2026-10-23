@@ -1,5 +1,6 @@
 FROM ghcr.io/epicmorg/jdk:17
-LABEL maintainer="Atlassian Confluence Server Team; EpicMorg DevTeam, developer@epicm.org"
+LABEL org.opencontainers.image.title="EpicMorg Confluence"
+LABEL org.opencontainers.image.description="Atlassian Confluence by EpicMorg"
 ARG DEBIAN_FRONTEND=noninteractive
 
 ##################################################################

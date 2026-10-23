@@ -1,7 +1,8 @@
 # git pinned per Bitbucket major.minor(.patch) (vars/main.yml: bitbucket_git), see "Git" below
 FROM ghcr.io/epicmorg/git:2.47 AS git
 FROM ghcr.io/epicmorg/jdk:11
-LABEL maintainer="Atlassian Bitbucket Team; EpicMorg DevTeam, developer@epicm.org"
+LABEL org.opencontainers.image.title="EpicMorg Bitbucket"
+LABEL org.opencontainers.image.description="Atlassian Bitbucket by EpicMorg"
 ARG DEBIAN_FRONTEND=noninteractive
 
 ##################################################################

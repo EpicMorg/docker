@@ -3,7 +3,8 @@
 
 Labels are inherited, so a leaf that sets none shows its parent's title ("EpicMorg Debian")
 in the registries. Every leaf (Dockerfile + docker-compose.yml) under linux/ must set
-org.opencontainers.image.title and .description in its final stage:
+org.opencontainers.image.title and .description in the final stage of each of its Dockerfiles
+(Dockerfile and the Dockerfile.<variant> files its compose builds):
 
   * a leaf that already has them keeps them, unless they are a copy of the Debian base
     labels in an image that is not epicmorg/debian (zabbix, webtlo, vscode-server, sentry);
@@ -107,6 +108,12 @@ def leaves(folders):
                 yield rel
 
 
+def dockerfiles(leaf):
+    """Dockerfile and its variants (Dockerfile.jdk11, Dockerfile.libtorrent1, ...): all are built."""
+    return sorted(n for n in os.listdir(os.path.join(ROOT, leaf))
+                  if n == 'Dockerfile' or (n.startswith('Dockerfile.') and not n.endswith(('.md', '.dockerignore'))))
+
+
 def repo_of(leaf):
     m = re.search(r'^\s*image:\s*"?(?:[a-z0-9.-]+\.[a-z]+/)?([^":\s]+)', open(os.path.join(ROOT, leaf, 'docker-compose.yml')).read(), re.M)
     return m.group(1) if m else None
@@ -179,19 +186,21 @@ def main(argv):
     hub = hub_descriptions()
     changed, failed = 0, []
     for leaf in leaves(folders):
-        path = os.path.join(ROOT, leaf, 'Dockerfile')
-        text = open(path).read()
-        if leaf.startswith(GENERATED) and not leaf.startswith(HAND_KEPT):
-            failed += ['%s: %s' % (leaf, p) for p in check_only(text)]
-            continue
-        new, problems = fix(text, leaf, repo_of(leaf), hub)
-        failed += ['%s: %s' % (leaf, p) for p in problems]
-        if new != text:
-            changed += 1
-            if check:
-                failed.append('%s: labels out of date' % leaf)
-            else:
-                open(path, 'w').write(new)
+        for name in dockerfiles(leaf):
+            path = os.path.join(ROOT, leaf, name)
+            where = os.path.join(leaf, name)
+            text = open(path).read()
+            if leaf.startswith(GENERATED) and not leaf.startswith(HAND_KEPT):
+                failed += ['%s: %s' % (where, p) for p in check_only(text)]
+                continue
+            new, problems = fix(text, leaf, repo_of(leaf), hub)
+            failed += ['%s: %s' % (where, p) for p in problems]
+            if new != text:
+                changed += 1
+                if check:
+                    failed.append('%s: labels out of date' % where)
+                else:
+                    open(path, 'w').write(new)
     for f in failed:
         print(f, file=sys.stderr)
     print('%s %d Dockerfiles, %d problems' % ('would change' if check else 'changed', changed, len(failed)))
