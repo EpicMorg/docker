@@ -22,6 +22,8 @@ on:
       - '**/README.md'
       - '**/docker-compose.yml'
       - 'bin/python/readme-sync.py'
+      - 'bin/python/registry-descriptions.py'
+      - '.github/workflows/docs.registry-descriptions.yml'
 
 permissions:
   contents: read
