@@ -21,6 +21,9 @@ Rules:
   * bitbucket: a new major.minor also needs its git pin in
     roles/atlassian.bitbucket/vars/main.yml (bitbucket_git, from Atlassian's
     "Supported platforms" page) - the generation fails until it is there.
+  * mesh: same for a new Mesh major.minor in roles/atlassian.mesh/vars/main.yml
+    (mesh_git: the newest git line below the release's "git.version.unsupported-from"
+    and not in "git.versions.unsupported", mesh-core jar); a wrong pin fails the build.
 
 Usage: bin/python/atlassian-versions-update.py [--dry-run]
 """

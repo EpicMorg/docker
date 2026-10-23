@@ -4,3 +4,35 @@ target_directory_mesh_1: "{{ atlassian_root }}/mesh/1"
 target_directory_mesh_2: "{{ atlassian_root }}/mesh/2"
 target_directory_mesh_3: "{{ atlassian_root }}/mesh/3"
 target_directory_mesh_4: "{{ atlassian_root }}/mesh/4"
+
+# git per Bitbucket Mesh major.minor(.patch): the newest git line the release accepts. Mesh refuses to
+# start with an unsupported git ("git.version.unsupported-from" / "git.versions.unsupported" in the
+# mesh-core jar of mesh-app.jar); pin = the newest line below unsupported-from that is not in the list.
+# by_patch: from that patch on (the bound moves inside a minor). mesh-git.sh asserts it at build time.
+# A minor missing here fails the generation - add it when a new Mesh minor ships.
+mesh_git:
+  "1.0": { pin: "2.36", by_patch: { "1.0.4": "2.37" } }
+  "1.1": { pin: "2.36", by_patch: { "1.1.4": "2.37" } }
+  "1.2": { pin: "2.37" }
+  "1.3": { pin: "2.37" }
+  "1.4": { pin: "2.38" }
+  "1.5": { pin: "2.39" }
+  "2.0": { pin: "2.40", by_patch: { "2.0.13": "2.42", "2.0.20": "2.43", "2.0.24": "2.44", "2.0.31": "2.45", "2.0.33": "2.46", "2.0.35": "2.47", "2.0.36": "2.48" } }
+  "2.1": { pin: "2.40", by_patch: { "2.1.7": "2.42", "2.1.14": "2.43" } }
+  "2.2": { pin: "2.42", by_patch: { "2.2.2": "2.43" } }
+  "2.3": { pin: "2.43" }
+  "2.4": { pin: "2.43" }
+  "2.5": { pin: "2.43", by_patch: { "2.5.1": "2.44", "2.5.7": "2.45", "2.5.10": "2.46", "2.5.12": "2.47", "2.5.13": "2.48", "2.5.16": "2.49", "2.5.17": "2.50" } }
+  "3.0": { pin: "2.45" }
+  "3.1": { pin: "2.45", by_patch: { "3.1.1": "2.46" } }
+  "3.2": { pin: "2.46" }
+  "3.3": { pin: "2.47" }
+  "3.4": { pin: "2.47", by_patch: { "3.4.1": "2.48", "3.4.4": "2.49", "3.4.8": "2.50", "3.4.16": "2.54" } }
+  "3.5": { pin: "2.47", by_patch: { "3.5.1": "2.48" } }
+  "3.6": { pin: "2.48", by_patch: { "3.6.2": "2.49", "3.6.6": "2.50" } }
+  "4.0": { pin: "2.50" }
+  "4.1": { pin: "2.50" }
+  "4.2": { pin: "2.50", by_patch: { "4.2.2": "2.54" } }
+  "4.3": { pin: "2.50", by_patch: { "4.3.2": "2.54" } }
+  "4.4": { pin: "2.54" }
+  "4.6": { pin: "2.54" }
