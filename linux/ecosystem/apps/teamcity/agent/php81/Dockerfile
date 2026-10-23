@@ -73,6 +73,8 @@ RUN set -eu; \
 ##################################################################
 ##################################################################
 FROM ghcr.io/epicmorg/teamcity-agent:minimal
+LABEL org.opencontainers.image.title="EpicMorg TeamCity Agent"
+LABEL org.opencontainers.image.description="TeamCity build agents on Debian 13 trixie: JDK 21, docker/buildah, php, node, SDKs"
 ARG DEBIAN_FRONTEND=noninteractive
 
 # Mirrored from the epicmorg/php:8.1 image config (PATH handled below).

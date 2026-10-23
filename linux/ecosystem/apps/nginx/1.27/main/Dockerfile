@@ -6,7 +6,6 @@
 ##################################################################
 ##################################################################
 FROM ghcr.io/epicmorg/gcc:14 AS build
-LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
 ##################################################################
@@ -376,6 +375,8 @@ RUN set -eux; \
 ##################################################################
 ##################################################################
 FROM ghcr.io/epicmorg/debian:trixie
+LABEL org.opencontainers.image.title="EpicMorg nginx"
+LABEL org.opencontainers.image.description="nginx 1.25-1.31 built from source with 20+ dynamic modules, plus nginx + PHP-FPM bundles"
 
 ENV NGINX_VERSION=1.27
 ENV NGINX_VERSION_FULL=${NGINX_VERSION}.5

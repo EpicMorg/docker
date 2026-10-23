@@ -1,4 +1,6 @@
 FROM ghcr.io/epicmorg/nodejs:19
+LABEL org.opencontainers.image.title="EpicMorg Electron Release Server"
+LABEL org.opencontainers.image.description="Electron Release Server - update and download server for Electron apps"
 
 RUN git clone https://github.com/ArekSredzki/electron-release-server.git /usr/src/electron-release-server
 

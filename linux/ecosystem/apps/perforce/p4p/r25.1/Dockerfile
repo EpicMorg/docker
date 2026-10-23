@@ -1,5 +1,6 @@
 FROM ghcr.io/epicmorg/perforce:r25.1
-LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
+LABEL org.opencontainers.image.title="EpicMorg p4p"
+LABEL org.opencontainers.image.description="Perforce Helix proxy (p4p) on Debian 13 trixie, one tag per release r16.2-r26.1"
 ARG DEBIAN_FRONTEND=noninteractive
 
 # cache = versioned file content (-r), root = the proxy's own db.* (-R, cache-fault

@@ -1,5 +1,6 @@
 FROM ghcr.io/epicmorg/debian:trixie
-LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
+LABEL org.opencontainers.image.title="EpicMorg qBittorrent"
+LABEL org.opencontainers.image.description="qBittorrent-nox (static build) with web UI on Debian trixie, libtorrent 1.2/2.0"
 ARG DEBIAN_FRONTEND=noninteractive
 
 ##################################################################

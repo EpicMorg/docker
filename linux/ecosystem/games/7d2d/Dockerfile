@@ -2,7 +2,9 @@
 # 7d2d dedicated server
 ##############################################
 FROM ghcr.io/epicmorg/steam:cmd
-LABEL maintainer="Guahos, chipmunkzombie@gmail.com"
+LABEL org.opencontainers.image.title="EpicMorg 7 Days to Die server"
+LABEL org.opencontainers.image.description="7 Days to Die dedicated server (SteamCMD) by EpicMorg"
+LABEL org.opencontainers.image.authors="Guahos, chipmunkzombie@gmail.com; STAM, kasthack, Aleks-Z"
 
 #Steam App ID
 ARG STEAM_APP_ID=294420

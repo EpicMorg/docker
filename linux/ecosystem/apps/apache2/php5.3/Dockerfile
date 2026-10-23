@@ -1,7 +1,6 @@
 FROM ghcr.io/epicmorg/php:5.3
 LABEL org.opencontainers.image.title="EpicMorg Apache2 + PHP (fpm)"
 LABEL org.opencontainers.image.description="Apache2 + PHP 5.3 (fpm) by EpicMorg"
-LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
 ##################################################################

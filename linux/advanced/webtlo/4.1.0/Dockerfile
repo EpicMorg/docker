@@ -1,11 +1,10 @@
 FROM docker.io/berkut174/webtlo:4.1.0
 
-LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 LABEL org.opencontainers.image.vendor="EpicMorg DevTeam, developer@epicm.org"
 LABEL org.opencontainers.image.authors="STAM, kasthack, Aleks-Z"
 LABEL org.opencontainers.image.source="https://github.com/EpicMorg/docker"
-LABEL org.opencontainers.image.title="EpicMorg Debian (Light)"
-LABEL org.opencontainers.image.description="Debian Trixie base by EpicMorg"
+LABEL org.opencontainers.image.title="EpicMorg webtlo"
+LABEL org.opencontainers.image.description="web-TLO (berkut174/webtlo) with extra CA certificates in the system trust store"
 LABEL org.opencontainers.image.licenses="MIT"
 LABEL org.opencontainers.image.documentation="https://github.com/EpicMorg/docker"
 LABEL org.opencontainers.image.url="https://github.com/EpicMorg/docker"

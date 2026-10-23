@@ -1,5 +1,6 @@
 FROM ghcr.io/epicmorg/astralinux:1.8-develop-light
-LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
+LABEL org.opencontainers.image.title="EpicMorg Astra Linux 1.8 (ALSE)"
+LABEL org.opencontainers.image.description="Astra Linux SE 1.7 and 1.8 base images by EpicMorg: rootfs, light, main, develop"
 ARG DEBIAN_FRONTEND=noninteractive
 
 # Port of debian:trixie-develop to Astra Linux 1.8 SE.

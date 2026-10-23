@@ -1,5 +1,6 @@
 FROM ghcr.io/epicmorg/debian:trixie
-LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
+LABEL org.opencontainers.image.title="EpicMorg Perforce"
+LABEL org.opencontainers.image.description="Perforce Helix Core (P4) server and tools binaries on Debian 13 trixie, r16.2-r26.1"
 ARG DEBIAN_FRONTEND=noninteractive
 
 ##################################################################

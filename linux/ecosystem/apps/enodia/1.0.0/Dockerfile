@@ -22,6 +22,8 @@
 # own header comment and docs/DECISIONS.md D17's addendum); the real tag
 # for a "1.0.0.0"-shaped release is "1.0.0+0".
 FROM ghcr.io/epicmorg/debian:trixie-light
+LABEL org.opencontainers.image.title="EpicMorg Enodia"
+LABEL org.opencontainers.image.description="Enodia - service version inventory vs vendor lifecycle calendars, CVE correlation"
 
 # "latest" resolves through GitHub's own /releases/latest/download/ alias,
 # which needs no version string at all; pass an exact tag (e.g. "1.0.0+0")

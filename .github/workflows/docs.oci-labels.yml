@@ -1,0 +1,27 @@
+# Every image sets its own static OCI title / description (labels are inherited - without
+# them an image shows its parent's) and no legacy maintainer label: bin/python/oci-labels-sync.py.
+name: Docs - OCI labels
+
+on:
+  pull_request:
+    paths:
+      - '**/Dockerfile'
+      - '**/docker-compose.yml'
+      - '**/README.md'
+      - 'bin/ansible/roles/*/templates/**'
+      - 'bin/python/oci-labels-sync.py'
+      - '.github/workflows/docs.oci-labels.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: Labels
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+      - name: Check
+        run: |
+          bin/python/oci-labels-sync.py --check || { echo "::error::run bin/python/oci-labels-sync.py and commit the result"; exit 1; }

@@ -1,5 +1,6 @@
 FROM ghcr.io/epicmorg/jdk:6
-LABEL maintainer="Atlassian Fisheye Server Team; EpicMorg DevTeam, developer@epicm.org"
+LABEL org.opencontainers.image.title="EpicMorg Fisheye"
+LABEL org.opencontainers.image.description="Atlassian Fisheye by EpicMorg"
 ARG DEBIAN_FRONTEND=noninteractive
 
 ##################################################################

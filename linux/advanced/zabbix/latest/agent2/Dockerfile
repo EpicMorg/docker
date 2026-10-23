@@ -1,11 +1,10 @@
 FROM docker.io/zabbix/zabbix-agent2:ubuntu-latest
 ENV DEBIAN_FRONTEND=noninteractive
-LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 LABEL org.opencontainers.image.vendor="EpicMorg DevTeam, developer@epicm.org"
 LABEL org.opencontainers.image.authors="STAM, kasthack, Aleks-Z"
 LABEL org.opencontainers.image.source="https://github.com/EpicMorg/docker"
-LABEL org.opencontainers.image.title="EpicMorg Debian (Light)"
-LABEL org.opencontainers.image.description="Debian Trixie base by EpicMorg"
+LABEL org.opencontainers.image.title="EpicMorg Zabbix agent 2"
+LABEL org.opencontainers.image.description="Official Zabbix 3.0-7.4 images (Ubuntu) + admin tools, extra CA certs, locales"
 LABEL org.opencontainers.image.licenses="MIT"
 LABEL org.opencontainers.image.documentation="https://github.com/EpicMorg/docker"
 LABEL org.opencontainers.image.url="https://github.com/EpicMorg/docker"

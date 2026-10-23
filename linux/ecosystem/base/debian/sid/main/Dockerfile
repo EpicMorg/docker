@@ -1,5 +1,6 @@
 FROM ghcr.io/epicmorg/debian:sid-light
-LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
+LABEL org.opencontainers.image.title="EpicMorg Debian"
+LABEL org.opencontainers.image.description="Debian 13 trixie and sid base images by EpicMorg: light, main, develop, develop-light"
 ARG DEBIAN_FRONTEND=noninteractive
 
 ##################################################################

@@ -1,4 +1,6 @@
 FROM ghcr.io/epicmorg/debian:trixie
+LABEL org.opencontainers.image.title="EpicMorg PostgreSQL"
+LABEL org.opencontainers.image.description="PostgreSQL 8.2-18 from PGDG on Debian trixie; 10+ with ~90 extensions, TimescaleDB"
 
 ARG DEBIAN_FRONTEND=noninteractive
 

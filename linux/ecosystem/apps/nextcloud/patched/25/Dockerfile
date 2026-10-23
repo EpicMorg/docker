@@ -1,4 +1,6 @@
 FROM ghcr.io/epicmorg/nextcloud:25
+LABEL org.opencontainers.image.title="EpicMorg Nextcloud"
+LABEL org.opencontainers.image.description="Nextcloud 14-35 on Debian trixie (our PHP + Apache, php-fpm), drop-in for the official image + SMB, IMAP, inotify, ffmpeg"
 
 ##################################################################
 #      thank u, mac users. rolling back normal ZipStreammer

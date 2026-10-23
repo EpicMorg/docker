@@ -19,6 +19,8 @@ RUN echo "=============================================" && \
 ##################################################################
 
 FROM ghcr.io/epicmorg/jdk:8
+LABEL org.opencontainers.image.title="EpicMorg Cassandra"
+LABEL org.opencontainers.image.description="Apache Cassandra 3.11 on epicmorg/jdk:8 with Python 2.7 cqlsh and Lucene index plugin"
 
 ##################################################################
 #                  Python 2.7

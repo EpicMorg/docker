@@ -1,4 +1,6 @@
 FROM ghcr.io/epicmorg/debian:trixie
+LABEL org.opencontainers.image.title="EpicMorg TorrServer"
+LABEL org.opencontainers.image.description="TorrServer (torrent streaming server) on Debian trixie"
 
 #ARG TORRSERVER_LINK=https://releases.yourok.ru/torr/server/TorrServer-linux-amd64
 ARG TORRSERVER_LINK=https://github.com/YouROK/TorrServer/releases/latest/download/TorrServer-linux-amd64

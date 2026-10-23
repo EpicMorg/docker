@@ -1,5 +1,6 @@
 FROM ghcr.io/epicmorg/jdk:17
-LABEL maintainer="Atlassian Crowd Server Team; EpicMorg DevTeam, developer@epicm.org"
+LABEL org.opencontainers.image.title="EpicMorg Crowd"
+LABEL org.opencontainers.image.description="Atlassian Crowd by EpicMorg"
 ARG DEBIAN_FRONTEND=noninteractive
 
 ##################################################################

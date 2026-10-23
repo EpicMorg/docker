@@ -7,7 +7,8 @@ RUN git clone https://www-dev.cockos.com/ninjam/ninjam.git /tmp/ninjam && \
     dos2unix *.txt
 
 FROM ghcr.io/epicmorg/debian:trixie
-LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
+LABEL org.opencontainers.image.title="EpicMorg NINJAM"
+LABEL org.opencontainers.image.description="NINJAM server (ninjamsrv) built from Cockos source, on Debian trixie"
 ARG DEBIAN_FRONTEND=noninteractive
 
 ##################################################################

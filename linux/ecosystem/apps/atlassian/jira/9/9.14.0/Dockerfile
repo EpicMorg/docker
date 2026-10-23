@@ -1,5 +1,6 @@
 FROM ghcr.io/epicmorg/jdk:8
-LABEL maintainer="Atlassian Jira Server Team; EpicMorg DevTeam, developer@epicm.org"
+LABEL org.opencontainers.image.title="EpicMorg Jira"
+LABEL org.opencontainers.image.description="Atlassian Jira by EpicMorg"
 ARG DEBIAN_FRONTEND=noninteractive
 
 ##################################################################

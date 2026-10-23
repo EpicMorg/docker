@@ -1,7 +1,8 @@
 FROM ghcr.io/epicmorg/jdk:17 AS jdk
 
 FROM ghcr.io/epicmorg/teamcity-agent:minimal
-LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
+LABEL org.opencontainers.image.title="EpicMorg TeamCity Agent"
+LABEL org.opencontainers.image.description="TeamCity build agents on Debian 13 trixie: JDK 21, docker/buildah, php, node, SDKs"
 ARG DEBIAN_FRONTEND=noninteractive
 
 ##################################################################

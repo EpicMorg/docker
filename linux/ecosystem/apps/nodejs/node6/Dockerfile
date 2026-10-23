@@ -1,5 +1,4 @@
 FROM ghcr.io/epicmorg/debian:trixie
-LABEL maintainer="EpicMorg DevTeam, developer@epicm.org"
 ARG DEBIAN_FRONTEND=noninteractive
 
 LABEL org.opencontainers.image.title="EpicMorg NodeJS"

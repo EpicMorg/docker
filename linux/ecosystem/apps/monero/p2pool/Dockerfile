@@ -1,5 +1,7 @@
 FROM ghcr.io/epicmorg/debian:trixie
-LABEL maintainer="original by sethforprivacy; EpicMorg DevTeam, developer@epicm.org"
+LABEL org.opencontainers.image.title="EpicMorg Monero"
+LABEL org.opencontainers.image.description="Monero node (monerod) and p2pool mining node on Debian trixie"
+LABEL org.opencontainers.image.authors="sethforprivacy; STAM, kasthack, Aleks-Z"
 ARG DEBIAN_FRONTEND=noninteractive
 
 

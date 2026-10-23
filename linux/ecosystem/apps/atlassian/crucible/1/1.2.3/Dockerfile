@@ -1,5 +1,6 @@
 FROM ghcr.io/epicmorg/jdk:6
-LABEL maintainer="Atlassian Crucible Server Team; EpicMorg DevTeam, developer@epicm.org"
+LABEL org.opencontainers.image.title="EpicMorg Crucible"
+LABEL org.opencontainers.image.description="Atlassian Crucible by EpicMorg"
 ARG DEBIAN_FRONTEND=noninteractive
 
 ##################################################################
