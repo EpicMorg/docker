@@ -6,9 +6,13 @@ keepers - packaged from the upstream image [`berkut174/webtlo`](https://hub.dock
 
 ## What's inside
 
-`berkut174/webtlo:<version>` unchanged, plus extra CA certificates (EpicMorg root / intermediate
+The upstream image unchanged, plus extra CA certificates (EpicMorg root / intermediate
 CAs, Russian Trusted Root / Sub CAs) added to the system trust store with `update-ca-certificates`.
 Nothing else is modified: application, entrypoint, ports, volumes and settings are the upstream ones.
+
+The base is pulled from [`ghcr.io/keepers-team/webtlo`](https://github.com/keepers-team/webtlo/pkgs/container/webtlo):
+the project publishes the same image there as `berkut174/webtlo` on Docker Hub (same digest), without
+Docker Hub's pull rate limit.
 
 ## Tags
 

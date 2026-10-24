@@ -41,6 +41,9 @@ RUN set -eux; \
     tar -xzf ${TEMP_ARCHIVE} --strip-components=1 --directory "${CROWD_INSTALL_DIR}" && \
     sed -i -e '2s/^exec/cd "`dirname "$0"`" \&\& exec/' ${CROWD_INSTALL_DIR}/start_crowd.sh && \
     sed -i -e 's#exec "$PRGDIR"/"$EXECUTABLE" start "$@"#exec "$PRGDIR"/"$EXECUTABLE" run "$@"#g' ${CROWD_INSTALL_DIR}/apache-tomcat/bin/startup.sh && \
+    # Crowd 1.3-1.4 ship no setenv.sh (catalina.sh sources it when present): use the one 1.4.x ships
+    { [ -e ${CROWD_INSTALL_DIR}/apache-tomcat/bin/setenv.sh ] || \
+        printf 'JAVA_OPTS="-Xms128m -Xmx256m -XX:MaxPermSize=256m $JAVA_OPTS"\n\nexport JAVA_OPTS\n' > ${CROWD_INSTALL_DIR}/apache-tomcat/bin/setenv.sh; } && \
     sed -i -e 's/-Xms\([0-9]\+[kmg]\) -Xmx\([0-9]\+[kmg]\)/-Xms\${JVM_MINIMUM_MEMORY:=\1} -Xmx\${JVM_MAXIMUM_MEMORY:=\2} \${JVM_SUPPORT_RECOMMENDED_ARGS} -Dcrowd.home=\${CROWD_HOME}/g' ${CROWD_INSTALL_DIR}/apache-tomcat/bin/setenv.sh && \
     sed -i -e 's/port="8095"/port="8095" secure="${catalinaConnectorSecure}" scheme="${catalinaConnectorScheme}" proxyName="${catalinaConnectorProxyName}" proxyPort="${catalinaConnectorProxyPort}"/' ${CROWD_INSTALL_DIR}/apache-tomcat/conf/server.xml && \
     apt-get clean -y && \
