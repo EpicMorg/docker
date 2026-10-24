@@ -2,6 +2,7 @@
 
 ## 2026
 * `oct` — next (unreleased)
+  * `webtlo` (all tags): base pulled from `ghcr.io/keepers-team/webtlo` instead of `docker.io/berkut174/webtlo` - the project publishes the same image there (same digests); the 21 parallel builds hit Docker Hub's pull rate limit (`toomanyrequests`) and all failed on 2026-10-24
   * `crowd` 1.3, 1.3.2, 1.3.3, 1.4: build - their tarballs ship no `apache-tomcat/bin/setenv.sh` (catalina.sh sources it when present), the template now writes the one 1.4.x ships before setting `JVM_*` / `crowd.home` in it; `crowd` 1.4.8 removed - Atlassian has only a WAR for it, no standalone tarball (never published)
   * OCI labels: the `Dockerfile.<variant>` files (`Dockerfile.jdk11` & co. of jira / confluence / bitbucket / crowd / fisheye-crucible / atlassian-sdk, qbittorrent `Dockerfile.libtorrent1`, steam `Dockerfile.debug`, ~1450 files) still had `LABEL maintainer` and no own title / description - regenerated / synced; `oci-labels-sync.py` and its PR check now cover every `Dockerfile*` of a leaf
   * CI: workflows `atlassian.fisheye.02-04` / `atlassian.crucible.02-04` removed - `fisheye/2+` and `crucible/2+` are symlinks to `fisheye-crucible/*`, a sparse checkout of a symlink brings no leaves, so they ran an empty matrix (green, nothing built); FishEye / Crucible 2+ are published by `atlassian.fisheye-crucible.02-04` as `epicmorg/fisheye-crucible`; README badges point there

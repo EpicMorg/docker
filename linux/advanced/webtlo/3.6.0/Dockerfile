@@ -1,4 +1,5 @@
-FROM docker.io/berkut174/webtlo:3.6.0
+# upstream publishes the same image (same digest) to ghcr.io as well: no Docker Hub pull limit
+FROM ghcr.io/keepers-team/webtlo:3.6.0
 
 LABEL org.opencontainers.image.vendor="EpicMorg DevTeam, developer@epicm.org"
 LABEL org.opencontainers.image.authors="STAM, kasthack, Aleks-Z"

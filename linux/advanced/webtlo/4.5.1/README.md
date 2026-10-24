@@ -2,6 +2,6 @@
 
 # `epicmorg/webtlo:4.5.1`
 
-Built from: `docker.io/berkut174/webtlo:4.5.1`
+Built from: `ghcr.io/keepers-team/webtlo:4.5.1`
 
 Usage, tags and notes: [`epicmorg/webtlo`](../README.md).
