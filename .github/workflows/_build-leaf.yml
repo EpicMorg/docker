@@ -84,6 +84,12 @@ jobs:
         submodules: ${{ inputs.submodules }}
         show-progress: false
 
+    # One auth file for every login below and for buildah-wrapper's `buildah build` / `push`:
+    # base-image pulls from docker.io ran anonymously although the logins succeeded
+    # ("unauthenticated pull rate limit" on webtlo / zabbix, 2026-10-24).
+    - name: Pin the registry auth file
+      run: echo "REGISTRY_AUTH_FILE=${RUNNER_TEMP}/containers-auth.json" >> "$GITHUB_ENV"
+
     - name: Log into docker.io
       uses: nick-fields/retry@v4
       env:
@@ -113,8 +119,8 @@ jobs:
         command: |
           test -n "$REG_USER" && test -n "$REG_PASS" || { echo "::error::QUAY_SERVER_LOGIN/KEY is empty: org secret not shared with this repo?"; exit 1; }
           echo "$REG_PASS" | docker login -u "$REG_USER" --password-stdin "$REG_URL"
+          echo "$REG_PASS" | buildah login -u "$REG_USER" --password-stdin "$REG_URL"
 
-    # buildah falls back to docker's auth file for quay.io (docker.io / ghcr.io: explicit buildah logins).
     # GHCR_API: org secret (PAT with write:packages) - GITHUB_TOKEN can't create or write
     # packages the repo was not granted access to, and every epicmorg/* package predates CI.
     - name: Log into ghcr.io
@@ -153,6 +159,11 @@ jobs:
       run: |
         set -euo pipefail
         buildah --version
+        # who buildah pulls / pushes as (empty = anonymous docker.io pulls, rate-limited)
+        echo "auth file: ${REGISTRY_AUTH_FILE}"
+        for r in docker.io quay.io ghcr.io; do
+          echo "$r: $(buildah login --get-login "$r" 2>&1 || true)"
+        done
         # explicit `|| return` -- `set -e` is ignored inside an `until` condition
         run_leaf() {
           cd "$1" || return 1

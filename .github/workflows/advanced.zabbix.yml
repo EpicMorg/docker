@@ -69,6 +69,8 @@ jobs:
     if: ${{ !cancelled() && needs.list.result == 'success' && needs.latest.result != 'skipped' && needs.list.outputs.releases != '[]' }}
     strategy:
       fail-fast: false
+      # ~90 leaves at once each pull a zabbix/* base from Docker Hub: past its rate limit
+      max-parallel: 20
       matrix:
         leaf: ${{ fromJSON(needs.list.outputs.releases) }}
     uses: ./.github/workflows/_build-leaf.yml

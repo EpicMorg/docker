@@ -2,6 +2,7 @@
 
 ## 2026
 * `oct` — next (unreleased)
+  * CI build job: one registry auth file for the whole job (`REGISTRY_AUTH_FILE` in `$RUNNER_TEMP`) used by every `buildah login` (now also quay.io) and by buildah-wrapper's build / push; the job prints who buildah is logged in as per registry - docker.io base pulls ran as anonymous despite successful logins (`unauthenticated pull rate limit` on webtlo / zabbix); `advanced.zabbix` releases build at most 20 leaves at once (~90 parallel pulls of `zabbix/*` from Docker Hub)
   * `webtlo` (all tags): base pulled from `ghcr.io/keepers-team/webtlo` instead of `docker.io/berkut174/webtlo` - the project publishes the same image there (same digests); the 21 parallel builds hit Docker Hub's pull rate limit (`toomanyrequests`) and all failed on 2026-10-24
   * `crowd` 1.3, 1.3.2, 1.3.3, 1.4: build - their tarballs ship no `apache-tomcat/bin/setenv.sh` (catalina.sh sources it when present), the template now writes the one 1.4.x ships before setting `JVM_*` / `crowd.home` in it; `crowd` 1.4.8 removed - Atlassian has only a WAR for it, no standalone tarball (never published)
   * OCI labels: the `Dockerfile.<variant>` files (`Dockerfile.jdk11` & co. of jira / confluence / bitbucket / crowd / fisheye-crucible / atlassian-sdk, qbittorrent `Dockerfile.libtorrent1`, steam `Dockerfile.debug`, ~1450 files) still had `LABEL maintainer` and no own title / description - regenerated / synced; `oci-labels-sync.py` and its PR check now cover every `Dockerfile*` of a leaf
