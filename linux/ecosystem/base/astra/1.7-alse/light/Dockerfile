@@ -100,6 +100,9 @@ RUN update-ca-certificates --fresh
 #                  update locales
 ##################################################################
 RUN locale-gen
+# UTF-8 out of the box (Cyrillic in logs / CLIs): C.UTF-8 needs no language;
+# LC_ALL stays unset so a child or `docker run -e LANG=...` can override it
+ENV LANG=C.UTF-8
 
 ##################################################################
 #                  Create Base directory for various soft
@@ -142,9 +145,11 @@ RUN set -eu; \
         || { echo "FATAL: $crt not in ca-certificates.crt" >&2; exit 1; }; \
     done; \
     test -s "${REQUESTS_CA_BUNDLE}" || { echo "FATAL: no CA bundle at ${REQUESTS_CA_BUNDLE}" >&2; exit 1; }; \
-    for l in en_US.utf8 en_GB.utf8 ru_RU.utf8 ru_RU.cp1251 ru_RU.koi8r ru_UA.utf8; do \
+    for l in C.utf8 en_US.utf8 en_GB.utf8 ru_RU.utf8 ru_RU.cp1251 ru_RU.koi8r ru_UA.utf8 uk_UA.utf8 de_DE.utf8 fr_FR.utf8; do \
       locale -a | grep -qx "$l" || { echo "FATAL: locale $l not generated" >&2; locale -a >&2; exit 1; }; \
     done; \
+    [ "$(locale charmap)" = UTF-8 ] || { echo "FATAL: charmap is $(locale charmap), not UTF-8" >&2; exit 1; }; \
+    [ "$(printf 'Привет' | wc -m)" = 6 ] || { echo "FATAL: Cyrillic is not counted as characters" >&2; exit 1; }; \
     test -s ${EMG_LOCAL_BASE_DIR}/aria2/config/aria2.conf || { echo "FATAL: aria2.conf missing" >&2; exit 1; }; \
     test -s ${EMG_LOCAL_BASE_DIR}/user-agents/user-agents.txt || { echo "FATAL: user-agents.txt missing" >&2; exit 1; }; \
     aria2c --version | head -1; \
