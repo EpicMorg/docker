@@ -17,7 +17,7 @@ where the fleet has drifted apart. Pipeline: `collect → inventory → evaluate
   fetches them with `enodia cve update`, `2.0.0`–`2.1.1` ship `/usr/local/bin/enodia-cve-update`;
   see [CVE databases](#cve-databases)
 
-Alias tags: `latest` and `2` → `2.2.0`, `1` → the newest 1.x; `1.0.0-0` is an alias of `1.0.0`.
+Alias tags: `latest` and `2` → `2.2.1`, `1` → the newest 1.x; `1.0.0-0` is an alias of `1.0.0`.
 
 ## Tags
 
@@ -32,7 +32,8 @@ Alias tags: `latest` and `2` → `2.2.0`, `1` → the newest 1.x; `1.0.0-0` is a
 | `2.0.0` | [`2.0.0`](2.0.0/Dockerfile) |
 | `2.1.0` | [`2.1.0`](2.1.0/Dockerfile) |
 | `2.1.1` | [`2.1.1`](2.1.1/Dockerfile) |
-| `2.2.0`, `2`, `latest` | [`2.2.0`](2.2.0/Dockerfile) |
+| `2.2.0` | [`2.2.0`](2.2.0/Dockerfile) |
+| `2.2.1`, `2`, `latest` | [`2.2.1`](2.2.1/Dockerfile) |
 
 Every tag is pushed to `docker.io`, `quay.io` and `ghcr.io` (`epicmorg/enodia:<tag>` on each) - same digest everywhere.
 <!-- readme-sync:tags:end -->
@@ -61,7 +62,7 @@ Enodia `2.0.0`+ matches versions against local CVE databases (`cve.*.path` in `e
 | ----- | --------- | ------------- |
 | `2.0.0` | NVD (JSON 2.0, per year), BDU FSTEC | `enodia-cve-update` |
 | `2.1.0`, `2.1.1` | the above + Debian Security Tracker, vendor OVAL (`ENODIA_OVAL`), Alpine secdb (`ENODIA_ALPINE`) | `enodia-cve-update` |
-| `2.2.0` | the above + MariaDB, Atlassian, PostgreSQL and nginx advisories | `enodia cve update` |
+| `2.2.0`, `2.2.1` | the above + MariaDB, Atlassian, PostgreSQL and nginx advisories | `enodia cve update` |
 
 ### `2.2.0`+: `enodia cve update`
 
@@ -74,16 +75,16 @@ majors come from the files already there, from `--from inventory.jsonl` and from
 # refresh — e.g. nightly from cron; unchanged files cost one request each
 docker run --rm \
   -v /etc/enodia:/etc/enodia:ro -v /var/lib/enodia/cve:/var/lib/enodia/cve \
-  epicmorg/enodia:2.2.0 cve update --config /etc/enodia/config.yaml --oval ubuntu:noble
+  epicmorg/enodia:2.2.1 cve update --config /etc/enodia/config.yaml --oval ubuntu:noble
 
 # use
 docker run --rm \
   -v /etc/enodia:/etc/enodia:ro -v /var/lib/enodia/cve:/var/lib/enodia/cve:ro \
-  epicmorg/enodia:2.2.0 check --config /etc/enodia/config.yaml
+  epicmorg/enodia:2.2.1 check --config /etc/enodia/config.yaml
 ```
 
 ```yaml
-# enodia.yaml (2.2.0)
+# enodia.yaml (2.2.0+)
 cve:
   bdu:        {path: /var/lib/enodia/cve/bdu/vulxml.zip}
   nvd:        {path: /var/lib/enodia/cve/nvd}

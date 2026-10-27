@@ -2,8 +2,6 @@
 
 # `epicmorg/enodia:2.2.0`
 
-Also tagged: `2`, `latest`
-
 Built from: `ghcr.io/epicmorg/debian:trixie-light`
 
 Usage, tags and notes: [`epicmorg/enodia`](../README.md).
