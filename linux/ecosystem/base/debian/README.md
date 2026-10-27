@@ -6,7 +6,7 @@ small family of layers built on top of each other:
 
 | Tag | Built from | What it adds |
 | --- | ---------- | ------------ |
-| `<codename>-light` | `debian:<codename>-slim` | our apt sources and settings, locales, CA certificates (incl. EpicMorg CA), basic utilities (`curl`, `wget`, `aria2`, `rsync`, `sudo`, `tini`, `mc`, `htop`, archivers), `/etc/ssl/dhparam.pem` (4096 bit); squashed into one layer |
+| `<codename>-light` | `debian:<codename>-slim` | our apt sources and settings, locales (`LANG=C.UTF-8`; en_US / en_GB / ru_RU / ru_UA / uk_UA / de_DE / fr_FR generated), CA certificates (incl. EpicMorg CA), basic utilities (`curl`, `wget`, `aria2`, `rsync`, `sudo`, `tini`, `mc`, `htop`, archivers), `/etc/ssl/dhparam.pem` (4096 bit); squashed into one layer |
 | `<codename>` (main) | `-light` | more tooling: filesystem tools, fresh `git` (launchpad PPA), `git-lfs`, `gh`, Perforce `p4` client, official `7-Zip` (`7zz`), `dumb-init`, `gosu` |
 | `<codename>-develop-light` | main | Debian toolchain (`build-essential`, `clang`, `cmake`, `meson`, autotools) and the common `-dev` packages |
 | `<codename>-develop` | `-develop-light` | heavy build environment: prebuilt libraries and toolchains under `/usr/local/share/epicmorg` |

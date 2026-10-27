@@ -8,7 +8,7 @@ Base images for **Astra Linux Special Edition** (`alse`)
 | Tag | Built from | What it adds |
 | --- | ---------- | ------------ |
 | `<ver>-rootfs` | Astra rootfs | the plain Astra Linux root filesystem with official `dl.astralinux.ru` apt repositories; squashed |
-| `<ver>-light` | `-rootfs` | our apt settings, locales, CA certificates (incl. EpicMorg CA), basic utilities, `/etc/ssl/dhparam.pem`; squashed |
+| `<ver>-light` | `-rootfs` | our apt settings, locales (`LANG=C.UTF-8`; en_US / en_GB / ru_RU / ru_UA / uk_UA / de_DE / fr_FR generated), CA certificates (incl. EpicMorg CA), basic utilities, `/etc/ssl/dhparam.pem`; squashed |
 | `<ver>-main` | `-light` | more tooling: fresh `git`, `git-lfs`, `gh`, Perforce `p4` client, official `7-Zip`, `dumb-init`, `gosu` |
 | `<ver>-develop-light` | `-main` | compilers and the common `-dev` packages from the Astra repositories |
 | `<ver>-develop` | `-develop-light` | heavy build environment: the same set of libraries built from source as `debian:trixie-develop` (OpenSSL branches, curl, libpq, ICU, libxml2, zlib, zstd, ...), CMake, Ninja, Go, Rust, llvm-mingw |
