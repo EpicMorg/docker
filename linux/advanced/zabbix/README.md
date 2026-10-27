@@ -34,7 +34,7 @@ On top of the upstream image:
   checks and alert scripts);
 * **sudo for `nmap`**: the `zabbix` user may run `/usr/bin/nmap` via `sudo` without a password
   (`/etc/sudoers.d/zabbix`) - for scans that need raw sockets;
-* **locales** `en_US`, `en_GB`, `ru_RU`, `ru_UA` (UTF-8 plus legacy 8-bit charsets) and `console-cyrillic`;
+* **locales** `en_US`, `en_GB`, `ru_RU`, `ru_UA` (UTF-8 plus legacy 8-bit charsets), `uk_UA`, `de_DE`, `fr_FR` (UTF-8) and `console-cyrillic`; `LANG=C.UTF-8` by default (upstream runs in POSIX), override with `-e LANG=...`;
 * **extra CA certificates** in the system trust store: EpicMorg root / intermediate CAs and the
   Russian Trusted Root / Sub CAs.
 

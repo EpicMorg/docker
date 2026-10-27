@@ -1,5 +1,8 @@
 FROM docker.io/zabbix/zabbix-proxy-sqlite3:5.0-ubuntu-latest
 ENV DEBIAN_FRONTEND=noninteractive
+# UTF-8 out of the box (Cyrillic in logs / CLIs): upstream leaves LANG unset (POSIX);
+# LC_ALL stays unset so `docker run -e LANG=...` can override it
+ENV LANG=C.UTF-8
 LABEL org.opencontainers.image.vendor="EpicMorg DevTeam, developer@epicm.org"
 LABEL org.opencontainers.image.authors="STAM, kasthack, Aleks-Z"
 LABEL org.opencontainers.image.source="https://github.com/EpicMorg/docker"
@@ -86,6 +89,22 @@ RUN apt-get update -y && \
         wget
 
 RUN echo "zabbix ALL=(ALL) NOPASSWD: /usr/bin/nmap" > /etc/sudoers.d/zabbix
+
+##################################################################
+#                   locales
+##################################################################
+# locales' postinst does not regenerate an already generated set: build our locale.gen explicitly
+RUN locale-gen
+
+##################################################################
+#                   Assertions
+##################################################################
+RUN set -eu; \
+    for l in C.utf8 en_US.utf8 en_GB.utf8 ru_RU.utf8 ru_RU.cp1251 ru_RU.koi8r ru_UA.utf8 uk_UA.utf8 de_DE.utf8 fr_FR.utf8; do \
+      locale -a | sed 's/-//g' | grep -qix "$l" || { echo "FATAL: locale $l not generated" >&2; locale -a >&2; exit 1; }; \
+    done; \
+    [ "$(locale charmap)" = UTF-8 ] || { echo "FATAL: charmap is $(locale charmap), not UTF-8" >&2; exit 1; }; \
+    [ "$(printf 'Привет' | wc -m)" = 6 ] || { echo "FATAL: multibyte text is not counted as characters" >&2; exit 1; }
 
 COPY usr/local/share/ca-certificates /usr/local/share/ca-certificates
 RUN update-ca-certificates --fresh
