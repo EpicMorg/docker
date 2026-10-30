@@ -3,6 +3,8 @@
 ## 2026
 * `oct` — next (unreleased)
   * base `light` (trixie, sid, astra 1.7 / 1.8) and everything built on it: `ENV LANG=C.UTF-8` - containers ran in the POSIX locale, Cyrillic and other non-ASCII text broke in CLIs and logs; `LC_ALL` stays unset, images that set their own `LANG` (postgres, rabbitmq, teamcity, erlang, atlassian) keep it; `uk_UA`, `de_DE`, `fr_FR` UTF-8 locales generated as well (+3 MB locale archive); fatal assertions: locales present, charmap UTF-8, Cyrillic counted as characters
+  * `python` 3.9-3.16 (dev): setuptools pinned to `80.9.0` (as the README always listed) instead of the newest - setuptools 82+ removed `pkg_resources` (images shipped 82.0.1 / 84.2.1), vendor tooling such as Dell `dellemc.unity` fails to import it; fatal check that `import pkg_resources` works; pip still the newest
+  * `ansible` 2.11-2.21 and `teamcity-agent:ansible-*`: `setuptools==80.9.0` in the runtime venv (a Python 3.12+ venv has no setuptools at all, so `pkg_resources` was missing); fatal `import pkg_resources` check, also in `ansible-versions-sync.py`
   * `enodia` 2.2.1 (probe fixes: mysql / mariadb handshake, postgresql default database, `${VAR}` verbatim, cve update); `:2` and `:latest` move from 2.2.0 to 2.2.1; the release archive is now checked against the sha256 from the release's `checksums.txt`
   * `zabbix` (all versions and components): `ENV LANG=C.UTF-8` (upstream images run in POSIX), `uk_UA` / `de_DE` / `fr_FR` UTF-8 locales, `locale-gen` run explicitly (locales' postinst does not rebuild an existing set), fatal locale / UTF-8 assertions
   * `python` (all lines): fatal assertion that the interpreter prints Cyrillic through a pipe with the image's default environment (2.x-3.6 depend on the base's `LANG=C.UTF-8`)

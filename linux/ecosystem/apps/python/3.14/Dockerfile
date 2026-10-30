@@ -9,6 +9,9 @@ ENV PYTHON_FULL_VERSION=${PYTHON_VERSION}.7
 ENV PYTHON_DIR=${EMG_LOCAL_BASE_DIR}/python/${PYTHON_VERSION}
 ARG PYTHON_BIN_DIR=${PYTHON_DIR}/bin
 ARG PYTHON_SRC_DIR=${PYTHON_DIR}/src
+# setuptools pinned (82 removed pkg_resources, which vendor tooling still imports,
+# e.g. Dell dellemc.unity); pip stays at its newest
+ARG SETUPTOOLS_VERSION=80.9.0
 ENV PIP_ROOT_USER_ACTION=warn
 ARG PYTHON_DOWNLOAD_URL=https://www.python.org/ftp/python/${PYTHON_FULL_VERSION}/Python-${PYTHON_FULL_VERSION}.tgz
 ARG PYTHON_TEMP=/tmp/Python-${PYTHON_FULL_VERSION}.tgz
@@ -91,7 +94,7 @@ RUN set -eux; \
     --with-openssl=${OPENSSL_35_DIR} && \
     make -j$(nproc) && \
     make altinstall && \
-    ${PYTHON_DIR}/bin/python${PYTHON_VERSION} -m pip install --upgrade pip setuptools && \
+    ${PYTHON_DIR}/bin/python${PYTHON_VERSION} -m pip install --upgrade pip "setuptools==${SETUPTOOLS_VERSION}" && \
     rm -rf /tmp/*
 
 # Version-agnostic aliases: keep the assertion block below byte-identical across all python versions.
@@ -220,6 +223,9 @@ ENV PYTHON_FULL_VERSION=${PYTHON_VERSION}.7
 ENV PYTHON_DIR=${EMG_LOCAL_BASE_DIR}/python/${PYTHON_VERSION}
 ARG PYTHON_BIN_DIR=${PYTHON_DIR}/bin
 ARG PYTHON_SRC_DIR=${PYTHON_DIR}/src
+# setuptools pinned (82 removed pkg_resources, which vendor tooling still imports,
+# e.g. Dell dellemc.unity); pip stays at its newest
+ARG SETUPTOOLS_VERSION=80.9.0
 ENV PIP_ROOT_USER_ACTION=warn
 
 # Expected compile-time OpenSSL version prefix (_ssl.OPENSSL_VERSION_NUMBER, format 0xMNNFFPPS).
@@ -316,6 +322,10 @@ RUN set -eu; \
     if [ -z "${libz}" ] || echo "${libz}" | grep -qv "^${ZLIB_LIB_DIR}/"; then \
       echo "FATAL: runtime libz not (only) from ${ZLIB_LIB_DIR}" >&2; exit 1; \
     fi; \
+    echo "--- Checking setuptools / pkg_resources (Final) ---"; \
+    st="$("$py" -c 'import setuptools; print(setuptools.__version__)')"; \
+    [ "$st" = "${SETUPTOOLS_VERSION}" ] || { echo "FATAL: setuptools is $st, expected ${SETUPTOOLS_VERSION}" >&2; exit 1; }; \
+    "$py" -W ignore -c 'import pkg_resources' || { echo "FATAL: no pkg_resources (setuptools ${SETUPTOOLS_VERSION})" >&2; exit 1; }; \
     echo "--- Checking UTF-8 I/O (Final): base light sets LANG=C.UTF-8, 2.x-3.6 depend on it ---"; \
     out="$("$py" -c 'import locale, sys; s = b"\xd0\x9f\xd1\x80\xd0\xb8\xd0\xb2\xd0\xb5\xd1\x82".decode("utf-8"); e = locale.getpreferredencoding().lower().replace("-", ""); print(sys.version_info[0] >= 3 and s or s.encode("utf-8")); sys.exit(e != "utf8" and "preferred encoding is " + e or 0)')" \
       || { echo "FATAL: python is not UTF-8 by default (LANG=${LANG:-unset})" >&2; exit 1; }; \
