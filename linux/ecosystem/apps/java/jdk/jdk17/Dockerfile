@@ -5,9 +5,11 @@ LABEL org.opencontainers.image.title="EpicMorg Java"
 LABEL org.opencontainers.image.description="JDK by EpicMorg"
 
 ARG K_JDK_MAJOR_VERSION=17
-ARG K_JDK_FULL_VERSION=jdk-17.0.20
-ARG K_JDK_VERSION=17.0.20
-ARG K_JDK_BUILD_VERSION=8
+ARG K_JDK_FULL_VERSION=jdk-17.0.21
+ARG K_JDK_VERSION=17.0.21
+ARG K_JDK_BUILD_VERSION=9
+# sha256 of the Temurin archive (api.adoptium.net)
+ARG K_JDK_SHA256=8b9b611d917e3dfd8419d3566b5949226f69b052fed7e109c1368add1dfe8711
 ARG K_JDK_DIR=${EMG_LOCAL_BASE_DIR}/java/${K_JDK_MAJOR_VERSION}
 ARG K_JDK_URL=https://github.com/adoptium/temurin${K_JDK_MAJOR_VERSION}-binaries/releases/download/${K_JDK_FULL_VERSION}+${K_JDK_BUILD_VERSION}/OpenJDK${K_JDK_MAJOR_VERSION}U-jdk_x64_linux_hotspot_${K_JDK_VERSION}_${K_JDK_BUILD_VERSION}.tar.gz
 ARG K_JDK_TEMP=/tmp/OpenJDK${K_JDK_MAJOR_VERSION}U-jdk_x64_linux_hotspot_${K_JDK_VERSION}_${K_JDK_BUILD_VERSION}.tar.gz
@@ -26,6 +28,7 @@ RUN set -eux; \
         --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
         -d /tmp \
         "${K_JDK_URL}" && \
+    echo "${K_JDK_SHA256}  ${K_JDK_TEMP}" | sha256sum -c - && \
     mkdir -p ${K_JDK_DIR} && \
     tar -xzf ${K_JDK_TEMP} --strip-components=1 --directory ${K_JDK_DIR} && \
     ln -sfv ${JAVA_HOME} /usr/jre && \

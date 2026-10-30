@@ -1,0 +1,10 @@
+services:
+  app:
+    image: "epicmorg/jdk:27"
+    x-squash: false
+    x-mirrors:
+      - quay.io/epicmorg/jdk:27
+      - ghcr.io/epicmorg/jdk:27
+      - docker.io/epicmorg/jdk:27
+    build:
+      context: .
