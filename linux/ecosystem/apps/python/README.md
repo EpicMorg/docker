@@ -25,13 +25,14 @@ https://pypi.org/project/setuptools/
 | 3.7      | 1.1.1w, End Of Life, 12 Sep 2023   | `10`  | `pip` `24.0`, `setuptools` `68.0.0`   | End Of Life, 2023-06-27 | Ready ✅ |
 | 3.8      | 1.1.1w, End Of Life, 12 Sep 2023   | `10`  | `pip` `25.0.1`, `setuptools` `75.3.2` | End Of Life, 2024-10-07 | Ready ✅ |
 | 3.9      | 1.1.1w, End Of Life, 12 Sep 2023   | `10`  | `pip` `26.0.1`, `setuptools` `80.9.0` | End Of Life, 2025-10-31 | Ready ✅ |
-| 3.10     | 3.5.x, LTS, 08 Apr 2030            | `13`  | `pip` `26.2.1`, `setuptools` `80.9.0` | security, 2026-10       | Ready ✅ |
-| 3.11     | 3.5.x, LTS, 08 Apr 2030            | `13`  | `pip` `25.3`, `setuptools` `80.9.0`   | security, 2029-10       | Ready ✅ |
+| 3.10     | 3.5.x, LTS, 08 Apr 2030            | `13`  | `pip` `26.2.1`, `setuptools` `80.9.0` | End Of Life, 2026-10-01 | Ready ✅ |
+| 3.11     | 3.5.x, LTS, 08 Apr 2030            | `13`  | `pip` `25.3`, `setuptools` `80.9.0`   | security, 2027-10       | Ready ✅ |
 | 3.12     | 3.5.x, LTS, 08 Apr 2030            | `13`  | `pip` `25.3`, `setuptools` `80.9.0`   | security, 2028-10       | Ready  |
-| 3.13     | 3.5.x, LTS, 08 Apr 2030            | `14`  | `pip` `25.3`, `setuptools` `80.9.0`   | bugfix, 2029-10         | Ready  |
+| 3.13     | 3.5.x, LTS, 08 Apr 2030            | `14`  | `pip` `25.3`, `setuptools` `80.9.0`   | security, 2029-10       | Ready  |
 | 3.14     | 3.5.x, LTS, 08 Apr 2030            | `14`  | `pip` `25.3`, `setuptools` `80.9.0`   | bugfix, 2030-10         | Ready  |
-| 3.15     | 3.5.x, LTS, 08 Apr 2030            | `15`  | `pip` `25.3`, `setuptools` `80.9.0`   | pre-release, 2031-10    | Ready  |
-| 3.16\dev | 3.5.x, LTS, 08 Apr 2030            | `15`  | `pip` `25.3`, `setuptools` `80.9.0`   | DEVELOPMENT             | Ready  |
+| 3.15     | 3.5.x, LTS, 08 Apr 2030            | `15`  | `pip` `25.3`, `setuptools` `80.9.0`   | bugfix, 2031-10         | Ready  |
+| 3.16     | 3.5.x, LTS, 08 Apr 2030            | `15`  | `pip` `25.3`, `setuptools` `80.9.0`   | pre-release (3.16.0a1), 2032-10 | Ready  |
+| dev      | 3.5.x, LTS, 08 Apr 2030            | `15`  | `pip` `25.3`, `setuptools` `80.9.0`   | DEVELOPMENT (`main`)    | Ready  |
 
 **Museum versions (2.6, 3.0–3.6)** are built as-is for legacy software, with a few build-only patches
 (glibc 2.41 `sinpi`, ncurses 6, multiarch paths). Known limits:
@@ -48,6 +49,7 @@ Only supported versions will be automaticly updated at CI.
 ## [EOL Versions](https://devguide.python.org/versions/)
 | Branch | Schedule | Status      | First release | End of life | Release manager                      |
 |--------|----------|-------------|---------------|-------------|--------------------------------------|
+| 3.10   | PEP 619  | end-of-life | 2021-10-04    | 2026-10-01  | Pablo Galindo Salgado                |
 | 3.9    | PEP 596  | end-of-life | 2020-10-05    | 2025-10-31  | Łukasz Langa                         |
 | 3.8    | PEP 569  | end-of-life | 2019-10-14    | 2024-10-07  | Łukasz Langa                         |
 | 3.7    | PEP 537  | end-of-life | 2018-06-27    | 2023-06-27  | Ned Deily                            |
@@ -84,7 +86,8 @@ Only supported versions will be automaticly updated at CI.
 | `3.13` | [`3.13`](3.13/Dockerfile) |
 | `3.14` | [`3.14`](3.14/Dockerfile) |
 | `3.15` | [`3.15`](3.15/Dockerfile) |
-| `dev`, `3.16` | [`dev`](dev/Dockerfile) |
+| `3.16` | [`3.16`](3.16/Dockerfile) |
+| `dev` | [`dev`](dev/Dockerfile) |
 
 Every tag is pushed to `docker.io`, `quay.io` and `ghcr.io` (`epicmorg/python:<tag>` on each) - same digest everywhere.
 <!-- readme-sync:tags:end -->

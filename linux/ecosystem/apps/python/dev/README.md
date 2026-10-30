@@ -2,8 +2,6 @@
 
 # `epicmorg/python:dev`
 
-Also tagged: `3.16`
-
 Built from: `ghcr.io/epicmorg/gcc:15`, `ghcr.io/epicmorg/debian:trixie`
 
 Usage, tags and notes: [`epicmorg/python`](../README.md).

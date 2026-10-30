@@ -5,7 +5,7 @@ FROM ghcr.io/epicmorg/gcc:14 AS builder
 ARG LD_CONF_DIR=/etc/ld.so.conf.d/
 
 ENV PYTHON_VERSION=3.13
-ENV PYTHON_FULL_VERSION=${PYTHON_VERSION}.15
+ENV PYTHON_FULL_VERSION=${PYTHON_VERSION}.18
 ENV PYTHON_DIR=${EMG_LOCAL_BASE_DIR}/python/${PYTHON_VERSION}
 ARG PYTHON_BIN_DIR=${PYTHON_DIR}/bin
 ARG PYTHON_SRC_DIR=${PYTHON_DIR}/src
@@ -219,7 +219,7 @@ ENV REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
 #                  Python 3.13
 ##################################################################
 ENV PYTHON_VERSION=3.13
-ENV PYTHON_FULL_VERSION=${PYTHON_VERSION}.15
+ENV PYTHON_FULL_VERSION=${PYTHON_VERSION}.18
 ENV PYTHON_DIR=${EMG_LOCAL_BASE_DIR}/python/${PYTHON_VERSION}
 ARG PYTHON_BIN_DIR=${PYTHON_DIR}/bin
 ARG PYTHON_SRC_DIR=${PYTHON_DIR}/src
@@ -326,6 +326,10 @@ RUN set -eu; \
     st="$("$py" -c 'import setuptools; print(setuptools.__version__)')"; \
     [ "$st" = "${SETUPTOOLS_VERSION}" ] || { echo "FATAL: setuptools is $st, expected ${SETUPTOOLS_VERSION}" >&2; exit 1; }; \
     "$py" -W ignore -c 'import pkg_resources' || { echo "FATAL: no pkg_resources (setuptools ${SETUPTOOLS_VERSION})" >&2; exit 1; }; \
+    echo "--- Checking interpreter version (Final): exactly PYTHON_FULL_VERSION, a git build adds '+...' (3.16.0a1+dev) ---"; \
+    got="$("$py" -c 'import platform, sys; sys.stdout.write(platform.python_version())')"; \
+    case "$got" in "${PYTHON_FULL_VERSION}"|"${PYTHON_FULL_VERSION}"*+*) ;; \
+      *) echo "FATAL: built Python $got, expected ${PYTHON_FULL_VERSION}" >&2; exit 1 ;; esac; \
     echo "--- Checking UTF-8 I/O (Final): base light sets LANG=C.UTF-8, 2.x-3.6 depend on it ---"; \
     out="$("$py" -c 'import locale, sys; s = b"\xd0\x9f\xd1\x80\xd0\xb8\xd0\xb2\xd0\xb5\xd1\x82".decode("utf-8"); e = locale.getpreferredencoding().lower().replace("-", ""); print(sys.version_info[0] >= 3 and s or s.encode("utf-8")); sys.exit(e != "utf8" and "preferred encoding is " + e or 0)')" \
       || { echo "FATAL: python is not UTF-8 by default (LANG=${LANG:-unset})" >&2; exit 1; }; \
