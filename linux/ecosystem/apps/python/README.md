@@ -39,6 +39,10 @@ https://pypi.org/project/setuptools/
 - `3.0`, `3.1` ship without `pip`/`setuptools`.
 - Not built on any museum version: `nis` (no `rpc/rpc.h` in glibc); `_dbm` on 3.1–3.6; `_tkinter` on 2.6/3.0; `lzma` before 3.3.
 
+**setuptools** is pinned to `80.9.0` on 3.9 and newer (`ARG SETUPTOOLS_VERSION`, fatal check that
+`import pkg_resources` works): setuptools 82 removed `pkg_resources`, which vendor tooling still imports
+(e.g. Dell's `dellemc.unity` Ansible collection). `pip` is not pinned and is upgraded to its newest release.
+
 Only supported versions will be automaticly updated at CI.
 
 ## [EOL Versions](https://devguide.python.org/versions/)
