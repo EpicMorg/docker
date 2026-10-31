@@ -16,6 +16,8 @@ ENV PIP_ROOT_USER_ACTION=warn
 # pre-releases live in the final version's directory (3.16.0/Python-3.16.0a1.tgz)
 ARG PYTHON_DOWNLOAD_URL=https://www.python.org/ftp/python/${PYTHON_VERSION}.0/Python-${PYTHON_FULL_VERSION}.tgz
 ARG PYTHON_TEMP=/tmp/Python-${PYTHON_FULL_VERSION}.tgz
+# sha256 of the python.org tarball (python.org API / GPG-verified)
+ARG PYTHON_SHA256=8d79f82acad7a38ed35246a61357091c355fb4533460af34d41cce48a87cf8c6
 ENV SSL_CERT_DIR=/etc/ssl/certs
 ENV REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
 
@@ -69,6 +71,7 @@ RUN set -eux; \
         -d / \
         -o ${PYTHON_TEMP}  \
         "${PYTHON_DOWNLOAD_URL}" && \
+    echo "${PYTHON_SHA256}  ${PYTHON_TEMP}" | sha256sum -c - && \
     tar -xzf ${PYTHON_TEMP} --strip-components=1 --directory ${PYTHON_SRC_DIR} && \
     rm -rfv ${PYTHON_TEMP}
 

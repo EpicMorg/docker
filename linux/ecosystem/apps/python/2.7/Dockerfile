@@ -12,6 +12,8 @@ ARG PYTHON_SRC_DIR=${PYTHON_DIR}/src
 ENV PIP_ROOT_USER_ACTION=warn
 ARG PYTHON_DOWNLOAD_URL=https://www.python.org/ftp/python/${PYTHON_FULL_VERSION}/Python-${PYTHON_FULL_VERSION}.tgz
 ARG PYTHON_TEMP=/tmp/Python-${PYTHON_FULL_VERSION}.tgz
+# sha256 of the python.org tarball (python.org API / GPG-verified)
+ARG PYTHON_SHA256=da3080e3b488f648a3d7a4560ddee895284c3380b11d6de75edb986526b9a814
 ENV SSL_CERT_DIR=/etc/ssl/certs
 ENV REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
 
@@ -63,11 +65,13 @@ RUN mv /usr/include/openssl /usr/include/openssl.disabled
 ARG PIP_VERSION=20.3.4
 ARG PIP_DOWNLOAD_URL=https://files.pythonhosted.org/packages/53/7f/55721ad0501a9076dbc354cc8c63ffc2d6f1ef360f49ad0fbcce19d68538/pip-${PIP_VERSION}.tar.gz
 ARG PIP_TEMP=/tmp/pip-${PIP_VERSION}.tar.gz
+ARG PIP_SHA256=6773934e5f5fc3eaa8c5a44949b5b924fc122daa0a8aa9f80c835b4ca2a543fc
 ARG PIP_TEMP_SRC=/tmp/pip-${PIP_VERSION}
 
 ARG SETUPTOOLS_VERSION=44.1.1
 ARG SETUPTOOLS_DOWNLOAD_URL=https://files.pythonhosted.org/packages/b2/40/4e00501c204b457f10fe410da0c97537214b2265247bc9a5bc6edd55b9e4/setuptools-${SETUPTOOLS_VERSION}.zip
 ARG SETUPTOOLS_TEMP=/tmp/setuptools.zip
+ARG SETUPTOOLS_SHA256=c67aa55db532a0dadc4d2e20ba9961cbd3ccc84d544e9029699822542b5a476b
 ARG SETUPTOOLS_TEMP_SRC=/tmp/setuptools-${SETUPTOOLS_VERSION}
 
 RUN set -eux; \
@@ -78,6 +82,7 @@ RUN set -eux; \
         -d / \
         -o ${PYTHON_TEMP}  \
         "${PYTHON_DOWNLOAD_URL}" && \
+    echo "${PYTHON_SHA256}  ${PYTHON_TEMP}" | sha256sum -c - && \
     tar -xzf ${PYTHON_TEMP} --strip-components=1 --directory ${PYTHON_SRC_DIR} && \
     rm -rfv ${PYTHON_TEMP}
 
@@ -111,6 +116,7 @@ RUN set -eux; \
         -d / \
         -o ${SETUPTOOLS_TEMP}  \
         "${SETUPTOOLS_DOWNLOAD_URL}" && \
+    echo "${SETUPTOOLS_SHA256}  ${SETUPTOOLS_TEMP}" | sha256sum -c - && \
     unzip -q ${SETUPTOOLS_TEMP} -d /tmp && \
     cd ${SETUPTOOLS_TEMP_SRC} && \
     ${PYTHON_DIR}/bin/python${PYTHON_VERSION} setup.py install && \
@@ -120,6 +126,7 @@ RUN set -eux; \
         -d / \
         -o ${PIP_TEMP}  \
         "${PIP_DOWNLOAD_URL}" && \
+    echo "${PIP_SHA256}  ${PIP_TEMP}" | sha256sum -c - && \
     tar -xzf ${PIP_TEMP} -C /tmp && \
     cd ${PIP_TEMP_SRC} && \
     ${PYTHON_DIR}/bin/python${PYTHON_VERSION} setup.py install && \
