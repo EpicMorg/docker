@@ -8,6 +8,8 @@ ARG K_JDK_MAJOR_VERSION=20
 ARG K_JDK_FULL_VERSION=jdk-20.0.2
 ARG K_JDK_VERSION=20.0.2
 ARG K_JDK_BUILD_VERSION=9
+# sha256 of the archive (api.adoptium.net)
+ARG K_JDK_SHA256=3d91842e9c172967ac397076523249d05a82ead51b0006838f5f0315ad52222c
 ARG K_JDK_DIR=${EMG_LOCAL_BASE_DIR}/java/${K_JDK_MAJOR_VERSION}
 ARG K_JDK_URL=https://github.com/adoptium/temurin${K_JDK_MAJOR_VERSION}-binaries/releases/download/${K_JDK_FULL_VERSION}+${K_JDK_BUILD_VERSION}/OpenJDK${K_JDK_MAJOR_VERSION}U-jdk_x64_linux_hotspot_${K_JDK_VERSION}_${K_JDK_BUILD_VERSION}.tar.gz
 ARG K_JDK_TEMP=/tmp/OpenJDK${K_JDK_MAJOR_VERSION}U-jdk_x64_linux_hotspot_${K_JDK_VERSION}_${K_JDK_BUILD_VERSION}.tar.gz
@@ -26,6 +28,7 @@ RUN set -eux; \
         --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
         -d /tmp \
         "${K_JDK_URL}" && \
+    echo "${K_JDK_SHA256}  ${K_JDK_TEMP}" | sha256sum -c - && \
     mkdir -p ${K_JDK_DIR} && \
     tar -xzf ${K_JDK_TEMP} --strip-components=1 --directory ${K_JDK_DIR} && \
     ln -sfv ${JAVA_HOME} /usr/jre && \
@@ -61,7 +64,9 @@ ENV MAVEN_LINK=https://archive.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/bi
 ENV MAVEN_ROOT=${EMG_LOCAL_BASE_DIR}/maven/${MAVEN_VERSION}
 ENV MAVEN_PATH=${MAVEN_ROOT}/apache-maven-${MAVEN_VERSION}
 ENV MAVEN_BIN=${MAVEN_PATH}/bin
+# *_SHA256: published checksums (Apache .sha512 -> sha256 of the verified file, Gradle / Kotlin .sha256)
 ARG MAVEN_TEMP=/tmp/apache-maven-${MAVEN_VERSION}-bin.zip
+ARG MAVEN_SHA256=5af3b743dd8b876b5c45da33b676251e5f1687712644abb4ee519ca56e1d89ce
 
 ENV GRADLE_VERSION=9.5.1
 ENV GRADLE_LINK=https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-all.zip
@@ -69,10 +74,12 @@ ENV GRADLE_ROOT=${EMG_LOCAL_BASE_DIR}/gradle/${GRADLE_VERSION}
 ENV GRADLE_PATH=${GRADLE_ROOT}/gradle-${GRADLE_VERSION}
 ENV GRADLE_BIN=${GRADLE_PATH}/bin
 ARG GRADLE_TEMP=/tmp/gradle-${GRADLE_VERSION}-all.zip
+ARG GRADLE_SHA256=c72fb9991f6025cbe337d52ba77e531b3faf62bdd3e348fe1ccee9f51c71adb0
 
-ENV KTC_VERSION=2.4.10
+ENV KTC_VERSION=2.4.21
 ENV KTC_LINK=https://github.com/JetBrains/kotlin/releases/download/v${KTC_VERSION}/kotlin-compiler-${KTC_VERSION}.zip
 ARG KTC_TEMP=/tmp/kotlin-compiler-${KTC_VERSION}.zip
+ARG KTC_SHA256=7cc140e76daf416a0424a5557f99afd7ca89ebd463ea1101261e3e01c33e75cd
 ENV KTC_ROOT=${EMG_LOCAL_BASE_DIR}/kotlin/${KTC_VERSION}
 ENV KTC_PATH=${KTC_ROOT}/kotlinc
 ENV KTC_BIN=${KTC_PATH}/bin
@@ -80,6 +87,7 @@ ENV KTC_BIN=${KTC_PATH}/bin
 ENV KNPL_VERSION=${KTC_VERSION}
 ENV KNPL_LINK=https://github.com/JetBrains/kotlin/releases/download/v${KNPL_VERSION}/kotlin-native-prebuilt-linux-x86_64-${KNPL_VERSION}.tar.gz
 ARG KNPL_TEMP=/tmp/kotlin-native-prebuilt-linux-x86_64-${KNPL_VERSION}.tar.gz
+ARG KNPL_SHA256=4935d8c8da90a2d2a8ff51da7d2c264c0d6026e1d35a8f169e218d9209965678
 ENV KNPL_ROOT=${EMG_LOCAL_BASE_DIR}/kotlin/${KNPL_VERSION}
 ENV KNPL_PATH=${KNPL_ROOT}/kotlin-native-prebuilt-linux-x86_64-${KNPL_VERSION}
 ENV KNPL_BIN=${KNPL_PATH}/bin
@@ -99,6 +107,7 @@ RUN set -eux; \
         --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
         -d /tmp \
         "${MAVEN_LINK}" && \
+    echo "${MAVEN_SHA256}  ${MAVEN_TEMP}" | sha256sum -c - && \
     7zz x ${MAVEN_TEMP} -o${MAVEN_ROOT} && \
     rm -fv ${MAVEN_TEMP}
 RUN chmod +x -R ${MAVEN_BIN}
@@ -113,6 +122,7 @@ RUN set -eux; \
         --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
         -d /tmp \
         "${GRADLE_LINK}" && \
+    echo "${GRADLE_SHA256}  ${GRADLE_TEMP}" | sha256sum -c - && \
     7zz x ${GRADLE_TEMP} -o${GRADLE_ROOT} && \
     rm -fv ${GRADLE_TEMP}
 RUN chmod +x -R ${GRADLE_BIN}
@@ -127,6 +137,7 @@ RUN set -eux; \
         --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
         -d /tmp \
         "${KTC_LINK}" && \
+    echo "${KTC_SHA256}  ${KTC_TEMP}" | sha256sum -c - && \
     7zz x ${KTC_TEMP} -o${KTC_ROOT} && \
     rm -fv ${KTC_TEMP}
 RUN chmod +x -R ${KTC_BIN}
@@ -141,6 +152,7 @@ RUN set -eux; \
         --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
         -d /tmp \
         "${KNPL_LINK}" && \
+    echo "${KNPL_SHA256}  ${KNPL_TEMP}" | sha256sum -c - && \
     tar -xzf ${KNPL_TEMP} --directory ${KTC_ROOT} && \
     rm -fv ${KNPL_TEMP}
 RUN chmod +x -R ${KNPL_BIN}

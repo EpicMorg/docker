@@ -12,9 +12,9 @@ TeamCity agents and Atlassian images.
 | --- | --- | ----------- |
 | `6` | Azul Zulu `6.22.0.3` (JDK 6u119) | - |
 | `7` | Azul Zulu `7.56.0.11` (JDK 7u352) | - |
-| `8` | Eclipse Temurin `8u504` | Maven `3.9.16`, Gradle `8.14.5`, Kotlin `2.4.10` |
-| `11`, `16` | Eclipse Temurin (`11.0.32.1`, `16.0.2`) | Maven `3.9.16`, Gradle `8.14.5`, Kotlin `2.4.10` |
-| `17` - `27` | Eclipse Temurin (latest GA of each major) | Maven `3.9.16`, Gradle `9.5.1`, Kotlin `2.4.10` |
+| `8` | Eclipse Temurin `8u504` | Maven `3.9.16`, Gradle `8.14.5`, Kotlin `2.4.21` |
+| `11`, `16` | Eclipse Temurin (`11.0.32.1`, `16.0.2`) | Maven `3.9.16`, Gradle `8.14.5`, Kotlin `2.4.21` |
+| `17` - `27` | Eclipse Temurin (latest GA of each major) | Maven `3.9.16`, Gradle `9.5.1`, Kotlin `2.4.21` |
 
 * JDK in `/usr/local/share/epicmorg/java/<major>`; `JAVA_HOME`, `JDK_HOME` and
   `JRE_HOME` point there, `/usr/jdk` and `/usr/jre` are symlinks to it and
