@@ -7,6 +7,8 @@ LABEL org.opencontainers.image.description="JDK by EpicMorg"
 ARG K_JDK_MAJOR_VERSION=7
 ARG K_JDK_VERSION=${K_JDK_MAJOR_VERSION}.56.0.11
 ARG K_JDK_BUILD_VERSION=${K_JDK_MAJOR_VERSION}.0.352
+# sha256 of the archive (api.azul.com)
+ARG K_JDK_SHA256=8a7387c1ed151474301b6553c6046f865dc6c1e1890bcf106acc2780c55727c8
 ARG K_JDK_DIR=${EMG_LOCAL_BASE_DIR}/java/${K_JDK_MAJOR_VERSION}
 ARG K_JDK_URL=http://cdn.azul.com/zulu/bin/zulu${K_JDK_VERSION}-ca-jdk${K_JDK_BUILD_VERSION}-linux_x64.tar.gz
 ARG K_JDK_TEMP=/tmp/zulu${K_JDK_VERSION}-ca-jdk${K_JDK_BUILD_VERSION}-linux_x64.tar.gz
@@ -25,6 +27,7 @@ RUN set -eux; \
         --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
         -d /tmp \
         "${K_JDK_URL}" && \
+    echo "${K_JDK_SHA256}  ${K_JDK_TEMP}" | sha256sum -c - && \
     mkdir -p ${K_JDK_DIR} && \
     tar -xzf ${K_JDK_TEMP} --strip-components=1 --directory ${K_JDK_DIR} && \
     ln -sfv ${JAVA_HOME} /usr/jre && \

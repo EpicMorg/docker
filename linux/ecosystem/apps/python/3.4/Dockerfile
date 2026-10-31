@@ -12,6 +12,8 @@ ARG PYTHON_SRC_DIR=${PYTHON_DIR}/src
 ENV PIP_ROOT_USER_ACTION=warn
 ARG PYTHON_DOWNLOAD_URL=https://www.python.org/ftp/python/${PYTHON_FULL_VERSION}/Python-${PYTHON_FULL_VERSION}.tgz
 ARG PYTHON_TEMP=/tmp/Python-${PYTHON_FULL_VERSION}.tgz
+# sha256 of the python.org tarball (python.org API / GPG-verified)
+ARG PYTHON_SHA256=217757699249ab432571b381386d441e12b433100ab5f908051fcb7cced2539d
 ENV SSL_CERT_DIR=/etc/ssl/certs
 ENV REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
 
@@ -65,6 +67,7 @@ RUN set -eux; \
         -d / \
         -o ${PYTHON_TEMP}  \
         "${PYTHON_DOWNLOAD_URL}" && \
+    echo "${PYTHON_SHA256}  ${PYTHON_TEMP}" | sha256sum -c - && \
     tar -xzf ${PYTHON_TEMP} --strip-components=1 --directory ${PYTHON_SRC_DIR} && \
     rm -rfv ${PYTHON_TEMP}
 
