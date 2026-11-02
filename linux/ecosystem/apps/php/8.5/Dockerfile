@@ -625,7 +625,7 @@ RUN set -eux; \
 ##################################################################
 #     Extensions the Debian / sury packages have (ADR-067)
 ##################################################################
-# On: yaml, mailparse, memcache, gnupg. Built but off - `php-enmod <ext>` in a downstream layer or
+# On: yaml, mailparse, memcache, gnupg, gearman. Built but off - `php-enmod <ext>` in a downstream layer or
 # on the container: opentelemetry, xmlrpc, enchant, pspell. PECL tarballs from pecl.php.net built with
 # phpize (no pecl prompts, no PEAR client), core ones from this PHP's own source
 # tree (php-ext-install); none of the libraries links OpenSSL. Versions: the
@@ -638,13 +638,14 @@ ENV PECL_MEMCACHE_VERSION=8.2-git-ac8e8c5
 ARG PECL_MEMCACHE_URL=https://github.com/websupport-sk/pecl-memcache/archive/ac8e8c521a18aae14c8f2859694536ead304ce97.tar.gz
 ARG PECL_MEMCACHE_SHA256=c1bdf7d0655d9ac67f28cdc1e2460a497096c30dfd7194bc9fea1984a6c5102a
 ENV PECL_GNUPG_VERSION=1.5.4
+ENV PECL_GEARMAN_VERSION=2.2.1
 ENV PECL_OPENTELEMETRY_VERSION=1.4.2
 ENV PECL_XMLRPC_VERSION=1.0.0RC3
 ENV PECL_PSPELL_VERSION=1.0.1
 RUN set -eux; \
     export CFLAGS="${PHP_CFLAGS:-}" CPPFLAGS="${PHP_CPPFLAGS:-}" LDFLAGS="${PHP_LDFLAGS:-}"; \
     apt-get update; \
-    apt-get install -y --no-install-recommends libyaml-dev libgpgme-dev libenchant-2-dev libpspell-dev; \
+    apt-get install -y --no-install-recommends libyaml-dev libgpgme-dev libgearman-dev libenchant-2-dev libpspell-dev; \
     rm -rf /var/lib/apt/lists/*; \
     pecl_build() { \
       pkg="$1"; shift; \
@@ -668,12 +669,16 @@ RUN set -eux; \
     rm -rf /tmp/memcache /tmp/memcache.tgz; \
     php-ext-enable memcache; \
     pecl_build gnupg-${PECL_GNUPG_VERSION}; php-ext-enable gnupg; \
+    pecl_build gearman-${PECL_GEARMAN_VERSION}; php-ext-enable gearman; \
     pecl_build opentelemetry-${PECL_OPENTELEMETRY_VERSION}; php-ext-enable opentelemetry; php-dismod opentelemetry; \
     pecl_build xmlrpc-${PECL_XMLRPC_VERSION}; php-ext-enable xmlrpc; php-dismod xmlrpc; \
     php-ext-install -j"$(nproc)" enchant; php-dismod enchant; \
     pecl_build pspell-${PECL_PSPELL_VERSION}; php-ext-enable pspell; php-dismod pspell; \
     extDir="$(php-config --extension-dir)"; \
-    for e in yaml mailparse memcache gnupg; do php -m | grep -qix "$e" || { echo "FATAL: $e not loaded" >&2; exit 1; }; done; \
+    for e in yaml mailparse memcache gnupg gearman; do php -m | grep -qix "$e" || { echo "FATAL: $e not loaded" >&2; exit 1; }; done; \
+    if ldd "$extDir/gearman.so" | grep -q 'not found'; then echo "FATAL: gearman.so has unresolved deps" >&2; exit 1; fi; \
+    ! ldd "$extDir/gearman.so" | grep -q 'libssl\.so' || { echo "FATAL: gearman.so links a libssl" >&2; ldd "$extDir/gearman.so" >&2; exit 1; }; \
+    php -r 'exit(class_exists("GearmanClient") ? 0 : 1);' || { echo "FATAL: no GearmanClient" >&2; exit 1; }; \
     for e in opentelemetry xmlrpc enchant pspell; do \
       test -f "$extDir/$e.so" || { echo "FATAL: $e.so missing" >&2; exit 1; }; \
       ! php -m | grep -qix "$e" || { echo "FATAL: $e is on by default" >&2; exit 1; }; \
