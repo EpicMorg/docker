@@ -2,6 +2,7 @@
 
 ## 2026
 * `oct` — next (unreleased)
+  * `php` 5.3-8.5 and `teamcity-agent:php*`: PECL `gearman` (on, as sury's `php-gearman`) - 1.1.2 on 5.3-5.6, 2.1.3 on 7.0, 2.1.4 on 7.1, 2.2.1 on 7.2-8.5 (newest release whose PECL php range covers the line); built on Debian's `libgearman-dev` (libgearman links no OpenSSL); fatal checks: loaded, no unresolved deps, no libssl, `GearmanClient` exists
   * base `light` (trixie, sid, astra 1.7 / 1.8) and everything built on it: `ENV LANG=C.UTF-8` - containers ran in the POSIX locale, Cyrillic and other non-ASCII text broke in CLIs and logs; `LC_ALL` stays unset, images that set their own `LANG` (postgres, rabbitmq, teamcity, erlang, atlassian) keep it; `uk_UA`, `de_DE`, `fr_FR` UTF-8 locales generated as well (+3 MB locale archive); fatal assertions: locales present, charmap UTF-8, Cyrillic counted as characters
   * `jdk`: Gradle 9.5.1 → 9.8.2 (17+) and 8.14.5 → 8.14.6 (8 / 11 / 16), sha256 from services.gradle.org
   * `rabbitmq` 3.9-4.4: the build-time smoke test sets `RABBITMQ_DIST_PORT` (AMQP port + 20000) - the Erlang distribution port stayed at 25672 whatever port the test picked, so two builds on one host network (buildah `--network=host`) failed with `dist_port_already_used`
