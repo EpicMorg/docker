@@ -3,6 +3,7 @@
 ## 2026
 * `oct` — next (unreleased)
   * base `light` (trixie, sid, astra 1.7 / 1.8) and everything built on it: `ENV LANG=C.UTF-8` - containers ran in the POSIX locale, Cyrillic and other non-ASCII text broke in CLIs and logs; `LC_ALL` stays unset, images that set their own `LANG` (postgres, rabbitmq, teamcity, erlang, atlassian) keep it; `uk_UA`, `de_DE`, `fr_FR` UTF-8 locales generated as well (+3 MB locale archive); fatal assertions: locales present, charmap UTF-8, Cyrillic counted as characters
+  * `jdk`: Gradle 9.5.1 → 9.8.2 (17+) and 8.14.5 → 8.14.6 (8 / 11 / 16), sha256 from services.gradle.org
   * `rabbitmq` 3.9-4.4: the build-time smoke test sets `RABBITMQ_DIST_PORT` (AMQP port + 20000) - the Erlang distribution port stayed at 25672 whatever port the test picked, so two builds on one host network (buildah `--network=host`) failed with `dist_port_already_used`
   * `jdk`: Kotlin 2.4.21 (compiler + native prebuilt); every download is sha256-checked - the JDK archive on all tags (Temurin from api.adoptium.net, Zulu 6 / 7 from api.azul.com), Maven (sha256 of the archive verified against Apache's .sha512), Gradle and Kotlin (their published .sha256); Maven 3.9.16 is already the newest 3.9 (4.0 is still a release candidate)
   * `python` (all versions but `dev`, which builds cpython `main`): the python.org tarball is sha256-checked (python.org API; 2.6.9 / 3.0.1, whose API md5 is stale, verified by their GPG signatures), on 2.6 / 2.7 / 3.2 / 3.3 also the pip and setuptools archives (PyPI digests)
