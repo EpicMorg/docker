@@ -302,6 +302,7 @@ container: `RUN php-enmod pspell`, or a mounted `conf.d/*.ini`.
 | `mailparse` | on | `3.2.0` | `3.2.0` | `3.2.0` | `3.2.0` | `3.1.3` | `3.1.3` | `2.1.6` |
 | `memcache` | on | git `ac8e8c5`* | `8.2` | `8.2` | `4.0.5.2` | `4.0.5.2` | `4.0.5.2` | `2.2.7` |
 | `gnupg` | on | `1.5.4` | `1.5.4` | `1.5.4` | `1.5.4` | `1.5.4` | `1.5.4` | `1.5.4` |
+| `gearman` | on | `2.2.1` | `2.2.1` | `2.2.1` | `2.2.1` | `2.1.4` / `2.2.1` | `2.1.3` | `1.1.2` |
 | `opentelemetry` | off | `1.4.2` | `1.4.2` | `1.1.3` | - | - | - | - |
 | `xmlrpc` | off | PECL `1.0.0RC3` | PECL `1.0.0RC3` | PECL `1.0.0RC3` | core | core | core | core |
 | `pspell` | off | PECL `1.0.1` | core (8.4: PECL `1.0.1`) | core | core | core | core | core |
