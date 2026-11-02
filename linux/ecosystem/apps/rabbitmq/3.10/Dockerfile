@@ -101,7 +101,7 @@ RUN set -eu; \
     run() { node="smoke$1@localhost"; p="$(pick)"; mp="$(pick)"; pp="$(pick)"; \
       printf 'listeners.tcp.default = %s\nmanagement.tcp.port = %s\nmanagement.tcp.ip = 127.0.0.1\nprometheus.tcp.port = %s\nprometheus.tcp.ip = 127.0.0.1\n' "$p" "$mp" "$pp" > /etc/rabbitmq/conf.d/90-smoke.conf; \
       BN=; shift; case "$*" in *BN_PORTS=1*) BN=1; set -- "$@" RABBITMQ_NODE_PORT_NUMBER="$p" RABBITMQ_MANAGEMENT_PORT_NUMBER="$mp" RABBITMQ_MANAGEMENT_BIND_IP=127.0.0.1 RABBITMQ_NODE_NAME="$node" ;; esac; \
-      env RABBITMQ_NODENAME="$node" RABBITMQ_MNESIA_BASE="$t/mnesia" RABBITMQ_LOG_BASE="$t/log" "$@" docker-entrypoint.sh rabbitmq-server > "$t/out" 2>&1 & \
+      env RABBITMQ_NODENAME="$node" RABBITMQ_DIST_PORT="$((p + 20000))" RABBITMQ_MNESIA_BASE="$t/mnesia" RABBITMQ_LOG_BASE="$t/log" "$@" docker-entrypoint.sh rabbitmq-server > "$t/out" 2>&1 & \
       # bitnami mode: the init node answers too - wait for the final start
       for i in $(seq 1 120); do \
         { [ -z "${BN:-}" ] || grep -q 'starting RabbitMQ (' "$t/out"; } && curl -fs -u "$user:$pass" "http://127.0.0.1:$mp/api/overview" >/dev/null 2>&1 && return 0; \
