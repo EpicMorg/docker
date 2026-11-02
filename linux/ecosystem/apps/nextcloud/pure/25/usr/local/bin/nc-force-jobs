@@ -1,0 +1,85 @@
+#!/bin/bash
+# nc-force-jobs - run Nextcloud background jobs that have not run for a while.
+#
+# Jobs marked time-insensitive run only inside the maintenance window
+# (maintenance_window_start); with a cron that never hits the window, or a
+# daily cron, they pile up ("Some jobs have not been executed since ...").
+# This runs every job whose last_run is older than DAYS, one at a time, with
+# `occ background-job:execute --force-execute`; a failing job does not stop
+# the rest. Needs Nextcloud 26+ (occ background-job:list / execute).
+#
+#   docker exec <container> nc-force-jobs -n           # list only
+#   docker exec <container> nc-force-jobs              # run (older than 2 days)
+#   docker exec <container> nc-force-jobs -d 0 -c Preview
+#
+# Exit: 0 all ran, 1 some failed, 2 usage, 3 this Nextcloud has no background-job commands,
+#       4 Nextcloud is not installed yet.
+set -u
+
+usage() {
+    echo "usage: nc-force-jobs [-n] [-d DAYS] [-c CLASS-REGEX]" >&2
+    echo "  -n  dry run: list the jobs, run nothing" >&2
+    echo "  -d  last_run older than DAYS (default 2; 0 = every job)" >&2
+    echo "  -c  only jobs whose class matches this extended regex" >&2
+    exit 2
+}
+
+if [ "$(id -u)" = 0 ]; then
+    # occ must run as the owner of config/config.php
+    # (setpriv, not su: su would parse the script's own options)
+    u="${APACHE_RUN_USER:-www-data}"
+    exec setpriv --reuid="$u" --regid="$(id -g "$u")" --init-groups -- "$0" "$@"
+fi
+
+DAYS=2 DRY= CLASS=
+while getopts 'nd:c:h' o; do
+    case "$o" in
+        n) DRY=1 ;;
+        d) case "$OPTARG" in ''|*[!0-9]*) usage ;; esac; DAYS="$OPTARG" ;;
+        c) CLASS="$OPTARG" ;;
+        *) usage ;;
+    esac
+done
+
+cd /var/www/html || exit 1
+occ() { php -d memory_limit=-1 occ "$@"; }
+
+if ! occ status --output=json 2> /dev/null | grep -q '"installed":true'; then
+    echo "nc-force-jobs: Nextcloud in /var/www/html is not installed" >&2
+    exit 4
+fi
+if ! occ help background-job:list > /dev/null 2>&1 || ! occ help background-job:execute > /dev/null 2>&1; then
+    echo "nc-force-jobs: this Nextcloud has no occ background-job:list / execute (needs 26+)" >&2
+    exit 3
+fi
+
+list="$(mktemp)"; trap 'rm -f "$list"' EXIT
+occ background-job:list --limit 100000 --output=json | DAYS="$DAYS" CLASS="$CLASS" php -r '
+    $cut = time() - (int)getenv("DAYS") * 86400;
+    $re = getenv("CLASS");
+    $jobs = json_decode(stream_get_contents(STDIN), true);
+    if (!is_array($jobs)) { fwrite(STDERR, "nc-force-jobs: cannot parse occ background-job:list\n"); exit(1); }
+    foreach ($jobs as $j) {
+        $t = is_numeric($j["last_run"]) ? (int)$j["last_run"] : strtotime($j["last_run"]);
+        if ($re !== "" && !preg_match("\x01" . $re . "\x01", $j["class"])) continue;
+        if (getenv("DAYS") === "0" || $t < $cut) echo $j["id"], "\t", $j["class"], "\t", $j["last_run"], "\n";
+    }' > "$list" || exit 1
+
+echo "$(wc -l < "$list") jobs (last_run older than $DAYS days${CLASS:+, class ~ $CLASS})"
+ok=0 failed=0
+while IFS=$'\t' read -r id class last; do
+    if [ -n "$DRY" ]; then
+        printf '%s\t%s\t%s\n' "$id" "$class" "$last"
+        continue
+    fi
+    echo "--- $id $class (last: $last)"
+    start=$(date +%s)
+    if occ background-job:execute "$id" --force-execute < /dev/null; then
+        echo "OK $id $class in $(( $(date +%s) - start ))s"; ok=$((ok + 1))
+    else
+        echo "FAIL $id $class"; failed=$((failed + 1))
+    fi
+done < "$list"
+
+[ -n "$DRY" ] || echo "done: $ok ok, $failed failed"
+[ "$failed" = 0 ]

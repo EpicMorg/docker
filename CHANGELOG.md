@@ -2,6 +2,7 @@
 
 ## 2026
 * `oct` — next (unreleased)
+  * `nextcloud` (all `pure` tags, `patched` inherit it): `nc-force-jobs` - runs the background jobs whose `last_run` is older than N days with `occ background-job:execute --force-execute`, one at a time (`-n` list only, `-d DAYS`, `-c CLASS-REGEX`; as root it switches to `www-data`; Nextcloud 26+) - for a backlog after a daily / missed cron or a maintenance window the cron never hit; build smoke test lists the jobs and runs the Cleanup ones; README: cron every 5 minutes, `maintenance_window_start`, the tool
   * `php` 5.3-8.5 and `teamcity-agent:php*`: PECL `gearman` (on, as sury's `php-gearman`) - 1.1.2 on 5.3-5.6, 2.1.3 on 7.0, 2.1.4 on 7.1, 2.2.1 on 7.2-8.5 (newest release whose PECL php range covers the line); built on Debian's `libgearman-dev` (libgearman links no OpenSSL); fatal checks: loaded, no unresolved deps, no libssl, `GearmanClient` exists
   * base `light` (trixie, sid, astra 1.7 / 1.8) and everything built on it: `ENV LANG=C.UTF-8` - containers ran in the POSIX locale, Cyrillic and other non-ASCII text broke in CLIs and logs; `LC_ALL` stays unset, images that set their own `LANG` (postgres, rabbitmq, teamcity, erlang, atlassian) keep it; `uk_UA`, `de_DE`, `fr_FR` UTF-8 locales generated as well (+3 MB locale archive); fatal assertions: locales present, charmap UTF-8, Cyrillic counted as characters
   * `jdk`: Gradle 9.5.1 → 9.8.2 (17+) and 8.14.5 → 8.14.6 (8 / 11 / 16), sha256 from services.gradle.org
