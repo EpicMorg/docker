@@ -240,6 +240,7 @@ RUN set -eu; \
       || { echo "FATAL: php-fpm does not listen on /run/php/php-fpm.sock" >&2; php-fpm -tt >&2; exit 1; }; \
     php-fpm -t; \
     nginx -V; \
+    nginx -v 2>&1 | grep -qx "nginx version: nginx/${NGINX_VERSION_FULL}" || { echo "FATAL: nginx is $(nginx -v 2>&1), NGINX_VERSION_FULL is ${NGINX_VERSION_FULL}" >&2; exit 1; }; \
     nginx -t; \
     supervisord -v; \
     echo "OK: nginx ${NGINX_VERSION_FULL} + PHP ${PHP_FULL_VERSION}"
