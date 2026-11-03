@@ -20,7 +20,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 #        nginx layout - keep in sync with ../main/Dockerfile
 ##################################################################
 ENV NGINX_VERSION=1.30
-ENV NGINX_VERSION_FULL=${NGINX_VERSION}.4
+ENV NGINX_VERSION_FULL=${NGINX_VERSION}.6
 ENV NGINX_DIR=${EMG_LOCAL_BASE_DIR}/nginx/${NGINX_VERSION}
 ENV NGINX_CONF_DIR=/etc/nginx
 ENV NGINX_MODULES_DIR=${NGINX_CONF_DIR}/modules
@@ -138,7 +138,8 @@ ENV LIBRAQM_LIB_DIR=${LIBRAQM_DIR}/lib
 ##################################################################
 # Debian runtime libs of nginx, its modules and the baked libgd/libraqm/gperftools (same list
 # as ../main; listed explicitly, not taken for granted from debian main) + supervisor, which
-# runs php-fpm and nginx side by side.
+# runs php-fpm and nginx side by side; fping, netcat-openbsd and gearman-job-server (the gearmand
+# binary only, no supervisor program) for apps moved from Debian / sury images.
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         libunwind8 \
@@ -161,6 +162,9 @@ RUN apt-get update && \
         libpam0g \
         libperl5.40 \
         supervisor \
+        fping \
+        netcat-openbsd \
+        gearman-job-server \
     && \
     echo "clean up" && \
     apt-get clean -y && \
@@ -241,6 +245,7 @@ RUN set -eu; \
       || { echo "FATAL: php-fpm does not listen on /run/php/php-fpm.sock" >&2; php-fpm -tt >&2; exit 1; }; \
     php-fpm -t; \
     nginx -V; \
+    nginx -v 2>&1 | grep -qx "nginx version: nginx/${NGINX_VERSION_FULL}" || { echo "FATAL: nginx is $(nginx -v 2>&1), NGINX_VERSION_FULL is ${NGINX_VERSION_FULL}" >&2; exit 1; }; \
     nginx -t; \
     supervisord -v; \
     echo "OK: nginx ${NGINX_VERSION_FULL} + PHP ${PHP_FULL_VERSION}"

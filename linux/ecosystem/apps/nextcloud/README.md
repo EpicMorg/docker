@@ -40,11 +40,13 @@ bcmath, exif, ftp, pcntl, pdo_mysql, pdo_pgsql, sysvsem, zip, opcache, ...):
 * **previews and media**: `ffmpeg`, `imagemagick`, `ghostscript` (ImageMagick 7 in imagick: SVG, HEIC, AVIF,
   WebP, PDF, TIFF, PSD);
 * **tools**: `sqlite3`, `curl`, `wget`, `aria2`, `htop`, `nload`, `mc`, `nano`, `sudo`, `net-tools`,
-  `iputils-ping`; our CA certificates in the system trust store.
+  `iputils-ping`; our CA certificates in the system trust store;
+* **`nc-force-jobs`**: runs background jobs that have not run for a while - see [Background jobs](#background-jobs).
 
 Fatal build-time checks: PHP line = the official image's, every extension it loads is loaded, ours too, one
 `libssl` / our `libldap` in the PHP process, `clear_env = no`, Apache config and modules, and a smoke test
-(install on SQLite through `/entrypoint.sh`, `status.php`, WebDAV `PROPFIND` with basic auth, `cron.php`).
+(install on SQLite through `/entrypoint.sh`, `status.php`, WebDAV `PROPFIND` with basic auth, `cron.php`,
+`nc-force-jobs`).
 
 ## Tags
 
@@ -127,6 +129,39 @@ Moving from `nextcloud:<version>`: change the image name and keep everything els
 Full reference (environment variables, cron, reverse proxy, upgrades):
 [nextcloud/docker](https://github.com/nextcloud/docker) and the
 [Nextcloud admin manual](https://docs.nextcloud.com/server/latest/admin_manual/).
+
+## Background jobs
+
+With *Background jobs: Cron* Nextcloud expects `cron.php` **every 5 minutes**, as `www-data`. With a cron
+on the host:
+
+```
+*/5 * * * * /usr/bin/docker exec -u www-data nextcloud php -f /var/www/html/cron.php >> /var/log/nc-cron.log 2>&1
+```
+
+(no `-t`: cron has no TTY; as root `cron.php` refuses to run). A daily cron is not enough: jobs pile up, and
+jobs marked time-insensitive run only inside the maintenance window (`maintenance_window_start`, UTC hour, 4 h
+long) - a cron that never hits the window never runs them; the admin overview then shows *"Some jobs have not
+been executed since ..."*. Set the window:
+
+```sh
+docker exec -u www-data nextcloud php occ config:system:set maintenance_window_start --type=integer --value=1
+```
+
+To clear a backlog right away, `nc-force-jobs` runs every job whose `last_run` is older than N days with
+`occ background-job:execute --force-execute`, one at a time; a failing job does not stop the rest
+(Nextcloud 26+; as root it switches to `www-data` itself):
+
+```sh
+docker exec nextcloud nc-force-jobs -n                  # list only (older than 2 days)
+docker exec nextcloud nc-force-jobs                     # run them
+docker exec nextcloud nc-force-jobs -d 0 -c Preview     # every job whose class matches /Preview/
+```
+
+It prints `OK` / `FAIL` per job and `done: N ok, M failed`; exit code 0 when nothing failed, 1 otherwise.
+The first run after a long backlog can take a while (previews, activities) - run it under `nohup` or in
+`screen`. A job that keeps failing: `occ background-job:execute <id> --force-execute` shows its error; a job of
+a removed app can go with `occ background-job:delete <id>`.
 
 ## Notes
 

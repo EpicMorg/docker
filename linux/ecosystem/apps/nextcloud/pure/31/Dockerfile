@@ -159,6 +159,7 @@ COPY --from=upstream /usr/local/include/php/main/php_version.h /tmp/upstream/php
 COPY --from=ext /emg-export/ext/ /tmp/ext/
 
 COPY usr/local/bin/apache2-foreground /usr/local/bin/apache2-foreground
+COPY usr/local/bin/nc-force-jobs /usr/local/bin/nc-force-jobs
 COPY etc/apache2/conf-available/nextcloud.conf /etc/apache2/conf-available/nextcloud.conf
 COPY etc/php-fpm.d/zz-nextcloud.conf /tmp/zz-nextcloud.conf
 COPY smb.conf /etc/samba/smb.conf
@@ -216,7 +217,8 @@ RUN set -eux; \
         [ "$l" = error ] && t=/dev/stderr || t=/dev/stdout; \
         ln -sfT "$t" "/var/log/apache2/$l.log"; \
     done; \
-    chmod 0755 /usr/local/bin/apache2-foreground; \
+    chmod 0755 /usr/local/bin/apache2-foreground /usr/local/bin/nc-force-jobs; \
+    bash -n /usr/local/bin/nc-force-jobs; \
     rm -rf /tmp/upstream
 
 # = the official image: data dir, hook folders, /var/www owned by www-data:root
@@ -277,6 +279,15 @@ RUN set -eu; \
     code="$(curl -s -o /dev/null -w '%{http_code}' -u smoke:Smoke-Test-Passw0rd -X PROPFIND -H 'Depth: 1' "http://127.0.0.1:$p/remote.php/dav/files/smoke/")"; \
     [ "$code" = 207 ] || { echo "FATAL: WebDAV PROPFIND with basic auth: HTTP $code" >&2; tail -50 /tmp/sv.log >&2; exit 1; }; \
     su -p www-data -s /bin/sh -c 'php -f /var/www/html/cron.php' || { echo "FATAL: cron.php" >&2; exit 1; }; \
+    rc=0; nc-force-jobs -n -d 0 > /tmp/jobs.log 2>&1 || rc=$?; \
+    case "$rc" in \
+        0) grep -qE '^[0-9]+[[:space:]]+OC' /tmp/jobs.log || { echo "FATAL: nc-force-jobs lists no jobs" >&2; cat /tmp/jobs.log >&2; exit 1; }; \
+           nc-force-jobs -d 0 -c 'Cleanup' > /tmp/run.log 2>&1 && grep -q '^done: [1-9][0-9]* ok, 0 failed' /tmp/run.log \
+             || { echo "FATAL: nc-force-jobs did not run the Cleanup jobs" >&2; cat /tmp/jobs.log /tmp/run.log >&2; exit 1; }; \
+           tail -1 /tmp/run.log ;; \
+        3) echo "nc-force-jobs: no background-job commands in this Nextcloud (needs 26+)" ;; \
+        *) echo "FATAL: nc-force-jobs -n exited $rc" >&2; cat /tmp/jobs.log >&2; exit 1 ;; \
+    esac; \
     kill "$(cat /run/supervisord.pid)"; for i in $(seq 1 30); do [ -e /run/supervisord.pid ] || break; sleep 1; done; \
     cp /tmp/ports.conf /etc/apache2/ports.conf; \
     sed -i "s/<VirtualHost \*:$p>/<VirtualHost *:80>/" /etc/apache2/sites-available/localhost.conf; \
