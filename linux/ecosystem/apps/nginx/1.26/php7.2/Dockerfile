@@ -214,6 +214,8 @@ RUN set -eux; \
 ##################################################################
 #                   nginx + php-fpm + supervisor configs
 ##################################################################
+# nginx.conf, snippets and modules-available come with ${NGINX_CONF_DIR} from epicmorg/nginx:<ver>;
+# only the PHP default site is ours
 COPY etc/nginx/ ${NGINX_CONF_DIR}/
 COPY etc/php-fpm.d/zz-nginx.conf ${PHP_INI_DIR}/php-fpm.d/zz-nginx.conf
 COPY etc/supervisor/ /etc/supervisor/
@@ -245,6 +247,9 @@ RUN set -eu; \
     php-fpm -t; \
     nginx -V; \
     nginx -v 2>&1 | grep -qx "nginx version: nginx/${NGINX_VERSION_FULL}" || { echo "FATAL: nginx is $(nginx -v 2>&1), NGINX_VERSION_FULL is ${NGINX_VERSION_FULL}" >&2; exit 1; }; \
+    for i in "/etc/nginx/modules-enabled/\*.conf" "/etc/nginx/conf.d/\*.conf" "/etc/nginx/sites-enabled/\*"; do \
+      nginx -T 2>/dev/null | grep -qE "^[[:space:]]*include $i;" || { echo "FATAL: nginx.conf (from epicmorg/nginx:${NGINX_VERSION}) does not include $i" >&2; exit 1; }; \
+    done; \
     nginx -t; \
     supervisord -v; \
     echo "OK: nginx ${NGINX_VERSION_FULL} + PHP ${PHP_FULL_VERSION}"
