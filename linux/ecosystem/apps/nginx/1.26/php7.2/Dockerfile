@@ -137,7 +137,8 @@ ENV LIBRAQM_LIB_DIR=${LIBRAQM_DIR}/lib
 ##################################################################
 # Debian runtime libs of nginx, its modules and the baked libgd/libraqm/gperftools (same list
 # as ../main; listed explicitly, not taken for granted from debian main) + supervisor, which
-# runs php-fpm and nginx side by side.
+# runs php-fpm and nginx side by side; fping, netcat-openbsd and gearman-job-server (the gearmand
+# binary only, no supervisor program) for apps moved from Debian / sury images.
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         libunwind8 \
@@ -160,6 +161,9 @@ RUN apt-get update && \
         libpam0g \
         libperl5.40 \
         supervisor \
+        fping \
+        netcat-openbsd \
+        gearman-job-server \
     && \
     echo "clean up" && \
     apt-get clean -y && \

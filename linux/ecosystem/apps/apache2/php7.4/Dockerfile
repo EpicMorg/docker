@@ -9,6 +9,8 @@ ARG DEBIAN_FRONTEND=noninteractive
 # No mod_php: PHP runs as php-fpm (unix socket), Apache talks to it through
 # mod_proxy_fcgi, supervisor runs both. Debian php* stays apt-pinned out by
 # the php base image (/etc/apt/preferences.d/, "Package: php*" at -1).
+# fping, netcat-openbsd and gearman-job-server (the gearmand binary only, no
+# supervisor program) for apps moved from Debian / sury images.
 RUN apt-get update && \
     apt-get install -y \
       apache2 \
@@ -19,7 +21,10 @@ RUN apt-get update && \
       libapache2-mod-fcgid \
       libapache2-mod-encoding \
       libapache2-mod-xsendfile \
-      supervisor && \
+      supervisor \
+      fping \
+      netcat-openbsd \
+      gearman-job-server && \
     a2dismod \
       mpm_prefork \
       mpm_worker && \

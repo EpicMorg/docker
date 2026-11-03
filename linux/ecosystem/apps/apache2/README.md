@@ -19,6 +19,8 @@ images. **No `mod_php`:** PHP runs as `php-fpm`, Apache talks to it through
 * php-fpm pool overrides in `${PHP_INI_DIR}/php-fpm.d/` (`zz-apache.conf` pins the socket).
 * Supervisor programs in `/etc/supervisor/conf.d/{php-fpm,apache2}.conf` - drop
   your own `.conf` next to them to run more processes.
+* Tools for apps moved from Debian / sury images: `fping`, `netcat-openbsd` (`nc`) and
+  `gearman-job-server` (the `gearmand` binary only - no supervisor program, add one if you run it here).
 * `HEALTHCHECK`: `GET http://127.0.0.1/php-fpm-ping` through Apache - checks
   Apache and php-fpm at once.
 

@@ -15,7 +15,7 @@ Two kinds of tags per nginx branch:
 | Tag | Image |
 | --- | ----- |
 | `<nginx>` (e.g. `1.29`) | plain nginx, `CMD nginx -g 'daemon off;'` |
-| `<nginx>-php<ver>` (e.g. `1.29-php8.3`) | [`epicmorg/php:<ver>`](https://github.com/EpicMorg/docker/tree/master/linux/ecosystem/apps/php) with that nginx copied on top; nginx and `php-fpm` under `supervisord`, talking over `/run/php/php-fpm.sock` |
+| `<nginx>-php<ver>` (e.g. `1.29-php8.3`) | [`epicmorg/php:<ver>`](https://github.com/EpicMorg/docker/tree/master/linux/ecosystem/apps/php) with that nginx copied on top; nginx and `php-fpm` under `supervisord`, talking over `/run/php/php-fpm.sock`; plus `fping`, `netcat-openbsd` and `gearman-job-server` (`gearmand` binary only, no supervisor program) |
 
 nginx releases: `1.25.5`, `1.26.3`, `1.27.5`, `1.28.3`, `1.29.8`, `1.30.6`, `1.31.8`.
 PHP in bundles: `5.3` ... `8.5`.
