@@ -547,7 +547,9 @@ COPY --from=build ${LIBXSLT_DIR} ${LIBXSLT_DIR}
 COPY --from=build ${LIBXML2_DIR} ${LIBXML2_DIR}
 COPY --from=build ${IP2LOC_DIR} ${IP2LOC_DIR}
 
-#COPY etc /etc
+# nginx.conf (includes modules-enabled/*.conf, conf.d/*.conf, sites-enabled/*), the
+# default site, snippets; the stock nginx.conf of make install has no includes
+COPY etc/nginx/ ${NGINX_CONF_DIR}/
 
 RUN set -eu; \
     for so in \
@@ -601,6 +603,28 @@ RUN mkdir -p \
         ${LIBGD_DIR}/src \
     && \
     ln -sfv ${NGINX_DIR} /usr/share/nginx
+
+##################################################################
+#     modules-available (one load_module per module), default site
+##################################################################
+# Enable a module: ln -s ../modules-available/50-ngx_http_..._module.conf
+# /etc/nginx/modules-enabled/ - 10-* (ndk, stream, mail) sort before the
+# modules that need them.
+RUN set -eu; \
+    mkdir -p ${NGINX_CONF_DIR}/modules-available ${NGINX_CONF_DIR}/conf.d; \
+    for so in ${NGINX_MODULES_DIR}/*.so; do \
+      m="$(basename "$so" .so)"; \
+      case "$m" in ndk_http_module|ngx_stream_module|ngx_mail_module) p=10 ;; *) p=50 ;; esac; \
+      echo "load_module ${so};" > "${NGINX_CONF_DIR}/modules-available/${p}-${m}.conf"; \
+    done; \
+    ln -sfn ../sites-available/default.conf ${NGINX_CONF_DIR}/sites-enabled/default.conf; \
+    echo "--- every module loads ---"; \
+    { cat ${NGINX_CONF_DIR}/modules-available/*.conf; \
+      printf '%s\n' "pid /tmp/mods-test.pid;" "error_log stderr;" "events {}" "http {}" "stream {}"; } > /tmp/mods-test.conf; \
+    ${NGINX_SBIN_DIR}/nginx -t -c /tmp/mods-test.conf \
+      || { echo "FATAL: a module in modules-available does not load" >&2; cat /tmp/mods-test.conf >&2; exit 1; }; \
+    rm -f /tmp/mods-test.conf /tmp/mods-test.pid; \
+    echo "OK: $(ls ${NGINX_CONF_DIR}/modules-available | wc -l) modules in modules-available"
 
 ##################################################################
 #        Assert http-lua starts (resty.core is resolvable)
@@ -678,7 +702,15 @@ RUN set -eu; \
       && { echo "FATAL: quickjs should be statically linked" >&2; exit 1; }; \
     \
     nginx -V; \
+    nginx -v 2>&1 | grep -qx "nginx version: nginx/${NGINX_VERSION_FULL}" || { echo "FATAL: nginx is $(nginx -v 2>&1), NGINX_VERSION_FULL is ${NGINX_VERSION_FULL}" >&2; exit 1; }; \
     nginx -t; \
+    echo "--- config: includes, default site ---"; \
+    for i in "/etc/nginx/modules-enabled/\*.conf" "/etc/nginx/conf.d/\*.conf" "/etc/nginx/sites-enabled/\*"; do \
+      nginx -T 2>/dev/null | grep -qE "^[[:space:]]*include $i;" || { echo "FATAL: nginx.conf does not include $i" >&2; exit 1; }; \
+    done; \
+    nginx -T 2>/dev/null | grep -q '^# configuration file /etc/nginx/sites-enabled/default.conf:' \
+      || { echo "FATAL: the default site is not enabled" >&2; exit 1; }; \
+    nginx -T 2>/dev/null | grep -qE '^[[:space:]]*ssl_protocols TLSv1.2 TLSv1.3;' || { echo "FATAL: ssl_protocols is not TLSv1.2 TLSv1.3" >&2; exit 1; }; \
     echo "OK: nginx ${NGINX_VERSION_FULL}"
 
 CMD ["nginx", "-g", "daemon off;"]

@@ -15,7 +15,7 @@ Two kinds of tags per nginx branch:
 | Tag | Image |
 | --- | ----- |
 | `<nginx>` (e.g. `1.29`) | plain nginx, `CMD nginx -g 'daemon off;'` |
-| `<nginx>-php<ver>` (e.g. `1.29-php8.3`) | [`epicmorg/php:<ver>`](https://github.com/EpicMorg/docker/tree/master/linux/ecosystem/apps/php) with that nginx copied on top; nginx and `php-fpm` under `supervisord`, talking over `/run/php/php-fpm.sock`; plus `fping`, `netcat-openbsd` and `gearman-job-server` (`gearmand` binary only, no supervisor program) |
+| `<nginx>-php<ver>` (e.g. `1.29-php8.3`) | [`epicmorg/php:<ver>`](https://github.com/EpicMorg/docker/tree/master/linux/ecosystem/apps/php) with that nginx (and its `/etc/nginx`) copied on top, the default site serves PHP; nginx and `php-fpm` under `supervisord`, talking over `/run/php/php-fpm.sock`; plus `fping`, `netcat-openbsd` and `gearman-job-server` (`gearmand` binary only, no supervisor program) |
 
 nginx releases: `1.25.5`, `1.26.3`, `1.27.5`, `1.28.3`, `1.29.8`, `1.30.6`, `1.31.8`.
 PHP in bundles: `5.3` ... `8.5`.
@@ -35,7 +35,13 @@ google perftools.
 Layout:
 
 * binary and html in `NGINX_DIR=/usr/local/share/epicmorg/nginx/<branch>`; config in `/etc/nginx`
-* `nginx.conf` includes `/etc/nginx/modules-enabled/*.conf`, `conf.d/*.conf` and `sites-enabled/*`
+* `nginx.conf` (Debian-style: `user www-data`, `worker_processes auto`, TLS 1.2 / 1.3) includes
+  `/etc/nginx/modules-enabled/*.conf`, `conf.d/*.conf` and `sites-enabled/*` - mount your vhosts there
+* `sites-enabled/default.conf` -> `sites-available/default.conf`: `default_server` on 80 serving `/var/www/html`;
+  a mounted `sites-enabled` replaces it
+* `modules-available/`: one `load_module` file per dynamic module (`10-*` for `ndk`, `stream`, `mail`, which
+  others need, `50-*` for the rest) - enable with a symlink into `modules-enabled/`; none are loaded by default
+* `snippets/fastcgi-php.conf`, `snippets/proxy_params.conf`
 * cache `/var/cache/nginx` (a `VOLUME`), logs `/var/log/nginx`
 * `/etc/nginx/dhparam.pem` -> the base image's 4096-bit `/etc/ssl/dhparam.pem`
 
@@ -65,11 +71,16 @@ docker run -d -p 80:80 -p 443:443 \
   epicmorg/nginx:1.29
 ```
 
-Load a dynamic module by dropping a file into `modules-enabled`:
+Load a dynamic module: link its file from `modules-available` (in a downstream `Dockerfile`), or mount
+your own `modules-enabled`:
+
+```dockerfile
+RUN ln -s ../modules-available/50-ngx_http_headers_more_filter_module.conf /etc/nginx/modules-enabled/
+```
 
 ```nginx
-# /etc/nginx/modules-enabled/50-headers-more.conf
-load_module /etc/nginx/modules/ngx_http_headers_more_filter_module.so;
+# ./modules-enabled/50-rtmp.conf, mounted at /etc/nginx/modules-enabled
+load_module /etc/nginx/modules/ngx_rtmp_module.so;
 ```
 
 nginx + PHP bundle (document root `/var/www/html`, `HEALTHCHECK` on
