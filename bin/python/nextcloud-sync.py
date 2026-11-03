@@ -412,6 +412,13 @@ def main():
         tags.append(sys.argv[sys.argv.index('--add') + 1])
     majors = [int(t) for t in crane('ls', 'docker.io/library/nextcloud').split() if t.isdigit()]
     newest = str(max(majors))
+    if newest not in tags:
+        # latest follows the newest major; without its own leaf that major cannot be pinned
+        sys.exit('FATAL: nextcloud:%s is out, pure/%s missing - rerun with --add %s (and add patched/%s)'
+                 % (newest, newest, newest, newest))
+    missing = [t for t in tags if t != 'latest' and not os.path.isdir(os.path.join(BASE, '..', 'patched', t))]
+    if missing and '--add' not in sys.argv:
+        sys.exit('FATAL: no patched/<tag> for %s' % ', '.join(missing))
     ref = os.path.join(BASE, REFERENCE)
     for tag in tags:
         major = newest if tag == 'latest' else tag

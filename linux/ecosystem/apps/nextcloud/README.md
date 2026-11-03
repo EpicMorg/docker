@@ -74,6 +74,7 @@ Fatal build-time checks: PHP line = the official image's, every extension it loa
 | `32-patched` | [`patched/32`](patched/32/Dockerfile) |
 | `33-patched` | [`patched/33`](patched/33/Dockerfile) |
 | `34-patched` | [`patched/34`](patched/34/Dockerfile) |
+| `35-patched` | [`patched/35`](patched/35/Dockerfile) |
 | `latest-patched` | [`patched/latest`](patched/latest/Dockerfile) |
 | `14` | [`pure/14`](pure/14/Dockerfile) |
 | `15` | [`pure/15`](pure/15/Dockerfile) |
@@ -96,6 +97,7 @@ Fatal build-time checks: PHP line = the official image's, every extension it loa
 | `32` | [`pure/32`](pure/32/Dockerfile) |
 | `33` | [`pure/33`](pure/33/Dockerfile) |
 | `34` | [`pure/34`](pure/34/Dockerfile) |
+| `35` | [`pure/35`](pure/35/Dockerfile) |
 | `latest` | [`pure/latest`](pure/latest/Dockerfile) |
 
 Every tag is pushed to `docker.io`, `quay.io` and `ghcr.io` (`epicmorg/nextcloud:<tag>` on each) - same digest everywhere.
