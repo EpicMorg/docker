@@ -2,6 +2,7 @@
 
 ## 2026
 * `oct` — next (unreleased)
+  * `nextcloud`: **new** `35` / `35-patched` (35.0.2) - 35 came out but only `latest` followed it, so the major could not be pinned; `nextcloud-sync.py` now fails when the newest Docker Hub major has no `pure/<N>` leaf or a tag has no `patched/<N>`
   * `nginx` `<ver>-php*` combos and `apache2:php*`: apt packages `fping`, `netcat-openbsd` and `gearman-job-server` (the `gearmand` binary only, no supervisor program) - needed by apps moved from Debian / sury images
   * `nginx` 1.30-php* / 1.31-php*: `NGINX_VERSION_FULL` was stale (1.30.4 / 1.31.3 while the binary copied from `main` is 1.30.6 / 1.31.8) - only the ENV and the build's `OK:` line were wrong; all 105 combos now fail the build when `nginx -v` differs from `NGINX_VERSION_FULL` (reported by the private project's port)
   * `nextcloud` (all `pure` tags, `patched` inherit it): `nc-force-jobs` - runs the background jobs whose `last_run` is older than N days with `occ background-job:execute --force-execute`, one at a time (`-n` list only, `-d DAYS`, `-c CLASS-REGEX`; as root it switches to `www-data`; Nextcloud 26+) - for a backlog after a daily / missed cron or a maintenance window the cron never hit; build smoke test lists the jobs and runs the Cleanup ones; README: cron every 5 minutes, `maintenance_window_start`, the tool
