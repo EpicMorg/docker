@@ -121,7 +121,8 @@ RUN set -eux; \
     chmod 0770 /data /run/redis
 
 COPY usr/local/bin/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
-RUN chmod 0755 /usr/local/bin/docker-entrypoint.sh
+COPY usr/local/bin/redis-healthcheck /usr/local/bin/redis-healthcheck
+RUN chmod 0755 /usr/local/bin/docker-entrypoint.sh /usr/local/bin/redis-healthcheck
 
 ##################################################################
 #                       Assertions (fatal)
@@ -163,6 +164,19 @@ RUN set -eu; \
     env -u REDISCLI_AUTH redis-cli -p "$p" get k 2>&1 | grep -q NOAUTH || { echo "FATAL: no password required" >&2; exit 1; }; \
     [ "$(stat -c %U "$t/data")" = redis ] || { echo "FATAL: data dir not owned by redis" >&2; exit 1; }; \
     [ "$(stat -c %U /proc/$pid)" = redis ] && grep -q redis-server /proc/$pid/cmdline || { echo "FATAL: redis-server does not run as redis" >&2; exit 1; }; \
+    echo "--- redis-healthcheck: REDIS_PASSWORD, REDIS_PASSWORD_FILE, no password, TLS-only, dead port ---"; \
+    printf smoke > "$t/pw"; \
+    env -u REDISCLI_AUTH REDIS_PASSWORD=smoke REDIS_PORT_NUMBER="$p" redis-healthcheck | grep -qx PONG \
+      || { echo "FATAL: redis-healthcheck: no PONG with REDIS_PASSWORD" >&2; exit 1; }; \
+    env -u REDISCLI_AUTH -u REDIS_PASSWORD REDIS_PASSWORD_FILE="$t/pw" REDIS_PORT_NUMBER="$p" redis-healthcheck | grep -qx PONG \
+      || { echo "FATAL: redis-healthcheck: no PONG with REDIS_PASSWORD_FILE only" >&2; exit 1; }; \
+    env -u REDISCLI_AUTH -u REDIS_PASSWORD REDIS_PORT_NUMBER="$p" redis-healthcheck > /dev/null \
+      || { echo "FATAL: redis-healthcheck: a server answering NOAUTH is not healthy" >&2; exit 1; }; \
+    env -u REDISCLI_AUTH -u REDIS_PASSWORD REDIS_PASSWORD_FILE="$t/pw" REDIS_PORT_NUMBER="$tp" REDIS_TLS_ENABLED=yes REDIS_TLS_PORT_NUMBER="$tp" \
+      REDIS_TLS_CERT_FILE="$t/c.pem" REDIS_TLS_KEY_FILE="$t/k.pem" REDIS_TLS_CA_FILE="$t/c.pem" redis-healthcheck | grep -qx PONG \
+      || { echo "FATAL: redis-healthcheck: no PONG over TLS" >&2; exit 1; }; \
+    dp="$p"; while [ "$dp" = "$p" ] || [ "$dp" = "$tp" ] || ! port_free "$dp"; do dp="$(shuf -i 20000-59999 -n 1)"; done; \
+    if env -u REDISCLI_AUTH REDIS_PORT_NUMBER="$dp" redis-healthcheck > /dev/null; then echo "FATAL: redis-healthcheck: healthy on a dead port" >&2; exit 1; fi; \
     redis-cli -p "$p" shutdown nosave >/dev/null 2>&1 || true; \
     sleep 1; \
     unset REDISCLI_AUTH; \
@@ -176,7 +190,7 @@ WORKDIR /data
 EXPOSE 6379
 
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s \
-        CMD REDISCLI_AUTH="${REDIS_PASSWORD:-}" redis-cli -p "${REDIS_PORT_NUMBER:-6379}" ping | grep -q PONG || exit 1
+        CMD redis-healthcheck > /dev/null || exit 1
 
 STOPSIGNAL SIGTERM
 ENTRYPOINT ["tini", "--", "docker-entrypoint.sh"]

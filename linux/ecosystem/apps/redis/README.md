@@ -18,7 +18,9 @@ keep its environment and volume.
 * entrypoint under `tini`; `redis-server` runs as `redis` (uid `1001`, group `root`) when the container starts as
   root (the data directory is chowned to it), or as whatever `--user` you give;
 * volume `/data` (native) - `/bitnami/redis/data` is used instead when it is mounted; port `6379`;
-  `HEALTHCHECK` = `redis-cli ping` (with `REDIS_PASSWORD`).
+  `HEALTHCHECK` = `redis-healthcheck`: `redis-cli ping` with the password from `REDIS_PASSWORD_FILE` or
+  `REDIS_PASSWORD`, over TLS when the TLS port is the only one; `NOAUTH` / `WRONGPASS` count as alive (ACL file,
+  `--requirepass`).
 
 Built with the system compiler (gcc 14) from `epicmorg/gcc:14`; only `src/` is built - the Redis 8 module trees
 (search, JSON, time series, probabilistic; Rust / CMake toolchains) are not part of the image.
