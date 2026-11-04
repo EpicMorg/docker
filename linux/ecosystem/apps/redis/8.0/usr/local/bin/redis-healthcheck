@@ -1,0 +1,30 @@
+#!/bin/sh
+# redis-healthcheck - the image's HEALTHCHECK.
+#
+# The entrypoint turns REDIS_PASSWORD_FILE into REDIS_PASSWORD for redis-server
+# only; a HEALTHCHECK gets the container's env, so the password is read here the
+# same way (the file wins). TLS-only (REDIS_TLS_PORT_NUMBER == REDIS_PORT_NUMBER,
+# plain port 0) pings over TLS with the REDIS_TLS_* files. NOAUTH / WRONGPASS
+# count as alive: the server answers, an ACL file or --requirepass the check
+# cannot know about is not a health problem.
+pw="${REDIS_PASSWORD:-}"
+if [ -n "${REDIS_PASSWORD_FILE:-}" ] && [ -r "${REDIS_PASSWORD_FILE}" ]; then
+    pw="$(cat "${REDIS_PASSWORD_FILE}")"
+fi
+port="${REDIS_PORT_NUMBER:-6379}"
+set -- -h 127.0.0.1 -p "$port"
+case "${REDIS_TLS_ENABLED:-no}" in
+    [Yy][Ee][Ss]|[Tt][Rr][Uu][Ee]|1|[Oo][Nn])
+        if [ "${REDIS_TLS_PORT_NUMBER:-6379}" = "$port" ]; then
+            set -- "$@" --tls --cert "${REDIS_TLS_CERT_FILE:-}" --key "${REDIS_TLS_KEY_FILE:-}"
+            if [ -n "${REDIS_TLS_CA_FILE:-}" ]; then set -- "$@" --cacert "${REDIS_TLS_CA_FILE}"
+            else set -- "$@" --cacertdir "${REDIS_TLS_CA_DIR:-}"; fi
+        fi
+        ;;
+esac
+out="$(REDISCLI_AUTH="$pw" redis-cli "$@" ping 2>&1)"
+echo "$out"
+case "$out" in
+    *PONG*|*NOAUTH*|*WRONGPASS*) exit 0 ;;
+esac
+exit 1
