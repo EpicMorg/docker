@@ -67,7 +67,7 @@ has them). Edit `data/config.php` for anything else and restart.
 | Tags | Dockerfile |
 | ---- | ---------- |
 | `2026.3`, `2026.3.3099467` | [`2026.3`](2026.3/Dockerfile) |
-| `2026.4`, `2026.4.3100196`, `latest` | [`2026.4`](2026.4/Dockerfile) |
+| `2026.4`, `2026.4.3128998`, `latest` | [`2026.4`](2026.4/Dockerfile) |
 
 Every tag is pushed to `docker.io`, `quay.io` and `ghcr.io` (`epicmorg/swarm:<tag>` on each) - same digest everywhere.
 <!-- readme-sync:tags:end -->
