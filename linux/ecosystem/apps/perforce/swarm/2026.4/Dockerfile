@@ -12,9 +12,9 @@ FROM ghcr.io/epicmorg/perforce:r26.1 AS p4
 # build: unpacked here (not installed - its Ubuntu PHP dependencies are not
 # wanted), only those files are taken.
 FROM ghcr.io/epicmorg/debian:trixie AS deb
-ARG SWARM_DEB_URL=http://package.perforce.com/apt/ubuntu/pool/release/h/helix-swarm/helix-swarm_2026.4-3100196~noble_amd64.deb
+ARG SWARM_DEB_URL=http://package.perforce.com/apt/ubuntu/pool/release/h/helix-swarm/helix-swarm_2026.4-3128998~noble_amd64.deb
 # SHA256 of that file in http://package.perforce.com/apt/ubuntu/dists/noble/release/binary-amd64/Packages.gz
-ARG SWARM_DEB_SHA256=f79319aef0a2ce0b463a466f873551ce034a88fb907018d1f95144da92b1bacc
+ARG SWARM_DEB_SHA256=7c9d05a539f12ff9da4208a5de3de4158686a40aba77c468eafe5640fb104216
 RUN set -eux; \
     aria2c --conf-path=/usr/local/share/epicmorg/aria2/config/aria2.conf \
         --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
@@ -42,11 +42,11 @@ LABEL org.opencontainers.image.source="https://github.com/EpicMorg/docker"
 LABEL org.opencontainers.image.licenses="MIT"
 
 ENV SWARM_VERSION=2026.4
-ENV SWARM_BUILD=3100196
+ENV SWARM_BUILD=3128998
 ENV SWARM_RELEASE=r26.4
 ARG SWARM_TGZ_URL=https://filehost.perforce.com/perforce/${SWARM_RELEASE}/bin.multiarch/swarm.tgz
 # https://filehost.perforce.com/perforce/r26.4/bin.multiarch/SHA256SUMS
-ARG SWARM_TGZ_SHA256=139cea9ebad4a7eb6b5c653c0f31da2cdaab289bf9c3a126bacb24585ec1142a
+ARG SWARM_TGZ_SHA256=f84d95d9800fba7c35ba4dcbde5f3212dcf9ccc02ad00c6aa5fbc2d19102760f
 
 # Same variables and defaults as perforce/helix-swarm (see README)
 ENV P4D_PORT=ssl:perforce:1666
