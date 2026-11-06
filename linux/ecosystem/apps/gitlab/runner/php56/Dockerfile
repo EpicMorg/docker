@@ -112,6 +112,7 @@ ENV EMG_PHP_SASL_DIR="/usr/local/share/epicmorg/cyrus-sasl/2.1.28/openssl102"
 ENV EMG_PHP_LDAP_DIR="/usr/local/share/epicmorg/openldap/2.4.59/openssl102"
 ENV EMG_PHP_SSH2_DIR="/usr/local/share/epicmorg/libssh2/1.11.1/openssl102"
 ENV PECL_SSH2_VERSION="0.13"
+ENV PECL_GEARMAN_VERSION="1.1.2"
 ENV PATH="${COMPOSER_HOME}/vendor/bin:${PHP_DIR}/bin:${PHP_DIR}/sbin:${PATH}"
 
 COPY --from=php /emg-export/ /
