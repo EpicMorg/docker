@@ -6,8 +6,8 @@ services:
     x-squash: false
     x-mirrors:
       - docker.io/epicmorg/bamboo:latest
-      - docker.io/epicmorg/bamboo:latest-jdk21
+      - docker.io/epicmorg/bamboo:latest-jdk25
       - quay.io/epicmorg/bamboo:latest
-      - quay.io/epicmorg/bamboo:latest-jdk21
+      - quay.io/epicmorg/bamboo:latest-jdk25
       - ghcr.io/epicmorg/bamboo:latest
-      - ghcr.io/epicmorg/bamboo:latest-jdk21
+      - ghcr.io/epicmorg/bamboo:latest-jdk25

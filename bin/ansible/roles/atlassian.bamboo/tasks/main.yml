@@ -25,6 +25,9 @@
 - name: "Generate images for Bamboo 12 (jdk21)"
   import_tasks: atlassian.bamboo.12.jdk21.yml
 
+- name: "Generate images for Bamboo 13 (jdk25)"
+  import_tasks: atlassian.bamboo.13.jdk25.yml
+
 - name: "Generate bamboo latest"
   include_tasks: "{{ playbook_dir }}/roles/common/tasks/latest.yml"
   vars:

@@ -6,7 +6,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 #                   ARGuments
 ##################################################################
-ARG RELEASE=11.3.12
+ARG RELEASE=11.3.13
 ARG DOWNLOAD_URL=https://www.atlassian.com/software/jira/downloads/binary/atlassian-jira-software-${RELEASE}.tar.gz
 ARG TEMP_ARCHIVE=/tmp/atlassian-jira-software-${RELEASE}.tar.gz
 
