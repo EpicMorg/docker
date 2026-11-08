@@ -2,6 +2,8 @@
 
 ## 2026
 * `oct` — next (unreleased)
+  * `zabbix` 8.0 LTS: new line (all ten components, `FROM zabbix/<component>:8.0-ubuntu-latest`, same additions as 7.4).
+  * atlassian: new releases (jira 9.12.42 / 10.3.27 / 11.3.13, confluence 9.2.27 / 10.2.20 / 11.0.1, bitbucket 9.4.27 / 10.2.9 / 10.5.2, crowd 7.2.6, fisheye-crucible 4.9.16, bamboo 10.2.26 / 12.1.13, mesh 3.4.21 / 4.2.6 / 4.6.1); new bamboo 13 line on jdk25 (13.0.1, latest; Java 25 only per Atlassian supported platforms); `atlassian-versions-update.py` gets an `EXCLUDE` list so crowd 1.4.8 (WAR only) is not re-added, and `latest` never steps back (the `current` feed listed only LTS lines: bitbucket 10.2.9 / mesh 3.4.21 instead of 10.5.2 / 4.6.1).
   * `java/jdk*`, `github|gitlab/runner/{atlassian,android}-sdk`, `vscode-server/android`: Maven from Maven Central (`repo1.maven.org`) instead of `archive.apache.org`, which rate-limits / hangs CI downloads (`atlassian-sdk` failed in Chain 40); same archive, pinned SHA256 unchanged.
   * `swarm` 2026.4: build 3100196 -> 3128998 (Perforce re-released 2026.4 and removed the old `.deb`; `.deb` and `swarm.tgz` checksums updated).
   * `github/runner/php*`, `gitlab/runner/php*`: mirror `PECL_GEARMAN_VERSION` (ENV parity failed after the gearman addition; synced with `bin/python/php-env-mirror-sync.py`).

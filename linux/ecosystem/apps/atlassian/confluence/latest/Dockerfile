@@ -6,7 +6,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 #                   ARGuments
 ##################################################################
-ARG RELEASE=11.0.0
+ARG RELEASE=11.0.1
 ARG DOWNLOAD_URL=https://www.atlassian.com/software/confluence/downloads/binary/atlassian-confluence-${RELEASE}.tar.gz
 ARG TEMP_ARCHIVE=/tmp/atlassian-confluence-${RELEASE}.tar.gz
 
