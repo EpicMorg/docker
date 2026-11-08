@@ -2,6 +2,7 @@
 
 ## 2026
 * `oct` — next (unreleased)
+  * `java/jdk*`, `github|gitlab/runner/{atlassian,android}-sdk`, `vscode-server/android`: Maven from Maven Central (`repo1.maven.org`) instead of `archive.apache.org`, which rate-limits / hangs CI downloads (`atlassian-sdk` failed in Chain 40); same archive, pinned SHA256 unchanged.
   * `swarm` 2026.4: build 3100196 -> 3128998 (Perforce re-released 2026.4 and removed the old `.deb`; `.deb` and `swarm.tgz` checksums updated).
   * `github/runner/php*`, `gitlab/runner/php*`: mirror `PECL_GEARMAN_VERSION` (ENV parity failed after the gearman addition; synced with `bin/python/php-env-mirror-sync.py`).
   * `redis` 6.2-8.10: `HEALTHCHECK` was unhealthy forever with `REDIS_PASSWORD_FILE` (the entrypoint reads the file for redis-server only, the check used the empty `REDIS_PASSWORD` -> `NOAUTH`; `depends_on: service_healthy` never started), also with an ACL file, `--requirepass` or TLS-only; now `redis-healthcheck` (password file or variable, TLS when the TLS port is the only one, `NOAUTH` / `WRONGPASS` = alive); fatal smoke checks for all five cases (reported by the private project's port)
