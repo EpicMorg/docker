@@ -1,4 +1,4 @@
-FROM ghcr.io/epicmorg/jdk:21
+FROM ghcr.io/epicmorg/jdk:25
 LABEL org.opencontainers.image.title="EpicMorg Bamboo"
 LABEL org.opencontainers.image.description="Atlassian Bamboo Server by EpicMorg"
 ARG DEBIAN_FRONTEND=noninteractive
@@ -6,7 +6,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 #                   ARGuments
 ##################################################################
-ARG RELEASE=12.1.12
+ARG RELEASE=13.0.1
 ARG DOWNLOAD_URL=https://www.atlassian.com/software/bamboo/downloads/binary/atlassian-bamboo-${RELEASE}.tar.gz
 ARG TEMP_ARCHIVE=/tmp/atlassian-bamboo-${RELEASE}.tar.gz
 

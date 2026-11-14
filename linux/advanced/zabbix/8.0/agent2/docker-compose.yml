@@ -1,0 +1,10 @@
+services:
+  app:
+    image: "epicmorg/zabbix-agent2:8.0"
+    build:
+      context: .
+    x-squash: false
+    x-mirrors:
+      - docker.io/epicmorg/zabbix-agent2:8.0
+      - quay.io/epicmorg/zabbix-agent2:8.0
+      - ghcr.io/epicmorg/zabbix-agent2:8.0

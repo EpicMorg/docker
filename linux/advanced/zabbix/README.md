@@ -1,4 +1,4 @@
-<!-- hub-description: Official Zabbix 3.0-7.4 images (Ubuntu) + admin tools, extra CA certs, locales -->
+<!-- hub-description: Official Zabbix 3.0-8.0 images (Ubuntu) + admin tools, extra CA certs, locales -->
 # EpicMorg Zabbix images
 
 Every component of the official [Zabbix](https://www.zabbix.com/) container images, rebuilt on top
@@ -19,7 +19,7 @@ variables are **unchanged** - this README lists only what we add.
 | `epicmorg/zabbix-java-gateway` | `zabbix/zabbix-java-gateway` | Java gateway (JMX monitoring) |
 | `epicmorg/zabbix-snmptraps` | `zabbix/zabbix-snmptraps` | SNMP traps receiver |
 
-Version tags follow the upstream release lines (`3.0` ... `7.4`); `latest` follows upstream
+Version tags follow the upstream release lines (`3.0` ... `8.0`); `latest` follows upstream
 `ubuntu-latest`, `trunk` follows upstream `ubuntu-trunk` (development builds).
 
 ## What's inside
@@ -57,6 +57,7 @@ On top of the upstream image:
 | `7.0` | [`7.0/agent`](7.0/agent/Dockerfile) |
 | `7.2` | [`7.2/agent`](7.2/agent/Dockerfile) |
 | `7.4` | [`7.4/agent`](7.4/agent/Dockerfile) |
+| `8.0` | [`8.0/agent`](8.0/agent/Dockerfile) |
 | `latest` | [`latest/agent`](latest/agent/Dockerfile) |
 | `trunk` | [`trunk/agent`](trunk/agent/Dockerfile) |
 
@@ -77,6 +78,7 @@ Every tag is pushed to `docker.io`, `quay.io` and `ghcr.io` (`epicmorg/zabbix-ag
 | `7.0` | [`7.0/agent2`](7.0/agent2/Dockerfile) |
 | `7.2` | [`7.2/agent2`](7.2/agent2/Dockerfile) |
 | `7.4` | [`7.4/agent2`](7.4/agent2/Dockerfile) |
+| `8.0` | [`8.0/agent2`](8.0/agent2/Dockerfile) |
 | `latest` | [`latest/agent2`](latest/agent2/Dockerfile) |
 | `trunk` | [`trunk/agent2`](trunk/agent2/Dockerfile) |
 
@@ -99,6 +101,7 @@ Every tag is pushed to `docker.io`, `quay.io` and `ghcr.io` (`epicmorg/zabbix-ag
 | `7.0` | [`7.0/java-gateway`](7.0/java-gateway/Dockerfile) |
 | `7.2` | [`7.2/java-gateway`](7.2/java-gateway/Dockerfile) |
 | `7.4` | [`7.4/java-gateway`](7.4/java-gateway/Dockerfile) |
+| `8.0` | [`8.0/java-gateway`](8.0/java-gateway/Dockerfile) |
 | `latest` | [`latest/java-gateway`](latest/java-gateway/Dockerfile) |
 | `trunk` | [`trunk/java-gateway`](trunk/java-gateway/Dockerfile) |
 
@@ -121,6 +124,7 @@ Every tag is pushed to `docker.io`, `quay.io` and `ghcr.io` (`epicmorg/zabbix-ja
 | `7.0` | [`7.0/proxy-mysql`](7.0/proxy-mysql/Dockerfile) |
 | `7.2` | [`7.2/proxy-mysql`](7.2/proxy-mysql/Dockerfile) |
 | `7.4` | [`7.4/proxy-mysql`](7.4/proxy-mysql/Dockerfile) |
+| `8.0` | [`8.0/proxy-mysql`](8.0/proxy-mysql/Dockerfile) |
 | `latest` | [`latest/proxy-mysql`](latest/proxy-mysql/Dockerfile) |
 | `trunk` | [`trunk/proxy-mysql`](trunk/proxy-mysql/Dockerfile) |
 
@@ -143,6 +147,7 @@ Every tag is pushed to `docker.io`, `quay.io` and `ghcr.io` (`epicmorg/zabbix-pr
 | `7.0` | [`7.0/proxy-sqlite3`](7.0/proxy-sqlite3/Dockerfile) |
 | `7.2` | [`7.2/proxy-sqlite3`](7.2/proxy-sqlite3/Dockerfile) |
 | `7.4` | [`7.4/proxy-sqlite3`](7.4/proxy-sqlite3/Dockerfile) |
+| `8.0` | [`8.0/proxy-sqlite3`](8.0/proxy-sqlite3/Dockerfile) |
 | `latest` | [`latest/proxy-sqlite3`](latest/proxy-sqlite3/Dockerfile) |
 | `trunk` | [`trunk/proxy-sqlite3`](trunk/proxy-sqlite3/Dockerfile) |
 
@@ -165,6 +170,7 @@ Every tag is pushed to `docker.io`, `quay.io` and `ghcr.io` (`epicmorg/zabbix-pr
 | `7.0` | [`7.0/server-mysql`](7.0/server-mysql/Dockerfile) |
 | `7.2` | [`7.2/server-mysql`](7.2/server-mysql/Dockerfile) |
 | `7.4` | [`7.4/server-mysql`](7.4/server-mysql/Dockerfile) |
+| `8.0` | [`8.0/server-mysql`](8.0/server-mysql/Dockerfile) |
 | `latest` | [`latest/server-mysql`](latest/server-mysql/Dockerfile) |
 | `trunk` | [`trunk/server-mysql`](trunk/server-mysql/Dockerfile) |
 
@@ -187,6 +193,7 @@ Every tag is pushed to `docker.io`, `quay.io` and `ghcr.io` (`epicmorg/zabbix-se
 | `7.0` | [`7.0/server-pgsql`](7.0/server-pgsql/Dockerfile) |
 | `7.2` | [`7.2/server-pgsql`](7.2/server-pgsql/Dockerfile) |
 | `7.4` | [`7.4/server-pgsql`](7.4/server-pgsql/Dockerfile) |
+| `8.0` | [`8.0/server-pgsql`](8.0/server-pgsql/Dockerfile) |
 | `latest` | [`latest/server-pgsql`](latest/server-pgsql/Dockerfile) |
 | `trunk` | [`trunk/server-pgsql`](trunk/server-pgsql/Dockerfile) |
 
@@ -209,6 +216,7 @@ Every tag is pushed to `docker.io`, `quay.io` and `ghcr.io` (`epicmorg/zabbix-se
 | `7.0` | [`7.0/snmptraps`](7.0/snmptraps/Dockerfile) |
 | `7.2` | [`7.2/snmptraps`](7.2/snmptraps/Dockerfile) |
 | `7.4` | [`7.4/snmptraps`](7.4/snmptraps/Dockerfile) |
+| `8.0` | [`8.0/snmptraps`](8.0/snmptraps/Dockerfile) |
 | `latest` | [`latest/snmptraps`](latest/snmptraps/Dockerfile) |
 | `trunk` | [`trunk/snmptraps`](trunk/snmptraps/Dockerfile) |
 
@@ -231,6 +239,7 @@ Every tag is pushed to `docker.io`, `quay.io` and `ghcr.io` (`epicmorg/zabbix-sn
 | `7.0` | [`7.0/web-mysql`](7.0/web-mysql/Dockerfile) |
 | `7.2` | [`7.2/web-mysql`](7.2/web-mysql/Dockerfile) |
 | `7.4` | [`7.4/web-mysql`](7.4/web-mysql/Dockerfile) |
+| `8.0` | [`8.0/web-mysql`](8.0/web-mysql/Dockerfile) |
 | `latest` | [`latest/web-mysql`](latest/web-mysql/Dockerfile) |
 | `trunk` | [`trunk/web-mysql`](trunk/web-mysql/Dockerfile) |
 
@@ -253,6 +262,7 @@ Every tag is pushed to `docker.io`, `quay.io` and `ghcr.io` (`epicmorg/zabbix-we
 | `7.0` | [`7.0/web-pgsql`](7.0/web-pgsql/Dockerfile) |
 | `7.2` | [`7.2/web-pgsql`](7.2/web-pgsql/Dockerfile) |
 | `7.4` | [`7.4/web-pgsql`](7.4/web-pgsql/Dockerfile) |
+| `8.0` | [`8.0/web-pgsql`](8.0/web-pgsql/Dockerfile) |
 | `latest` | [`latest/web-pgsql`](latest/web-pgsql/Dockerfile) |
 | `trunk` | [`trunk/web-pgsql`](trunk/web-pgsql/Dockerfile) |
 

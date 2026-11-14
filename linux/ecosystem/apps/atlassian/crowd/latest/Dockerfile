@@ -6,7 +6,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 #                   ARGuments
 ##################################################################
-ARG RELEASE=7.2.4
+ARG RELEASE=7.2.6
 ARG DOWNLOAD_URL=https://www.atlassian.com/software/crowd/downloads/binary/atlassian-crowd-${RELEASE}.tar.gz
 ARG TEMP_ARCHIVE=/tmp/atlassian-crowd-${RELEASE}.tar.gz
 

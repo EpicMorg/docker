@@ -8,7 +8,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 #                   ARGuments
 ##################################################################
-ARG RELEASE=4.6.0
+ARG RELEASE=4.6.1
 # Old releases (1.x, 2.5.0) are not on the download site, only in Atlassian's maven repo.
 ARG DOWNLOAD_URL=https://www.atlassian.com/software/stash/downloads/binary/atlassian-bitbucket-mesh-${RELEASE}.tar.gz
 ARG DOWNLOAD_URL_MAVEN=https://packages.atlassian.com/mvn/maven-external/com/atlassian/bitbucket/mesh/mesh-distribution/${RELEASE}/mesh-distribution-${RELEASE}.tar.gz
@@ -50,7 +50,7 @@ RUN set -eux; \
 #                   Git
 ##################################################################
 # Mesh refuses to start with a git it does not support (bounds in its mesh-core jar);
-# 4.6.0 takes git 2.54. The base ships the newest epicmorg/git: swap it for
+# 4.6.1 takes git 2.54. The base ships the newest epicmorg/git: swap it for
 # epicmorg/git:2.54 (+ the baked libs it links), drop the other git trees,
 # relink /usr/bin and re-version the epicmorg-git placeholder so apt sees the real version.
 COPY --from=git /emg-export/ /
@@ -79,7 +79,7 @@ RUN set -eux; \
       "Conflicts: git, git-core, git-man, git-email, git-cvs, git-doc, git-lfs" \
       "Replaces: git, git-core, git-man, git-email, git-cvs, git-doc, git-lfs" \
       "Description: git ${gv} + git-lfs ${lv} from epicmorg/git and epicmorg/git-lfs" \
-      " Placeholder: git pinned for Bitbucket Mesh 4.6.0; binaries live in ${EMG_LOCAL_BASE_DIR}." \
+      " Placeholder: git pinned for Bitbucket Mesh 4.6.1; binaries live in ${EMG_LOCAL_BASE_DIR}." \
       > "$d/DEBIAN/control"; \
     dpkg-deb --build "$d" /tmp/epicmorg-git.deb; \
     dpkg -i /tmp/epicmorg-git.deb; \

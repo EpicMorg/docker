@@ -17,7 +17,10 @@ Rules:
   * every version lives in exactly one list: duplicates are removed from all
     but the list imported last in the role's tasks/main.yml (the one whose
     output wins anyway);
-  * <product>/latest.txt gets the newest version of the `current` feed.
+  * versions in EXCLUDE are never added (known unbuildable, e.g. crowd 1.4.8);
+  * <product>/latest.txt gets the newest version of the `current` feed, but never
+    steps back: if that is older than the present latest, the present line's
+    newest listed version is kept (the feed sometimes lists only LTS lines).
   * bitbucket: a new major.minor also needs its git pin in
     roles/atlassian.bitbucket/vars/main.yml (bitbucket_git, from Atlassian's
     "Supported platforms" page) - the generation fails until it is there.
@@ -50,6 +53,11 @@ PRODUCTS = {
     'fisheye-crucible': (['fisheye'],               ['atlassian.fisheye-crucible']),
     'bamboo':           (['bamboo'],                ['atlassian.bamboo']),
     'mesh':             (['mesh'],                  ['atlassian.mesh']),
+}
+
+# versions the feeds list but we cannot build: never added back
+EXCLUDE = {
+    'crowd': {'1.4.8': 'no standalone tarball, WAR only'},
 }
 
 RELEASE_RE = re.compile(r'^\d+(\.\d+)+[a-z]?$')
@@ -130,6 +138,10 @@ def main():
             known |= feeds.get(f'archived/{name}.json', set())
             current |= feeds.get(f'current/{name}.json', set())
         known |= current
+        for v, why in EXCLUDE.get(product, {}).items():
+            if v in known:
+                print(f'  {product}: excluded {v} ({why})')
+            known.discard(v)
 
         order = list_order(roles)
         lists = {p: read_list(p) for p in order}
@@ -180,7 +192,17 @@ def main():
             print(f'  . not added (older than list head): {" ".join(holes)}')
 
         latest = max(current, key=vkey) if current else None
-        print(f'  latest (current feed): {latest}')
+        # never step back: the `current` feed sometimes lists only LTS lines
+        # (bitbucket 10.2 after 10.5, mesh 3.4 after 4.6); then keep the line of
+        # the previous latest and move to its newest listed version
+        latest_path = os.path.join(VERSIONS, product, 'latest.txt')
+        prev = open(latest_path).read().strip() if os.path.exists(latest_path) else None
+        if prev and (latest is None or vkey(latest) < vkey(prev)):
+            same = [v for p in order for v in lists[p] if line(v) == line(prev)]
+            kept = max(same + [prev], key=vkey)
+            print(f'  latest: feed says {latest}, older than {prev}: keeping line {line(prev)} -> {kept}')
+            latest = kept
+        print(f'  latest: {latest}')
 
         if dry:
             continue
@@ -189,7 +211,7 @@ def main():
             if open(path).read() != data:
                 open(path, 'w').write(data)
         if latest:
-            open(os.path.join(VERSIONS, product, 'latest.txt'), 'w').write(latest + '\n')
+            open(latest_path, 'w').write(latest + '\n')
 
 
 if __name__ == '__main__':
