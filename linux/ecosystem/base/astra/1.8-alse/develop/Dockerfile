@@ -196,8 +196,9 @@ ARG FFI_TEMP_SRC=/tmp/libffi-${FFI_VERSION}
 # ncurses-5.9 for old software compatibility
 ENV NCURSES_VERSION=5.9
 ENV NCURSES_INSTALL_DIR=${EMG_LOCAL_BASE_DIR}/ncurses/${NCURSES_VERSION}
-ARG NCURSES_DOWNLOAD_URL=https://invisible-island.net/archives/ncurses/ncurses-${NCURSES_VERSION}.tar.gz
-#ARG NCURSES_DOWNLOAD_URL=https://ftp.gnu.org/gnu/ncurses/ncurses-${NCURSES_VERSION}.tar.gz
+# invisible-island.net answers 403 to GitHub-hosted runners
+ARG NCURSES_DOWNLOAD_URL=https://ftp.gnu.org/gnu/ncurses/ncurses-${NCURSES_VERSION}.tar.gz
+#ARG NCURSES_DOWNLOAD_URL=https://invisible-island.net/archives/ncurses/ncurses-${NCURSES_VERSION}.tar.gz
 ARG NCURSES_TEMP=/tmp/ncurses-${NCURSES_VERSION}.tar.gz
 ARG NCURSES_TEMP_SRC=/tmp/ncurses-${NCURSES_VERSION}
 
