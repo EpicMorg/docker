@@ -196,9 +196,12 @@ ARG FFI_TEMP_SRC=/tmp/libffi-${FFI_VERSION}
 # ncurses-5.9 for old software compatibility
 ENV NCURSES_VERSION=5.9
 ENV NCURSES_INSTALL_DIR=${EMG_LOCAL_BASE_DIR}/ncurses/${NCURSES_VERSION}
-# invisible-island.net answers 403 to GitHub-hosted runners
+# Two mirrors of the same tarball, aria2 falls over to the second (invisible-island.net
+# answers 403 to GitHub-hosted runners and 502 at times); sha256 pinned, as aria2 does not
+# check certificates.
 ARG NCURSES_DOWNLOAD_URL=https://ftp.gnu.org/gnu/ncurses/ncurses-${NCURSES_VERSION}.tar.gz
-#ARG NCURSES_DOWNLOAD_URL=https://invisible-island.net/archives/ncurses/ncurses-${NCURSES_VERSION}.tar.gz
+ARG NCURSES_MIRROR_URL=https://invisible-island.net/archives/ncurses/ncurses-${NCURSES_VERSION}.tar.gz
+ARG NCURSES_SHA256=9046298fb440324c9d4135ecea7879ffed8546dd1b58e59430ea07a4633f563b
 ARG NCURSES_TEMP=/tmp/ncurses-${NCURSES_VERSION}.tar.gz
 ARG NCURSES_TEMP_SRC=/tmp/ncurses-${NCURSES_VERSION}
 
@@ -1007,8 +1010,9 @@ RUN mkdir -p ${NCURSES_INSTALL_DIR} && \
     aria2c \
         --conf-path="/usr/local/share/epicmorg/aria2/config/aria2.conf" \
         --user-agent="$(shuf -n 1 /usr/local/share/epicmorg/user-agents/user-agents.txt)" \
-        -d /tmp \
-        "${NCURSES_DOWNLOAD_URL}" && \
+        -d /tmp -o "$(basename "${NCURSES_TEMP}")" \
+        "${NCURSES_DOWNLOAD_URL}" "${NCURSES_MIRROR_URL}" && \
+    echo "${NCURSES_SHA256}  ${NCURSES_TEMP}" | sha256sum -c - && \
     tar -xzf ${NCURSES_TEMP} -C /tmp && \
     cd ${NCURSES_TEMP_SRC} && \
     mv /tmp/ncurses-${NCURSES_VERSION}-const.patch . && \
