@@ -2,6 +2,7 @@
 
 ## 2026
 * `oct` — next (unreleased)
+  * Dependabot off: `.github/dependabot.yml` removed, security updates and alerts disabled (ansible pins are owned by `bin/python/ansible-versions-sync.py`; its security PRs only failed).
   * `torrserver`: pinned to `MatriX.150` (+ sha256 check) instead of `releases/latest` - upstream `Silo.*` is a rewrite (YAML config via `-c`, no `--port`/`--path`/`--version`, new data layout) and broke the build.
   * `astra` 1.7 / 1.8 `develop`: ncurses 5.9 from `ftp.gnu.org` (invisible-island.net answers 403 to GitHub-hosted runners).
   * `pg-upgrade-tool` README: new cluster must match the old one (checksums / encoding / locale via `pg_controldata`, `-k`; 18 has checksums on by default), alternative init via `epicmorg/postgres` with the same `POSTGRES_INITDB_ARGS`, one mount for `--link` / `--clone` (EXDEV), `-w /tmp`, stop the old container with `docker compose stop -t 120` (reported by a user upgrade 14 -> 17).
