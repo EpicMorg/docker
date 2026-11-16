@@ -6,7 +6,8 @@ play them without waiting for the full download. Runs on `epicmorg/debian:trixie
 
 ## What's inside
 
-* `torrServer` — the latest `TorrServer-linux-amd64` release binary at build time, in
+* `torrServer` — the `TorrServer-linux-amd64` release binary, pinned to `MatriX.150` (the `Silo.*`
+  line is a rewrite with an incompatible config and data layout), in
   `/usr/local/share/epicmorg/torrserver/bin` (on `PATH`)
 * config/database directory `/usr/local/share/epicmorg/torrserver/config` (volume)
 * healthcheck: HTTP request to the web UI every 2 minutes
